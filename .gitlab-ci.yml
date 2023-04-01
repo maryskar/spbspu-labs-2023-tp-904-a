@@ -58,6 +58,8 @@ build:
 acceptance:
   stage: test
   script:
+    - ulimit -n
+    - ulimit -n 1024
     - 'if test -d out ; then find out -type f -exec touch {} + ; fi'
     - '"$TEST_DIR"/acceptance-tests.sh'
   rules:
