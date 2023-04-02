@@ -2,5 +2,5 @@
 
 std::ostream& kabanov::outCredentia1s(std::ostream& out)
 {
-	return (out << "kabanov.ilya");
+  return (out << "kabanov.ilya");
 }
