@@ -1,8 +1,7 @@
+#include "credentials.hpp"
 #include<iostream>
-
 int main()
 {
-  std::cout << "kabanov.ilya\n";
-  
+  kabanov::outCredentia1s(std::cout) << "\n";
   return EXIT_SUCCESS;
 }
