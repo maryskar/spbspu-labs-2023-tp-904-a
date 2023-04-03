@@ -2,6 +2,6 @@
 
 int main()
 {
-  std::cout<<"konchev.maksim\n";
+  std::cout << "konchev.maksim\n";
   return 0;
 }
