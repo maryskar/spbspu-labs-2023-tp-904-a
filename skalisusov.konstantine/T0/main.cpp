@@ -2,6 +2,6 @@
 
 int main()
 {
-  std::cout<< "skalisusov.konstantin\n";
+  std::cout<< "skalisusov.konstantine\n";
   return 0;
 }
