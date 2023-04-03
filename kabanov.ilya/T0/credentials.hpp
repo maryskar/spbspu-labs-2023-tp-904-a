@@ -1,7 +1,7 @@
 #ifndef CREDENTIALS_HPP
 #define CREDENTIALS_HPP
 
-#include<iostream>
+#include <iosfwd>
 
 namespace kabanov
 {
