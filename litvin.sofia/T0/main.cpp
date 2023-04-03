@@ -2,6 +2,7 @@
 
 int main()
 {
-    std::cout << "litvin.sofia\n";
-    return 0;
+	std::cout << "litvin.sofia\n";
+	return 0;
 }
+
