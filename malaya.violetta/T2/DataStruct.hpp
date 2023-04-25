@@ -1,0 +1,18 @@
+#ifndef T2_DATASTRUCT_HPP
+#define T2_DATASTRUCT_HPP
+#include <string>
+
+namespace malaya
+{
+  struct DataStruct
+  {
+    double key1;
+    unsigned long long key2;
+    std::string key3;
+  };
+  std::istream& operator>>(std::istream& in, DataStruct& dest);
+  std::ostream& operator<<(std::ostream& out, DataStruct& source);
+  bool operator<(DataStruct& lhs, DataStruct& rhs);
+}
+#endif //T2_DATASTRUCT_HPP
+
