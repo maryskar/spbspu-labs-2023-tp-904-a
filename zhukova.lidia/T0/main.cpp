@@ -1,5 +1,6 @@
 #include <iostream>
 
-void main() {
-	std::cout << "zhukova.lidia\n";
+int main() {
+  std::cout << "zhukova.lidia\n";
+  return 0;
 }
