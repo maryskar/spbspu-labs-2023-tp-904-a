@@ -26,7 +26,7 @@ namespace malaya
   std::istream & operator>>(std::istream & in, StringIO && dest);
   struct LabelIO
   {
-    std::string expression;
+    char expression[4];
   };
   std::istream & operator>>(std::istream & in, LabelIO && dest);
 }

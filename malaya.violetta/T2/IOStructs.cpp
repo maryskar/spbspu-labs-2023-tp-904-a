@@ -50,9 +50,11 @@ std::istream & malaya::operator>>(std::istream & in, LabelIO && dest)
   {
     return in;
   }
-  std::string input = " ";
-  in >> input;
-  if ((in >> StringIO{input}) && (input != dest.expression))
+  char input[4] {" "};
+  //in >> input;
+  in.getline(input, 3);
+  //if ((in >> StringIO{input}) && (input != dest.expression)) //fsfsdfdsfds
+  if (in && (input != dest.expression))
   {
     in.setstate(std::ios::failbit);
   }

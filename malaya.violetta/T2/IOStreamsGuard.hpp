@@ -6,7 +6,7 @@ namespace malaya
   class IOStreamsGuard
   {
    public:
-    IOStreamsGuard(std::basic_ios< char > & stream);
+    explicit IOStreamsGuard(std::basic_ios< char > & stream);
     ~IOStreamsGuard();
    private:
     std::basic_ios< char > & stream_;
@@ -16,4 +16,3 @@ namespace malaya
   };
 }
 #endif //T2_IOSTREAMSGUARD_HPP
-
