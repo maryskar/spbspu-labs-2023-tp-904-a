@@ -10,7 +10,7 @@ string_pair getKeyValue(const std::string &kv, const std::string &divKV)
 }
 return_tuple fillTuple(const std::string *list, const std::string &key, const std::string &value, return_tuple &tuple)
 {
-  for (auto i = 0; i < list->size(); ++i)
+  for (long unsigned int i = 0; i < list->size(); ++i)
   {
     if (key == list[0])
     {
