@@ -10,7 +10,7 @@ string_pair getKeyValue(const std::string &kv, const std::string &divKV)
 }
 return_tuple fillTuple(const std::string *list, const std::string &key, const std::string &value, return_tuple &tuple)
 {
-  for (int i = 0; i < list->size(); ++i)
+  for (auto i = 0; i < list->size(); ++i)
   {
     if (key == list[0])
     {
@@ -36,7 +36,7 @@ return_tuple fillTuple(const std::string *list, const std::string &key, const st
 }
 void
 extrudeTupleElemsFromString(const std::string &str, int intBegin, int &intEnd, const std::string &divKV,
-                            const std::string *list, return_tuple &tuple, const std::string &divEl)
+                            const std::string *list, return_tuple &tuple)
 {
   const std::string &string = str.substr(intBegin, intEnd - intBegin);
   //std::cout << "string: " << string << std::endl;
@@ -56,11 +56,11 @@ return_tuple parseLine(const std::string &str, const std::string &divEl, const s
   int intEnd = static_cast<int>(string.find(divEl));
   while (intEnd != -1)
   {
-    extrudeTupleElemsFromString(string, intBegin, intEnd, divKV, list, tuple, divEl);
+    extrudeTupleElemsFromString(string, intBegin, intEnd, divKV, list, tuple);
     intBegin = intEnd + 1;
     intEnd = static_cast<int>(str.find(divEl, intBegin));
   }
-  extrudeTupleElemsFromString(string, intBegin, intEnd, divKV, list, tuple, divEl);
+  extrudeTupleElemsFromString(string, intBegin, intEnd, divKV, list, tuple);
   return tuple;
 }
 std::string tryRemoveBrackets(const std::string &str)
