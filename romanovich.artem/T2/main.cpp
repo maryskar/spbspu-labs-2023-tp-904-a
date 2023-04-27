@@ -10,11 +10,19 @@ int main()
 {
   for (std::string line; std::getline(std::cin, line);)
   {
+    line = line.replace(line.find(":D"), 2, ";D");
+    line = line.replace(line.find(":)"), 2, ")");
+    line = line.replace(line.find(":)"), 2, ")");
+    line = line.replace(line.find("(:"), 2, "(");
+    line = line.replace(line.find("(:"), 2, "(");
+    //std::cout << line << std::endl;
     line = tryRemoveBrackets(line);
     std::string keyNames[3] = {"key1", "key2", "key3"};
     return_tuple tuple = parseLine(line, ":", " ", keyNames);
+    //std::cout << "tuple: " << std::get<0>(tuple) << " " << std::get<1>(tuple).first << " " << std::get<1>(tuple).second
+    //          << std::get<2>(tuple) << " " << std::endl;
     std::vector<DataStruct> ds;
-    ds.emplace_back(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple));
+    ds.emplace_back(tuple);
   }
   return 0;
 }

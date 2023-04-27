@@ -14,58 +14,60 @@ return_tuple fillTuple(const std::string *list, const std::string &key, const st
   {
     if (key == list[0])
     {
-      unsigned long long firstEl = std::stoi(value, nullptr, 8);
-      tuple = {firstEl, std::get<1>(tuple), std::get<2>(tuple)};
+      tuple = {std::stoi(value, nullptr, 8), std::get<1>(tuple), std::get<2>(tuple)};
     }
-    /*if (key == list[1])
+    if (key == list[1])
     {
       std::string newValue = tryRemoveBrackets(value);
-      std::string numerator = std::get<0>(getKeyValue(newValue, " "));
-      std::string denominator = std::get<1>(getKeyValue(newValue, " "));
-      //unsigned long long secondEl = std::stoi(value, nullptr, 8);
+      //std::cout << "newValue: " << newValue << std::endl;
+      long long numerator = std::stoi(std::get<1>(getKeyValue(std::get<0>(getKeyValue(newValue, ";")), " ")));
+      unsigned long long denominator = std::stoi(
+        std::get<1>(getKeyValue(std::get<1>(getKeyValue(newValue, ";")), " ")));
+      //std::cout << "numerator: " << numerator << std::endl;
+      //std::cout << "denominator: " << denominator << std::endl;
+      tuple = {std::get<0>(tuple), std::make_pair(numerator, denominator), std::get<2>(tuple)};
     }
     if (key == list[2])
     {
-      std::string thirdEl = value;
-    }*/
+      tuple = {std::get<0>(tuple), std::get<1>(tuple), value};
+    }
   }
   return tuple;
 }
 void
-extrudeTupleElemsFromString(std::string &string, int intBegin, int &intEnd, const std::string &divKV,
+extrudeTupleElemsFromString(const std::string &str, int intBegin, int &intEnd, const std::string &divKV,
                             const std::string *list, return_tuple &tuple, const std::string &divEl)
 {
-  string = string.substr(intBegin, intEnd - intBegin);
+  const std::string &string = str.substr(intBegin, intEnd - intBegin);
+  //std::cout << "string: " << string << std::endl;
   std::string key = std::get<0>(getKeyValue(string, divKV));
   std::string value = std::get<1>(getKeyValue(string, divKV));
   fillTuple(list, key, value, tuple);
-  intBegin = intEnd + 1;
-  intEnd = static_cast<int>(string.find(divEl, intBegin));
   //std::cout << "key: " << key << std::endl;
   //std::cout << "value: " << value << std::endl;
-  //std::cout << "tuple: " << std::get<0>(tuple) << std::endl;
+  //std::cout << "tuple: " << std::get<0>(tuple) << " " << std::get<1>(tuple).first << " " << std::get<1>(tuple).second
+  //  << std::get<2>(tuple) << " " << std::endl;
 }
 return_tuple parseLine(const std::string &str, const std::string &divEl, const std::string &divKV, std::string list[3])
 {
-  std::string string = str;
+  const std::string &string = str;
   return_tuple tuple;
   int intBegin = 0;
   int intEnd = static_cast<int>(string.find(divEl));
-  while (true)
+  while (intEnd != -1)
   {
     extrudeTupleElemsFromString(string, intBegin, intEnd, divKV, list, tuple, divEl);
-    if (intEnd == -1)
-    {
-      break;
-    }
+    intBegin = intEnd + 1;
+    intEnd = static_cast<int>(str.find(divEl, intBegin));
   }
-  return {0, std::make_pair(0, 0), ""};
+  extrudeTupleElemsFromString(string, intBegin, intEnd, divKV, list, tuple, divEl);
+  return tuple;
 }
 std::string tryRemoveBrackets(const std::string &str)
 {
-  if (str.size() < 4)
+  if (str.size() < 2)
   {
     return str;
   }
-  return str.substr(2, str.size() - 4);
+  return str.substr(1, str.size() - 2);
 }
