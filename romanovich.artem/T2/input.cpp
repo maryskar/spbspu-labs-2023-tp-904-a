@@ -40,7 +40,7 @@ extrudeTupleElemsFromString(const std::string &str, int &begin, int &end, const 
 //  std::cout << "string: " << string << std::endl;
   auto subBegin = begin;
   auto subeEnd = end;
-  if (/*(string.find('\"') != std::string::npos) && */(string.find('\"') != -1))
+  if (/*(string.find('\"') != std::string::npos) && */static_cast<int>(string.find('\"')) != -1)
   {
     begin = end + 1;
     end = static_cast<int>(str.find(divEl, begin));
