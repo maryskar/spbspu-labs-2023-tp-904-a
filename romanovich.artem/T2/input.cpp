@@ -44,15 +44,7 @@ extrudeTupleElemsFromString(const std::string &str, int intBegin, int &intEnd, c
   //std::cout << "string: " << string << std::endl;
   std::string key = std::get< 0 >(getKeyValue(string, divKV));
   std::string value = std::get< 1 >(getKeyValue(string, divKV));
-  try
-  {
     fillTuple(list, key, value, tuple);
-  }
-  catch (...)
-  {
-    std::cerr << "bad value";
-    throw;
-  }
   //std::cout << "key: " << key << std::endl;
   //std::cout << "value: " << value << std::endl;
   //std::cout << "tuple: " << std::get<0>(tuple) << " " << std::get<1>(tuple).first << " " << std::get<1>(tuple).second
