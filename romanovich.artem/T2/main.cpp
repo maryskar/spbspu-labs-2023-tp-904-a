@@ -2,14 +2,23 @@
 #include <iostream>
 #include <tuple>
 #include <vector>
+#include <algorithm>
 #include "datastruct.h"
 #include "input.h"
 using return_tuple = std::tuple< unsigned long long, std::pair< long long, unsigned long long >, std::string >;
 using string_pair = std::tuple< std::string, std::string >;
-//bool compareK1(const DataStruct &a, const DataStruct &b)
-//{
-//  return a.key1 > b.key1;
-//}
+bool compareK1(const DataStruct &a, const DataStruct &b)
+{
+  return a.key1 < b.key1;
+}
+bool compareK2(const DataStruct &a, const DataStruct &b)
+{
+  return (a.key2.first / a.key2.second) < (b.key2.first / b.key2.second);
+}
+bool compareK3(const DataStruct &a, const DataStruct &b)
+{
+  return a.key3.length() < b.key3.length();
+}
 void print(const DataStruct &dataStruct)
 {
   dataStruct.printDS();
@@ -36,17 +45,15 @@ int main()
     try
     {
       return_tuple tuple = parseLine(line, ":", " ", keyNames);
-      DataStruct dataStruct(tuple);
-      dataStruct.printDS();
       ds.emplace_back(tuple);
     }
     catch (...)
     {
     }
   }
-  //DataStruct dataStruct(tuple111111111);
-  ///dataStruct.printDS();
-  //std::sort(ds.begin(), ds.end(), compareK1);
-  //std::for_each(ds.begin(), ds.end(), print);
+  std::sort(ds.begin(), ds.end(), compareK3);
+  std::sort(ds.begin(), ds.end(), compareK2);
+  std::sort(ds.begin(), ds.end(), compareK1);
+  std::for_each(ds.begin(), ds.end(), print);
   return 0;
 }

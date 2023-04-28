@@ -8,7 +8,6 @@ struct DataStruct
   explicit DataStruct(
     std::tuple< unsigned long long int, std::pair< long long int, unsigned long long int >, std::basic_string< char>> tuple1);
   void printDS() const;
-private:
   unsigned long long key1;
   std::pair< long long, unsigned long long > key2;
   std::string key3;

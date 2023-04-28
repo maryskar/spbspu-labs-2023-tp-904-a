@@ -1,6 +1,5 @@
 #include "input.h"
 #include <string>
-#include <iostream>
 #include <algorithm>
 string_pair getKeyValue(const std::string &kv, const std::string &divKV)
 {
@@ -15,7 +14,6 @@ return_tuple fillTuple(const std::string *list, const std::string &key, const st
   {
     if (key == list[0])
     {
-      //std::stoi(value, nullptr, 8)
       unsigned long long val = std::stoi(value, nullptr, 10);
       tuple = {val, std::get< 1 >(tuple), std::get< 2 >(tuple)};
     }
@@ -55,22 +53,17 @@ extrudeTupleElemsFromString(const std::string &str, int &begin, int &end, const 
   std::string key = std::get< 0 >(getKeyValue(string, divKV));
   std::string value = std::get< 1 >(getKeyValue(string, divKV));
   fillTuple(list, key, value, tuple);
- // std::cout << " key: " << key << std::endl;
- // std::cout << " value: " << value << std::endl;
- // std::cout << "tuple: " << std::get< 0 >(tuple) << " " << std::get< 1 >(tuple).first << " "
- //           << std::get< 1 >(tuple).second << std::get< 2 >(tuple) << " " << std::endl << std::endl;
 }
 return_tuple
 parseLine(const std::string &str, const std::string &divEl, const std::string &divKV, std::string list[3])
 {
-  const std::string &string = str; //можно убрать
   return_tuple tuple;
   int begin = 0;
-  int end = static_cast<int>(string.find(divEl));
+  int end = static_cast<int>(str.find(divEl));
   bool afterColonCase = false;
   while (end != -1)
   {
-    extrudeTupleElemsFromString(string, begin, end, divKV, list, tuple, divEl, afterColonCase);
+    extrudeTupleElemsFromString(str, begin, end, divKV, list, tuple, divEl, afterColonCase);
     begin = end + 1;
     end = static_cast<int>(str.find(divEl, begin));
   }
@@ -78,12 +71,12 @@ parseLine(const std::string &str, const std::string &divEl, const std::string &d
   {
     if (end != -1)
     {
-      extrudeTupleElemsFromString(string, begin, end, divKV, list, tuple, divEl, afterColonCase);
+      extrudeTupleElemsFromString(str, begin, end, divKV, list, tuple, divEl, afterColonCase);
     }
   }
   else
   {
-    extrudeTupleElemsFromString(string, begin, end, divKV, list, tuple, divEl, afterColonCase);
+    extrudeTupleElemsFromString(str, begin, end, divKV, list, tuple, divEl, afterColonCase);
   }
   return tuple;
 }
