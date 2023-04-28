@@ -1,14 +1,23 @@
 #include "input.h"
 #include <string>
 #include <algorithm>
-string_pair getKeyValue(const std::string &kv, const std::string &divKV)
+using constr = const std::string;
+std::string tryRemoveBrackets(constr &str)
+{
+  if (str.size() < 2)
+  {
+    return str;
+  }
+  return str.substr(1, str.size() - 2);
+}
+string_pair getKeyValue(constr &kv, constr &divKV)
 {
   const std::string &new_kv = kv;
   std::string key = kv.substr(0, static_cast<int>(kv.find(divKV)));
   std::string value = new_kv.substr(static_cast<int>(kv.find(divKV)) + 1, new_kv.size() - 1);
   return {key, value};
 }
-return_tuple fillTuple(const std::string *list, const std::string &key, const std::string &value, return_tuple &tuple)
+return_tuple fillTuple(constr *list, constr &key, constr &value, return_tuple &tuple)
 {
   for (long unsigned int i = 0; i < list->size(); ++i)
   {
@@ -19,10 +28,11 @@ return_tuple fillTuple(const std::string *list, const std::string &key, const st
     }
     if (key == list[1])
     {
-      std::string newValue = tryRemoveBrackets(value);
-      long long numerator = std::stoi(std::get< 1 >(getKeyValue(std::get< 0 >(getKeyValue(newValue, ";")), " ")));
-      unsigned long long denominator = std::stoi(
-        std::get< 1 >(getKeyValue(std::get< 1 >(getKeyValue(newValue, ";")), " ")));
+      std::string val = tryRemoveBrackets(value);
+      string_pair keyValueNum = getKeyValue(std::get< 0 >(getKeyValue(val, ";")), " ");
+      string_pair keyValueDenom = getKeyValue(std::get< 1 >(getKeyValue(val, ";")), " ");
+      long long numerator = std::stoi(std::get< 1 >(keyValueNum));
+      unsigned long long denominator = std::stoi(std::get< 1 >(keyValueDenom));
       tuple = {std::get< 0 >(tuple), std::make_pair(numerator, denominator), std::get< 2 >(tuple)};
     }
     if (key == list[2])
@@ -32,14 +42,12 @@ return_tuple fillTuple(const std::string *list, const std::string &key, const st
   }
   return tuple;
 }
-void
-extrudeTupleElemsFromString(const std::string &str, int &begin, int &end, const std::string &divKV,
-                            const std::string *list, return_tuple &tuple, const std::string &divEl,
-                            bool &afterColonCase)
+void extrudeTupleElemsFromString(constr &str, int &begin, int &end, constr &divKV, constr *list, return_tuple &tuple,
+                                 constr &divEl, bool &afterColonCase)
 {
   std::string string = str.substr(begin, end - begin);
-  auto subBegin = begin;
-  auto subeEnd = end;
+  int subBegin = begin;
+  int subeEnd = end;
   if (static_cast<int>(std::count(string.begin(), string.end(), '\"')) == 1)
   {
     afterColonCase = true;
@@ -54,8 +62,7 @@ extrudeTupleElemsFromString(const std::string &str, int &begin, int &end, const 
   std::string value = std::get< 1 >(getKeyValue(string, divKV));
   fillTuple(list, key, value, tuple);
 }
-return_tuple
-parseLine(const std::string &str, const std::string &divEl, const std::string &divKV, std::string list[3])
+return_tuple parseLine(constr &str, constr &divEl, constr &divKV, std::string list[3])
 {
   return_tuple tuple;
   int begin = 0;
@@ -79,12 +86,4 @@ parseLine(const std::string &str, const std::string &divEl, const std::string &d
     extrudeTupleElemsFromString(str, begin, end, divKV, list, tuple, divEl, afterColonCase);
   }
   return tuple;
-}
-std::string tryRemoveBrackets(const std::string &str)
-{
-  if (str.size() < 2)
-  {
-    return str;
-  }
-  return str.substr(1, str.size() - 2);
 }

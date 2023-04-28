@@ -5,31 +5,14 @@
 #include <algorithm>
 #include "datastruct.h"
 #include "input.h"
-using return_tuple = std::tuple< unsigned long long, std::pair< long long, unsigned long long >, std::string >;
 using string_pair = std::tuple< std::string, std::string >;
-bool compareK1(const DataStruct &a, const DataStruct &b)
-{
-  return a.key1 < b.key1;
-}
-bool compareK2(const DataStruct &a, const DataStruct &b)
-{
-  return (a.key2.first / a.key2.second) < (b.key2.first / b.key2.second);
-}
-bool compareK3(const DataStruct &a, const DataStruct &b)
-{
-  return a.key3.length() < b.key3.length();
-}
-void print(const DataStruct &dataStruct)
-{
-  dataStruct.printDS();
-}
 void safeReplace(std::string &line, const std::string &oldStr, const std::string &newStr)
 {
-  auto pos = line.find(oldStr);
+  long unsigned int pos = static_cast<long unsigned int>(line.find(oldStr));
   while (pos != std::string::npos)
   {
     line = line.replace(pos, oldStr.length(), newStr);
-    pos = line.find(oldStr);
+    pos = static_cast<int>(line.find(oldStr));
   }
 }
 int main()
@@ -51,9 +34,9 @@ int main()
     {
     }
   }
-  std::sort(ds.begin(), ds.end(), compareK3);
-  std::sort(ds.begin(), ds.end(), compareK2);
-  std::sort(ds.begin(), ds.end(), compareK1);
-  std::for_each(ds.begin(), ds.end(), print);
+  std::sort(ds.begin(), ds.end(), DataStruct::compareK3);
+  std::sort(ds.begin(), ds.end(), DataStruct::compareK2);
+  std::sort(ds.begin(), ds.end(), DataStruct::compareK1);
+  std::for_each(ds.begin(), ds.end(), DataStruct::print);
   return 0;
 }
