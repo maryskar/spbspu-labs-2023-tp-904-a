@@ -43,7 +43,7 @@ int main()
     }
     catch (...)
     {
-      std::cerr << "Looks like there is no supported record. Cannot determine input. Test skipped";
+      std::cout << "Looks like there is no supported record. Cannot determine input. Test skipped\n";
       //return 2;
     }
   }
