@@ -64,7 +64,7 @@ parseLine(const std::string &str, const std::string &divEl, const std::string &d
   return_tuple tuple;
   int begin = 0;
   int end = static_cast<int>(string.find(divEl));
-  while ((end != std::string::npos) && (end != -1))
+  while (/*(end != std::string::npos) && */(end != -1))
   {
     extrudeTupleElemsFromString(string, begin, end, divKV, list, tuple, divEl);
     begin = end + 1;
