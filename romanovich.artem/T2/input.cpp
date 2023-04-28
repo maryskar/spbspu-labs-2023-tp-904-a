@@ -42,15 +42,15 @@ return_tuple fillTuple(constr *list, constr &key, constr &value, return_tuple &t
   }
   return tuple;
 }
-void extrudeTupleElemsFromString(constr &str, int &begin, int &end, constr &divKV, constr *list, return_tuple &tuple,
-                                 constr &divEl, bool &afterColonCase)
+void extrudeTupleElemsFromString(
+  constr &str, int &begin, int &end, constr &divKV, constr *list, return_tuple &tuple, constr &divEl, bool &colonCase)
 {
   std::string string = str.substr(begin, end - begin);
   int subBegin = begin;
   int subeEnd = end;
   if (static_cast<int>(std::count(string.begin(), string.end(), '\"')) == 1)
   {
-    afterColonCase = true;
+    colonCase = true;
     begin = end + 1;
     end = static_cast<int>(str.find(divEl, begin));
     std::string leftoverString = str.substr(begin - 1, end - begin);
