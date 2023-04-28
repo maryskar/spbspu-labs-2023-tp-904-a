@@ -4,13 +4,13 @@
 #include <utility>
 struct DataStruct
 {
-  DataStruct(unsigned long long int key1, std::pair<long long int, unsigned long long int> key2, std::string key3);
-  DataStruct(
-    std::tuple<unsigned long long int, std::pair<long long int, unsigned long long int>, std::basic_string<char>> tuple1);
+  DataStruct(unsigned long long int key1, std::pair< long long int, unsigned long long int > key2, std::string key3);
+  explicit DataStruct(
+    std::tuple< unsigned long long int, std::pair< long long int, unsigned long long int >, std::basic_string< char>> tuple1);
   unsigned long long key1;
-  void print() const;
+  void printDS() const;
 private:
-  std::pair<long long, unsigned long long> key2;
+  std::pair< long long, unsigned long long > key2;
   std::string key3;
 };
 #endif

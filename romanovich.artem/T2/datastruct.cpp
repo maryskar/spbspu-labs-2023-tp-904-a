@@ -13,7 +13,7 @@ DataStruct::DataStruct(return_tuple tuple) :
   key3(std::get<2>(tuple))
 {
 }
-void DataStruct::print() const
+void DataStruct::printDS() const
 {
-  std::cout << "(:key1 " << key1 << ":key2 (:N " << key2.first << ":D " << key2.second << ":):key3 " << key3 << ":)";
+  std::cout << "(:key1 0" << key1 << ":key2 (:N " << key2.first << ":D " << key2.second << ":):key3 " << key3 << ":)";
 }
