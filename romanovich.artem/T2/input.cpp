@@ -37,33 +37,49 @@ return_tuple fillTuple(const std::string *list, const std::string &key, const st
   return tuple;
 }
 void
-extrudeTupleElemsFromString(const std::string &str, int intBegin, int &intEnd, const std::string &divKV,
-                            const std::string *list, return_tuple &tuple)
+extrudeTupleElemsFromString(const std::string &str, int &begin, int &end, const std::string &divKV,
+                            const std::string *list, return_tuple &tuple, const std::string &divEl)
 {
-  const std::string &string = str.substr(intBegin, intEnd - intBegin);
-  //std::cout << "string: " << string << std::endl;
+  std::string string = str.substr(begin, end - begin);
+//  std::cout << "string: " << string << std::endl;
+  auto subBegin = begin;
+  auto subeEnd = end;
+  if ((string.find('\"') != std::string::npos) && (string.find('\"') != -1))
+  {
+    begin = end + 1;
+    end = static_cast<int>(str.find(divEl, begin));
+    std::string leftoverString = str.substr(begin - 1, end - begin);
+    string += leftoverString;
+    begin = subBegin;
+    end = subeEnd;
+  }
   std::string key = std::get< 0 >(getKeyValue(string, divKV));
   std::string value = std::get< 1 >(getKeyValue(string, divKV));
-    fillTuple(list, key, value, tuple);
-  //std::cout << "key: " << key << std::endl;
-  //std::cout << "value: " << value << std::endl;
-  //std::cout << "tuple: " << std::get<0>(tuple) << " " << std::get<1>(tuple).first << " " << std::get<1>(tuple).second
-  //  << std::get<2>(tuple) << " " << std::endl;
+  fillTuple(list, key, value, tuple);
+ //std::cout << " key: " << key << std::endl;
+ //std::cout << " value: " << value << std::endl;
+ //std::cout << "tuple: " << std::get< 0 >(tuple) << " " << std::get< 1 >(tuple).first << " "
+ //          << std::get< 1 >(tuple).second << std::get< 2 >(tuple) << " " << std::endl << std::endl;
 }
 return_tuple
 parseLine(const std::string &str, const std::string &divEl, const std::string &divKV, std::string list[3])
 {
-  const std::string &string = str;
+  const std::string &string = str; //можно убрать
   return_tuple tuple;
-  int intBegin = 0;
-  int intEnd = static_cast<int>(string.find(divEl));
-  while (intEnd != -1)
+  int begin = 0;
+  int end = static_cast<int>(string.find(divEl));
+  while ((end != std::string::npos) && (end != -1))
   {
-    extrudeTupleElemsFromString(string, intBegin, intEnd, divKV, list, tuple);
-    intBegin = intEnd + 1;
-    intEnd = static_cast<int>(str.find(divEl, intBegin));
+    extrudeTupleElemsFromString(string, begin, end, divKV, list, tuple, divEl);
+    begin = end + 1;
+    end = static_cast<int>(str.find(divEl, begin));
+  // std::cout << " begin: " << begin << std::endl;
+  // std::cout << " end: " << end << std::endl;
   }
-  extrudeTupleElemsFromString(string, intBegin, intEnd, divKV, list, tuple);
+  if ((end != std::string::npos) && (end != -1))
+  {
+    extrudeTupleElemsFromString(string, begin, end, divKV, list, tuple, divEl);
+  }
   return tuple;
 }
 std::string tryRemoveBrackets(const std::string &str)
