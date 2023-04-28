@@ -1,16 +1,15 @@
 #include <string>
 #include <iostream>
-#include <tuple> //(:key1 10ull:key2 (:N -1:D 5:):key3 "Data":)
+#include <tuple>
 #include <vector>
-#include <algorithm>
 #include "datastruct.h"
 #include "input.h"
 using return_tuple = std::tuple< unsigned long long, std::pair< long long, unsigned long long >, std::string >;
 using string_pair = std::tuple< std::string, std::string >;
-bool compareK1(const DataStruct &a, const DataStruct &b)
-{
-  return a.key1 > b.key1;
-}
+//bool compareK1(const DataStruct &a, const DataStruct &b)
+//{
+//  return a.key1 > b.key1;
+//}
 void print(const DataStruct &dataStruct)
 {
   dataStruct.printDS();

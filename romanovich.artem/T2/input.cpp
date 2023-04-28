@@ -1,6 +1,5 @@
 #include "input.h"
 #include <string>
-#include <iostream>
 string_pair getKeyValue(const std::string &kv, const std::string &divKV)
 {
   const std::string &new_kv = kv;
@@ -21,12 +20,9 @@ return_tuple fillTuple(const std::string *list, const std::string &key, const st
     if (key == list[1])
     {
       std::string newValue = tryRemoveBrackets(value);
-      //std::cout << "newValue: " << newValue << std::endl;
       long long numerator = std::stoi(std::get< 1 >(getKeyValue(std::get< 0 >(getKeyValue(newValue, ";")), " ")));
       unsigned long long denominator = std::stoi(
         std::get< 1 >(getKeyValue(std::get< 1 >(getKeyValue(newValue, ";")), " ")));
-      //std::cout << "numerator: " << numerator << std::endl;
-      //std::cout << "denominator: " << denominator << std::endl;
       tuple = {std::get< 0 >(tuple), std::make_pair(numerator, denominator), std::get< 2 >(tuple)};
     }
     if (key == list[2])
@@ -44,7 +40,7 @@ extrudeTupleElemsFromString(const std::string &str, int &begin, int &end, const 
 //  std::cout << "string: " << string << std::endl;
   auto subBegin = begin;
   auto subeEnd = end;
-  if ((string.find('\"') != std::string::npos) && (string.find('\"') != -1))
+  if (/*(string.find('\"') != std::string::npos) && */(string.find('\"') != -1))
   {
     begin = end + 1;
     end = static_cast<int>(str.find(divEl, begin));
@@ -56,10 +52,10 @@ extrudeTupleElemsFromString(const std::string &str, int &begin, int &end, const 
   std::string key = std::get< 0 >(getKeyValue(string, divKV));
   std::string value = std::get< 1 >(getKeyValue(string, divKV));
   fillTuple(list, key, value, tuple);
- //std::cout << " key: " << key << std::endl;
- //std::cout << " value: " << value << std::endl;
- //std::cout << "tuple: " << std::get< 0 >(tuple) << " " << std::get< 1 >(tuple).first << " "
- //          << std::get< 1 >(tuple).second << std::get< 2 >(tuple) << " " << std::endl << std::endl;
+  //std::cout << " key: " << key << std::endl;
+  //std::cout << " value: " << value << std::endl;
+  //std::cout << "tuple: " << std::get< 0 >(tuple) << " " << std::get< 1 >(tuple).first << " "
+  //          << std::get< 1 >(tuple).second << std::get< 2 >(tuple) << " " << std::endl << std::endl;
 }
 return_tuple
 parseLine(const std::string &str, const std::string &divEl, const std::string &divKV, std::string list[3])
@@ -73,10 +69,8 @@ parseLine(const std::string &str, const std::string &divEl, const std::string &d
     extrudeTupleElemsFromString(string, begin, end, divKV, list, tuple, divEl);
     begin = end + 1;
     end = static_cast<int>(str.find(divEl, begin));
-  // std::cout << " begin: " << begin << std::endl;
-  // std::cout << " end: " << end << std::endl;
   }
-  if ((end != std::string::npos) && (end != -1))
+  if (/*(end != std::string::npos) && */(end != -1))
   {
     extrudeTupleElemsFromString(string, begin, end, divKV, list, tuple, divEl);
   }
