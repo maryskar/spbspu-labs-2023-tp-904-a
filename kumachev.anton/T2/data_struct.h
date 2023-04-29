@@ -12,24 +12,30 @@ namespace T2 {
     std::string key3;
   };
 
+  struct ProcessingState {
+    bool key1;
+    bool key2;
+    bool key3;
+  };
+
   struct CharIO {
     char value;
   };
 
   struct FieldIO {
-    std::string value;
-  };
-
-  struct LiteralIO {
-    unsigned long long value;
-  };
-
-  struct PairIO {
-    std::pair< long long, unsigned long long > value;
+    std::string &value;
   };
 
   struct StringIO {
-    std::string value;
+    std::string &value;
+  };
+
+  struct UnsignedLongLongIO {
+    unsigned long long &value;
+  };
+
+  struct PairIO {
+    std::pair< long long, unsigned long long > &value;
   };
 
   class StreamGuard {
@@ -43,12 +49,15 @@ namespace T2 {
     std::basic_ios< char >::fmtflags fmt_;
   };
 
+  static void processField(std::istream &istream, const std::string &field, T2::DataStruct &dataStruct,
+                           T2::ProcessingState &state);
+
   std::istream &operator>>(std::istream &istream, T2::DataStruct &dataStruct);
   static std::istream &operator>>(std::istream &istream, T2::CharIO &&character);
   static std::istream &operator>>(std::istream &istream, T2::FieldIO &&field);
-  static std::istream &operator>>(std::istream &istream, T2::LiteralIO &&literal);
+  static std::istream &operator>>(std::istream &istream, T2::StringIO &&field);
+  static std::istream &operator>>(std::istream &istream, T2::UnsignedLongLongIO &&unsignedLongLong);
   static std::istream &operator>>(std::istream &istream, T2::PairIO &&pair);
-  static std::istream &operator>>(std::istream &istream, T2::StringIO &&string);
 }
 
 #endif //T2_DATA_STRUCT_H
