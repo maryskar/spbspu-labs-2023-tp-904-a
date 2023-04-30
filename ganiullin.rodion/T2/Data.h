@@ -40,41 +40,53 @@ std::istream& operator>>(std::istream& in, DataStruct& dest) {
     using dbl = DoubleIO;
     using str = StringIO;
     using ull = ULongLongIO;
-    size_t labelNum = 0;
-
     in >> sep{'('};
-    for (size_t i = 0; (i < 3) && in; i++) {
+    bool isKey1 = false;
+    bool isKey2 = false;
+    bool isKey3 = false;
+    while (!(isKey1 && isKey2 && isKey3) && !in.eof()) {
+      size_t labelNum = 0;
+      bool a = in.eof();  // FIXME
       in >> sep{':'} >> label{"key"} >> labelNum;
+
       switch (labelNum) {
         case 1:
+          if (isKey1) {
+            in.setstate(std::ios::failbit);
+          }
           in >> dbl{input.key1};
+          isKey1 = true;
           break;
         case 2:
+          if (isKey2) {
+            in.setstate(std::ios::failbit);
+          }
           in >> ull{input.key2};
+          isKey2 = true;
           break;
         case 3:
+          if (isKey3) {
+            in.setstate(std::ios::failbit);
+          }
           in >> str{input.key3};
+          isKey3 = true;
           break;
         default:
           in.setstate(std::ios::failbit);
           break;
       }
+      if (in.fail()) {
+        in.clear();
+        in.ignore(CHARS_TO_IGNORE, '(');
+        isKey1 = isKey2 = isKey3 = false;
+      }
     }
-    // in >> label{"key1"} >> sep{':'} >> dbl{input.key1};
-    // in >> sep{','};
-    // in >> label{"key2"} >> sep{':'} >> ull{input.key2};
-    // in >> sep{','};
-    // in >> label{"key3"} >> sep{':'} >> str{input.key3};
     in >> sep{':'};
     in >> sep{')'};
   }
 
   if (in) {
     dest = input;
-  } else {
-    in.clear();
-    in.ignore(CHARS_TO_IGNORE, '(');
-    in.putback('(');
   }
 
   return in;
