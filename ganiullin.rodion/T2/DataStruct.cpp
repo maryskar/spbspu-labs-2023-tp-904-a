@@ -1,7 +1,7 @@
 #include "DataStruct.h"
 #include "TypesIO.h"
 
-constexpr size_t CHARS_TO_IGNORE = std::numeric_limits<std::streamsize>::max();
+constexpr size_t CHARS_TO_IGNORE = std::numeric_limits< std::streamsize >::max();
 using DataStruct = ganiullin::DataStruct;
 
 std::istream& ganiullin::operator>>(std::istream& in, DataStruct& dest) {
