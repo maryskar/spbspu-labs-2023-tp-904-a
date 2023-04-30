@@ -1,6 +1,7 @@
 #ifndef TYPES_IO_H
 #define TYPES_IO_H
 
+#include <iomanip>
 #include <sstream>
 #include <string>
 
@@ -55,7 +56,7 @@ std::ostream& operator<<(std::ostream& out, const DoubleO&& dest) {
 
   out << tmp.substr(0, ePos) + tmp.substr(ePos, 2);
   size_t i = ePos + 2;
-  while (tmp[i] == '0' && tmp.size() > i) {
+  while (tmp[i] == '0' && tmp.size() > i + 1) {
     i++;
   }
 
