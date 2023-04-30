@@ -46,7 +46,6 @@ std::istream& operator>>(std::istream& in, DataStruct& dest) {
     bool isKey3 = false;
     while (!(isKey1 && isKey2 && isKey3) && !in.eof()) {
       size_t labelNum = 0;
-      bool a = in.eof();  // FIXME
       in >> sep{':'} >> label{"key"} >> labelNum;
 
       switch (labelNum) {
