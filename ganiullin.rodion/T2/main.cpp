@@ -8,7 +8,7 @@
 int main() {
   std::vector< DataStruct::DataStruct > data;
 
-  std::copy(std::istream_iterator< DataStruct::DataStruct >(ss),
+  std::copy(std::istream_iterator< DataStruct::DataStruct >(std::cin),
             std::istream_iterator< DataStruct::DataStruct >(),
             std::back_inserter(data));
 
