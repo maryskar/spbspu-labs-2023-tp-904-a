@@ -8,7 +8,7 @@ struct DelimiterIO {
   char exp;
 };
 
-struct DoubleIO {
+struct DoubleI {
   double& ref;
 };
 
@@ -22,6 +22,9 @@ struct LabelIO {
 
 struct ULongLongIO {
   unsigned long long& ref;
+};
+struct DoubleO {
+  const double val;
 };
 
 std::istream& operator>>(std::istream& in, DelimiterIO&& dest) {
@@ -37,12 +40,27 @@ std::istream& operator>>(std::istream& in, DelimiterIO&& dest) {
   return in;
 }
 
-std::istream& operator>>(std::istream& in, DoubleIO&& dest) {
+std::istream& operator>>(std::istream& in, DoubleI&& dest) {
   std::istream::sentry sentry(in);
   if (!sentry) {
     return in;
   }
   return in >> std::scientific >> dest.ref;
+}
+std::ostream& operator<<(std::ostream& out, const DoubleO&& dest) {
+  std::ostringstream oss;
+  oss << std::setprecision(1) << std::scientific << dest.val;
+  std::string tmp = oss.str();
+  size_t ePos = tmp.find("e");
+
+  out << tmp.substr(0, ePos) + tmp.substr(ePos, 2);
+  size_t i = ePos + 2;
+  while (tmp[i] == '0' && tmp.size() > i) {
+    i++;
+  }
+
+  out << tmp.substr(i);
+  return out;
 }
 
 std::istream& operator>>(std::istream& in, StringIO&& dest) {

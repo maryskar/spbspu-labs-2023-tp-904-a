@@ -14,7 +14,7 @@
 int main() {
   std::vector<DataStruct> data;
   // std::istringstream iss(
-  //     "(:key1 1.0e-01:key2 0x01:key3 \"prison\":)"
+  //     "(:key1 1.0:key2 0x01:key3 \"prison\":)"
   //     "(:key1 \"Let madness release you\":key1 0.0e-01:key2 0x40:)"
   //     "(:key3 \"Let madness release you:key1 0.0e-01:key2 0x2A:)"
   //     "(:key3 \"Let madness release you\" key1 0.0e-01:key2 0x2A:)"
@@ -33,7 +33,6 @@ int main() {
 
   std::sort(data.begin(), data.end(), Comp);
 
-  std::cout << "DataStruct:\n";
   std::copy(std::begin(data), std::end(data),
             std::ostream_iterator<DataStruct>(std::cout, "\n"));
 

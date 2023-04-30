@@ -37,7 +37,7 @@ std::istream& operator>>(std::istream& in, DataStruct& dest) {
   {
     using sep = DelimiterIO;
     using label = LabelIO;
-    using dbl = DoubleIO;
+    using dbl = DoubleI;
     using str = StringIO;
     using ull = ULongLongIO;
     in >> sep{'('};
@@ -100,8 +100,7 @@ std::ostream& operator<<(std::ostream& out, const DataStruct& src) {
   iofmtguard fmtguard(out);
   out << "(:";
 
-  out << "key1" << ' ' << std::setprecision(1) << std::scientific << src.key1
-      << ':';
+  out << "key1" << ' ' << DoubleO{src.key1} << ':';
   out << "key2" << ' ' << "0x" << std::hex << std::uppercase << src.key2 << ':';
   out << "key3" << ' ' << '"' << src.key3 << '"' << ':';
   out << ')';
