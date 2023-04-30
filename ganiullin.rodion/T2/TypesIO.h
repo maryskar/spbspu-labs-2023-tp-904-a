@@ -12,6 +12,9 @@ struct DelimiterIO {
 struct DoubleI {
   double& ref;
 };
+struct DoubleO {
+  const double val;
+};
 
 struct StringIO {
   std::string& ref;
@@ -23,9 +26,6 @@ struct LabelIO {
 
 struct ULongLongIO {
   unsigned long long& ref;
-};
-struct DoubleO {
-  const double val;
 };
 
 std::istream& operator>>(std::istream& in, DelimiterIO&& dest) {
@@ -48,7 +48,13 @@ std::istream& operator>>(std::istream& in, DoubleI&& dest) {
   }
   return in >> std::scientific >> dest.ref;
 }
+
 std::ostream& operator<<(std::ostream& out, const DoubleO&& dest) {
+  std::ostream::sentry sentry(out);
+  if (!sentry) {
+    return out;
+  }
+
   std::ostringstream oss;
   oss << std::setprecision(1) << std::scientific << dest.val;
   std::string tmp = oss.str();
@@ -94,4 +100,5 @@ std::istream& operator>>(std::istream& in, ULongLongIO&& dest) {
   }
   return in >> DelimiterIO{'0'} >> DelimiterIO{'x'} >> std::hex >> dest.ref;
 }
+
 #endif

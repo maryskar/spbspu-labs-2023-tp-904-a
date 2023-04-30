@@ -5,16 +5,16 @@
 
 class iofmtguard {
  public:
-  iofmtguard(std::basic_ios<char>& s);
+  iofmtguard(std::basic_ios< char >& s);
   ~iofmtguard();
 
  private:
-  std::basic_ios<char>& s_;
+  std::basic_ios< char >& s_;
   char fill_;
   std::streamsize precision_;
-  std::basic_ios<char>::fmtflags fmt_;
+  std::basic_ios< char >::fmtflags fmt_;
 };
-iofmtguard::iofmtguard(std::basic_ios<char>& s)
+iofmtguard::iofmtguard(std::basic_ios< char >& s)
     : s_(s), fill_(s.fill()), precision_(s.precision()), fmt_(s.flags()) {}
 
 iofmtguard::~iofmtguard() {
