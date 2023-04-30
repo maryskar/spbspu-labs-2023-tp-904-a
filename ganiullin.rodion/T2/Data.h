@@ -100,7 +100,8 @@ std::ostream& operator<<(std::ostream& out, const DataStruct& src) {
   iofmtguard fmtguard(out);
   out << "(:";
 
-  out << "key1" << ' ' << std::scientific << src.key1 << ':';
+  out << "key1" << ' ' << std::setprecision(1) << std::scientific << src.key1
+      << ':';
   out << "key2" << ' ' << "0x" << std::hex << std::uppercase << src.key2 << ':';
   out << "key3" << ' ' << '"' << src.key3 << '"' << ':';
   out << ')';
