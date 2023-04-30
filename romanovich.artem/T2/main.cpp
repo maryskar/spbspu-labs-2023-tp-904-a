@@ -17,7 +17,7 @@ void safeReplace(std::string &line, const std::string &oldStr, const std::string
 }
 int main()
 {
-  std::vector< DataStruct > ds;
+  std::vector< romanovich::DataStruct > ds;
   for (std::string line; std::getline(std::cin, line);)
   {
     safeReplace(line, ":D", ";D");
@@ -34,9 +34,9 @@ int main()
     {
     }
   }
-  std::sort(ds.begin(), ds.end(), DataStruct::compareK3);
-  std::sort(ds.begin(), ds.end(), DataStruct::compareK2);
-  std::sort(ds.begin(), ds.end(), DataStruct::compareK1);
-  std::for_each(ds.begin(), ds.end(), DataStruct::print);
+  std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK3);
+  std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK2);
+  std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK1);
+  std::for_each(ds.begin(), ds.end(), romanovich::DataStruct::print);
   return 0;
 }
