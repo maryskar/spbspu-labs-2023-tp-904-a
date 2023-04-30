@@ -8,12 +8,12 @@
 
 int main()
 {
-  std::vector< T2::DataStruct > data;
+  std::vector< kumachev::DataStruct > data;
   auto backInserter = std::back_inserter(data);
   std::istream &in = std::cin;
 
   while (!in.eof()) {
-    T2::DataStruct dataStruct;
+    kumachev::DataStruct dataStruct;
     in >> dataStruct;
 
     if (!in.fail()) {
@@ -26,7 +26,7 @@ int main()
     }
   }
 
-  std::sort(data.begin(), data.end(), T2::compareData);
-  std::copy(data.begin(), data.end(), std::ostream_iterator< T2::DataStruct >(std::cout));
+  std::sort(data.begin(), data.end(), kumachev::compareData);
+  std::copy(data.begin(), data.end(), std::ostream_iterator< kumachev::DataStruct >(std::cout));
   return 0;
 }

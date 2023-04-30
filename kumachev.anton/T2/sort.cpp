@@ -1,6 +1,6 @@
 #include "sort.h"
 
-bool T2::compareData(const T2::DataStruct &lhs, const T2::DataStruct &rhs)
+bool kumachev::compareData(const kumachev::DataStruct &lhs, const kumachev::DataStruct &rhs)
 {
   if (rhs.key1 > lhs.key1) {
     return true;
@@ -16,14 +16,14 @@ bool T2::compareData(const T2::DataStruct &lhs, const T2::DataStruct &rhs)
   }
 }
 
-bool T2::compareRational(const std::pair< long long int, unsigned long long int > &lhs,
-                         const std::pair< long long int, unsigned long long int > &rhs)
+bool kumachev::compareRational(const std::pair< long long int, unsigned long long int > &lhs,
+                               const std::pair< long long int, unsigned long long int > &rhs)
 {
   return lhs.first / lhs.second > rhs.first / rhs.second;
 }
 
-bool T2::rationalEqual(const std::pair< long long int, unsigned long long int > &lhs,
-                       const std::pair< long long int, unsigned long long int > &rhs)
+bool kumachev::rationalEqual(const std::pair< long long int, unsigned long long int > &lhs,
+                             const std::pair< long long int, unsigned long long int > &rhs)
 {
   return lhs.first / lhs.second == rhs.first / rhs.second;
 }

@@ -5,7 +5,7 @@
 #include <ios>
 #include <bits/stl_pair.h>
 
-namespace T2 {
+namespace kumachev {
   struct DataStruct {
     unsigned long long key1;
     std::pair< long long, unsigned long long > key2;
@@ -49,17 +49,17 @@ namespace T2 {
     std::basic_ios< char >::fmtflags fmt_;
   };
 
-  void processField(std::istream &istream, const std::string &field, T2::DataStruct &dataStruct,
-                           T2::ProcessingState &state);
+  void processField(std::istream &istream, const std::string &field, kumachev::DataStruct &dataStruct,
+                    kumachev::ProcessingState &state);
 
-  std::istream &operator>>(std::istream &istream, T2::DataStruct &dataStruct);
-  std::istream &operator>>(std::istream &istream, T2::CharIO &&character);
-  std::istream &operator>>(std::istream &istream, T2::FieldIO &&field);
-  std::istream &operator>>(std::istream &istream, T2::StringIO &&field);
-  std::istream &operator>>(std::istream &istream, T2::UnsignedLongLongIO &&unsignedLongLong);
-  std::istream &operator>>(std::istream &istream, T2::PairIO &&pair);
+  std::istream &operator>>(std::istream &istream, kumachev::DataStruct &dataStruct);
+  std::istream &operator>>(std::istream &istream, kumachev::CharIO &&character);
+  std::istream &operator>>(std::istream &istream, kumachev::FieldIO &&field);
+  std::istream &operator>>(std::istream &istream, kumachev::StringIO &&field);
+  std::istream &operator>>(std::istream &istream, kumachev::UnsignedLongLongIO &&unsignedLongLong);
+  std::istream &operator>>(std::istream &istream, kumachev::PairIO &&pair);
 
-  std::ostream &operator<<(std::ostream &ostream, const T2::DataStruct &dataStruct);
+  std::ostream &operator<<(std::ostream &ostream, const kumachev::DataStruct &dataStruct);
 }
 
 #endif //T2_DATA_STRUCT_H

@@ -3,12 +3,12 @@
 
 #include "data_struct.h"
 
-namespace T2 {
+namespace kumachev {
   bool compareRational(const std::pair< long long, unsigned long long > &lhs,
-                              const std::pair< long long, unsigned long long > &rhs);
+                       const std::pair< long long, unsigned long long > &rhs);
 
   bool rationalEqual(const std::pair< long long, unsigned long long > &lhs,
-                            const std::pair< long long, unsigned long long > &rhs);
+                     const std::pair< long long, unsigned long long > &rhs);
 
   bool compareData(const DataStruct &lhs, const DataStruct &rhs);
 }
