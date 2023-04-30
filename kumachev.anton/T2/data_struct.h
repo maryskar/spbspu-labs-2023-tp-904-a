@@ -49,15 +49,17 @@ namespace T2 {
     std::basic_ios< char >::fmtflags fmt_;
   };
 
-  static void processField(std::istream &istream, const std::string &field, T2::DataStruct &dataStruct,
+  void processField(std::istream &istream, const std::string &field, T2::DataStruct &dataStruct,
                            T2::ProcessingState &state);
 
   std::istream &operator>>(std::istream &istream, T2::DataStruct &dataStruct);
-  static std::istream &operator>>(std::istream &istream, T2::CharIO &&character);
-  static std::istream &operator>>(std::istream &istream, T2::FieldIO &&field);
-  static std::istream &operator>>(std::istream &istream, T2::StringIO &&field);
-  static std::istream &operator>>(std::istream &istream, T2::UnsignedLongLongIO &&unsignedLongLong);
-  static std::istream &operator>>(std::istream &istream, T2::PairIO &&pair);
+  std::istream &operator>>(std::istream &istream, T2::CharIO &&character);
+  std::istream &operator>>(std::istream &istream, T2::FieldIO &&field);
+  std::istream &operator>>(std::istream &istream, T2::StringIO &&field);
+  std::istream &operator>>(std::istream &istream, T2::UnsignedLongLongIO &&unsignedLongLong);
+  std::istream &operator>>(std::istream &istream, T2::PairIO &&pair);
+
+  std::ostream &operator<<(std::ostream &ostream, const T2::DataStruct &dataStruct);
 }
 
 #endif //T2_DATA_STRUCT_H

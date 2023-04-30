@@ -1,14 +1,16 @@
 #include <vector>
 #include <iostream>
 #include <limits>
-#include <fstream>
+#include <algorithm>
+#include <iterator>
 #include "data_struct.h"
+#include "sort.h"
 
 int main()
 {
   std::vector< T2::DataStruct > data;
   auto backInserter = std::back_inserter(data);
-  std::ifstream in("input.txt");
+  std::istream &in = std::cin;
 
   while (!in.eof()) {
     T2::DataStruct dataStruct;
@@ -24,6 +26,7 @@ int main()
     }
   }
 
-  std::cout << data.size() << '\n';
+  std::sort(data.begin(), data.end(), T2::compareData);
+  std::copy(data.begin(), data.end(), std::ostream_iterator< T2::DataStruct >(std::cout));
   return 0;
 }

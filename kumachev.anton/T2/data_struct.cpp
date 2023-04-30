@@ -1,5 +1,6 @@
 #include "data_struct.h"
 #include <iostream>
+#include <iomanip>
 
 T2::StreamGuard::StreamGuard(std::basic_ios< char > &s):
   s_(s),
@@ -16,7 +17,7 @@ T2::StreamGuard::~StreamGuard()
   s_.flags(fmt_);
 }
 
-static void T2::processField(std::istream &istream, const std::string &field, T2::DataStruct &dataStruct,
+void T2::processField(std::istream &istream, const std::string &field, T2::DataStruct &dataStruct,
                              T2::ProcessingState &state)
 {
   std::istream::sentry sentry(istream);
@@ -76,7 +77,7 @@ std::istream &T2::operator>>(std::istream &istream, T2::DataStruct &dataStruct)
   return istream;
 }
 
-static std::istream &T2::operator>>(std::istream &istream, T2::CharIO &&character)
+std::istream &T2::operator>>(std::istream &istream, T2::CharIO &&character)
 {
   std::istream::sentry sentry(istream);
 
@@ -94,7 +95,7 @@ static std::istream &T2::operator>>(std::istream &istream, T2::CharIO &&characte
   return istream;
 }
 
-static std::istream &T2::operator>>(std::istream &istream, T2::UnsignedLongLongIO &&unsignedLongLong)
+std::istream &T2::operator>>(std::istream &istream, T2::UnsignedLongLongIO &&unsignedLongLong)
 {
   std::istream::sentry sentry(istream);
 
@@ -112,7 +113,7 @@ static std::istream &T2::operator>>(std::istream &istream, T2::UnsignedLongLongI
   return istream;
 }
 
-static std::istream &T2::operator>>(std::istream &istream, T2::FieldIO &&field)
+std::istream &T2::operator>>(std::istream &istream, T2::FieldIO &&field)
 {
   std::istream::sentry sentry(istream);
 
@@ -130,7 +131,7 @@ static std::istream &T2::operator>>(std::istream &istream, T2::FieldIO &&field)
   return istream;
 }
 
-static std::istream &T2::operator>>(std::istream &istream, T2::StringIO &&field)
+std::istream &T2::operator>>(std::istream &istream, T2::StringIO &&field)
 {
   std::istream::sentry sentry(istream);
 
@@ -169,4 +170,19 @@ std::istream &T2::operator>>(std::istream &istream, T2::PairIO &&pair)
   }
 
   return istream;
+}
+
+std::ostream &T2::operator<<(std::ostream &ostream, const T2::DataStruct &dataStruct)
+{
+  std::ostream::sentry sentry(ostream);
+
+  if (!sentry) {
+    return ostream;
+  }
+
+  T2::StreamGuard guard(ostream);
+  ostream << "(:key1 " << dataStruct.key1 << "ull:key2 (:N " << dataStruct.key2.first
+          << ":D " << dataStruct.key2.second << ":):key3 \"" << dataStruct.key3 << "\":)";
+
+  return ostream;
 }
