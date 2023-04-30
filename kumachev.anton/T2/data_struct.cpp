@@ -182,7 +182,7 @@ std::ostream &T2::operator<<(std::ostream &ostream, const T2::DataStruct &dataSt
 
   T2::StreamGuard guard(ostream);
   ostream << "(:key1 " << dataStruct.key1 << "ull:key2 (:N " << dataStruct.key2.first
-          << ":D " << dataStruct.key2.second << ":):key3 " << dataStruct.key3 << ":)\n";
+          << ":D " << dataStruct.key2.second << ":):key3 \"" << dataStruct.key3 << "\":)\n";
 
   return ostream;
 }
