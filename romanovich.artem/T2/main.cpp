@@ -6,8 +6,7 @@
 int main()
 {
   std::vector< romanovich::DataStruct > ds;
-  //std::back_insert_iterator< typeof(ds) > backInserter = std::back_inserter(ds);
-  auto backInserter = std::back_inserter(ds);
+  std::back_insert_iterator< typeof(ds) > backInserter = std::back_inserter(ds);
   while (!std::cin.eof())
   {
     romanovich::DataStruct dataStruct;

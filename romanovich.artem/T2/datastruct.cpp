@@ -1,6 +1,5 @@
 #include "datastruct.h"
 #include <iostream>
-#include "input.h"
 /*romanovich::DataStruct::DataStruct(return_tuple tuple):
   key1(std::get< 0 >(tuple)),
   key2(std::get< 1 >(tuple)),
@@ -11,7 +10,7 @@ void romanovich::DataStruct::printDS() const
 {
   std::cout << "(:key1 0" << key1
             << ":key2 (:N " << key2.first << ":D " << key2.second
-            << ":):key3 " << key3 << ":)\n";
+            << ":):key3 \"" << key3 << "\":)\n";
 }
 std::istream &checkSentry(std::istream &in)
 {
@@ -24,7 +23,7 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::UnsignedLongL
   {
     return in;
   }
-  return in >> dest.number >> romDelimIO{'u'} >> romDelimIO{'l'} >> romDelimIO{'l'};
+  return in >> romDelimIO{'0'} >> dest.number;
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::RationalNumberIO &&dest)
 {
@@ -36,7 +35,7 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::RationalNumbe
             >> dest.ratNumber.first
             >> romDelimIO{':'} >> romDelimIO{'D'}
             >> dest.ratNumber.second
-            >> romDelimIO{':'} >> romDelimIO{')'} >> romDelimIO{':'};
+            >> romDelimIO{':'} >> romDelimIO{')'};
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::StringIO &&dest)
 {
@@ -74,8 +73,33 @@ std::ostream &romanovich::operator<<(std::ostream &out, const romanovich::DataSt
   out << " }";*/
   out << "(:key1 0" << source.key1
       << ":key2 (:N " << source.key2.first << ":D " << source.key2.second
-      << ":):key3 " << source.key3 << ":)\n";
+      << ":):key3 \"" << source.key3 << "\":)\n";
   return out;
+}
+void fillData(romanovich::DataStruct &dataStruct, std::istream &in)
+{
+  constr list[3] = {"key1", "key2", "key3"};
+  std::string key, value;
+  in >> key;
+  std::cout << key << "\n";
+  if (key == list[0])
+  {
+    in >> romanovich::UnsignedLongLongIO{dataStruct.key1} >> romanovich::DelimiterIO{':'};
+    //d::cout << dataStruct.key1 << "@\n";
+  }
+  if (key == list[1])
+  {
+    /*in >> romanovich::RationalNumberIO{dataStruct.key2} >> romanovich::DelimiterIO{':'};*/
+    in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'}
+       >> dataStruct.key2.first >> romDelimIO{':'} >> romDelimIO{'D'}
+       >> dataStruct.key2.second >> romDelimIO{':'} >> romDelimIO{')'};
+    //std::cout << dataStruct.key2.first << "@\n";
+  }
+  if (key == list[2])
+  {
+    in >> romanovich::StringIO{dataStruct.key3} >> romanovich::DelimiterIO{':'};
+    //std::cout << dataStruct.key3 << "@\n";
+  }
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::DataStruct &dest)
 {
@@ -83,25 +107,17 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::DataStruct &d
   {
     return in;
   }
-  for (std::string line; std::getline(std::cin, line);)
+  romanovich::DataStruct dataStruct;
+  in >> romanovich::DelimiterIO{'('} >> romanovich::DelimiterIO{':'};
+  for (int i = 0; i < 3; ++i)
   {
-    safeReplace(line, ":D", ";D");
-    safeReplace(line, ":)", ")");
-    safeReplace(line, "(:", "(");
-    line = tryRemoveBrackets(line);
-    std::string keyNames[3] = {"key1", "key2", "key3"};
-    try
-    {
-      return_tuple tuple = parseLine(line, ":", " ", keyNames);
-      dest = romanovich::DataStruct{
-        std::get< 0 >(tuple),
-        std::get< 1 >(tuple),
-        std::get< 2 >(tuple)
-      };
-    }
-    catch (...)
-    {
-    }
+    fillData(dataStruct, in);
+  }
+  dataStruct.printDS();
+  in >> romanovich::DelimiterIO{')'};
+  if (in)
+  {
+    dest = dataStruct;
   }
   return in;
 }

@@ -26,31 +26,6 @@ string_pair getKeyValue(constr &kv, constr &divKV)
   std::string value = new_kv.substr(static_cast<int>(kv.find(divKV)) + 1, new_kv.size() - 1);
   return {key, value};
 }
-return_tuple fillTuple(constr *list, constr &key, constr &value, return_tuple &tuple)
-{
-  for (long unsigned int i = 0; i < list->size(); ++i)
-  {
-    if (key == list[0])
-    {
-      unsigned long long val = std::stoi(value, nullptr, 10);
-      tuple = {val, std::get< 1 >(tuple), std::get< 2 >(tuple)};
-    }
-    if (key == list[1])
-    {
-      std::string val = tryRemoveBrackets(value);
-      string_pair keyValueNum = getKeyValue(std::get< 0 >(getKeyValue(val, ";")), " ");
-      string_pair keyValueDenom = getKeyValue(std::get< 1 >(getKeyValue(val, ";")), " ");
-      long long numerator = std::stoi(std::get< 1 >(keyValueNum));
-      unsigned long long denominator = std::stoi(std::get< 1 >(keyValueDenom));
-      tuple = {std::get< 0 >(tuple), std::make_pair(numerator, denominator), std::get< 2 >(tuple)};
-    }
-    if (key == list[2])
-    {
-      tuple = {std::get< 0 >(tuple), std::get< 1 >(tuple), value};
-    }
-  }
-  return tuple;
-}
 void extrudeTupleElemsFromString(
   constr &str, int &begin, int &end, constr &divKV, constr *list, return_tuple &tuple, constr &divEl, bool &colonCase)
 {
@@ -69,8 +44,9 @@ void extrudeTupleElemsFromString(
   }
   std::string key = std::get< 0 >(getKeyValue(string, divKV));
   std::string value = std::get< 1 >(getKeyValue(string, divKV));
-  fillTuple(list, key, value, tuple);
+  //fillTuple(list, key, value, tuple);
 }
+//                                           :              ' '
 return_tuple parseLine(constr &str, constr &divEl, constr &divKV, std::string list[3])
 {
   return_tuple tuple;

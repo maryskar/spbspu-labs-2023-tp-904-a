@@ -67,4 +67,6 @@ namespace romanovich
   };
 }
 using romDelimIO = romanovich::DelimiterIO;
+using romDataStruct = romanovich::DataStruct;
+void fillData(romDataStruct &dataStruct, std::istream &in);
 #endif
