@@ -5,8 +5,7 @@
 #include <algorithm>
 #include "datastruct.h"
 #include "input.h"
-using string_pair = std::tuple< std::string, std::string >;
-void safeReplace(std::string &line, const std::string &oldStr, const std::string &newStr)
+void safeReplace(std::string &line, constr &oldStr, constr &newStr)
 {
   long unsigned int pos = static_cast<long unsigned int>(line.find(oldStr));
   while (pos != std::string::npos)

@@ -29,5 +29,26 @@ namespace romanovich
     std::pair< long long, unsigned long long > key2;
     std::string key3;
   };
+  struct UnsignedLongLongIO
+  {
+    unsigned long long &number;
+  };
+  struct RationalNumberIO
+  {
+    std::pair< long long, unsigned long long > ratNumber;
+  };
+  struct StringIO
+  {
+    std::string &string;
+  };
+  struct DelimiterIO
+  {
+    char char_;
+  };
+  std::istream &operator>>(std::istream &in, UnsignedLongLongIO &&dest);
+  std::istream &operator>>(std::istream &in, RationalNumberIO &&dest);
+  std::istream &operator>>(std::istream &in, StringIO &&dest);
+  std::ostream &operator<<(std::ostream &out, const DataStruct &dest);
+  std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
 }
 #endif
