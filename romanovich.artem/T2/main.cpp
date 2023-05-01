@@ -3,6 +3,7 @@
 #include <tuple>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 #include "datastruct.h"
 #include "input.h"
 void safeReplace(std::string &line, constr &oldStr, constr &newStr)
@@ -17,22 +18,11 @@ void safeReplace(std::string &line, constr &oldStr, constr &newStr)
 int main()
 {
   std::vector< romanovich::DataStruct > ds;
-  for (std::string line; std::getline(std::cin, line);)
-  {
-    safeReplace(line, ":D", ";D");
-    safeReplace(line, ":)", ")");
-    safeReplace(line, "(:", "(");
-    line = tryRemoveBrackets(line);
-    std::string keyNames[3] = {"key1", "key2", "key3"};
-    try
-    {
-      return_tuple tuple = parseLine(line, ":", " ", keyNames);
-      ds.emplace_back(tuple);
-    }
-    catch (...)
-    {
-    }
-  }
+  std::copy(
+    std::istream_iterator< romanovich::DataStruct >(std::cin),
+    std::istream_iterator< romanovich::DataStruct >(),
+    std::back_inserter(ds)
+  );
   std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK3);
   std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK2);
   std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK1);

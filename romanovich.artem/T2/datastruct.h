@@ -7,7 +7,7 @@ namespace romanovich
   using return_tuple = std::tuple< unsigned long long, std::pair< long long, unsigned long long >, std::string >;
   struct DataStruct
   {
-    explicit DataStruct(return_tuple tuple);
+    //explicit DataStruct(return_tuple tuple);
     void printDS() const;
     static bool compareK1(const DataStruct &a, const DataStruct &b)
     {
@@ -48,7 +48,18 @@ namespace romanovich
   std::istream &operator>>(std::istream &in, UnsignedLongLongIO &&dest);
   std::istream &operator>>(std::istream &in, RationalNumberIO &&dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
-  std::ostream &operator<<(std::ostream &out, const DataStruct &dest);
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
+  std::ostream &operator<<(std::ostream &out, const DataStruct &dest);
+  class iofmtguard
+  {
+  public:
+    explicit iofmtguard(std::basic_ios< char > &s);
+    ~iofmtguard();
+  private:
+    std::basic_ios< char > &s_;
+    char fill_;
+    std::streamsize precision_;
+    std::basic_ios< char >::fmtflags fmt_;
+  };
 }
 #endif
