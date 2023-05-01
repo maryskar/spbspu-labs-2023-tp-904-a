@@ -1,17 +1,5 @@
 #include "datastruct.h"
 #include <iostream>
-/*romanovich::DataStruct::DataStruct(return_tuple tuple):
-  key1(std::get< 0 >(tuple)),
-  key2(std::get< 1 >(tuple)),
-  key3(std::get< 2 >(tuple))
-{
-}*/
-void romanovich::DataStruct::printDS() const
-{
-  std::cout << "(:key1 0" << key1
-            << ":key2 (:N " << key2.first << ":D " << key2.second
-            << ":):key3 \"" << key3 << "\":)\n";
-}
 std::istream &checkSentry(std::istream &in)
 {
   std::istream::sentry sentry(in);
@@ -63,14 +51,10 @@ std::ostream &romanovich::operator<<(std::ostream &out, const romanovich::DataSt
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
-{
+  {
     return out;
   }
   romanovich::iofmtguard fmtguard(out);
-  /*out << "{ ";
-  out << "\"key1\": " << std::fixed << std::setprecision(1) << source.key1 << "d, ";
-  out << "\"key2\": " << source.key2;
-  out << " }";*/
   out << "(:key1 0" << source.key1
       << ":key2 (:N " << source.key2.first << ":D " << source.key2.second
       << ":):key3 \"" << source.key3 << "\":)\n";
@@ -81,7 +65,6 @@ void fillData(romanovich::DataStruct &dataStruct, std::istream &in)
   const std::string list[3] = {"key1", "key2", "key3"};
   std::string key, value;
   in >> key;
-  //std::cout << key << "\n";
   if (key == list[0])
   {
     in >> romanovich::UnsignedLongLongIO{dataStruct.key1} >> romDelimIO{':'};
@@ -96,7 +79,7 @@ void fillData(romanovich::DataStruct &dataStruct, std::istream &in)
 
     in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'}
        >> dataStruct.key2.first >> romDelimIO{':'} >> romDelimIO{'D'}
-       >> dataStruct.key2.second >> romDelimIO{':'} >> romDelimIO{')'}  >> romDelimIO{':'};
+       >> dataStruct.key2.second >> romDelimIO{':'} >> romDelimIO{')'} >> romDelimIO{':'};
   }
   if (key == list[2])
   {
@@ -115,7 +98,6 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::DataStruct &d
   {
     fillData(dataStruct, in);
   }
-  dataStruct.printDS();
   in >> romDelimIO{')'};
   if (in)
   {

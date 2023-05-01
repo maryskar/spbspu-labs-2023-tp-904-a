@@ -17,6 +17,12 @@ int main()
       *backInserter = dataStruct;
       ++backInserter;
     }
+    else
+    {
+      std::cin.clear();
+      std::string dummy;
+      std::getline(std::cin, dummy);
+    }
   }
   std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK3);
   std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK2);

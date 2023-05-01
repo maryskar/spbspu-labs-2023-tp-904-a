@@ -7,10 +7,8 @@
 #include "input.h"
 namespace romanovich
 {
-  //using return_tuple = std::tuple< unsigned long long, std::pair< long long, unsigned long long >, std::string >;
   struct DataStruct
   {
-    void printDS() const;
     static bool compareK1(const DataStruct &a, const DataStruct &b)
     {
       return a.key1 < b.key1;
@@ -22,10 +20,6 @@ namespace romanovich
     static bool compareK3(const DataStruct &a, const DataStruct &b)
     {
       return a.key3.length() < b.key3.length();
-    }
-    static void print(const DataStruct &dataStruct)
-    {
-      dataStruct.printDS();
     }
     unsigned long long key1;
     std::pair< long long, unsigned long long > key2;
