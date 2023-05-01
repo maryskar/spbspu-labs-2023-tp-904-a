@@ -49,7 +49,7 @@ namespace ganiullin {
     return in >> std::scientific >> dest.ref;
   }
 
-  std::ostream& operator<<(std::ostream& out, const DoubleO&& dest) {  // FIXME
+  std::ostream& operator<<(std::ostream& out, const DoubleO&& dest) {
     std::ostream::sentry sentry(out);
     if (!sentry) {
       return out;
@@ -58,8 +58,9 @@ namespace ganiullin {
 
     double value = dest.val;
     int exponent = 0;
-
-    if (abs(value) < 1) {
+    if (value == 0) {
+      out << std::setprecision(1) << value << 'e' << exponent;
+    } else if (abs(value) < 1) {
       while (abs(value) * 10 < 10) {
         value *= 10;
         exponent--;
@@ -70,7 +71,7 @@ namespace ganiullin {
         exponent++;
       }
     }
-    out << std::setprecision(1) << value << exponent;
+    out << std::setprecision(1) << value << 'e' << exponent;
 
     return out;
   }
