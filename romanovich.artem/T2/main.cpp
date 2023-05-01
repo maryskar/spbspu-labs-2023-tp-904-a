@@ -2,6 +2,7 @@
 #include <tuple>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 #include "datastruct.h"
 int main()
 {
@@ -20,6 +21,6 @@ int main()
   std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK3);
   std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK2);
   std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK1);
-  std::for_each(ds.begin(), ds.end(), romanovich::DataStruct::print);
+  std::copy(ds.begin(), ds.end(), std::ostream_iterator< romanovich::DataStruct >(std::cout));
   return 0;
 }

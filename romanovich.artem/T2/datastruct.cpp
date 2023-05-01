@@ -63,7 +63,7 @@ std::ostream &romanovich::operator<<(std::ostream &out, const romanovich::DataSt
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
-  {
+{
     return out;
   }
   romanovich::iofmtguard fmtguard(out);
@@ -81,24 +81,26 @@ void fillData(romanovich::DataStruct &dataStruct, std::istream &in)
   constr list[3] = {"key1", "key2", "key3"};
   std::string key, value;
   in >> key;
-  std::cout << key << "\n";
+  //std::cout << key << "\n";
   if (key == list[0])
   {
-    in >> romanovich::UnsignedLongLongIO{dataStruct.key1} >> romanovich::DelimiterIO{':'};
-    //d::cout << dataStruct.key1 << "@\n";
+    in >> romanovich::UnsignedLongLongIO{dataStruct.key1} >> romDelimIO{':'};
   }
   if (key == list[1])
   {
-    //in >> romanovich::RationalNumberIO{dataStruct.key2} >> romanovich::DelimiterIO{':'};
+    /* Я не понимаю, что не так :(
+     *
+     * in >> romanovich::RationalNumberIO{dataStruct.key2} >> romDelimIO{':'};
+     *
+     * Когда я использую вот этот код вместо того, что ниже, поля RationalNumberIO равны 0*/
+
     in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'}
        >> dataStruct.key2.first >> romDelimIO{':'} >> romDelimIO{'D'}
-       >> dataStruct.key2.second >> romDelimIO{':'} >> romDelimIO{')'}  >> romanovich::DelimiterIO{':'};
-    //std::cout << dataStruct.key2.first << "@\n";
+       >> dataStruct.key2.second >> romDelimIO{':'} >> romDelimIO{')'}  >> romDelimIO{':'};
   }
   if (key == list[2])
   {
-    in >> romanovich::StringIO{dataStruct.key3} >> romanovich::DelimiterIO{':'};
-    //std::cout << dataStruct.key3 << "@\n";
+    in >> romanovich::StringIO{dataStruct.key3} >> romDelimIO{':'};
   }
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::DataStruct &dest)
@@ -108,13 +110,13 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::DataStruct &d
     return in;
   }
   romanovich::DataStruct dataStruct;
-  in >> romanovich::DelimiterIO{'('} >> romanovich::DelimiterIO{':'};
+  in >> romDelimIO{'('} >> romDelimIO{':'};
   for (int i = 0; i < 3; ++i)
   {
     fillData(dataStruct, in);
   }
   dataStruct.printDS();
-  in >> romanovich::DelimiterIO{')'};
+  in >> romDelimIO{')'};
   if (in)
   {
     dest = dataStruct;
