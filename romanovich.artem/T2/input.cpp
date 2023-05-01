@@ -1,3 +1,4 @@
+/*
 #include "input.h"
 #include <string>
 #include <algorithm>
@@ -72,3 +73,4 @@ return_tuple parseLine(constr &str, constr &divEl, constr &divKV, std::string li
   }
   return tuple;
 }
+*/

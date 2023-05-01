@@ -78,7 +78,7 @@ std::ostream &romanovich::operator<<(std::ostream &out, const romanovich::DataSt
 }
 void fillData(romanovich::DataStruct &dataStruct, std::istream &in)
 {
-  constr list[3] = {"key1", "key2", "key3"};
+  const std::string list[3] = {"key1", "key2", "key3"};
   std::string key, value;
   in >> key;
   //std::cout << key << "\n";
