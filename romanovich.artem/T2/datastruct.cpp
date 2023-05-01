@@ -89,10 +89,10 @@ void fillData(romanovich::DataStruct &dataStruct, std::istream &in)
   }
   if (key == list[1])
   {
-    /*in >> romanovich::RationalNumberIO{dataStruct.key2} >> romanovich::DelimiterIO{':'};*/
+    //in >> romanovich::RationalNumberIO{dataStruct.key2} >> romanovich::DelimiterIO{':'};
     in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'}
        >> dataStruct.key2.first >> romDelimIO{':'} >> romDelimIO{'D'}
-       >> dataStruct.key2.second >> romDelimIO{':'} >> romDelimIO{')'};
+       >> dataStruct.key2.second >> romDelimIO{':'} >> romDelimIO{')'}  >> romanovich::DelimiterIO{':'};
     //std::cout << dataStruct.key2.first << "@\n";
   }
   if (key == list[2])
