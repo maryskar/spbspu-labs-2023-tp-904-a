@@ -10,6 +10,15 @@ std::string tryRemoveBrackets(constr &str)
   }
   return str.substr(1, str.size() - 2);
 }
+void safeReplace(std::string &line, constr &oldStr, constr &newStr)
+{
+  long unsigned int pos = static_cast<long unsigned int>(line.find(oldStr));
+  while (pos != std::string::npos)
+  {
+    line = line.replace(pos, oldStr.length(), newStr);
+    pos = static_cast<int>(line.find(oldStr));
+  }
+}
 string_pair getKeyValue(constr &kv, constr &divKV)
 {
   const std::string &new_kv = kv;

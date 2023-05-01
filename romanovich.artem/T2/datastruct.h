@@ -2,12 +2,14 @@
 #define ROMANOVICH_ARTEM_DATASTRUCT_H
 #include <string>
 #include <utility>
+#include <ios>
+#include <iostream>
+#include "input.h"
 namespace romanovich
 {
-  using return_tuple = std::tuple< unsigned long long, std::pair< long long, unsigned long long >, std::string >;
+  //using return_tuple = std::tuple< unsigned long long, std::pair< long long, unsigned long long >, std::string >;
   struct DataStruct
   {
-    //explicit DataStruct(return_tuple tuple);
     void printDS() const;
     static bool compareK1(const DataStruct &a, const DataStruct &b)
     {
@@ -28,6 +30,7 @@ namespace romanovich
     unsigned long long key1;
     std::pair< long long, unsigned long long > key2;
     std::string key3;
+    //explicit DataStruct(return_tuple tuple);
   };
   struct UnsignedLongLongIO
   {
@@ -50,6 +53,7 @@ namespace romanovich
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
   std::ostream &operator<<(std::ostream &out, const DataStruct &dest);
+  std::istream &operator>>(std::istream &in, DataStruct &dest);
   class iofmtguard
   {
   public:
@@ -59,7 +63,8 @@ namespace romanovich
     std::basic_ios< char > &s_;
     char fill_;
     std::streamsize precision_;
-    std::basic_ios< char >::fmtflags fmt_;
+    std::basic_ios< char >::fmtflags fmt_{};
   };
 }
+using romDelimIO = romanovich::DelimiterIO;
 #endif

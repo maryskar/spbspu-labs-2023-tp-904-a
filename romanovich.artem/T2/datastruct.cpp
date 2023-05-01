@@ -1,8 +1,6 @@
-#include <iostream>
-#include <iomanip>
 #include "datastruct.h"
+#include <iostream>
 #include "input.h"
-using romDelimIO = romanovich::DelimiterIO;
 /*romanovich::DataStruct::DataStruct(return_tuple tuple):
   key1(std::get< 0 >(tuple)),
   key2(std::get< 1 >(tuple)),
@@ -20,7 +18,7 @@ std::istream &checkSentry(std::istream &in)
   std::istream::sentry sentry(in);
   return in;
 }
-std::istream &operator>>(std::istream &in, romanovich::UnsignedLongLongIO &&dest)
+std::istream &romanovich::operator>>(std::istream &in, romanovich::UnsignedLongLongIO &&dest)
 {
   if (!checkSentry(in))
   {
@@ -28,7 +26,7 @@ std::istream &operator>>(std::istream &in, romanovich::UnsignedLongLongIO &&dest
   }
   return in >> dest.number >> romDelimIO{'u'} >> romDelimIO{'l'} >> romDelimIO{'l'};
 }
-std::istream &operator>>(std::istream &in, romanovich::RationalNumberIO &&dest)
+std::istream &romanovich::operator>>(std::istream &in, romanovich::RationalNumberIO &&dest)
 {
   if (!checkSentry(in))
   {
@@ -40,7 +38,7 @@ std::istream &operator>>(std::istream &in, romanovich::RationalNumberIO &&dest)
             >> dest.ratNumber.second
             >> romDelimIO{':'} >> romDelimIO{')'} >> romDelimIO{':'};
 }
-std::istream &operator>>(std::istream &in, romanovich::StringIO &&dest)
+std::istream &romanovich::operator>>(std::istream &in, romanovich::StringIO &&dest)
 {
   if (!checkSentry(in))
   {
@@ -48,9 +46,8 @@ std::istream &operator>>(std::istream &in, romanovich::StringIO &&dest)
   }
   return std::getline(in >> romDelimIO{'"'}, dest.string, '"');
 }
-std::istream &operator>>(std::istream &in, romDelimIO &&dest)
+std::istream &romanovich::operator>>(std::istream &in, romDelimIO &&dest)
 {
-  // все перегрузки операторов ввода/вывода должны начинаться с проверки экземпляра класса sentry
   if (!checkSentry(in))
   {
     return in;
@@ -63,7 +60,7 @@ std::istream &operator>>(std::istream &in, romDelimIO &&dest)
   }
   return in;
 }
-std::ostream &operator<<(std::ostream &out, const romanovich::DataStruct &source)
+std::ostream &romanovich::operator<<(std::ostream &out, const romanovich::DataStruct &source)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
@@ -79,6 +76,34 @@ std::ostream &operator<<(std::ostream &out, const romanovich::DataStruct &source
       << ":key2 (:N " << source.key2.first << ":D " << source.key2.second
       << ":):key3 " << source.key3 << ":)\n";
   return out;
+}
+std::istream &romanovich::operator>>(std::istream &in, romanovich::DataStruct &dest)
+{
+  if (!checkSentry(in))
+  {
+    return in;
+  }
+  for (std::string line; std::getline(std::cin, line);)
+  {
+    safeReplace(line, ":D", ";D");
+    safeReplace(line, ":)", ")");
+    safeReplace(line, "(:", "(");
+    line = tryRemoveBrackets(line);
+    std::string keyNames[3] = {"key1", "key2", "key3"};
+    try
+    {
+      return_tuple tuple = parseLine(line, ":", " ", keyNames);
+      dest = romanovich::DataStruct{
+        std::get< 0 >(tuple),
+        std::get< 1 >(tuple),
+        std::get< 2 >(tuple)
+      };
+    }
+    catch (...)
+    {
+    }
+  }
+  return in;
 }
 romanovich::iofmtguard::iofmtguard(std::basic_ios< char > &s):
   s_(s),
