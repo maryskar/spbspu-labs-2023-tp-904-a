@@ -27,7 +27,7 @@ string_pair getKeyValue(constr &kv, constr &divKV)
   return {key, value};
 }
 void extrudeTupleElemsFromString(
-  constr &str, int &begin, int &end, constr &divKV, constr *list, return_tuple &tuple, constr &divEl, bool &colonCase)
+  constr &str, int &begin, int &end, constr &divKV, constr &divEl, bool &colonCase)
 {
   std::string string = str.substr(begin, end - begin);
   int subBegin = begin;
@@ -55,7 +55,7 @@ return_tuple parseLine(constr &str, constr &divEl, constr &divKV, std::string li
   bool afterColonCase = false;
   while (end != -1)
   {
-    extrudeTupleElemsFromString(str, begin, end, divKV, list, tuple, divEl, afterColonCase);
+    extrudeTupleElemsFromString(str, begin, end, divKV,  divEl, afterColonCase);
     begin = end + 1;
     end = static_cast<int>(str.find(divEl, begin));
   }
@@ -63,12 +63,12 @@ return_tuple parseLine(constr &str, constr &divEl, constr &divKV, std::string li
   {
     if (end != -1)
     {
-      extrudeTupleElemsFromString(str, begin, end, divKV, list, tuple, divEl, afterColonCase);
+      extrudeTupleElemsFromString(str, begin, end, divKV, divEl, afterColonCase);
     }
   }
   else
   {
-    extrudeTupleElemsFromString(str, begin, end, divKV, list, tuple, divEl, afterColonCase);
+    extrudeTupleElemsFromString(str, begin, end, divKV,divEl, afterColonCase);
   }
   return tuple;
 }
