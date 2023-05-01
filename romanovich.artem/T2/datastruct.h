@@ -9,22 +9,9 @@ namespace romanovich
 {
   struct DataStruct
   {
-    static bool compareK1(const DataStruct &a, const DataStruct &b)
-    {
-      return a.key1 < b.key1;
-    }
-    static bool compareK2(const DataStruct &a, const DataStruct &b)
-    {
-      return (a.key2.first / a.key2.second) < (b.key2.first / b.key2.second);
-    }
-    static bool compareK3(const DataStruct &a, const DataStruct &b)
-    {
-      return a.key3.length() < b.key3.length();
-    }
     unsigned long long key1;
     std::pair< long long, unsigned long long > key2;
     std::string key3;
-    //explicit DataStruct(return_tuple tuple);
   };
   struct UnsignedLongLongIO
   {
@@ -58,6 +45,10 @@ namespace romanovich
     char fill_;
     std::streamsize precision_;
     std::basic_ios< char >::fmtflags fmt_{};
+  };
+  struct Comparator
+  {
+    bool operator()(const DataStruct &lhs, const DataStruct &rhs) const;
   };
 }
 using romDelimIO = romanovich::DelimiterIO;

@@ -47,7 +47,7 @@ std::istream &romanovich::operator>>(std::istream &in, romDelimIO &&dest)
   }
   return in;
 }
-std::ostream &romanovich::operator<<(std::ostream &out, const romanovich::DataStruct &source)
+std::ostream &romanovich::operator<<(std::ostream &out, const romDataStruct &source)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
@@ -60,7 +60,7 @@ std::ostream &romanovich::operator<<(std::ostream &out, const romanovich::DataSt
       << ":):key3 \"" << source.key3 << "\":)\n";
   return out;
 }
-void fillData(romanovich::DataStruct &dataStruct, std::istream &in)
+void fillData(romDataStruct &dataStruct, std::istream &in)
 {
   const std::string list[3] = {"key1", "key2", "key3"};
   std::string key, value;
@@ -86,13 +86,13 @@ void fillData(romanovich::DataStruct &dataStruct, std::istream &in)
     in >> romanovich::StringIO{dataStruct.key3} >> romDelimIO{':'};
   }
 }
-std::istream &romanovich::operator>>(std::istream &in, romanovich::DataStruct &dest)
+std::istream &romanovich::operator>>(std::istream &in, romDataStruct &dest)
 {
   if (!checkSentry(in))
   {
     return in;
   }
-  romanovich::DataStruct dataStruct;
+  romDataStruct dataStruct;
   in >> romDelimIO{'('} >> romDelimIO{':'};
   for (int i = 0; i < 3; ++i)
   {
@@ -117,4 +117,19 @@ romanovich::iofmtguard::~iofmtguard()
   s_.fill(fill_);
   s_.precision(precision_);
   s_.flags(fmt_);
+}
+bool romanovich::Comparator::operator()(const romanovich::DataStruct &lhs, const romanovich::DataStruct &rhs) const
+{
+  if (lhs.key1 != rhs.key1)
+  {
+    return lhs.key1 < rhs.key1;
+  }
+  else if ((lhs.key2.first / lhs.key2.second) != (rhs.key2.first / rhs.key2.second))
+  {
+    return (lhs.key2.first / lhs.key2.second) < (rhs.key2.first / rhs.key2.second);
+  }
+  else
+  {
+    return lhs.key3.length() < rhs.key3.length();
+  }
 }

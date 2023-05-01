@@ -24,9 +24,8 @@ int main()
       std::getline(std::cin, dummy);
     }
   }
-  std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK3);
-  std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK2);
-  std::sort(ds.begin(), ds.end(), romanovich::DataStruct::compareK1);
+  romanovich::Comparator Comp;
+  std::sort(ds.begin(), ds.end(), Comp);
   std::copy(ds.begin(), ds.end(), std::ostream_iterator< romanovich::DataStruct >(std::cout));
   return 0;
 }
