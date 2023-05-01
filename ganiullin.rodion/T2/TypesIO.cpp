@@ -32,23 +32,21 @@ namespace ganiullin {
     double value = dest.val;
     int exponent = 0;
 
-    if (value == 0) {
-      out << std::fixed << std::setprecision(1) << value << "e+" << exponent;
-    } else if (abs(value) < 1) {
+    if (value == 0 || value == 1) {
+    } else if (abs(value) <= 1) {
       while (abs(value) * 10 < 10) {
         value *= 10;
         exponent--;
       }
     } else {
-      while (abs(value) / 10 < 1) {
+      while (abs(value) / 10 >= 1) {
         value /= 10;
         exponent++;
       }
     }
 
-    if (value != 0) {
-      out << std::fixed << std::setprecision(1) << value << 'e' << exponent;
-    }
+    out << std::fixed << std::setprecision(1) << value
+        << (exponent < 0 ? "e" : "e+") << exponent;
     return out;
   }
 
