@@ -17,7 +17,7 @@ namespace dimkashelk
     return in;
   }
 
-  std::istream &operator>>(std::istream &in, DoubleIO &&dest)
+  std::istream &operator>>(std::istream &in, ComplexIO &&dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
