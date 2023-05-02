@@ -8,10 +8,11 @@
 namespace dimkashelk
 {
   using complex_type = std::complex< double >;
+  using rational_number = std::pair< long long, unsigned long long >;
   struct DataStruct
   {
     complex_type key1;
-    std::pair< long long, unsigned long long > key2;
+    rational_number key2;
     std::string key3;
   };
   struct DelimiterIO
@@ -21,6 +22,10 @@ namespace dimkashelk
   struct ComplexIO
   {
     complex_type &ref;
+  };
+  struct RationalNumberIO
+  {
+    rational_number &ref;
   };
   struct StringIO
   {
