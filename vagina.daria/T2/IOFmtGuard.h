@@ -13,4 +13,4 @@ private:
   std::basic_ios< char >::fmtflags fmt_;
 };
 
-#endif //T2_IOFMTGUARD_H
+#endif
