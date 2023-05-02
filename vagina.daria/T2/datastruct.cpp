@@ -78,3 +78,23 @@ std::ostream &operator<<(std::ostream &out, const DataStruct &src)
   out << ":)";
   return out;
 }
+
+bool comp(const DataStruct& lhs, const DataStruct& rhs)
+{
+  if (lhs.key1 < rhs.key1)
+  {
+    return true;
+  }
+  else if ((lhs.key1 == rhs.key1) && lhs.key2 < rhs.key2)
+  {
+    return true;
+  }
+  else if ((lhs.key1 == rhs.key1) && (lhs.key2 == rhs.key2) && lhs.key3 < rhs.key3)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
