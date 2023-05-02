@@ -1,4 +1,6 @@
 #include <iomanip>
+#include <vector>
+#include <iterator>
 #include "datastruct.h"
 #include "IOFmtGuard.h"
 
@@ -37,7 +39,7 @@ std::istream &operator>>(std::istream &in, DataStruct &dest)
         return in;
       }
     }
-    if (input.key3 == "")
+    if (input.key3 == "" || input.key1 == 0)
     {
       in.setstate(std::ios::failbit);
     }
@@ -58,8 +60,21 @@ std::ostream &operator<<(std::ostream &out, const DataStruct &src)
   iofmtguard fmtguard(out);
   out << "(:";
   out << "key1 " << std::scientific << std::setprecision(2) << src.key1 << ":";
-  out << "key2 " << "0b" << src.key2 << ":";
-  out << "key3 " << std::quoted(src.key3);
+  out << "key2 " << "0b";
+  auto num = src.key2;
+  std::vector < int > vect;
+  int i = 0;
+  while (num)
+  {
+    vect.push_back(num % 2);
+    num /= 2;
+    i++;
+  }
+  std::copy(vect.rbegin(),
+    vect.rend(),
+    std::ostream_iterator< int >(out)
+  );
+  out << ":key3 " << std::quoted(src.key3);
   out << ":)";
   return out;
 }
