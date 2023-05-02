@@ -74,6 +74,10 @@ std::ostream& vagina::operator<<(std::ostream &out, const DataStruct &src)
   std::copy(vect.rbegin(),vect.rend(),
     std::ostream_iterator< int >(out)
   );
+  if (vect.size() == 0)
+  {
+    out << "0";
+  }
   out << ":key3 " << std::quoted(src.key3);
   out << ":)";
   return out;
