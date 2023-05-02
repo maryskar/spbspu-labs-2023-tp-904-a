@@ -1,78 +1,29 @@
-// Пример перегрузки ввода/вывода для пользовательского типа Data.
-// Похожим образом можно организовать ввод/вывод в работе 1,
-// но в этом примере имеется ряд упрощений:
-// 1) не поддерживается произвольный порядок полей
-// 2) не поддерживаются строки некорректного формата
+//[CMP LSP] Комплексное число (std::complex< double >) в следующем виде:
+//:keyX #c(1.0 -1.0):
+//:keyX #c(-1.0 1.0):
+//Гарантируется, что вещественная и мнимая часть разделены ровно одним пробелом. При сравнении с другими полями должен быть использован модуль комплексного числа
+
+//[RAT LSP] Рациональное число (std::pair< long long, unsigned long long >) в следующем
+//виде:
+//:keyX (:N -2:D 3:):
+//:keyX (:N 3:D 2:):
 
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <cassert>
 #include <iterator>
 #include <vector>
-#include <iomanip>
-
-namespace nspace
-{
-  // формат ввода:
-  // { "key1": 1.0d, "key2": "Let madness release you" }
-  struct Data
-  {
-    double key1;
-    std::string key2;
-  };
-
-  struct DelimiterIO
-  {
-    char exp;
-  };
-
-  struct DoubleIO
-  {
-    double &ref;
-  };
-
-  struct StringIO
-  {
-    std::string &ref;
-  };
-
-  struct LabelIO
-  {
-    std::string exp;
-  };
-
-  // scope guard для возврата состояния потока в первоначальное состояние
-  class iofmtguard
-  {
-  public:
-    iofmtguard(std::basic_ios< char > &s);
-    ~iofmtguard();
-  private:
-    std::basic_ios< char > &s_;
-    char fill_;
-    std::streamsize precision_;
-    std::basic_ios< char >::fmtflags fmt_;
-  };
-
-  std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
-  std::istream &operator>>(std::istream &in, DoubleIO &&dest);
-  std::istream &operator>>(std::istream &in, StringIO &&dest);
-  std::istream &operator>>(std::istream &in, LabelIO &&dest);
-  std::istream &operator>>(std::istream &in, Data &dest);
-  std::ostream &operator<<(std::ostream &out, const Data &dest);
-}
-
+#include "data_structs.h"
 int main()
 {
-  using nspace::Data;
+  using dimkashelk::DataStruct;
 
-  std::vector< Data > data;
+  std::vector< DataStruct > data;
   std::istringstream iss("{ \"key1\": 1.0d, \"key2\": \"Let madness release you\" }");
 
   std::copy(
-    std::istream_iterator< Data >(iss),
-    std::istream_iterator< Data >(),
+    std::istream_iterator< DataStruct >(iss),
+    std::istream_iterator< DataStruct >(),
     std::back_inserter(data)
   );
 
@@ -80,13 +31,13 @@ int main()
   std::copy(
     std::begin(data),
     std::end(data),
-    std::ostream_iterator< Data >(std::cout, "\n")
+    std::ostream_iterator< DataStruct >(std::cout, "\n")
   );
 
   return 0;
 }
 
-namespace nspace
+namespace dimkashelk
 {
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest)
   {
@@ -140,21 +91,21 @@ namespace nspace
     return in;
   }
 
-  std::istream &operator>>(std::istream &in, Data &dest)
+  std::istream &operator>>(std::istream &in, DataStruct &dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
       return in;
     }
-    Data input;
+    DataStruct input;
     {
       using sep = DelimiterIO;
       using label = LabelIO;
       using dbl = DoubleIO;
       using str = StringIO;
-      in >> sep{ '{' };
-      in >> label{ "key1" } >> sep{ ':' } >> dbl{ input.key1 };
+      in >> sep{ "(:" };
+      in >> label{ "key1" } >> sep{ ":" } >> dbl{ input.key1 };
       in >> sep{ ',' };
       in >> label{ "key2" } >> sep{ ':' } >> str{ input.key2 };
       in >> sep{ '}' };
@@ -166,7 +117,7 @@ namespace nspace
     return in;
   }
 
-  std::ostream &operator<<(std::ostream &out, const Data &src)
+  std::ostream &operator<<(std::ostream &out, const DataStruct &src)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
