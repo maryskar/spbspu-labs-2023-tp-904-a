@@ -15,7 +15,7 @@ namespace dimkashelk
   };
   struct DelimiterIO
   {
-    std::string &exp;
+    char exp;
   };
   struct DoubleIO
   {
