@@ -51,7 +51,15 @@ namespace dimkashelk
     }
     return in;
   }
-
+  std::istream &operator>>(std::istream &in, std::complex< double > &c)
+  {
+    using sep = DelimiterIO;
+    double real = 0.0;
+    double imaginative = 0.0;
+    in >> sep{'('} >> real >> imaginative >> sep{')'};
+    c = std::complex< double >(real, imaginative);
+    return in;
+  }
   std::istream &operator>>(std::istream &in, DataStruct &dest)
   {
     std::istream::sentry sentry(in);
@@ -63,12 +71,11 @@ namespace dimkashelk
     {
       using sep = DelimiterIO;
       using label = LabelIO;
-      using dbl = ComplexIO;
       using str = StringIO;
       in >> sep{ '(' };
-      in >> label{ "key1" } >> sep{ ':' } >> dbl{ input.key1 };
+      in >> label{ "key1" } >> sep{ ':' } >> complex_type{ input.key1 };
       in >> sep{ ',' };
-      in >> label{ "key2" } >> sep{ ':' } >> str{ input.key2 };
+      in >> label{ "key2" } >> sep{ ':' } >> rational_number{ input.key2 };
       in >> sep{ '}' };
     }
     if (in)
