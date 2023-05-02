@@ -3,30 +3,33 @@
 #include <iostream>
 #include <string>
 
-struct DoubleIO
+namespace vagina
 {
-  double &num;
-};
-struct BinUnsignedLongLongIO
-{
-  unsigned long long &num;
-};
-struct StringIO
-{
-  std::string &string;
-};
-struct LiteralIO
-{
-  std::string literal;
-};
-struct DelimiterIO
-{
-  char char_;
-};
-std::istream &operator>>(std::istream &in, DoubleIO &&dest);
-std::istream &operator>>(std::istream &in, BinUnsignedLongLongIO &&dest);
-std::istream &operator>>(std::istream &in, StringIO &&dest);
-std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
-std::istream &operator>>(std::istream& in, LiteralIO&& dest);
+  struct DoubleIO
+  {
+    double &num;
+  };
+  struct BinUnsignedLongLongIO
+  {
+    unsigned long long &num;
+  };
+  struct StringIO
+  {
+    std::string &string;
+  };
+  struct LiteralIO
+  {
+    std::string literal;
+  };
+  struct DelimiterIO
+  {
+    char symbol;
+  };
+  std::istream &operator>>(std::istream &in, DoubleIO &&dest);
+  std::istream &operator>>(std::istream &in, BinUnsignedLongLongIO &&dest);
+  std::istream &operator>>(std::istream &in, StringIO &&dest);
+  std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
+  std::istream &operator>>(std::istream& in, LiteralIO&& dest);
+}
 
 #endif

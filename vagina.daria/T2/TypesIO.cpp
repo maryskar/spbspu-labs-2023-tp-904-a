@@ -1,6 +1,7 @@
 #include "TypesIO.h"
 #include <bitset>
-std::istream &operator>>(std::istream &in, DoubleIO &&dest)
+
+std::istream& vagina::operator>>(std::istream &in, DoubleIO &&dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -9,7 +10,7 @@ std::istream &operator>>(std::istream &in, DoubleIO &&dest)
   }
   return in >> std::scientific >> dest.num;
 }
-std::istream& operator >>(std::istream& in, LiteralIO &&dest)
+std::istream& vagina::operator>>(std::istream& in, LiteralIO &&dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -24,7 +25,7 @@ std::istream& operator >>(std::istream& in, LiteralIO &&dest)
   }
   return in;
 }
-std::istream &operator>>(std::istream &in, BinUnsignedLongLongIO &&dest)
+std::istream& vagina::operator>>(std::istream &in, BinUnsignedLongLongIO &&dest)
 {
   in >> DelimiterIO{ '0' } >> LiteralIO{ "bB" };
   unsigned long long num = 0;
@@ -48,7 +49,7 @@ std::istream &operator>>(std::istream &in, BinUnsignedLongLongIO &&dest)
   dest.num = res;
   return in;
 }
-std::istream &operator>>(std::istream &in, DelimiterIO &&dest)
+std::istream& vagina::operator>>(std::istream &in, DelimiterIO &&dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -57,13 +58,13 @@ std::istream &operator>>(std::istream &in, DelimiterIO &&dest)
   }
   char delim = '0';
   in >> delim;
-  if (in && (delim != dest.char_))
+  if (in && (delim != dest.symbol))
   {
     in.setstate(std::ios::failbit);
   }
   return in;
 }
-std::istream &operator>>(std::istream &in, StringIO &&dest)
+std::istream& vagina::operator>>(std::istream &in, StringIO &&dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)

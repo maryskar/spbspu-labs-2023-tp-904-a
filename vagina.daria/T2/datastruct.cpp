@@ -1,10 +1,11 @@
+#include "datastruct.h"
 #include <iomanip>
 #include <vector>
 #include <iterator>
-#include "datastruct.h"
 #include "IOFmtGuard.h"
+#include "TypesIO.h"
 
-std::istream &operator>>(std::istream &in, DataStruct &dest)
+std::istream& vagina::operator>>(std::istream &in, DataStruct &dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -50,7 +51,7 @@ std::istream &operator>>(std::istream &in, DataStruct &dest)
     return in;
   }
 }
-std::ostream &operator<<(std::ostream &out, const DataStruct &src)
+std::ostream& vagina::operator<<(std::ostream &out, const DataStruct &src)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
@@ -70,15 +71,14 @@ std::ostream &operator<<(std::ostream &out, const DataStruct &src)
     num /= 2;
     i++;
   }
-  std::copy(vect.rbegin(),
-    vect.rend(),
+  std::copy(vect.rbegin(),vect.rend(),
     std::ostream_iterator< int >(out)
   );
   out << ":key3 " << std::quoted(src.key3);
   out << ":)";
   return out;
 }
-bool comp(const DataStruct& lhs, const DataStruct& rhs)
+bool vagina::comp(const DataStruct& lhs, const DataStruct& rhs)
 {
   if (lhs.key1 < rhs.key1)
   {
