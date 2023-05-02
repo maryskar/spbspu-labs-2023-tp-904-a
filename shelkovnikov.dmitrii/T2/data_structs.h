@@ -48,6 +48,7 @@ namespace dimkashelk
   };
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
   std::istream &operator>>(std::istream &in, complex_type &&c);
+  std::istream &operator>>(std::istream &in, rational_number &&c);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, LabelIO &&dest);
   std::istream &operator>>(std::istream &in, DataStruct &dest);
