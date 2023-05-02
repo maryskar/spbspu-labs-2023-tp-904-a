@@ -51,7 +51,7 @@ namespace dimkashelk
     }
     return in;
   }
-  std::istream &operator>>(std::istream &in, std::complex< double > &c)
+  std::istream &operator>>(std::istream &in, complex_type &&c)
   {
     using sep = DelimiterIO;
     double real = 0.0;
@@ -72,11 +72,11 @@ namespace dimkashelk
       using sep = DelimiterIO;
       using label = LabelIO;
       using str = StringIO;
-      in >> sep{ '(' };
-      in >> label{ "key1" } >> sep{ ':' } >> complex_type{ input.key1 };
-      in >> sep{ ',' };
-      in >> label{ "key2" } >> sep{ ':' } >> rational_number{ input.key2 };
-      in >> sep{ '}' };
+      in >> sep{'('} >> sep{':'};
+      in >> label{"key1"} >> sep{'#'} >> sep{'c'} >> complex_type{ input.key1 };
+      in >> sep{ ':' };
+      in >> label{"key2"} >> sep{':'} >> rational_number{ input.key2 };
+      in >> sep{ ')' };
     }
     if (in)
     {

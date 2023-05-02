@@ -47,7 +47,7 @@ namespace dimkashelk
     std::basic_ios< char >::fmtflags fmt_;
   };
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
-  std::istream &operator>>(std::istream &in, complex_type &&dest);
+  std::istream &operator>>(std::istream &in, complex_type &&c);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, LabelIO &&dest);
   std::istream &operator>>(std::istream &in, DataStruct &dest);
