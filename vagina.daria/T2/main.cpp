@@ -1,7 +1,7 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
-#include "DataStruct.h"
+#include "datastruct.h"
 
 int main()
 {
