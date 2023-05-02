@@ -16,7 +16,6 @@ namespace dimkashelk
     }
     return in;
   }
-
   std::istream &operator>>(std::istream &in, ComplexIO &&dest)
   {
     std::istream::sentry sentry(in);
@@ -26,7 +25,6 @@ namespace dimkashelk
     }
     return in >> dest.ref >> DelimiterIO{ 'd' };
   }
-
   std::istream &operator>>(std::istream &in, StringIO &&dest)
   {
     std::istream::sentry sentry(in);
@@ -36,7 +34,6 @@ namespace dimkashelk
     }
     return std::getline(in >> DelimiterIO{ '"' }, dest.ref, '"');
   }
-
   std::istream &operator>>(std::istream &in, LabelIO &&dest)
   {
     std::istream::sentry sentry(in);
@@ -87,7 +84,7 @@ namespace dimkashelk
       in >> label{"key2"} >> rational_number{input.key2};
       in >> sep{':'};
       in >> label{"key3"} >> str{input.key3} >> sep{':'};
-      in >> sep{ ')' };
+      in >> sep{')'};
     }
     if (in)
     {
@@ -95,7 +92,6 @@ namespace dimkashelk
     }
     return in;
   }
-
   std::ostream &operator<<(std::ostream &out, const DataStruct &src)
   {
     std::ostream::sentry sentry(out);
@@ -110,14 +106,12 @@ namespace dimkashelk
     out << " }";
     return out;
   }
-
   iofmtguard::iofmtguard(std::basic_ios< char > &s) :
     s_(s),
     fill_(s.fill()),
     precision_(s.precision()),
     fmt_(s.flags())
   {}
-
   iofmtguard::~iofmtguard()
   {
     s_.fill(fill_);
