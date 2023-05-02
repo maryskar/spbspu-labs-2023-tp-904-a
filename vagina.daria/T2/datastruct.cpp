@@ -60,7 +60,7 @@ std::ostream& vagina::operator<<(std::ostream &out, const DataStruct &src)
   }
   iofmtguard fmtguard(out);
   out << "(:";
-  out << "key1 " << std::scientific << std::setprecision(2) << src.key1 << ":";
+  out << "key1 " << std::scientific << std::setprecision(1) << src.key1 << ":";
   out << "key2 " << "0b";
   auto num = src.key2;
   std::vector < int > vect;
