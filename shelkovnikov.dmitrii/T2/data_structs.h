@@ -7,9 +7,10 @@
 #include <iomanip>
 namespace dimkashelk
 {
+  using complex_type = std::complex< double >;
   struct DataStruct
   {
-    std::complex< double > key1;
+    complex_type key1;
     std::pair< long long, unsigned long long > key2;
     std::string key3;
   };
@@ -17,9 +18,9 @@ namespace dimkashelk
   {
     char exp;
   };
-  struct DoubleIO
+  struct ComplexIO
   {
-    double &ref;
+    complex_type &ref;
   };
   struct StringIO
   {
@@ -41,7 +42,7 @@ namespace dimkashelk
     std::basic_ios< char >::fmtflags fmt_;
   };
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
-  std::istream &operator>>(std::istream &in, DoubleIO &&dest);
+  std::istream &operator>>(std::istream &in, complex_type &&dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, LabelIO &&dest);
   std::istream &operator>>(std::istream &in, DataStruct &dest);
