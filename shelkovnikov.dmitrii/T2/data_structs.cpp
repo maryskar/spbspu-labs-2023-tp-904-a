@@ -82,9 +82,11 @@ namespace dimkashelk
       using label = LabelIO;
       using str = StringIO;
       in >> sep{'('} >> sep{':'};
-      in >> label{"key1"} >> sep{'#'} >> sep{'c'} >> complex_type{ input.key1 };
+      in >> label{"key1"} >> sep{'#'} >> sep{'c'} >> complex_type{input.key1};
       in >> sep{ ':' };
-      in >> label{"key2"} >> sep{':'} >> rational_number{ input.key2 };
+      in >> label{"key2"} >> rational_number{input.key2};
+      in >> sep{':'};
+      in >> label{"key3"} >> str{input.key3} >> sep{':'};
       in >> sep{ ')' };
     }
     if (in)
