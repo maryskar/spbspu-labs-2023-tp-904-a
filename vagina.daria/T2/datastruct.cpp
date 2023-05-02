@@ -88,7 +88,7 @@ bool vagina::comp(const DataStruct& lhs, const DataStruct& rhs)
   {
     return true;
   }
-  else if ((lhs.key1 == rhs.key1) && (lhs.key2 == rhs.key2) && lhs.key3 < rhs.key3)
+  else if ((lhs.key1 == rhs.key1) && (lhs.key2 == rhs.key2) && lhs.key3.length() < rhs.key3.length())
   {
     return true;
   }
