@@ -78,7 +78,6 @@ std::ostream &operator<<(std::ostream &out, const DataStruct &src)
   out << ":)";
   return out;
 }
-
 bool comp(const DataStruct& lhs, const DataStruct& rhs)
 {
   if (lhs.key1 < rhs.key1)
