@@ -5,10 +5,10 @@ bool kumachev::compareData(const kumachev::DataStruct &lhs, const kumachev::Data
   if (rhs.key1 > lhs.key1) {
     return true;
   }
-  else if ((lhs.key1 == rhs.key1) && compareRational(rhs.key2, lhs.key2)) {
+  else if ((lhs.key1 == rhs.key1) && compareRational(rhs.key2, lhs.key2) > 0) {
     return true;
   }
-  else if ((lhs.key1 == rhs.key1) && rationalEqual(lhs.key2, rhs.key2) && rhs.key3.size() >= lhs.key3.size()) {
+  else if ((lhs.key1 == rhs.key1) && compareRational(lhs.key2, rhs.key2) == 0 && rhs.key3.size() >= lhs.key3.size()) {
     return true;
   }
   else {
@@ -16,14 +16,18 @@ bool kumachev::compareData(const kumachev::DataStruct &lhs, const kumachev::Data
   }
 }
 
-bool kumachev::compareRational(const std::pair< long long int, unsigned long long int > &lhs,
-                               const std::pair< long long int, unsigned long long int > &rhs)
+int kumachev::compareRational(const std::pair< long long int, unsigned long long int > &lhs,
+    const std::pair< long long int, unsigned long long int > &rhs)
 {
-  return lhs.first / lhs.second > rhs.first / rhs.second;
-}
+  auto diff = (float) lhs.first / lhs.second - (float) rhs.first / rhs.second;
 
-bool kumachev::rationalEqual(const std::pair< long long int, unsigned long long int > &lhs,
-                             const std::pair< long long int, unsigned long long int > &rhs)
-{
-  return lhs.first / lhs.second == rhs.first / rhs.second;
+  if (diff < 0) {
+    return -1;
+  }
+  else if (diff > 0) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
 }

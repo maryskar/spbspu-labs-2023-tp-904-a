@@ -17,7 +17,7 @@ kumachev::StreamGuard::~StreamGuard()
 }
 
 void kumachev::processField(std::istream &istream, const std::string &field, kumachev::DataStruct &dataStruct,
-                            kumachev::ProcessingState &state)
+    kumachev::ProcessingState &state)
 {
   std::istream::sentry sentry(istream);
 
@@ -181,7 +181,7 @@ std::ostream &kumachev::operator<<(std::ostream &ostream, const kumachev::DataSt
 
   kumachev::StreamGuard guard(ostream);
   ostream << "(:key1 " << dataStruct.key1 << "ull:key2 (:N " << dataStruct.key2.first
-          << ":D " << dataStruct.key2.second << ":):key3 \"" << dataStruct.key3 << "\":)\n";
+          << ":D " << dataStruct.key2.second << ":):key3 \"" << dataStruct.key3 << "\":)";
 
   return ostream;
 }

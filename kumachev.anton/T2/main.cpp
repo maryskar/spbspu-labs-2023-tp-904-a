@@ -27,6 +27,11 @@ int main()
   }
 
   std::sort(data.begin(), data.end(), kumachev::compareData);
-  std::copy(data.begin(), data.end(), std::ostream_iterator< kumachev::DataStruct >(std::cout));
+  std::copy(
+    data.begin(),
+    data.end(),
+    std::ostream_iterator< kumachev::DataStruct >(std::cout, "\n")
+  );
+
   return 0;
 }

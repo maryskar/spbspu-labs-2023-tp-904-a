@@ -50,7 +50,7 @@ namespace kumachev {
   };
 
   void processField(std::istream &istream, const std::string &field, kumachev::DataStruct &dataStruct,
-                    kumachev::ProcessingState &state);
+      kumachev::ProcessingState &state);
 
   std::istream &operator>>(std::istream &istream, kumachev::DataStruct &dataStruct);
   std::istream &operator>>(std::istream &istream, kumachev::CharIO &&character);
