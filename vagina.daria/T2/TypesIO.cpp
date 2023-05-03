@@ -54,9 +54,8 @@ std::istream& vagina::operator>>(std::istream& in, LiteralIO &&dest)
 }
 std::istream& vagina::operator>>(std::istream &in, BinUnsignedLongLongI &&dest)
 {
-  in >> DelimiterIO{ '0' } >> LiteralIO{ "bB" };
-  unsigned long long num = 0;
-  in >> num;
+  in >> DelimiterIO{ '0' } >> LiteralIO{ "bB" } >> dest.num;
+  unsigned long long num = dest.num;
   unsigned long long res = 0;
   int pow = 1;
   while (num != 0)
@@ -92,12 +91,8 @@ std::ostream &vagina::operator<<(std::ostream &out, const BinUnsignedLongLongO&&
     num /= 2;
     i++;
   }
-  out << "0b";
+  out << "0b0";
   std::copy(vect.rbegin(), vect.rend(), std::ostream_iterator< int >(out));
-  if (!vect.empty() == 0)
-  {
-    out << "0";
-  }
   return out;
 }
 std::istream& vagina::operator>>(std::istream &in, DelimiterIO &&dest)
