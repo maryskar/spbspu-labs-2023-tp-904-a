@@ -19,7 +19,7 @@ std::ostream &vagina::operator<<(std::ostream &out, const DoubleO&&dest)
   }
   double num = dest.num;
   int exp = 0;
-  while (num < 1 || num > 10)
+  while (num < 1 || num >= 10)
   {
     if (num <= 1)
     {
