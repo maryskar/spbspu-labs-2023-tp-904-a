@@ -19,7 +19,7 @@ bool kumachev::compareData(const kumachev::DataStruct &lhs, const kumachev::Data
 int kumachev::compareRational(const std::pair< long long int, unsigned long long int > &lhs,
     const std::pair< long long int, unsigned long long int > &rhs)
 {
-  auto diff = (float) lhs.first / lhs.second - (float) rhs.first / rhs.second;
+  auto diff = static_cast<float>(lhs.first) / lhs.second - static_cast<float>(rhs.first) / rhs.second;
 
   if (diff < 0) {
     return -1;
