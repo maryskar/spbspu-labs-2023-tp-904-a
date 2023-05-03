@@ -15,7 +15,7 @@ std::istream& vagina::operator>>(std::istream &in, DataStruct &dest)
   DataStruct input;
   {
     using sep = DelimiterIO;
-    using ull = BinUnsignedLongLongI;
+    using ull = BinUnsignedLongLongIO;
     using dbl = DoubleI;
     using str = StringIO;
     std::string keyN = "";
@@ -61,7 +61,18 @@ std::ostream& vagina::operator<<(std::ostream &out, const DataStruct &src)
   iofmtguard fmtguard(out);
   out << "(:";
   out << "key1 " << DoubleO{src.key1};
-  out << ":key2 " << BinUnsignedLongLongO{src.key2};
+  out << ":key2 " ;
+  unsigned long long num = src.key2;
+  std::vector < unsigned long long > vect;
+  int i = 0;
+  while (num)
+  {
+    vect.push_back(num % 2);
+    num /= 2;
+    i++;
+  }
+  out << "0b0";
+  std::copy(vect.rbegin(), vect.rend(), std::ostream_iterator< int >(out));
   out << ":key3 " << std::quoted(src.key3);
   out << ":)";
   return out;
