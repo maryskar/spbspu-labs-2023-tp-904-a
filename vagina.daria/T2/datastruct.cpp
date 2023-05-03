@@ -61,7 +61,7 @@ std::ostream& vagina::operator<<(std::ostream &out, const DataStruct &src)
   iofmtguard fmtguard(out);
   out << "(:";
   out << "key1 " << DoubleO{src.key1};
-  out << ":key2 " ;
+  out << ":key2 0b0";
   unsigned long long num = src.key2;
   std::vector < unsigned long long > vect;
   int i = 0;
@@ -71,7 +71,6 @@ std::ostream& vagina::operator<<(std::ostream &out, const DataStruct &src)
     num /= 2;
     i++;
   }
-  out << "0b0";
   std::copy(vect.rbegin(), vect.rend(), std::ostream_iterator< int >(out));
   out << ":key3 " << std::quoted(src.key3);
   out << ":)";
