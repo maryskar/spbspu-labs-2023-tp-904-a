@@ -8,6 +8,8 @@ int main()
 {
   std::vector< romanovich::DataStruct > ds;
   std::back_insert_iterator< decltype(ds) > backInserter = std::back_inserter(ds);
+/*  std::copy(std::istream_iterator< romanovich::DataStruct >(std::cin),
+            std::istream_iterator< romanovich::DataStruct >(), std::back_inserter(ds));*/
   while (!std::cin.eof())
   {
     romanovich::DataStruct dataStruct;

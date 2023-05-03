@@ -4,7 +4,6 @@
 #include <utility>
 #include <ios>
 #include <iostream>
-#include "input.h"
 namespace romanovich
 {
   struct DataStruct
@@ -27,7 +26,7 @@ namespace romanovich
   };
   struct DelimiterIO
   {
-    char char_;
+    char symbol;
   };
   std::istream &operator>>(std::istream &in, UnsignedLongLongIO &&dest);
   std::istream &operator>>(std::istream &in, RationalNumberIO &&dest);
@@ -44,14 +43,11 @@ namespace romanovich
     std::basic_ios< char > &s_;
     char fill_;
     std::streamsize precision_;
-    std::basic_ios< char >::fmtflags fmt_{};
+    std::basic_ios< char >::fmtflags fmt_;
   };
   struct Comparator
   {
     bool operator()(const DataStruct &lhs, const DataStruct &rhs) const;
   };
 }
-using romDelimIO = romanovich::DelimiterIO;
-using romDataStruct = romanovich::DataStruct;
-void fillData(romDataStruct &dataStruct, std::istream &in);
 #endif

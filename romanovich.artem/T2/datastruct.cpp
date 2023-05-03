@@ -1,5 +1,7 @@
 #include "datastruct.h"
 #include <iostream>
+using romDelimIO = romanovich::DelimiterIO;
+using romDataStruct = romanovich::DataStruct;
 std::istream &checkSentry(std::istream &in)
 {
   std::istream::sentry sentry(in);
@@ -19,11 +21,9 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::RationalNumbe
   {
     return in;
   }
-  return in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'}
-            >> dest.ratNumber.first
-            >> romDelimIO{':'} >> romDelimIO{'D'}
-            >> dest.ratNumber.second
-            >> romDelimIO{':'} >> romDelimIO{')'};
+  return in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'} >> dest.ratNumber.first
+            >> romDelimIO{':'} >> romDelimIO{'D'} >> dest.ratNumber.second >> romDelimIO{':'}
+            >> romDelimIO{')'};
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::StringIO &&dest)
 {
@@ -41,7 +41,7 @@ std::istream &romanovich::operator>>(std::istream &in, romDelimIO &&dest)
   }
   char c = '0';
   in >> c;
-  if (in && (c != dest.char_))
+  if (in && (c != dest.symbol))
   {
     in.setstate(std::ios::failbit);
   }
@@ -55,9 +55,8 @@ std::ostream &romanovich::operator<<(std::ostream &out, const romDataStruct &sou
     return out;
   }
   romanovich::iofmtguard fmtguard(out);
-  out << "(:key1 0" << source.key1
-      << ":key2 (:N " << source.key2.first << ":D " << source.key2.second
-      << ":):key3 \"" << source.key3 << "\":)\n";
+  out << "(:key1 0" << source.key1 << ":key2 (:N " << source.key2.first << ":D " << source.key2.second << ":):key3 \""
+      << source.key3 << "\":)\n";
   return out;
 }
 void fillData(romDataStruct &dataStruct, std::istream &in)
@@ -75,11 +74,13 @@ void fillData(romDataStruct &dataStruct, std::istream &in)
      *
      * in >> romanovich::RationalNumberIO{dataStruct.key2} >> romDelimIO{':'};
      *
-     * Когда я использую вот этот код вместо того, что ниже, поля RationalNumberIO равны 0*/
+     * Когда я использую вот код выше вместо того, что ниже, поля RationalNumberIO не заполняются
+     * При выводе их значения равны 0
+     */
 
-    in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'}
-       >> dataStruct.key2.first >> romDelimIO{':'} >> romDelimIO{'D'}
-       >> dataStruct.key2.second >> romDelimIO{':'} >> romDelimIO{')'} >> romDelimIO{':'};
+    in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'} >> dataStruct.key2.first
+       >> romDelimIO{':'} >> romDelimIO{'D'} >> dataStruct.key2.second >> romDelimIO{':'}
+       >> romDelimIO{')'} >> romDelimIO{':'};
   }
   if (key == list[2])
   {
@@ -94,7 +95,7 @@ std::istream &romanovich::operator>>(std::istream &in, romDataStruct &dest)
   }
   romDataStruct dataStruct;
   in >> romDelimIO{'('} >> romDelimIO{':'};
-  for (int i = 0; i < 3; ++i)
+  for (size_t i = 0; i < 3; ++i)
   {
     fillData(dataStruct, in);
   }
