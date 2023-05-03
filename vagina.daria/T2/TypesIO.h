@@ -13,9 +13,13 @@ namespace vagina
   {
     const double num;
   };
-  struct BinUnsignedLongLongIO
+  struct BinUnsignedLongLongI
   {
     unsigned long long &num;
+  };
+  struct BinUnsignedLongLongO
+  {
+    unsigned long long num;
   };
   struct StringIO
   {
@@ -30,11 +34,12 @@ namespace vagina
     char symbol;
   };
   std::istream &operator>>(std::istream &in, DoubleI &&dest);
-  std::istream &operator>>(std::istream &in, BinUnsignedLongLongIO &&dest);
+  std::istream &operator>>(std::istream &in, BinUnsignedLongLongI &&dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
   std::istream &operator>>(std::istream &in, LiteralIO &&dest);
   std::ostream &operator<<(std::ostream &out, const DoubleO&&dest);
+  std::ostream &operator<<(std::ostream &out, const BinUnsignedLongLongO&&dest);
 }
 
 #endif

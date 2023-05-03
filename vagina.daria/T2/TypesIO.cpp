@@ -1,6 +1,9 @@
 #include "TypesIO.h"
 #include <bitset>
 #include <iomanip>
+#include <vector>
+#include <iterator>
+
 std::istream& vagina::operator>>(std::istream &in, DoubleI &&dest)
 {
   std::istream::sentry sentry(in);
@@ -32,7 +35,7 @@ std::ostream &vagina::operator<<(std::ostream &out, const DoubleO&&dest)
       exp ++;
     }
   }
-  out << std::fixed << std::setprecision(1) << num << (exp > 0 ? "e+" : "e") << exp;
+  return out << std::fixed << std::setprecision(1) << num << (exp > 0 ? "e+" : "e") << exp;
 }
 std::istream& vagina::operator>>(std::istream& in, LiteralIO &&dest)
 {
@@ -49,7 +52,7 @@ std::istream& vagina::operator>>(std::istream& in, LiteralIO &&dest)
   }
   return in;
 }
-std::istream& vagina::operator>>(std::istream &in, BinUnsignedLongLongIO &&dest)
+std::istream& vagina::operator>>(std::istream &in, BinUnsignedLongLongI &&dest)
 {
   in >> DelimiterIO{ '0' } >> LiteralIO{ "bB" };
   unsigned long long num = 0;
@@ -72,6 +75,30 @@ std::istream& vagina::operator>>(std::istream &in, BinUnsignedLongLongIO &&dest)
   }
   dest.num = res;
   return in;
+}
+std::ostream &vagina::operator<<(std::ostream &out, const BinUnsignedLongLongO&&dest)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  unsigned long long num = dest.num;
+  std::vector < unsigned long long > vect;
+  int i = 0;
+  while (num)
+  {
+    vect.push_back(num % 2);
+    num /= 2;
+    i++;
+  }
+  out << "0b";
+  std::copy(vect.rbegin(), vect.rend(), std::ostream_iterator< int >(out));
+  if (!vect.empty() == 0)
+  {
+    out << "0";
+  }
+  return out;
 }
 std::istream& vagina::operator>>(std::istream &in, DelimiterIO &&dest)
 {
