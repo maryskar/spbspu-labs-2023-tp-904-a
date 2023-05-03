@@ -1,7 +1,6 @@
 #include "TypesIO.h"
 #include <bitset>
 #include <iomanip>
-#include <vector>
 #include <iterator>
 
 std::istream& vagina::operator>>(std::istream &in, DoubleI &&dest)

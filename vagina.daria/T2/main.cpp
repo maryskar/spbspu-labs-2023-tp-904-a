@@ -17,8 +17,7 @@ int main()
     );
   }
   std::sort(data.begin(), data.end(), vagina::comp);
-  std::copy(std::begin(data),
-    std::end(data),
+  std::copy(std::begin(data), std::end(data),
     std::ostream_iterator< DataStruct >(std::cout, "\n")
   );
   return 0;
