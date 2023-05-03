@@ -68,20 +68,9 @@ std::ostream& vagina::operator<<(std::ostream &out, const DataStruct &src)
 }
 bool vagina::comp(const DataStruct& lhs, const DataStruct& rhs)
 {
-  if (lhs.key1 < rhs.key1)
+  if (lhs.key1 == rhs.key1)
   {
-    return true;
+    return (lhs.key2 == rhs.key2) ? lhs.key3.length() < rhs.key3.length() : lhs.key2 < rhs.key2;
   }
-  else if ((lhs.key1 == rhs.key1) && lhs.key2 < rhs.key2)
-  {
-    return true;
-  }
-  else if ((lhs.key1 == rhs.key1) && (lhs.key2 == rhs.key2) && lhs.key3.length() < rhs.key3.length())
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
+  return lhs.key1 < rhs.key1;
 }
