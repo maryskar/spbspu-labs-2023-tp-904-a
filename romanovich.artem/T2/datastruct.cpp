@@ -21,9 +21,9 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::RationalNumbe
   {
     return in;
   }
-  return in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'}
-            >> dest.ratNumber.first >> romDelimIO{':'} >> romDelimIO{'D'}
-            >> dest.ratNumber.second >> romDelimIO{':'} >> romDelimIO{')'};
+  return in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'} >> dest.ratNumber.first
+            >> romDelimIO{':'} >> romDelimIO{'D'} >> dest.ratNumber.second >> romDelimIO{':'}
+            >> romDelimIO{')'};
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::StringIO &&dest)
 {
@@ -78,10 +78,9 @@ void fillData(romDataStruct &dataStruct, std::istream &in)
      * При выводе их значения равны 0
      */
 
-    in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'}
-       >> dataStruct.key2.first >> romDelimIO{':'} >> romDelimIO{'D'}
-       >> dataStruct.key2.second >> romDelimIO{':'} >> romDelimIO{')'}
-       >> romDelimIO{':'};
+    in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'} >> dataStruct.key2.first
+       >> romDelimIO{':'} >> romDelimIO{'D'} >> dataStruct.key2.second >> romDelimIO{':'}
+       >> romDelimIO{')'} >> romDelimIO{':'};
   }
   if (key == list[2])
   {
@@ -120,7 +119,7 @@ romanovich::iofmtguard::~iofmtguard()
   s_.precision(precision_);
   s_.flags(fmt_);
 }
-bool romanovich::Comparator::operator()(const romanovich::DataStruct &lhs, const romanovich::DataStruct &rhs) const
+bool romanovich::Comparator::operator()(const romDataStruct &lhs, const romDataStruct &rhs) const
 {
   if (lhs.key1 != rhs.key1)
   {
