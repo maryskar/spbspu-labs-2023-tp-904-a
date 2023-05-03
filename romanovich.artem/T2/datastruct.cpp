@@ -21,9 +21,9 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::RationalNumbe
   {
     return in;
   }
-  return in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'} >> dest.ratNumber.first
-            >> romDelimIO{':'} >> romDelimIO{'D'} >> dest.ratNumber.second >> romDelimIO{':'}
-            >> romDelimIO{')'};
+  return in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'}
+            >> dest.ratNumber.first >> romDelimIO{':'} >> romDelimIO{'D'} >> dest.ratNumber.second
+            >> romDelimIO{':'} >> romDelimIO{')'};
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::StringIO &&dest)
 {
