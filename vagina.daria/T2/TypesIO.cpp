@@ -1,7 +1,7 @@
 #include "TypesIO.h"
 #include <bitset>
-
-std::istream& vagina::operator>>(std::istream &in, DoubleIO &&dest)
+#include <iomanip>
+std::istream& vagina::operator>>(std::istream &in, DoubleI &&dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -9,6 +9,30 @@ std::istream& vagina::operator>>(std::istream &in, DoubleIO &&dest)
     return in;
   }
   return in >> std::scientific >> dest.num;
+}
+std::ostream &vagina::operator<<(std::ostream &out, const DoubleO&&dest)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  double num = dest.num;
+  int exp = 0;
+  while (num < 1 || num > 10)
+  {
+    if (num <= 1)
+    {
+      num *= 10;
+      exp --;
+    }
+    else if (num >= 1)
+    {
+      num /= 10;
+      exp ++;
+    }
+  }
+  out << std::fixed << std::setprecision(1) << num << (exp > 0 ? "e+" : "e") << exp;
 }
 std::istream& vagina::operator>>(std::istream& in, LiteralIO &&dest)
 {

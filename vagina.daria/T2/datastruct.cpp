@@ -16,7 +16,7 @@ std::istream& vagina::operator>>(std::istream &in, DataStruct &dest)
   {
     using sep = DelimiterIO;
     using ull = BinUnsignedLongLongIO;
-    using dbl = DoubleIO;
+    using dbl = DoubleI;
     using str = StringIO;
     std::string keyN = "";
     in >> sep{ '(' } >> sep { ':' };
@@ -60,8 +60,8 @@ std::ostream& vagina::operator<<(std::ostream &out, const DataStruct &src)
   }
   iofmtguard fmtguard(out);
   out << "(:";
-  out << "key1 " << std::scientific << std::setprecision(1) << src.key1 << ":";
-  out << "key2 " << "0b";
+  out << "key1 " << DoubleO{src.key1};
+  out << ":key2 " << "0b";
   auto num = src.key2;
   std::vector < int > vect;
   int i = 0;
