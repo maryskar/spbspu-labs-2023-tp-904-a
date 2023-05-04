@@ -1,7 +1,7 @@
 #include "datastruct.h"
 #include <iostream>
-using romDelimIO = romanovich::DelimiterIO;
-using romDataStruct = romanovich::DataStruct;
+using rDelimIO = romanovich::DelimiterIO;
+using rDataStruct = romanovich::DataStruct;
 std::istream &checkSentry(std::istream &in)
 {
   std::istream::sentry sentry(in);
@@ -13,7 +13,7 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::UnsignedLongL
   {
     return in;
   }
-  return in >> romDelimIO{'0'} >> dest.number;
+  return in >> rDelimIO{'0'} >> dest.number;
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::RationalNumberIO &&dest)
 {
@@ -21,9 +21,9 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::RationalNumbe
   {
     return in;
   }
-  return in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'} >> dest.ratNumber.first
-            >> romDelimIO{':'} >> romDelimIO{'D'} >> dest.ratNumber.second >> romDelimIO{':'}
-            >> romDelimIO{')'};
+  return in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
+            >> dest.ratNumber.first >> rDelimIO{':'} >> rDelimIO{'D'}
+            >> dest.ratNumber.second >> rDelimIO{':'} >> rDelimIO{')'};
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::StringIO &&dest)
 {
@@ -31,9 +31,9 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::StringIO &&de
   {
     return in;
   }
-  return std::getline(in >> romDelimIO{'"'}, dest.string, '"');
+  return std::getline(in >> rDelimIO{'"'}, dest.string, '"');
 }
-std::istream &romanovich::operator>>(std::istream &in, romDelimIO &&dest)
+std::istream &romanovich::operator>>(std::istream &in, rDelimIO &&dest)
 {
   if (!checkSentry(in))
   {
@@ -47,7 +47,7 @@ std::istream &romanovich::operator>>(std::istream &in, romDelimIO &&dest)
   }
   return in;
 }
-std::ostream &romanovich::operator<<(std::ostream &out, const romDataStruct &source)
+std::ostream &romanovich::operator<<(std::ostream &out, const rDataStruct &source)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
@@ -59,47 +59,48 @@ std::ostream &romanovich::operator<<(std::ostream &out, const romDataStruct &sou
       << ":):key3 \"" << source.key3 << "\":)\n";
   return out;
 }
-void fillData(romDataStruct &dataStruct, std::istream &in)
+void fillData(rDataStruct &dataStruct, std::istream &in)
 {
   const std::string list[3] = {"key1", "key2", "key3"};
   std::string key, value;
   in >> key;
   if (key == list[0])
   {
-    in >> romanovich::UnsignedLongLongIO{dataStruct.key1} >> romDelimIO{':'};
+    in >> romanovich::UnsignedLongLongIO{dataStruct.key1} >> rDelimIO{':'};
   }
   if (key == list[1])
   {
     /* Я не понимаю, что не так :(
      *
-     * in >> romanovich::RationalNumberIO{dataStruct.key2} >> romDelimIO{':'};
+     * in >> romanovich::RationalNumberIO{dataStruct.key2} >> rDelimIO{':'};
      *
      * Когда я использую вот код выше вместо того, что ниже, поля RationalNumberIO не заполняются
      * При выводе их значения равны 0
      */
 
-    in >> romDelimIO{'('} >> romDelimIO{':'} >> romDelimIO{'N'} >> dataStruct.key2.first
-       >> romDelimIO{':'} >> romDelimIO{'D'} >> dataStruct.key2.second >> romDelimIO{':'}
-       >> romDelimIO{')'} >> romDelimIO{':'};
+    in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
+       >> dataStruct.key2.first >> rDelimIO{':'} >> rDelimIO{'D'}
+       >> dataStruct.key2.second >> rDelimIO{':'} >> rDelimIO{')'}
+       >> rDelimIO{':'};
   }
   if (key == list[2])
   {
-    in >> romanovich::StringIO{dataStruct.key3} >> romDelimIO{':'};
+    in >> romanovich::StringIO{dataStruct.key3} >> rDelimIO{':'};
   }
 }
-std::istream &romanovich::operator>>(std::istream &in, romDataStruct &dest)
+std::istream &romanovich::operator>>(std::istream &in, rDataStruct &dest)
 {
   if (!checkSentry(in))
   {
     return in;
   }
-  romDataStruct dataStruct;
-  in >> romDelimIO{'('} >> romDelimIO{':'};
+  rDataStruct dataStruct;
+  in >> rDelimIO{'('} >> rDelimIO{':'};
   for (size_t i = 0; i < 3; ++i)
   {
     fillData(dataStruct, in);
   }
-  in >> romDelimIO{')'};
+  in >> rDelimIO{')'};
   if (in)
   {
     dest = dataStruct;
@@ -119,7 +120,7 @@ romanovich::iofmtguard::~iofmtguard()
   s_.precision(precision_);
   s_.flags(fmt_);
 }
-bool romanovich::Comparator::operator()(const romDataStruct &lhs, const romDataStruct &rhs) const
+bool romanovich::Comparator::operator()(const rDataStruct &lhs, const rDataStruct &rhs) const
 {
   if (lhs.key1 != rhs.key1)
   {
