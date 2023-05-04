@@ -11,7 +11,18 @@ int main()
   auto out_begin = std::ostream_iterator< data_struct >(std::cout, "\n");
   dimkashelk::Comparator comparator;
   std::vector< data_struct > data;
-  std::copy(it_begin, it_end, std::back_inserter(data));
+  while (!std::cin.eof()) {
+    dimkashelk::DataStruct dataStruct;
+    std::cin >> dataStruct;
+    if (!std::cin)
+    {
+      data.push_back(dataStruct);
+    }
+    else
+    {
+      std::cin.clear();
+    }
+  }
   std::sort(data.begin(), data.end(), comparator);
   std::copy(std::begin(data), std::end(data), out_begin);
   return 0;
