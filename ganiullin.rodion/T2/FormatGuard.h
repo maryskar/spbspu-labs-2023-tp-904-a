@@ -5,11 +5,11 @@
 
 namespace ganiullin {
   class iofmtguard {
-   public:
+  public:
     iofmtguard(std::basic_ios< char >& s);
     ~iofmtguard();
 
-   private:
+  private:
     std::basic_ios< char >& s_;
     char fill_;
     std::streamsize precision_;
