@@ -48,22 +48,13 @@ namespace dimkashelk
     }
     return in;
   }
-  std::istream &operator>>(std::istream &in, complex_type &&c)
-  {
-    using sep = DelimiterIO;
-    double real = 0.0;
-    double imaginative = 0.0;
-    in >> sep{'('} >> real >> imaginative >> sep{')'};
-    c = std::complex< double >(real, imaginative);
-    return in;
-  }
-  std::istream &operator>>(std::istream &in, rational_number &&c)
+  std::istream &operator>>(std::istream &in, RationalNumberIO &&c)
   {
     using sep = DelimiterIO;
     long long first = 0;
     unsigned long long second = 0;
     in >> sep{'('} >> sep{':'} >> sep{'N'} >> first >> sep{':'} >> sep{'D'} >> second >> sep{':'} >> sep{')'};
-    c = rational_number{first, second};
+    c.ref = rational_number{first, second};
     return in;
   }
   std::istream &operator>>(std::istream &in, DataStruct &dest)
