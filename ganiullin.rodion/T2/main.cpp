@@ -5,18 +5,28 @@
 
 #include "DataStruct.h"
 
-int main() {
+constexpr size_t CHARS_TO_IGNORE = std::numeric_limits< std::streamsize >::max();
+
+int main()
+{
+  auto inIterBegin = std::istream_iterator< ganiullin::DataStruct >(std::cin);
+  auto inIterEnd = std::istream_iterator< ganiullin::DataStruct >();
+  auto outIter = std::ostream_iterator< ganiullin::DataStruct >(std::cout, "\n");
   std::vector< ganiullin::DataStruct > data;
-  ganiullin::Comparator Comp;
+  ganiullin::Comparator comparator;
 
-  std::copy(std::istream_iterator< ganiullin::DataStruct >(std::cin),
-            std::istream_iterator< ganiullin::DataStruct >(),
-            std::back_inserter(data));
+  while (!std::cin.eof()) {
+    std::copy(inIterBegin, inIterEnd, std::back_inserter(data));
 
-  std::sort(data.begin(), data.end(), Comp);
+    if (std::cin.fail()) {
+      std::cin.clear();
+      std::cin.ignore(CHARS_TO_IGNORE, '\n');
+    }
+  }
 
-  std::copy(std::begin(data), std::end(data),
-            std::ostream_iterator< ganiullin::DataStruct >(std::cout, "\n"));
+  std::sort(data.begin(), data.end(), comparator);
+
+  std::copy(std::begin(data), std::end(data), outIter);
 
   return 0;
 }

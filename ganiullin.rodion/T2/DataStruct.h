@@ -17,5 +17,5 @@ namespace ganiullin {
   struct Comparator {
     bool operator()(const DataStruct& lhs, const DataStruct rhs) const;
   };
-}  // namespace ganiullin
+}
 #endif
