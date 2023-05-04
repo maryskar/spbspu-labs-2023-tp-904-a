@@ -177,20 +177,20 @@ static void kumachev::processField(std::istream &istream, const std::string &fie
   std::istream::sentry sentry(istream);
 
   if (!sentry) {
-  return;
+    return;
   }
 
   if (!state.key1 && field == "key1") {
-  state.key1 = true;
-  istream >> UnsignedLongLongIO{ dataStruct.key1 } >> CharIO{ ':' };
+    state.key1 = true;
+    istream >> UnsignedLongLongIO{ dataStruct.key1 } >> CharIO{ ':' };
   } else if (!state.key2 && field == "key2") {
-  state.key2 = true;
-  istream >> PairIO{ dataStruct.key2 } >> CharIO{ ':' };
+    state.key2 = true;
+    istream >> PairIO{ dataStruct.key2 } >> CharIO{ ':' };
   } else if (!state.key3 && field == "key3") {
-  state.key3 = true;
-  istream >> StringIO{ dataStruct.key3 } >> CharIO{ ':' };
+    state.key3 = true;
+    istream >> StringIO{ dataStruct.key3 } >> CharIO{ ':' };
   } else {
-  istream.setstate(std::ios::failbit);
+    istream.setstate(std::ios::failbit);
   }
 }
 
