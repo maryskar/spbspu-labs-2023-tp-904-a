@@ -97,6 +97,11 @@ namespace dimkashelk
     out << '(' << c.real() << ' ' << c.imag() << ')';
     return out;
   }
+  std::ostream &operator<<(std::ostream &out, const rational_number &c)
+  {
+    out << "(:N " << c.first << ":D " << c.second << ":)";
+    return out;
+  }
   std::ostream &operator<<(std::ostream &out, const DataStruct &src)
   {
     std::ostream::sentry sentry(out);
@@ -108,6 +113,7 @@ namespace dimkashelk
     out << "(:key1 #c";
     out << std::fixed << std::setprecision(1) << src.key1;
     out << ":key2 ";
+    out << std::fixed << std::setprecision(0) << src.key2;
     out << " }";
     return out;
   }
