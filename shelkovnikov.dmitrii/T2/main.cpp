@@ -11,16 +11,19 @@ int main()
   auto out_begin = std::ostream_iterator< data_struct >(std::cout, "\n");
   dimkashelk::Comparator comparator;
   std::vector< data_struct > data;
-  while (!std::cin.eof()) {
+  while (!std::cin.eof())
+  {
     dimkashelk::DataStruct dataStruct;
     std::cin >> dataStruct;
-    if (!std::cin)
+    if (std::cin)
     {
       data.push_back(dataStruct);
     }
     else
     {
       std::cin.clear();
+      std::string to_skip;
+      std::getline(std::cin, to_skip);
     }
   }
   std::sort(data.begin(), data.end(), comparator);
