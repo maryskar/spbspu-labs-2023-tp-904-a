@@ -35,6 +35,10 @@ namespace dimkashelk
   {
     std::string exp;
   };
+  struct Comparator
+  {
+    bool operator()(const DataStruct &lhs, const DataStruct &rhs) const;
+  };
   class iofmtguard
   {
   public:

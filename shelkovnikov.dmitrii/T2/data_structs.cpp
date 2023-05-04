@@ -11,7 +11,7 @@ namespace dimkashelk
     using sep = DelimiterIO;
     double real = 0.0;
     double imag = 0.0;
-    in >> sep{'('} >> real >> imag >> sep{')'};
+    in >> sep{'#'} >> sep{'c'} >> sep{'('} >> real >> imag >> sep{')'};
     c = complex_type(real, imag);
     return in;
   }
@@ -70,7 +70,10 @@ namespace dimkashelk
       return in;
     }
     std::string data = "";
-    if ((in >> data) && (data != dest.exp))
+    in >> data;
+    in.putback(data.back());
+    data.pop_back();
+    if (in && (data != dest.exp))
     {
       in.setstate(std::ios::failbit);
     }
@@ -99,12 +102,32 @@ namespace dimkashelk
       using str = StringIO;
       using cmx = ComplexIO;
       using rtn = RationalNumberIO;
-      in >> sep{'('} >> sep{':'};
-      in >> label{"key1"} >> sep{'#'} >> sep{'c'} >> cmx{input.key1} >> sep{':'};
-      in >> label{"key2"} >> rtn{input.key2} >> sep{':'};
-      in >> label{"key3"} >> str{input.key3} >> sep{':'};
-      in >> sep{')'};
+      in >> sep{'('};
+      for (unsigned i = 0; i < 3; i++)
+      {
+        size_t number = 0;
+        in >> sep{':'};
+        sentry = std::istream::sentry(in);
+        in >> label{"key"};
+        sentry = std::istream::sentry(in);
+        in >> number;
+        sentry = std::istream::sentry(in);
+        if (number == 1)
+        {
+          in >> cmx{input.key1};
+        }
+        else if (number == 2)
+        {
+          in >> rtn{input.key2};
+        }
+        else if (number == 3)
+        {
+          in >> str{input.key3};
+        }
+      }
+      in >> sep{':'} >> sep{')'};
     }
+    sentry = std::istream::sentry(in);
     if (in)
     {
       dest = input;
@@ -135,6 +158,18 @@ namespace dimkashelk
     out << std::fixed << std::setprecision(0) << src.key2;
     out << ":key3 \"" << src.key3 << "\":)";
     return out;
+  }
+  bool Comparator::operator()(const dimkashelk::DataStruct &lhs, const dimkashelk::DataStruct &rhs) const
+  {
+    if (abs(lhs.key1) == abs(rhs.key1))
+    {
+      if (lhs.key2 == rhs.key2)
+      {
+        return lhs.key3.length() < rhs.key3.length();
+      }
+      return lhs.key2 < rhs.key2;
+    }
+    return abs(lhs.key1) < abs(rhs.key1);
   }
   iofmtguard::iofmtguard(std::basic_ios< char > &s) :
     s_(s),
