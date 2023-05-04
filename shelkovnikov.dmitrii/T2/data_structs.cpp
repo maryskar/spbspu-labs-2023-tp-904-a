@@ -1,7 +1,7 @@
 #include "data_structs.h"
 namespace dimkashelk
 {
-  std::istream &operator>>(std::istream &in, complex_type &&c)
+  std::istream &operator>>(std::istream &in, complex_type &c)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -15,7 +15,20 @@ namespace dimkashelk
     c = complex_type(real, imag);
     return in;
   }
-  std::istream &operator>>(std::istream &in, rational_number &&c);
+  std::istream &operator>>(std::istream &in, rational_number &c)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    using sep = DelimiterIO;
+    long long first = 0;
+    unsigned long long second = 0;
+    in >> sep{'('} >> sep{':'} >> sep{'N'} >> first >> sep{':'} >> sep{'D'} >> second >> sep{':'} >> sep{')'};
+    c = rational_number{first, second};
+    return in;
+  }
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest)
   {
     std::istream::sentry sentry(in);
@@ -70,12 +83,7 @@ namespace dimkashelk
     {
       return in;
     }
-    using sep = DelimiterIO;
-    long long first = 0;
-    unsigned long long second = 0;
-    in >> sep{'('} >> sep{':'} >> sep{'N'} >> first >> sep{':'} >> sep{'D'} >> second >> sep{':'} >> sep{')'};
-    c.ref = rational_number{first, second};
-    return in;
+    return in >> c.ref;
   }
   std::istream &operator>>(std::istream &in, DataStruct &dest)
   {
@@ -92,8 +100,8 @@ namespace dimkashelk
       using cmx = ComplexIO;
       using rtn = RationalNumberIO;
       in >> sep{'('} >> sep{':'};
-      in >> label{"key1"} >> sep{'#'} >> sep{'c'} >> cmx{input.key1} >> sep{ ':' };
-      in >> label{"key2"} >> rational_number{input.key2} >> sep{':'};
+      in >> label{"key1"} >> sep{'#'} >> sep{'c'} >> cmx{input.key1} >> sep{':'};
+      in >> label{"key2"} >> rtn{input.key2} >> sep{':'};
       in >> label{"key3"} >> str{input.key3} >> sep{':'};
       in >> sep{')'};
     }

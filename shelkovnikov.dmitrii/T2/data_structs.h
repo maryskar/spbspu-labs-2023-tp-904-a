@@ -46,8 +46,8 @@ namespace dimkashelk
     std::streamsize precision_;
     std::basic_ios< char >::fmtflags fmt_;
   };
-  std::istream &operator>>(std::istream &in, complex_type &&c);
-  std::istream &operator>>(std::istream &in, rational_number &&c);
+  std::istream &operator>>(std::istream &in, complex_type &c);
+  std::istream &operator>>(std::istream &in, rational_number &c);
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
   std::istream &operator>>(std::istream &in, ComplexIO &&c);
   std::istream &operator>>(std::istream &in, RationalNumberIO &&c);
