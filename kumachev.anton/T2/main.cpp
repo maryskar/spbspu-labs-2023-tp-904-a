@@ -19,8 +19,7 @@ int main()
     if (!in.fail()) {
       *backInserter = dataStruct;
       ++backInserter;
-    }
-    else {
+    } else {
       in.clear();
       in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }

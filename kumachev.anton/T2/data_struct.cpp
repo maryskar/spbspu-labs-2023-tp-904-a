@@ -28,16 +28,13 @@ void kumachev::processField(std::istream &istream, const std::string &field, kum
   if (!state.key1 && field == "key1") {
     state.key1 = true;
     istream >> kumachev::UnsignedLongLongIO{ dataStruct.key1 } >> kumachev::CharIO{ ':' };
-  }
-  else if (!state.key2 && field == "key2") {
+  } else if (!state.key2 && field == "key2") {
     state.key2 = true;
     istream >> kumachev::PairIO{ dataStruct.key2 } >> kumachev::CharIO{ ':' };
-  }
-  else if (!state.key3 && field == "key3") {
+  } else if (!state.key3 && field == "key3") {
     state.key3 = true;
     istream >> kumachev::StringIO{ dataStruct.key3 } >> kumachev::CharIO{ ':' };
-  }
-  else {
+  } else {
     istream.setstate(std::ios::failbit);
   }
 }
@@ -67,8 +64,7 @@ std::istream &kumachev::operator>>(std::istream &istream, kumachev::DataStruct &
   if (istream) {
     if (!state.key1 || !state.key2 || !state.key3) {
       istream.setstate(std::ios::failbit);
-    }
-    else {
+    } else {
       dataStruct = data;
     }
   }
