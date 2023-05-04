@@ -11,7 +11,6 @@ int main()
     std::istream_iterator< data_struct >(),
     std::back_inserter(data)
   );
-  std::cout << "Data:\n";
   std::copy(
     std::begin(data),
     std::end(data),
