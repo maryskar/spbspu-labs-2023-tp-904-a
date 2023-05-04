@@ -92,6 +92,11 @@ namespace dimkashelk
     }
     return in;
   }
+  std::ostream &operator<<(std::ostream &out, const complex_type &c)
+  {
+    out << '(' << c.real() << ' ' << c.imag() << ')';
+    return out;
+  }
   std::ostream &operator<<(std::ostream &out, const DataStruct &src)
   {
     std::ostream::sentry sentry(out);
@@ -100,9 +105,9 @@ namespace dimkashelk
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "{ ";
-    out << "\"key1\": " << std::fixed << std::setprecision(1) << src.key1 << "d, ";
-    out << "\"key2\": " << src.key2;
+    out << "(:key1 #c";
+    out << std::fixed << std::setprecision(1) << src.key1;
+    out << ":key2 ";
     out << " }";
     return out;
   }
