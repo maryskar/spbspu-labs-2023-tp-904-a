@@ -72,14 +72,6 @@ namespace romanovich
     }
     if (key == list[1])
     {
-      /* Я не понимаю, что не так :(
-       *
-       * in >> RationalNumberIO{dataStruct.key2} >> rDelimIO{':'};
-       *
-       * Когда я использую вот код выше вместо того, что ниже, поля RationalNumberIO 
-       * не заполняются. При выводе их значения равны 0
-       */
-
       in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
          >> dataStruct.key2.first >> rDelimIO{':'} >> rDelimIO{'D'}
          >> dataStruct.key2.second >> rDelimIO{':'} >> rDelimIO{')'}
