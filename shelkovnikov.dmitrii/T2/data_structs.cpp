@@ -1,6 +1,21 @@
 #include "data_structs.h"
 namespace dimkashelk
 {
+  std::istream &operator>>(std::istream &in, complex_type &&c)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    using sep = DelimiterIO;
+    double real = 0.0;
+    double imag = 0.0;
+    in >> sep{'('} >> real >> imag >> sep{')'};
+    c = complex_type(real, imag);
+    return in;
+  }
+  std::istream &operator>>(std::istream &in, rational_number &&c);
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest)
   {
     std::istream::sentry sentry(in);
@@ -23,7 +38,7 @@ namespace dimkashelk
     {
       return in;
     }
-    return in >> dest.ref >> DelimiterIO{ 'd' };
+    return in >> dest.ref;
   }
   std::istream &operator>>(std::istream &in, StringIO &&dest)
   {
@@ -32,7 +47,7 @@ namespace dimkashelk
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO{ '"' }, dest.ref, '"');
+    return std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
   }
   std::istream &operator>>(std::istream &in, LabelIO &&dest)
   {
@@ -42,7 +57,7 @@ namespace dimkashelk
       return in;
     }
     std::string data = "";
-    if ((in >> StringIO{ data }) && (data != dest.exp))
+    if ((in >> data) && (data != dest.exp))
     {
       in.setstate(std::ios::failbit);
     }
@@ -50,6 +65,11 @@ namespace dimkashelk
   }
   std::istream &operator>>(std::istream &in, RationalNumberIO &&c)
   {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
     using sep = DelimiterIO;
     long long first = 0;
     unsigned long long second = 0;
@@ -69,11 +89,11 @@ namespace dimkashelk
       using sep = DelimiterIO;
       using label = LabelIO;
       using str = StringIO;
+      using cmx = ComplexIO;
+      using rtn = RationalNumberIO;
       in >> sep{'('} >> sep{':'};
-      in >> label{"key1"} >> sep{'#'} >> sep{'c'} >> complex_type{input.key1};
-      in >> sep{ ':' };
-      in >> label{"key2"} >> rational_number{input.key2};
-      in >> sep{':'};
+      in >> label{"key1"} >> sep{'#'} >> sep{'c'} >> cmx{input.key1} >> sep{ ':' };
+      in >> label{"key2"} >> rational_number{input.key2} >> sep{':'};
       in >> label{"key3"} >> str{input.key3} >> sep{':'};
       in >> sep{')'};
     }
