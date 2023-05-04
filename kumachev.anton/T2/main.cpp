@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <iterator>
 #include "data_struct.h"
-#include "sort.h"
 
 int main()
 {
