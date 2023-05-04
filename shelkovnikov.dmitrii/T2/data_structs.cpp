@@ -95,42 +95,38 @@ namespace dimkashelk
     {
       return in;
     }
-    DataStruct input;
+    using sep = DelimiterIO;
+    using label = LabelIO;
+    using str = StringIO;
+    using cmx = ComplexIO;
+    using rtn = RationalNumberIO;
+    in >> sep{'('};
+    complex_type comp;
+    rational_number rationalNumber;
+    std::string data;
+    for (unsigned i = 0; i < 3; i++)
     {
-      using sep = DelimiterIO;
-      using label = LabelIO;
-      using str = StringIO;
-      using cmx = ComplexIO;
-      using rtn = RationalNumberIO;
-      in >> sep{'('};
-      for (unsigned i = 0; i < 3; i++)
+      size_t number = 0;
+      in >> sep{':'};
+      in >> label{"key"};
+      in >> number;
+      if (number == 1)
       {
-        size_t number = 0;
-        in >> sep{':'};
-        sentry = std::istream::sentry(in);
-        in >> label{"key"};
-        sentry = std::istream::sentry(in);
-        in >> number;
-        sentry = std::istream::sentry(in);
-        if (number == 1)
-        {
-          in >> cmx{input.key1};
-        }
-        else if (number == 2)
-        {
-          in >> rtn{input.key2};
-        }
-        else if (number == 3)
-        {
-          in >> str{input.key3};
-        }
+        in >> cmx{comp};
       }
-      in >> sep{':'} >> sep{')'};
+      else if (number == 2)
+      {
+        in >> rtn{rationalNumber};
+      }
+      else if (number == 3)
+      {
+        in >> str{data};
+      }
     }
-    sentry = std::istream::sentry(in);
+    in >> sep{':'} >> sep{')'};
     if (in)
     {
-      dest = input;
+      dest = DataStruct{comp, rationalNumber, data};
     }
     return in;
   }
