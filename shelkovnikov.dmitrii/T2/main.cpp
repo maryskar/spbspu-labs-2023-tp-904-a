@@ -6,20 +6,15 @@
 int main()
 {
   using data_struct = dimkashelk::DataStruct;
-  auto it_begin = std::istream_iterator< data_struct >(std::cin);
+  using it_begin = std::istream_iterator< data_struct >;
   auto it_end = std::istream_iterator< data_struct >();
   auto out_begin = std::ostream_iterator< data_struct >(std::cout, "\n");
   dimkashelk::Comparator comparator;
   std::vector< data_struct > data;
   while (!std::cin.eof())
   {
-    dimkashelk::DataStruct dataStruct;
-    std::cin >> dataStruct;
-    if (std::cin)
-    {
-      data.push_back(dataStruct);
-    }
-    else
+    std::copy(it_begin(std::cin), it_end, std::back_inserter(data));
+    if (!std::cin)
     {
       std::cin.clear();
       std::string to_skip;
