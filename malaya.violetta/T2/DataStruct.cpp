@@ -1,58 +1,120 @@
-#include<iostream>
-#include<string>
-#include<iomanip>
-#include"DataStruct.hpp"
-#include"IOStructs.hpp"
-#include"IOStreamsGuard.hpp"
+#include "DataStruct.hpp"
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <limits>
+#include "IOStructs.hpp"
+#include "IOStreamsGuard.hpp"
+namespace malaya
+{
+  std::istream & clearStream(std::istream & in)
+  {
+    in.clear();
+    std::string temp;
+    std::getline(in, temp);
+    in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    return in;
+  }
+  void readLabels(std::istream & in, malaya::DataStruct & data)
+  {
+    bool isKey1 = false;
+    bool isKey2 = false;
+    bool isKey3 = false;
+    for (int i = 0; i < 3; i++)
+    {
+      LabelIO label{"key"};
+      in >> label;
+      if (!in)
+      {
+        return;
+      }
+      switch (label.expression[3])
+      {
+        case '1':
+          if (isKey1)
+          {
+            in.setstate(std::ios::failbit);
+            return;
+          }
+          in >> DoubleIO{data.key1};
+          isKey1 = true;
+          break;
+        case '2':
+          if (isKey2)
+          {
+            in.setstate(std::ios::failbit);
+            return;
+          }
+          in >> UnsignedLongLongIO{data.key2};
+          isKey2 = true;
+          break;
+        case '3':
+          if (isKey3)
+          {
+            in.setstate(std::ios::failbit);
+            return;
+          }
+          in >> StringIO{data.key3};
+          isKey3 = true;
+          break;
+        default:
+          in.setstate(std::ios::failbit);
+          return;
+      }
+      in >> DelimiterIO{':'};
+    }
+  }
+}
 std::istream & malaya::operator>>(std::istream & in, DataStruct & dest)
 {
   std::istream::sentry istreamChecker(in);
   if (!istreamChecker)
   {
-    in.clear();
-    in.ignore();
     return in;
   }
   DataStruct data;
-  in >> DelimiterIO{"{"};
+  in >> DelimiterIO{'('};
   if (!in)
   {
-    in.clear();
-    in.ignore();
-    return in; //проверить так ли надо
+    return clearStream(in);
   }
-  // цикл для чтения трех ключей
-  for (int i = 0; i < 3; i++)
+  in >> DelimiterIO{':'};
+  if (!in)
   {
-    int keyNumber = 0;
-    in >> LabelIO{"key"} >> keyNumber >> DelimiterIO{":"};
-    if (!in)
-    {
-      in.clear(); // ????
-      in.ignore();
-      return in;
-    }
-    switch (keyNumber)
-    {
-      case 1:
-        in >> data.key1;
-        break;
-      case 2:
-        in >> data.key2;
-        break;
-      case 3:
-        in >> data.key3;
-        break;
-      default:
-        in.clear(); // так ли это делать?
-        in.ignore();
-        return in;
-    }
+    return clearStream(in);
   }
-  in >> DelimiterIO{"}"}; //???????????????????????
+  readLabels(in, data);
+  if (!in)
+  {
+    return clearStream(in);
+  }
+  in >> DelimiterIO{')'};
+  if (!in)
+  {
+    return clearStream(in);
+  }
+  else
+  {
+    dest = data;
+  }
+  return in;
 }
-
-std::ostream& malaya::operator<<(std::ostream& out, const DataStruct& data)
+bool malaya::DataComparator::operator()(const DataStruct & left, const DataStruct & right)
+{
+  if (left.key1 != right.key1)
+  {
+    return left.key1 < right.key1;
+  }
+  else if (left.key2 != right.key2)
+  {
+    return left.key2 < right.key2;
+  }
+  else
+  {
+    return left.key3.length() <= right.key3.length();
+  }
+}
+std::ostream & malaya::operator<<(std::ostream & out, const DataStruct & data)
 {
   std::ostream::sentry ostreamChecker(out);
   if (!ostreamChecker)
@@ -61,8 +123,8 @@ std::ostream& malaya::operator<<(std::ostream& out, const DataStruct& data)
     return out;
   }
   IOStreamsGuard guard(out);
-  out << "{ " << "\"key1\": " << std::fixed << std::setprecision(1) << data.key1 << "d, "; //проверить
-  out << "\"key2\": " << std::setprecision(3) << data.key2;
-  out << "\"key3\": " << data.key3 << " }";
+  out << "(" << ":key1 " << std::fixed << std::setprecision(1) << data.key1 << "d";
+  out << ":key2 " << std::oct << data.key2;
+  out << ":key3 \"" << data.key3 << "\")";
   return out;
 }

@@ -6,7 +6,7 @@ namespace malaya
 {
   struct DelimiterIO
   {
-    std::string expression;
+    char expression;
   };
   std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   struct DoubleIO
@@ -26,8 +26,8 @@ namespace malaya
   std::istream & operator>>(std::istream & in, StringIO && dest);
   struct LabelIO
   {
-    char expression[4];
+    std::string expression;
   };
-  std::istream & operator>>(std::istream & in, LabelIO && dest);
+  std::istream & operator>>(std::istream & in, LabelIO & dest);
 }
-#endif //T2_IOSTRUCTS_HPP
+#endif
