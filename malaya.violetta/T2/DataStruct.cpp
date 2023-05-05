@@ -4,66 +4,6 @@
 #include <iomanip>
 #include "IOStructs.hpp"
 #include "IOStreamsGuard.hpp"
-//namespace malaya
-//{
-//  std::istream & clearStream(std::istream & in)
-//  {
-//    in.clear();
-//    std::string temp;
-//    std::getline(in, temp);
-//    in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-//    return in;
-//  }
-//  //void readLabels(std::istream & in, malaya::DataStruct & data)
-//  //{
-//  //  //bool isKey1 = false;
-//  //  //bool isKey2 = false;
-//  //  //bool isKey3 = false;
-//  //  //for (int i = 0; i < 3; i++)
-//  //  //{
-//  //  //  LabelIO label{"key"};
-//  //  //  in >> label;
-//  //  //  if (!in)
-//  //  //  {
-//  //  //    return;
-//  //  //  }
-//  //  //  switch (label.expression[3])
-//  //  //  {
-//  //  //    case '1':
-//  //  //      if (isKey1)
-//  //  //      {
-//  //  //        in.setstate(std::ios::failbit);
-//  //  //        return;
-//  //  //      }
-//  //  //      in >> DoubleIO{data.key1};
-//  //  //      isKey1 = true;
-//  //  //      break;
-//  //  //    case '2':
-//  //  //      if (isKey2)
-//  //  //      {
-//  //  //        in.setstate(std::ios::failbit);
-//  //  //        return;
-//  //  //      }
-//  //  //      in >> UnsignedLongLongIO{data.key2};
-//  //  //      isKey2 = true;
-//  //  //      break;
-//  //  //    case '3':
-//  //  //      if (isKey3)
-//  //  //      {
-//  //  //        in.setstate(std::ios::failbit);
-//  //  //        return;
-//  //  //      }
-//  //  //      in >> StringIO{data.key3};
-//  //  //      isKey3 = true;
-//  //  //      break;
-//  //  //    default:
-//  //  //      in.setstate(std::ios::failbit);
-//  //  //      return;
-//  //  //  }
-//  //  //  in >> DelimiterIO{':'};
-//  //  //}
-//  //}
-//}
 std::istream & malaya::operator>>(std::istream & in, DataStruct & dest)
 {
   std::istream::sentry istreamChecker(in);
@@ -71,7 +11,6 @@ std::istream & malaya::operator>>(std::istream & in, DataStruct & dest)
   {
     return in;
   }
-  //DataStruct data;
   in >> DelimiterIO{'('};
   if (!in)
   {
