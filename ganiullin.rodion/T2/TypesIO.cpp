@@ -1,5 +1,6 @@
 #include "TypesIO.h"
 
+#include <cmath>
 #include <iomanip>
 
 std::istream& ganiullin::operator>>(std::istream& in, ganiullin::DelimiterIO&& dest)
@@ -35,15 +36,15 @@ std::ostream& ganiullin::operator<<(std::ostream& out, const ganiullin::DoubleO&
   double value = dest.val;
   int exponent = 0;
 
-  if (value == 0 || abs(value) == 1) {
+  if (value == 0 || std::abs(value) == 1) {
     exponent = 0;
-  } else if (abs(value) < 1) {
-    while (abs(value) * 10 < 10) {
+  } else if (std::abs(value) < 1) {
+    while (std::abs(value) * 10 < 10) {
       value *= 10;
       exponent--;
     }
   } else {
-    while (abs(value) / 10 >= 1) {
+    while (std::abs(value) / 10 >= 1) {
       value /= 10;
       exponent++;
     }
