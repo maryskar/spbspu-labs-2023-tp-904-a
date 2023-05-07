@@ -7,14 +7,13 @@
 
 int main()
 {
-  using inIterBegin = std::istream_iterator< ganiullin::DataStruct >;
-  using inIterEnd = std::istream_iterator< ganiullin::DataStruct >;
+  using inIter = std::istream_iterator< ganiullin::DataStruct >;
   auto outIter = std::ostream_iterator< ganiullin::DataStruct >(std::cout, "\n");
   std::vector< ganiullin::DataStruct > data;
   ganiullin::Comparator comparator;
 
   while (!std::cin.eof()) {
-    std::copy(inIterBegin(std::cin), inIterEnd(), std::back_inserter(data));
+    std::copy(inIter(std::cin), inIter(), std::back_inserter(data));
 
     if (std::cin.fail()) {
       std::cin.clear();
