@@ -13,6 +13,34 @@ namespace skalisusov
     double key2;
     std::string key3;
   };
+  struct DoubleScientificFormatI
+  {
+    double &scien_;
+  };
+
+  struct DoubleScientificFormatO
+  {
+    const double scien_;
+  };
+
+  struct DoubleLiteralFormatIO
+  {
+    double &real_;
+  };
+  struct StringIO
+  {
+    std::string &str;
+  };
+
+  struct DelimiterIO
+  {
+    char exp_;
+  };
+
+  struct CoverIO
+  {
+    std::string exp;
+  };
   class iofmtguard
   {
   public:
