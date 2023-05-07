@@ -5,4 +5,8 @@
 #include <algorithm>
 #include <iomanip>
 
+namespace skalisusov
+{
+
+}
 #endif //SPBSPU_LABS_2023_TP_904_A_DATASTRUCT_H
