@@ -10,8 +10,10 @@ int main()
   auto outIter = std::ostream_iterator< ganiullin::Polygon >(std::cout, "\n");
   std::vector< ganiullin::Polygon > polygons;
   std::istringstream iss(
-    "3 (0;1) (3;4) (5;6)"
+    "3 (0;1) (3;4) (5;0)"
     "4 (0;0) (0;1) (1;0) (1;1)");
   std::copy(inIter(iss), inIter(), std::back_inserter(polygons));
   std::copy(std::begin(polygons), std::end(polygons), outIter);
+  std::cout << ganiullin::getPolygonArea(polygons[0]) << '\n';
+  std::cout << ganiullin::getPolygonArea(polygons[1]) << '\n';
 }
