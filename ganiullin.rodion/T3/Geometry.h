@@ -11,5 +11,7 @@ namespace ganiullin {
   };
   std::istream& operator>>(std::istream& in, Point& point);
   std::istream& operator>>(std::istream& in, Polygon& polygon);
+  std::ostream& operator<<(std::ostream& out, const Polygon& polygon);
+  std::ostream& operator<<(std::ostream& out, const Point& point);
 }
 #endif

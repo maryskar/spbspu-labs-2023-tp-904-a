@@ -7,7 +7,8 @@
 
 std::istream& ganiullin::operator>>(std::istream& in, ganiullin::Point& point)
 {
-  if (!in) {
+  std::istream::sentry sentry(in);
+  if (!sentry) {
     return in;
   }
   using delim = ganiullin::DelimiterIO;
@@ -21,7 +22,8 @@ std::istream& ganiullin::operator>>(std::istream& in, ganiullin::Point& point)
 }
 std::istream& ganiullin::operator>>(std::istream& in, ganiullin::Polygon& polygon)
 {
-  if (!in) {
+  std::istream::sentry sentry(in);
+  if (!sentry) {
     return in;
   }
   using inIter = std::istream_iterator< ganiullin::Point >;
@@ -33,4 +35,24 @@ std::istream& ganiullin::operator>>(std::istream& in, ganiullin::Polygon& polygo
     polygon.points = vertices;
   }
   return in;
+}
+std::ostream& ganiullin::operator<<(std::ostream& out, const ganiullin::Point& point)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry) {
+    return out;
+  }
+  return out << '(' << point.x << ';' << point.y << ')';
+}
+
+std::ostream& ganiullin::operator<<(std::ostream& out, const ganiullin::Polygon& polygon)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry) {
+    return out;
+  }
+  auto outIter = std::ostream_iterator< ganiullin::Point >(out, " ");
+  out << polygon.points.size() << ' ';
+  std::copy(std::begin(polygon.points), std::end(polygon.points), outIter);
+  return out;
 }
