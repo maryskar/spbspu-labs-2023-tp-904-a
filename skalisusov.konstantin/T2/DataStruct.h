@@ -41,6 +41,16 @@ namespace skalisusov
   {
     std::string exp;
   };
+
+  std::istream &operator>>(std::istream &in, DoubleLiteralFormatIO &&dest);
+  std::istream &operator>>(std::istream &in, DoubleScientificFormatI &&dest);
+  std::ostream &operator<<(std::ostream &out, DoubleScientificFormatO);
+  std::istream &operator>>(std::istream &in, StringIO &&dest);
+  std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
+  std::istream &operator>>(std::istream &in, CoverIO &&dest);
+  std::istream &operator>>(std::istream &in, Data &dest);
+  std::ostream &operator<<(std::ostream &out, Data &src);
+
   class iofmtguard
   {
   public:
