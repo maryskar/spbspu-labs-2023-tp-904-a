@@ -12,7 +12,7 @@ std::istream& vagina::operator>>(std::istream &in, DoubleI &&dest)
   }
   return in >> std::scientific >> dest.num;
 }
-std::ostream &vagina::operator<<(std::ostream &out, const DoubleO&&dest)
+std::ostream& vagina::operator<<(std::ostream &out, const DoubleO &&dest)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)

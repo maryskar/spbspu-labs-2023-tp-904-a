@@ -29,12 +29,12 @@ namespace vagina
   {
     char symbol;
   };
-  std::istream &operator>>(std::istream &in, DoubleI &&dest);
-  std::istream &operator>>(std::istream &in, BinUnsignedLongLongIO &&dest);
-  std::istream &operator>>(std::istream &in, StringIO &&dest);
-  std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
-  std::istream &operator>>(std::istream &in, LiteralIO &&dest);
-  std::ostream &operator<<(std::ostream &out, const DoubleO&&dest);
+  std::istream& operator>>(std::istream &in, DoubleI &&dest);
+  std::istream& operator>>(std::istream &in, BinUnsignedLongLongIO &&dest);
+  std::istream& operator>>(std::istream &in, StringIO &&dest);
+  std::istream& operator>>(std::istream &in, DelimiterIO &&dest);
+  std::istream& operator>>(std::istream &in, LiteralIO &&dest);
+  std::ostream& operator<<(std::ostream &out, const DoubleO &&dest);
 }
 
 #endif
