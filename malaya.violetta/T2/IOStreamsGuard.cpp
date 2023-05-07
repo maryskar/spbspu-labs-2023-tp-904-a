@@ -1,5 +1,4 @@
-#include<ios>
-#include"IOStreamsGuard.hpp"
+#include "IOStreamsGuard.hpp"
 malaya::IOStreamsGuard::IOStreamsGuard(std::basic_ios< char > & stream):
   stream_(stream),
   fill_(stream.fill()),

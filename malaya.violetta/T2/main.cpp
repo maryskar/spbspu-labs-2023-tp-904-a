@@ -9,8 +9,9 @@ int main()
   std::vector< malaya::DataStruct > data;
   while (!std::cin.eof())
   {
-    std::copy(std::istream_iterator< malaya::DataStruct >(std::cin), std::istream_iterator< malaya::DataStruct >(),
-              std::back_inserter(data));
+    std::copy(std::istream_iterator< malaya::DataStruct >(std::cin),
+      std::istream_iterator< malaya::DataStruct >(),
+          std::back_inserter(data));
     if (!std::cin)
     {
       std::cin.clear();

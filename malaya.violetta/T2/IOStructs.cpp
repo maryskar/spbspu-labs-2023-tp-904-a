@@ -52,11 +52,11 @@ std::istream & malaya::operator>>(std::istream & in, LabelIO & dest)
     return in;
   }
   std::string input = " ";
-  if ((in >> input))
+  if (in >> input)
   {
     if (input.size() == 4 && input[0] == 'k' && input[1] == 'e' && input[2] == 'y')
     {
-      int keyNumber = static_cast<int>(input[3]) - 48;
+      int keyNumber = static_cast< int >(input[3]) - 48;
       if (keyNumber >= 1 && keyNumber <= 3)
       {
         dest.expression = input;

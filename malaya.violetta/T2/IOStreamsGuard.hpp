@@ -15,4 +15,4 @@ namespace malaya
     std::basic_ios< char >::fmtflags fmt_;
   };
 }
-#endif //T2_IOSTREAMSGUARD_HPP
+#endif
