@@ -48,7 +48,6 @@ std::ostream& ganiullin::operator<<(std::ostream& out, const Point& point)
   }
   return out << '(' << point.x << ';' << point.y << ')';
 }
-
 std::ostream& ganiullin::operator<<(std::ostream& out, const Polygon& polygon)
 {
   std::ostream::sentry sentry(out);
@@ -59,6 +58,10 @@ std::ostream& ganiullin::operator<<(std::ostream& out, const Polygon& polygon)
   out << polygon.points.size() << ' ';
   std::copy(std::begin(polygon.points), std::end(polygon.points), outIter);
   return out;
+}
+bool ganiullin::operator==(const Point& first, const Point& second)
+{
+  return first.x == second.x && first.y == second.y;
 }
 
 double getArea(const Point p1, const Point p2, const Point p3)
@@ -95,7 +98,6 @@ Point getLeftFrameCorner(const Polygon& polygon, std::function< bool(const Point
   Point minPoint = (*(std::min_element(std::begin(polygon.points), std::end(polygon.points), comparator)));
   return minPoint;
 }
-
 bool ganiullin::isInFrame(const Polygon& fig, const std::vector< Polygon >& polygons)
 {
   using namespace std::placeholders;
@@ -130,4 +132,39 @@ bool ganiullin::isInFrame(const Polygon& fig, const std::vector< Polygon >& poly
     return point.x <= maxX && point.x >= minX && point.y <= maxY && point.y >= minY;
   };
   return std::all_of(std::begin(fig.points), std::end(fig.points), isPointinFrame);
+}
+
+bool isSame(const Polygon& fig, const Polygon& other)
+{
+  if (fig.points.size() != other.points.size()) {
+    return false;
+  }
+  std::vector< Point > first;
+  first.reserve(fig.points.size());
+  std::vector< Point > second;
+  first.reserve(other.points.size());
+
+  auto comparePoints = [](const Point& p1, const Point& p2) {
+    if (p1.x == p2.x) {
+      return p1.y < p2.y;
+    }
+    return p1.x < p2.x;
+  };
+  std::copy(std::begin(fig.points), std::end(fig.points), std::back_inserter(first));
+  std::copy(std::begin(other.points), std::end(other.points), std::back_inserter(second));
+  std::sort(std::begin(first), std::end(first), comparePoints);
+  std::sort(std::begin(second), std::end(second), comparePoints);
+
+  int diffX = first[0].x - second[0].x;
+  int diffY = first[0].y - second[0].y;
+  std::for_each(std::begin(second), std::end(second), [&](Point& point) {
+    point.x += diffX;
+    point.y += diffY;
+  });
+  return first == second;
+}
+size_t ganiullin::countSame(const Polygon& fig, const std::vector< Polygon >& polygons)
+{
+  using namespace std::placeholders;
+  return std::count_if(std::begin(polygons), std::end(polygons), std::bind(isSame, _1, fig));
 }
