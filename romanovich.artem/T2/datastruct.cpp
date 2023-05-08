@@ -72,7 +72,10 @@ namespace romanovich
     }
     if (key == list[1])
     {
-      in >> RationalNumberIO{dataStruct.key2} >> rDelimIO{':'};
+      in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
+         >> dataStruct.key2.first >> rDelimIO{':'} >> rDelimIO{'D'}
+         >> dataStruct.key2.second >> rDelimIO{':'} >> rDelimIO{')'}
+         >> rDelimIO{':'};
     }
     if (key == list[2])
     {
