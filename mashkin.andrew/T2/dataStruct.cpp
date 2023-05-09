@@ -19,13 +19,7 @@ void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
   {
     if (doubleSCI.find_first_of('.') == 1 && *std::begin(doubleSCI) != '0')
     {
-      std::string powOfNum;
-      std::string::iterator varIt;
-      varIt = std::begin(doubleSCI) + doubleSCI.find_first_of("eE") + 1;
-      std::copy(varIt, std::end(doubleSCI), std::back_inserter(powOfNum));
-      doubleSCI.erase(varIt, std::end(doubleSCI));
-      std::cout << doubleSCI << " " << powOfNum;
-      double key1 = std::stod(doubleSCI) * pow(10, std::stoi(powOfNum));
+      double key1 = std::stod(doubleSCI);
       std::cout << "\n" << key1;
     }
   }
