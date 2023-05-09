@@ -19,5 +19,6 @@ namespace mashkin
       inp.setstate(std::ios::failbit);
       return inp;
     }
+    return inp;
   }
 }
