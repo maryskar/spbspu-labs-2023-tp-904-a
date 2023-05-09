@@ -98,8 +98,9 @@ namespace mashkin
   }
   std::ostream& operator<<(std::ostream& out, DataStruct& data)
   {
-    std::cout << "(:key1 " << std::scientific << data.key1;
-    std::cout << ":key2 0b" << std::bitset< 64 >(data.key2);
-    std::cout << ":key3 \"" << data.key3 << "\":)\n";
+    out << "(:key1 " << std::scientific << data.key1;
+    out << ":key2 0b" << std::bitset< 64 >(data.key2);
+    out << ":key3 \"" << data.key3 << "\":)\n";
+    return out;
   }
 }
