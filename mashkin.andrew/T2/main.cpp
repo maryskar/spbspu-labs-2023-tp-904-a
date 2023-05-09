@@ -18,7 +18,7 @@ int main()
     }
     else
     {
-      std::cout << data.key1 << " " << data.key2 << " " << data.key3 << "\n";
+      std::cout << data;
     }
   }
   return 0;

@@ -13,5 +13,6 @@ namespace mashkin
   };
 
   std::istream& operator>>(std::istream& inp, DataStruct& data);
+  std::ostream& operator<<(std::ostream& out, DataStruct& data);
 }
 #endif
