@@ -1,31 +1,69 @@
 #include "dataStruct.h"
-#include <cmath>
+#include <bitset>
 #include <ios>
 #include <iostream>
 #include <string>
 
 void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
+void getKey2(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
 
-/*void getKey2(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
-void getKey3(std::istream& inp, std::string& var, mashkin::DataStruct& varData);*/
+//void getKey3(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
 
 void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
 {
   inp >> var;
-  std::string doubleSCI;
-  std::copy(std::begin(var), std::begin(var) + var.find_first_of(':'), std::back_inserter(doubleSCI));
-  var.erase(std::begin(var), std::begin(var) + var.find_first_of(':'));
-  if (doubleSCI.find_first_of("eE") != std::string::npos)
+  std::string dblSCI;
+  std::copy(std::begin(var), std::begin(var) + var.find_first_of(':'), std::back_inserter(dblSCI));
+  var.erase(std::begin(var), std::begin(var) + var.find_first_of(':') + 1);
+  if (dblSCI.find_first_of("eE") != std::string::npos && dblSCI.find_first_of('.') == 1 && *dblSCI.begin() != '0')
   {
-    if (doubleSCI.find_first_of('.') == 1 && *std::begin(doubleSCI) != '0')
+    varData.key1 = std::stod(dblSCI);
+    if (var == "key2")
     {
-      varData.key1 = std::stod(doubleSCI);
-      std::cout << varData.key1;
+      getKey2(inp, var, varData);
+    }
+    /*else if (var == "key3")
+    {
+      getKey3(inp, var, varData);
+    }*/
+    else
+    {
+      inp.setstate(std::ios::failbit);
     }
   }
   else
   {
     std::cout << "False\n";
+  }
+}
+
+void getKey2(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
+{
+  inp >> var;
+  if (var.find_first_of("Bb") != 1)
+  {
+    inp.setstate(std::ios::failbit);
+  }
+  else
+  {
+    std::string binaryUll;
+    var.erase(std::begin(var), std::begin(var) + 2);
+    std::copy(std::begin(var), std::begin(var) + var.find_first_of(':'), std::back_inserter(binaryUll));
+    varData.key2 = std::bitset< 64 >(binaryUll).to_ullong();
+    var.erase(std::begin(var), std::begin(var) + var.find_first_of(':') + 1);
+    std::cout << var << "\n";
+    if (var == "key1")
+    {
+      getKey2(inp, var, varData);
+    }
+    /*else if (var == "key3")
+    {
+      getKey3(inp, var, varData);
+    }*/
+    else
+    {
+      inp.setstate(std::ios::failbit);
+    }
   }
 }
 
@@ -43,11 +81,11 @@ namespace mashkin
       {
         getKey1(inp, var, varData);
       }
-      /*else if (var == "key2")
+      else if (var == "key2")
       {
         getKey2(inp, var, varData);
       }
-      else if (var == "key3")
+      /*else if (var == "key3")
       {
         getKey3(inp, var, varData);
       }*/
