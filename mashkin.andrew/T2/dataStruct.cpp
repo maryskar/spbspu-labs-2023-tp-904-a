@@ -31,6 +31,7 @@ void getKey2(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
   if (var.find_first_of("Bb") != 1)
   {
     inp.setstate(std::ios::failbit);
+    return;
   }
   else
   {
@@ -45,6 +46,11 @@ void getKey2(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
 void getKey3(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
 {
   inp >> var;
+  if (var.find_first_of('\"') == std::string::npos)
+  {
+    inp.setstate(std::ios::failbit);
+    return;
+  }
   std::string::iterator beginIt = std::begin(var) + var.find_first_of('\"') + 1;
   std::string::iterator endIt = std::begin(var) + var.find_last_of('\"');
   std::copy(beginIt, endIt, std::back_inserter(varData.key3));
@@ -83,7 +89,7 @@ namespace mashkin
         return inp;
       }
     }
-    if (!inp.fail())
+    if (inp.fail())
     {
       return inp;
     }
