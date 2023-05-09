@@ -6,8 +6,7 @@
 
 void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
 void getKey2(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
-
-//void getKey3(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
+void getKey3(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
 
 void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
 {
@@ -18,18 +17,6 @@ void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
   if (dblSCI.find_first_of("eE") != std::string::npos && dblSCI.find_first_of('.') == 1 && *dblSCI.begin() != '0')
   {
     varData.key1 = std::stod(dblSCI);
-    if (var == "key2")
-    {
-      getKey2(inp, var, varData);
-    }
-    /*else if (var == "key3")
-    {
-      getKey3(inp, var, varData);
-    }*/
-    else
-    {
-      inp.setstate(std::ios::failbit);
-    }
   }
   else
   {
@@ -51,19 +38,21 @@ void getKey2(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
     std::copy(std::begin(var), std::begin(var) + var.find_first_of(':'), std::back_inserter(binaryUll));
     varData.key2 = std::bitset< 64 >(binaryUll).to_ullong();
     var.erase(std::begin(var), std::begin(var) + var.find_first_of(':') + 1);
-    std::cout << var << "\n";
-    if (var == "key1")
-    {
-      getKey2(inp, var, varData);
-    }
-    /*else if (var == "key3")
-    {
-      getKey3(inp, var, varData);
-    }*/
-    else
-    {
-      inp.setstate(std::ios::failbit);
-    }
+  }
+}
+
+void getKey3(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
+{
+  inp >> var;
+  if (*(std::end(var) - 1) != ')' || *(std::end(var) - 2) != ':')
+  {
+    inp.setstate(std::ios::failbit);
+  }
+  else
+  {
+    std::string::iterator beginIt = std::begin(var) + var.find_first_of('\"') + 1;
+    std::string::iterator endIt = std::begin(var) + var.find_last_of('\"');
+    std::copy(beginIt, endIt, std::back_inserter(varData.key3));
   }
 }
 
@@ -80,15 +69,108 @@ namespace mashkin
       if (var == "key1")
       {
         getKey1(inp, var, varData);
+        if (var == "key2")
+        {
+          getKey2(inp, var, varData);
+          if (var == "key3")
+          {
+            getKey3(inp, var, varData);
+          }
+          else
+          {
+            inp.setstate(std::ios::failbit);
+            return inp;
+          }
+        }
+        else if (var == "key3")
+        {
+          getKey3(inp, var, varData);
+          if (var == "key2")
+          {
+            getKey3(inp, var, varData);
+          }
+          else
+          {
+            inp.setstate(std::ios::failbit);
+            return inp;
+          }
+        }
+        else
+        {
+          inp.setstate(std::ios::failbit);
+          return inp;
+        }
       }
       else if (var == "key2")
       {
         getKey2(inp, var, varData);
+        if (var == "key1")
+        {
+          getKey2(inp, var, varData);
+          if (var == "key3")
+          {
+            getKey3(inp, var, varData);
+          }
+          else
+          {
+            inp.setstate(std::ios::failbit);
+            return inp;
+          }
+        }
+        else if (var == "key3")
+        {
+          getKey3(inp, var, varData);
+          if (var == "key1")
+          {
+            getKey3(inp, var, varData);
+          }
+          else
+          {
+            inp.setstate(std::ios::failbit);
+            return inp;
+          }
+        }
+        else
+        {
+          inp.setstate(std::ios::failbit);
+          return inp;
+        }
       }
-      /*else if (var == "key3")
+      else if (var == "key3")
       {
         getKey3(inp, var, varData);
-      }*/
+        if (var == "key2")
+        {
+          getKey2(inp, var, varData);
+          if (var == "key1")
+          {
+            getKey3(inp, var, varData);
+          }
+          else
+          {
+            inp.setstate(std::ios::failbit);
+            return inp;
+          }
+        }
+        else if (var == "key1")
+        {
+          getKey3(inp, var, varData);
+          if (var == "key2")
+          {
+            getKey3(inp, var, varData);
+          }
+          else
+          {
+            inp.setstate(std::ios::failbit);
+            return inp;
+          }
+        }
+        else
+        {
+          inp.setstate(std::ios::failbit);
+          return inp;
+        }
+      }
       else
       {
         inp.setstate(std::ios::failbit);
@@ -100,6 +182,8 @@ namespace mashkin
       inp.setstate(std::ios::failbit);
       return inp;
     }
+    std::cout << varData.key1 << " " << varData.key2 << " " << varData.key3 << "\n";
+    data = varData;
     return inp;
   }
 }
