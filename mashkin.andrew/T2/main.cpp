@@ -6,8 +6,6 @@
 int main()
 {
   std::vector< mashkin::DataStruct > res;
-  std::vector< mashkin::DataStruct >::iterator iter;
-  iter = res.begin();
   while (!std::cin.eof())
   {
     mashkin::DataStruct data;
