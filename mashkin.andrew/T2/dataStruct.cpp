@@ -19,8 +19,8 @@ void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
   {
     if (doubleSCI.find_first_of('.') == 1 && *std::begin(doubleSCI) != '0')
     {
-      double key1 = std::stod(doubleSCI);
-      std::cout << "\n" << key1;
+      varData.key1 = std::stod(doubleSCI);
+      std::cout << varData.key1;
     }
   }
   else
