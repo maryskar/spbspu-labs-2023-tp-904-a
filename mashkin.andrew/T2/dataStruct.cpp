@@ -1,4 +1,5 @@
 #include "dataStruct.h"
+#include <cmath>
 #include <ios>
 #include <iostream>
 #include <string>
@@ -13,10 +14,20 @@ void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
   inp >> var;
   std::string doubleSCI;
   std::copy(std::begin(var), std::begin(var) + var.find_first_of(':'), std::back_inserter(doubleSCI));
-  std::cout << doubleSCI << "\n";
-  if (doubleSCI.find_first_of('e') != std::string::npos || doubleSCI.find_first_of('E') != std::string::npos)
+  var.erase(std::begin(var), std::begin(var) + var.find_first_of(':'));
+  if (doubleSCI.find_first_of("eE") != std::string::npos)
   {
-    std::cout << "True\n";
+    if (doubleSCI.find_first_of('.') == 1 && *std::begin(doubleSCI) != '0')
+    {
+      std::string powOfNum;
+      std::string::iterator varIt;
+      varIt = std::begin(doubleSCI) + doubleSCI.find_first_of("eE") + 1;
+      std::copy(varIt, std::end(doubleSCI), std::back_inserter(powOfNum));
+      doubleSCI.erase(varIt, std::end(doubleSCI));
+      std::cout << doubleSCI << " " << powOfNum;
+      double key1 = std::stod(doubleSCI) * pow(10, std::stoi(powOfNum));
+      std::cout << "\n" << key1;
+    }
   }
   else
   {
@@ -31,7 +42,7 @@ namespace mashkin
     std::string var;
     DataStruct varData{0.0, 0, ""};
     inp >> var;
-    if (var[0] == '(' && var[1] == ':')
+    if (*std::begin(var) == '(' && *(std::begin(var) + 1) == ':')
     {
       var.erase(std::begin(var), std::begin(var) + 2);
       if (var == "key1")
