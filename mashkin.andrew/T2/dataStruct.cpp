@@ -42,13 +42,12 @@ std::string getUllBinStr(const mashkin::DataStruct& data)
 {
   unsigned long long varUll = data.key2;
   std::string result = "";
-  do
+  while (varUll)
   {
     result = std::to_string(varUll % 2) + result;
     varUll /= 2;
   }
-  while (varUll > 1);
-  result = "0b" + result;
+  result = "0b0" + result;
   return result;
 }
 
@@ -94,8 +93,16 @@ void getKey3(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
     inp.setstate(std::ios::failbit);
     return;
   }
-  std::string::iterator beginIt = std::begin(var) + var.find_first_of('\"') + 1;
+  std::string::iterator beginIt = std::begin(var) + var.find_first_of('\"');
   std::string::iterator endIt = std::begin(var) + var.find_last_of('\"');
+  while (beginIt == endIt)
+  {
+    std::string varString;
+    inp >> varString;
+    var += " " + varString;
+    endIt = std::begin(var) + var.find_last_of('\"');
+  }
+  beginIt++;
   std::copy(beginIt, endIt, std::back_inserter(varData.key3));
 }
 
