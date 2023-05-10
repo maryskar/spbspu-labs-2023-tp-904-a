@@ -30,7 +30,6 @@ namespace romanovich
   };
   std::istream &operator>>(std::istream &in, UnsignedLongLongIO &&dest);
   std::istream &operator>>(std::istream &in, RationalNumberIO &&dest);
-  std::istream &operator>>(std::istream &in, RationalNumberIO &dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
   std::ostream &operator<<(std::ostream &out, const DataStruct &dest);
