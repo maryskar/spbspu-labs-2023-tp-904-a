@@ -148,11 +148,16 @@ namespace mashkin
     return inp;
   }
 
+  /*bool comp(const DataStruct& first, const DataStruct& second)
+  {
+    return first.key1 < second.key1;
+  }*/
+
   std::ostream& operator<<(std::ostream& out, const DataStruct& data)
   {
     out << "(:key1 " << getDoubleString(data);
     out << ":key2 " << getUllBinStr(data);
-    out << ":key3 \"" << data.key3 << "\":)\n";
+    out << ":key3 \"" << data.key3 << "\":)";
     return out;
   }
 }
