@@ -24,7 +24,8 @@ std::string getDoubleString(const mashkin::DataStruct& data)
   }
   else
   {
-    dblWithMantissa = data.key1 * pow(10, -(varPow - 1));
+    varPow = varString.find_first_of(".");
+    dblWithMantissa = data.key1 / pow(10, (varPow - 1));
     result = std::to_string(dblWithMantissa) + "e+" + std::to_string(varPow - 1);
   }
   while (result.find_last_of('e') - 1 == result.find_last_of('0') &&
