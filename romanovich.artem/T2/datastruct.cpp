@@ -27,6 +27,17 @@ namespace romanovich
               >> dest.ratNumber.first >> rDelimIO{':'} >> rDelimIO{'D'}
               >> dest.ratNumber.second >> rDelimIO{':'} >> rDelimIO{')'};
   }
+  std::istream &operator>>(std::istream &in, RationalNumberIO &dest)
+  {
+    if (!checkSentry(in))
+    {
+      return in;
+    }
+    return in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
+              >> dest.ratNumber.first >> rDelimIO{':'} >> rDelimIO{'D'}
+              >> dest.ratNumber.second >> rDelimIO{':'} >> rDelimIO{')'}
+              >> rDelimIO{':'};
+  }
   std::istream &operator>>(std::istream &in, StringIO &&dest)
   {
     if (!checkSentry(in))
@@ -72,10 +83,7 @@ namespace romanovich
     }
     if (key == list[1])
     {
-      in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
-         >> dataStruct.key2.first >> rDelimIO{':'} >> rDelimIO{'D'}
-         >> dataStruct.key2.second >> rDelimIO{':'} >> rDelimIO{')'}
-         >> rDelimIO{':'};
+      in >> RationalNumberIO{dataStruct.key2} >> rDelimIO{':'};
     }
     if (key == list[2])
     {
