@@ -1,6 +1,5 @@
 #include "command_executor.h"
 #include <istream>
-#include <sstream>
 #include <iterator>
 
 kumachev::CommandExecutor::CommandExecutor(std::istream &istream, std::ostream &ostream, State &state,
@@ -9,7 +8,20 @@ kumachev::CommandExecutor::CommandExecutor(std::istream &istream, std::ostream &
   ostream_(ostream),
   state_(state),
   interactive_(interactive)
-{}
+{
+  commands_["help"] = CommandExecutor::processHelp;
+  commands_["dicts"] = CommandExecutor::processDicts;
+  commands_["create"] = CommandExecutor::processCreate;
+  commands_["load"] = CommandExecutor::processLoad;
+  commands_["save_overwrite"] = CommandExecutor::processSaveOverwrite;
+  commands_["save"] = CommandExecutor::processSave;
+  commands_["add"] = CommandExecutor::processAdd;
+  commands_["clear"] = CommandExecutor::processClear;
+  commands_["translate_word"] = CommandExecutor::processTranslate;
+  commands_["execute"] = CommandExecutor::processExecute;
+  commands_["merge"] = CommandExecutor::processMerge;
+  commands_["subtract"] = CommandExecutor::processSubtract;
+}
 
 void kumachev::CommandExecutor::execute()
 {
@@ -19,249 +31,222 @@ void kumachev::CommandExecutor::execute()
     }
 
     std::string cmd;
-    std::getline(istream_, cmd, '\n');
+    istream_ >> cmd;
 
     if (!interactive_) {
       ostream_ << cmd << '\n';
     }
 
-    if (cmd == "exit") {
-      ostream_ << "Bye\n";
-      break;
-    }
-
     process(std::move(cmd));
 
-    if (!istream_) {
+    if (istream_.fail() && !istream_.eof()) {
       istream_.clear();
     }
+
+    istream_.ignore(SKIP_MAX, '\n');
   }
 }
 
 void kumachev::CommandExecutor::process(std::string &&cmd)
 {
-  if (cmd == "help") {
-    processHelp();
-  } else if (cmd == "dicts") {
-    processDicts();
-  } else if (cmd.find("create") == 0) {
-    processCreate(std::move(cmd));
-  } else if (cmd.find("load") == 0) {
-    processLoad(std::move(cmd));
-  } else if (cmd.find("save overwrite") == 0) {
-    processSaveOverwrite(std::move(cmd));
-  } else if (cmd.find("save") == 0) {
-    processSave(std::move(cmd));
-  } else if (cmd.find("add") == 0) {
-    processAdd(std::move(cmd));
-  } else if (cmd.find("clear") == 0) {
-    processClear(std::move(cmd));
-  } else if (cmd.find("translate_word") == 0) {
-    processTranslate(std::move(cmd));
-  } else if (cmd.find("execute") == 0) {
-    processExecute(std::move(cmd));
-  } else if (cmd.find("merge") == 0) {
-    processMerge(std::move(cmd));
-  } else if (cmd.find("subtract") == 0) {
-    processSubtract(std::move(cmd));
+  const auto &searchResult = commands_.find(cmd);
+
+  if (searchResult != commands_.end()) {
+    searchResult->second(*this);
   } else {
-    ostream_ << "Команда не найдена, введите help для получения помощи\n\n";
     istream_.setstate(std::ios::failbit);
+    ostream_ << "Команда не найдена, введите help для получения помощи\n\n";
   }
 }
 
-void kumachev::CommandExecutor::processHelp()
+void kumachev::CommandExecutor::processHelp(CommandExecutor &executor)
 {
-  ostream_ << "Список команд:\n"
-           << "\t1. help - вывести это сообщение\n"
-           << "\t2. dicts - список словарей\n"
-           << "\t3. create <dict> - создать пустой словарь\n"
-           << "\t4. load <dict> <path> - загрузить словарь с диска\n"
-           << "\t5. save <dict> <path> - сохранить на диск\n"
-           << "\t\t5.1. save overwrite <dict> <path> - сохранить на диск + перезаписать при необходимости\n"
-           << "\t6. add <dict> <english> <russian>... - добавить слово в словарь\n"
-           << "\t7. clear <dict> - удалить все элементы из словаря\n"
-           << "\t8. translate_word <dict> <english> - вывести список переводов слова\n"
-           << "\t9. execute <script> - выполнить скрипт, состоящий из представленных команд\n"
-           << "\t10. merge <dict_out> <dict1> <dict2> - объединить словари <dict1> и <dict2> в словарь <dict_out>\n"
-           << "\t11. subtract <dict_out> <dict1> <dict2> - вычесть словарь <dict2> из <dict1>"
-           << " и записать результат в <dict_out>\n\n";
+  executor.ostream_ << "Список команд:\n"
+                    << "\t1. help - вывести это сообщение\n"
+                    << "\t2. dicts - список словарей\n"
+                    << "\t3. create <dict> - создать пустой словарь\n"
+                    << "\t4. load <dict> <path> - загрузить словарь с диска\n"
+                    << "\t5. save <dict> <path> - сохранить на диск\n"
+                    << "\t\t5.1. save overwrite <dict> <path> - сохранить на диск + перезаписать при необходимости\n"
+                    << "\t6. add <dict> <english> <russian>... - добавить слово в словарь\n"
+                    << "\t7. clear <dict> - удалить все элементы из словаря\n"
+                    << "\t8. translate_word <dict> <english> - вывести список переводов слова\n"
+                    << "\t9. execute <script> - выполнить скрипт, состоящий из представленных команд\n"
+                    << "\t10. merge <dict_out> <dict1> <dict2> - объединить словари <dict1> и <dict2> в словарь <dict_out>\n"
+                    << "\t11. subtract <dict_out> <dict1> <dict2> - вычесть словарь <dict2> из <dict1>"
+                    << " и записать результат в <dict_out>\n\n";
 }
 
-void kumachev::CommandExecutor::processDicts()
+void kumachev::CommandExecutor::processDicts(CommandExecutor &executor)
 {
   bool any = false;
 
-  for (const auto &dict: state_.dicts) {
-    ostream_ << dict.first << '\n';
+  for (const auto &dict: executor.state_.dicts) {
+    executor.ostream_ << dict.first << '\n';
     any = true;
   }
 
   if (!any) {
-    ostream_ << "<пусто>\n";
+    executor.ostream_ << "<пусто>\n";
   }
 
-  ostream_ << '\n';
+  executor.ostream_ << '\n';
 }
 
-void kumachev::CommandExecutor::processCreate(std::string &&cmd)
+void kumachev::CommandExecutor::processCreate(CommandExecutor &executor)
 {
-  std::stringstream cmdStream(cmd);
-  std::istream::sentry sentry(cmdStream);
-
-  if (!sentry) {
-    return;
-  }
-
-  cmdStream.ignore(SKIP_MAX, ' ');
+  std::istream &istream = executor.istream_;
+  std::ostream &ostream = executor.ostream_;
+  State &state = executor.state_;
 
   std::string dictName;
-  cmdStream >> dictName;
+  istream >> dictName;
 
-  if (cmdStream.fail() || !cmdStream.eof()) {
-    ostream_ << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
+  if (istream.fail()) {
+    ostream << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
     return;
   }
 
-  if (state_.dicts.find(dictName) == state_.dicts.end()) {
-    state_.dicts[dictName] = Dictionary();
+  if (state.dicts.find(dictName) == state.dicts.end()) {
+    state.dicts[dictName] = EnglishRussianDictionary();
   } else {
-    ostream_ << "ОШИБКА: Словарь с таким именем уже существует\n\n";
+    ostream << "ОШИБКА: Словарь с таким именем уже существует\n\n";
   }
 }
 
-void kumachev::CommandExecutor::processLoad(std::string &&cmd)
+void kumachev::CommandExecutor::processLoad(CommandExecutor &executor)
 {
 
 }
 
-void kumachev::CommandExecutor::processSave(std::string &&cmd)
+void kumachev::CommandExecutor::processSave(CommandExecutor &executor)
 {
 
 }
 
-void kumachev::CommandExecutor::processSaveOverwrite(std::string &&cmd)
+void kumachev::CommandExecutor::processSaveOverwrite(CommandExecutor &executor)
 {
 
 }
 
-void kumachev::CommandExecutor::processAdd(std::string &&cmd)
+void kumachev::CommandExecutor::processAdd(CommandExecutor &executor)
 {
-  std::stringstream cmdStream(cmd);
-  std::istream::sentry sentry(cmdStream);
-
-  if (!sentry) {
-    return;
-  }
-
-  cmdStream.ignore(SKIP_MAX, ' ');
+  std::istream &istream = executor.istream_;
+  std::ostream &ostream = executor.ostream_;
+  State &state = executor.state_;
 
   std::string dictName;
   std::string english;
   std::vector< std::string > russian;
-  auto backInserter = std::back_inserter(russian);
-  cmdStream >> dictName >> english;
+  istream >> dictName >> english;
 
-  std::copy(
-    std::istream_iterator< std::string >(cmdStream),
-    std::istream_iterator< std::string >(),
-    backInserter
-  );
+  std::string nextRussian;
+  char nextChar = '\0';
+  istream.get(nextChar);
 
-  if (!cmdStream.eof() || russian.empty()) {
-    ostream_ << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
+  while (nextChar != '\n') {
+    if (nextChar != ' ') {
+      nextRussian.push_back(nextChar);
+    } else {
+      if (nextRussian.length() != 0) {
+        russian.push_back(nextRussian);
+        nextRussian = "";
+      }
+    }
+
+    istream.get(nextChar);
+  }
+
+  if (nextRussian.length() != 0) {
+    russian.push_back(nextRussian);
+  }
+
+  istream.putback('\n');
+
+  if (istream.fail() || russian.empty()) {
+    ostream << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
     return;
   }
 
-  const auto &searchResult = state_.dicts.find(dictName);
+  const auto &searchResult = state.dicts.find(dictName);
 
-  if (searchResult == state_.dicts.end()) {
-    ostream_ << "ОШИБКА: Словарь не найден\n\n";
+  if (searchResult == state.dicts.end()) {
+    ostream << "ОШИБКА: Словарь не найден\n\n";
     return;
   }
 
   searchResult->second.add(english, russian.begin(), russian.end());
 }
 
-void kumachev::CommandExecutor::processClear(std::string &&cmd)
+void kumachev::CommandExecutor::processClear(CommandExecutor &executor)
 {
-  std::stringstream cmdStream(cmd);
-  std::istream::sentry sentry(cmdStream);
-
-  if (!sentry) {
-    return;
-  }
-
-  cmdStream.ignore(SKIP_MAX, ' ');
+  std::istream &istream = executor.istream_;
+  std::ostream &ostream = executor.ostream_;
+  State &state = executor.state_;
 
   std::string dictName;
-  cmdStream >> dictName;
+  istream >> dictName;
 
-  if (cmdStream.fail() || !cmdStream.eof()) {
-    ostream_ << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
+  if (istream.fail()) {
+    ostream << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
     return;
   }
 
-  const auto &searchResult = state_.dicts.find(dictName);
-  if (searchResult == state_.dicts.end()) {
-    ostream_ << "ОШИБКА: Словарь не найден\n\n";
+  const auto &searchResult = state.dicts.find(dictName);
+  if (searchResult == state.dicts.end()) {
+    ostream << "ОШИБКА: Словарь не найден\n\n";
     return;
   } else {
     searchResult->second.clear();
   }
 }
 
-void kumachev::CommandExecutor::processTranslate(std::string &&cmd)
+void kumachev::CommandExecutor::processTranslate(CommandExecutor &executor)
 {
-  std::stringstream cmdStream(cmd);
-  std::istream::sentry sentry(cmdStream);
-
-  if (!sentry) {
-    return;
-  }
-
-  cmdStream.ignore(SKIP_MAX, ' ');
+  std::istream &istream = executor.istream_;
+  std::ostream &ostream = executor.ostream_;
+  State &state = executor.state_;
 
   std::string dictName;
   std::string english;
-  cmdStream >> dictName >> english;
+  istream >> dictName >> english;
 
-  if (cmdStream.fail() || !cmdStream.eof()) {
-    ostream_ << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
+  if (istream.fail()) {
+    ostream << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
     return;
   }
 
-  const auto &searchResult = state_.dicts.find(dictName);
+  const auto &searchResult = state.dicts.find(dictName);
 
-  if (searchResult == state_.dicts.end()) {
-    ostream_ << "ОШИБКА: Словарь не найден\n\n";
+  if (searchResult == state.dicts.end()) {
+    ostream << "ОШИБКА: Словарь не найден\n\n";
     return;
   }
 
   try {
     const auto &translated = searchResult->second.translate(english);
     for (const auto &word: translated) {
-      ostream_ << word << '\n';
+      ostream << word << '\n';
     }
 
-    ostream_ << '\n';
+    ostream << '\n';
   }
   catch (const WordNotFound &) {
-    ostream_ << "ОШИБКА: слово отсутствует в словаре\n\n";
+    ostream << "ОШИБКА: слово отсутствует в словаре\n\n";
   }
 }
 
-void kumachev::CommandExecutor::processExecute(std::string &&cmd)
+void kumachev::CommandExecutor::processExecute(CommandExecutor &executor)
 {
 
 }
 
-void kumachev::CommandExecutor::processMerge(std::string &&cmd)
+void kumachev::CommandExecutor::processMerge(CommandExecutor &executor)
 {
 
 }
 
-void kumachev::CommandExecutor::processSubtract(std::string &&cmd)
+void kumachev::CommandExecutor::processSubtract(CommandExecutor &executor)
 {
 
 }

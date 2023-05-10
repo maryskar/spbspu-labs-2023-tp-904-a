@@ -1,5 +1,5 @@
-#ifndef FT_ENGLISH_RUSSIAN_DICTIONARY_H
-#define FT_ENGLISH_RUSSIAN_DICTIONARY_H
+#ifndef ENGLISH_RUSSIAN_DICTIONARY
+#define ENGLISH_RUSSIAN_DICTIONARY
 
 #include <string>
 #include <vector>
@@ -9,7 +9,6 @@
 #include "word_not_found_exception.h"
 
 namespace kumachev {
-  template< class Map >
   class EnglishRussianDictionary {
   public:
     using not_found_exception = kumachev::WordNotFound;
@@ -22,16 +21,12 @@ namespace kumachev {
     const std::vector< std::string > &translate(const std::string &english);
 
   private:
-    Map map_;
+    std::map< std::string, std::vector< std::string > > map_;
   };
 }
 
-template< class Map >
-kumachev::EnglishRussianDictionary< Map >::EnglishRussianDictionary() = default;
-
-template< class Map >
 template< class IIter >
-void kumachev::EnglishRussianDictionary< Map >::add(const std::string &english, IIter begin, IIter end)
+void kumachev::EnglishRussianDictionary::add(const std::string &english, IIter begin, IIter end)
 {
   auto &coll = map_[english];
   auto insert = std::back_inserter(coll);
@@ -39,21 +34,4 @@ void kumachev::EnglishRussianDictionary< Map >::add(const std::string &english, 
   std::sort(coll.begin(), coll.end());
 }
 
-template< class Map >
-void kumachev::EnglishRussianDictionary< Map >::clear()
-{
-  map_.clear();
-}
-
-template< class Map >
-const std::vector< std::string > &kumachev::EnglishRussianDictionary< Map >::translate(const std::string &english)
-{
-  if (map_.find(english) != map_.end()) {
-    return map_[english];
-  }
-  else {
-    throw not_found_exception();
-  }
-}
-
-#endif //FT_ENGLISH_RUSSIAN_DICTIONARY_H
+#endif //ENGLISH_RUSSIAN_DICTIONARY

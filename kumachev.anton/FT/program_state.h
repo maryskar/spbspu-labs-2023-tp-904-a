@@ -6,7 +6,7 @@
 
 namespace kumachev {
   struct State {
-    std::map< std::string, EnglishRussianDictionary< std::map< std::string, std::vector< std::string > > > > dicts;
+    std::map< std::string, EnglishRussianDictionary > dicts;
   };
 }
 
