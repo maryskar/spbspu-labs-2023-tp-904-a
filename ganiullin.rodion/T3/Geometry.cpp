@@ -4,6 +4,8 @@
 #include <functional>
 #include <iostream>
 #include <iterator>
+#include <iterator>  //FIXME: DEBUG
+#include <numeric>
 #include "TypesIO.h"
 
 using Point = ganiullin::Point;
@@ -66,7 +68,7 @@ bool ganiullin::operator==(const Point& first, const Point& second)
 
 double getArea(const Point p1, const Point p2, const Point p3)
 {
-  // Formaula uses cross product
+  // Formula uses cross product
   return std::abs((p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y)) / 2.0;
 }
 double ganiullin::getPolygonArea(const Polygon& polygon)
@@ -82,9 +84,7 @@ double ganiullin::getPolygonArea(const Polygon& polygon)
   auto func = std::bind(getArea, _1, _2, pivot);
   std::transform(firstPointIter, endPointIter, secondPointIter, std::back_inserter(areas), func);
 
-  std::for_each(std::begin(areas), std::end(areas), [&](double area) {
-    polygonArea += area;
-  });
+  polygonArea = std::accumulate(std::begin(areas), std::end(areas), 0.0);
   return polygonArea;
 }
 
@@ -128,10 +128,10 @@ bool ganiullin::isInFrame(const Polygon& fig, const std::vector< Polygon >& poly
     std::bind(getLeftFrameCorner, _1, compPointY));
   const int minY = (*(std::min_element(std::begin(temp), std::end(temp), compPointY))).y;
 
-  auto isPointinFrame = [&](const Point& point) {
+  auto isPointInFrame = [&](const Point& point) {
     return point.x <= maxX && point.x >= minX && point.y <= maxY && point.y >= minY;
   };
-  return std::all_of(std::begin(fig.points), std::end(fig.points), isPointinFrame);
+  return std::all_of(std::begin(fig.points), std::end(fig.points), isPointInFrame);
 }
 
 bool isSame(const Polygon& fig, const Polygon& other)
@@ -157,7 +157,7 @@ bool isSame(const Polygon& fig, const Polygon& other)
 
   int diffX = first[0].x - second[0].x;
   int diffY = first[0].y - second[0].y;
-  std::for_each(std::begin(second), std::end(second), [&](Point& point) {
+  std::for_each(std::begin(second), std::end(second), [&](Point& point) {  // FIXME: rewrite without std::for_each()
     point.x += diffX;
     point.y += diffY;
   });
@@ -167,4 +167,8 @@ size_t ganiullin::countSame(const Polygon& fig, const std::vector< Polygon >& po
 {
   using namespace std::placeholders;
   return std::count_if(std::begin(polygons), std::end(polygons), std::bind(isSame, _1, fig));
+}
+size_t ganiullin::getNumOfVertexes(const ganiullin::Polygon& fig)
+{
+  return fig.points.size();
 }

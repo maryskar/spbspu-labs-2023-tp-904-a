@@ -17,6 +17,7 @@ namespace ganiullin {
   double getPolygonArea(const Polygon& polygon);
   bool isInFrame(const Polygon& fig, const std::vector< Polygon >& polygons);
   size_t countSame(const Polygon& fig, const std::vector< Polygon >& polygons);
+  size_t getNumOfVertexes(const Polygon& fig);
 
 }
 #endif
