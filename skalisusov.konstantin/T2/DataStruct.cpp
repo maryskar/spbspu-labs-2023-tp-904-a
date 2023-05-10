@@ -25,3 +25,18 @@ std::istream &skalisusov::operator>>(std::istream &in, skalisusov::DelimiterIO &
   }
   return in;
 }
+
+std::istream &skalisusov::operator>>(std::istream &in, skalisusov::CoverIO &&dest)
+{
+  std::istream::sentry checkSentry(in);
+  if(!checkSentry)
+  {
+    return in;
+  }
+  std::string data = "";
+  if((in >> StringIO{ data }) && (data != dest.exp))
+  {
+    in.setstate(std::ios::failbit);
+  }
+  return in;
+}
