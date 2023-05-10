@@ -1,8 +1,8 @@
+#include <algorithm>
 #include <iostream>
 #include <iterator>
 #include <string>
 #include <vector>
-#include <algorithm>
 #include "dataStruct.h"
 
 int main()
