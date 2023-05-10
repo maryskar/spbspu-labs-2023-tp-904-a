@@ -37,6 +37,20 @@ std::string getDoubleString(const mashkin::DataStruct& data)
   }
 }
 
+std::string getUllBinStr(const mashkin::DataStruct& data)
+{
+  unsigned long long varUll = data.key2;
+  std::string result = "";
+  do
+  {
+    result = std::to_string(varUll % 2) + result;
+    varUll /= 2;
+  }
+  while (varUll > 1);
+  result = "0b" + result;
+  return result;
+}
+
 void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
 {
   inp >> var;
@@ -128,7 +142,7 @@ namespace mashkin
   std::ostream& operator<<(std::ostream& out, const DataStruct& data)
   {
     out << "(:key1 " << getDoubleString(data);
-    out << ":key2 0b" << std::bitset< 64 >(data.key2);
+    out << ":key2 " << getUllBinStr(data);
     out << ":key3 \"" << data.key3 << "\":)\n";
     return out;
   }
