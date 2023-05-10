@@ -148,10 +148,21 @@ namespace mashkin
     return inp;
   }
 
-  /*bool comp(const DataStruct& first, const DataStruct& second)
+  bool Comparator::operator()(const DataStruct& first, const DataStruct& second)
   {
-    return first.key1 < second.key1;
-  }*/
+    if (first.key1 == second.key1)
+    {
+      if (first.key2 ==second.key2)
+      {
+        return first.key3.length() < second.key3.length();
+      }
+      return first.key2 < second.key2;
+    }
+    else
+    {
+      return first.key1 < second.key1;
+    }
+  }
 
   std::ostream& operator<<(std::ostream& out, const DataStruct& data)
   {
