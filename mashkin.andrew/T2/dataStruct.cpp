@@ -1,6 +1,8 @@
 #include "dataStruct.h"
 #include <bitset>
+#include <cmath>
 #include <cstddef>
+#include <iomanip>
 #include <ios>
 #include <iostream>
 #include <string>
@@ -8,6 +10,32 @@
 void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
 void getKey2(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
 void getKey3(std::istream& inp, std::string& var, mashkin::DataStruct& varData);
+
+std::string getDoubleString(const mashkin::DataStruct& data)
+{
+  std::string varString = std::to_string(data.key1);
+  size_t varPow = varString.find_first_not_of("0.");
+  double dblWithMantissa = 0.0;
+  std::string result;
+  if (varPow > 1)
+  {
+    dblWithMantissa = data.key1 * pow(10, varPow - 1);
+    result = std::to_string(dblWithMantissa) + "e-" + std::to_string(varPow - 1);
+  }
+  else
+  {
+    dblWithMantissa = data.key1 * pow(10, -(varPow - 1));
+    result = std::to_string(dblWithMantissa) + "e+" + std::to_string(varPow - 1);
+  }
+  while (result.find_last_of('e') - 1 == result.find_last_of('0') &&
+         result.find_last_of('0') != std::to_string(dblWithMantissa).find_last_not_of('0') + 1)
+  {
+    result.erase(std::begin(result) + result.find_last_of('0'));
+  }
+  {
+    return result;
+  }
+}
 
 void getKey1(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
 {
@@ -96,9 +124,10 @@ namespace mashkin
     data = varData;
     return inp;
   }
-  std::ostream& operator<<(std::ostream& out, DataStruct& data)
+
+  std::ostream& operator<<(std::ostream& out, const DataStruct& data)
   {
-    out << "(:key1 " << std::scientific << data.key1;
+    out << "(:key1 " << getDoubleString(data);
     out << ":key2 0b" << std::bitset< 64 >(data.key2);
     out << ":key3 \"" << data.key3 << "\":)\n";
     return out;
