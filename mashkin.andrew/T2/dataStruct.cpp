@@ -104,6 +104,7 @@ void getKey3(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
   }
   beginIt++;
   std::copy(beginIt, endIt, std::back_inserter(varData.key3));
+  var.erase(std::begin(var), endIt + 2);
 }
 
 namespace mashkin
