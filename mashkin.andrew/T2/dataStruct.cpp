@@ -111,6 +111,11 @@ namespace mashkin
 {
   std::istream& operator>>(std::istream& inp, DataStruct& data)
   {
+    std::istream::sentry sen(inp);
+    if (!sen)
+    {
+      return inp;
+    }
     std::string var;
     DataStruct varData{0.0, 0, ""};
     inp >> var;
@@ -166,6 +171,11 @@ namespace mashkin
 
   std::ostream& operator<<(std::ostream& out, const DataStruct& data)
   {
+    std::ostream::sentry sen(out);
+    if (!sen)
+    {
+      return out;
+    }
     out << "(:key1 " << getDoubleString(data);
     out << ":key2 " << getUllBinStr(data);
     out << ":key3 \"" << data.key3 << "\":)";
