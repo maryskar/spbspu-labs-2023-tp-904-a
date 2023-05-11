@@ -1,6 +1,8 @@
 #include "data-struct.hpp"
 #include <iostream>
+#include <iomanip>
 #include "IO-structs.hpp"
+#include "iofmtguard.hpp"
 
 namespace chemodurov
 {
@@ -56,7 +58,13 @@ namespace chemodurov
     {
       return out;
     }
-    //...
+    iofmtguard fmtguard(out);
+    out << '(';
+    out << ":key1 " << std::scientific << std::setprecision(1) << data.key1;
+    out << ":key2 " << data.key2 << "ll";
+    out << ":key3 " << data.key3;
+    out << ":)";
+    return out;
   }
 
   bool checkOutSentry(std::ostream & out)

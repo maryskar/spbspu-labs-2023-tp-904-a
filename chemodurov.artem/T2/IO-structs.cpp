@@ -1,5 +1,6 @@
 #include "IO-structs.hpp"
 #include <iostream>
+#include "iofmtguard.hpp"
 
 namespace chemodurov
 {
@@ -30,6 +31,7 @@ namespace chemodurov
     {
       return in;
     }
+    iofmtguard fmtguard(in);
     return in >> std::scientific >> dest.ref;
   }
 
