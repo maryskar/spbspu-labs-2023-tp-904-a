@@ -11,6 +11,7 @@ namespace chemodurov
     std::string key3;
   };
 
+  bool checkOutSentry(std::ostream & out);
   std::istream & operator>>(std::istream & in, DataStrct & data);
   std::ostream & operator<<(std::ostream & out, const DataStrct & data);
 }

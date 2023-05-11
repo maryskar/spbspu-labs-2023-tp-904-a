@@ -6,7 +6,7 @@ namespace chemodurov
   bool checkInSentry(std::istream & in)
   {
     std::istream::sentry sentry(in);
-    return static_cast<bool>(sentry);
+    return static_cast< bool >(sentry);
   }
 
   std::istream & operator>>(std::istream & in, DelimiterIO && dest)

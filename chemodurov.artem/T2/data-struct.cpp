@@ -49,4 +49,19 @@ namespace chemodurov
     }
     return in;
   }
+
+  std::ostream & operator<<(std::ostream & out, const DataStrct & data)
+  {
+    if (!checkOutSentry(out))
+    {
+      return out;
+    }
+    //...
+  }
+
+  bool checkOutSentry(std::ostream & out)
+  {
+    std::ostream::sentry sentry(out);
+    return static_cast< bool >(sentry);
+  }
 }
