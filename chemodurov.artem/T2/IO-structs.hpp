@@ -29,6 +29,7 @@ namespace chemodurov
     std::string exp;
   };
 
+  bool checkInSentry(std::istream & in);
   std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   std::istream & operator>>(std::istream & in, DoubleIO && dest);
   std::istream & operator>>(std::istream & in, LongLongIO && dest);

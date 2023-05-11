@@ -3,7 +3,7 @@
 
 namespace chemodurov
 {
-  bool checkSentry(std::istream & in)
+  bool checkInSentry(std::istream & in)
   {
     std::istream::sentry sentry(in);
     return static_cast<bool>(sentry);
@@ -11,7 +11,7 @@ namespace chemodurov
 
   std::istream & operator>>(std::istream & in, DelimiterIO && dest)
   {
-    if (!checkSentry(in))
+    if (!checkInSentry(in))
     {
       return in;
     }
@@ -26,7 +26,7 @@ namespace chemodurov
 
   std::istream & operator>>(std::istream & in, DoubleIO && dest)
   {
-    if (!checkSentry(in))
+    if (!checkInSentry(in))
     {
       return in;
     }
@@ -35,7 +35,7 @@ namespace chemodurov
 
   std::istream & operator>>(std::istream & in, LongLongIO && dest)
   {
-    if (!checkSentry(in))
+    if (!checkInSentry(in))
     {
       return in;
     }
@@ -44,7 +44,7 @@ namespace chemodurov
 
   std::istream & operator>>(std::istream & in, StringIO && dest)
   {
-    if (!checkSentry(in))
+    if (!checkInSentry(in))
     {
       return in;
     }
@@ -53,7 +53,7 @@ namespace chemodurov
 
   std::istream & operator>>(std::istream & in, LabelIO && dest)
   {
-    if (!checkSentry(in))
+    if (!checkInSentry(in))
     {
       return in;
     }
