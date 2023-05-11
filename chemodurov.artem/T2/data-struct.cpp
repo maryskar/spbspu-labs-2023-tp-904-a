@@ -15,23 +15,23 @@ namespace chemodurov
     bool isKey1 = false;
     bool isKey2 = false;
     bool isKey3 = false;
-    in >> DelimiterIO{'('} >> DelimiterIO{':'};
+    in >> DelimiterIO{'('};
     for (size_t i = 0; i < 3; ++i)
     {
-      in >> temp >> DelimiterIO{' '};
+      in >> LabelIO{temp};
       if (temp.substr(0, 3) == "key")
       {
-        if (temp[4] == '1' && !isKey1)
+        if (temp[3] == '1' && !isKey1)
         {
           in >> DoubleIO{res.key1};
           isKey1 = true;
         }
-        else if (temp[4] == '2' && !isKey2)
+        else if (temp[3] == '2' && !isKey2)
         {
           in >> LongLongIO{res.key2};
           isKey2 = true;
         }
-        else if (temp[4] == '3' && !isKey3)
+        else if (temp[3] == '3' && !isKey3)
         {
           in >> StringIO{res.key3};
           isKey3 = true;
@@ -40,10 +40,9 @@ namespace chemodurov
         {
           in.setstate(std::ios::failbit);
         }
-        in >> DelimiterIO{':'};
       }
     }
-    in >> DelimiterIO{')'};
+    in >> DelimiterIO{':'} >> DelimiterIO{')'};
     if (in)
     {
       data = res;

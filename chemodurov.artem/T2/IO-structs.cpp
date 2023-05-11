@@ -57,11 +57,6 @@ namespace chemodurov
     {
       return in;
     }
-    std::string data;
-    if ((in >> StringIO{data} && data != dest.exp))
-    {
-      in.setstate(std::ios::failbit);
-    }
-    return in;
+    return std::getline(in >> DelimiterIO{':'}, dest.ref, ' ');
   }
 }

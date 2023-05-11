@@ -26,7 +26,7 @@ namespace chemodurov
 
   struct LabelIO
   {
-    std::string exp;
+    std::string & ref;
   };
 
   bool checkInSentry(std::istream & in);
