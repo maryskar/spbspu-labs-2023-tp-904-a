@@ -1,5 +1,5 @@
-#ifndef ROMANOVICH_ARTEM_DATASTRUCT_H
-#define ROMANOVICH_ARTEM_DATASTRUCT_H
+#ifndef DATASTRUCT_H
+#define DATASTRUCT_H
 #include <string>
 #include <utility>
 #include <ios>

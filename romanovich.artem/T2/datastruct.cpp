@@ -23,9 +23,8 @@ namespace romanovich
     {
       return in;
     }
-    return in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
-              >> dest.ratNumber.first >> rDelimIO{':'} >> rDelimIO{'D'}
-              >> dest.ratNumber.second >> rDelimIO{':'} >> rDelimIO{')'};
+    return in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'} >> dest.ratNumber.first
+              >> rDelimIO{':'} >> rDelimIO{'D'} >> dest.ratNumber.second >> rDelimIO{':'} >> rDelimIO{')'};
   }
   std::istream &operator>>(std::istream &in, StringIO &&dest)
   {
@@ -57,8 +56,8 @@ namespace romanovich
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "(:key1 0" << source.key1 << ":key2 (:N " << source.key2.first << ":D "
-        << source.key2.second << ":):key3 \"" << source.key3 << "\":)\n";
+    out << "(:key1 0" << source.key1 << ":key2 (:N " << source.key2.first << ":D " << source.key2.second
+        << ":):key3 \"" << source.key3 << "\":)\n";
     return out;
   }
   void fillData(rDataStruct &dataStruct, std::istream &in)
