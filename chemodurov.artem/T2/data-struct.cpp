@@ -77,4 +77,10 @@ namespace chemodurov
     std::ostream::sentry sentry(out);
     return static_cast< bool >(sentry);
   }
+
+  bool isLess(const DataStrct & lhs, const DataStrct & rhs)
+  {
+    bool fst = lhs.key1 < rhs.key1;
+    return fst || (lhs.key1 == rhs.key1 && lhs.key2 < rhs.key2) || (lhs.key2 == rhs.key2 && lhs.key3.size() < rhs.key3.size());
+  }
 }

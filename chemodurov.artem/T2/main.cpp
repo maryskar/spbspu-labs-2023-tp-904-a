@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <iterator>
+#include <algorithm>
 #include "data-struct.hpp"
 
 int main()
@@ -18,6 +19,12 @@ int main()
       std::back_inserter(data)
     );
   }
+
+  std::sort(
+    data.begin(),
+    data.end(),
+    chemodurov::isLess
+  );
 
   std::copy(
     data.begin(),
