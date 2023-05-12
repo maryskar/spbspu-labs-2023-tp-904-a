@@ -62,8 +62,8 @@ namespace chemodurov
     out << '(';
     out << ":key1 " << std::scientific << std::setprecision(1) << data.key1;
     out << ":key2 " << data.key2 << "ll";
-    out << ":key3 " << data.key3;
-    out << ":)";
+    out << ":key3 \"" << data.key3;
+    out << "\":)";
     return out;
   }
 
