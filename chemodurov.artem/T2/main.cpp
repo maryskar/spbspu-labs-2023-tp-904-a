@@ -6,11 +6,18 @@
 int main()
 {
   std::vector< chemodurov::DataStrct > data;
-  std::copy(
-    std::istream_iterator< chemodurov::DataStrct >(std::cin),
-    std::istream_iterator< chemodurov::DataStrct >(),
-    std::back_inserter(data)
-  );
+  while (!std::cin.eof())
+  {
+    if (std::cin.fail())
+    {
+      std::cin.clear();
+    }
+    std::copy(
+      std::istream_iterator< chemodurov::DataStrct >(std::cin),
+      std::istream_iterator< chemodurov::DataStrct >(),
+      std::back_inserter(data)
+    );
+  }
 
   std::copy(
     data.begin(),
