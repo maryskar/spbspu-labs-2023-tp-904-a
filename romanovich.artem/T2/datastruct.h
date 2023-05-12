@@ -3,7 +3,6 @@
 #include <string>
 #include <utility>
 #include <ios>
-#include <iostream>
 namespace romanovich
 {
   struct DataStruct
@@ -18,7 +17,7 @@ namespace romanovich
   };
   struct RationalNumberIO
   {
-    std::pair< long long, unsigned long long > ratNumber;
+    std::pair< long long, unsigned long long > &ratNumber;
   };
   struct StringIO
   {
