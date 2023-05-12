@@ -73,7 +73,8 @@ void kumachev::CommandExecutor::processHelp(CommandExecutor &executor)
                     << "\t7. clear <dict> - удалить все элементы из словаря\n"
                     << "\t8. translate_word <dict> <english> - вывести список переводов слова\n"
                     << "\t9. execute <script> - выполнить скрипт, состоящий из представленных команд\n"
-                    << "\t10. merge <dict_out> <dict1> <dict2> - объединить словари <dict1> и <dict2> в словарь <dict_out>\n"
+                    << "\t10. merge <dict_out> <dict1> <dict2> - объединить словари <dict1> и <dict2>"
+                    << " в словарь <dict_out>\n"
                     << "\t11. subtract <dict_out> <dict1> <dict2> - вычесть словарь <dict2> из <dict1>"
                     << " и записать результат в <dict_out>\n\n";
 }
