@@ -2,42 +2,25 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <limits>
 #include "datastruct.h"
 int main()
 {
   std::vector< romanovich::DataStruct > ds;
-  /*auto begin = std::istream_iterator< romanovich::DataStruct >(std::cin);
+  auto begin = std::istream_iterator< romanovich::DataStruct >(std::cin);
   auto end = std::istream_iterator< romanovich::DataStruct >();
   auto target = std::back_inserter(ds);
   while (!std::cin.eof())
   {
     std::copy(begin, end, target);
-    if (std::cin.fail())
+    if (!std::cin)
     {
       std::cin.clear();
-      std::string dummy;
-      std::getline(std::cin, dummy);
-    }
-  }*/
-  std::back_insert_iterator< decltype(ds) > backInserter = std::back_inserter(ds);
-  while (!std::cin.eof())
-  {
-    romanovich::DataStruct dataStruct;
-    std::cin >> dataStruct;
-    if (!std::cin.fail())
-    {
-      *backInserter = dataStruct;
-      ++backInserter;
-    }
-    else
-    {
-      std::cin.clear();
-      std::string dummy;
-      std::getline(std::cin, dummy);
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
   }
   romanovich::Comparator Comp;
   std::sort(ds.begin(), ds.end(), Comp);
-  std::copy(ds.begin(), ds.end(), std::ostream_iterator< romanovich::DataStruct >(std::cout));
+  std::copy(ds.begin(), ds.end(), std::ostream_iterator< romanovich::DataStruct >(std::cout, "\n"));
   return 0;
 }
