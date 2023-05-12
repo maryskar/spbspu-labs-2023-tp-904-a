@@ -18,7 +18,7 @@ namespace romanovich
   };
   struct RationalNumberIO
   {
-    std::pair< long long, unsigned long long > ratNumber;
+    std::pair< long long, unsigned long long > &ratNumber;
   };
   struct StringIO
   {

@@ -23,15 +23,9 @@ namespace romanovich
     {
       return in;
     }
-    std::pair< long long, unsigned long long > number;
-    in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
-       >> number.first >> rDelimIO{':'} >> rDelimIO{'D'}
-       >> number.second >> rDelimIO{':'} >> rDelimIO{')'};
-    if (in)
-    {
-      dest.ratNumber = number;
-    }
-    return in;
+    return in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
+              >> dest.ratNumber.first >> rDelimIO{':'} >> rDelimIO{'D'}
+              >> dest.ratNumber.second >> rDelimIO{':'} >> rDelimIO{')'};
   }
   std::istream &operator>>(std::istream &in, StringIO &&dest)
   {
