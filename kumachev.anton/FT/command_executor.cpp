@@ -1,6 +1,7 @@
 #include "command_executor.h"
 #include <istream>
 #include <iterator>
+#include <fstream>
 
 kumachev::CommandExecutor::CommandExecutor(std::istream &istream, std::ostream &ostream, State &state,
     bool interactive):
@@ -116,17 +117,111 @@ void kumachev::CommandExecutor::processCreate(CommandExecutor &executor)
 
 void kumachev::CommandExecutor::processLoad(CommandExecutor &executor)
 {
+  std::istream &istream = executor.istream_;
+  std::ostream &ostream = executor.ostream_;
+  State &state = executor.state_;
 
+  std::string dictName;
+  std::string path;
+  istream >> dictName >> path;
+
+  const auto &pair = state.dicts.find(dictName);
+
+  if (pair != state.dicts.end()) {
+    ostream << "ОШИБКА: Словарь уже существует\n\n";
+    return;
+  }
+
+  if (istream.fail()) {
+    ostream << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
+    return;
+  }
+
+  std::ifstream file(path, std::ios::in);
+
+  if (!file.is_open()) {
+    ostream << "ОШИБКА: Файл не найден\n\n";
+    return;
+  }
+
+  EnglishRussianDictionary dict;
+  dict.read(file);
+
+  if (file.fail() && !file.eof()) {
+    ostream << "ОШИБКА: что-то пошло не так\n\n";
+    return;
+  }
+
+  state.dicts[dictName] = dict;
 }
 
 void kumachev::CommandExecutor::processSave(CommandExecutor &executor)
 {
+  std::istream &istream = executor.istream_;
+  std::ostream &ostream = executor.ostream_;
+  State &state = executor.state_;
 
+  std::string dictName;
+  std::string path;
+  istream >> dictName >> path;
+
+  const auto &dict = state.dicts.find(dictName);
+
+  if (dict == state.dicts.end()) {
+    ostream << "ОШИБКА: Словарь не найден\n\n";
+    return;
+  }
+
+  if (istream.fail()) {
+    ostream << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
+    return;
+  }
+
+  std::fstream file(path, std::ios::out | std::ios::in);
+
+  if (file.is_open()) {
+    ostream << "ОШИБКА: Файл уже существует, используйте save_overwrite, если хотите перезаписать его\n\n";
+    return;
+  }
+
+  file.open(path, std::ios::out);
+  dict->second.write(file);
+
+  if (file.fail()) {
+    ostream << "ОШИБКА: что-то пошло не так\n\n";
+    return;
+  }
 }
 
 void kumachev::CommandExecutor::processSaveOverwrite(CommandExecutor &executor)
 {
+  std::istream &istream = executor.istream_;
+  std::ostream &ostream = executor.ostream_;
+  State &state = executor.state_;
 
+  std::string dictName;
+  std::string path;
+  istream >> dictName >> path;
+
+  const auto &dict = state.dicts.find(dictName);
+
+  if (dict == state.dicts.end()) {
+    ostream << "ОШИБКА: Словарь не найден\n\n";
+    return;
+  }
+
+  if (istream.fail()) {
+    ostream << "Ошибка в синтаксисе команды, введите help для получения справки\n\n";
+    return;
+  }
+
+  std::ofstream file(path, std::ios::out);
+  dict->second.write(file);
+
+  if (file.fail()) {
+    ostream << "ОШИБКА: что-то пошло не так\n\n";
+    return;
+  }
 }
 
 void kumachev::CommandExecutor::processAdd(CommandExecutor &executor)

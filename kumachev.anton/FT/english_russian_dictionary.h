@@ -20,6 +20,9 @@ namespace kumachev {
     void clear();
     const std::vector< std::string > &translate(const std::string &english);
 
+    void write(std::ostream &ostream);
+    void read(std::istream &istream);
+
   private:
     std::map< std::string, std::vector< std::string > > map_;
   };
