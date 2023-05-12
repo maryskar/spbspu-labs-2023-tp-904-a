@@ -23,15 +23,20 @@ namespace romanovich
     {
       return in;
     }
-    std::pair< long long, unsigned long long > number;
-    in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
-       >> number.first >> rDelimIO{':'} >> rDelimIO{'D'}
-       >> number.second >> rDelimIO{':'} >> rDelimIO{')'};
-    if (in)
+    return in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
+              >> dest.ratNumber.first >> rDelimIO{':'} >> rDelimIO{'D'}
+              >> dest.ratNumber.second >> rDelimIO{':'} >> rDelimIO{')'};
+  }
+  std::istream &operator>>(std::istream &in, RationalNumberIO &dest)
+  {
+    if (!checkSentry(in))
     {
-      dest.ratNumber = number;
+      return in;
     }
-    return in;
+    return in >> rDelimIO{'('} >> rDelimIO{':'} >> rDelimIO{'N'}
+              >> dest.ratNumber.first >> rDelimIO{':'} >> rDelimIO{'D'}
+              >> dest.ratNumber.second >> rDelimIO{':'} >> rDelimIO{')'}
+              >> rDelimIO{':'};
   }
   std::istream &operator>>(std::istream &in, StringIO &&dest)
   {
@@ -83,10 +88,6 @@ namespace romanovich
     if (key == list[2])
     {
       in >> StringIO{dataStruct.key3} >> rDelimIO{':'};
-    }
-    else
-    {
-      in.setstate(std::ios::failbit);
     }
   }
   std::istream &operator>>(std::istream &in, rDataStruct &dest)
