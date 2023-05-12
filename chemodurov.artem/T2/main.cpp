@@ -11,6 +11,11 @@ int main()
     std::istream_iterator< chemodurov::DataStrct >(),
     std::back_inserter(data)
   );
-  std::copy(data.begin(), data.end(), std::ostream_iterator< chemodurov::DataStrct >(std::cout, "\n"));
+
+  std::copy(
+    data.begin(),
+    data.end(),
+    std::ostream_iterator< chemodurov::DataStrct >(std::cout, "\n")
+  );
   return 0;
 }
