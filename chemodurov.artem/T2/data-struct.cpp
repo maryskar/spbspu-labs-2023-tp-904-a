@@ -58,9 +58,14 @@ namespace chemodurov
     {
       return out;
     }
-    iofmtguard fmtguard(out);
+    std::string temp;
+    std::ostringstream str(temp);
+    str << std::scientific << std::setprecision(1) << data.key1;
+    temp = str.str();
+    size_t e_ind = temp.find('e');
+    temp.erase(temp.begin() + e_ind + 2);
     out << '(';
-    out << ":key1 " << std::scientific << std::setprecision(1) << data.key1;
+    out << ":key1 " << temp;
     out << ":key2 " << data.key2 << "ll";
     out << ":key3 \"" << data.key3;
     out << "\":)";
