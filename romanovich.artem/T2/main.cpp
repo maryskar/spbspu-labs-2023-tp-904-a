@@ -6,19 +6,10 @@
 int main()
 {
   std::vector< romanovich::DataStruct > ds;
-  /*auto begin = std::istream_iterator< romanovich::DataStruct >(std::cin);
+  auto begin = std::istream_iterator< romanovich::DataStruct >(std::cin);
   auto end = std::istream_iterator< romanovich::DataStruct >();
   auto target = std::back_inserter(ds);
-  while (!std::cin.eof())
-  {
-    std::copy(begin, end, target);
-    if (std::cin.fail())
-    {
-      std::cin.clear();
-      std::string dummy;
-      std::getline(std::cin, dummy);
-    }
-  }*/
+  //std::copy(begin, end, target);
   std::back_insert_iterator< decltype(ds) > backInserter = std::back_inserter(ds);
   while (!std::cin.eof())
   {
