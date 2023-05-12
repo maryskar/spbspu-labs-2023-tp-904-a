@@ -13,11 +13,8 @@ int main()
   while (!std::cin.eof())
   {
     std::copy(begin, end, target);
-    if (std::cin.fail())
-    {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-    }
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
   }
   romanovich::Comparator Comp;
   std::sort(dsVector.begin(), dsVector.end(), Comp);
