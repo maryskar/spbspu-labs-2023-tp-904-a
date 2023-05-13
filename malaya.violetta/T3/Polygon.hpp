@@ -16,12 +16,6 @@ namespace malaya
   };
   std::istream & operator>>(std::istream & in, SeparatorPointIO && separator);
 
-  //struct DoubleIO
-  //{
-  //  double& ref;
-  //};
-  //std::istream & operator>>(std::istream & in, DoubleIO & separator);
-
   struct Polygon
   {
     std::vector< Point > points;
