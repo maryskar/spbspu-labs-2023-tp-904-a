@@ -6,7 +6,8 @@
 
 std::istream & chemodurov::operator>>(std::istream & in, Point & dest)
 {
-  if (!checkInSentry(in))
+  std::istream::sentry sentry(in);
+  if (!sentry)
   {
     return in;
   }
@@ -15,7 +16,8 @@ std::istream & chemodurov::operator>>(std::istream & in, Point & dest)
 
 std::istream & chemodurov::operator>>(std::istream & in, Polygon & dest)
 {
-  if (!checkInSentry(in))
+  std::istream::sentry sentry(in);
+  if (!sentry)
   {
     return in;
   }
