@@ -6,7 +6,7 @@ namespace malaya
 {
   struct Point
   {
-    int x, y; //???
+    int x, y;
   };
   std::istream & operator>>(std::istream & in, Point & point);
 
@@ -21,6 +21,5 @@ namespace malaya
     std::vector< Point > points;
   };
   std::istream & operator>>(std::istream & in, Polygon & polygon);
-  //double getArea(const Polygon & polygon);
 }
 #endif

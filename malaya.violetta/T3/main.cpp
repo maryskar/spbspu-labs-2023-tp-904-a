@@ -7,10 +7,9 @@
 int main()
 {
   std::ifstream in ("input.txt");
+  using inIter = std::istream_iterator< malaya::Polygon >;
   std::vector< malaya::Polygon > data;
-  std::copy(std::istream_iterator< malaya::Polygon >(in),
-    std::istream_iterator< malaya::Polygon >(),
-        std::back_inserter(data));
+  std::copy(inIter(in), inIter(), std::back_inserter(data));
 
   return 0;
 }
