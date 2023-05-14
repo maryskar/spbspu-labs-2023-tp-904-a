@@ -15,6 +15,7 @@ namespace chemodurov
     std::vector< Point > data;
   };
 
+  size_t size(const Polygon & pol);
   std::istream & operator>>(std::istream & in, Point & dest);
   std::istream & operator>>(std::istream & in, Polygon & dest);
 }

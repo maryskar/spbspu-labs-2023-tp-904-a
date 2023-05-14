@@ -31,3 +31,8 @@ std::istream & chemodurov::operator>>(std::istream & in, Polygon & dest)
   std::copy_n(std::istream_iterator< Point >(in), num_of_points, std::back_inserter(dest.data));
   return in;
 }
+
+size_t chemodurov::size(const chemodurov::Polygon & pol)
+{
+  return pol.data.size();
+}
