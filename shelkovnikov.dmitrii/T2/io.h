@@ -1,7 +1,7 @@
 #ifndef SPBSPU_LABS_2023_TP_904_A_IO_H
 #define SPBSPU_LABS_2023_TP_904_A_IO_H
 #include <complex>
-#include "data_structs.h"
+#include "data_struct.h"
 namespace dimkashelk
 {
   using complex_type = std::complex< double >;

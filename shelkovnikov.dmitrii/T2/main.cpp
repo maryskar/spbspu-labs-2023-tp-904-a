@@ -2,7 +2,7 @@
 #include <iterator>
 #include <vector>
 #include <algorithm>
-#include "data_structs.h"
+#include "data_struct.h"
 #include "comparator.h"
 int main()
 {

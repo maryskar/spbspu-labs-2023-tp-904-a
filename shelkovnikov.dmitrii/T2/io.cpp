@@ -1,6 +1,6 @@
 #include "io.h"
 #include <iomanip>
-#include "data_structs.h"
+#include "data_struct.h"
 namespace dimkashelk
 {
   std::istream &operator>>(std::istream &in, DataStruct c)

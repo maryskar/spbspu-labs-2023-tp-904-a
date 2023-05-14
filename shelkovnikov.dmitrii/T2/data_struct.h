@@ -5,6 +5,8 @@
 #include "io.h"
 namespace dimkashelk
 {
+  using complex_type = std::complex< double >;
+  using rational_number = std::pair< long long, unsigned long long >;
   struct DataStruct
   {
     complex_type key1;
