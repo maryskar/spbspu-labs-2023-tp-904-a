@@ -4,8 +4,6 @@
 #include "data_struct.h"
 namespace dimkashelk
 {
-  using complex_type = std::complex< double >;
-  using rational_number = std::pair< long long, unsigned long long >;
   struct DelimiterIO
   {
     char exp;
@@ -37,7 +35,7 @@ namespace dimkashelk
     std::streamsize precision_;
     std::basic_ios< char >::fmtflags fmt_;
   };
-  std::istream &operator>>(std::istream &in, DataStruct c);
+  std::istream &operator>>(std::istream &in, complex_type &c);
   std::istream &operator>>(std::istream &in, rational_number &c);
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
   std::istream &operator>>(std::istream &in, ComplexIO &&c);

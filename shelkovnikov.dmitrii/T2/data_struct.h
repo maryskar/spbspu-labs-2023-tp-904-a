@@ -2,7 +2,6 @@
 #define SPBSPU_LABS_2023_TP_904_A_DATA_STRUCTS_H
 #include <complex>
 #include <string>
-#include "io.h"
 namespace dimkashelk
 {
   using complex_type = std::complex< double >;

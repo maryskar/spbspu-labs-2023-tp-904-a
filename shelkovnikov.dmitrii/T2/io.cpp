@@ -3,7 +3,7 @@
 #include "data_struct.h"
 namespace dimkashelk
 {
-  std::istream &operator>>(std::istream &in, DataStruct c)
+  std::istream &operator>>(std::istream &in, complex_type &c)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
