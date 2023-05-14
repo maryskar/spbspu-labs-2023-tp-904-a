@@ -8,11 +8,10 @@ int main()
 {
   std::vector< romanovich::DataStruct > dsVector;
   using begin = std::istream_iterator< romanovich::DataStruct >;
-  auto end = std::istream_iterator< romanovich::DataStruct >();
   auto target = std::back_inserter(dsVector);
   while (!std::cin.eof())
   {
-    std::copy(begin(std::cin), end, target);
+    std::copy(begin(std::cin), begin(), target);
     if (std::cin.fail())
     {
       std::cin.clear();
@@ -21,6 +20,6 @@ int main()
   }
   romanovich::Comparator Comp;
   std::sort(dsVector.begin(), dsVector.end(), Comp);
-  std::copy(dsVector.begin(), dsVector.end(), std::ostream_iterator< romanovich::DataStruct >(std::cout));
+  std::copy(dsVector.begin(), dsVector.end(), std::ostream_iterator< romanovich::DataStruct >(std::cout, "\n"));
   return 0;
 }
