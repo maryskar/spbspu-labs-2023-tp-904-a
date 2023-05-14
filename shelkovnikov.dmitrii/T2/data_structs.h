@@ -2,7 +2,6 @@
 #define SPBSPU_LABS_2023_TP_904_A_DATA_STRUCTS_H
 #include <complex>
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <iomanip>
 namespace dimkashelk
