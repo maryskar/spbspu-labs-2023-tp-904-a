@@ -1,6 +1,7 @@
 #include "polygon.hpp"
 #include <sstream>
 #include <iterator>
+#include <algorithm>
 #include <IO-structs.hpp>
 
 std::istream & chemodurov::operator>>(std::istream & in, Point & dest)
@@ -20,17 +21,11 @@ std::istream & chemodurov::operator>>(std::istream & in, Polygon & dest)
   }
   size_t num_of_points = 0;
   in >> num_of_points;
-  std::string line;
-  std::getline(in, line);
-  if (!in)
+  if (!in || num_of_points < 3)
   {
+    in.setstate(std::ios::failbit);
     return in;
   }
-  std::istringstream iss(line);
-  std::copy(
-    std::istream_iterator< Point >(iss),
-    std::istream_iterator< Point >(),
-    std::back_inserter(dest.data)
-  );
+  std::copy_n(std::istream_iterator< Point >(in), num_of_points, std::back_inserter(dest.data));
   return in;
 }
