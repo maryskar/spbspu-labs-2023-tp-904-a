@@ -6,7 +6,7 @@
 
 int main()
 {
-  std::vector< chemodurov::DataStrct > data;
+  std::vector< chemodurov::DataStruct > data;
   while (!std::cin.eof())
   {
     if (std::cin.fail())
@@ -15,12 +15,12 @@ int main()
       std::string line;
       std::getline(std::cin, line);
     }
-    using istr_it_data_t = std::istream_iterator< chemodurov::DataStrct >;
+    using istr_it_data_t = std::istream_iterator< chemodurov::DataStruct >;
     std::copy(istr_it_data_t(std::cin), istr_it_data_t(), std::back_inserter(data));
   }
 
   std::sort(data.begin(), data.end(), chemodurov::isLess);
 
-  std::copy(data.begin(), data.end(), std::ostream_iterator< chemodurov::DataStrct >(std::cout, "\n"));
+  std::copy(data.begin(), data.end(), std::ostream_iterator< chemodurov::DataStruct >(std::cout, "\n"));
   return 0;
 }

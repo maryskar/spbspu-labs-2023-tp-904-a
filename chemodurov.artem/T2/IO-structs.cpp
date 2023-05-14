@@ -1,5 +1,5 @@
 #include "IO-structs.hpp"
-#include <iostream>
+#include <cmath>
 #include "iofmtguard.hpp"
 
 namespace chemodurov
@@ -27,8 +27,13 @@ namespace chemodurov
     {
       return in;
     }
-    iofmtguard fmtguard(in);
-    return in >> std::scientific >> dest.ref;
+    int a = 0;
+    int b = 0;
+    int power = 0;
+    in >> a >> DelimiterIO{'.'} >> b >> DelimiterIO{'e'} >> power;
+    double mantissa = a + static_cast< double >(b) / 10;
+    dest.ref = mantissa * std::pow(10, power);
+    return in;
   }
 
   std::istream & operator>>(std::istream & in, LongLongIO && dest)

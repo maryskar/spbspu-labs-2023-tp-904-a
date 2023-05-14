@@ -4,16 +4,16 @@
 
 namespace chemodurov
 {
-  struct DataStrct
+  struct DataStruct
   {
     double key1;
     long long key2;
     std::string key3;
   };
 
-  bool isLess(const DataStrct & lhs, const DataStrct & rhs);
-  std::istream & operator>>(std::istream & in, DataStrct & data);
-  std::ostream & operator<<(std::ostream & out, const DataStrct & data);
+  bool isLess(const DataStruct & lhs, const DataStruct & rhs);
+  std::istream & operator>>(std::istream & in, DataStruct & data);
+  std::ostream & operator<<(std::ostream & out, const DataStruct & data);
 }
 
 #endif

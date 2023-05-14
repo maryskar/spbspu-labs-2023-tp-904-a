@@ -1,6 +1,5 @@
 #include "data-struct.hpp"
 #include <iostream>
-#include <iomanip>
 #include <cmath>
 #include "IO-structs.hpp"
 
@@ -38,14 +37,14 @@ namespace chemodurov
     return res;
   }
 
-  std::istream & operator>>(std::istream & in, DataStrct & data)
+  std::istream & operator>>(std::istream & in, DataStruct & data)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
       return in;
     }
-    DataStrct res;
+    DataStruct res;
     std::string temp;
     bool isKey1 = false;
     bool isKey2 = false;
@@ -59,16 +58,28 @@ namespace chemodurov
         if (temp[3] == '1' && !isKey1)
         {
           in >> DoubleIO{res.key1};
+          if (!in)
+          {
+            return in;
+          }
           isKey1 = true;
         }
         else if (temp[3] == '2' && !isKey2)
         {
           in >> LongLongIO{res.key2};
+          if (!in)
+          {
+            return in;
+          }
           isKey2 = true;
         }
         else if (temp[3] == '3' && !isKey3)
         {
           in >> StringIO{res.key3};
+          if (!in)
+          {
+            return in;
+          }
           isKey3 = true;
         }
         else
@@ -86,7 +97,7 @@ namespace chemodurov
     return in;
   }
 
-  std::ostream & operator<<(std::ostream & out, const DataStrct & data)
+  std::ostream & operator<<(std::ostream & out, const DataStruct & data)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
@@ -101,7 +112,7 @@ namespace chemodurov
     return out;
   }
 
-  bool isLess(const DataStrct & lhs, const DataStrct & rhs)
+  bool isLess(const DataStruct & lhs, const DataStruct & rhs)
   {
     bool fst = lhs.key1 < rhs.key1;
     return fst || (lhs.key1 == rhs.key1 && lhs.key2 < rhs.key2) || (lhs.key2 == rhs.key2 && lhs.key3.size() < rhs.key3.size());
