@@ -11,9 +11,10 @@ namespace dimkashelk
       return in;
     }
     using sep = DelimiterIO;
+    using label = LabelIO;
     double real = 0.0;
     double imag = 0.0;
-    in >> sep{'#'} >> sep{'c'} >> sep{'('} >> real >> imag >> sep{')'};
+    in >> label{"#c("} >> real >> imag >> sep{')'};
     c = complex_type(real, imag);
     return in;
   }
@@ -24,10 +25,10 @@ namespace dimkashelk
     {
       return in;
     }
-    using sep = DelimiterIO;
+    using label = LabelIO;
     long long first = 0;
     unsigned long long second = 0;
-    in >> sep{'('} >> sep{':'} >> sep{'N'} >> first >> sep{':'} >> sep{'D'} >> second >> sep{':'} >> sep{')'};
+    in >> label{"(:N"} >> first >> label{":D"} >> second >> label{":)"};
     c = rational_number{first, second};
     return in;
   }
@@ -71,13 +72,9 @@ namespace dimkashelk
     {
       return in;
     }
-    std::string data = "";
-    in >> data;
-    in.putback(data.back());
-    data.pop_back();
-    if (in && (data != dest.exp))
+    for(size_t i = 0; i < dest.exp.length(); i++)
     {
-      in.setstate(std::ios::failbit);
+      in >> DelimiterIO{dest.exp[i]};
     }
     return in;
   }
