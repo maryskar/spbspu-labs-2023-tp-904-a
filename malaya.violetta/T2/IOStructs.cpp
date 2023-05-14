@@ -44,32 +44,16 @@ std::istream & malaya::operator>>(std::istream & in, StringIO && dest)
   }
   return std::getline(in >> DelimiterIO{'"'}, dest.reference, '"');
 }
-std::istream & malaya::operator>>(std::istream & in, LabelIO & dest)
+std::istream & malaya::operator>>(std::istream & in, LabelIO && dest)
 {
   std::istream::sentry istreamChecker(in);
   if (!istreamChecker)
   {
     return in;
   }
-  std::string input = " ";
-  if (in >> input)
+  for(size_t i = 0; i < dest.expression.length(); i++)
   {
-    if (input.size() == 4 && input.substr(0,3) == dest.expression)
-    {
-      int keyNumber = static_cast< int >(input[3]) - 48;
-      if (keyNumber >= 1 && keyNumber <= 3)
-      {
-        dest.expression = input;
-      }
-      else
-      {
-        in.setstate(std::ios::failbit);
-      }
-    }
-    else
-    {
-      in.setstate(std::ios::failbit);
-    }
+    in >> DelimiterIO{dest.expression[i]};
   }
   return in;
 }

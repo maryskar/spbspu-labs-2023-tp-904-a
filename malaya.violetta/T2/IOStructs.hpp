@@ -28,6 +28,6 @@ namespace malaya
   {
     std::string expression;
   };
-  std::istream & operator>>(std::istream & in, LabelIO & dest);
+  std::istream & operator>>(std::istream & in, LabelIO && dest);
 }
 #endif

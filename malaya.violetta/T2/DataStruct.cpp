@@ -29,11 +29,12 @@ std::istream & malaya::operator>>(std::istream & in, DataStruct & dest)
   std::string key3 = " ";
   for (size_t i = 0; i < 3; i++)
   {
-    LabelIO label{"key"};
-    in >> label;
-    switch (label.expression[3])
+    in >> LabelIO{"key"};
+    size_t keyNumber = 0;
+    in >> keyNumber;
+    switch (keyNumber)
     {
-      case '1':
+      case 1:
         if (isKey1)
         {
           in.setstate(std::ios::failbit);
@@ -41,7 +42,7 @@ std::istream & malaya::operator>>(std::istream & in, DataStruct & dest)
         in >> DoubleIO{key1};
         isKey1 = true;
         break;
-      case '2':
+      case 2:
         if (isKey2)
         {
           in.setstate(std::ios::failbit);
@@ -49,7 +50,7 @@ std::istream & malaya::operator>>(std::istream & in, DataStruct & dest)
         in >> UnsignedLongLongIO{key2};
         isKey2 = true;
         break;
-      case '3':
+      case 3:
         if (isKey3)
         {
           in.setstate(std::ios::failbit);
