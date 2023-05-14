@@ -16,6 +16,7 @@ namespace chemodurov
   };
 
   size_t size(const Polygon & pol);
+  double calcArea(const Polygon & pol);
   std::istream & operator>>(std::istream & in, Point & dest);
   std::istream & operator>>(std::istream & in, Polygon & dest);
 }

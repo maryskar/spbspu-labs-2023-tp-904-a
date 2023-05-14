@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iterator>
 #include <algorithm>
+#include <numeric>
 #include <IO-structs.hpp>
 
 std::istream & chemodurov::operator>>(std::istream & in, Point & dest)
@@ -32,7 +33,27 @@ std::istream & chemodurov::operator>>(std::istream & in, Polygon & dest)
   return in;
 }
 
-size_t chemodurov::size(const chemodurov::Polygon & pol)
+size_t chemodurov::size(const Polygon & pol)
 {
   return pol.data.size();
+}
+
+namespace chemodurov
+{
+  int trans(const Point & lhs, const Point & rhs)
+  {
+    return lhs.x * rhs.y - rhs.x * lhs.y;
+  }
+}
+
+double chemodurov::calcArea(const Polygon & pol)
+{
+  double area = 0.0;
+  std::vector< int > areas;
+  areas.reserve(size(pol));
+  std::transform(pol.data.begin(), --pol.data.end(), ++pol.data.begin(), areas.begin(), trans);
+  *(--areas.end()) = (--pol.data.end())->x * pol.data.begin()->y - pol.data.begin()->x * (--pol.data.end())->y;
+  area = std::accumulate(areas.begin(), areas.end(), 0.0);
+  area /= 2;
+  return area;
 }
