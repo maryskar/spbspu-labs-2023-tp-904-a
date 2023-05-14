@@ -1,4 +1,5 @@
 #include <vector>
+#include <deque>
 #include <iostream>
 #include <iterator>
 #include <algorithm>
@@ -6,12 +7,12 @@
 #include "DataStruct.hpp"
 int main()
 {
-  std::vector< malaya::DataStruct > data;
+  std::deque< malaya::DataStruct > data;
+  using inIter = std::istream_iterator< malaya::DataStruct >;
+  using outIter = std::ostream_iterator< malaya::DataStruct >;
   while (!std::cin.eof())
   {
-    std::copy(std::istream_iterator< malaya::DataStruct >(std::cin),
-      std::istream_iterator< malaya::DataStruct >(),
-          std::back_inserter(data));
+    std::copy(inIter(std::cin), inIter(), std::back_inserter(data));
     if (!std::cin)
     {
       std::cin.clear();
@@ -19,7 +20,6 @@ int main()
     }
   }
   std::sort(data.begin(), data.end(), malaya::DataComparator{});
-  std::copy(std::begin(data), std::end(data),
-            std::ostream_iterator< malaya::DataStruct >(std::cout, "\n"));
+  std::copy(std::begin(data), std::end(data), outIter(std::cout, "\n"));
   return 0;
 }

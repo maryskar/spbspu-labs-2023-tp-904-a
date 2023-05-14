@@ -4,7 +4,7 @@ malaya::IOStreamsGuard::IOStreamsGuard(std::basic_ios< char > & stream):
   fill_(stream.fill()),
   precision_(stream.precision()),
   fmt_(stream.flags())
-{};
+{}
 malaya::IOStreamsGuard::~IOStreamsGuard()
 {
   stream_.fill(fill_);

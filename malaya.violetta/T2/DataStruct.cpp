@@ -27,7 +27,7 @@ std::istream & malaya::operator>>(std::istream & in, DataStruct & dest)
   double key1 = 0;
   unsigned long long key2 = 0;
   std::string key3 = " ";
-  for (int i = 0; i < 3; i++)
+  for (size_t i = 0; i < 3; i++)
   {
     LabelIO label{"key"};
     in >> label;
