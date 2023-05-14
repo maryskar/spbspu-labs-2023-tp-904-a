@@ -67,12 +67,8 @@ std::istream& ganiullin::operator>>(std::istream& in, ganiullin::LabelIO&& dest)
   if (!sentry) {
     return in;
   }
-  std::string data = "";
-  in >> data;
-  in.putback(data.back());
-  data.pop_back();
-  if (in && (data != dest.exp)) {
-    in.setstate(std::ios::failbit);
+  for (size_t i = 0; i < dest.exp.size(); i++) {
+    in >> ganiullin::DelimiterIO{dest.exp[i]};
   }
   return in;
 }
@@ -83,5 +79,5 @@ std::istream& ganiullin::operator>>(std::istream& in, ganiullin::ULongLongIO&& d
   if (!sentry) {
     return in;
   }
-  return in >> ganiullin::DelimiterIO{'0'} >> ganiullin::DelimiterIO{'x'} >> std::hex >> dest.ref;
+  return in >> ganiullin::LabelIO{"0x"} >> std::hex >> dest.ref;
 }
