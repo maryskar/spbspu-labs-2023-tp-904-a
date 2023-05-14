@@ -43,6 +43,6 @@ namespace dimkashelk
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, LabelIO &&dest);
   std::istream &operator>>(std::istream &in, DataStruct &dest);
-  std::ostream &operator<<(std::ostream &out, DataStruct dest);
+  std::ostream &operator<<(std::ostream &out, DataStruct &dest);
 }
 #endif

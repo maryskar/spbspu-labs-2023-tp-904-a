@@ -139,7 +139,7 @@ namespace dimkashelk
     out << "(:N " << c.first << ":D " << c.second << ":)";
     return out;
   }
-  std::ostream &operator<<(std::ostream &out, DataStruct src)
+  std::ostream &operator<<(std::ostream &out, DataStruct &src)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
