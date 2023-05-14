@@ -27,3 +27,18 @@ double Polygon::getArea() const
   }
   return 0;
 }
+bool Polygon::operator==(const Polygon &rhs) const
+{
+  if (getPointsCount() != rhs.getPointsCount())
+  {
+    return false;
+  }
+  for (size_t i = 0; i < rhs.getPointsCount(); ++i)
+  {
+    if (getPoint(i) != rhs.getPoint(i))
+    {
+      return false;
+    }
+  }
+  return true;
+}
