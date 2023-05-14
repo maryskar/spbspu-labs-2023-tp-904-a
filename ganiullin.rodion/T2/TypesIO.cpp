@@ -83,5 +83,5 @@ std::istream& ganiullin::operator>>(std::istream& in, ganiullin::ULongLongIO&& d
   if (!sentry) {
     return in;
   }
-  return in >> ganiullin::LabelIO{"0x"} >> std::hex >> dest.ref;
+  return in >> ganiullin::DelimiterIO{'0'} >> ganiullin::DelimiterIO{'x'} >> std::hex >> dest.ref;
 }
