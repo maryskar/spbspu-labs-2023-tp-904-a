@@ -33,6 +33,18 @@ void areaCommand(const std::vector< Polygon > &polygons, const std::string &para
   }
   std::cout << std::fixed << std::setprecision(1) << sum << '\n';
 }
+void areaCommand(const std::vector< Polygon > &polygons, size_t verticesCount)
+{
+  double sum = 0;
+  for (const auto &polygon: polygons)
+  {
+    if (polygon.getPointsCount() == verticesCount)
+    {
+      sum += polygon.getArea();
+    }
+  }
+  std::cout << std::fixed << std::setprecision(1) << sum << '\n';
+}
 void executeCommand(const Command::CommandList &command, std::vector< Polygon > &polygons)
 {
   if (command == Command::CommandList::AREA)
@@ -43,7 +55,11 @@ void executeCommand(const Command::CommandList &command, std::vector< Polygon > 
     {
       areaCommand(polygons, param);
     }
-    else
+    try
+    {
+      areaCommand(polygons, std::stoi(param));
+    }
+    catch (...)
     {
       std::cerr << "<INVALID PARAMETER>\n";
     }
