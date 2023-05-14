@@ -19,7 +19,7 @@ struct Command
 };
 namespace
 {
-  size_t rightShapesCountCommand(const std::vector< Polygon > &polygons)
+  void rightShapesCountCommand(const std::vector< Polygon > &polygons)
   {
     size_t count = 0;
     for (const auto &polygon: polygons)
@@ -44,7 +44,7 @@ namespace
         ++count;
       }
     }
-    return count;
+    std::cout << count << '\n';
   }
   void maxSeqCommand(const std::vector< Polygon > &polygons, const Polygon &polygon)
   {
