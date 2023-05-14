@@ -12,24 +12,15 @@ int main()
     if (std::cin.fail())
     {
       std::cin.clear();
+      std::string line;
+      std::getline(std::cin, line);
     }
-    std::copy(
-      std::istream_iterator< chemodurov::DataStrct >(std::cin),
-      std::istream_iterator< chemodurov::DataStrct >(),
-      std::back_inserter(data)
-    );
+    using istr_it_data_t = std::istream_iterator< chemodurov::DataStrct >;
+    std::copy(istr_it_data_t(std::cin), istr_it_data_t(), std::back_inserter(data));
   }
 
-  std::sort(
-    data.begin(),
-    data.end(),
-    chemodurov::isLess
-  );
+  std::sort(data.begin(), data.end(), chemodurov::isLess);
 
-  std::copy(
-    data.begin(),
-    data.end(),
-    std::ostream_iterator< chemodurov::DataStrct >(std::cout, "\n")
-  );
+  std::copy(data.begin(), data.end(), std::ostream_iterator< chemodurov::DataStrct >(std::cout, "\n"));
   return 0;
 }

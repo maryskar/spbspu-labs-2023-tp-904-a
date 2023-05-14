@@ -1,14 +1,47 @@
 #include "data-struct.hpp"
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 #include "IO-structs.hpp"
-#include "iofmtguard.hpp"
 
 namespace chemodurov
 {
+  std::string convertDoubleToSci(double a)
+  {
+    int pow = 0;
+    if (std::abs(a) >= 10)
+    {
+      while (std::abs(a) >= 10)
+      {
+        a /= 10;
+        ++pow;
+      }
+    }
+    else if (std::abs(a) < 1)
+    {
+      while (std::abs(a) < 1)
+      {
+        a *= 10;
+        --pow;
+      }
+    }
+    a *= 10;
+    int b = std::round(a);
+    std::string res = std::to_string(b);
+    res.insert(1ull, 1ull, '.');
+    res += 'e';
+    if (pow >= 0)
+    {
+      res += '+';
+    }
+    res += std::to_string(pow);
+    return res;
+  }
+
   std::istream & operator>>(std::istream & in, DataStrct & data)
   {
-    if (!checkInSentry(in))
+    std::istream::sentry sentry(in);
+    if (!sentry)
     {
       return in;
     }
@@ -54,28 +87,17 @@ namespace chemodurov
 
   std::ostream & operator<<(std::ostream & out, const DataStrct & data)
   {
-    if (!checkOutSentry(out))
+    std::ostream::sentry sentry(out);
+    if (!sentry)
     {
       return out;
     }
-    std::string temp;
-    std::ostringstream str(temp);
-    str << std::scientific << std::setprecision(1) << data.key1;
-    temp = str.str();
-    size_t e_ind = temp.find('e');
-    temp.erase(temp.begin() + e_ind + 2);
     out << '(';
-    out << ":key1 " << temp;
+    out << ":key1 " << convertDoubleToSci(data.key1);
     out << ":key2 " << data.key2 << "ll";
     out << ":key3 \"" << data.key3;
     out << "\":)";
     return out;
-  }
-
-  bool checkOutSentry(std::ostream & out)
-  {
-    std::ostream::sentry sentry(out);
-    return static_cast< bool >(sentry);
   }
 
   bool isLess(const DataStrct & lhs, const DataStrct & rhs)
