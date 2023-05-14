@@ -1,7 +1,9 @@
+#include "io.h"
+#include <iomanip>
 #include "data_structs.h"
 namespace dimkashelk
 {
-  std::istream &operator>>(std::istream &in, complex_type &c)
+  std::istream &operator>>(std::istream &in, DataStruct c)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -140,7 +142,7 @@ namespace dimkashelk
     out << "(:N " << c.first << ":D " << c.second << ":)";
     return out;
   }
-  std::ostream &operator<<(std::ostream &out, const DataStruct &src)
+  std::ostream &operator<<(std::ostream &out, DataStruct src)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
@@ -155,19 +157,7 @@ namespace dimkashelk
     out << ":key3 \"" << src.key3 << "\":)";
     return out;
   }
-  bool Comparator::operator()(const dimkashelk::DataStruct &lhs, const dimkashelk::DataStruct &rhs) const
-  {
-    if (abs(lhs.key1) == abs(rhs.key1))
-    {
-      if (lhs.key2 == rhs.key2)
-      {
-        return lhs.key3.length() < rhs.key3.length();
-      }
-      return lhs.key2 < rhs.key2;
-    }
-    return abs(lhs.key1) < abs(rhs.key1);
-  }
-  iofmtguard::iofmtguard(std::basic_ios< char > &s) :
+  iofmtguard::iofmtguard(std::basic_ios< char > &s):
     s_(s),
     fill_(s.fill()),
     precision_(s.precision()),

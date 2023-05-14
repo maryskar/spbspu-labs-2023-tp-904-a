@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include "data_structs.h"
+#include "comparator.h"
 int main()
 {
   using data_struct = dimkashelk::DataStruct;

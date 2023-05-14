@@ -1,0 +1,16 @@
+#include "comparator.h"
+namespace dimkashelk
+{
+  bool Comparator::operator()(const dimkashelk::DataStruct &lhs, const dimkashelk::DataStruct &rhs) const
+  {
+    if (abs(lhs.key1) == abs(rhs.key1))
+    {
+      if (lhs.key2 == rhs.key2)
+      {
+        return lhs.key3.length() < rhs.key3.length();
+      }
+      return lhs.key2 < rhs.key2;
+    }
+    return abs(lhs.key1) < abs(rhs.key1);
+  }
+}
