@@ -151,7 +151,7 @@ namespace dimkashelk
     out << std::fixed << std::setprecision(1) << src.key1;
     out << ":key2 ";
     out << std::fixed << std::setprecision(0) << src.key2;
-    out << ":key3 \"" << src.key3 << "\":)";
+    out << ":key3 " << std::quoted(src.key3, '"') << ":)";
     return out;
   }
   iofmtguard::iofmtguard(std::basic_ios< char > &s):
