@@ -11,3 +11,7 @@ Polygon::Polygon(const std::vector< Point > &points):
   points_(points)
 {
 }
+double Polygon::getArea() const
+{
+  return 0.0;
+}

@@ -6,9 +6,10 @@
 class Polygon
 {
 public:
-  Polygon(const std::vector< Point > &points);
+  explicit Polygon(const std::vector< Point > &points);
   size_t pointsCount() const;
   const Point &getPoint(size_t index) const;
+  double getArea() const;
 private:
   std::vector< Point > points_;
 };

@@ -3,6 +3,7 @@
 #include <vector>
 #include <limits>
 #include "polygon.h"
+#include "commands.h"
 int main(int argc, char *argv[])
 {
   if (argc != 2)
@@ -31,7 +32,6 @@ int main(int argc, char *argv[])
     {
       Point point{};
       input >> point;
-      //std::cout << point.x << " " << point.y << "\n";
       if (input.fail())
       {
         input.clear();
@@ -52,6 +52,11 @@ int main(int argc, char *argv[])
       std::cout << polygon.getPoint(i).x << " " << polygon.getPoint(i).y << "\n";
     }
     std::cout << "\n";
+  }
+  std::string command;
+  while (std::cin >> command)
+  {
+    processCommand(polygons, command);
   }
   return 0;
 }
