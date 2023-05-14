@@ -74,6 +74,7 @@ namespace chemodurov
         else
         {
           in.setstate(std::ios::failbit);
+          return in;
         }
       }
     }
