@@ -18,28 +18,34 @@ struct Command
 void areaCommand(const std::vector< Polygon > &polygons, const std::string &param)
 {
   double sum = 0;
+  size_t count = 0;
   for (const auto &polygon: polygons)
   {
-    if (polygon.pointsCount() % 2 == (param == "EVEN"))
+    if (param == "MEAN" || polygon.getPointsCount() % 2 == (param == "EVEN"))
     {
       sum += polygon.getArea();
+      ++count;
     }
+  }
+  if (param == "MEAN")
+  {
+    sum /= count;
   }
   std::cout << std::fixed << std::setprecision(1) << sum << '\n';
 }
-void executeCommand(Command::CommandList command, std::vector< Polygon > &polygons)
+void executeCommand(const Command::CommandList &command, std::vector< Polygon > &polygons)
 {
   if (command == Command::CommandList::AREA)
   {
     std::string param;
     std::cin >> param;
-    if (param != "EVEN" && param != "ODD")
+    if (param == "EVEN" || param == "ODD" || param == "MEAN")
     {
-      std::cerr << "<INVALID PARAMETER>\n";
+      areaCommand(polygons, param);
     }
     else
     {
-      areaCommand(polygons, param);
+      std::cerr << "<INVALID PARAMETER>\n";
     }
   }
 }

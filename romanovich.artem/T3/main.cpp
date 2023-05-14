@@ -45,14 +45,6 @@ int main(int argc, char *argv[])
       polygons.emplace_back(points);
     }
   }
-  for (const auto &polygon: polygons)
-  {
-    for (size_t i = 0; i < polygon.pointsCount(); ++i)
-    {
-      std::cout << polygon.getPoint(i).x << " " << polygon.getPoint(i).y << "\n";
-    }
-    std::cout << "\n";
-  }
   std::string command;
   while (std::cin >> command)
   {
