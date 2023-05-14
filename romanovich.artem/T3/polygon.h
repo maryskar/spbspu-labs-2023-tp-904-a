@@ -10,6 +10,20 @@ public:
   size_t getPointsCount() const;
   Point getPoint(size_t index) const;
   double getArea() const;
+  struct AreaComp
+  {
+    bool operator()(const Polygon &lhs, const Polygon &rhs) const
+    {
+      return lhs.getArea() < rhs.getArea();
+    }
+  };
+  struct VertexCountComp
+  {
+    bool operator()(const Polygon &lhs, const Polygon &rhs) const
+    {
+      return lhs.getPointsCount() < rhs.getPointsCount();
+    }
+  };
 private:
   std::vector< Point > points_;
 };
