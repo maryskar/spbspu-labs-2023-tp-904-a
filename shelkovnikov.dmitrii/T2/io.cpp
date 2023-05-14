@@ -63,7 +63,7 @@ namespace dimkashelk
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
+    return in >> std::quoted(dest.ref, '"');
   }
   std::istream &operator>>(std::istream &in, LabelIO &&dest)
   {
@@ -106,8 +106,7 @@ namespace dimkashelk
     for (unsigned i = 0; i < 3; i++)
     {
       size_t number = 0;
-      in >> sep{':'};
-      in >> label{"key"};
+      in >> label{":key"};
       in >> number;
       if (number == 1)
       {
@@ -122,7 +121,7 @@ namespace dimkashelk
         in >> str{data};
       }
     }
-    in >> sep{':'} >> sep{')'};
+    in >> label{":)"};
     if (in)
     {
       dest = DataStruct{comp, rationalNumber, data};
