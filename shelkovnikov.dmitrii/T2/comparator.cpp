@@ -3,7 +3,7 @@ namespace dimkashelk
 {
   bool Comparator::operator()(const dimkashelk::DataStruct &lhs, const dimkashelk::DataStruct &rhs) const
   {
-    if (abs(lhs.key1) == abs(rhs.key1))
+    if (std::abs(lhs.key1) == std::abs(rhs.key1))
     {
       if (lhs.key2 == rhs.key2)
       {
@@ -11,6 +11,6 @@ namespace dimkashelk
       }
       return lhs.key2 < rhs.key2;
     }
-    return abs(lhs.key1) < abs(rhs.key1);
+    return std::abs(lhs.key1) < std::abs(rhs.key1);
   }
 }
