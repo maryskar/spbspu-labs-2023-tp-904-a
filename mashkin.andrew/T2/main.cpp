@@ -9,10 +9,11 @@ int main()
 {
   std::vector< mashkin::DataStruct > res;
   mashkin::Comparator comp;
+  using inpIter = std::istream_iterator< mashkin::DataStruct >;
+  using outIter = std::ostream_iterator< mashkin::DataStruct >;
   while (!std::cin.eof())
   {
-    std::copy(std::istream_iterator< mashkin::DataStruct >(std::cin), std::istream_iterator< mashkin::DataStruct >(),
-        std::back_inserter(res));
+    std::copy(inpIter(std::cin), inpIter(), std::back_inserter(res));
     if (std::cin.fail())
     {
       std::string line;
@@ -21,6 +22,6 @@ int main()
     }
   }
   std::sort(std::begin(res), std::end(res), comp);
-  std::copy(std::begin(res), std::end(res), std::ostream_iterator< mashkin::DataStruct >(std::cout, "\n"));
+  std::copy(std::begin(res), std::end(res), outIter(std::cout, "\n"));
   return 0;
 }
