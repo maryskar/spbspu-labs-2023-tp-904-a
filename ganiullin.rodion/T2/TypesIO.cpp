@@ -58,7 +58,7 @@ std::istream& ganiullin::operator>>(std::istream& in, ganiullin::StringIO&& dest
   if (!sentry) {
     return in;
   }
-  return std::getline(in >> ganiullin::DelimiterIO {'"'}, dest.ref, '"');
+  return std::getline(in >> ganiullin::DelimiterIO{'"'}, dest.ref, '"');
 }
 
 std::istream& ganiullin::operator>>(std::istream& in, ganiullin::LabelIO&& dest)
@@ -83,5 +83,5 @@ std::istream& ganiullin::operator>>(std::istream& in, ganiullin::ULongLongIO&& d
   if (!sentry) {
     return in;
   }
-  return in >> ganiullin::DelimiterIO {'0'} >> ganiullin::DelimiterIO {'x'} >> std::hex >> dest.ref;
+  return in >> ganiullin::LabelIO{"0x"} >> std::hex >> dest.ref;
 }

@@ -24,34 +24,34 @@ std::istream& ganiullin::operator>>(std::istream& in, DataStruct& dest)
     using str = ganiullin::StringIO;
     using ull = ganiullin::ULongLongIO;
 
-    in >> sep {'('};
+    in >> sep{'('};
     bool isKey1 = false;
     bool isKey2 = false;
     bool isKey3 = false;
     while (!(isKey1 && isKey2 && isKey3) && in.good()) {
       size_t labelNum = 0;
-      in >> sep {':'} >> label {"key"} >> labelNum;
+      in >> sep{':'} >> label{"key"} >> labelNum;
 
       switch (labelNum) {
       case 1:
         if (isKey1) {
           in.setstate(std::ios::failbit);
         }
-        in >> dbl {inputKey1};
+        in >> dbl{inputKey1};
         isKey1 = true;
         break;
       case 2:
         if (isKey2) {
           in.setstate(std::ios::failbit);
         }
-        in >> ull {inputKey2};
+        in >> ull{inputKey2};
         isKey2 = true;
         break;
       case 3:
         if (isKey3) {
           in.setstate(std::ios::failbit);
         }
-        in >> str {inputKey3};
+        in >> str{inputKey3};
         isKey3 = true;
         break;
       default:
@@ -59,11 +59,11 @@ std::istream& ganiullin::operator>>(std::istream& in, DataStruct& dest)
         break;
       }
     }
-    in >> sep {':'};
-    in >> sep {')'};
+    in >> sep{':'};
+    in >> sep{')'};
   }
   if (in) {
-    dest = DataStruct {inputKey1, inputKey2, inputKey3};
+    dest = DataStruct{inputKey1, inputKey2, inputKey3};
   }
   return in;
 }
@@ -77,7 +77,7 @@ std::ostream& ganiullin::operator<<(std::ostream& out, const DataStruct& src)
   ganiullin::iofmtguard fmtguard(out);
 
   out << "(:";
-  out << "key1" << ' ' << ganiullin::DoubleO {src.key1} << ':';
+  out << "key1" << ' ' << ganiullin::DoubleO{src.key1} << ':';
   out << "key2" << ' ' << "0x" << std::hex << std::uppercase << src.key2 << ':';
   out << "key3" << ' ' << '"' << src.key3 << '"' << ':';
   out << ')';
