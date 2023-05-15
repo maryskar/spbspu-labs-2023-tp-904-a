@@ -68,14 +68,32 @@ namespace chemodurov
     return calcArea(lhs) < calcArea(rhs);
   }
 
-  void printMaxArea(const std::vector< Polygon > & data, std::ostream & out)
+  template< typename P1, typename P2 >
+  void printMinOrMax(const std::vector< Polygon > & data, std::ostream & out, P1 p1, P2 p2)
   {
-    auto it = std::max_element(data.begin(), data.end(), isLessArea);
+    auto it = std::max_element(data.begin(), data.end(), p1);
     if (it == data.end())
     {
-      throw std::invalid_argument("For max area must be at least one polygon");
+      throw std::invalid_argument("For max area/vertexes must be at least one polygon");
     }
-    out << calcArea(*it);
+    out << p2(*it);
+  }
+
+  template< typename P >
+  void printMaxOrMinArea(const std::vector< Polygon > & data, std::ostream & out, P p)
+  {
+    printMinOrMax(data, out, p, calcArea);
+  }
+
+  void printMaxArea(const std::vector< Polygon > & data, std::ostream & out)
+  {
+    printMaxOrMinArea(data, out, isLessArea);
+  }
+
+  void printMinArea(const std::vector< Polygon > & data, std::ostream & out)
+  {
+    using namespace std::placeholders;
+    printMaxOrMinArea(data, out, std::bind(isLessArea, _2, _1));
   }
 
   bool isLessVerts(const Polygon & lhs, const Polygon & rhs)
@@ -83,13 +101,20 @@ namespace chemodurov
     return size(lhs) < size(rhs);
   }
 
+  template< typename P >
+  void printMaxOrMinVerts(const std::vector< Polygon > & data, std::ostream & out, P p)
+  {
+    printMinOrMax(data, out, p, size);
+  }
+
   void printMaxVerts(const std::vector< Polygon > & data, std::ostream & out)
   {
-    auto it = std::max_element(data.begin(), data.end(), isLessVerts);
-    if (it == data.end())
-    {
-      throw std::invalid_argument("For max vertexes must be at least one polygon");
-    }
-    out << size(*it);
+    printMaxOrMinVerts(data, out, isLessVerts);
+  }
+
+  void printMinVerts(const std::vector< Polygon > & data, std::ostream & out)
+  {
+    using namespace std::placeholders;
+    printMaxOrMinVerts(data, out, std::bind(isLessVerts, _2, _1));
   }
 }
