@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <numeric>
 #include <iostream>
+#include <functional>
 
 namespace chemodurov
 {
@@ -21,20 +22,44 @@ namespace chemodurov
   }
 
   template< typename P >
-  void printAreaOddOrEven(const std::vector< Polygon > & data, std::ostream & out, P p)
+  void printAreaIf(const std::vector< Polygon > & data, std::ostream & out, P p)
   {
     std::vector< double > areas;
     std::transform(data.begin(), data.end(), std::back_inserter(areas), p);
-    out << std::accumulate(areas.begin(), areas.end(), 0.0);
+    out << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
   }
 
   void printAreaOdd(const std::vector< Polygon > & data, std::ostream & out)
   {
-    printAreaOddOrEven(data, out, transIntoOddArea);
+    printAreaIf(data, out, transIntoOddArea);
   }
 
   void printAreaEven(const std::vector< Polygon > & data, std::ostream & out)
   {
-    printAreaOddOrEven(data, out, transIntoEvenArea);
+    printAreaIf(data, out, transIntoEvenArea);
+  }
+
+  void printAreaMean(const std::vector< Polygon > & data, std::ostream & out)
+  {
+    if (data.empty())
+    {
+      throw std::invalid_argument("For mean area must be at least one polygon");
+    }
+    std::vector< double > areas;
+    std::transform(data.begin(), data.end(), std::back_inserter(areas), calcArea);
+    double sum_area = std::accumulate(areas.begin(), areas.end(), 0.0);
+    out << (sum_area / data.size()) << '\n';
+  }
+
+  double transIntoAreaNumOfVerts(const Polygon & pol, size_t num)
+  {
+    return (size(pol) == num) ? calcArea(pol) : 0.0;
+  }
+
+  void printAreaNumOfVerts(const std::vector< Polygon > & data, std::ostream & out, size_t num)
+  {
+    using namespace std::placeholders;
+    auto trans = std::bind(transIntoAreaNumOfVerts, _1, num);
+    printAreaIf(data, out, trans);
   }
 }

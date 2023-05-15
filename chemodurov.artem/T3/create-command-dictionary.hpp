@@ -6,8 +6,9 @@
 
 namespace chemodurov
 {
-  using area_comm_t = void(*)(const std::vector< Polygon > & data, std::ostream & out);
-  std::map< std::string, area_comm_t > createCommandDictionary();
+  using comm_t = void(*)(const std::vector< Polygon > & data, std::ostream & out);
+  using comm_with_size_t = void(*)(const std::vector< Polygon > & data, std::ostream & out, size_t n);
+  std::map< std::string, comm_t > createCommandDictionary();
 }
 
 #endif
