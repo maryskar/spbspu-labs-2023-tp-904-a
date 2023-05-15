@@ -56,7 +56,7 @@ namespace chemodurov
     std::vector< double > areas;
     std::transform(data.begin(), data.end(), std::back_inserter(areas), calcArea);
     double sum_area = std::accumulate(areas.begin(), areas.end(), 0.0);
-    iofmtguard iofmtguard();
+    iofmtguard iofmtguard(out);
     out << std::fixed << (sum_area / data.size()) << '\n';
   }
 
@@ -90,7 +90,7 @@ namespace chemodurov
     {
       throw std::invalid_argument("For max area/vertexes must be at least one polygon");
     }
-    iofmtguard iofmtguard();
+    iofmtguard iofmtguard(out);
     out << std::fixed << p2(*it) << '\n';
   }
 
