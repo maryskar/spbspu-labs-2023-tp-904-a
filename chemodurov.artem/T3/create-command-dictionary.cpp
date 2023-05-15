@@ -3,12 +3,13 @@
 #include <numeric>
 #include <iostream>
 #include <functional>
+#include <cmath>
 
 namespace chemodurov
 {
   bool isOdd(const Polygon & pol)
   {
-    return (size(pol) % 2 == 0);
+    return (size(pol) % 2 == 1);
   }
 
   bool isEven(const Polygon & pol)
@@ -160,5 +161,12 @@ namespace chemodurov
       throw std::invalid_argument("Invalid MAXSEQ");
     }
     //
+  }
+
+  double calcLength(const Point & lhs, const Point & rhs)
+  {
+    double dx = rhs.x - lhs.x;
+    double dy = rhs.y - lhs.y;
+    return std::sqrt(dx * dx + dy * dy);
   }
 }
