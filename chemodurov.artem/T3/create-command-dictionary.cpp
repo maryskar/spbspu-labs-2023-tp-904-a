@@ -4,6 +4,7 @@
 #include <iostream>
 #include <functional>
 #include <cmath>
+#include "is-nearly-equal.hpp"
 
 namespace chemodurov
 {
@@ -168,5 +169,22 @@ namespace chemodurov
     double dx = rhs.x - lhs.x;
     double dy = rhs.y - lhs.y;
     return std::sqrt(dx * dx + dy * dy);
+  }
+
+  bool isRectangle(const Polygon & pol)
+  {
+    if (size(pol) != 4ull)
+    {
+      return false;
+    }
+    bool is_equal_sides1 = isNearlyEqual(calcLength(pol.data[0], pol.data[1]), calcLength(pol.data[2], pol.data[3]));
+    bool is_equal_sides2 = isNearlyEqual(calcLength(pol.data[1], pol.data[2]), calcLength(pol.data[0], pol.data[3]));
+    bool is_equal_diagonals = isNearlyEqual(calcLength(pol.data[0], pol.data[2]), calcLength(pol.data[1], pol.data[3]));
+    return is_equal_sides1 && is_equal_sides2 && is_equal_diagonals;
+  }
+
+  void printNumOfRects(const std::vector< Polygon > & data, std::ostream & out)
+  {
+    out << std::count_if(data.begin(), data.end(), isRectangle);
   }
 }
