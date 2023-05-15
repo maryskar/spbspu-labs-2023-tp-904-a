@@ -11,6 +11,11 @@ namespace chemodurov
     return (size(pol) % 2 == 0);
   }
 
+  bool isEven(const Polygon & pol)
+  {
+    return !isOdd(pol);
+  }
+
   double transIntoOddArea(const Polygon & pol)
   {
     return isOdd(pol) ? calcArea(pol) : 0.0;
@@ -18,7 +23,7 @@ namespace chemodurov
 
   double transIntoEvenArea(const Polygon & pol)
   {
-    return (!isOdd(pol)) ? calcArea(pol) : 0.0;
+    return isEven(pol) ? calcArea(pol) : 0.0;
   }
 
   template< typename P >
@@ -51,9 +56,14 @@ namespace chemodurov
     out << (sum_area / data.size()) << '\n';
   }
 
+  bool isNumOfVerts(const Polygon & pol, size_t num)
+  {
+    return size(pol) == num;
+  }
+
   double transIntoAreaNumOfVerts(const Polygon & pol, size_t num)
   {
-    return (size(pol) == num) ? calcArea(pol) : 0.0;
+    return (isNumOfVerts(pol, num)) ? calcArea(pol) : 0.0;
   }
 
   void printAreaNumOfVerts(const std::vector< Polygon > & data, std::ostream & out, size_t num)
@@ -116,5 +126,28 @@ namespace chemodurov
   {
     using namespace std::placeholders;
     printMaxOrMinVerts(data, out, std::bind(isLessVerts, _2, _1));
+  }
+
+  template< typename P >
+  void countIf(const std::vector< Polygon > & data, std::ostream & out, P p)
+  {
+    out << std::count_if(data.begin(), data.end(), p);
+  }
+
+  void countOdd(const std::vector< Polygon > & data, std::ostream & out)
+  {
+    countIf(data, out, isOdd);
+  }
+
+  void countEven(const std::vector< Polygon > & data, std::ostream & out)
+  {
+    countIf(data, out, isEven);
+  }
+
+  void countIfNumOfVerts(const std::vector< Polygon > & data, std::ostream & out, size_t num)
+  {
+    using namespace std::placeholders;
+    auto pred = std::bind(isNumOfVerts, _1, num);
+    countIf(data, out, pred);
   }
 }
