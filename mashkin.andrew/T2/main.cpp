@@ -8,11 +8,13 @@
 int main()
 {
   std::vector< mashkin::DataStruct > res;
+  //mashkin::DataStruct data;
   mashkin::Comparator comp;
   using inpIter = std::istream_iterator< mashkin::DataStruct >;
   using outIter = std::ostream_iterator< mashkin::DataStruct >;
   while (!std::cin.eof())
   {
+    //std::cin >> data;
     std::copy(inpIter(std::cin), inpIter(), std::back_inserter(res));
     if (std::cin.fail())
     {
