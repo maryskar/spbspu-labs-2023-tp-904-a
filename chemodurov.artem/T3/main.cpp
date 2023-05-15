@@ -18,20 +18,16 @@ int main(int argc, char ** argv)
   }
 
   std::vector< chemodurov::Polygon > data;
-  chemodurov::Polygon pol;
-  ifstream >> pol;
-  data.push_back(pol);
-  //while (!ifstream.eof())
-  //{
-  //  if (ifstream.fail())
-  //  {
-  //    ifstream.clear();
-  //    std::string line;
-  //    std::getline(ifstream, line);
-  //  }
-  //  using is_it_t = std::istream_iterator< chemodurov::Polygon >;
-  //  std::copy(is_it_t(ifstream), is_it_t(), std::back_inserter(data));
-  //}
-  std::cout << chemodurov::calcArea(*data.begin()) << '\n';
+  while (!ifstream.eof())
+  {
+    if (ifstream.fail())
+    {
+      ifstream.clear();
+      std::string line;
+      std::getline(ifstream, line);
+    }
+    using is_it_t = std::istream_iterator< chemodurov::Polygon >;
+    std::copy(is_it_t(ifstream), is_it_t(), std::back_inserter(data));
+  }
   return 0;
 }

@@ -12,7 +12,7 @@ std::istream & chemodurov::operator>>(std::istream & in, Point & dest)
   {
     return in;
   }
-  return in >> DelimiterIO{' '} >> DelimiterIO{'('} >> dest.x >> DelimiterIO{';'} >> dest.y >> DelimiterIO{')'};
+  return in >> DelimiterIO{'('} >> dest.x >> DelimiterIO{';'} >> dest.y >> DelimiterIO{')'};
 }
 
 std::istream & chemodurov::operator>>(std::istream & in, Polygon & dest)
@@ -50,10 +50,9 @@ double chemodurov::calcArea(const Polygon & pol)
 {
   double area = 0.0;
   std::vector< int > areas;
-  areas.reserve(size(pol));
-  std::transform(pol.data.begin(), --pol.data.end(), ++pol.data.begin(), areas.begin(), trans);
-  *(--areas.end()) = (--pol.data.end())->x * pol.data.begin()->y - pol.data.begin()->x * (--pol.data.end())->y;
+  std::transform(pol.data.begin(), --pol.data.end(), ++pol.data.begin(), std::back_inserter(areas), trans);
   area = std::accumulate(areas.begin(), areas.end(), 0.0);
-  area /= 2;
+  area += (--pol.data.end())->x * pol.data.begin()->y - pol.data.begin()->x * (--pol.data.end())->y;
+  area = 0.5 * std::abs(area);
   return area;
 }
