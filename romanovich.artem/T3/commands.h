@@ -2,21 +2,11 @@
 #define COMMAND_H
 #include <iostream>
 #include <string>
+#include <vector>
 #include <iomanip>
 #include <algorithm>
 #include <functional>
-struct Command
-{
-  enum class CommandList
-  {
-    AREA,
-    MAX,
-    MIN,
-    COUNT,
-    MAXSEQ,
-    RIGHTSHAPES
-  };
-};
+#include "polygon.h"
 namespace
 {
   void rightShapesCountCommand(const std::vector< Polygon > &polygons)
@@ -177,9 +167,9 @@ namespace
     std::cout << std::fixed << std::setprecision(1) << sum << '\n';
   }
 }
-void executeCommand(const Command::CommandList &command, std::vector< Polygon > &polygons)
+void processCommand(std::vector< Polygon > &polygons, const std::string &command)
 {
-  if (command == Command::CommandList::AREA)
+  if (command == "AREA")
   {
     std::string param;
     std::cin >> param;
@@ -199,7 +189,7 @@ void executeCommand(const Command::CommandList &command, std::vector< Polygon > 
       }
     }
   }
-  else if (command == Command::CommandList::MAX)
+  else if (command == "MAX")
   {
     std::string param;
     std::cin >> param;
@@ -212,7 +202,7 @@ void executeCommand(const Command::CommandList &command, std::vector< Polygon > 
       std::cerr << "<INVALID PARAMETER>\n";
     }
   }
-  else if (command == Command::CommandList::MIN)
+  else if (command == "MIN")
   {
     std::string param;
     std::cin >> param;
@@ -225,7 +215,7 @@ void executeCommand(const Command::CommandList &command, std::vector< Polygon > 
       std::cerr << "<INVALID PARAMETER>\n";
     }
   }
-  else if (command == Command::CommandList::COUNT)
+  else if (command == "COUNT")
   {
     std::string param;
     std::cin >> param;
@@ -245,11 +235,7 @@ void executeCommand(const Command::CommandList &command, std::vector< Polygon > 
       }
     }
   }
-  else if (command == Command::CommandList::RIGHTSHAPES)
-  {
-    rightShapesCountCommand(polygons);
-  }
-  else if (command == Command::CommandList::MAXSEQ)
+  else if (command == "MAXSEQ")
   {
     try
     {
@@ -284,32 +270,9 @@ void executeCommand(const Command::CommandList &command, std::vector< Polygon > 
       std::cerr << "<INVALID PARAMETER>\n";
     }
   }
-}
-void processCommand(std::vector< Polygon > &polygons, const std::string &command)
-{
-  if (command == "AREA")
-  {
-    executeCommand(Command::CommandList::AREA, polygons);
-  }
-  else if (command == "MAX")
-  {
-    executeCommand(Command::CommandList::MAX, polygons);
-  }
-  else if (command == "MIN")
-  {
-    executeCommand(Command::CommandList::MIN, polygons);
-  }
-  else if (command == "COUNT")
-  {
-    executeCommand(Command::CommandList::COUNT, polygons);
-  }
-  else if (command == "MAXSEQ")
-  {
-    executeCommand(Command::CommandList::MAXSEQ, polygons);
-  }
   else if (command == "RIGHTSHAPES")
   {
-    executeCommand(Command::CommandList::RIGHTSHAPES, polygons);
+    rightShapesCountCommand(polygons);
   }
   else
   {

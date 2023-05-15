@@ -1,17 +1,17 @@
 #include "polygon.h"
-size_t Polygon::getPointsCount() const
+size_t romanovich::Polygon::getPointsCount() const
 {
   return points_.size();
 }
-Point Polygon::getPoint(size_t index) const
+romanovich::Point romanovich::Polygon::getPoint(size_t index) const
 {
   return points_[index];
 }
-Polygon::Polygon(const std::vector< Point > &points):
+romanovich::Polygon::Polygon(const std::vector< Point > &points):
   points_(points)
 {
 }
-double Polygon::getArea() const
+double romanovich::Polygon::getArea() const
 {
   double area = 0.0;
   size_t n = getPointsCount();
@@ -27,7 +27,7 @@ double Polygon::getArea() const
   }
   return 0;
 }
-bool Polygon::operator==(const Polygon &rhs) const
+bool romanovich::Polygon::operator==(const Polygon &rhs) const
 {
   if (getPointsCount() != rhs.getPointsCount())
   {
