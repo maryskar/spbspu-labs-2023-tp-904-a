@@ -9,6 +9,46 @@
 
 namespace mashkin
 {
+  std::string getDoubleString(const mashkin::DataStruct& data)
+  {
+    std::string varString = std::to_string(data.key1);
+    size_t varPow = varString.find_first_not_of("0.");
+    double dblWithMantissa = 0.0;
+    std::string result;
+    if (varPow > 1)
+    {
+      dblWithMantissa = data.key1 * pow(10, varPow - 1);
+      result = std::to_string(dblWithMantissa) + "e-" + std::to_string(varPow - 1);
+    }
+    else
+    {
+      varPow = varString.find_first_of(".");
+      dblWithMantissa = data.key1 / pow(10, (varPow - 1));
+      result = std::to_string(dblWithMantissa) + "e+" + std::to_string(varPow - 1);
+    }
+    while (result.find_last_of('e') - 1 == result.find_last_of('0') &&
+           result.find_last_of('0') != std::to_string(dblWithMantissa).find_last_not_of('0') + 1)
+    {
+      result.erase(std::begin(result) + result.find_last_of('0'));
+    }
+    {
+      return result;
+    }
+  }
+
+  std::string getUllBinStr(const mashkin::DataStruct& data)
+  {
+    unsigned long long varUll = data.key2;
+    std::string result = "";
+    while (varUll)
+    {
+      result = std::to_string(varUll % 2) + result;
+      varUll /= 2;
+    }
+    result = "0b0" + result;
+    return result;
+  }
+
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
   {
     std::istream::sentry sentry(in);
@@ -165,10 +205,9 @@ namespace mashkin
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "{";
-    out << ":key1 " << std::fixed << std::setprecision(1) << src.key1;
-    out << ":key2 " << src.key2;
-    out << ":key3 " << src.key3 << ":}";
+    out << "(:key1 " << getDoubleString(src);
+    out << ":key2 " << getUllBinStr(src);
+    out << ":key3 \"" << src.key3 << "\":)";
     return out;
   }
 
