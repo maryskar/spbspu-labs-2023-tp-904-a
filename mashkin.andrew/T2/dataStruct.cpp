@@ -128,6 +128,11 @@ namespace mashkin
     }
     std::string var;
     std::getline(in, var, ':');
+    if (var.substr(0, 2) != "0b")
+    {
+      in.setstate(std::ios::failbit);
+      return in;
+    }
     dest.ref = std::bitset< 64 >(var.substr(2)).to_ullong();
     return in;
   }
