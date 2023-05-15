@@ -18,9 +18,10 @@ int main()
     std::copy(inpIter(std::cin), inpIter(), std::back_inserter(res));
     if (std::cin.fail())
     {
-      std::string line;
+      //std::string line;
       std::cin.clear();
-      std::getline(std::cin, line);
+      std::cin.ignore();
+      //std::getline(std::cin, line);
     }
   }
   std::sort(std::begin(res), std::end(res), comp);
