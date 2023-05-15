@@ -161,7 +161,18 @@ namespace chemodurov
     {
       throw std::invalid_argument("Invalid MAXSEQ");
     }
-    //
+    size_t max_seq = 0;
+    using namespace std::placeholders;
+    auto pred = std::bind(std::equal_to< Polygon >{}, _1, temp);
+    auto beg_ = data.begin();
+    while (beg_ != data.end())
+    {
+      beg_ = std::find_if(beg_, data.end(), pred);
+      auto end_ = std::find_if_not(beg_, data.end(), pred);
+      max_seq = std::max(max_seq, static_cast< size_t >(std::abs(std::distance(beg_, end_))));
+      beg_ = end_;
+    }
+    out << max_seq << '\n';
   }
 
   double calcLength(const Point & lhs, const Point & rhs)
