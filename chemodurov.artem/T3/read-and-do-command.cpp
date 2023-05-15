@@ -8,7 +8,7 @@ std::string chemodurov::readCommand(std::istream & in)
   in >> res;
   if (!in)
   {
-    throw std::invalid_argument("Invalid command");
+    throw std::runtime_error("EOF");
   }
   if (res == "RECTS")
   {
@@ -18,7 +18,7 @@ std::string chemodurov::readCommand(std::istream & in)
   in >> temp;
   if (!in)
   {
-    throw std::invalid_argument("Invalid command");
+    throw std::runtime_error("EOF");
   }
   res += ' ';
   res += temp;
@@ -52,4 +52,9 @@ void chemodurov::doCommand(const std::string & name_comm,
   size_t num = std::stoull(name_comm.substr(space));
   auto func = std::bind(commands.dic2.at(name_comm.substr(0, space) + " NUM"), _1, std::ref(out), num);
   func(data);
+}
+
+std::ostream & chemodurov::outInvalidCommand(std::ostream & out)
+{
+  return out << "<INVALID COMMAND>";
 }

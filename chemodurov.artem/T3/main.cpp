@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
-#include "create-command-dictionary.hpp"
+#include <functional>
+#include "read-and-do-command.hpp"
 
 int main(int argc, char ** argv)
 {
@@ -30,8 +31,25 @@ int main(int argc, char ** argv)
     std::copy(is_it_t(ifstream), is_it_t(), std::back_inserter(data));
   }
   auto commands = chemodurov::createCommandDictionary();
+  auto read = std::bind(chemodurov::readCommand, std::ref(std::cin));
+  auto doComm = std::bind(chemodurov::doCommand, read, commands, data, std::ref(std::cin), std::ref(std::cout));
   do
   {
+    try
+    {
+      doComm();
+    }
+    catch (const std::logic_error & e)
+    {
+      chemodurov::outInvalidCommand(std::cout);
+      std::cout << '\n';
+      std::string line;
+      std::getline(std::cin, line);
+    }
+    catch (const std::runtime_error & e)
+    {
+      break;
+    }
   }
   while (!std::cin.eof());
   return 0;

@@ -11,6 +11,7 @@ namespace chemodurov
       const std::vector< Polygon > & data,
       std::istream & in,
       std::ostream & out);
+  std::ostream & outInvalidCommand(std::ostream & out);
 }
 
 #endif
