@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     std::cerr << "Cannot open file.\n";
     return 1;
   }
-  std::vector< Polygon > polygons;
+  std::vector< romanovich::Polygon > polygons;
   size_t pointsCount;
   while (input >> pointsCount)
   {
@@ -27,10 +27,10 @@ int main(int argc, char *argv[])
       input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       continue;
     }
-    std::vector< Point > points;
+    std::vector< romanovich::Point > points;
     for (size_t i = 0; i < pointsCount; i++)
     {
-      Point point{};
+      romanovich::Point point{};
       input >> point;
       if (input.fail())
       {
@@ -46,9 +46,9 @@ int main(int argc, char *argv[])
     }
   }
   std::string command;
-  while (std::cin >> command)
+  while (std::getline(std::cin, command))
   {
-    processCommand(polygons, command);
+    executeCommand(polygons, command);
   }
   return 0;
 }

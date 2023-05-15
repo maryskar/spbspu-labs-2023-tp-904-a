@@ -6,9 +6,30 @@
 #include <iomanip>
 #include <algorithm>
 #include <functional>
+#include <numeric>
 #include "polygon.h"
+using namespace std::placeholders;
+using Polygon = romanovich::Polygon;
 namespace
 {
+  std::vector< Polygon >::const_iterator findMinMixEl(const std::vector< Polygon > &polygons,
+                                                      const std::function< bool(const Polygon &,
+                                                                                const Polygon &) > &comp)
+  {
+    auto result = std::minmax_element(polygons.begin(), polygons.end(), comp);
+    return comp(*result.second, *result.first) ? result.second : result.first;
+  }
+  std::vector< double > makeAreasVector(const std::vector< Polygon > &polygons)
+  {
+    std::vector< double > areas;
+    areas.resize(polygons.size());
+    std::transform(polygons.begin(), polygons.end(), areas.begin(), romanovich::Polygon::AreaFunctor());
+    return areas;
+  }
+  bool isAreaOdd(double area)
+  {
+    return (static_cast<int>(area) % 2 != 0);
+  }
   void rightShapesCountCommand(const std::vector< Polygon > &polygons)
   {
     size_t count = 0;
@@ -43,10 +64,8 @@ namespace
       std::cerr << "No polygons.\n";
       return;
     }
-    auto not_comp = std::bind(std::negate<>(),
-                              std::bind(Polygon::PolygonComparator(polygon), std::placeholders::_1,
-                                        std::placeholders::_2));
-    const auto maxSeq = std::adjacent_find(polygons.begin(), polygons.end(), not_comp);
+    auto notComp = std::bind(std::negate<>(), std::bind(Polygon::PolygonComparator(polygon), _1, _2));
+    const auto maxSeq = std::adjacent_find(polygons.begin(), polygons.end(), notComp);
     if (maxSeq == polygons.end())
     {
       std::cout << "0\n";
@@ -54,29 +73,9 @@ namespace
     else
     {
       const auto start = maxSeq;
-      const auto end = std::adjacent_find(maxSeq + 1, polygons.end(), not_comp);
+      const auto end = std::adjacent_find(maxSeq + 1, polygons.end(), notComp);
       const auto count = end - start;
       std::cout << count << '\n';
-    }
-  }
-  void maxCommand(const std::vector< Polygon > &polygons, const std::string &param)
-  {
-    if (polygons.empty())
-    {
-      std::cerr << "No polygons.\n";
-      return;
-    }
-    if (param == "AREA")
-    {
-      const auto maxIt = std::max_element(polygons.begin(), polygons.end(), Polygon::AreaComp{});
-      const auto i = std::distance(polygons.begin(), maxIt);
-      std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
-    }
-    else if (param == "VERTEXES")
-    {
-      const auto maxIt = std::max_element(polygons.begin(), polygons.end(), Polygon::VertexCountComp{});
-      const auto i = std::distance(polygons.begin(), maxIt);
-      std::cout << polygons[i].getPointsCount() << '\n';
     }
   }
   void countCommand(const std::vector< Polygon > &polygons, const std::string &param)
@@ -116,6 +115,35 @@ namespace
     }
     std::cout << count << '\n';
   }
+  /*void maxCommand(const std::vector< Polygon > &polygons, const std::string &param)
+  {
+    if (polygons.empty())
+    {
+      std::cerr << "No polygons.\n";
+      return;
+    }
+    if (param == "AREA")
+    {
+      ///const auto maxIt = std::max_element(polygons.begin(), polygons.end(), Polygon::AreaComp{});
+      ///const auto i = std::distance(polygons.begin(), maxIt);
+      ///std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
+      auto areaCompNegate = std::bind(std::logical_not<>(), std::bind(Polygon::AreaComp{}, _1, _2));
+      const auto maxIt = findMinMixEl(polygons, areaCompNegate);
+      const auto i = std::distance(polygons.begin(), maxIt);
+      std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
+    }
+    else if (param == "VERTEXES")
+    {
+      ///const auto maxIt = std::max_element(polygons.begin(), polygons.end(), Polygon::PointsCountComp{});
+      ///const auto i = std::distance(polygons.begin(), maxIt);
+      ///std::cout << polygons[i].getPointsCount() << '\n';
+      auto pointsCompNegate = std::bind(std::logical_not<>(),
+                                        std::bind(Polygon::PointsCountComp{}, _1, _2));
+      const auto maxIt = findMinMixEl(polygons, pointsCompNegate);
+      const auto i = std::distance(polygons.begin(), maxIt);
+      std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
+    }
+  }
   void minCommand(const std::vector< Polygon > &polygons, const std::string &param)
   {
     if (polygons.empty())
@@ -125,18 +153,24 @@ namespace
     }
     if (param == "AREA")
     {
-      const auto maxIt = std::min_element(polygons.begin(), polygons.end(), Polygon::AreaComp{});
-      const auto i = std::distance(polygons.begin(), maxIt);
+      ///const auto maxIt = std::min_element(polygons.begin(), polygons.end(), Polygon::AreaComp{});
+      ///const auto i = std::distance(polygons.begin(), maxIt);
+      ///std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
+      const auto minEl = findMinMixEl(polygons, Polygon::AreaComp{});
+      const auto i = std::distance(polygons.begin(), minEl);
       std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
     }
     else if (param == "VERTEXES")
     {
-      const auto maxIt = std::min_element(polygons.begin(), polygons.end(), Polygon::VertexCountComp{});
-      const auto i = std::distance(polygons.begin(), maxIt);
-      std::cout << polygons[i].getPointsCount() << '\n';
+      ///const auto maxIt = std::min_element(polygons.begin(), polygons.end(), Polygon::PointsCountComp{});
+      ///const auto i = std::distance(polygons.begin(), maxIt);
+      ///std::cout << polygons[i].getPointsCount() << '\n';
+      const auto minEl = findMinMixEl(polygons, Polygon::PointsCountComp{});
+      const auto i = std::distance(polygons.begin(), minEl);
+      std::cout << std::fixed << std::setprecision(1) << polygons[i].getPointsCount() << '\n';
     }
-  }
-  void areaCommand(const std::vector< Polygon > &polygons, const std::string &param)
+  }*/
+  /*void areaCommand(const std::vector< Polygon > &polygons, const std::string &param)
   {
     double sum = 0;
     size_t count = 0;
@@ -153,7 +187,7 @@ namespace
       sum /= count;
     }
     std::cout << std::fixed << std::setprecision(1) << sum << '\n';
-  }
+  }*/
   void areaCommand(const std::vector< Polygon > &polygons, size_t verticesCount)
   {
     double sum = 0;
@@ -167,9 +201,74 @@ namespace
     std::cout << std::fixed << std::setprecision(1) << sum << '\n';
   }
 }
+void executeCommand(const std::vector< Polygon > &polygons, const std::string &command)
+{
+  const auto areaComp = static_cast<const std::function< bool(const Polygon &,
+                                                              const Polygon &) > &>(Polygon::AreaComp{});
+  const auto areaCompNegate = std::bind(std::logical_not<>(), std::bind(areaComp, _1, _2));
+  //
+  //
+  const auto pointsComp = static_cast<const std::function< bool(const Polygon &,
+                                                                const Polygon &) > &>(Polygon::PointsCountComp{});
+  const auto pointsCompNegate = std::bind(std::logical_not<>(), std::bind(pointsComp, _1, _2));
+  //
+  //
+  if (command == "MAX AREA" || command == "MIN AREA")
+  {
+    const auto elIt = findMinMixEl(polygons, (command == "MIN AREA") ? areaComp : areaCompNegate);
+    const auto i = std::distance(polygons.begin(), elIt);
+    std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
+  }
+  else if (command == "MAX VERTEXES" || command == "MIN VERTEXES")
+  {
+    const auto elIt = findMinMixEl(polygons, (command == "MIN VERTEXES") ? pointsComp : pointsCompNegate);
+    const auto i = std::distance(polygons.begin(), elIt);
+    std::cout << polygons[i].getPointsCount() << '\n';
+  }
+  else if (command == "AREA MEAN" || command == "AREA ODD" || command == "AREA EVEN")
+  {
+    std::vector< double > areas = makeAreasVector(polygons);
+    auto it = std::partition(areas.begin(), areas.end(), isAreaOdd);
+    double sumOdd = std::accumulate(areas.begin(), it, 0.0);
+    double sumEven = std::accumulate(it, areas.end(), 0.0);
+    double sumMean = std::accumulate(areas.begin(), areas.end(), 0.0) / static_cast< double >(areas.size());
+    if (command == "AREA MEAN")
+    {
+      std::cout << std::fixed << std::setprecision(1) << sumMean << '\n';
+    }
+    else if (command == "AREA ODD")
+    {
+      std::cout << std::fixed << std::setprecision(1) << sumOdd << '\n';
+    }
+    else if (command == "AREA EVEN")
+    {
+      std::cout << std::setprecision(1) << sumEven << '\n';
+    }
+  }
+  else if (command == "AREA MEAN" || command == "AREA ODD" || command == "AREA EVEN")
+  {
+    std::vector< double > areas = makeAreasVector(polygons);
+    auto it = std::partition(areas.begin(), areas.end(), isAreaOdd);
+    double sumOdd = std::accumulate(areas.begin(), it, 0.0);
+    double sumEven = std::accumulate(it, areas.end(), 0.0);
+    double sumMean = std::accumulate(areas.begin(), areas.end(), 0.0) / static_cast< double >(areas.size());
+    if (command == "AREA MEAN")
+    {
+      std::cout << std::fixed << std::setprecision(1) << sumMean << '\n';
+    }
+    else if (command == "AREA ODD")
+    {
+      std::cout << std::fixed << std::setprecision(1) << sumOdd << '\n';
+    }
+    else if (command == "AREA EVEN")
+    {
+      std::cout << std::setprecision(1) << sumEven << '\n';
+    }///////////////[AREA <num-of-vertexes>] Расчёт суммы площади фигур с заданным количеством вершин
+  }
+}
 void processCommand(std::vector< Polygon > &polygons, const std::string &command)
 {
-  if (command == "AREA")
+  /*if (command == "AREA")
   {
     std::string param;
     std::cin >> param;
@@ -188,8 +287,8 @@ void processCommand(std::vector< Polygon > &polygons, const std::string &command
         std::cerr << "<INVALID PARAMETER>\n";
       }
     }
-  }
-  else if (command == "MAX")
+  }*/
+  /*else if (command == "MAX")
   {
     std::string param;
     std::cin >> param;
@@ -214,8 +313,8 @@ void processCommand(std::vector< Polygon > &polygons, const std::string &command
     {
       std::cerr << "<INVALID PARAMETER>\n";
     }
-  }
-  else if (command == "COUNT")
+  }*/
+  if (command == "COUNT")
   {
     std::string param;
     std::cin >> param;
@@ -239,7 +338,7 @@ void processCommand(std::vector< Polygon > &polygons, const std::string &command
   {
     try
     {
-      std::vector< Point > points;
+      std::vector< romanovich::Point > points;
       size_t pointsCount;
       std::istream &input = std::cin;
       while (input >> pointsCount)
@@ -252,7 +351,7 @@ void processCommand(std::vector< Polygon > &polygons, const std::string &command
         }
         for (size_t i = 0; i < pointsCount; i++)
         {
-          Point point{};
+          romanovich::Point point{};
           input >> point;
           if (input.fail())
           {
