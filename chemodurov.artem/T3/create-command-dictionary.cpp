@@ -5,6 +5,7 @@
 #include <functional>
 #include <cmath>
 #include <iofmtguard.hpp>
+#include <iomanip>
 #include "is-nearly-equal.hpp"
 
 namespace chemodurov
@@ -34,7 +35,8 @@ namespace chemodurov
   {
     std::vector< double > areas;
     std::transform(data.begin(), data.end(), std::back_inserter(areas), p);
-    out << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
   }
 
   void printAreaOdd(const std::vector< Polygon > & data, std::ostream & out)
@@ -57,7 +59,7 @@ namespace chemodurov
     std::transform(data.begin(), data.end(), std::back_inserter(areas), calcArea);
     double sum_area = std::accumulate(areas.begin(), areas.end(), 0.0);
     iofmtguard iofmtguard(out);
-    out << std::fixed << (sum_area / data.size()) << '\n';
+    out << std::fixed << std::setprecision(1) << (sum_area / data.size()) << '\n';
   }
 
   bool isNumOfVerts(const Polygon & pol, size_t num)
@@ -91,7 +93,7 @@ namespace chemodurov
       throw std::invalid_argument("For max area/vertexes must be at least one polygon");
     }
     iofmtguard iofmtguard(out);
-    out << std::fixed << p2(*it) << '\n';
+    out << std::fixed << std::setprecision(1) << p2(*it) << '\n';
   }
 
   template< typename P >
@@ -136,6 +138,10 @@ namespace chemodurov
   template< typename P >
   void countIf(const std::vector< Polygon > & data, std::ostream & out, P p)
   {
+    if (data.empty())
+    {
+      throw std::invalid_argument("No polygon to count");
+    }
     out << std::count_if(data.begin(), data.end(), p) << '\n';
   }
 

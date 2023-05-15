@@ -29,6 +29,7 @@ std::istream & chemodurov::operator>>(std::istream & in, Polygon & dest)
     in.setstate(std::ios::failbit);
     return in;
   }
+  dest.data.clear();
   std::copy_n(std::istream_iterator< Point >(in), num_of_points, std::back_inserter(dest.data));
   return in;
 }
