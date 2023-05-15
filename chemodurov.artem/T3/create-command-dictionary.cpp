@@ -4,6 +4,7 @@
 #include <iostream>
 #include <functional>
 #include <cmath>
+#include <iofmtguard.hpp>
 #include "is-nearly-equal.hpp"
 
 namespace chemodurov
@@ -55,7 +56,8 @@ namespace chemodurov
     std::vector< double > areas;
     std::transform(data.begin(), data.end(), std::back_inserter(areas), calcArea);
     double sum_area = std::accumulate(areas.begin(), areas.end(), 0.0);
-    out << (sum_area / data.size()) << '\n';
+    iofmtguard iofmtguard();
+    out << std::fixed << (sum_area / data.size()) << '\n';
   }
 
   bool isNumOfVerts(const Polygon & pol, size_t num)
@@ -88,7 +90,8 @@ namespace chemodurov
     {
       throw std::invalid_argument("For max area/vertexes must be at least one polygon");
     }
-    out << p2(*it);
+    iofmtguard iofmtguard();
+    out << std::fixed << p2(*it) << '\n';
   }
 
   template< typename P >
@@ -133,7 +136,7 @@ namespace chemodurov
   template< typename P >
   void countIf(const std::vector< Polygon > & data, std::ostream & out, P p)
   {
-    out << std::count_if(data.begin(), data.end(), p);
+    out << std::count_if(data.begin(), data.end(), p) << '\n';
   }
 
   void countOdd(const std::vector< Polygon > & data, std::ostream & out)
@@ -196,7 +199,7 @@ namespace chemodurov
 
   void printNumOfRects(const std::vector< Polygon > & data, std::ostream & out)
   {
-    out << std::count_if(data.begin(), data.end(), isRectangle);
+    out << std::count_if(data.begin(), data.end(), isRectangle) << '\n';
   }
 
   comm_dics_t createCommandDictionary()
