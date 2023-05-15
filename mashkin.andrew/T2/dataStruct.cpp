@@ -101,24 +101,6 @@ namespace mashkin
     return std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
   }
 
-  /*void getKey2(std::istream& inp, std::string& var, mashkin::DataStruct& varData)
-  {
-    inp >> var;
-    if (var.find_first_of("Bb") != 1)
-    {
-      inp.setstate(std::ios::failbit);
-      return;
-    }
-    else
-    {
-      std::string binaryUll;
-      var.erase(std::begin(var), std::begin(var) + 2);
-      std::copy(std::begin(var), std::begin(var) + var.find_last_of(':'), std::back_inserter(binaryUll));
-      varData.key2 = std::bitset< 64 >(binaryUll).to_ullong();
-      var.erase(std::begin(var), std::begin(var) + var.find_last_of(':') + 1);
-    }
-  }*/
-
   std::istream& operator>>(std::istream& in, UllIO&& dest)
   {
     std::istream::sentry sentry(in);
@@ -128,6 +110,7 @@ namespace mashkin
     }
     std::string var;
     std::getline(in, var, ':');
+    in.putback(':');
     if (var.substr(0, 2) != "0b")
     {
       in.setstate(std::ios::failbit);
@@ -147,10 +130,6 @@ namespace mashkin
     std::string data = "";
     std::getline(in, data, 'y');
     data += 'y';
-    if (data[0] == ':')
-    {
-      data.erase(std::begin(data));
-    }
     if (data != dest.exp)
     {
       in.setstate(std::ios::failbit);
@@ -171,11 +150,11 @@ namespace mashkin
       using label = LabelIO;
       using dbl = DoubleIO;
       using str = StringIO;
-      in >> sep{'('} >> sep{':'};
+      in >> sep{'('};
       for (size_t i = 0; i < 3; ++i)
       {
         size_t keyNum;
-        in >> label{"key"} >> keyNum;
+        in >> sep{':'} >> label{"key"} >> keyNum;
         if (keyNum == 1)
         {
           in >> dbl{input.key1};
