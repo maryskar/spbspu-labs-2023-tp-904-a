@@ -74,6 +74,10 @@ namespace chemodurov
 
   void printAreaNumOfVerts(const std::vector< Polygon > & data, std::ostream & out, size_t num)
   {
+    if (num < 3)
+    {
+      throw std::invalid_argument("Invalid command");
+    }
     using namespace std::placeholders;
     auto trans = std::bind(transIntoAreaNumOfVerts, _1, num);
     printAreaIf(data, out, trans);
@@ -138,10 +142,6 @@ namespace chemodurov
   template< typename P >
   void countIf(const std::vector< Polygon > & data, std::ostream & out, P p)
   {
-    if (data.empty())
-    {
-      throw std::invalid_argument("No polygon to count");
-    }
     out << std::count_if(data.begin(), data.end(), p) << '\n';
   }
 
@@ -157,6 +157,10 @@ namespace chemodurov
 
   void countIfNumOfVerts(const std::vector< Polygon > & data, std::ostream & out, size_t num)
   {
+    if (num < 3)
+    {
+      throw std::invalid_argument("Invalid command");
+    }
     using namespace std::placeholders;
     auto pred = std::bind(isNumOfVerts, _1, num);
     countIf(data, out, pred);

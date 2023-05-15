@@ -18,7 +18,7 @@ std::string chemodurov::readCommand(std::istream & in)
   in >> temp;
   if (!in)
   {
-    throw std::runtime_error("EOF");
+    throw std::invalid_argument("Invalid command");
   }
   res += ' ';
   res += temp;
