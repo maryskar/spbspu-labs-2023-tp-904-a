@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
-#include "polygon.hpp"
+#include "create-command-dictionary.hpp"
 
 int main(int argc, char ** argv)
 {
@@ -29,5 +29,10 @@ int main(int argc, char ** argv)
     using is_it_t = std::istream_iterator< chemodurov::Polygon >;
     std::copy(is_it_t(ifstream), is_it_t(), std::back_inserter(data));
   }
+  auto commands = chemodurov::createCommandDictionary();
+  do
+  {
+  }
+  while (!std::cin.eof());
   return 0;
 }
