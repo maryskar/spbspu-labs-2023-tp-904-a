@@ -56,3 +56,23 @@ double chemodurov::calcArea(const Polygon & pol)
   area = 0.5 * std::abs(area);
   return area;
 }
+
+bool chemodurov::operator==(const Polygon & lhs, const Polygon & rhs)
+{
+  return (size(lhs) == size(rhs)) && (lhs.data == rhs.data);
+}
+
+bool chemodurov::operator==(const Point & lhs, const Point & rhs)
+{
+  return (lhs.x == rhs.x) && (lhs.y == rhs.y);
+}
+
+bool chemodurov::operator!=(const Point & lhs, const Point & rhs)
+{
+  return !(lhs == rhs);
+}
+
+bool chemodurov::operator!=(const Polygon & lhs, const Polygon & rhs)
+{
+  return !(lhs == rhs);
+}

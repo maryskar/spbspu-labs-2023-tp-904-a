@@ -150,4 +150,15 @@ namespace chemodurov
     auto pred = std::bind(isNumOfVerts, _1, num);
     countIf(data, out, pred);
   }
+
+  void printMaxSeq(const std::vector< Polygon > & data, std::ostream & out, std::istream & in)
+  {
+    Polygon temp;
+    in >> temp;
+    if (!in)
+    {
+      throw std::invalid_argument("Invalid MAXSEQ");
+    }
+    //
+  }
 }
