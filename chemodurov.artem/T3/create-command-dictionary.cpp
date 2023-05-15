@@ -62,4 +62,34 @@ namespace chemodurov
     auto trans = std::bind(transIntoAreaNumOfVerts, _1, num);
     printAreaIf(data, out, trans);
   }
+
+  bool isLessArea(const Polygon & lhs, const Polygon & rhs)
+  {
+    return calcArea(lhs) < calcArea(rhs);
+  }
+
+  void printMaxArea(const std::vector< Polygon > & data, std::ostream & out)
+  {
+    auto it = std::max_element(data.begin(), data.end(), isLessArea);
+    if (it == data.end())
+    {
+      throw std::invalid_argument("For max area must be at least one polygon");
+    }
+    out << calcArea(*it);
+  }
+
+  bool isLessVerts(const Polygon & lhs, const Polygon & rhs)
+  {
+    return size(lhs) < size(rhs);
+  }
+
+  void printMaxVerts(const std::vector< Polygon > & data, std::ostream & out)
+  {
+    auto it = std::max_element(data.begin(), data.end(), isLessVerts);
+    if (it == data.end())
+    {
+      throw std::invalid_argument("For max vertexes must be at least one polygon");
+    }
+    out << size(*it);
+  }
 }
