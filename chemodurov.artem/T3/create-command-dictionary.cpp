@@ -198,4 +198,23 @@ namespace chemodurov
   {
     out << std::count_if(data.begin(), data.end(), isRectangle);
   }
+
+  comm_dics_t createCommandDictionary()
+  {
+    comm_dics_t res{};
+    res.dic1.insert({"AREA ODD", printAreaOdd});
+    res.dic1.insert({"AREA EVEN", printAreaEven});
+    res.dic1.insert({"AREA MEAN", printAreaMean});
+    res.dic1.insert({"MIN AREA", printMinArea});
+    res.dic1.insert({"MAX AREA", printMaxArea});
+    res.dic1.insert({"MIN VERTEXES", printMinVerts});
+    res.dic1.insert({"MAX VERTEXES", printMaxVerts});
+    res.dic1.insert({"COUNT EVEN", countEven});
+    res.dic1.insert({"COUNT ODD", countOdd});
+    res.dic1.insert({"RECTS", printNumOfRects});
+    res.dic2.insert({"AREA NUM", printAreaNumOfVerts});
+    res.dic2.insert({"COUNT NUM", countIfNumOfVerts});
+    res.dic3.insert({"MAXSEQ", printMaxSeq});
+    return res;
+  }
 }
