@@ -19,6 +19,6 @@ int main()
     }
   }
   std::sort(data.begin(), data.end(), malaya::DataComparator{});
-  std::copy(std::begin(data), std::end(data), outIter(std::cout, "\n"));
+  std::copy(data.begin(), data.end(), outIter(std::cout, "\n"));
   return 0;
 }
