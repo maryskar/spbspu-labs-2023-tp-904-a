@@ -2,9 +2,9 @@
 #include <iterator>
 #include <vector>
 #include <algorithm>
+#include <limits>
 #include "io.h"
 #include "data_struct.h"
-#include "comparator.h"
 int main()
 {
   using data_struct = dimkashelk::DataStruct;
@@ -19,8 +19,7 @@ int main()
     if (!std::cin)
     {
       std::cin.clear();
-      std::string to_skip;
-      std::getline(std::cin, to_skip);
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
   std::sort(data.begin(), data.end(), comparator);
