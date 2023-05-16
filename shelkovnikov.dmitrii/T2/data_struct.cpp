@@ -1,4 +1,4 @@
-#include "comparator.h"
+#include "data_struct.h"
 namespace dimkashelk
 {
   bool Comparator::operator()(const dimkashelk::DataStruct &lhs, const dimkashelk::DataStruct &rhs) const
