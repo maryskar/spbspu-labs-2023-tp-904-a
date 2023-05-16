@@ -72,7 +72,7 @@ namespace dimkashelk
     {
       return in;
     }
-    for(size_t i = 0; i < dest.exp.length(); i++)
+    for (size_t i = 0; i < dest.exp.length(); i++)
     {
       in >> DelimiterIO{dest.exp[i]};
     }
