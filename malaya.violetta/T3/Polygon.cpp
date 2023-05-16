@@ -41,6 +41,7 @@ std::istream & malaya::operator>>(std::istream & in, Polygon & polygon)
   {
     return in;
   }
+  polygon.points.clear();
   using inIter = std::istream_iterator< malaya::Point >;
   int pointNumber = 0;
   in >> pointNumber;

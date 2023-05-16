@@ -6,6 +6,7 @@
 #include <iostream>
 #include <limits>
 #include <vector>
+#include <cctype> //???????????????????
 #include "Polygon.hpp"
 #include "commandFunctions.hpp"
 
@@ -36,15 +37,31 @@ namespace malaya
         std::transform(data.begin(), data.end(), values.begin(), areaOdd);
         out << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
       }
-      else
+      else if(option == "MEAN") //?????????????????????????????
       {
-        in.setstate(std::ios::failbit);
-        out << "<INVALID COMMAND>\n";
+        std::vector< double > values;
+        std::transform(data.begin(), data.end(), values.begin(), getArea);
+        double sum = std::accumulate(values.begin(), values.end(), 0.0);
+        out << std::round((sum / values.size()) * 10) / 10;
       }
+      //else //><DJKHKGFLSIU>ALOJ?:KPUYDTFRQYFSTKHVGJB<KN
+      //{
+      //  unsigned long long number = std::stoull(option);
+      //  if(number < 3)
+      //  {
+      //    out << "<INVALID COMMAND>\n";
+      //  }
+      //  std::vector< double > values;
+      //  std::transform(data.begin(), data.end(), values.begin(), areaNum(number));
+      //  double sum = std::accumulate(values.begin(), values.end(), 0.0);
+      //  out << std::round((sum / values.size()) * 10) / 10; //??????
+      //}
     }
     else if(command == "MAX")
     {
-
+      //std::string option = " ";
+      //in >> option;
+      //if(option == "")
     }
     else if(command == "MIN")
     {

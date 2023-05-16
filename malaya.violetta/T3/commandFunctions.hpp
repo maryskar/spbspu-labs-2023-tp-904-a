@@ -6,6 +6,8 @@ namespace malaya
 {
   double areaEven(const Polygon & polygon);
   double areaOdd(const Polygon & polygon);
+  double areaNum(const Polygon & polygon, size_t num);
+  double maxArea(std::vector< malaya::Polygon > data);
 }
 
 #endif

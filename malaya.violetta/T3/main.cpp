@@ -13,9 +13,9 @@ int main()
   std::vector< malaya::Polygon > data;
   std::copy(inIter(in), inIter(), std::back_inserter(data));
   //std::string command;
-  while(!std::cin.eof())
+  //while(!std::cin.eof())
   {
-    malaya::inputCommand(std::cin);
+    //malaya::inputCommand(std::cin);
     //std::cin >> command;
     //if (!std::cin)
     //{
