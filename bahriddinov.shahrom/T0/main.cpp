@@ -3,7 +3,6 @@
 
 int main()
 {
-   std::cout<<"bahriddinov.shahrom";
-return 0;
-    
+  std::cout << "bahriddinov.shahrom";
+  return 0;
 }
