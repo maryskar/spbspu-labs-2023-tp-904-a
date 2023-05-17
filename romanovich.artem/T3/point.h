@@ -7,6 +7,7 @@ namespace romanovich
   {
     int x;
     int y;
+    Point &operator=(const Point &rhs);
   };
   std::istream &operator>>(std::istream &in, Point &dest);
   bool operator==(const Point &lhs, const Point &rhs);

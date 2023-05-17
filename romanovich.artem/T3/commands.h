@@ -188,7 +188,7 @@ namespace
     }
     std::cout << std::fixed << std::setprecision(1) << sum << '\n';
   }*/
-  void areaCommand(const std::vector< Polygon > &polygons, size_t verticesCount)
+  /*void areaCommand(const std::vector< Polygon > &polygons, size_t verticesCount)
   {
     double sum = 0;
     for (const auto &polygon: polygons)
@@ -198,8 +198,7 @@ namespace
         sum += polygon.getArea();
       }
     }
-    std::cout << std::fixed << std::setprecision(1) << sum << '\n';
-  }
+    std::cout << std::fixed << std::setprecision(1) << sum << '\n';*/
 }
 void executeCommand(const std::vector< Polygon > &polygons, const std::string &command)
 {
@@ -245,25 +244,41 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
       std::cout << std::setprecision(1) << sumEven << '\n';
     }
   }
-  else if (command == "AREA MEAN" || command == "AREA ODD" || command == "AREA EVEN")
+  else if (command.substr(0, 4) == "AREA")
   {
-    std::vector< double > areas = makeAreasVector(polygons);
-    auto it = std::partition(areas.begin(), areas.end(), isAreaOdd);
-    double sumOdd = std::accumulate(areas.begin(), it, 0.0);
-    double sumEven = std::accumulate(it, areas.end(), 0.0);
-    double sumMean = std::accumulate(areas.begin(), areas.end(), 0.0) / static_cast< double >(areas.size());
-    if (command == "AREA MEAN")
+    try
     {
-      std::cout << std::fixed << std::setprecision(1) << sumMean << '\n';
+      auto polygonsTmp = polygons;
+      size_t targetCount = std::stoi(command.substr(5));
+      polygonsTmp.erase(std::remove_if(polygonsTmp.begin(), polygonsTmp.end(),
+                                       romanovich::Polygon::HasVertexCount(targetCount)), polygonsTmp.end());
+      std::vector< double > areas = makeAreasVector(polygonsTmp);
+      std::cout << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
     }
-    else if (command == "AREA ODD")
+    catch (...)
     {
-      std::cout << std::fixed << std::setprecision(1) << sumOdd << '\n';
+      std::cerr << "<INVALID PARAMETER>\n";
     }
-    else if (command == "AREA EVEN")
+  }
+  if (command == "COUNT EVEN")
+  {
+    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsEvenVertexCount{});
+  }
+  else if (command == "COUNT ODD")
+  {
+    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsOddVertexCount{});
+  }
+  else if (command.substr(0, 5) == "COUNT")
+  {
+    try
     {
-      std::cout << std::setprecision(1) << sumEven << '\n';
-    }///////////////[AREA <num-of-vertexes>] Расчёт суммы площади фигур с заданным количеством вершин
+      std::cout
+        << std::count_if(polygons.begin(), polygons.end(), Polygon::HasVertexCount{std::stoul(command.substr(6))});
+    }
+    catch (...)
+    {
+      std::cerr << "<INVALID PARAMETER>\n";
+    }
   }
 }
 void processCommand(std::vector< Polygon > &polygons, const std::string &command)

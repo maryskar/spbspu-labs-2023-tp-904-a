@@ -13,11 +13,19 @@ namespace romanovich
     Point getPoint(size_t index) const;
     double getArea() const;
     bool operator==(const Polygon &rhs) const;
+    Polygon& operator=(const Polygon& other);
     struct AreaComp
     {
       bool operator()(const Polygon &lhs, const Polygon &rhs) const
       {
         return lhs.getArea() < rhs.getArea();
+      }
+    };
+    struct AreaFunctor
+    {
+      double operator()(const romanovich::Polygon &polygon) const
+      {
+        return polygon.getArea();
       }
     };
     struct PointsCountComp
@@ -65,13 +73,6 @@ namespace romanovich
         return a == b && a == polygon;
       }
       const Polygon &polygon;
-    };
-    struct AreaFunctor
-    {
-      double operator()(const romanovich::Polygon &polygon) const
-      {
-        return polygon.getArea();
-      }
     };
   private:
     std::vector< Point > points_;
