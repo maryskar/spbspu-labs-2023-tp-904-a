@@ -1,7 +1,7 @@
-#include "datastruct.h"
 #include <iostream>
 #include <limits>
 #include "iotypes.h"
+#include "datastruct.h"
 namespace
 {
   bool isSmaller(double a, double b, double epsilon)

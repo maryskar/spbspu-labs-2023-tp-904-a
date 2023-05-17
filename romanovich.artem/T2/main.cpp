@@ -7,11 +7,11 @@
 int main()
 {
   std::vector< romanovich::DataStruct > dsVector;
-  using begin = std::istream_iterator< romanovich::DataStruct >;
+  using iter = std::istream_iterator< romanovich::DataStruct >;
   auto target = std::back_inserter(dsVector);
   while (!std::cin.eof())
   {
-    std::copy(begin(std::cin), begin(), target);
+    std::copy(iter(std::cin), iter(), target);
     if (std::cin.fail())
     {
       std::cin.clear();
