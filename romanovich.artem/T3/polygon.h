@@ -44,45 +44,45 @@ namespace romanovich
         return lhs.getPointsCount() < rhs.getPointsCount();
       }
     };
-    struct IsEvenVertexCount
+    struct IsEvenPointsCount
     {
       bool operator()(const Polygon &p) const
       {
         return p.getPointsCount() % 2 == 0;
       }
     };
-    struct IsOddVertexCount
+    struct IsOddPointsCount
     {
       bool operator()(const Polygon &p) const
       {
         return p.getPointsCount() % 2 != 0;
       }
     };
-    struct HasVertexCount
+    struct HasPointsCount
     {
-      explicit HasVertexCount(size_t vertexCount):
-        vertexCount_(vertexCount)
+      explicit HasPointsCount(size_t pointsCount):
+        pointsCount(pointsCount)
       {
       }
       bool operator()(const Polygon &p) const
       {
-        return p.getPointsCount() == vertexCount_;
+        return p.getPointsCount() == pointsCount;
       }
     private:
-      size_t vertexCount_;
+      size_t pointsCount;
     };
-    struct HasNotVertexCount
+    struct HasNotPointsCount
     {
-      explicit HasNotVertexCount(size_t vertexCount):
-        vertexCount_(vertexCount)
+      explicit HasNotPointsCount(size_t pointsCount):
+        pointsCount(pointsCount)
       {
       }
       bool operator()(const Polygon &p) const
       {
-        return p.getPointsCount() != vertexCount_;
+        return p.getPointsCount() != pointsCount;
       }
     private:
-      size_t vertexCount_;
+      size_t pointsCount;
     };
     struct PolygonComparator
     {

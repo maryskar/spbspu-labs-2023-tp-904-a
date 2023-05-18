@@ -27,7 +27,7 @@ namespace
     std::transform(polygons.begin(), polygons.end(), areas.begin(), Polygon::AreaFunctor());
     return areas;
   }
-  void maxSeqCommand(const std::vector< Polygon > &polygons, const Polygon &polygon)
+  void countMaxSeq(const std::vector< Polygon > &polygons, const Polygon &polygon)
   {
     if (polygons.empty())
     {
@@ -90,7 +90,7 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
   }
   else if (command == "AREA MEAN" || command == "AREA ODD" || command == "AREA EVEN")
   {
-    auto itp = std::partition(polygonsTmp.begin(), polygonsTmp.end(), Polygon::IsEvenVertexCount{});
+    auto itp = std::partition(polygonsTmp.begin(), polygonsTmp.end(), Polygon::IsEvenPointsCount{});
     std::vector< double > areas = makeAreasVector(polygonsTmp);
     auto ita = std::next(areas.begin(), std::distance(polygonsTmp.begin(), itp));
     double sumOdd = std::accumulate(areas.begin(), ita, 0.0);
@@ -115,7 +115,7 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
     {
       size_t targetCount = std::stoi(command.substr(5));
       polygonsTmp.erase(
-        std::remove_if(polygonsTmp.begin(), polygonsTmp.end(), Polygon::HasNotVertexCount(targetCount)),
+        std::remove_if(polygonsTmp.begin(), polygonsTmp.end(), Polygon::HasNotPointsCount(targetCount)),
         polygonsTmp.end());
       std::vector< double > areas = makeAreasVector(polygonsTmp);
       std::cout << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
@@ -127,18 +127,18 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
   }
   if (command == "COUNT EVEN")
   {
-    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsEvenVertexCount{}) << "\n";
+    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsEvenPointsCount{}) << "\n";
   }
   else if (command == "COUNT ODD")
   {
-    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsOddVertexCount{}) << "\n";
+    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsOddPointsCount{}) << "\n";
   }
   else if (command.substr(0, 5) == "COUNT")
   {
     try
     {
       std::cout
-        << std::count_if(polygons.begin(), polygons.end(), Polygon::HasVertexCount{std::stoul(command.substr(6))})
+        << std::count_if(polygons.begin(), polygons.end(), Polygon::HasPointsCount{std::stoul(command.substr(6))})
         << "\n";
     }
     catch (...)
@@ -151,7 +151,7 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
     try
     {
       std::vector< Point > points;
-      maxSeqCommand(polygons, Polygon(getPointsFromString(command.substr(7))));
+      countMaxSeq(polygons, Polygon(getPointsFromString(command.substr(7))));
     }
     catch (...)
     {
