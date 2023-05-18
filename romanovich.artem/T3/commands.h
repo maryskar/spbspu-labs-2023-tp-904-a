@@ -27,33 +27,6 @@ namespace
     std::transform(polygons.begin(), polygons.end(), areas.begin(), Polygon::AreaFunctor());
     return areas;
   }
-  void rightShapesCountCommand(const std::vector< Polygon > &polygons)
-  {
-    size_t count = 0;
-    for (const auto &polygon: polygons)
-    {
-      bool hasRightAngle = false;
-      size_t n = polygon.getPointsCount();
-      for (std::size_t i = 0; i < n; ++i)
-      {
-        const auto &pointA = polygon.getPoint(i);
-        const auto &pointB = polygon.getPoint((i + 1) % n);
-        const auto &pointC = polygon.getPoint((i + 2) % n);
-        const auto v1 = pointB - pointA;
-        const auto v2 = pointC - pointB;
-        if (doScalarMultiplication(v1, v2) == 0)
-        {
-          hasRightAngle = true;
-          break;
-        }
-      }
-      if (hasRightAngle)
-      {
-        ++count;
-      }
-    }
-    std::cout << count << '\n';
-  }
   void maxSeqCommand(const std::vector< Polygon > &polygons, const Polygon &polygon)
   {
     if (polygons.empty())
@@ -187,7 +160,7 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
   }
   else if (command == "RIGHTSHAPES")
   {
-    rightShapesCountCommand(polygons);
+    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::HasRightAngle{}) << '\n';
   }
 }
 #endif

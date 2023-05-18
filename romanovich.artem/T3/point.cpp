@@ -1,5 +1,4 @@
 #include "point.h"
-#include <iostream>
 namespace
 {
   std::istream &checkSentry(std::istream &in)

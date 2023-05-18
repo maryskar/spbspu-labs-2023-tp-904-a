@@ -2,6 +2,7 @@
 #define POLYGON_H
 #include <vector>
 #include <cstddef>
+#include <algorithm>
 #include "point.h"
 namespace romanovich
 {
@@ -14,6 +15,14 @@ namespace romanovich
     double getArea() const;
     bool operator==(const Polygon &rhs) const;
     Polygon &operator=(const Polygon &other);
+    auto begin() const
+    {
+      return points_.begin();
+    }
+    auto end() const
+    {
+      return points_.end();
+    }
     struct AreaComp
     {
       bool operator()(const Polygon &lhs, const Polygon &rhs) const
@@ -86,6 +95,29 @@ namespace romanovich
         return a == b && a == polygon;
       }
       const Polygon &polygon;
+    };
+    struct IsRightAngle
+    {
+      const Polygon &polygon;
+      bool operator()(const Point &point) const
+      {
+        size_t n = polygon.getPointsCount();
+        auto it = std::find(polygon.begin(), polygon.end(), point);
+        auto index = std::distance(polygon.begin(), it);
+        const auto &pointA = point;
+        const auto &pointB = polygon.getPoint((index + 1) % n);
+        const auto &pointC = polygon.getPoint((index + 2) % n);
+        const auto v1 = pointB - pointA;
+        const auto v2 = pointC - pointB;
+        return doScalarMultiplication(v1, v2) == 0;
+      }
+    };
+    struct HasRightAngle
+    {
+      bool operator()(const Polygon &polygon) const
+      {
+        return std::any_of(polygon.begin(), polygon.end(), IsRightAngle{polygon});
+      }
     };
   private:
     std::vector< Point > points_;
