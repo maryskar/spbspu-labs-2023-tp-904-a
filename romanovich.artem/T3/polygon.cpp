@@ -1,3 +1,4 @@
+#include <limits>
 #include "polygon.h"
 size_t romanovich::Polygon::getPointsCount() const
 {
