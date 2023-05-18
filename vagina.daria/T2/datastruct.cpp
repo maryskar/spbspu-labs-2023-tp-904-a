@@ -18,20 +18,21 @@ std::istream& vagina::operator>>(std::istream &in, DataStruct &dest)
     using ull = BinUnsignedLongLongIO;
     using dbl = DoubleI;
     using str = StringIO;
-    std::string keyN = "";
+    using label = LiteralIO;
     in >> sep{ '(' } >> sep { ':' };
-    for (auto i = 1; i <= 3; i++)
+    for (std::size_t i = 1; i <= 3; i++)
     {
-      in >> keyN;
-      if (keyN == "key1")
+      std::size_t num;
+      in >> label{"key"} >> num;
+      if (num == 1)
       {
         in >> dbl{ input.key1 } >> sep { ':' };
       }
-      else if (keyN == "key2")
+      else if (num == 2)
       {
         in >> ull{ input.key2 } >> sep { ':' };
       }
-      else if (keyN == "key3")
+      else if (num == 3)
       {
         in >> str{ input.key3 } >> sep { ':' };
       }
