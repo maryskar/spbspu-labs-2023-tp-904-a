@@ -1,5 +1,4 @@
 #include "TypesIO.h"
-#include <bitset>
 #include <iomanip>
 #include <iterator>
 
