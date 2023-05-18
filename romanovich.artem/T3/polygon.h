@@ -13,7 +13,7 @@ namespace romanovich
     Point getPoint(size_t index) const;
     double getArea() const;
     bool operator==(const Polygon &rhs) const;
-    Polygon& operator=(const Polygon& other);
+    Polygon &operator=(const Polygon &other);
     struct AreaComp
     {
       bool operator()(const Polygon &lhs, const Polygon &rhs) const
@@ -58,6 +58,19 @@ namespace romanovich
       bool operator()(const Polygon &p) const
       {
         return p.getPointsCount() == vertexCount_;
+      }
+    private:
+      size_t vertexCount_;
+    };
+    struct HasNotVertexCount
+    {
+      explicit HasNotVertexCount(size_t vertexCount):
+        vertexCount_(vertexCount)
+      {
+      }
+      bool operator()(const Polygon &p) const
+      {
+        return p.getPointsCount() != vertexCount_;
       }
     private:
       size_t vertexCount_;

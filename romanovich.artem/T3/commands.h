@@ -10,6 +10,7 @@
 #include "polygon.h"
 using namespace std::placeholders;
 using Polygon = romanovich::Polygon;
+using Point = romanovich::Point;
 namespace
 {
   std::vector< Polygon >::const_iterator findMinMixEl(const std::vector< Polygon > &polygons,
@@ -23,12 +24,12 @@ namespace
   {
     std::vector< double > areas;
     areas.resize(polygons.size());
-    std::transform(polygons.begin(), polygons.end(), areas.begin(), romanovich::Polygon::AreaFunctor());
+    std::transform(polygons.begin(), polygons.end(), areas.begin(), Polygon::AreaFunctor());
     return areas;
   }
-  bool isAreaOdd(double area)
+  bool IsOddPolygon(Polygon &polygon)
   {
-    return (static_cast<int>(area) % 2 != 0);
+    return (polygon.getPointsCount() != 0);
   }
   void rightShapesCountCommand(const std::vector< Polygon > &polygons)
   {
@@ -77,43 +78,6 @@ namespace
       const auto count = end - start;
       std::cout << count << '\n';
     }
-  }
-  void countCommand(const std::vector< Polygon > &polygons, const std::string &param)
-  {
-    if (polygons.empty())
-    {
-      std::cerr << "No polygons.\n";
-      return;
-    }
-    size_t count = 0;
-    if (param == "EVEN")
-    {
-      count = std::count_if(polygons.begin(), polygons.end(), Polygon::IsEvenVertexCount{});
-    }
-    else if (param == "ODD")
-    {
-      count = std::count_if(polygons.begin(), polygons.end(), Polygon::IsOddVertexCount{});
-    }
-    std::cout << count << '\n';
-  }
-  void countCommand(const std::vector< Polygon > &polygons, size_t vertexCount)
-  {
-    if (polygons.empty())
-    {
-      std::cerr << "No polygons.\n";
-      return;
-    }
-    size_t count = 0;
-    try
-    {
-      count = std::count_if(polygons.begin(), polygons.end(), Polygon::HasVertexCount{vertexCount});
-    }
-    catch (...)
-    {
-      std::cerr << "Error: invalid parameter\n";
-      return;
-    }
-    std::cout << count << '\n';
   }
   /*void maxCommand(const std::vector< Polygon > &polygons, const std::string &param)
   {
@@ -202,6 +166,7 @@ namespace
 }
 void executeCommand(const std::vector< Polygon > &polygons, const std::string &command)
 {
+  auto polygonsTmp = polygons;
   const auto areaComp = static_cast<const std::function< bool(const Polygon &,
                                                               const Polygon &) > &>(Polygon::AreaComp{});
   const auto areaCompNegate = std::bind(std::logical_not<>(), std::bind(areaComp, _1, _2));
@@ -226,10 +191,11 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
   }
   else if (command == "AREA MEAN" || command == "AREA ODD" || command == "AREA EVEN")
   {
-    std::vector< double > areas = makeAreasVector(polygons);
-    auto it = std::partition(areas.begin(), areas.end(), isAreaOdd);
-    double sumOdd = std::accumulate(areas.begin(), it, 0.0);
-    double sumEven = std::accumulate(it, areas.end(), 0.0);
+    auto itp = std::partition(polygonsTmp.begin(), polygonsTmp.end(), Polygon::IsEvenVertexCount{});
+    std::vector< double > areas = makeAreasVector(polygonsTmp);
+    auto ita = std::next(areas.begin(), std::distance(polygonsTmp.begin(), itp));
+    double sumOdd = std::accumulate(areas.begin(), ita, 0.0);
+    double sumEven = std::accumulate(ita, areas.end(), 0.0);
     double sumMean = std::accumulate(areas.begin(), areas.end(), 0.0) / static_cast< double >(areas.size());
     if (command == "AREA MEAN")
     {
@@ -248,10 +214,10 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
   {
     try
     {
-      auto polygonsTmp = polygons;
       size_t targetCount = std::stoi(command.substr(5));
-      polygonsTmp.erase(std::remove_if(polygonsTmp.begin(), polygonsTmp.end(),
-                                       romanovich::Polygon::HasVertexCount(targetCount)), polygonsTmp.end());
+      polygonsTmp.erase(
+        std::remove_if(polygonsTmp.begin(), polygonsTmp.end(), Polygon::HasNotVertexCount(targetCount)),
+        polygonsTmp.end());
       std::vector< double > areas = makeAreasVector(polygonsTmp);
       std::cout << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
     }
@@ -262,18 +228,19 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
   }
   if (command == "COUNT EVEN")
   {
-    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsEvenVertexCount{});
+    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsEvenVertexCount{}) << "\n";
   }
   else if (command == "COUNT ODD")
   {
-    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsOddVertexCount{});
+    std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::IsOddVertexCount{}) << "\n";
   }
   else if (command.substr(0, 5) == "COUNT")
   {
     try
     {
       std::cout
-        << std::count_if(polygons.begin(), polygons.end(), Polygon::HasVertexCount{std::stoul(command.substr(6))});
+        << std::count_if(polygons.begin(), polygons.end(), Polygon::HasVertexCount{std::stoul(command.substr(6))})
+        << "\n";
     }
     catch (...)
     {
@@ -329,7 +296,7 @@ void processCommand(std::vector< Polygon > &polygons, const std::string &command
       std::cerr << "<INVALID PARAMETER>\n";
     }
   }*/
-  if (command == "COUNT")
+  /*if (command == "COUNT")
   {
     std::string param;
     std::cin >> param;
@@ -348,12 +315,12 @@ void processCommand(std::vector< Polygon > &polygons, const std::string &command
         std::cerr << "<INVALID PARAMETER>\n";
       }
     }
-  }
-  else if (command == "MAXSEQ")
+  }*/
+  if (command == "MAXSEQ")
   {
     try
     {
-      std::vector< romanovich::Point > points;
+      std::vector< Point > points;
       size_t pointsCount;
       std::istream &input = std::cin;
       while (input >> pointsCount)
@@ -366,7 +333,7 @@ void processCommand(std::vector< Polygon > &polygons, const std::string &command
         }
         for (size_t i = 0; i < pointsCount; i++)
         {
-          romanovich::Point point{};
+          Point point{};
           input >> point;
           if (input.fail())
           {
