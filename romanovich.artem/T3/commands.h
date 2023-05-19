@@ -9,7 +9,6 @@
 #include <numeric>
 #include "polygon.h"
 using namespace std::placeholders;
-using Polygon = romanovich::Polygon;
 namespace romanovich
 {
   class CommandProcessor
