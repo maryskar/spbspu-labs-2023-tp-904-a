@@ -106,7 +106,8 @@ std::istream& vagina::operator>>(std::istream &in, LabelIO &&dest)
     return in;
   }
   std::string str = "";
-  std::getline(in, str, ' ');
+  std::getline(in, str, 'y');
+  str += 'y';
   if (in && (str != dest.label))
   {
     in.setstate(std::ios::failbit);
