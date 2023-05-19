@@ -98,3 +98,16 @@ std::istream& vagina::operator>>(std::istream &in, StringIO &&dest)
   }
   return std::getline(in >> DelimiterIO{ '"' }, dest.string, '"');
 }
+std::istream& vagina::operator>>(std::istream &in, LabelIO &&dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  for (std::size_t i = 0; i < dest.label.length(); i++)
+  {
+    in >> DelimiterIO{ dest.label[i] };
+  }
+  return in;
+}
