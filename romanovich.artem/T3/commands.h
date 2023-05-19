@@ -1,3 +1,53 @@
+#ifndef COMMANDS_H
+#define COMMANDS_H
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <algorithm>
+#include <functional>
+#include <numeric>
+#include "polygon.h"
+using namespace std::placeholders;
+class Commands
+{
+  using Polygon = romanovich::Polygon;
+  using Point = romanovich::Point;
+public:
+  Commands()
+  {
+    commands["MAX AREA"] = &Commands::calcMaxArea;
+    commands["MIN AREA"] = &Commands::calcMinArea;
+  }
+  std::unordered_map< std::string, void (Commands::*)(const std::vector< Polygon > &) > commands{};
+private:
+  void calcMinArea(const std::vector< Polygon > &polygons)
+  {
+    const auto areaComp = static_cast<const std::function< bool(const Polygon &,
+                                                                const Polygon &) > &>(Polygon::AreaComp{});
+    const auto elIt = findMinMaxEl(polygons, areaComp);
+    const auto i = std::distance(polygons.begin(), elIt);
+    std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
+  }
+  void calcMaxArea(const std::vector< Polygon > &polygons)
+  {
+    const auto areaComp = static_cast<const std::function< bool(const Polygon &,
+                                                                const Polygon &) > &>(Polygon::AreaComp{});
+    const auto areaCompNegate = std::bind(std::logical_not<>(), std::bind(areaComp, _1, _2));
+    const auto elIt = findMinMaxEl(polygons, areaCompNegate);
+    const auto i = std::distance(polygons.begin(), elIt);
+    std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
+  }
+  std::vector< Polygon >::const_iterator findMinMaxEl(const std::vector< Polygon > &polygons,
+                                                      const std::function< bool(const Polygon &,
+                                                                                const Polygon &) > &comp)
+  {
+    auto result = std::minmax_element(polygons.begin(), polygons.end(), comp);
+    return comp(*result.second, *result.first) ? result.second : result.first;
+  }
+};
+#endif
+/*
 #ifndef COMMAND_H
 #define COMMAND_H
 #include <iostream>
@@ -13,7 +63,7 @@ using Polygon = romanovich::Polygon;
 using Point = romanovich::Point;
 namespace
 {
-  std::vector< Polygon >::const_iterator findMinMixEl(const std::vector< Polygon > &polygons,
+  std::vector< Polygon >::const_iterator findMinMaxEl(const std::vector< Polygon > &polygons,
                                                       const std::function< bool(const Polygon &,
                                                                                 const Polygon &) > &comp)
   {
@@ -66,6 +116,16 @@ namespace
     }
     return points;
   }
+  //
+  class Commands
+  {
+  public:
+    Commands();
+    std::unordered_map< std::string, void (Commands::*)(const std::vector< Polygon > &) > commands{};
+  private:
+    void calcMaxArea(const std::vector< Polygon > &polygons);
+    void calcMinArea(const std::vector< Polygon > &polygons);
+  };
 }
 void executeCommand(const std::vector< Polygon > &polygons, const std::string &command)
 {
@@ -75,16 +135,21 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
   const auto areaCompNegate = std::bind(std::logical_not<>(), std::bind(areaComp, _1, _2));
   const auto pointsComp = static_cast<const std::function< bool(const Polygon &,
                                                                 const Polygon &) > &>(Polygon::PointsCountComp{});
+  //
+  //
+  //
+  //
+  //
   const auto pointsCompNegate = std::bind(std::logical_not<>(), std::bind(pointsComp, _1, _2));
   if (command == "MAX AREA" || command == "MIN AREA")
   {
-    const auto elIt = findMinMixEl(polygons, (command == "MIN AREA") ? areaComp : areaCompNegate);
+    const auto elIt = findMinMaxEl(polygons, (command == "MIN AREA") ? areaComp : areaCompNegate);
     const auto i = std::distance(polygons.begin(), elIt);
     std::cout << std::fixed << std::setprecision(1) << polygons[i].getArea() << '\n';
   }
   else if (command == "MAX VERTEXES" || command == "MIN VERTEXES")
   {
-    const auto elIt = findMinMixEl(polygons, (command == "MIN VERTEXES") ? pointsComp : pointsCompNegate);
+    const auto elIt = findMinMaxEl(polygons, (command == "MIN VERTEXES") ? pointsComp : pointsCompNegate);
     const auto i = std::distance(polygons.begin(), elIt);
     std::cout << polygons[i].getPointsCount() << '\n';
   }
@@ -162,5 +227,10 @@ void executeCommand(const std::vector< Polygon > &polygons, const std::string &c
   {
     std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::HasRightAngle{}) << '\n';
   }
+  else
+  {
+    std::cerr << "<INVALID COMMAND>\n";
+  }
 }
 #endif
+*/

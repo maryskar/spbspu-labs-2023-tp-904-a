@@ -1,6 +1,8 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <limits>
+#include <unordered_map>
 #include "polygon.h"
 #include "commands.h"
 int main(int argc, char *argv[])
@@ -44,10 +46,19 @@ int main(int argc, char *argv[])
       polygons.emplace_back(points);
     }
   }
+  Commands commandProcessor;
   std::string command;
   while (std::getline(std::cin, command))
   {
-    executeCommand(polygons, command);
+    auto it = commandProcessor.commands.find(command);
+    if (it != commandProcessor.commands.end())
+    {
+      (commandProcessor.*(it->second))(polygons);
+    }
+    else
+    {
+      std::cerr << "<INVALID COMMAND>\n";
+    }
   }
   return 0;
 }
