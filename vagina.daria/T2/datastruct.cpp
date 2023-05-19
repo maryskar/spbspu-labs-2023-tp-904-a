@@ -23,8 +23,7 @@ std::istream& vagina::operator>>(std::istream &in, DataStruct &dest)
     for (std::size_t i = 1; i <= 3; i++)
     {
       std::size_t num = 0;
-      in >> label{ "key" };
-      in >> num;
+      in >> label{ "key" } >> num;
       if (num == 1)
       {
         in >> dbl{ input.key1 } >> sep { ':' };
