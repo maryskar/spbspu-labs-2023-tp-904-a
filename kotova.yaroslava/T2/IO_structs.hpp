@@ -33,5 +33,6 @@ namespace kotova
   std::istream &operator>>(std::istream &in, DoubleIO &&dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, LabelIO &&dest);
+  std::istream & operator>>(std::istream &in, ULLHexIO &&dest);
 }
 #endif
