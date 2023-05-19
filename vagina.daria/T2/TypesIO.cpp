@@ -105,9 +105,11 @@ std::istream& vagina::operator>>(std::istream &in, LabelIO &&dest)
   {
     return in;
   }
-  for (std::size_t i = 0; i < dest.label.length(); i++)
+  std::string str = "";
+  std::getline(in, str, ' ');
+  if (in && (str != dest.label))
   {
-    in >> DelimiterIO{ dest.label[i] };
+    in.setstate(std::ios::failbit);
   }
   return in;
 }
