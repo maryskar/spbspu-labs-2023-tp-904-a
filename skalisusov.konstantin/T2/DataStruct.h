@@ -6,7 +6,7 @@
 #include <iomanip>
 #include "iofmtguard.h"
 #include "StructTypes.h"
-
+#include <iostream>
 namespace skalisusov
 {
   struct DataStruct:
@@ -15,8 +15,8 @@ namespace skalisusov
     double key2;
     std::string key3;
   };
-  std::istream &operator>>(std::istream &in, Data &dest);
-  std::ostream &operator<<(std::ostream &out, Data &src);
+  std::istream &operator>>(std::istream &in, DataStruct &dest);
+  std::ostream &operator<<(std::ostream &out, DataStruct &src);
   bool comparate(DataStruct &firDs, DataStruct &secDs);
 
 }
