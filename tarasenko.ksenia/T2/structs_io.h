@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <bitset>
 
 namespace tarasenko
 {
@@ -21,6 +22,11 @@ namespace tarasenko
     std::string& ref;
   };
 
+  struct LiteralIO
+  {
+    std::string exp;
+  };
+
   struct ULLIO
   {
     unsigned long long& ref;
@@ -28,11 +34,12 @@ namespace tarasenko
 
   struct ULLBinIO
   {
-    std::bitset< 64 >& ref;
+    unsigned long long& ref;
   };
 
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
+  std::istream& operator>>(std::istream &in, LiteralIO &&dest);
   std::istream& operator>>(std::istream& in, LabelIO&& dest);
   std::istream& operator>>(std::istream& in, ULLIO&& dest);
   std::istream& operator>>(std::istream& in, ULLBinIO&& dest);

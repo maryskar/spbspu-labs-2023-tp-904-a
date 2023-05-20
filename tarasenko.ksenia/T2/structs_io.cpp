@@ -27,6 +27,23 @@ std::istream& tarasenko::operator>>(std::istream& in, StringIO&& dest)
   return std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
 }
 
+std::istream& tarasenko::operator>>(std::istream& in, LiteralIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  std::string lit = "";
+  std::getline(in, lit, ':');
+  in.putback(':');
+  if (in && (lit != dest.exp))
+  {
+    in.setstate(std::ios::failbit);
+  }
+  return in;
+}
+
 std::istream& tarasenko::operator>>(std::istream& in, LabelIO&& dest)
 {
   std::istream::sentry sentry(in);
@@ -34,11 +51,8 @@ std::istream& tarasenko::operator>>(std::istream& in, LabelIO&& dest)
   {
     return in;
   }
-  std::string data = "";
-  if ((in >> StringIO{data}) && (data != dest.exp))
-  {
-    in.setstate(std::ios::failbit);
-  }
+  std::getline(in, dest.exp, ' ');
+  in.putback(' ');
   return in;
 }
 
@@ -49,7 +63,7 @@ std::istream& tarasenko::operator>>(std::istream& in, ULLIO&& dest)
   {
     return in;
   }
-  return in >> dest.ref >> tarasenko::LabelIO{"ull"};
+  return in >> dest.ref >> LiteralIO{"ull"};
 }
 
 std::istream& tarasenko::operator>>(std::istream& in, ULLBinIO&& dest)
@@ -59,5 +73,11 @@ std::istream& tarasenko::operator>>(std::istream& in, ULLBinIO&& dest)
   {
     return in;
   }
-  return in >> tarasenko::LabelIO{"0b"} >> dest.ref;
+  char buf[3];
+  std::cin.get(buf, 3);
+  if (in && buf[0] != 0 && buf[1] != 'b' && buf[1] != 'B')
+  {
+    in.setstate(std::ios::failbit);
+  }
+  return in >> dest.ref;
 }
