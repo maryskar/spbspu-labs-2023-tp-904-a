@@ -2,6 +2,7 @@
 #include <iostream>
 #include "structs_io.h"
 #include "iofmtguard.h"
+#include "convert_to_bin.h"
 
 std::istream& tarasenko::operator>>(std::istream& in, DataStruct& dest)
 {
@@ -18,7 +19,7 @@ std::istream& tarasenko::operator>>(std::istream& in, DataStruct& dest)
     using ullbin = ULLBinIO;
     using str = StringIO;
     //(:key1 10ull:key2 0b0111:key3 "Data":)
-    //(:key1 10ull:key2 0B0111:key3 "Data":)
+    //(:key1 10ull:key2 0B10111:key3 "Data":)
     in >> sep{'('};
     in >> sep{':'} >> label{"key1"} >> ull{input.key1};
     in >> sep{':'} >> label{"key2"} >> ullbin{input.key2};
@@ -42,7 +43,7 @@ std::ostream& tarasenko::operator<<(std::ostream& out, const DataStruct& src)
   iofmtguard fmtguard(out);
   out << "(:";
   out << "key1" << " " << src.key1 << "ull" << ":";
-  out << "key2" << " " << "0b" << src.key2 << ":";
+  out << "key2" << " " << "0b" << convertToBin(src.key2) << ":";
   out << "key3" << " " << '"' << src.key3 << '"';
   out << ":)";
   return out;
