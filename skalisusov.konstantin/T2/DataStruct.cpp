@@ -57,4 +57,19 @@ namespace skalisusov
     out << ":)";
     return out;
   }
+  bool comparate(DataStruct &firDs, DataStruct &secDs)
+  {
+    if(firDs.key1_ != secDs.key1_)
+    {
+      return firDs.key1_ < secDs.key1_;
+    }
+    if(firDs.key1_ == secDs.key1_ && firDs.key2_ != secDs.key2_)
+    {
+      return firDs.key2_ < secDs.key2_;
+    }
+    else
+    {
+      return  firDs.key3_.length() < secDs.key3_.length();
+    }
+  }
 }
