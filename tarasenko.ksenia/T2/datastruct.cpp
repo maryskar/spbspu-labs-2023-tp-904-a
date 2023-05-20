@@ -19,12 +19,46 @@ std::istream& tarasenko::operator>>(std::istream& in, DataStruct& dest)
     using ullbin = ULLBinIO;
     using str = StringIO;
     //(:key1 10ull:key2 0b0111:key3 "Data":)
-    //(:key1 10ull:key2 0B10111:key3 "Data":)
-    in >> sep{'('};
-    in >> sep{':'} >> label{"key1"} >> ull{input.key1};
-    in >> sep{':'} >> label{"key2"} >> ullbin{input.key2};
-    in >> sep{':'} >> label{"key3"} >> str{input.key3};
-    in >> sep{':'} >> sep{')'};
+    //(:key2 0b0111:key1 10ull:key3 "Data":)
+    //(:key3 "Data":key2 0b0111:key1 10ull:)
+    bool key1_was = false;
+    bool key2_was = false;
+    bool key3_was = false;
+    in >> sep{'('} >> sep{':'};
+    while (in && !(key1_was && key2_was && key3_was))
+    {
+      char buf[5];
+      std::cin.get(buf, 5);
+      std::string s(buf);
+      if (s.substr(0, 3) != "key")
+      {
+        in.setstate(std::ios::failbit);
+      }
+      switch (s[3])
+      {
+        case '1':
+        {
+          in >> ull{input.key1} >> sep{':'};
+          key1_was = true;
+          break;
+        }
+        case '2':
+        {
+          in >> ullbin{input.key2} >> sep{':'};
+          key2_was = true;
+          break;
+        }
+        case '3':
+        {
+          in >> str{input.key3} >> sep{':'};
+          key3_was = true;
+          break;
+        }
+        default:
+          in.setstate(std::ios::failbit);
+      }
+    }
+    in >> sep{')'};
   }
   if (in)
   {
@@ -43,7 +77,7 @@ std::ostream& tarasenko::operator<<(std::ostream& out, const DataStruct& src)
   iofmtguard fmtguard(out);
   out << "(:";
   out << "key1" << " " << src.key1 << "ull" << ":";
-  out << "key2" << " " << "0b" << convertToBin(src.key2) << ":";
+  out << "key2" << " " << "0b0" << convertToBin(src.key2) << ":";
   out << "key3" << " " << '"' << src.key3 << '"';
   out << ":)";
   return out;
