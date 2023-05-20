@@ -1,9 +1,16 @@
 #ifndef SPBSPU_LABS_2023_TP_904_A_IOFMTGUARD_H
 #define SPBSPU_LABS_2023_TP_904_A_IOFMTGUARD_H
 
-class iofmtguard {
-
+class iofmtguard
+{
+public:
+  iofmtguard(std::basic_ios< char > &s);
+  ~iofmtguard();
+private:
+  std::basic_ios< char > &s_;
+  char fill_;
+  std::streamsize precision_;
+  std::basic_ios< char >::fmtflags fmt_;
 };
-
 
 #endif //SPBSPU_LABS_2023_TP_904_A_IOFMTGUARD_H
