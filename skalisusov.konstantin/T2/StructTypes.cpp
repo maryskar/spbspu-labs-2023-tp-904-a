@@ -31,6 +31,15 @@ namespace skalisusov
     }
     return in;
   }
+  std::istream &operator>>(std::istream &in, DoubleLiteralFormatIO &&dest)
+  {
+    std::istream::sentry CheckSentry(in);
+    if (!CheckSentry)
+    {
+      return in;
+    }
+    return in >> dest.dublit_ >> DelimiterIO{ 'd' };
+  }
 
 
 }
