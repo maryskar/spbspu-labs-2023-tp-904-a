@@ -79,5 +79,8 @@ std::istream& tarasenko::operator>>(std::istream& in, ULLBinIO&& dest)
   {
     in.setstate(std::ios::failbit);
   }
-  return in >> dest.ref;
+  std::bitset< 64 > num;
+  in >> num;
+  dest.ref = num.to_ullong();
+  return in;
 }
