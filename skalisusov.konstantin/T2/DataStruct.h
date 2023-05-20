@@ -7,16 +7,15 @@
 
 namespace skalisusov
 {
-  struct Data: public std::__1::error_code
+  struct DataStruct:
   {
     double key1;
     double key2;
     std::string key3;
   };
-
   std::istream &operator>>(std::istream &in, Data &dest);
   std::ostream &operator<<(std::ostream &out, Data &src);
-
+  bool comparate(DataStruct &firDs, DataStruct &secDs);
 
 }
 #endif //SPBSPU_LABS_2023_TP_904_A_DATASTRUCT_H
