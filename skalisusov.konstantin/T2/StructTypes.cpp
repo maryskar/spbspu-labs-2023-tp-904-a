@@ -40,7 +40,6 @@ namespace skalisusov
     }
     return in >> dest.dublit_ >> DelimiterIO{ 'd' };
   }
-
   std::istream &operator>>(std::istream &in, DoubleSciencificFormatI &&dest)
   {
     std::istream::sentry CheckSentry(in);
@@ -50,7 +49,6 @@ namespace skalisusov
     }
     return in >> std::scientific >> dest.dubscienI_;
   }
-
   std::ostream &operator<<(std::ostream &out, DoubleSciencificFormatO dest)
   {
     std::ostream::sentry CheckSentry(out);
@@ -85,5 +83,13 @@ namespace skalisusov
     }
     return out << std::fixed << std::setprecision(1)  << number << (tenDegree > 0 ? "e+" : "e") << tenDegree;
   }
-
+  std::istream &operator>>(std::istream &in, skalisusov::StringIO &&dest)
+  {
+    std::istream::sentry CheckSentry(in);
+    if(!CheckSentry)
+    {
+      return in;
+    }
+    return std::getline(in >> DelimiterIO{'"'},dest.str_,'"');
+  }
 }
