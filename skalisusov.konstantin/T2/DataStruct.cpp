@@ -1,6 +1,15 @@
 #include "DataStruct.h"
 namespace skalisusov
 {
+  std::istream &operator>>(std::istream &in, DataStruct &dest)
+  {
+    std::istream::sentry CheckSentry(in);
+    if(!CheckSentry)
+    {
+      return in;
+    }
+
+  }
   std::ostream &operator<<(std::ostream &out, const DataStruct &dest)
   {
     std::ostream::sentry CheckSentry(out);
