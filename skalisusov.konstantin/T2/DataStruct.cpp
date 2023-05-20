@@ -8,6 +8,13 @@ namespace skalisusov
     {
       return in;
     }
+    DataStruct input;
+    {
+      using sep = DelimiterIO;
+      using cover = CoverIO;
+      using dubsci = DoubleSciencificFormatI;
+      using dublit = DoubleLiteralFormatIO;
+      using str = StringIO;
 
   }
   std::ostream &operator<<(std::ostream &out, const DataStruct &dest)
