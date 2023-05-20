@@ -15,7 +15,32 @@ namespace skalisusov
       using dubsci = DoubleSciencificFormatI;
       using dublit = DoubleLiteralFormatIO;
       using str = StringIO;
-
+      std::string keyNum = "";
+      in >> sep{'('};
+      in >> sep{':'};
+      for(size_t i = 0; i < 3; i++)
+      {
+        in >> keyNum;
+        if(keyNum == "key1")
+        {
+          in >> dublit {input.key1_} >> sep{':'};
+        }
+        else if(keyNum == "key2" )
+        {
+          in >> dubsci{input.key2_} >> sep{':'};
+        }
+        else if(keyNum == "key3" )
+        {
+          in >> str{input.key3_} >> sep{':'};
+        }
+      }
+      in >> sep{')'};
+    }
+    if(in)
+    {
+      dest = input;
+    }
+    return in;
   }
   std::ostream &operator<<(std::ostream &out, const DataStruct &dest)
   {
