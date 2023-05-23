@@ -4,10 +4,12 @@
 
 namespace malaya
 {
-  double areaEven(const Polygon & polygon);
-  double areaOdd(const Polygon & polygon);
+  void outAreaOdd(std::vector< malaya::Polygon > & polygons, std::ostream & out);
+  void outAreaEven(std::vector< malaya::Polygon > & polygons, std::ostream & out);
+
   double areaNum(const Polygon & polygon, size_t num);
   double maxArea(std::vector< malaya::Polygon > data);
+
 }
 
 #endif

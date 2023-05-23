@@ -27,15 +27,11 @@ namespace malaya
       in >> option;
       if(option == "EVEN")
       {
-        std::vector< double > values;
-        std::transform(data.begin(), data.end(), values.begin(), areaEven);
-        out << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
+        outAreaEven(data, out);
       }
-      else if(option == "EVEN")
+      else if(option == "ODD")
       {
-        std::vector< double > values;
-        std::transform(data.begin(), data.end(), values.begin(), areaOdd);
-        out << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
+        outAreaOdd(data, out);
       }
       else if(option == "MEAN") //?????????????????????????????
       {
