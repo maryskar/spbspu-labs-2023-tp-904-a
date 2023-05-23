@@ -153,4 +153,23 @@ namespace malaya
   {
     out << std::count_if(data.begin(), data.end(), isRectangle) << '\n';
   }
+  Polygon sortPoints(const Polygon & polygon)
+  {
+    std::vector< Point > points = polygon.points;
+    std::sort(points.begin(), points.end(), PointComparator{});
+    return Polygon{ points };
+  }
+  bool isIdentical(const Polygon & left, const Polygon & right)
+  {
+    return left.points == right.points;
+  }
+  void perms(const std::vector< malaya::Polygon > & data, std::ostream & out, const Polygon & polygon)
+  {
+    using namespace std::placeholders;
+    std::vector< malaya::Polygon > temp(data.size());
+    std::transform(data.begin(), data.end(), temp.begin(), sortPoints);
+    Polygon tempPolygon = sortPoints(polygon);
+    auto func = std::bind(isIdentical, _1, tempPolygon);
+    out << std::count_if(temp.begin(), temp.end(), func) << '\n';
+  }
 }

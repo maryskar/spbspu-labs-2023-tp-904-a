@@ -19,6 +19,24 @@ std::istream & malaya::operator>>(std::istream & in, SeparatorPointIO && separat
   return in;
 }
 
+bool malaya::operator==(const Point & left, const Point & right)
+{
+  return (left.x == right.x && left.y == right.y);
+}
+
+bool malaya::PointComparator::operator()(const Point & left, const Point & right)
+{
+  if(left.x != right.x)
+  {
+    return left.x < right.x;
+  }
+  else
+  {
+    return left.y < right.y;
+  }
+}
+
+
 std::istream & malaya::operator>>(std::istream & in, Point & point)
 {
   std::istream::sentry istreamChecker(in);

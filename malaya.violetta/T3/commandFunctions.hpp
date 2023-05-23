@@ -16,6 +16,7 @@ namespace malaya
   void outCountOdd(const std::vector< malaya::Polygon > & data, std::ostream & out);
   void outCountNum(const std::vector< malaya::Polygon > & data, size_t num, std::ostream & out);
   void rects(const std::vector< malaya::Polygon > & data, std::ostream & out);
+  void perms(const std::vector< malaya::Polygon > & data, std::ostream & out, const Polygon & polygon);
 
 }
 

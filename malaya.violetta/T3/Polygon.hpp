@@ -10,6 +10,13 @@ namespace malaya
   };
   std::istream & operator>>(std::istream & in, Point & point);
 
+  bool operator==(const Point & left, const Point & right);
+
+  struct PointComparator
+  {
+    bool operator()(const Point & left, const Point & right);
+  };
+
   struct SeparatorPointIO
   {
     char sep;

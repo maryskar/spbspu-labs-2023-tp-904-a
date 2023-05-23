@@ -20,7 +20,7 @@ namespace malaya
   }
   void invalidPrint(std::ostream & out)
   {
-    out << "<INVALID COMMAND>";
+    out << "<INVALID COMMAND>" << '\n';
   }
 
   void doCommand(const std::vector< malaya::Polygon > & data, std::string & command, std::istream & in,
@@ -116,7 +116,14 @@ namespace malaya
     }
     else if(command == "PERMS")
     {
-
+      Polygon polygon;
+      in >> polygon;
+      if(!in)
+      {
+        invalidPrint(out);
+        return;
+      }
+      perms(data, out, polygon);
     }
     else if(command == "RECTS")
     {
@@ -125,7 +132,7 @@ namespace malaya
     else
     {
       invalidPrint(out);
-      //in.setstate(std::ios::failbit);
+      in.setstate(std::ios::failbit);
     }
   }
 
