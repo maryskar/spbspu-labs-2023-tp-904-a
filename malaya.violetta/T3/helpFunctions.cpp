@@ -91,7 +91,28 @@ namespace malaya
     }
     else if(command == "COUNT")
     {
-
+      std::string option = " ";
+      in >> option;
+      if(option == "EVEN")
+      {
+        outCountEven(data, out);
+      }
+      else if(option == "ODD")
+      {
+        outCountOdd(data, out);
+      }
+      else
+      {
+        unsigned long long number = std::stoull(option);
+        if(number < 3)
+        {
+          invalidPrint(out);
+        }
+        else
+        {
+          outCountNum(data, number, out);
+        }
+      }
     }
     else if(command == "PERMS")
     {
@@ -99,7 +120,7 @@ namespace malaya
     }
     else if(command == "RECTS")
     {
-
+      rects(data, out);
     }
     else
     {

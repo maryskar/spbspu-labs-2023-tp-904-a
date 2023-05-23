@@ -3,6 +3,7 @@
 #include <numeric>
 #include <iostream>
 #include <functional>
+#include <cmath>
 #include "helpFunctions.hpp"
 
 namespace malaya
@@ -127,5 +128,29 @@ namespace malaya
     using namespace std::placeholders;
     auto func = std::bind(isEqualToNum, _1, num);
     out << count(data, func);
+  }
+  double findSide(const Point & point1, const Point & point2)
+  {
+    double firstSquare = (point1.x - point2.x) * (point1.x - point2.x);
+    double secondSquare = (point1.y - point2.y) * (point1.y - point2.y);
+    return std::sqrt(firstSquare + secondSquare);
+  }
+  bool isRectangle(const Polygon & polygon)
+  {
+    if(!isEqualToNum(polygon, 4ull))
+    {
+      return false;
+    }
+    double first = findSide(polygon.points[0], polygon.points[1]);
+    double second = findSide(polygon.points[1], polygon.points[2]);
+    double third = findSide(polygon.points[2], polygon.points[3]);
+    double fourth = findSide(polygon.points[3], polygon.points[0]);
+    double diagonal = findSide(polygon.points[0], polygon.points[2]);
+    bool isRectangularTriangle = (first * first + second * second) == (diagonal * diagonal);
+    return (first == third && second == fourth && isRectangularTriangle);
+  }
+  void rects(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  {
+    out << std::count_if(data.begin(), data.end(), isRectangle) << '\n';
   }
 }

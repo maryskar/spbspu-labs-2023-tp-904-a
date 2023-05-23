@@ -12,6 +12,10 @@ namespace malaya
   void outMeanArea(const std::vector< malaya::Polygon > & data, std::ostream & out);
   void outMinVertexes(const std::vector< malaya::Polygon > & data, std::ostream & out);
   void outMaxVertexes(const std::vector< malaya::Polygon > & data, std::ostream & out);
+  void outCountEven(const std::vector< malaya::Polygon > & data, std::ostream & out);
+  void outCountOdd(const std::vector< malaya::Polygon > & data, std::ostream & out);
+  void outCountNum(const std::vector< malaya::Polygon > & data, size_t num, std::ostream & out);
+  void rects(const std::vector< malaya::Polygon > & data, std::ostream & out);
 
 }
 
