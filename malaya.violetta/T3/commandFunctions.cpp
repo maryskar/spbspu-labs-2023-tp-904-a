@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <numeric>
 #include <iostream>
+#include <functional>
 #include "helpFunctions.hpp"
 
 namespace malaya
@@ -27,31 +28,55 @@ namespace malaya
     return (isEqualToNum(polygon, num) ? getArea(polygon) : 0.0);
   }
   template < class Predicate >
-  void outArea(std::vector< malaya::Polygon > & polygons, std::ostream & out, Predicate pred)
+  void outArea(const std::vector< malaya::Polygon > & polygons, std::ostream & out, Predicate pred)
   {
-    std::vector< double > values;
+    std::vector< double > values(polygons.size());
     std::transform(polygons.begin(), polygons.end(), values.begin(), pred);
     out << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
   }
-  void outAreaOdd(std::vector< malaya::Polygon > & polygons, std::ostream & out)
+  void outAreaOdd(const std::vector< malaya::Polygon > & polygons, std::ostream & out)
   {
     outArea(polygons, out, areaOdd);
   }
-  void outAreaEven(std::vector< malaya::Polygon > & polygons, std::ostream & out)
+  void outAreaEven(const std::vector< malaya::Polygon > & polygons, std::ostream & out)
   {
     outArea(polygons, out, areaEven);
   }
+  void outAreaNum(const std::vector< malaya::Polygon > & polygons, size_t num, std::ostream & out)
+  {
+    using namespace std::placeholders;
+    auto pred = std::bind(isEqualToNum, _1, num);
+    outArea(polygons, out, pred);
+  }
+  template < class T >
+  T minElem(const std::vector< T > & elems)
+  {
+    return *std::min_element(elems.begin(), elems.end());
+  }
 
+  template < class T >
+  T maxElem(const std::vector< T > & elems)
+  {
+    return *std::min_element(elems.begin(), elems.end());
+  }
 
+  template < class Predicate >
+  double minMaxArea(const std::vector< malaya::Polygon > & polygons, Predicate pred)
+  {
+    std::vector< double > values(polygons.size());
+    std::transform(polygons.begin(), polygons.end(), values.begin(), getArea);
+    return pred(values);
+  }
+  void outMinArea(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  {
+    out << minMaxArea(data, minElem< double >);
+  }
+  void outMaxArea(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  {
+    out << minMaxArea(data, maxElem< double >);
+  }
+  void outMeanArea(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  {
 
-
-  //template < typename Predicate >
-  //double minMaxArea(std::vector< malaya::Polygon > data)
-  //{
-  //
-  //}
-  //double maxArea(std::vector< malaya::Polygon > data)
-  //{
-  //
-  //}
+  }
 }

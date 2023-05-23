@@ -19,7 +19,8 @@ namespace malaya
     return command;
   }
 
-  void doCommand(std::vector< malaya::Polygon > data, std::string & command, std::istream & in, std::ostream & out)
+  void doCommand(const std::vector< malaya::Polygon > & data, std::string & command, std::istream & in,
+                 std::ostream & out)
   {
     if(command == "AREA")
     {
