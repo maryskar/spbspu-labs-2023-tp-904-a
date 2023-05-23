@@ -18,6 +18,10 @@ namespace malaya
     in >> command;
     return command;
   }
+  void invalidPrint(std::ostream & out)
+  {
+    out << "<INVALID COMMAND>";
+  }
 
   void doCommand(const std::vector< malaya::Polygon > & data, std::string & command, std::istream & in,
                  std::ostream & out)

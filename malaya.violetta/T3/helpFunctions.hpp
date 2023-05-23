@@ -7,6 +7,7 @@ namespace malaya
   double getArea(const malaya::Polygon & polygon);
   std::string inputCommand(std::istream & in);
   void doCommand(std::vector< malaya::Polygon > data, std::string & command, std::istream & in, std::ostream & out);
+  void invalidPrint(std::ostream & out);
   struct areaCounter
   {
     double operator()(const Point & left, const Point & right);

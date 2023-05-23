@@ -60,23 +60,51 @@ namespace malaya
     return *std::min_element(elems.begin(), elems.end());
   }
 
-  template < class Predicate >
-  double minMaxArea(const std::vector< malaya::Polygon > & polygons, Predicate pred)
+  template < class Func >
+  double minMaxArea(const std::vector< malaya::Polygon > & polygons, Func func)
   {
     std::vector< double > values(polygons.size());
     std::transform(polygons.begin(), polygons.end(), values.begin(), getArea);
-    return pred(values);
+    return func(values);
   }
   void outMinArea(const std::vector< malaya::Polygon > & data, std::ostream & out)
   {
-    out << minMaxArea(data, minElem< double >);
+    out << minMaxArea(data, minElem< double >) << '\n';
   }
   void outMaxArea(const std::vector< malaya::Polygon > & data, std::ostream & out)
   {
-    out << minMaxArea(data, maxElem< double >);
+    out << minMaxArea(data, maxElem< double >) << '\n';
   }
   void outMeanArea(const std::vector< malaya::Polygon > & data, std::ostream & out)
   {
-
+    if(data.empty())
+    {
+      invalidPrint(out);
+      out << '\n';
+      return;
+    }
+    std::vector< double > values(data.size());
+    std::transform(data.begin(), data.end(), values.begin(), getArea);
+    double sum = std::accumulate(values.begin(), values.end(), 0.0) / data.size();
+    out << sum << '\n';
+  }
+  size_t getVertexes(const Polygon & polygon)
+  {
+    return polygon.points.size();
+  }
+  template < class Func >
+  size_t minMaxVertexes(const std::vector< malaya::Polygon > & data, Func func)
+  {
+    std::vector< size_t > vertexes(data.size());
+    std::transform(data.begin(), data.end(), vertexes.begin(), getVertexes);
+    return func(vertexes);
+  }
+  void outMinVertexes(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  {
+    out << minMaxVertexes(data, minElem < size_t >) << '\n';
+  }
+  void outMaxVertexes(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  {
+    out << minMaxVertexes(data, minElem < size_t >) << '\n';
   }
 }
