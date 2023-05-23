@@ -107,4 +107,25 @@ namespace malaya
   {
     out << minMaxVertexes(data, minElem < size_t >) << '\n';
   }
+  template < class Predicate >
+  size_t count(const std::vector< malaya::Polygon > & data, Predicate pred)
+  {
+    return std::count_if(data.begin(), data.end(), pred);
+  }
+  void outCountEven(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  {
+    out << count(data, isEvenPoints) << '\n';
+  }
+  void outCountOdd(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  {
+    using namespace std::placeholders;
+    auto func = std::bind(std::logical_not<>{}, std::bind(isEvenPoints, _1));
+    out << count(data, func) << '\n';
+  }
+  void outCountNum(const std::vector< malaya::Polygon > & data, size_t num, std::ostream & out)
+  {
+    using namespace std::placeholders;
+    auto func = std::bind(isEqualToNum, _1, num);
+    out << count(data, func);
+  }
 }

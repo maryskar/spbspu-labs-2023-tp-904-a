@@ -15,6 +15,10 @@ int main()
   //std::string command;
   //while(!std::cin.eof())
   {
+    //try
+    //{
+    //
+    //} catch
     //malaya::inputCommand(std::cin);
     //std::cin >> command;
     //if (!std::cin)

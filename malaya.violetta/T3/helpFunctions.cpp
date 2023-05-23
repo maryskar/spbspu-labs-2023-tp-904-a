@@ -38,35 +38,56 @@ namespace malaya
       {
         outAreaOdd(data, out);
       }
-      else if(option == "MEAN") //?????????????????????????????
+      else if(option == "MEAN")
       {
-        std::vector< double > values;
-        std::transform(data.begin(), data.end(), values.begin(), getArea);
-        double sum = std::accumulate(values.begin(), values.end(), 0.0);
-        out << std::round((sum / values.size()) * 10) / 10;
+        outMeanArea(data, out);
       }
-      //else //><DJKHKGFLSIU>ALOJ?:KPUYDTFRQYFSTKHVGJB<KN
-      //{
-      //  unsigned long long number = std::stoull(option);
-      //  if(number < 3)
-      //  {
-      //    out << "<INVALID COMMAND>\n";
-      //  }
-      //  std::vector< double > values;
-      //  std::transform(data.begin(), data.end(), values.begin(), areaNum(number));
-      //  double sum = std::accumulate(values.begin(), values.end(), 0.0);
-      //  out << std::round((sum / values.size()) * 10) / 10; //??????
-      //}
+      else
+      {
+        unsigned long long number = std::stoull(option);
+        if(number < 3)
+        {
+          invalidPrint(out);
+        }
+        else
+        {
+          outAreaNum(data, number, out);
+        }
+      }
     }
     else if(command == "MAX")
     {
-      //std::string option = " ";
-      //in >> option;
-      //if(option == "")
+      std::string option = " ";
+      in >> option;
+      if(option == "AREA")
+      {
+        outMaxArea(data, out);
+      }
+      else if(option == "AREA")
+      {
+        outMaxVertexes(data, out);
+      }
+      else
+      {
+        invalidPrint(out);
+      }
     }
     else if(command == "MIN")
     {
-
+      std::string option = " ";
+      in >> option;
+      if(option == "AREA")
+      {
+        outMinArea(data, out);
+      }
+      else if(option == "AREA")
+      {
+        outMinVertexes(data, out);
+      }
+      else
+      {
+        invalidPrint(out);
+      }
     }
     else if(command == "COUNT")
     {
@@ -82,8 +103,8 @@ namespace malaya
     }
     else
     {
-      out << "<INVALID COMMAND>\n";
-      in.setstate(std::ios::failbit);
+      invalidPrint(out);
+      //in.setstate(std::ios::failbit);
     }
   }
 

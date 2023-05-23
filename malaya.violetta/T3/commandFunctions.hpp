@@ -10,6 +10,8 @@ namespace malaya
   void outMaxArea(const std::vector< malaya::Polygon > & data, std::ostream & out);
   void outAreaNum(const std::vector< malaya::Polygon > & polygons, size_t num, std::ostream & out);
   void outMeanArea(const std::vector< malaya::Polygon > & data, std::ostream & out);
+  void outMinVertexes(const std::vector< malaya::Polygon > & data, std::ostream & out);
+  void outMaxVertexes(const std::vector< malaya::Polygon > & data, std::ostream & out);
 
 }
 
