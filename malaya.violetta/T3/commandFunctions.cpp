@@ -29,21 +29,21 @@ namespace malaya
     return (isEqualToNum(polygon, num) ? getArea(polygon) : 0.0);
   }
   template < class Predicate >
-  void outArea(const std::vector< malaya::Polygon > & polygons, std::ostream & out, Predicate pred)
+  void outArea(const std::vector< Polygon > & polygons, std::ostream & out, Predicate pred)
   {
     std::vector< double > values(polygons.size());
     std::transform(polygons.begin(), polygons.end(), values.begin(), pred);
     out << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
   }
-  void outAreaOdd(const std::vector< malaya::Polygon > & polygons, std::ostream & out)
+  void outAreaOdd(const std::vector< Polygon > & polygons, std::ostream & out)
   {
     outArea(polygons, out, areaOdd);
   }
-  void outAreaEven(const std::vector< malaya::Polygon > & polygons, std::ostream & out)
+  void outAreaEven(const std::vector< Polygon > & polygons, std::ostream & out)
   {
     outArea(polygons, out, areaEven);
   }
-  void outAreaNum(const std::vector< malaya::Polygon > & polygons, size_t num, std::ostream & out)
+  void outAreaNum(const std::vector< Polygon > & polygons, size_t num, std::ostream & out)
   {
     using namespace std::placeholders;
     auto pred = std::bind(isEqualToNum, _1, num);
@@ -62,21 +62,21 @@ namespace malaya
   }
 
   template < class Func >
-  double minMaxArea(const std::vector< malaya::Polygon > & polygons, Func func)
+  double minMaxArea(const std::vector< Polygon > & polygons, Func func)
   {
     std::vector< double > values(polygons.size());
     std::transform(polygons.begin(), polygons.end(), values.begin(), getArea);
     return func(values);
   }
-  void outMinArea(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  void outMinArea(const std::vector< Polygon > & data, std::ostream & out)
   {
     out << minMaxArea(data, minElem< double >) << '\n';
   }
-  void outMaxArea(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  void outMaxArea(const std::vector< Polygon > & data, std::ostream & out)
   {
     out << minMaxArea(data, maxElem< double >) << '\n';
   }
-  void outMeanArea(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  void outMeanArea(const std::vector< Polygon > & data, std::ostream & out)
   {
     if(data.empty())
     {
@@ -94,36 +94,36 @@ namespace malaya
     return polygon.points.size();
   }
   template < class Func >
-  size_t minMaxVertexes(const std::vector< malaya::Polygon > & data, Func func)
+  size_t minMaxVertexes(const std::vector< Polygon > & data, Func func)
   {
     std::vector< size_t > vertexes(data.size());
     std::transform(data.begin(), data.end(), vertexes.begin(), getVertexes);
     return func(vertexes);
   }
-  void outMinVertexes(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  void outMinVertexes(const std::vector< Polygon > & data, std::ostream & out)
   {
     out << minMaxVertexes(data, minElem < size_t >) << '\n';
   }
-  void outMaxVertexes(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  void outMaxVertexes(const std::vector< Polygon > & data, std::ostream & out)
   {
     out << minMaxVertexes(data, minElem < size_t >) << '\n';
   }
   template < class Predicate >
-  size_t count(const std::vector< malaya::Polygon > & data, Predicate pred)
+  size_t count(const std::vector< Polygon > & data, Predicate pred)
   {
     return std::count_if(data.begin(), data.end(), pred);
   }
-  void outCountEven(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  void outCountEven(const std::vector< Polygon > & data, std::ostream & out)
   {
     out << count(data, isEvenPoints) << '\n';
   }
-  void outCountOdd(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  void outCountOdd(const std::vector< Polygon > & data, std::ostream & out)
   {
     using namespace std::placeholders;
     auto func = std::bind(std::logical_not<>{}, std::bind(isEvenPoints, _1));
     out << count(data, func) << '\n';
   }
-  void outCountNum(const std::vector< malaya::Polygon > & data, size_t num, std::ostream & out)
+  void outCountNum(const std::vector< Polygon > & data, size_t num, std::ostream & out)
   {
     using namespace std::placeholders;
     auto func = std::bind(isEqualToNum, _1, num);
@@ -163,10 +163,10 @@ namespace malaya
   {
     return left.points == right.points;
   }
-  void perms(const std::vector< malaya::Polygon > & data, std::ostream & out, const Polygon & polygon)
+  void perms(const std::vector< Polygon > & data, std::ostream & out, const Polygon & polygon)
   {
     using namespace std::placeholders;
-    std::vector< malaya::Polygon > temp(data.size());
+    std::vector< Polygon > temp(data.size());
     std::transform(data.begin(), data.end(), temp.begin(), sortPoints);
     Polygon tempPolygon = sortPoints(polygon);
     auto func = std::bind(isIdentical, _1, tempPolygon);

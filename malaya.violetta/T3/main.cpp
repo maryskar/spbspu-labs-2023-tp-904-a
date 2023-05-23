@@ -8,56 +8,31 @@
 
 int main()
 {
-  std::ifstream in ("input.txt");
+  std::string filename;
+  std::cin >> filename;
+  std::ifstream in (filename);
   using inIter = std::istream_iterator< malaya::Polygon >;
   std::vector< malaya::Polygon > data;
   std::copy(inIter(in), inIter(), std::back_inserter(data));
-  //std::string command;
-  //while(!std::cin.eof())
+  std::string command;
+  while(!std::cin.eof())
   {
-    //try
-    //{
-    //
-    //} catch
-    //malaya::inputCommand(std::cin);
-    //std::cin >> command;
-    //if (!std::cin)
-    //{
-    //  std::cin.clear();
-    //  std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-    //  continue;
-    //}
-    //else if(command == "AREA")
-    //{
-    //
-    //}
-    //else if(command == "MAX")
-    //{
-    //
-    //}
-    //else if(command == "MIN")
-    //{
-    //
-    //}
-    //else if(command == "COUNT")
-    //{
-    //
-    //}
-    //else if(command == "PERMS")
-    //{
-    //
-    //}
-    //else if(command == "RECTS")
-    //{
-    //
-    //}
-    //else
-    //{
-    //  std::cout << "<INVALID COMMAND>\n";
-    //  std::cin.clear();
-    //  std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-    //  continue;
-    //}
+    command = malaya::inputCommand(std::cin);
+    try
+    {
+      malaya::doCommand(data, command, std::cin, std::cout);
+    }
+    catch(const std::invalid_argument & exception)
+    {
+      malaya::invalidPrint(std::cout);
+    }
+
+    if (!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      continue;
+    }
   }
   return 0;
 }

@@ -1,7 +1,7 @@
 #ifndef T3_POLYGON_HPP
 #define T3_POLYGON_HPP
 #include <vector>
-#include <ios>
+#include <iosfwd>
 namespace malaya
 {
   struct Point
@@ -28,5 +28,10 @@ namespace malaya
     std::vector< Point > points;
   };
   std::istream & operator>>(std::istream & in, Polygon & polygon);
+  double getArea(const malaya::Polygon & polygon);
+  struct areaCounter
+  {
+    double operator()(const Point & left, const Point & right);
+  };
 }
 #endif
