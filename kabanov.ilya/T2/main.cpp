@@ -15,7 +15,7 @@ int main()
   while (!std::cin.eof())
   {
     std::copy(IIt(std::cin), IIt(), std::back_inserter(structs));
-    if (std::cin.fail())
+    if (std::cin.fail() && !std::cin.eof())
     {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
