@@ -5,6 +5,22 @@
 #include "iofmtguard.h"
 #include "iotypes.h"
 
+bool azheganova::Comparator::operator()(const DataStruct & left, const DataStruct & right) const
+{
+  if (left.key1 != right.key1)
+  {
+    return left.key1 < right.key1;
+  }
+  else if (left.key2 != right.key2)
+  {
+    return left.key2 < right.key2;
+  }
+  else
+  {
+    return left.key3.length() <= right.key3.length();
+  }
+}
+
 std::istream & azheganova::operator>>(std::istream & in, DataStruct & dest)
 {
   std::istream::sentry sentry(in);

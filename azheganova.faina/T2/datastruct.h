@@ -10,6 +10,12 @@ namespace azheganova
     unsigned long long key2;
     std::string key3;
   };
+
+  struct Comparator
+  {
+    bool operator()(const DataStruct & left, const DataStruct & right) const;
+  };
+
   std::istream & operator>>(std::istream & in, DataStruct & dest);
   std::ostream & operator<<(std::ostream & out, const DataStruct & dest);
 }
