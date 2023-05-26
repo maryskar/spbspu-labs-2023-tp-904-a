@@ -14,7 +14,6 @@ std::istream& tarasenko::operator>>(std::istream& in, DataStruct& dest)
   DataStruct input;
   {
     using sep = DelimiterIO;
-    using label = LabelIO;
     using ull = ULLIO;
     using ullbin = ULLBinIO;
     using str = StringIO;

@@ -44,18 +44,6 @@ std::istream& tarasenko::operator>>(std::istream& in, LiteralIO&& dest)
   return in;
 }
 
-std::istream& tarasenko::operator>>(std::istream& in, LabelIO&& dest)
-{
-  std::istream::sentry sentry(in);
-  if (!sentry)
-  {
-    return in;
-  }
-  std::getline(in, dest.exp, ' ');
-  in.putback(' ');
-  return in;
-}
-
 std::istream& tarasenko::operator>>(std::istream& in, ULLIO&& dest)
 {
   std::istream::sentry sentry(in);
