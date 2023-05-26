@@ -3,8 +3,9 @@
 
 #include <vector>
 #include <string>
-#include <fstream>
-#include <exception>
+#include <iostream>
+#include <iterator>
+#include <limits>
 #include "data_struct.h"
 #include "io.h"
 
@@ -19,7 +20,7 @@ namespace tarasenko
     }
     for (auto i: src.points)
     {
-      out << i.x << ";" << i.y << " ";
+      out << '(' << i.x << ";" << i.y << ')' << " ";
     }
     return out;
   }
@@ -51,27 +52,21 @@ namespace tarasenko
     return in;
   }
 
-  std::vector< Polygon > readPolygons(const std::string& filename)
+  std::vector< Polygon > readPolygons(std::istream& in)
   {
     std::vector< Polygon > polygons;
-    std::ifstream input(filename);
-    if (!input.is_open())
+    while (in)
     {
-      throw std::invalid_argument("File not found");
-    }
-    while (input)
-    {
-      Polygon polygon;
-      if (input >> polygon)
+      using in_iter = std::istream_iterator< Polygon >;
+      while (!in.eof())
       {
-        polygons.push_back(polygon);
-        input.clear();
-      }
-      else
-      {
-        input.clear();
-        std::string trash = "";
-        std::getline(input, trash);
+        std::copy(in_iter(in), in_iter(), std::back_inserter(polygons));
+        if (!in)
+        {
+          in.clear();
+          std::string trash = "";
+          std::getline(in, trash);
+        }
       }
     }
     return polygons;
