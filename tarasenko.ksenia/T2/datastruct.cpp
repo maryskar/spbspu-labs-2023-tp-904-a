@@ -18,9 +18,6 @@ std::istream& tarasenko::operator>>(std::istream& in, DataStruct& dest)
     using ull = ULLIO;
     using ullbin = ULLBinIO;
     using str = StringIO;
-    //(:key1 10ull:key2 0b0111:key3 "Data":)
-    //(:key2 0b0111:key1 10ull:key3 "Data":)
-    //(:key3 "Data":key2 0b0111:key1 10ull:)
     bool key1_was = false;
     bool key2_was = false;
     bool key3_was = false;
