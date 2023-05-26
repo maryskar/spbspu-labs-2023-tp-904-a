@@ -5,7 +5,7 @@
 #include "iofmtguard.h"
 #include "iotypes.h"
 
-bool azheganova::Comparator::operator()(const DataStruct & left, const DataStruct & right) const
+bool azheganova::comparator(const DataStruct & left, const DataStruct & right)
 {
   if (left.key1 != right.key1)
   {
@@ -35,19 +35,34 @@ std::istream & azheganova::operator>>(std::istream & in, DataStruct & dest)
     using dbl = DoubleIO;
     using ull = UnsignedLongLongIO;
     using str = StringIO;
-    in >> sep{ '{' };
-    in >> label{ "key1" } >> sep{ ':' } >> dbl{ input.key1 };
-    in >> sep{ ',' };
-    in >> label{ "key2" } >> sep{ ':' } >> ull{ input.key2 };
-    in >> sep{ ',' };
-    in >> label{ "key3" } >> sep{ ':' } >> str{ input.key3 };
-    in >> sep{ '}' };
+    in >> sep{ '(' } >> sep { ':' };
+    for (size_t i = 1; i <= 3; i++)
+    {
+      size_t num = 0;
+      in >> label{ "key" } >> num;
+      if (num == 1)
+      {
+        in >> dbl{ input.key1 } >> sep { ':' };
+      }
+      else if (num == 2)
+      {
+        in >> ull{ input.key2 } >> sep { ':' };
+      }
+      else if (num == 3)
+      {
+        in >> str{ input.key3 } >> sep { ':' };
+      }
+      if (!sentry)
+      {
+        return in;
+      }
+    }
+    if (in)
+    {
+      dest = input;
+    }
+    return in;
   }
-  if (in)
-  {
-    dest = input;
-  }
-  return in;
 }
 
 std::ostream & azheganova::operator<<(std::ostream & out, const DataStruct & src)
