@@ -73,7 +73,7 @@ std::ostream& tarasenko::operator<<(std::ostream& out, const DataStruct& src)
   iofmtguard fmtguard(out);
   out << "(:";
   out << "key1" << " " << src.key1 << "ull" << ":";
-  out << "key2" << " " << "0b0" << convertToBin(src.key2) << ":";
+  out << "key2" << " " << "0b" << convertToBin(src.key2) << ":";
   out << "key3" << " " << '"' << src.key3 << '"';
   out << ":)";
   return out;
