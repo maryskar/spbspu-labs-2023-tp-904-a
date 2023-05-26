@@ -2,7 +2,7 @@
 #define IOTYPES_H
 #include <string>
 
-namespace azheganova 
+namespace azheganova
 {
   struct DelimiterIO
   {
