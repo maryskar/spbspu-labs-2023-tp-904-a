@@ -51,7 +51,7 @@ std::istream & malaya::operator>>(std::istream & in, LabelIO && dest)
   {
     return in;
   }
-  for(size_t i = 0; i < dest.expression.length(); i++)
+  for (size_t i = 0; i < dest.expression.length(); i++)
   {
     in >> DelimiterIO{dest.expression[i]};
   }

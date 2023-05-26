@@ -99,7 +99,6 @@ std::ostream & malaya::operator<<(std::ostream & out, const DataStruct & data)
   std::ostream::sentry ostreamChecker(out);
   if (!ostreamChecker)
   {
-    out.clear();
     return out;
   }
   IOStreamsGuard guard(out);
