@@ -1,5 +1,6 @@
 #include "data_struct.h"
-#include "io.h"
+#include <structs_io.h>
+#include <iofmtguard.h>
 
 std::ostream& tarasenko::operator<<(std::ostream& out, const Polygon& src)
 {
@@ -8,6 +9,7 @@ std::ostream& tarasenko::operator<<(std::ostream& out, const Polygon& src)
   {
     return out;
   }
+  iofmtguard fmtguard(out);
   out << '(' << src.points[0].x << ";" << src.points[0].y << ')';
   for (size_t i = 1; i < src.points.size(); ++i)
   {
