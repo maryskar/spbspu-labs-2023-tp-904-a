@@ -1,5 +1,9 @@
 #include "datastruct.h"
+#include <iomanip>
+#include <vector>
+#include <iterator>
 #include "iofmtguard.h"
+#include "iotypes.h"
 
 std::istream & azheganova::operator>>(std::istream & in, DataStruct & dest)
 {
@@ -30,7 +34,7 @@ std::istream & azheganova::operator>>(std::istream & in, DataStruct & dest)
   return in;
 }
 
-std::ostream & azheganova::operator<<(std::ostream & out, const Data & src)
+std::ostream & azheganova::operator<<(std::ostream & out, const DataStruct & src)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
@@ -40,7 +44,7 @@ std::ostream & azheganova::operator<<(std::ostream & out, const Data & src)
   iofmtguard fmtguard(out);
   out << "{ ";
   out << "\"key1\": " << std::fixed << std::setprecision(1) << src.key1 << "d, ";
-  out << "\"key2\": " << std::hex << data.key2;
+  out << "\"key2\": " << std::hex << src.key2;
   out << "\"key3\": " << src.key3;
   out << " }";
   return out;
