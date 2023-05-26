@@ -42,15 +42,15 @@ std::istream & azheganova::operator>>(std::istream & in, DataStruct & dest)
       in >> label{ "key" } >> num;
       if (num == 1)
       {
-        in >> dbl{ input.key1 } >> sep { ':' };
+        in >> dbl{ input.key1 } >> sep{ ':' };
       }
       else if (num == 2)
       {
-        in >> ull{ input.key2 } >> sep { ':' };
+        in >> ull{ input.key2 } >> sep{ ':' };
       }
       else if (num == 3)
       {
-        in >> str{ input.key3 } >> sep { ':' };
+        in >> str{ input.key3 } >> sep{ ':' };
       }
       if (!sentry)
       {
@@ -73,10 +73,10 @@ std::ostream & azheganova::operator<<(std::ostream & out, const DataStruct & src
     return out;
   }
   iofmtguard fmtguard(out);
-  out << "{ ";
-  out << "\"key1\": " << std::fixed << std::setprecision(1) << src.key1 << "d, ";
-  out << "\"key2\": " << std::hex << src.key2;
-  out << "\"key3\": " << src.key3;
-  out << " }";
+  out << "(";
+  out << ":key1 " << std::fixed << std::setprecision(1) << src.key1 << "d";
+  out << ":key2 0x" << std::hex << src.key2;
+  out << ":key3 \"" << src.key3;
+  out << "\":)";
   return out;
 }
