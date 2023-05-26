@@ -84,8 +84,8 @@ namespace romanovich
     }
     else
     {
-      double lhsDouble = lhs.key2.first / static_cast<double >(lhs.key2.second);
-      double rhsDouble = rhs.key2.first / static_cast<double >(rhs.key2.second);
+      double lhsDouble = lhs.key2.first / static_cast< double >(lhs.key2.second);
+      double rhsDouble = rhs.key2.first / static_cast< double >(rhs.key2.second);
       if (lhsDouble != rhsDouble)
       {
         return isSmaller(lhsDouble, rhsDouble, 1e-6);
