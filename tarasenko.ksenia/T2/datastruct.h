@@ -1,7 +1,9 @@
 #ifndef DATASTRUCT_H
 #define DATASTRUCT_H
+
 #include <string>
 #include <bitset>
+
 namespace tarasenko
 {
   struct DataStruct
@@ -12,6 +14,7 @@ namespace tarasenko
   };
 
   std::istream& operator>>(std::istream& in, DataStruct& dest);
+
   std::ostream& operator<<(std::ostream& out, const DataStruct& dest);
 }
 #endif

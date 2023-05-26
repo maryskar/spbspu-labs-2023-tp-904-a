@@ -1,7 +1,7 @@
 #include "datastruct.h"
 #include <iostream>
-#include "structs_io.h"
-#include "iofmtguard.h"
+#include <structs_io.h>
+#include <iofmtguard.h>
 #include "convert_to_bin.h"
 
 std::istream& tarasenko::operator>>(std::istream& in, DataStruct& dest)
