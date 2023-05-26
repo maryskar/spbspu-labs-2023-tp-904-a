@@ -17,13 +17,13 @@ namespace mashkin
     std::string result;
     if (varPow > 1)
     {
-      dblWithMantissa = data.key1 * pow(10, varPow - 1);
+      dblWithMantissa = data.key1 * std::pow(10, varPow - 1);
       result = std::to_string(dblWithMantissa) + "e-" + std::to_string(varPow - 1);
     }
     else
     {
       varPow = varString.find_first_of(".");
-      dblWithMantissa = data.key1 / pow(10, (varPow - 1));
+      dblWithMantissa = data.key1 / std::pow(10, (varPow - 1));
       result = std::to_string(dblWithMantissa) + "e+" + std::to_string(varPow - 1);
     }
     while (result.find_last_of('e') - 1 == result.find_last_of('0') &&
