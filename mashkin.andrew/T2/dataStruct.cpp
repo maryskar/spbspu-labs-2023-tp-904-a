@@ -13,40 +13,40 @@ namespace mashkin
   {
     std::string varString = std::to_string(data);
     size_t varPow = varString.find_first_not_of("0.");
-    double dblWithMantissa = 0.0;
-    std::string result;
+    double mantissa = 0.0;
+    std::string res;
+    std::string eWithSign;
     if (varPow > 1)
     {
-      dblWithMantissa = data * std::pow(10, varPow - 1);
-      result = std::to_string(dblWithMantissa) + "e-" + std::to_string(varPow - 1);
+      mantissa = data * std::pow(10, varPow - 1);
+      eWithSign = "e-" + std::to_string(varPow - 1);
     }
     else
     {
       varPow = varString.find_first_of(".");
-      dblWithMantissa = data / std::pow(10, (varPow - 1));
-      result = std::to_string(dblWithMantissa) + "e+" + std::to_string(varPow - 1);
+      mantissa = data / std::pow(10, (varPow - 1));
+      eWithSign = "e+" + std::to_string(varPow - 1);
     }
-    while (result.find_last_of('e') - 1 == result.find_last_of('0') &&
-           result.find_last_of('0') != std::to_string(dblWithMantissa).find_last_not_of('0') + 1)
+    res = std::to_string(mantissa);
+    while (res.find_last_of('0') - 1 != res.find_last_not_of('0'))
     {
-      result.erase(std::begin(result) + result.find_last_of('0'));
+      res.erase(std::begin(res) + res.find_last_of('0'));
     }
-    {
-      return result;
-    }
+    res += eWithSign;
+    return res;
   }
 
   std::string getUllBinStr(unsigned long long data)
   {
     unsigned long long varUll = data;
-    std::string result = "";
+    std::string res = "";
     while (varUll)
     {
-      result = std::to_string(varUll % 2) + result;
+      res = std::to_string(varUll % 2) + res;
       varUll /= 2;
     }
-    result = "0b0" + result;
-    return result;
+    res = "0b0" + res;
+    return res;
   }
 
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
