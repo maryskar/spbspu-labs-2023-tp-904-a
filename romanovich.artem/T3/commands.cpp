@@ -3,6 +3,10 @@ using Polygon = romanovich::Polygon;
 using Point = romanovich::Point;
 namespace
 {
+  void printError()
+  {
+    std::cout << "<INVALID COMMAND>\n";
+  }
   Polygon const &findMinMaxEl(const std::vector< Polygon > &polygons,
                               const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
@@ -15,7 +19,7 @@ namespace
   {
     if (polygons.empty())
     {
-      printError()
+      printError();
     }
     else
     {
@@ -27,7 +31,7 @@ namespace
   {
     if (polygons.empty())
     {
-      printError()
+      printError();
     }
     else
     {
@@ -100,7 +104,7 @@ namespace romanovich
   {
     if (polygons.empty())
     {
-      printError()
+      printError();
     }
     else
     {
@@ -134,7 +138,7 @@ namespace romanovich
     }
     else
     {
-      printError()
+      printError();
     }
   }
   void CommandProcessor::calcAreaWithNumber(const std::vector< Polygon > &pols, const std::string &command)
@@ -154,12 +158,12 @@ namespace romanovich
       }
       else
       {
-        printError()
+        printError();
       }
     }
     catch (...)
     {
-      printError()
+      printError();
     }
   }
   void CommandProcessor::countWithNumber(const std::vector< Polygon > &polygons, const std::string &command)
@@ -173,12 +177,12 @@ namespace romanovich
       }
       else
       {
-        printError()
+        printError();
       }
     }
     catch (...)
     {
-      printError()
+      printError();
     }
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
@@ -237,7 +241,7 @@ namespace romanovich
       }
       if (maxSeqCount == 0)
       {
-        printError()
+        printError();
       }
       else
       {
@@ -246,15 +250,11 @@ namespace romanovich
     }
     catch (...)
     {
-      printError()
+      printError();
     }
   }
   void CommandProcessor::countShapesWithRightAngle(const std::vector< Polygon > &polygons)
   {
     std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::HasRightAngle{}) << '\n';
-  }
-  void CommandProcessor::printError()
-  {
-    std::cout << "<INVALID COMMAND>\n";
   }
 }
