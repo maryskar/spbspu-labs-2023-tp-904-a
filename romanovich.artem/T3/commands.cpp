@@ -13,12 +13,26 @@ namespace
   void findMinMaxElArea(const std::vector< Polygon > &polygons,
                         const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
-    std::cout << std::fixed << std::setprecision(1) << findMinMaxEl(polygons, comp).getArea() << "\n";
+    if (polygons.empty())
+    {
+      std::cout << "<INVALID COMMAND>\n";
+    }
+    else
+    {
+      std::cout << std::fixed << std::setprecision(1) << findMinMaxEl(polygons, comp).getArea() << "\n";
+    }
   }
   void findMinMaxElPointsCount(const std::vector< Polygon > &polygons,
                                const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
-    std::cout << findMinMaxEl(polygons, comp).getPointsCount() << '\n';
+    if (polygons.empty())
+    {
+      std::cout << "<INVALID COMMAND>\n";
+    }
+    else
+    {
+      std::cout << findMinMaxEl(polygons, comp).getPointsCount() << '\n';
+    }
   }
   std::vector< double > makeAreasVector(const std::vector< Polygon > &polygons)
   {
@@ -84,9 +98,16 @@ namespace romanovich
   }
   void CommandProcessor::calcAreaMean(const std::vector< Polygon > &polygons)
   {
-    auto sumOfAreas = partitionPolygonAreas(polygons).second + partitionPolygonAreas(polygons).first;
-    std::cout << std::fixed << std::setprecision(1) << sumOfAreas
-                                                       / static_cast< double >(polygons.size()) << '\n';
+    if (polygons.empty())
+    {
+      std::cout << "<INVALID COMMAND>\n";
+    }
+    else
+    {
+      auto sumOfAreas = partitionPolygonAreas(polygons).second + partitionPolygonAreas(polygons).first;
+      std::cout << std::fixed << std::setprecision(1) << sumOfAreas
+                                                         / static_cast< double >(polygons.size()) << '\n';
+    }
   }
   void CommandProcessor::calcAreaOdd(const std::vector< Polygon > &polygons)
   {
@@ -162,22 +183,15 @@ namespace romanovich
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
   {
-    //if (polygons.empty())
-    //{
-    //  std::cout << "<INVALID COMMAND>\n";
-    //}
-    //else
-    //{
-      auto it = commands.find(command);
-      if (it != commands.end())
-      {
-        (it->second)(polygons, "");
-      }
-      else
-      {
-        tryCalcWithArg(command, polygons);
-      }
-    //}
+    auto it = commands.find(command);
+    if (it != commands.end())
+    {
+      (it->second)(polygons, "");
+    }
+    else
+    {
+      tryCalcWithArg(command, polygons);
+    }
   }
   void CommandProcessor::countEven(const std::vector< Polygon > &polygons)
   {
