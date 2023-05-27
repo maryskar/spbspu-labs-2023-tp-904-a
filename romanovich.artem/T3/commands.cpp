@@ -131,7 +131,7 @@ namespace romanovich
     }
     catch (...)
     {
-      std::cerr << "<INVALID PARAMETER>\n";
+      std::cerr << "<INVALID COMMAND>\n";
     }
   }
   void CommandProcessor::countWithNumber(const std::vector< Polygon > &polygons, const std::string &command)
@@ -139,23 +139,37 @@ namespace romanovich
     try
     {
       size_t targetNumber = std::stoi(command.substr(6));
-      std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::HasPointsCount{targetNumber}) << "\n";
+      if (targetNumber > 2)
+      {
+        std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::HasPointsCount{targetNumber}) << "\n";
+      }
+      else
+      {
+        std::cerr << "<INVALID COMMAND>\n";
+      }
     }
     catch (...)
     {
-      std::cerr << "<INVALID PARAMETER>\n";
+      std::cerr << "<INVALID COMMAND>\n";
     }
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
   {
-    auto it = commands.find(command);
-    if (it != commands.end())
+    if (polygons.empty())
     {
-      (it->second)(polygons, "");
+      std::cerr << "<INVALID COMMAND>\n";
     }
     else
     {
-      tryCalcWithArg(command, polygons);
+      auto it = commands.find(command);
+      if (it != commands.end())
+      {
+        (it->second)(polygons, "");
+      }
+      else
+      {
+        tryCalcWithArg(command, polygons);
+      }
     }
   }
   void CommandProcessor::countEven(const std::vector< Polygon > &polygons)
@@ -192,7 +206,7 @@ namespace romanovich
     }
     catch (...)
     {
-      std::cerr << "<INVALID PARAMETER>\n";
+      std::cerr << "<INVALID COMMAND>\n";
     }
   }
   void CommandProcessor::countShapesWithRightAngle(const std::vector< Polygon > &polygons)
