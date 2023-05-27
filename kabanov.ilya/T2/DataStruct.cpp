@@ -73,7 +73,7 @@ std::ostream& ilyak::operator<<(std::ostream& out, const ilyak::DataStruct& src)
   ilyak::FormatGuardIO guard(out);
 
   out << "(:key1" << ' ' << ilyak::ULongLongBinO{ src.key1 } << ':';
-  out << "key2" << " `" << src.key2 << "`:";
+  out << "key2" << " '" << src.key2 << "':";
   out << "key3" << " \"" << src.key3 << "\":)";
   return out;
 }
