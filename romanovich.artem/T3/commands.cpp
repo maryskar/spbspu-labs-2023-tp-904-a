@@ -120,14 +120,21 @@ namespace romanovich
   {
     try
     {
-      auto polygonsTmp = pols;
       size_t targetNumber = std::stoi(command.substr(5));
-      polygonsTmp.erase(
-        std::remove_if(polygonsTmp.begin(), polygonsTmp.end(),
-                       Polygon::HasNotPointsCount(targetNumber)),
-        polygonsTmp.end());
-      std::vector< double > areas = makeAreasVector(polygonsTmp);
-      std::cout << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
+      if (targetNumber > 2)
+      {
+        auto polygonsTmp = pols;
+        polygonsTmp.erase(
+          std::remove_if(polygonsTmp.begin(), polygonsTmp.end(),
+                         Polygon::HasNotPointsCount(targetNumber)),
+          polygonsTmp.end());
+        std::vector< double > areas = makeAreasVector(polygonsTmp);
+        std::cout << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
+      }
+      else
+      {
+        std::cerr << "<INVALID COMMAND>\n";
+      }
     }
     catch (...)
     {
