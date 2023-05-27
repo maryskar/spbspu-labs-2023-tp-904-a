@@ -1,12 +1,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
-#include <iostream>
-#include <string>
-#include <vector>
 #include <unordered_map>
 #include <iomanip>
-#include <algorithm>
-#include <numeric>
 #include <functional>
 #include "polygon.h"
 using namespace std::placeholders;

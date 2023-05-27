@@ -1,8 +1,6 @@
 #include <fstream>
 #include <iostream>
-#include <vector>
 #include <limits>
-#include "polygon.h"
 #include "commands.h"
 int main(int argc, char *argv[])
 {
@@ -49,14 +47,6 @@ int main(int argc, char *argv[])
       polygons.emplace_back(points);
     }
   }
-/*  for (const auto &p: polygons)
-  {
-    for (const auto &point: p)
-    {
-      std::cout << point.x_ << ";" << point.y_ << " ";
-    }
-    std::cout << "\n";
-  }*/
   romanovich::CommandProcessor commandProcessor;
   std::string command;
   while (std::getline(std::cin, command))

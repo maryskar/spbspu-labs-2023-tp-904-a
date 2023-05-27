@@ -1,6 +1,5 @@
 #ifndef POLYGON_H
 #define POLYGON_H
-#include <cstddef>
 #include <vector>
 #include <algorithm>
 #include "point.h"
