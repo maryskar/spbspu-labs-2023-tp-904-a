@@ -20,7 +20,7 @@ double romanovich::Polygon::getArea() const
     size_t j = n - 1;
     for (size_t i = 0; i < n; i++)
     {
-      area += (getPoint(j).x + getPoint(i).x) * (getPoint(j).y - getPoint(i).y);
+      area += (getPoint(j).x_ + getPoint(i).x_) * (getPoint(j).y_ - getPoint(i).y_);
       j = i;
     }
     return std::abs(area / 2.0);

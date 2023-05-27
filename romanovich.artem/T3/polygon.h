@@ -10,7 +10,6 @@ namespace romanovich
   {
   public:
     explicit Polygon(const std::vector< Point > &points);
-    Polygon(const std::vector< Point > &points);
     size_t getPointsCount() const;
     Point getPoint(size_t index) const;
     double getArea() const;

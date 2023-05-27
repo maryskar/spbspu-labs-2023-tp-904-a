@@ -40,8 +40,7 @@ namespace
       size_t semicolonPos = input.find(';', openParenPos);
       int x = std::stoi(input.substr(openParenPos + 1, semicolonPos - openParenPos - 1));
       int y = std::stoi(input.substr(semicolonPos + 1, input.find(')', semicolonPos) - semicolonPos - 1));
-      Point point{x, y};
-      points.emplace_back(point);
+      points.emplace_back(x, y);
       startPos = input.find(')', semicolonPos) + 1;
     }
     return points;

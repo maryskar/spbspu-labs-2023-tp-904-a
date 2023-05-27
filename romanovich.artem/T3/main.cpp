@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     std::vector< romanovich::Point > points;
     for (size_t i = 0; i < pointsCount; i++)
     {
-      romanovich::Point point{};
+      romanovich::Point point{0, 0};
       input >> point;
       if (input.fail())
       {
