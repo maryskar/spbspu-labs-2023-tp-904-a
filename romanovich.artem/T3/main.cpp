@@ -1,7 +1,6 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <unordered_map>
 #include <limits>
 #include "polygon.h"
 #include "commands.h"

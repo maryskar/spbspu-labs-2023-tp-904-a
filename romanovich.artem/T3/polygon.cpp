@@ -5,7 +5,7 @@ size_t romanovich::Polygon::getPointsCount() const
 }
 romanovich::Point romanovich::Polygon::getPoint(size_t index) const
 {
-  return points_[index];
+  return points_.at(index);
 }
 romanovich::Polygon::Polygon(const std::vector< Point > &points):
   points_(points)
@@ -18,7 +18,7 @@ double romanovich::Polygon::getArea() const
   if (n >= 3)
   {
     size_t j = n - 1;
-    for (int i = 0; i < n; i++)
+    for (size_t i = 0; i < n; i++)
     {
       area += (getPoint(j).x + getPoint(i).x) * (getPoint(j).y - getPoint(i).y);
       j = i;

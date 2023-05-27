@@ -12,6 +12,7 @@ namespace romanovich
   bool operator==(const Point &lhs, const Point &rhs);
   bool operator!=(const Point &lhs, const Point &rhs);
   Point operator-(const Point &lhs, const Point &rhs);
+  Point(const Point &rhs);
   std::istream &operator>>(std::istream &in, Point &dest);
   double doScalarMultiplication(const Point &v1, const Point &v2);
 }

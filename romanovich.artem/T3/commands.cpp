@@ -9,7 +9,7 @@ namespace
     auto result = std::minmax_element(polygons.begin(), polygons.end(), comp);
     const auto elIt = comp(*result.second, *result.first) ? result.second : result.first;
     const auto i = std::distance(polygons.begin(), elIt);
-    return polygons[i];
+    return polygons.at(i);
   }
   void findMinMaxElArea(const std::vector< Polygon > &polygons,
                           const std::function< bool(const Polygon &, const Polygon &) > &comp)
