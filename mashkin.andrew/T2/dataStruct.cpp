@@ -9,21 +9,21 @@
 
 namespace mashkin
 {
-  std::string getDoubleString(const mashkin::DataStruct& data)
+  std::string getDoubleString(double data)
   {
-    std::string varString = std::to_string(data.key1);
+    std::string varString = std::to_string(data);
     size_t varPow = varString.find_first_not_of("0.");
     double dblWithMantissa = 0.0;
     std::string result;
     if (varPow > 1)
     {
-      dblWithMantissa = data.key1 * std::pow(10, varPow - 1);
+      dblWithMantissa = data * std::pow(10, varPow - 1);
       result = std::to_string(dblWithMantissa) + "e-" + std::to_string(varPow - 1);
     }
     else
     {
       varPow = varString.find_first_of(".");
-      dblWithMantissa = data.key1 / std::pow(10, (varPow - 1));
+      dblWithMantissa = data / std::pow(10, (varPow - 1));
       result = std::to_string(dblWithMantissa) + "e+" + std::to_string(varPow - 1);
     }
     while (result.find_last_of('e') - 1 == result.find_last_of('0') &&
@@ -36,9 +36,9 @@ namespace mashkin
     }
   }
 
-  std::string getUllBinStr(const mashkin::DataStruct& data)
+  std::string getUllBinStr(unsigned long long data)
   {
-    unsigned long long varUll = data.key2;
+    unsigned long long varUll = data;
     std::string result = "";
     while (varUll)
     {
@@ -173,8 +173,8 @@ namespace mashkin
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "(:key1 " << getDoubleString(src);
-    out << ":key2 " << getUllBinStr(src);
+    out << "(:key1 " << getDoubleString(src.key1);
+    out << ":key2 " << getUllBinStr(src.key2);
     out << ":key3 \"" << src.key3 << "\":)";
     return out;
   }
