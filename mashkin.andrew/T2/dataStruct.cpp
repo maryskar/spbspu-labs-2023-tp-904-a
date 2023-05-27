@@ -118,13 +118,6 @@ namespace mashkin
     {
       return in;
     }
-    /*std::string data = "";
-    std::getline(in, data, 'y');
-    data += 'y';
-    if (data != dest.exp)
-    {
-      in.setstate(std::ios::failbit);
-    }*/
     return in >> dest.exp;
   }
 
@@ -144,7 +137,6 @@ namespace mashkin
       in >> sep{'('} >> sep{':'};
       for (size_t i = 0; i < 3; ++i)
       {
-        size_t keyNum;
         std::string key;
         in >> label{key};
         if (key[3] == '1')
