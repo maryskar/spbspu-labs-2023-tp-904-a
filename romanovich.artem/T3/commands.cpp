@@ -162,12 +162,12 @@ namespace romanovich
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
   {
-    if (polygons.empty())
-    {
-      std::cout << "<INVALID COMMAND>\n";
-    }
-    else
-    {
+    //if (polygons.empty())
+    //{
+    //  std::cout << "<INVALID COMMAND>\n";
+    //}
+    //else
+    //{
       auto it = commands.find(command);
       if (it != commands.end())
       {
@@ -177,7 +177,7 @@ namespace romanovich
       {
         tryCalcWithArg(command, polygons);
       }
-    }
+    //}
   }
   void CommandProcessor::countEven(const std::vector< Polygon > &polygons)
   {
