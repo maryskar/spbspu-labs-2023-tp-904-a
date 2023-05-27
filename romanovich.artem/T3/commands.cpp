@@ -211,7 +211,7 @@ namespace romanovich
     {
       if (polygons.empty())
       {
-        std::cerr << "No polygons.\n";
+        printError();
         return;
       }
       auto generatedPolygon = Polygon(getPointsFromString(argString.substr(7)));
