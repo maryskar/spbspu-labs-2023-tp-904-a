@@ -44,11 +44,19 @@ int main(int argc, char *argv[])
       }
       points.push_back(point);
     }
-    if (points.size() == pointsCount)
+    if (points.size() == pointsCount && points.size() > 2)
     {
       polygons.emplace_back(points);
     }
   }
+/*  for (const auto &p: polygons)
+  {
+    for (const auto &point: p)
+    {
+      std::cout << point.x_ << ";" << point.y_ << " ";
+    }
+    std::cout << "\n";
+  }*/
   romanovich::CommandProcessor commandProcessor;
   std::string command;
   while (std::getline(std::cin, command))
