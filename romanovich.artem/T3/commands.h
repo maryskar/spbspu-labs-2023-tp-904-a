@@ -20,8 +20,8 @@ namespace romanovich
       commands["MAX VERTEXES"] = std::bind(&CommandProcessor::calcPointsMax, this, _1);
       commands["MIN VERTEXES"] = std::bind(&CommandProcessor::calcPointsMin, this, _1);
       commands["AREA MEAN"] = std::bind(&CommandProcessor::calcAreaMean, this, _1);
-      commands["AREA EVEN"] = std::bind(&CommandProcessor::calcAreaEven, this, _1);
-      commands["AREA ODD"] = std::bind(&CommandProcessor::calcAreaOdd, this, _1);
+      commands["AREA EVEN"] = std::bind(&CommandProcessor::calcAreaOdd, this, _1);
+      commands["AREA ODD"] = std::bind(&CommandProcessor::calcAreaEven, this, _1);
       commands["COUNT EVEN"] = std::bind(&CommandProcessor::countEven, this, _1);
       commands["MAX AREA"] = std::bind(&CommandProcessor::calcAreaMax, this, _1);
       commands["MIN AREA"] = std::bind(&CommandProcessor::calcAreaMin, this, _1);
