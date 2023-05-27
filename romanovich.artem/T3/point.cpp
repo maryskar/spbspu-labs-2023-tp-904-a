@@ -43,3 +43,4 @@ romanovich::Point &romanovich::Point::operator=(const romanovich::Point &rhs)
   }
   return *this;
 }
+

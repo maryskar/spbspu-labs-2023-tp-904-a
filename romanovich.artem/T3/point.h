@@ -16,3 +16,4 @@ namespace romanovich
   double doScalarMultiplication(const Point &v1, const Point &v2);
 }
 #endif
+

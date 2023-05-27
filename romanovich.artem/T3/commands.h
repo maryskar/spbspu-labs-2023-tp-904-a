@@ -5,8 +5,8 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
-#include <functional>
 #include <numeric>
+#include <functional>
 #include "polygon.h"
 using namespace std::placeholders;
 namespace romanovich

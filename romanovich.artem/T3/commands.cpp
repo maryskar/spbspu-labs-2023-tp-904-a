@@ -14,7 +14,7 @@ namespace
   void findMinMaxElArea(const std::vector< Polygon > &polygons,
                           const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
-    std::cout << std::fixed << std::setprecision(1) << findMinMaxEl(polygons, comp).getArea() << '\n';
+    std::cout << std::fixed << std::setprecision(1) << findMinMaxEl(polygons, comp).getArea() << "\n";
   }
   void findMinMaxElPointsCount(const std::vector< Polygon > &polygons,
                                  const std::function< bool(const Polygon &, const Polygon &) > &comp)

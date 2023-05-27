@@ -50,3 +50,4 @@ romanovich::Polygon &romanovich::Polygon::operator=(const romanovich::Polygon &o
   }
   return *this;
 }
+
