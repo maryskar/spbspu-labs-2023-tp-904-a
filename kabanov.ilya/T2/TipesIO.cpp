@@ -83,6 +83,7 @@ std::ostream& ilyak::operator<<(std::ostream& out, ilyak::ULongLongBinO&& dest)
   }
   std::bitset< 64 > bits(dest.val);
   std::string str = bits.to_string();
+  str = '0' + str;
   size_t firstNonZero = str.find_first_not_of('0');
   if (firstNonZero == std::string::npos)
   {
@@ -90,7 +91,7 @@ std::ostream& ilyak::operator<<(std::ostream& out, ilyak::ULongLongBinO&& dest)
   }
   else
   {
-    str.erase(0, str.find_first_not_of('0'));
+    str.erase(0, str.find_first_not_of('0') - 1);
   }
 
   return out << "0b" << str;
