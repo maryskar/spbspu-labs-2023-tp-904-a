@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iterator>
 #include "data_struct.h"
+#include "io.h"
 
 int main()
 {
@@ -24,7 +25,7 @@ int main()
     }
   }
 
-  std::sort(data.begin(), data.end(), kumachev::compareData);
+  std::sort(data.begin(), data.end(), kumachev::DataStructComparator{});
   std::copy(
     data.begin(),
     data.end(),
