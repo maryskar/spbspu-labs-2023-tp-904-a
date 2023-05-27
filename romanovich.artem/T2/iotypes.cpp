@@ -18,8 +18,11 @@ namespace romanovich
     {
       return in;
     }
-    return in >> DelimiterIO{'('} >> DelimiterIO{':'} >> DelimiterIO{'N'} >> dest.ratNumber.first >> DelimiterIO{':'}
-              >> DelimiterIO{'D'} >> dest.ratNumber.second >> DelimiterIO{':'} >> DelimiterIO{')'};
+    in >> DelimiterIO{'('} >> DelimiterIO{':'};
+    in >> DelimiterIO{'N'} >> dest.ratNumber.first;
+    in >> DelimiterIO{':'};
+    in >> DelimiterIO{'D'} >> dest.ratNumber.second;
+    return in >> DelimiterIO{':'} >> DelimiterIO{')'};
   }
   std::istream &operator>>(std::istream &in, StringIO &&dest)
   {
