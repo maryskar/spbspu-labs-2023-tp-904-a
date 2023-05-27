@@ -42,12 +42,3 @@ bool romanovich::Polygon::operator==(const Polygon &rhs) const
   }
   return true;
 }
-romanovich::Polygon &romanovich::Polygon::operator=(const romanovich::Polygon &other)
-{
-  if (this != &other)
-  {
-    points_ = other.points_;
-  }
-  return *this;
-}
-

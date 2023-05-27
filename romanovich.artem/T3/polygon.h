@@ -14,7 +14,6 @@ namespace romanovich
     Point getPoint(size_t index) const;
     double getArea() const;
     bool operator==(const Polygon &rhs) const;
-    Polygon &operator=(const Polygon &other);
     auto begin() const
     {
       return points_.begin();
