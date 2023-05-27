@@ -38,6 +38,10 @@ int main(int argc, char *argv[])
         input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
         break;
       }
+      if (std::find(points.begin(), points.end(), point) != points.end())
+      {
+        continue;
+      }
       points.push_back(point);
     }
     if (points.size() == pointsCount)
