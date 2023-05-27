@@ -15,7 +15,7 @@ namespace
   {
     if (polygons.empty())
     {
-      std::cout << "<INVALID COMMAND>\n";
+      printError()
     }
     else
     {
@@ -27,7 +27,7 @@ namespace
   {
     if (polygons.empty())
     {
-      std::cout << "<INVALID COMMAND>\n";
+      printError()
     }
     else
     {
@@ -100,7 +100,7 @@ namespace romanovich
   {
     if (polygons.empty())
     {
-      std::cout << "<INVALID COMMAND>\n";
+      printError()
     }
     else
     {
@@ -134,7 +134,7 @@ namespace romanovich
     }
     else
     {
-      std::cout << "<INVALID COMMAND>\n";
+      printError()
     }
   }
   void CommandProcessor::calcAreaWithNumber(const std::vector< Polygon > &pols, const std::string &command)
@@ -154,12 +154,12 @@ namespace romanovich
       }
       else
       {
-        std::cout << "<INVALID COMMAND>\n";
+        printError()
       }
     }
     catch (...)
     {
-      std::cout << "<INVALID COMMAND>\n";
+      printError()
     }
   }
   void CommandProcessor::countWithNumber(const std::vector< Polygon > &polygons, const std::string &command)
@@ -173,12 +173,12 @@ namespace romanovich
       }
       else
       {
-        std::cout << "<INVALID COMMAND>\n";
+        printError()
       }
     }
     catch (...)
     {
-      std::cout << "<INVALID COMMAND>\n";
+      printError()
     }
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
@@ -211,27 +211,50 @@ namespace romanovich
         return;
       }
       auto generatedPolygon = Polygon(getPointsFromString(argString.substr(7)));
-      auto notComp = std::bind(std::negate<>(), std::bind(Polygon::PolygonComparator(generatedPolygon), _1, _2));
-      const auto maxSeq = std::adjacent_find(polygons.begin(), polygons.end(), notComp);
-      if (maxSeq == polygons.end())
+      auto comp = std::bind(Polygon::PolygonComparator(generatedPolygon), _1, _2);
+      size_t maxSeqCount = 0;
+      size_t currSeqCount = 0;
+      bool insideSeq = false;
+      for (const auto &polygon: polygons)
       {
-        std::cout << "0\n";
+        if (comp(polygon, polygon))
+        {
+          if (!insideSeq)
+          {
+            insideSeq = true;
+            currSeqCount = 1;
+          }
+          else
+          {
+            ++currSeqCount;
+          }
+          maxSeqCount = std::max(maxSeqCount, currSeqCount);
+        }
+        else
+        {
+          insideSeq = false;
+        }
+      }
+      if (maxSeqCount == 0)
+      {
+        printError()
       }
       else
       {
-        const auto start = maxSeq;
-        const auto end = std::adjacent_find(maxSeq + 1, polygons.end(), notComp);
-        const auto count = end - start;
-        std::cout << count << '\n';
+        std::cout << maxSeqCount << '\n';
       }
     }
     catch (...)
     {
-      std::cout << "<INVALID COMMAND>\n";
+      printError()
     }
   }
   void CommandProcessor::countShapesWithRightAngle(const std::vector< Polygon > &polygons)
   {
     std::cout << std::count_if(polygons.begin(), polygons.end(), Polygon::HasRightAngle{}) << '\n';
+  }
+  void CommandProcessor::printError()
+  {
+    std::cout << "<INVALID COMMAND>\n";
   }
 }
