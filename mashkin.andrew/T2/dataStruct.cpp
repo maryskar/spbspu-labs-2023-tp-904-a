@@ -74,7 +74,7 @@ namespace mashkin
     }
     std::string dblStr;
     std::getline(in, dblStr, ':');
-    if (dblStr.find("e") == -1)
+    if (dblStr.find("e") == std::string::npos)
     {
       in.setstate(std::ios::failbit);
       return in;
