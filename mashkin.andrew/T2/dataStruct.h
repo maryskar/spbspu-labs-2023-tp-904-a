@@ -29,7 +29,7 @@ namespace mashkin
 
   struct LabelIO
   {
-    std::string exp;
+    std::string& exp;
   };
 
   struct UllIO

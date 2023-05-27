@@ -72,7 +72,15 @@ namespace mashkin
     {
       return in;
     }
-    return in >> dest.ref;
+    std::string dblStr;
+    std::getline(in, dblStr, ':');
+    if (dblStr.find("e") == -1)
+    {
+      in.setstate(std::ios::failbit);
+      return in;
+    }
+    dest.ref = stod(dblStr);
+    return in;
   }
 
   std::istream& operator>>(std::istream& in, StringIO&& dest)
@@ -94,7 +102,6 @@ namespace mashkin
     }
     std::string var;
     std::getline(in, var, ':');
-    in.putback(':');
     if (var.substr(0, 2) != "0b")
     {
       in.setstate(std::ios::failbit);
@@ -111,14 +118,14 @@ namespace mashkin
     {
       return in;
     }
-    std::string data = "";
+    /*std::string data = "";
     std::getline(in, data, 'y');
     data += 'y';
     if (data != dest.exp)
     {
       in.setstate(std::ios::failbit);
-    }
-    return in;
+    }*/
+    return in >> dest.exp;
   }
 
   std::istream& operator>>(std::istream& in, DataStruct& dest)
@@ -134,20 +141,21 @@ namespace mashkin
       using label = LabelIO;
       using dbl = DoubleIO;
       using str = StringIO;
-      in >> sep{'('};
+      in >> sep{'('} >> sep{':'};
       for (size_t i = 0; i < 3; ++i)
       {
         size_t keyNum;
-        in >> sep{':'} >> label{"key"} >> keyNum;
-        if (keyNum == 1)
+        std::string key;
+        in >> label{key};
+        if (key[3] == '1')
         {
           in >> dbl{input.key1};
         }
-        else if (keyNum == 2)
+        else if (key[3] == '2')
         {
           in >> UllIO{input.key2};
         }
-        else if (keyNum == 3)
+        else if (key[3] == '3')
         {
           in >> str{input.key3};
         }
