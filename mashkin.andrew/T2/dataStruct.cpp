@@ -90,7 +90,8 @@ namespace mashkin
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
+    std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
+    return in >> DelimiterIO{':'};
   }
 
   std::istream& operator>>(std::istream& in, UllIO&& dest)
@@ -156,7 +157,7 @@ namespace mashkin
           in.setstate(std::ios::failbit);
         }
       }
-      in >> sep{':'} >> sep{')'};
+      in >> sep{')'};
     }
     if (in)
     {
