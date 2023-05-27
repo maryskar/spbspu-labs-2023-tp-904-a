@@ -1,7 +1,6 @@
 #ifndef DATASTRUCT_H
 #define DATASTRUCT_H
 #include <string>
-#include "iofmtguard.h"
 namespace romanovich
 {
   struct DataStruct

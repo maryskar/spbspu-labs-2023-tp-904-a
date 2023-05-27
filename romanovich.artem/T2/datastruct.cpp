@@ -2,6 +2,7 @@
 #include <limits>
 #include "iotypes.h"
 #include "datastruct.h"
+#include "iofmtguard.h"
 namespace
 {
   bool isSmaller(double a, double b, double epsilon)
@@ -34,8 +35,9 @@ namespace romanovich
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "(:key1 0" << source.key1 << ":key2 (:N " << source.key2.first << ":D " << source.key2.second
-        << ":):key3 \"" << source.key3 << "\":)";
+    out << "(:key1 0" << source.key1;
+    out << ":key2 (:N " << source.key2.first << ":D " << source.key2.second;
+    out << ":):key3 \"" << source.key3 << "\":)";
     return out;
   }
   void fillData(DataStruct &dataStruct, std::istream &in)
