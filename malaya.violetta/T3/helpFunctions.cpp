@@ -7,7 +7,7 @@ namespace malaya
 {
   std::string inputCommand(std::istream & in)
   {
-    std::string command = "";
+    std::string command = " ";
     in >> command;
     if (!(command == "RECTS" || command == "PERMS" || command == " "))
     {
@@ -50,6 +50,13 @@ namespace malaya
     if (!in.eof())
     {
       invalidPrint(out);
+      in.setstate(std::ios::failbit);
+      return;
+    }
+    if(in.fail())
+    {
+      invalidPrint(out);
+      return;
     }
   }
 
