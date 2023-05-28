@@ -92,7 +92,6 @@ namespace litvin
     }
     {
       using sep = DelimiterIO;
-      using label = LabelIO;
       in >> sep{'('} >> sep{':'} >> sep{'N'};
       in >> dest.ref.first >> sep{':'} >> sep{'D'};
       in >> dest.ref.second >> sep{':'} >> sep{')'};
