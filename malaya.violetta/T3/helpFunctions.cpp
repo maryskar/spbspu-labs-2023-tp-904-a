@@ -7,7 +7,7 @@ namespace malaya
 {
   std::string inputCommand(std::istream & in)
   {
-    std::string command = "";
+    std::string command;
     in >> command;
     if (!(command == "RECTS" || command == "PERMS"))
     {
@@ -47,7 +47,6 @@ namespace malaya
       function(data, num, out);
       return;
     }
-    in.setstate(std::ios::failbit);
   }
 
   allComms makeDictionary()
