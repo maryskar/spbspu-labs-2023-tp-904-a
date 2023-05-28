@@ -47,7 +47,7 @@ namespace malaya
       function(data, num, out);
       return;
     }
-    if (command != " ")
+    if (!in.eof())
     {
       invalidPrint(out);
     }
