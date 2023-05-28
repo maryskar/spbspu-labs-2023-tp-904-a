@@ -6,16 +6,27 @@
 #include "Polygon.hpp"
 #include "helpFunctions.hpp"
 
-int main()
+int main(int argc, char * argv[]) //?????
 {
-  std::string filename;
-  std::cin >> filename;
-  std::ifstream in (filename);
+  //std::string filename;
+  //std::cin >> filename;
+  if(argc != 2)
+  {
+    std::cerr << "Not enough args\n";
+    return -1;
+  }
+  std::ifstream in(argv[1]);
+  if (!in)
+  {
+    std::cerr << "File not found\n";
+    return -2;
+  }
   using inIter = std::istream_iterator< malaya::Polygon >;
   std::vector< malaya::Polygon > data;
   std::copy(inIter(in), inIter(), std::back_inserter(data));
+  auto commands = malaya::makeDictionary();
   std::string command;
-  while(!std::cin.eof())
+  while (!std::cin.eof())
   {
     command = malaya::inputCommand(std::cin);
     try

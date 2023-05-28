@@ -76,7 +76,7 @@ namespace malaya
   {
     out << minMaxArea(data, maxElem< double >) << '\n';
   }
-  void outMeanArea(const std::vector< Polygon > & data, std::ostream & out)
+  void outAreaMean(const std::vector< Polygon > & data, std::ostream & out)
   {
     if(data.empty())
     {
@@ -149,7 +149,7 @@ namespace malaya
     bool isRectangularTriangle = (first * first + second * second) == (diagonal * diagonal);
     return (first == third && second == fourth && isRectangularTriangle);
   }
-  void rects(const std::vector< malaya::Polygon > & data, std::ostream & out)
+  void outRects(const std::vector< Polygon > & data, std::ostream & out)
   {
     out << std::count_if(data.begin(), data.end(), isRectangle) << '\n';
   }
@@ -163,7 +163,7 @@ namespace malaya
   {
     return left.points == right.points;
   }
-  void perms(const std::vector< Polygon > & data, std::ostream & out, const Polygon & polygon)
+  void outPerms(const std::vector< Polygon > & data, std::ostream & out, const Polygon & polygon)
   {
     using namespace std::placeholders;
     std::vector< Polygon > temp(data.size());
