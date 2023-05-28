@@ -13,7 +13,7 @@ namespace kotova
     }
     char c = '0';
     in >> c;
-    if (in && (c == std::isdigit(dest.exp)))
+    if (in && (c != dest.exp))
     {
       in.setstate(std::ios::failbit);
     }
@@ -51,7 +51,7 @@ namespace kotova
     }
     for (size_t i = 0; i < dest.exp.length(); i++)
     {
-    in >> DelimiterIO{ dest.exp[i] };
+      in >> DelimiterIO{ dest.exp[i] };
     }
     return in;
   }

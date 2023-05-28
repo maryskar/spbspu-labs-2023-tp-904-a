@@ -12,19 +12,32 @@ namespace kotova
       return in;
     }
     DataStruct input;
+    using sep = DelimiterIO;
+    using label = LabelIO;
+    using dbl = DoubleIO;
+    using str = StringIO;
+    using ullh = ULLHexIO;
+    in >> sep{ '(' } >> sep { ':' };
+    if (!in)
     {
-      using sep = DelimiterIO;
-      using label = LabelIO;
-      using dbl = DoubleIO;
-      using str = StringIO;
-      using ullh = ULLHexIO;
-      in >> sep{ '(' };
-      in >> label{ "key1" } >> sep{ ':' } >> dbl{ input.key1 };
-      in >> sep{ ',' };
-      in >> label{ "key2" } >> sep{ ':' } >> ullh{ input.key2 };
-      in >> sep{ ',' };
-      in >> label{ "key3" } >> sep{ ':' } >> str{ input.key3 };
-      in >> sep{ ')' };
+      return in;
+    }
+    for (size_t i = 0; i < 3; i++)
+    {
+      size_t num = 0;
+      in >> label{ "key" } >> num;
+      if (num == 1)
+      {
+        in >> dbl{ input.key1 } >> sep { ':' };
+      }
+      else if (num == 2)
+      {
+        in >> ullh{ input.key2 } >> sep { ':' };
+      }
+      else if (num == 3)
+      {
+        in >> str{ input.key3 } >> sep { ':' };
+      }
     }
     if (in)
     {
@@ -43,16 +56,17 @@ namespace kotova
     iofmtguard fmtguard(out);
     out << "(: ";
     out << "key1 " << std::fixed << std::setprecision(2) << src.key1;
-    out << ":key2 0f0" << src.key2;
+    out << ":key2 0x" << src.key2;
     out << ":key3 \"" << src.key3 << "\":)";
     return out;
   }
-  bool check(const DataStruct& lhs, const DataStruct& rhs)
+
+  bool check(const DataStruct &lhs, const DataStruct &rhs)
   {
-    if (lhs.key1 == rhs.key1)
+    if (lhs.key1 != rhs.key1)
     {
-      return (lhs.key2 == rhs.key2) ? lhs.key3.length() < rhs.key3.length() : lhs.key2 < rhs.key2;
+      return lhs.key1 < rhs.key1;
     }
-  return lhs.key1 < rhs.key1;
+    return (lhs.key2 != rhs.key2) ? lhs.key2 < rhs.key2 : lhs.key3.length() < rhs.key3.length();
   }
 }
