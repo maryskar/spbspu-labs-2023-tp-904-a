@@ -13,7 +13,7 @@ namespace malaya
     {
       std::string param = " ";
       in >> param;
-      command = command + param;
+      command = command + " " + param;
     }
     return command;
   }
@@ -39,7 +39,7 @@ namespace malaya
       return;
     }
     size_t pos = command.find(' ');
-    auto iter3 = std::get< 1 >(dicts).find(command.substr(0, pos - 1));
+    auto iter3 = std::get< 1 >(dicts).find(command.substr(0, pos));
     if (iter3 != std::get< 1 >(dicts).end())
     {
       size_t num = stoull(command.substr(pos));
