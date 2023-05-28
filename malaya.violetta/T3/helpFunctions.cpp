@@ -49,7 +49,6 @@ namespace malaya
     }
     invalidPrint(out);
   }
-
   allComms makeDictionary()
   {
     firstDict dict1;

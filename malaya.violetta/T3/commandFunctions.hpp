@@ -1,7 +1,6 @@
 #ifndef T3_COMMANDFUNCTIONS_HPP
 #define T3_COMMANDFUNCTIONS_HPP
 #include "Polygon.hpp"
-
 namespace malaya
 {
   void outAreaOdd(const std::vector< Polygon > & polygons, std::ostream & out);
@@ -18,5 +17,4 @@ namespace malaya
   void outRects(const std::vector< Polygon > & data, std::ostream & out);
   void outPerms(const std::vector< Polygon > & data, std::ostream & out, std::istream & in);
 }
-
 #endif

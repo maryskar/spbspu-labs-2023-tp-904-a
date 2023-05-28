@@ -9,20 +9,16 @@ namespace malaya
     int x, y;
   };
   std::istream & operator>>(std::istream & in, Point & point);
-
   bool operator==(const Point & left, const Point & right);
-
   struct PointComparator
   {
     bool operator()(const Point & left, const Point & right);
   };
-
   struct SeparatorPointIO
   {
     char sep;
   };
   std::istream & operator>>(std::istream & in, SeparatorPointIO && separator);
-
   struct Polygon
   {
     std::vector< Point > points;

@@ -5,7 +5,6 @@
 #include <functional>
 #include <cmath>
 #include "helpFunctions.hpp"
-
 namespace malaya
 {
   bool isEvenPoints(const Polygon & polygon)
@@ -28,7 +27,7 @@ namespace malaya
   {
     return (isEqualToNum(polygon, num) ? getArea(polygon) : 0.0);
   }
-  template < class Predicate >
+  template< class Predicate >
   void outArea(const std::vector< Polygon > & polygons, std::ostream & out, Predicate pred)
   {
     std::vector< double > values(polygons.size());
@@ -49,19 +48,17 @@ namespace malaya
     auto pred = std::bind(isEqualToNum, _1, num);
     outArea(polygons, out, pred);
   }
-  template < class T >
+  template< class T >
   T minElem(const std::vector< T > & elems)
   {
     return *std::min_element(elems.begin(), elems.end());
   }
-
-  template < class T >
+  template< class T >
   T maxElem(const std::vector< T > & elems)
   {
     return *std::min_element(elems.begin(), elems.end());
   }
-
-  template < class Func >
+  template< class Func >
   double minMaxArea(const std::vector< Polygon > & polygons, Func func)
   {
     std::vector< double > values(polygons.size());
@@ -70,7 +67,7 @@ namespace malaya
   }
   void outMinArea(const std::vector< Polygon > & data, std::ostream & out)
   {
-    if(data.empty())
+    if (data.empty())
     {
       invalidPrint(out);
       return;
@@ -79,7 +76,7 @@ namespace malaya
   }
   void outMaxArea(const std::vector< Polygon > & data, std::ostream & out)
   {
-    if(data.empty())
+    if (data.empty())
     {
       invalidPrint(out);
       return;
@@ -88,7 +85,7 @@ namespace malaya
   }
   void outAreaMean(const std::vector< Polygon > & data, std::ostream & out)
   {
-    if(data.empty())
+    if (data.empty())
     {
       invalidPrint(out);
       return;
@@ -102,7 +99,7 @@ namespace malaya
   {
     return polygon.points.size();
   }
-  template < class Func >
+  template< class Func >
   size_t minMaxVertexes(const std::vector< Polygon > & data, Func func)
   {
     std::vector< size_t > vertexes(data.size());
@@ -111,23 +108,23 @@ namespace malaya
   }
   void outMinVertexes(const std::vector< Polygon > & data, std::ostream & out)
   {
-    if(data.empty())
+    if (data.empty())
     {
       invalidPrint(out);
       return;
     }
-    out << minMaxVertexes(data, minElem < size_t >) << '\n';
+    out << minMaxVertexes(data, minElem< size_t >) << '\n';
   }
   void outMaxVertexes(const std::vector< Polygon > & data, std::ostream & out)
   {
-    if(data.empty())
+    if (data.empty())
     {
       invalidPrint(out);
       return;
     }
-    out << minMaxVertexes(data, minElem < size_t >) << '\n';
+    out << minMaxVertexes(data, minElem< size_t >) << '\n';
   }
-  template < class Predicate >
+  template< class Predicate >
   size_t count(const std::vector< Polygon > & data, Predicate pred)
   {
     return std::count_if(data.begin(), data.end(), pred);
@@ -156,7 +153,7 @@ namespace malaya
   }
   bool isRectangle(const Polygon & polygon)
   {
-    if(!isEqualToNum(polygon, 4ull))
+    if (!isEqualToNum(polygon, 4ull))
     {
       return false;
     }
@@ -176,7 +173,7 @@ namespace malaya
   {
     std::vector< Point > points = polygon.points;
     std::sort(points.begin(), points.end(), PointComparator{});
-    return Polygon{ points };
+    return Polygon{points};
   }
   bool isIdentical(const Polygon & left, const Polygon & right)
   {

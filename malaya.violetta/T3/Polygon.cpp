@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <cmath>
 #include <numeric>
-
 namespace malaya
 {
   std::istream & operator>>(std::istream & in, SeparatorPointIO && separator)
@@ -22,15 +21,13 @@ namespace malaya
     }
     return in;
   }
-
   bool operator==(const Point & left, const Point & right)
   {
     return (left.x == right.x && left.y == right.y);
   }
-
   bool PointComparator::operator()(const Point & left, const Point & right)
   {
-    if(left.x != right.x)
+    if (left.x != right.x)
     {
       return left.x < right.x;
     }
@@ -39,8 +36,6 @@ namespace malaya
       return left.y < right.y;
     }
   }
-
-
   std::istream & operator>>(std::istream & in, Point & point)
   {
     std::istream::sentry istreamChecker(in);
@@ -55,7 +50,6 @@ namespace malaya
     in >> SeparatorPointIO{')'};
     return in;
   }
-
   std::istream & operator>>(std::istream & in, Polygon & polygon)
   {
     std::istream::sentry istreamChecker(in);
@@ -70,7 +64,6 @@ namespace malaya
     std::copy_n(inIter(in), pointNumber, std::back_inserter(polygon.points));
     return in;
   }
-
   double areaCounter::operator()(const Point & left, const Point & right)
   {
     return (0.5 * (left.x * right.y - right.x * left.y));
