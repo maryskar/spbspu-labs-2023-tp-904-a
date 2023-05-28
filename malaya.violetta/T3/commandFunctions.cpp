@@ -54,7 +54,7 @@ namespace malaya
       return;
     }
     using namespace std::placeholders;
-    auto pred = std::bind(isEqualToNum, _1, num);
+    auto pred = std::bind(areaNum, _1, num);
     outArea(polygons, out, pred);
   }
   template< class T >

@@ -58,7 +58,6 @@ namespace malaya
     //  invalidPrint(out);
     //}
     in.setstate(std::ios::failbit);
-    invalidPrint(out);
   }
 
   allComms makeDictionary()
