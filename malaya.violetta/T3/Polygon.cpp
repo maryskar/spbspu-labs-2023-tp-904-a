@@ -72,7 +72,7 @@ namespace malaya
   {
     double result = 0.0;
     size_t size = polygon.points.size();
-    std::vector< double > values;
+    std::vector< double > values(polygon.points.size());
     std::transform(polygon.points.begin(), --polygon.points.end(),
                    ++polygon.points.begin(), values.begin(),
                    areaCounter{});

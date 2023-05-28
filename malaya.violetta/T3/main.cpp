@@ -11,13 +11,13 @@ int main(int argc, char * argv[])
   if(argc != 2)
   {
     std::cerr << "Not enough args\n";
-    return -1;
+    return 1;
   }
   std::ifstream in(argv[1]);
   if (!in)
   {
     std::cerr << "File not found\n";
-    return -1;
+    return 2;
   }
   using inIter = std::istream_iterator< malaya::Polygon >;
   std::vector< malaya::Polygon > data;

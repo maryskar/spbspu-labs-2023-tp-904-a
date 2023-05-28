@@ -44,6 +44,11 @@ namespace malaya
   }
   void outAreaNum(const std::vector< Polygon > & polygons, size_t num, std::ostream & out)
   {
+    if (num < 3)
+    {
+      invalidPrint(out);
+      return;
+    }
     using namespace std::placeholders;
     auto pred = std::bind(isEqualToNum, _1, num);
     outArea(polygons, out, pred);
@@ -141,9 +146,14 @@ namespace malaya
   }
   void outCountNum(const std::vector< Polygon > & data, size_t num, std::ostream & out)
   {
+    if (num < 3)
+    {
+      invalidPrint(out);
+      return;
+    }
     using namespace std::placeholders;
     auto func = std::bind(isEqualToNum, _1, num);
-    out << count(data, func);
+    out << count(data, func) << '\n';
   }
   double findSide(const Point & point1, const Point & point2)
   {

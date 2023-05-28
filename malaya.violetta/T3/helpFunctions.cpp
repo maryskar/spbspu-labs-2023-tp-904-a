@@ -25,8 +25,12 @@ namespace malaya
                  std::ostream & out)
   {
     auto iter1 = std::get< 0 >(dicts).find(command);
+    bool com1 = false;
+    bool com2 = false;
+    bool com3 = false;
     if (iter1 != std::get< 0 >(dicts).end())
     {
+      com1 = true;
       auto function = *iter1->second;
       function(data, out);
       return;
@@ -34,6 +38,7 @@ namespace malaya
     auto iter2 = std::get< 2 >(dicts).find(command);
     if (iter2 != std::get< 2 >(dicts).end())
     {
+      com2 = true;
       auto function = *iter2->second;
       function(data, out, in);
       return;
@@ -42,13 +47,19 @@ namespace malaya
     auto iter3 = std::get< 1 >(dicts).find(command.substr(0, pos));
     if (iter3 != std::get< 1 >(dicts).end())
     {
+      com3 = true;
       size_t num = stoull(command.substr(pos));
       auto function = *iter3->second;
       function(data, num, out);
       return;
     }
+    //if (!com1 && !com2 && !com3)
+    //{
+    //  invalidPrint(out);
+    //}
     invalidPrint(out);
   }
+
   allComms makeDictionary()
   {
     firstDict dict1;
