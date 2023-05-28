@@ -9,7 +9,7 @@ namespace malaya
   {
     std::string command = "";
     in >> command;
-    if (!(command == "RECTS" || command == "PERMS"))
+    if (!(command == "RECTS" || command == "PERMS" || command == " "))
     {
       std::string param = " ";
       in >> param;
