@@ -1,4 +1,4 @@
-#include "../DataStruct.hpp"
+#include "DataStruct.hpp"
 #include <iostream>
 #include <iomanip>
 namespace litvin

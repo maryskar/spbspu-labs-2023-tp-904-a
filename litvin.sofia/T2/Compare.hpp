@@ -1,6 +1,6 @@
 #ifndef T2_COMPARE_HPP
 #define T2_COMPARE_HPP
-#include "../DataStruct.hpp"
+#include "DataStruct.hpp"
 namespace litvin
 {
   struct Compare

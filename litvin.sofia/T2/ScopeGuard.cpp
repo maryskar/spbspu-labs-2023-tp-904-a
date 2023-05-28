@@ -1,4 +1,4 @@
-#include "../ScopeGuard.hpp"
+#include "ScopeGuard.hpp"
 litvin::ScopeGuard::ScopeGuard(std::basic_ios< char > & s):
   s_(s),
   fill_(s.fill()),

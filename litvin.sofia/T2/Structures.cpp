@@ -1,4 +1,4 @@
-#include "../Structures.hpp"
+#include "Structures.hpp"
 #include "ScopeGuard.hpp"
 #include <iomanip>
 #include <cmath>

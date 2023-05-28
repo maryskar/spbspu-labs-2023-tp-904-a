@@ -1,4 +1,4 @@
-#include "../Compare.hpp"
+#include "Compare.hpp"
 bool litvin::Compare::operator()(const DataStruct & data1, const DataStruct & data2) const
 {
   if (data1.key1 != data2.key1)
