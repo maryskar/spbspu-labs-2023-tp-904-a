@@ -66,7 +66,7 @@ namespace malaya
   }
   double areaCounter::operator()(const Point & left, const Point & right)
   {
-    return (0.5 * (left.x * right.y - right.x * left.y));
+    return 0.5 * (left.x * right.y - right.x * left.y);
   }
   double getArea(const Polygon & polygon)
   {

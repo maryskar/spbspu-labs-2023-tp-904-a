@@ -35,7 +35,8 @@ namespace malaya
     std::vector< double > values(polygons.size());
     std::transform(polygons.begin(), polygons.end(), values.begin(), pred);
     IOStreamsGuard guard(out);
-    out << std::setprecision(1) << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
+    out << std:: fixed << std::setprecision(1);
+    out << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
   }
   void outAreaOdd(const std::vector< Polygon > & polygons, std::ostream & out)
   {
@@ -64,7 +65,7 @@ namespace malaya
   template< class T >
   T maxElem(const std::vector< T > & elems)
   {
-    return *std::min_element(elems.begin(), elems.end());
+    return *std::max_element(elems.begin(), elems.end());
   }
   template< class Func >
   double minMaxArea(const std::vector< Polygon > & polygons, Func func)
@@ -80,7 +81,7 @@ namespace malaya
       invalidPrint(out);
       return;
     }
-    out << std::setprecision(1) << minMaxArea(data, minElem< double >) << '\n';
+    out << std:: fixed << std::setprecision(1) << minMaxArea(data, minElem< double >) << '\n';
   }
   void outMaxArea(const std::vector< Polygon > & data, std::ostream & out)
   {
@@ -89,7 +90,7 @@ namespace malaya
       invalidPrint(out);
       return;
     }
-    out << std::setprecision(1) << minMaxArea(data, maxElem< double >) << '\n';
+    out << std:: fixed << std::setprecision(1) << minMaxArea(data, maxElem< double >) << '\n';
   }
   void outAreaMean(const std::vector< Polygon > & data, std::ostream & out)
   {
@@ -130,7 +131,7 @@ namespace malaya
       invalidPrint(out);
       return;
     }
-    out << minMaxVertexes(data, minElem< size_t >) << '\n';
+    out << minMaxVertexes(data, maxElem< size_t >) << '\n';
   }
   template< class Predicate >
   size_t count(const std::vector< Polygon > & data, Predicate pred)
@@ -196,6 +197,11 @@ namespace malaya
   {
     Polygon polygon;
     in >> polygon;
+    if (polygon.points.size() < 3)
+    {
+      invalidPrint(out);
+      return;
+    }
     using namespace std::placeholders;
     std::vector< Polygon > temp(data.size());
     std::transform(data.begin(), data.end(), temp.begin(), sortPoints);

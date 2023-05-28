@@ -25,10 +25,10 @@ int main(int argc, char * argv[])
   while (!in.eof())
   {
     std::copy(inIter(in), inIter(), std::back_inserter(data));
-    if (!std::cin)
+    if (!in)
     {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      in.clear();
+      in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       continue;
     }
   }
