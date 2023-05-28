@@ -6,10 +6,8 @@
 #include "Polygon.hpp"
 #include "helpFunctions.hpp"
 
-int main(int argc, char * argv[]) //?????
+int main(int argc, char * argv[])
 {
-  //std::string filename;
-  //std::cin >> filename;
   if(argc != 2)
   {
     std::cerr << "Not enough args\n";
@@ -19,11 +17,21 @@ int main(int argc, char * argv[]) //?????
   if (!in)
   {
     std::cerr << "File not found\n";
-    return -2;
+    return -1;
   }
   using inIter = std::istream_iterator< malaya::Polygon >;
   std::vector< malaya::Polygon > data;
-  std::copy(inIter(in), inIter(), std::back_inserter(data));
+
+  while (!std::cin.eof())
+  {
+    std::copy(inIter(in), inIter(), std::back_inserter(data));
+    if (!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      continue;
+    }
+  }
   auto comms = malaya::makeDictionary();
   while (!std::cin.eof())
   {
@@ -33,9 +41,7 @@ int main(int argc, char * argv[]) //?????
       malaya::doCommand(data, comms, command, std::cin, std::cout);
     }
     catch(const std::invalid_argument & exception)
-    {
-      malaya::invalidPrint(std::cout);
-    }
+    {}
 
     if (!std::cin)
     {
