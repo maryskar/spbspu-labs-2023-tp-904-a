@@ -35,7 +35,7 @@ namespace malaya
     std::vector< double > values(polygons.size());
     std::transform(polygons.begin(), polygons.end(), values.begin(), pred);
     IOStreamsGuard guard(out);
-    out << std:: fixed << std::setprecision(1);
+    out << std::fixed << std::setprecision(1);
     out << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
   }
   void outAreaOdd(const std::vector< Polygon > & polygons, std::ostream & out)
@@ -81,7 +81,7 @@ namespace malaya
       invalidPrint(out);
       return;
     }
-    out << std:: fixed << std::setprecision(1) << minMaxArea(data, minElem< double >) << '\n';
+    out << std::fixed << std::setprecision(1) << minMaxArea(data, minElem< double >) << '\n';
   }
   void outMaxArea(const std::vector< Polygon > & data, std::ostream & out)
   {
@@ -90,7 +90,7 @@ namespace malaya
       invalidPrint(out);
       return;
     }
-    out << std:: fixed << std::setprecision(1) << minMaxArea(data, maxElem< double >) << '\n';
+    out << std::fixed << std::setprecision(1) << minMaxArea(data, maxElem< double >) << '\n';
   }
   void outAreaMean(const std::vector< Polygon > & data, std::ostream & out)
   {
@@ -102,7 +102,7 @@ namespace malaya
     std::vector< double > values(data.size());
     std::transform(data.begin(), data.end(), values.begin(), getArea);
     double res = std::accumulate(values.begin(), values.end(), 0.0) / data.size();
-    out << std:: fixed << std::setprecision(1) << res << '\n';
+    out << std::fixed << std::setprecision(1) << res << '\n';
   }
   size_t getVertexes(const Polygon & polygon)
   {

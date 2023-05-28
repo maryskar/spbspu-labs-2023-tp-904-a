@@ -11,15 +11,15 @@ namespace malaya
     in >> command;
     if (!in)
     {
-      throw std::out_of_range("file ends");
+      throw std::out_of_range("file ends here");
     }
-    if (command != "RECTS" && command != "PERMS" )
+    if (command != "RECTS" && command != "PERMS")
     {
       std::string param = " ";
       in >> param;
       if (!in)
       {
-        throw std::invalid_argument("incorrect command");
+        throw std::invalid_argument("incorrect command parameter");
       }
       command = command + " " + param;
     }
@@ -61,9 +61,7 @@ namespace malaya
       in.setstate(std::ios::failbit);
       return;
     }
-
   }
-
   allComms makeDictionary()
   {
     firstDict dict1;

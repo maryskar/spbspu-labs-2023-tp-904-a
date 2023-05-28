@@ -5,10 +5,9 @@
 #include <limits>
 #include "Polygon.hpp"
 #include "helpFunctions.hpp"
-
 int main(int argc, char * argv[])
 {
-  if(argc != 2)
+  if (argc != 2)
   {
     std::cerr << "Not enough args\n";
     return 1;
@@ -21,7 +20,6 @@ int main(int argc, char * argv[])
   }
   using inIter = std::istream_iterator< malaya::Polygon >;
   std::vector< malaya::Polygon > data;
-
   while (!in.eof())
   {
     std::copy(inIter(in), inIter(), std::back_inserter(data));
@@ -41,7 +39,8 @@ int main(int argc, char * argv[])
       command = malaya::inputCommand(std::cin);
     }
     catch (const std::out_of_range &)
-    {}
+    {
+    }
     catch (const std::invalid_argument &)
     {
       malaya::invalidPrint(std::cout);
@@ -50,9 +49,9 @@ int main(int argc, char * argv[])
     {
       malaya::doCommand(data, comms, command, std::cin, std::cout);
     }
-    catch(const std::invalid_argument & exception)
-    {}
-
+    catch (const std::invalid_argument & exception)
+    {
+    }
     if (!std::cin)
     {
       std::cin.clear();
