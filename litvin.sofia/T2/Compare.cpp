@@ -17,3 +17,4 @@ bool litvin::Compare::operator()(const DataStruct & data1, const DataStruct & da
     }
   }
 }
+
