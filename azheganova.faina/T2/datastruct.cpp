@@ -75,7 +75,7 @@ std::ostream & azheganova::operator<<(std::ostream & out, const DataStruct & src
   iofmtguard fmtguard(out);
   out << "(";
   out << ":key1 " << std::fixed << std::setprecision(1) << src.key1 << "d";
-  out << ":key2 0x" << std::hex << src.key2;
+  out << ":key2 0x" << std::hex << std::toupper(src.key2);
   out << ":key3 \"" << src.key3;
   out << "\":)";
   return out;
