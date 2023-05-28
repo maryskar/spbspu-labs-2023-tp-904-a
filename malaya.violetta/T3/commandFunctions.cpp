@@ -176,7 +176,7 @@ namespace malaya
     double third = findSide(polygon.points[2], polygon.points[3]);
     double fourth = findSide(polygon.points[3], polygon.points[0]);
     double diagonal = findSide(polygon.points[0], polygon.points[2]);
-    bool isRectangularTriangle = (first * first + second * second) == (diagonal * diagonal);
+    bool isRectangularTriangle = std::sqrt(first * first + second * second) == diagonal;
     return (first == third && second == fourth && isRectangularTriangle);
   }
   void outRects(const std::vector< Polygon > & data, std::ostream & out)
