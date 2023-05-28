@@ -61,6 +61,10 @@ namespace malaya
     using inIter = std::istream_iterator< Point >;
     int pointNumber = 0;
     in >> pointNumber;
+    if (pointNumber < 3)
+    {
+      in.setstate(std::ios::failbit);
+    }
     std::copy_n(inIter(in), pointNumber, std::back_inserter(polygon.points));
     return in;
   }

@@ -102,7 +102,7 @@ namespace malaya
     std::vector< double > values(data.size());
     std::transform(data.begin(), data.end(), values.begin(), getArea);
     double res = std::accumulate(values.begin(), values.end(), 0.0) / data.size();
-    out << std::setprecision(1) << res << '\n';
+    out << std:: fixed << std::setprecision(1) << res << '\n';
   }
   size_t getVertexes(const Polygon & polygon)
   {
