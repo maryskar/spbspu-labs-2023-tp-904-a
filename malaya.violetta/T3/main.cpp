@@ -43,9 +43,9 @@ int main(int argc, char * argv[])
     catch(const std::invalid_argument & exception)
     {}
 
-    if (!std::cin)
+    if (std::cin.fail())
     {
-      //malaya::invalidPrint(std::cout);
+      malaya::invalidPrint(std::cout);
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       continue;

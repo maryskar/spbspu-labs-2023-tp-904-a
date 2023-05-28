@@ -7,7 +7,7 @@ namespace malaya
 {
   std::string inputCommand(std::istream & in)
   {
-    std::string command = " ";
+    std::string command = "";
     in >> command;
     if (!(command == "RECTS" || command == "PERMS"))
     {
