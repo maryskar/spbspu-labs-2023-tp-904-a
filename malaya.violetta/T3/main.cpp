@@ -35,7 +35,17 @@ int main(int argc, char * argv[])
   auto comms = malaya::makeDictionary();
   while (!std::cin.eof())
   {
-    std::string command = malaya::inputCommand(std::cin);
+    std::string command;
+    try
+    {
+      command = malaya::inputCommand(std::cin);
+    }
+    catch (const std::out_of_range &)
+    {}
+    catch (const std::invalid_argument &)
+    {
+      malaya::invalidPrint(std::cout);
+    }
     try
     {
       malaya::doCommand(data, comms, command, std::cin, std::cout);
