@@ -22,7 +22,7 @@ int main(int argc, char * argv[])
   using inIter = std::istream_iterator< malaya::Polygon >;
   std::vector< malaya::Polygon > data;
 
-  while (!std::cin.eof())
+  while (!in.eof())
   {
     std::copy(inIter(in), inIter(), std::back_inserter(data));
     if (!std::cin)
