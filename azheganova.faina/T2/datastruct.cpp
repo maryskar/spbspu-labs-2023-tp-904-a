@@ -5,7 +5,7 @@
 #include "iofmtguard.h"
 #include "iotypes.h"
 
-bool azheganova::comparator(const DataStruct & left, const DataStruct & right)
+bool azheganova::compareValues(const DataStruct & left, const DataStruct & right)
 {
   if (left.key1 != right.key1)
   {
@@ -17,7 +17,7 @@ bool azheganova::comparator(const DataStruct & left, const DataStruct & right)
   }
   else
   {
-    return left.key3.length() <= right.key3.length();
+    return left.key3.length() < right.key3.length();
   }
 }
 

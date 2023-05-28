@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 #include <iterator>
 #include <algorithm>
@@ -6,22 +5,15 @@
 
 int main()
 {
-  using azheganova::DataStruct;
-  std::vector< DataStruct > data;
+  using initer = std::istream_iterator< azheganova::DataStruct >;
+  std::vector< azheganova::DataStruct > data;
   while (!std::cin.eof())
   {
     std::cin.clear();
-    std::copy(
-      std::istream_iterator< DataStruct >(std::cin),
-      std::istream_iterator< DataStruct >(),
-      std::back_inserter(data)
-    );
+    std::copy(initer(std::cin), initer(), std::back_inserter(data));
   }
-  std::sort(data.begin(), data.end(), azheganova::comparator);
-  std::copy(
-    std::begin(data),
-    std::end(data),
-    std::ostream_iterator< DataStruct >(std::cout, "\n")
+  std::sort(data.begin(), data.end(), azheganova::compareValues);
+  std::copy(std::begin(data), std::end(data), std::ostream_iterator< azheganova::DataStruct >(std::cout, "\n")
   );
   return 0;
 }
