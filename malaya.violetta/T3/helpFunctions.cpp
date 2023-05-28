@@ -3,20 +3,54 @@
 #include <vector>
 #include "Polygon.hpp"
 #include "commandFunctions.hpp"
-
 namespace malaya
 {
   std::string inputCommand(std::istream & in)
   {
     std::string command = " ";
     in >> command;
+    if (!(command == "RECTS" || command == "PERMS"))
+    {
+      std::string param = " ";
+      in >> param;
+      command = command + param;
+    }
     return command;
   }
   void invalidPrint(std::ostream & out)
   {
-    out << "<INVALID COMMAND>" << '\n';
+    out << "<INVALID COMMAND>\n";
   }
-  std::tuple< firstDict , secondDict , thirdDict > makeDictionary()
+  void doCommand(const std::vector< Polygon > & data, const allComms & dicts, std::string & command, std::istream & in,
+                 std::ostream & out)
+  {
+    auto iter1 = std::get< 0 >(dicts).find(command);
+    if (iter1 != std::get< 0 >(dicts).end())
+    {
+      auto function = *iter1->second;
+      function(data, out);
+      return;
+    }
+    auto iter2 = std::get< 2 >(dicts).find(command);
+    if (iter2 != std::get< 2 >(dicts).end())
+    {
+      auto function = *iter2->second;
+      function(data, out, in);
+      return;
+    }
+    size_t pos = command.find(' ');
+    auto iter3 = std::get< 1 >(dicts).find(command.substr(0, pos - 1));
+    if (iter3 != std::get< 1 >(dicts).end())
+    {
+      size_t num = stoull(command.substr(pos));
+      auto function = *iter3->second;
+      function(data, num, out);
+      return;
+    }
+    invalidPrint(out);
+  }
+
+  allComms makeDictionary()
   {
     firstDict dict1;
     dict1.insert({"AREA EVEN", outAreaEven});
@@ -30,131 +64,10 @@ namespace malaya
     dict1.insert({"COUNT ODD", outCountOdd});
     dict1.insert({"RECTS", outRects});
     secondDict dict2;
-    dict2.insert({"AREA VERTNUM", outAreaNum});
-    dict2.insert({"COUNT VERTNUM", outCountNum});
+    dict2.insert({"AREA", outAreaNum});
+    dict2.insert({"COUNT", outCountNum});
     thirdDict dict3;
     dict3.insert({"PERMS", outPerms});
-    return std::tuple< firstDict , secondDict , thirdDict > {dict1, dict2, dict3};
-
-  }
-
-
-
-
-
-
-
-
-  void doCommand(const std::vector< Polygon > & data, std::string & command, std::istream & in,
-                 std::ostream & out)
-  {
-    //if(command == "AREA")
-    //{
-    //  std::string option = " ";
-    //  in >> option;
-    //  if(option == "EVEN")
-    //  {
-    //    outAreaEven(data, out);
-    //  }
-    //  else if(option == "ODD")
-    //  {
-    //    outAreaOdd(data, out);
-    //  }
-    //  else if(option == "MEAN")
-    //  {
-    //    outAreaMean(data, out);
-    //  }
-    //  else
-    //  {
-    //    unsigned long long number = std::stoull(option);
-    //    if(number < 3)
-    //    {
-    //      invalidPrint(out);
-    //    }
-    //    else
-    //    {
-    //      outAreaNum(data, number, out);
-    //    }
-    //  }
-    //}
-    //else if(command == "MAX")
-    //{
-    //  std::string option = " ";
-    //  in >> option;
-    //  if(option == "AREA")
-    //  {
-    //    outMaxArea(data, out);
-    //  }
-    //  else if(option == "AREA")
-    //  {
-    //    outMaxVertexes(data, out);
-    //  }
-    //  else
-    //  {
-    //    invalidPrint(out);
-    //  }
-    //}
-    //else if(command == "MIN")
-    //{
-    //  std::string option = " ";
-    //  in >> option;
-    //  if(option == "AREA")
-    //  {
-    //    outMinArea(data, out);
-    //  }
-    //  else if(option == "AREA")
-    //  {
-    //    outMinVertexes(data, out);
-    //  }
-    //  else
-    //  {
-    //    invalidPrint(out);
-    //  }
-    //}
-    //else if(command == "COUNT")
-    //{
-    //  std::string option = " ";
-    //  in >> option;
-    //  if(option == "EVEN")
-    //  {
-    //    outCountEven(data, out);
-    //  }
-    //  else if(option == "ODD")
-    //  {
-    //    outCountOdd(data, out);
-    //  }
-    //  else
-    //  {
-    //    unsigned long long number = std::stoull(option);
-    //    if(number < 3)
-    //    {
-    //      invalidPrint(out);
-    //    }
-    //    else
-    //    {
-    //      outCountNum(data, number, out);
-    //    }
-    //  }
-    //}
-    //else if(command == "PERMS")
-    //{
-    //  Polygon polygon;
-    //  in >> polygon;
-    //  if(!in)
-    //  {
-    //    invalidPrint(out);
-    //    return;
-    //  }
-    //  outPerms(data, out, polygon);
-    //}
-    //else if(command == "RECTS")
-    //{
-    //  outRects(data, out);
-    //}
-    //else
-    //{
-    //  invalidPrint(out);
-    //  in.setstate(std::ios::failbit);
-    //}
+    return allComms{dict1, dict2, dict3};
   }
 }

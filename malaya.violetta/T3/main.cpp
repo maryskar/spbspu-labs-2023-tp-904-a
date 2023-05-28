@@ -24,14 +24,13 @@ int main(int argc, char * argv[]) //?????
   using inIter = std::istream_iterator< malaya::Polygon >;
   std::vector< malaya::Polygon > data;
   std::copy(inIter(in), inIter(), std::back_inserter(data));
-  auto commands = malaya::makeDictionary();
-  std::string command;
+  auto comms = malaya::makeDictionary();
   while (!std::cin.eof())
   {
-    command = malaya::inputCommand(std::cin);
+    std::string command = malaya::inputCommand(std::cin);
     try
     {
-      malaya::doCommand(data, command, std::cin, std::cout);
+      malaya::doCommand(data, comms, command, std::cin, std::cout);
     }
     catch(const std::invalid_argument & exception)
     {

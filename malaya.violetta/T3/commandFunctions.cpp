@@ -70,10 +70,20 @@ namespace malaya
   }
   void outMinArea(const std::vector< Polygon > & data, std::ostream & out)
   {
+    if(data.empty())
+    {
+      invalidPrint(out);
+      return;
+    }
     out << minMaxArea(data, minElem< double >) << '\n';
   }
   void outMaxArea(const std::vector< Polygon > & data, std::ostream & out)
   {
+    if(data.empty())
+    {
+      invalidPrint(out);
+      return;
+    }
     out << minMaxArea(data, maxElem< double >) << '\n';
   }
   void outAreaMean(const std::vector< Polygon > & data, std::ostream & out)
@@ -81,7 +91,6 @@ namespace malaya
     if(data.empty())
     {
       invalidPrint(out);
-      out << '\n';
       return;
     }
     std::vector< double > values(data.size());
@@ -102,10 +111,20 @@ namespace malaya
   }
   void outMinVertexes(const std::vector< Polygon > & data, std::ostream & out)
   {
+    if(data.empty())
+    {
+      invalidPrint(out);
+      return;
+    }
     out << minMaxVertexes(data, minElem < size_t >) << '\n';
   }
   void outMaxVertexes(const std::vector< Polygon > & data, std::ostream & out)
   {
+    if(data.empty())
+    {
+      invalidPrint(out);
+      return;
+    }
     out << minMaxVertexes(data, minElem < size_t >) << '\n';
   }
   template < class Predicate >
@@ -163,8 +182,10 @@ namespace malaya
   {
     return left.points == right.points;
   }
-  void outPerms(const std::vector< Polygon > & data, std::ostream & out, const Polygon & polygon)
+  void outPerms(const std::vector< Polygon > & data, std::ostream & out, std::istream & in)
   {
+    Polygon polygon;
+    in >> polygon;
     using namespace std::placeholders;
     std::vector< Polygon > temp(data.size());
     std::transform(data.begin(), data.end(), temp.begin(), sortPoints);
