@@ -7,7 +7,7 @@ namespace malaya
 {
   std::string inputCommand(std::istream & in)
   {
-    std::string command;
+    std::string command = "";
     in >> command;
     if (!(command == "RECTS" || command == "PERMS"))
     {
@@ -46,6 +46,10 @@ namespace malaya
       auto function = *iter3->second;
       function(data, num, out);
       return;
+    }
+    if (command != " ")
+    {
+      invalidPrint(out);
     }
   }
 
