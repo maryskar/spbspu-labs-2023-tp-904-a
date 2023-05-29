@@ -234,7 +234,7 @@ std::string ganiullin::readCommand(std::istream& in,
   std::string command;
   in >> command;
   if (!in) {
-    throw std::logic_error("EOF");
+    throw std::runtime_error("EOF");
   }
   if (commandDict.polygonCommandDict.find(command) ==
       std::end(commandDict.polygonCommandDict)) {
