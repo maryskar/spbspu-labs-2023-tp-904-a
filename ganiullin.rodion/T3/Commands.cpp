@@ -152,31 +152,31 @@ void ganiullin::printAreaEven(const std::vector< Polygon >& polygons,
     std::ostream& out)
 {
   iofmtguard iofmtguard(out);
-  out << std::setprecision(1) << processAreaEven(polygons);
+  out << std::fixed << std::setprecision(1) << processAreaEven(polygons);
 }
 void ganiullin::printAreaOdd(const std::vector< Polygon >& polygons,
     std::ostream& out)
 {
   iofmtguard iofmtguard(out);
-  out << std::setprecision(1) << processAreaOdd(polygons);
+  out << std::fixed << std::setprecision(1) << processAreaOdd(polygons);
 }
 void ganiullin::printAreaMean(const std::vector< Polygon >& polygons,
     std::ostream& out)
 {
   iofmtguard iofmtguard(out);
-  out << std::setprecision(1) << processAreaMean(polygons);
+  out << std::fixed << std::setprecision(1) << processAreaMean(polygons);
 }
 void ganiullin::printMaxArea(const std::vector< Polygon >& polygons,
     std::ostream& out)
 {
   iofmtguard iofmtguard(out);
-  out << std::setprecision(1) << processMaxArea(polygons);
+  out << std::fixed << std::setprecision(1) << processMaxArea(polygons);
 }
 void ganiullin::printMinArea(const std::vector< Polygon >& polygons,
     std::ostream& out)
 {
   iofmtguard iofmtguard(out);
-  out << std::setprecision(1) << processMinArea(polygons);
+  out << std::fixed << std::setprecision(1) << processMinArea(polygons);
 }
 
 void ganiullin::printMaxVertexNum(const std::vector< Polygon >& polygons,
@@ -188,7 +188,7 @@ void ganiullin::printMinVertexNum(const std::vector< Polygon >& polygons,
     std::ostream& out)
 {
   iofmtguard iofmtguard(out);
-  out << std::setprecision(1) << processAreaMean(polygons);
+  out << std::fixed << std::setprecision(1) << processAreaMean(polygons);
 }
 void ganiullin::printCountEven(const std::vector< Polygon >& polygons,
     std::ostream& out)
@@ -204,7 +204,8 @@ void ganiullin::printCountOdd(const std::vector< Polygon >& polygons,
 void ganiullin::printAreaVertexNum(const std::vector< Polygon >& polygons,
     size_t vertexNum, std::ostream& out)
 {
-  out << processAreaVertexNum(polygons, vertexNum);
+  out << std::fixed << std::setprecision(1)
+      << processAreaVertexNum(polygons, vertexNum);
 }
 void ganiullin::printCountVertexNum(const std::vector< Polygon >& polygons,
     size_t vertexNum, std::ostream& out)
