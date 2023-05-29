@@ -44,8 +44,7 @@ int main(int argc, char ** argv)
     {
       chemodurov::outInvalidCommand(std::cout);
       std::cout << '\n';
-      std::string line;
-      std::getline(std::cin, line);
+      std::cin.ignore(max_size, '\n');
     }
     catch (const std::runtime_error & e)
     {
