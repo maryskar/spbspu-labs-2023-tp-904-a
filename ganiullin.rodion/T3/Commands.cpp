@@ -204,12 +204,18 @@ void ganiullin::printCountOdd(const std::vector< Polygon >& polygons,
 void ganiullin::printAreaVertexNum(const std::vector< Polygon >& polygons,
     size_t vertexNum, std::ostream& out)
 {
+  if (vertexNum < 3) {
+    throw std::logic_error("Polygon should have more vertexes");
+  }
   out << std::fixed << std::setprecision(1)
       << processAreaVertexNum(polygons, vertexNum);
 }
 void ganiullin::printCountVertexNum(const std::vector< Polygon >& polygons,
     size_t vertexNum, std::ostream& out)
 {
+  if (vertexNum < 3) {
+    throw std::logic_error("Polygon should have more vertexes");
+  }
   out << processCountVertexNum(polygons, vertexNum);
 }
 
