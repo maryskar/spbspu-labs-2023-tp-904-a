@@ -259,8 +259,10 @@ void ganiullin::executeCommand(const std::string& command,
   }
   if (polygonCommands.find(command) != std::end(polygonCommands)) {
     Polygon param;
+
     in >> param;
-    if (!in) {
+    if (!in || in.peek() != '\n') {
+      in.setstate(std::ios::failbit);
       return;
     }
     (*polygonCommands.find(command)).second(polygons, param, out);

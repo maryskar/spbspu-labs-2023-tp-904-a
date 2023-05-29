@@ -43,7 +43,7 @@ std::istream& ganiullin::operator>>(std::istream& in, Point& point)
   }
   using delim = DelimiterIO;
   int x = 0, y = 0;
-  in >> delim {'('} >> x >> delim {';'} >> y >> delim {')'};
+  in >> delim{'('} >> x >> delim{';'} >> y >> delim{')'};
   if (in) {
     point.x = x;
     point.y = y;
@@ -59,6 +59,9 @@ std::istream& ganiullin::operator>>(std::istream& in, Polygon& polygon)
   using inIter = std::istream_iterator< Point >;
   size_t vertexNum = 0;
   in >> vertexNum;
+  if (vertexNum < 3) {
+    in.setstate(std::ios::failbit);
+  }
   std::vector< Point > vertices;
   std::copy_n(inIter(in), vertexNum, std::back_inserter(vertices));
   if (in) {
@@ -155,7 +158,7 @@ bool ganiullin::isInFrame(const Polygon& fig,
 }
 ganiullin::Point translatePoint(const ganiullin::Point& point, int x, int y)
 {
-  return ganiullin::Point {point.x + x, point.y + y};
+  return ganiullin::Point{point.x + x, point.y + y};
 }
 
 bool ganiullin::isSame(const Polygon& lhs, const Polygon& rhs)
@@ -181,11 +184,11 @@ bool ganiullin::isSame(const Polygon& lhs, const Polygon& rhs)
   int diffY = first[0].y - second[0].y;
   std::transform(std::begin(first), std::end(first), std::begin(second),
       std::back_inserter(areTranslatedPoints),
-      std::bind(std::equal_to< Point > {}, _1,
+      std::bind(std::equal_to< Point >{}, _1,
           std::bind(translatePoint, _2, diffX, diffY)));
   return std::all_of(std::begin(areTranslatedPoints),
       std::end(areTranslatedPoints),
-      std::bind(std::logical_and< bool > {}, _1, true));
+      std::bind(std::logical_and< bool >{}, _1, true));
 }
 
 size_t ganiullin::getNumOfVertexes(const Polygon& fig)
