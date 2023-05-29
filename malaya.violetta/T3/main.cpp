@@ -27,7 +27,6 @@ int main(int argc, char * argv[])
     {
       in.clear();
       in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-      continue;
     }
   }
   auto comms = malaya::makeDictionary();
@@ -39,8 +38,7 @@ int main(int argc, char * argv[])
       command = malaya::inputCommand(std::cin);
     }
     catch (const std::out_of_range &)
-    {
-    }
+    {}
     catch (const std::invalid_argument &)
     {
       malaya::invalidPrint(std::cout);
@@ -50,13 +48,11 @@ int main(int argc, char * argv[])
       malaya::doCommand(data, comms, command, std::cin, std::cout);
     }
     catch (const std::invalid_argument & exception)
-    {
-    }
+    {}
     if (!std::cin)
     {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-      continue;
     }
   }
   return 0;
