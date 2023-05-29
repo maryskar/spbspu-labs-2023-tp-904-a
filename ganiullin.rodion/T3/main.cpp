@@ -9,7 +9,7 @@
 #include "Geometry.h"
 
 constexpr size_t MAX_STREAM_SIZE =
-  std::numeric_limits< std::streamsize >::max();
+    std::numeric_limits< std::streamsize >::max();
 
 int main(int argc, char* argv[])
 {
@@ -34,21 +34,25 @@ int main(int argc, char* argv[])
 
   auto commands = ganiullin::createCommandDicts();
   auto readCommand =
-    std::bind(ganiullin::readCommand, std::ref(std::cin), commands);
+      std::bind(ganiullin::readCommand, std::ref(std::cin), commands);
   auto execCommand = std::bind(ganiullin::executeCommand, readCommand, polygons,
-    commands, std::ref(std::cin), std::ref(std::cout));
+      commands, std::ref(std::cin), std::ref(std::cout));
 
   while (!std::cin.eof()) {
     try {
       execCommand();
-      std::cout << '\n';
     } catch (const std::logic_error& e) {
       ganiullin::printErrorMessage(std::cout);
-      std::cout << '\n';
       std::cin.ignore(MAX_STREAM_SIZE, '\n');
     } catch (const std::runtime_error& e) {
       break;
     }
+    if (!std::cin) {
+      ganiullin::printErrorMessage(std::cout);
+      std::cin.clear();
+      std::cin.ignore(MAX_STREAM_SIZE, '\n');
+    }
+    std::cout << '\n';
   }
   return 0;
 }
