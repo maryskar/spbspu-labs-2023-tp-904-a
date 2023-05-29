@@ -215,9 +215,11 @@ void ganiullin::printCountVertexNum(const std::vector< Polygon >& polygons,
 void ganiullin::printInFrame(const std::vector< Polygon >& polygons,
     const Polygon& fig, std::ostream& out)
 {
-  iofmtguard iofmtguard(out);
-  out << '<' << std::boolalpha << std::uppercase
-      << processInFrame(polygons, fig) << '>';
+  if (processInFrame(polygons, fig)) {
+    out << "<TRUE>";
+  } else {
+    out << "<FALSE";
+  }
 }
 void ganiullin::printSame(const std::vector< Polygon >& polygons,
     const Polygon& fig, std::ostream& out)
