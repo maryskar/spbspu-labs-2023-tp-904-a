@@ -3,7 +3,8 @@
 #include <cmath>
 #include <iomanip>
 
-std::istream& ganiullin::operator>>(std::istream& in, ganiullin::DelimiterIO&& dest)
+std::istream& ganiullin::operator>>(std::istream& in,
+    ganiullin::DelimiterIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry) {
