@@ -218,7 +218,7 @@ void ganiullin::printInFrame(const std::vector< Polygon >& polygons,
   if (processInFrame(polygons, fig)) {
     out << "<TRUE>";
   } else {
-    out << "<FALSE";
+    out << "<FALSE>";
   }
 }
 void ganiullin::printSame(const std::vector< Polygon >& polygons,
