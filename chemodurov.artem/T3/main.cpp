@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iterator>
 #include <functional>
+#include <limits>
 #include "read-and-do-command.hpp"
 
 int main(int argc, char ** argv)
@@ -19,13 +20,13 @@ int main(int argc, char ** argv)
   }
 
   std::vector< chemodurov::Polygon > data;
+  constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   while (!ifstream.eof())
   {
     if (ifstream.fail())
     {
       ifstream.clear();
-      std::string line;
-      std::getline(ifstream, line);
+      ifstream.ignore(max_size, '\n');
     }
     using is_it_t = std::istream_iterator< chemodurov::Polygon >;
     std::copy(is_it_t(ifstream), is_it_t(), std::back_inserter(data));
