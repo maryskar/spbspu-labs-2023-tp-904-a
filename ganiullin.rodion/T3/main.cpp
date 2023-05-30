@@ -42,8 +42,7 @@ int main(int argc, char* argv[])
     try {
       execCommand();
     } catch (const std::logic_error& e) {
-      ganiullin::printErrorMessage(std::cout);
-      std::cin.ignore(MAX_STREAM_SIZE, '\n');
+      std::cin.setstate(std::ios::failbit);
     } catch (const std::runtime_error& e) {
       break;
     }
