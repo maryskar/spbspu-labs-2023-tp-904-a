@@ -76,6 +76,13 @@ namespace tarasenko
     return std::accumulate(areas.begin(), areas.end(), 0.0);
   }
 
+  double getAreaMean(const std::vector< Polygon >& data)
+  {
+    std::vector< double > areas;
+    std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
+    return std::accumulate(areas.begin(), areas.end(), 0.0) / data.size();
+  }
+
   class Commands
   {
   public:
