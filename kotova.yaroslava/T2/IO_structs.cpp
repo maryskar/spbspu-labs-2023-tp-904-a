@@ -27,7 +27,8 @@ namespace kotova
     {
       return in;
     }
-    in >> std::scientific>> dest.ref;
+    int b = 0;
+    in >> dest.ref >> DelimiterIO{ 'e' } >> b;
     return in;
   }
 
