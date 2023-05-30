@@ -6,7 +6,6 @@
 #include <iterator>
 #include <numeric>
 #include <stdexcept>
-
 #include "TypesIO.h"
 
 bool isXLess(const ganiullin::Point& p1, const ganiullin::Point& p2)
