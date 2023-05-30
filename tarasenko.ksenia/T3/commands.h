@@ -44,31 +44,36 @@ namespace tarasenko
     return area;
   }
 
+  bool isEven(size_t n)
+  {
+    return !(n % 2);
+  }
+
+  bool isOdd(size_t n)
+  {
+    return !isEven(n);
+  }
+
   double getAreaEven(const std::vector< Polygon >& data)
   {
-    auto result = 0.0;
-    for (size_t i = 0; i < data.size(); ++i)
-    {
-      if (getNumOfVerts(data[i]) % 2)
-      {
-        result += getPolygonArea(data[i]);
-      }
-    }
-    return result;
+    auto cond = std::bind(isEven, std::bind(getNumOfVerts, _1));
+    auto evenPolygons = std::vector< Polygon >{};
+    std::copy_if(data.begin(), data.end(), std::back_inserter(evenPolygons), cond);
+    std::vector< double > areas;
+    std::transform(evenPolygons.begin(), evenPolygons.end(),
+                   std::back_inserter(areas), getPolygonArea);
+    return std::accumulate(areas.begin(), areas.end(), 0.0);
   }
 
   double getAreaOdd(const std::vector< Polygon >& data)
   {
-    auto result = 0.0;
-
-    for (size_t i = 0; i < data.size(); ++i)
-    {
-      if (!(getNumOfVerts(data[i]) % 2))
-      {
-        result += getPolygonArea(data[i]);
-      }
-    }
-    return result;
+    auto cond = std::bind(isOdd, std::bind(getNumOfVerts, _1));
+    auto oddPolygons = std::vector< Polygon >{};
+    std::copy_if(data.begin(), data.end(), std::back_inserter(oddPolygons), cond);
+    std::vector< double > areas;
+    std::transform(oddPolygons.begin(), oddPolygons.end(),
+                   std::back_inserter(areas), getPolygonArea);
+    return std::accumulate(areas.begin(), areas.end(), 0.0);
   }
 
   class Commands
@@ -79,6 +84,7 @@ namespace tarasenko
    {
      type_calc.insert(std::make_pair("EVEN", &getAreaEven));
      type_calc.insert(std::make_pair("ODD", &getAreaOdd));
+     type_calc.insert(std::make_pair("MEAN", &getAreaMean));
    }
 
    bool findInTypeCalc(std::string command)
@@ -94,6 +100,5 @@ namespace tarasenko
   private:
    std::map< std::string, std::function< double(const std::vector< Polygon >&) > > type_calc;
   };
-
 }
 #endif
