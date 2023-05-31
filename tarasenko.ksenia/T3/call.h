@@ -21,28 +21,30 @@ namespace tarasenko
   void call(const std::string& command1, std::vector< Polygon >& p, std::istream& in, std::ostream& out)
   {
     Commands commands;
-    if (commands.findInTypeCalc1(command1))
+    if (commands.find(command1))
     {
       std::string command2 = "";
       in >> command2;
-      if (commands.findInTypeCalc2(command2))
+      try
       {
-        auto command = commands.calc2(command2);
-        out << std::fixed << std::setprecision(1) << command(p) << "\n";
-      }
-      else
-      {
-        try
+        if (!isdigit(command2[0]))
         {
-          auto command = commands.calc1(command1);
+          std::function< double(const std::vector< Polygon >&) > command;
+          commands.get(command2, command);
+          out << std::fixed << std::setprecision(1) << command(p) << "\n";
+        }
+        else
+        {
+          std::function< double(const std::vector< Polygon >&, const size_t&) > command;
+          commands.get(command1, command);
           auto n = std::stoull(command2);
           out << std::fixed << std::setprecision(1) << command(p, n) << "\n";
         }
-        catch (const std::exception&)
-        {
-          out << outMessageInvalidCommand << "\n";
-          readTrash(in);
-        }
+      }
+      catch (const std::exception&)
+      {
+        out << outMessageInvalidCommand << "\n";
+        readTrash(in);
       }
     }
     else

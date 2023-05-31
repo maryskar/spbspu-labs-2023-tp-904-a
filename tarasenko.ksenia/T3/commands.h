@@ -10,6 +10,12 @@
 
 namespace tarasenko
 {
+  struct function
+  {
+    std::function< double(const std::vector< Polygon >&, size_t) > type_1;
+    std::function< double(const std::vector< Polygon >&) > type_2;
+  };
+
   using namespace std::placeholders;
 
   size_t getNumOfVerts(const Polygon& p)
@@ -77,12 +83,12 @@ namespace tarasenko
 
   double getAreaMean(const std::vector< Polygon >& data)
   {
-    std::vector< double > areas;
-    std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
-    if (!data.size())
+    if (data.empty())
     {
       return 0.0;
     }
+    std::vector< double > areas;
+    std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
     return std::accumulate(areas.begin(), areas.end(), 0.0) / data.size();
   }
 
@@ -97,42 +103,73 @@ namespace tarasenko
     return std::accumulate(areas.begin(), areas.end(), 0.0);
   }
 
+  double getMaxArea(const std::vector< Polygon >& data)
+  {
+    std::vector< double > areas;
+    std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
+    return *std::max_element(areas.begin(), areas.end());
+  }
+
+  double getMaxVerts(const std::vector< Polygon >& data)
+  {
+    std::vector< size_t > verts;
+    std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
+    return *std::max_element(verts.begin(), verts.end());
+  }
+
   class Commands
   {
   public:
    Commands():
-     type_calc1(),
-     type_calc2()
+     names(),
+     type_1(),
+     type_2()
    {
-     type_calc1.insert(std::make_pair("AREA", &getAreaWithEqualNumVerts));
+     names = {"AREA", "MAX", "MIN", "COUNT", "INFRAME", "RIGHTSHAPES"};
 
-     type_calc2.insert(std::make_pair("EVEN", &getAreaEven));
-     type_calc2.insert(std::make_pair("ODD", &getAreaOdd));
-     type_calc2.insert(std::make_pair("MEAN", &getAreaMean));
-   }
-   bool findInTypeCalc1(std::string command)
-   {
-     return type_calc1.find(command) != type_calc1.cend();
-   }
+     type_1.insert(std::make_pair("AREA", &getAreaWithEqualNumVerts));
+     //type_1.insert(std::make_pair("COUNT", &getAreaWithEqualNumVerts));
 
-   bool findInTypeCalc2(std::string command)
-   {
-     return type_calc2.find(command) != type_calc2.cend();
+     type_2.insert(std::make_pair("EVEN", &getAreaEven));
+     type_2.insert(std::make_pair("ODD", &getAreaOdd));
+     type_2.insert(std::make_pair("MEAN", &getAreaMean));
+     type_2.insert(std::make_pair("AREA", &getMaxArea));
+     type_2.insert(std::make_pair("VERTEXES", &getMaxVerts));
    }
 
-   std::function< double(const std::vector< Polygon >&, size_t) >& calc1(const std::string& key)
+   bool find(const std::string& name)
    {
-     return type_calc1.at(key);
+     return std::find(names.begin(), names.end(), name) != names.end();
    }
 
-   std::function< double(const std::vector< Polygon >&) >& calc2(const std::string& key)
+   void get(const std::string& key, std::function< double(const std::vector< Polygon >&, const size_t&) >& command)
    {
-     return type_calc2.at(key);
+     try
+     {
+       command = type_1.at(key);
+     }
+     catch (const std::out_of_range&)
+     {
+       throw std::out_of_range("Not found");
+     }
+   }
+
+   void get(const std::string& key, std::function< double(const std::vector< Polygon >&) >& command)
+   {
+     try
+     {
+       command = type_2.at(key);
+     }
+     catch (const std::out_of_range&)
+     {
+       throw std::out_of_range("Not found");
+     }
    }
 
   private:
-   std::map< std::string, std::function< double(const std::vector< Polygon >&, size_t) > > type_calc1;
-   std::map< std::string, std::function< double(const std::vector< Polygon >&) > > type_calc2;
+   std::vector< std::string > names;
+   std::map< std::string, std::function< double(const std::vector< Polygon >&, const size_t&) > > type_1;
+   std::map< std::string, std::function< double(const std::vector< Polygon >&) > > type_2;
   };
 }
 #endif
