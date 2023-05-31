@@ -1,13 +1,16 @@
 #ifndef DATASTRUCT_H
 #define DATASTRUCT_H
+// [DBL SCI]	[CMP LSP]
 #include <iostream>
 #include <string>
+#include <complex>
 namespace timofeev
 {
+  using complex = std::complex< double >;
   struct DataStruct
   {
-    /*type 1*/ key1;
-    /*type 1*/ key2;
+    double key1;
+    complex key2;
     std::string key3;
   };
 }
