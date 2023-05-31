@@ -1,4 +1,5 @@
 #include "io.h"
+#include "stream_guard.h"
 #include <iostream>
 
 namespace kumachev {
@@ -29,20 +30,6 @@ namespace kumachev {
     } else {
       istream.setstate(std::ios::failbit);
     }
-  }
-
-  StreamGuard::StreamGuard(std::basic_ios< char > &s):
-    s_(s),
-    fill_(s.fill()),
-    precision_(s.precision()),
-    fmt_(s.flags())
-  {}
-
-  StreamGuard::~StreamGuard()
-  {
-    s_.fill(fill_);
-    s_.precision(precision_);
-    s_.flags(fmt_);
   }
 
   std::istream &operator>>(std::istream &istream, DataStruct &dataStruct)
@@ -161,9 +148,9 @@ namespace kumachev {
 
     rational value{ 0, 0 };
 
-    istream >> CharIO{ '(' } >> CharIO{ ':' } >> CharIO{ 'N' } >> value.first
-            >> CharIO{ ':' } >> CharIO{ 'D' } >> value.second >> CharIO{ ':' }
-            >> CharIO{ ')' };
+    istream >> CharIO{ '(' } >> CharIO{ ':' } >> CharIO{ 'N' } >> value.first;
+    istream >> CharIO{ ':' } >> CharIO{ 'D' } >> value.second >> CharIO{ ':' };
+    istream >> CharIO{ ')' };
 
     if (istream) {
       rationalIO.value = value;
