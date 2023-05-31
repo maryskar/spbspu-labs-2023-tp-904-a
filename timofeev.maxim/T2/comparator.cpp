@@ -1,6 +1,6 @@
 #include "comparator.h"
-
-bool timofeev::Comparator::operator()(timofeev::DataStruct lhs, timofeev::DataStruct rhs) const
+using CData = const timofeev::DataStruct &;
+bool timofeev::Comparator::operator()(CData lhs, CData rhs) const
 {
   if (lhs.key1 == rhs.key1)
   {
