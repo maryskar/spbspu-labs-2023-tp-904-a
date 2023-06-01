@@ -31,4 +31,3 @@ namespace litvin
   std::istream & operator>>(std::istream & in, RationalIO && dest);
 }
 #endif
-

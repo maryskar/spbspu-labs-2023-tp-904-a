@@ -4,10 +4,11 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-int main(){
+int main()
+{
   using inIter = std::istream_iterator< litvin::DataStruct >;
   using outIter = std::ostream_iterator< litvin::DataStruct >;
-  std::vector <litvin::DataStruct> data;
+  std::vector< litvin::DataStruct > data;
   while (!std::cin.eof())
   {
     std::copy(inIter(std::cin), inIter(), std::back_inserter(data));

@@ -1,4 +1,4 @@
-#include "Structures.hpp"
+#include "structures.hpp"
 #include "ScopeGuard.hpp"
 #include <iomanip>
 #include <cmath>
@@ -92,6 +92,7 @@ namespace litvin
     }
     {
       using sep = DelimiterIO;
+      using label = LabelIO;
       in >> sep{'('} >> sep{':'} >> sep{'N'};
       in >> dest.ref.first >> sep{':'} >> sep{'D'};
       in >> dest.ref.second >> sep{':'} >> sep{')'};
