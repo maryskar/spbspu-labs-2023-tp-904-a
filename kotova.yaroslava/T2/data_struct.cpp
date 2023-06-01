@@ -12,6 +12,9 @@ namespace kotova
       return in;
     }
     DataStruct input;
+    std::string string;
+    in >> string;
+    std::istringstream inn(string);
     using sep = DelimiterIO;
     using label = LabelIO;
     using dbl = DoubleIO;
@@ -28,7 +31,7 @@ namespace kotova
       in >> label{ "key" } >> num;
       if (num == 1)
       {
-        in >> dbl{ input.key1 } >> sep { ':' };
+        inn >> dbl{ input.key1 } >> sep { ':' };
       }
       else if (num == 2)
       {

@@ -1,4 +1,5 @@
 #include "IO_structs.hpp"
+#include <sstream>
 #include <cmath>
 #include "iofmtguard.hpp"
 
@@ -12,23 +13,22 @@ namespace kotova
       return in;
     }
     char c = '0';
-    in >> c;
-    if (in && (c != std::isdigit(dest.exp)))
+    in >> c; 
+    if (in && (c != dest.exp))
     {
       in.setstate(std::ios::failbit);
     }
     return in;
   }
 
-  std::istream &operator>>(std::istream &in, DoubleIO &&dest)
+  std::istream &operator>>(std::istringstream &in, DoubleIO &&dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
       return in;
     }
-    int b = 0;
-    in >> dest.ref >> DelimiterIO{ 'e' } >> b;
+    in >> dest.ref;
     return in;
   }
 
@@ -66,4 +66,5 @@ namespace kotova
     in >> std::hex >> dest.num;
     return in;
   }
+
 }
