@@ -13,7 +13,7 @@ namespace kotova
       return in;
     }
     char c = '0';
-    in >> c; 
+    in >> c;
     if (in && (c != dest.exp))
     {
       in.setstate(std::ios::failbit);
