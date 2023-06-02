@@ -15,7 +15,7 @@ namespace litvin
         ++pow;
       }
     }
-    else if (std::abs(num) < 1)
+    else if (std::abs(num) < 1 && num != 0)
     {
       while (std::abs(num) < 1)
       {

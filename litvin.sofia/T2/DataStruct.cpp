@@ -1,11 +1,10 @@
 #include "DataStruct.hpp"
 #include <iostream>
-#include <iomanip>
 namespace litvin
 {
   std::istream & operator>>(std::istream & in, DataStruct & dest)
   {
-    std::istream::sentry sentry(in);
+    std::istream ::sentry sentry(in);
     if (!sentry)
     {
       return in;
@@ -14,6 +13,9 @@ namespace litvin
     std::pair< long long, unsigned long long > key2{0, 0};
     std::string key3 = "";
     DataStruct input;
+    bool hasKey1 = false;
+    bool hasKey2 = false;
+    bool hasKey3 = false;
     {
       using sep = DelimiterIO;
       using label = LabelIO;
@@ -21,9 +23,7 @@ namespace litvin
       using rat = RationalIO;
       using str = StringIO;
       size_t num = 0;
-      bool hasKey1 = false;
-      bool hasKey2 = false;
-      bool hasKey3 = false;
+
       in >> sep{'('};
       for (int i = 0; i < 3; i++)
       {
@@ -44,10 +44,14 @@ namespace litvin
           in >> str{key3};
           hasKey3 = true;
         }
+        if(!in)
+        {
+          return in;
+        }
       }
       in >> sep{':'} >> sep{')'};
     }
-    if (in)
+    if (in && hasKey1 && hasKey2 && hasKey3)
     {
       dest.key1 = key1;
       dest.key2 = key2;
