@@ -24,9 +24,28 @@ namespace malaya
     out << "FIND_MOST_FREQUENT <dict1> - shows the most frequent word in the dict\n";
     out << "IS_SUBSET <dict1> <dict2> - checks if one dictionary is subset of another\n";
   }
-  void deleteKey(dictionary & dict, const std::string & key,
-                 std::ostream & out)
+  void deleteKey(dictOfDicts & dicts, const std::string & name,
+                 const std::string & key, std::ostream & out)
   {
-    dict.erase(key);
+    try
+    {
+      findDict(dicts, name).erase(key);
+    }
+    catch(const std::out_of_range & exception)
+    {
+      printNotFound(out);
+    }
+  }
+  void insert(dictOfDicts & dicts, const std::string & name,
+              const std::string & key, std::ostream & out)
+  {
+    try
+    {
+      ++findDict(dicts, name)[key];
+    }
+    catch(const std::out_of_range & exception)
+    {
+      printNotFound(out);
+    }
   }
 }
