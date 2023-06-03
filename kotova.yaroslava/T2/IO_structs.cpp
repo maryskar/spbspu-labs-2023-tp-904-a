@@ -32,7 +32,7 @@ namespace kotova
     return in;
   }
 
-  std::ostream &operator<<(std::ostream &out, const DoubleO &&dest)
+  std::ostream &operator<<(std::ostream &out, DoubleO &&dest)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
@@ -41,20 +41,24 @@ namespace kotova
     }
     double data = dest.res;
     int exp = 0;
-    while (data < 1 || data >= 10)
+    if (data >= 10)
     {
-      if (data <= 1)
-      {
-        data *= 10;
-        exp --;
-      }
-      else if (data >= 1)
+      while (data >= 10)
       {
         data /= 10;
-        exp ++;
+        exp++;
       }
-   }
-    return out << std::fixed << std::setprecision(1) << data << (exp > 0 ? "e+" : "e") << exp;
+    }
+    else
+    {
+      while (data < 1)
+      {
+        data *= 10;
+        exp--;
+      }
+    }
+    out << std::fixed << std::setprecision(1) << data << (exp > 0 ? "e+" : "e") << exp;
+    return out;
   }
 
   std::istream &operator>>(std::istream &in, StringIO &&dest)
