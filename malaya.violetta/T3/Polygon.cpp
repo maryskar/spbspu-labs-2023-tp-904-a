@@ -4,23 +4,9 @@
 #include <algorithm>
 #include <cmath>
 #include <numeric>
+#include <IOStructs.hpp>
 namespace malaya
 {
-  std::istream & operator>>(std::istream & in, SeparatorPointIO && separator)
-  {
-    std::istream::sentry istreamChecker(in);
-    if (!istreamChecker)
-    {
-      return in;
-    }
-    char input = '0';
-    in >> input;
-    if (in && (input != separator.sep))
-    {
-      in.setstate(std::ios::failbit);
-    }
-    return in;
-  }
   bool operator==(const Point & left, const Point & right)
   {
     return (left.x == right.x && left.y == right.y);
@@ -43,11 +29,11 @@ namespace malaya
     {
       return in;
     }
-    in >> SeparatorPointIO{'('};
+    in >> DelimiterIO{'('};
     in >> point.x;
-    in >> SeparatorPointIO{';'};
+    in >> DelimiterIO{';'};
     in >> point.y;
-    in >> SeparatorPointIO{')'};
+    in >> DelimiterIO{')'};
     return in;
   }
   std::istream & operator>>(std::istream & in, Polygon & polygon)
