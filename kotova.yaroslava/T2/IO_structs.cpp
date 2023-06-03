@@ -58,7 +58,6 @@ namespace kotova
       }
     }
     out << std::fixed << std::setprecision(1) << data << (exp > 0 ? "e+" : "e") << exp;
-    return out;
   }
 
   std::istream &operator>>(std::istream &in, StringIO &&dest)
@@ -78,11 +77,7 @@ namespace kotova
     {
       return in;
     }
-    for (size_t i = 0; i < dest.exp.length(); i++)
-    {
-      in >> DelimiterIO{ dest.exp[i] };
-    }
-    return in;
+    return std::getline(in >> DelimiterIO{':'}, dest.exp, ' ');
   }
 
   std::istream & operator>>(std::istream &in, ULLHexIO &&dest)
