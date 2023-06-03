@@ -28,8 +28,7 @@ namespace kotova
     {
       return in;
     }
-    in >> std::scientific >> dest.ref;
-    return in;
+    return in >> std::scientific >> dest.ref;
   }
 
   std::ostream &operator<<(std::ostream &out, const DoubleO &&dest)
@@ -41,7 +40,7 @@ namespace kotova
     }
     double data = dest.res;
     int exp = 0;
-    if (data >= 10)
+    if (data >= 1)
     {
       while (data >= 10)
       {
@@ -51,7 +50,7 @@ namespace kotova
     }
     else
     {
-      while (data < 1)
+      while (data <= 1)
       {
         data *= 10;
         exp--;
@@ -90,5 +89,4 @@ namespace kotova
     in >> std::hex >> dest.num;
     return in;
   }
-
 }
