@@ -9,9 +9,14 @@ namespace kotova
     char exp;
   };
 
-   struct DoubleIO
+   struct DoubleI
   {
     double &ref;
+  };
+
+  struct DoubleO
+  {
+    const double res;
   };
 
   struct ULLHexIO
@@ -30,7 +35,8 @@ namespace kotova
   };
 
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
-  std::istream &operator>>(std::istringstream &in, DoubleIO &&dest);
+  std::istream &operator>>(std::istream &in, DoubleI &&dest);
+  std::ostream &operator<<(std::ostream &out, const DoubleO &&dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, LabelIO &&dest);
   std::istream &operator>>(std::istream &in, ULLHexIO &&dest);

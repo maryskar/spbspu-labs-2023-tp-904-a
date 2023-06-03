@@ -12,12 +12,9 @@ namespace kotova
       return in;
     }
     DataStruct input;
-    std::string string;
-    in >> string;
-    std::istringstream inn(string);
     using sep = DelimiterIO;
     using label = LabelIO;
-    using dbl = DoubleIO;
+    using dbl = DoubleI;
     using str = StringIO;
     using ullh = ULLHexIO;
     in >> sep{ '(' } >> sep { ':' };
@@ -31,7 +28,7 @@ namespace kotova
       in >> label{ "key" } >> num;
       if (num == 1)
       {
-        inn >> dbl{ input.key1 } >> sep { ':' };
+        in >> dbl{ input.key1 } >> sep { ':' };
       }
       else if (num == 2)
       {
@@ -58,7 +55,7 @@ namespace kotova
     }
     iofmtguard fmtguard(out);
     out << "(: ";
-    out << "key1 " << std::fixed << std::setprecision(2) << src.key1;
+    out << "key1 " << std::fixed << std::setprecision(1) << DoubleO{src.key1};
     out << ":key2 0x" << src.key2;
     out << ":key3 \"" << src.key3 << "\":)";
     return out;
