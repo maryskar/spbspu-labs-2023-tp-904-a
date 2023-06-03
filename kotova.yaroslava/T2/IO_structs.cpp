@@ -40,17 +40,14 @@ namespace kotova
     }
     double data = dest.res;
     int exp = 0;
-    if (data >= 1)
+    while (std::abs(data) >= 10 || std::abs(data) < 1)
     {
-      while (data >= 10)
+      if (std::abs(data) >= 10)
       {
         data /= 10;
         exp++;
       }
-    }
-    else
-    {
-      while (data <= 1)
+      else if (std::abs(data) < 1)
       {
         data *= 10;
         exp--;
