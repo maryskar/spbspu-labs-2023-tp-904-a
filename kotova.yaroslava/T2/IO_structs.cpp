@@ -32,7 +32,7 @@ namespace kotova
     return in;
   }
 
-  std::ostream &operator<<(std::ostream &out, DoubleO &&dest)
+  std::ostream &operator<<(std::ostream &out, const DoubleO &&dest)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
