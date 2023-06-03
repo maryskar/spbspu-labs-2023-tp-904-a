@@ -57,7 +57,7 @@ namespace kotova
         exp--;
       }
     }
-    out << std::fixed << std::setprecision(1) << data << (exp > 0 ? "e+" : "e") << exp;
+    return out << std::fixed << std::setprecision(1) << data << (exp > 0 ? "e+" : "e") << exp;
   }
 
   std::istream &operator>>(std::istream &in, StringIO &&dest)
