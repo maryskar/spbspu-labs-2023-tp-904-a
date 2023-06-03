@@ -41,24 +41,20 @@ namespace kotova
     }
     double data = dest.res;
     int exp = 0;
-    if (data >= 10)
+    while (data < 1 || data >= 10)
     {
-      while (data >= 10)
-      {
-        data /= 10;
-        exp++;
-      }
-    }
-    else
-    {
-      while (data < 1)
+      if (data <= 1)
       {
         data *= 10;
-        exp--;
+        exp --;
       }
-    }
-    out << data << (exp > 0 ? "e+" : "e") << exp;
-    return out;
+      else if (data >= 1)
+      {
+        data /= 10;
+        exp ++;
+      }
+   }
+    return out << std::fixed << std::setprecision(1) << data << (exp > 0 ? "e+" : "e") << exp;
   }
 
   std::istream &operator>>(std::istream &in, StringIO &&dest)
