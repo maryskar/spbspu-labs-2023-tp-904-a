@@ -12,6 +12,7 @@ namespace malaya
   void print(dictOfDicts &, const std::string &, std::ostream & out);
   void man(const std::string & command, const descriptDict &,
            std::ostream & out);
+  void delDic(dictOfDicts &, const std::string &, std::ostream & out);
 }
 #define FT_COMMANDS_HPP
 #endif

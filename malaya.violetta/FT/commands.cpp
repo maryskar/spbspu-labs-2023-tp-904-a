@@ -90,4 +90,9 @@ namespace malaya
       printInvalid(out);
     }
   }
+
+  void delDic(dictOfDicts & dicts, const std::string & name, std::ostream & out)
+  {
+    dicts.erase(name);
+  }
 }
