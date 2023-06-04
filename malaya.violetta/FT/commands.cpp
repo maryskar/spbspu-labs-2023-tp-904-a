@@ -1,5 +1,6 @@
 #include "commands.hpp"
 #include <iostream>
+#include <iterator>
 #include "helpFunctions.hpp"
 
 namespace malaya
@@ -46,6 +47,47 @@ namespace malaya
     catch(const std::out_of_range & exception)
     {
       printNotFound(out);
+    }
+  }
+  std::ostream & operator<<(std::ostream & out,
+    const std::pair< std::string, size_t > & data)
+  {
+    std::ostream::sentry ostreamChecker(out);
+    if (!ostreamChecker)
+    {
+      return out;
+    }
+    out << data.first << " " << data.second << '\n';
+    return out;
+  }
+  void printDict(const dictionary & dict, std::ostream & out)
+  {
+    using outIt = std::ostream_iterator< std::pair< std::string, size_t > >;
+    //std::copy(dict.begin(), dict.end(), outIt(out, "\n"));
+  }
+  void print(dictOfDicts & dicts, const std::string & name, std::ostream & out)
+  {
+    try
+    {
+      printDict(findDict(dicts, name), out);
+    }
+    catch(const std::out_of_range & exception)
+    {
+      printNotFound(out);
+    }
+  }
+
+  void man(const std::string & command, const descriptDict & comms,
+           std::ostream & out)
+  {
+    auto iter = comms.find(command);
+    if(iter != comms.end())
+    {
+      out << iter->second;
+    }
+    else
+    {
+      printInvalid(out);
     }
   }
 }

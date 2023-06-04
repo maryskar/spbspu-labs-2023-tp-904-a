@@ -9,6 +9,7 @@ namespace malaya
   void printInvalid(std::ostream & out);
   using dictionary = std::map< std::string, size_t >;
   using dictOfDicts = std::map< std::string, dictionary >;
+  using descriptDict = std::map< std::string, std::string >; //СДЕЛАТЬ ФУНКЦИЮ ДЛЯ ЗАПОЛНЕНИЯ
   dictOfDicts readDictionaries(std::istream & in); //реализовать
   dictionary & findDict(dictOfDicts &, const std::string & name);
   using oneDictFunc = void(*)(dictOfDicts &, const std::string & first,
@@ -17,7 +18,8 @@ namespace malaya
     const std::string & second, std::ostream & out);
   using threeDictFunc = void(*)(dictOfDicts &, const std::string & first,
     const std::string & second, const std::string & third, std::ostream & out);
-  using manFunc = void(*)(const std::string & command, std::ostream & out); //должен принимать словарь команд с описаниями
+  using manFunc = void(*)(const std::string & command, const descriptDict &,
+    std::ostream & out);
   struct commands
   {
     std::map< std::string, void(*)(std::ostream & out) > dict1;
