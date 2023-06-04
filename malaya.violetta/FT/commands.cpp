@@ -95,4 +95,24 @@ namespace malaya
   {
     dicts.erase(name);
   }
+
+  void search(dictOfDicts & dicts, const std::string & name,
+              const std::string & key, std::ostream & out)
+  {
+    try
+    {
+      try
+      {
+        out << findDict(dicts, name).at(key);
+      }
+      catch(const std::out_of_range & exception)
+      {
+        out << "Word not found\n";
+      }
+    }
+    catch(const std::out_of_range & exception)
+    {
+      printNotFound(out);
+    }
+  }
 }
