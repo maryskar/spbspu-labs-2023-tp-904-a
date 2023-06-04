@@ -21,11 +21,13 @@ namespace tarasenko
      type_1.insert(std::make_pair("AREA", &getAreaWithEqualNumVerts));
      //type_1.insert(std::make_pair("COUNT", &getAreaWithEqualNumVerts));
 
-     type_2.insert(std::make_pair("EVEN", &getAreaEven));
-     type_2.insert(std::make_pair("ODD", &getAreaOdd));
-     type_2.insert(std::make_pair("MEAN", &getAreaMean));
-     type_2.insert(std::make_pair("AREA", &getMaxArea));
-     type_2.insert(std::make_pair("VERTEXES", &getMaxVerts));
+     type_2.insert(std::make_pair("AREA EVEN", &getAreaEven));
+     type_2.insert(std::make_pair("AREA ODD", &getAreaOdd));
+     type_2.insert(std::make_pair("AREA MEAN", &getAreaMean));
+     type_2.insert(std::make_pair("MAX AREA", &getMaxArea));
+     type_2.insert(std::make_pair("MIN AREA", &getMinArea));
+     type_2.insert(std::make_pair("MAX VERTEXES", &getMaxVerts));
+     type_2.insert(std::make_pair("MIN VERTEXES", &getMinVerts));
    }
 
    bool find(const std::string& name)

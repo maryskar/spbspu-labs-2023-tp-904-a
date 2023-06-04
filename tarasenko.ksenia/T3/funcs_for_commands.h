@@ -109,5 +109,21 @@ namespace tarasenko
     std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
     return *std::max_element(verts.begin(), verts.end());
   }
+
+  double getMinArea(const std::vector< Polygon >& data)
+  {
+    std::vector< double > areas;
+    std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
+    return *std::min_element(areas.begin(), areas.end());
+  }
+
+  double getMinVerts(const std::vector< Polygon >& data)
+  {
+    std::vector< size_t > verts;
+    std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
+    return *std::min_element(verts.begin(), verts.end());
+  }
+
+
 }
 #endif

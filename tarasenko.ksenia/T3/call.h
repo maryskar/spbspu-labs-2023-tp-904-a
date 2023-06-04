@@ -30,7 +30,7 @@ namespace tarasenko
         if (!isdigit(command2[0]))
         {
           std::function< double(const std::vector< Polygon >&) > command;
-          commands.get(command2, command);
+          commands.get(command1 + " " + command2, command);
           out << std::fixed << std::setprecision(1) << command(p) << "\n";
         }
         else
