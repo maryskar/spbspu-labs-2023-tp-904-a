@@ -18,6 +18,7 @@ double processAreaEven(const std::vector< ganiullin::Polygon >& polygons)
       0);
   std::copy_if(std::begin(polygons), std::end(polygons),
       std::back_inserter(filteredPolygons), hasEvenVertexes);
+  areas.reserve(filteredPolygons.size());
   std::transform(std::begin(filteredPolygons), std::end(filteredPolygons),
       std::back_inserter(areas), ganiullin::getArea);
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
@@ -33,6 +34,7 @@ double processAreaOdd(const std::vector< ganiullin::Polygon >& polygons)
   std::vector< double > areas;
   std::copy_if(std::begin(polygons), std::end(polygons),
       std::back_inserter(filteredPolygons), hasOddVertex);
+  areas.reserve(filteredPolygons.size());
   std::transform(std::begin(filteredPolygons), std::end(filteredPolygons),
       std::back_inserter(areas), ganiullin::getArea);
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
@@ -43,6 +45,7 @@ double processAreaMean(const std::vector< ganiullin::Polygon >& polygons)
     throw std::logic_error("Polygons vector should not be empty");
   }
   std::vector< double > areas;
+  areas.reserve(polygons.size());
   std::transform(std::begin(polygons), std::end(polygons),
       std::back_inserter(areas), ganiullin::getArea);
   return std::accumulate(std::begin(areas), std::end(areas), 0.0) /
@@ -58,6 +61,7 @@ double processAreaVertexNum(const std::vector< ganiullin::Polygon >& polygons,
       std::back_inserter(filteredPolygons),
       std::bind(std::equal_to< size_t >{},
           std::bind(ganiullin::getNumOfVertexes, _1), vertexNum));
+  areas.reserve(filteredPolygons.size());
   std::transform(std::begin(filteredPolygons), std::end(filteredPolygons),
       std::back_inserter(areas), ganiullin::getArea);
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
@@ -69,6 +73,7 @@ double processMaxArea(const std::vector< ganiullin::Polygon >& polygons)
     throw std::logic_error("Polygons vector should not be empty");
   }
   std::vector< double > areas;
+  areas.reserve(polygons.size());
   std::transform(std::begin(polygons), std::end(polygons),
       std::back_inserter(areas), ganiullin::getArea);
   return (*std::max_element(std::begin(areas), std::end(areas)));
@@ -79,6 +84,7 @@ size_t processMaxVertexNum(const std::vector< ganiullin::Polygon >& polygons)
     throw std::logic_error("Polygons vector should not be empty");
   }
   std::vector< size_t > numVertexes;
+  numVertexes.reserve(polygons.size());
 
   std::transform(std::begin(polygons), std::end(polygons),
       std::back_inserter(numVertexes), ganiullin::getNumOfVertexes);
@@ -91,6 +97,7 @@ double processMinArea(const std::vector< ganiullin::Polygon >& polygons)
     throw std::logic_error("Polygons vector should not be empty");
   }
   std::vector< double > areas;
+  areas.reserve(polygons.size());
   std::transform(std::begin(polygons), std::end(polygons),
       std::back_inserter(areas), ganiullin::getArea);
   return (*std::min_element(std::begin(areas), std::end(areas)));
@@ -101,7 +108,7 @@ size_t processMinVertexNum(const std::vector< ganiullin::Polygon >& polygons)
     throw std::logic_error("Polygons vector should not be empty");
   }
   std::vector< size_t > numVertexes;
-
+  numVertexes.reserve(polygons.size());
   std::transform(std::begin(polygons), std::end(polygons),
       std::back_inserter(numVertexes), ganiullin::getNumOfVertexes);
   return (*std::min_element(std::begin(numVertexes), std::end(numVertexes)));

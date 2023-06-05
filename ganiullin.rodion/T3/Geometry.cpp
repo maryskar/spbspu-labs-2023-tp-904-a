@@ -11,11 +11,11 @@
 bool isXLess(const ganiullin::Point& p1, const ganiullin::Point& p2)
 {
   return p1.x < p2.x;
-};
+}
 bool isYLess(const ganiullin::Point& p1, const ganiullin::Point& p2)
 {
   return p1.y < p2.y;
-};
+}
 std::pair< ganiullin::Point, ganiullin::Point > getFrameUnion(
     const std::pair< ganiullin::Point, ganiullin::Point >& lhs,
     const std::pair< ganiullin::Point, ganiullin::Point >& rhs)
@@ -62,6 +62,7 @@ std::istream& ganiullin::operator>>(std::istream& in, Polygon& polygon)
     in.setstate(std::ios::failbit);
   }
   std::vector< Point > vertices;
+  vertices.reserve(vertexNum);
   std::copy_n(inIter(in), vertexNum, std::back_inserter(vertices));
   if (in) {
     polygon.points = vertices;
@@ -95,7 +96,6 @@ bool ganiullin::operator==(const Point& first, const Point& second)
 double getTriangleArea(const ganiullin::Point p1, const ganiullin::Point p2,
     const ganiullin::Point p3)
 {
-  // Formula uses cross product
   return std::abs(
              (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y)) /
          2.0;
@@ -104,6 +104,7 @@ double ganiullin::getArea(const Polygon& polygon)
 {
   using namespace std::placeholders;
   std::vector< double > areas;
+  areas.reserve(polygon.points.size() - 2);
   const Point pivot = polygon.points[0];
 
   std::transform(std::begin(polygon.points) + 1, std::end(polygon.points) - 1,
