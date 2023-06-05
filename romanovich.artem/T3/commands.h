@@ -10,6 +10,9 @@ namespace romanovich
   class CommandProcessor
   {
   public:
+    const std::string areaCommand = "AREA";
+    const std::string countCommand = "COUNT";
+    const std::string maxSeqCommand = "MAXSEQ";
     CommandProcessor()
     {
       commands["MAX VERTEXES"] = std::bind(&CommandProcessor::calcPointsMax, this, _1);
@@ -22,9 +25,9 @@ namespace romanovich
       commands["MIN AREA"] = std::bind(&CommandProcessor::calcAreaMin, this, _1);
       commands["COUNT ODD"] = std::bind(&CommandProcessor::countOdd, this, _1);
       commands["RIGHTSHAPES"] = std::bind(&CommandProcessor::countShapesWithRightAngle, this, _1);
-      commands["AREA"] = std::bind(&CommandProcessor::calcAreaWithNumber, this, _1, _2);
-      commands["COUNT"] = std::bind(&CommandProcessor::countWithNumber, this, _1, _2);
-      commands["MAXSEQ"] = std::bind(&CommandProcessor::countMaxSeq, this, _1, _2);
+      commands[areaCommand] = std::bind(&CommandProcessor::calcAreaWithNumber, this, _1, _2);
+      commands[countCommand] = std::bind(&CommandProcessor::countWithNumber, this, _1, _2);
+      commands[maxSeqCommand] = std::bind(&CommandProcessor::countMaxSeq, this, _1, _2);
     }
     void operator()(const std::string &command, const std::vector< romanovich::Polygon > &polygons);
     void calcPointsMax(const std::vector< Polygon > &);
@@ -42,6 +45,7 @@ namespace romanovich
     void countShapesWithRightAngle(const std::vector< Polygon > &);
   private:
     std::unordered_map< std::string, std::function< void(const std::vector< Polygon > &, std::string)>> commands;
+    int getTargetNumber(const std::string &line);
   };
 }
 #endif
