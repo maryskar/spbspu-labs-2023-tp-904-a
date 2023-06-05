@@ -1,12 +1,4 @@
 #include "point.h"
-namespace
-{
-  std::istream &checkSentry(std::istream &in)
-  {
-    std::istream::sentry sentry(in);
-    return in;
-  }
-}
 std::istream &romanovich::operator>>(std::istream &in, romanovich::Point &dest)
 {
   std::istream::sentry sentry(in);
@@ -40,14 +32,4 @@ romanovich::Point &romanovich::Point::operator=(const romanovich::Point &rhs)
   x = rhs.x;
   y = rhs.y;
   return *this;
-}
-romanovich::Point::Point(const Point &rhs):
-  x(rhs.x),
-  y(rhs.y)
-{
-}
-romanovich::Point::Point(int x, int y):
-  x(x),
-  y(y)
-{
 }

@@ -42,3 +42,11 @@ bool romanovich::Polygon::operator==(const Polygon &rhs) const
   }
   return true;
 }
+auto romanovich::Polygon::begin() const
+{
+  return points_.begin();
+}
+auto romanovich::Polygon::end() const
+{
+  return points_.end();
+}

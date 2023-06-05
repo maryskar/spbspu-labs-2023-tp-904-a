@@ -13,14 +13,8 @@ namespace romanovich
     Point getPoint(size_t index) const;
     double getArea() const;
     bool operator==(const Polygon &rhs) const;
-    auto begin() const
-    {
-      return points_.begin();
-    }
-    auto end() const
-    {
-      return points_.end();
-    }
+    auto begin() const;
+    auto end() const;
     struct AreaComp
     {
       bool operator()(const Polygon &lhs, const Polygon &rhs) const
