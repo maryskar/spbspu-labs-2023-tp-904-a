@@ -183,15 +183,9 @@ namespace malaya
   {
     out << std::count_if(data.begin(), data.end(), isRectangle) << '\n';
   }
-  Polygon sortPoints(const Polygon & polygon)
+  bool isPermutation(const Polygon & first, const Polygon & second)
   {
-    std::vector< Point > points = polygon.points;
-    std::sort(points.begin(), points.end(), PointComparator{});
-    return Polygon{points};
-  }
-  bool isIdentical(const Polygon & left, const Polygon & right)
-  {
-    return left.points == right.points;
+    return std::is_permutation(first.points.begin(), first.points.end(), second.points.begin());
   }
   void outPerms(const std::vector< Polygon > & data, std::ostream & out, std::istream & in)
   {
@@ -203,10 +197,34 @@ namespace malaya
       return;
     }
     using namespace std::placeholders;
-    std::vector< Polygon > temp(data.size());
-    std::transform(data.begin(), data.end(), temp.begin(), sortPoints);
-    Polygon tempPolygon = sortPoints(polygon);
-    auto func = std::bind(isIdentical, _1, tempPolygon);
-    out << std::count_if(temp.begin(), temp.end(), func) << '\n';
+    auto func = std::bind(isPermutation, _1, polygon);
+    out << std::count_if(data.begin(), data.end(), func) << '\n';
   }
+  //Polygon sortPoints(const Polygon & polygon)
+  //{
+  //  std::vector< Point > points = polygon.points;
+  //  std::sort(points.begin(), points.end(), PointComparator{});
+  //  return Polygon{points};
+  //}
+  //bool isIdentical(const Polygon & left, const Polygon & right)
+  //{
+  //  return left.points == right.points;
+  //}
+
+  //void outPerms(const std::vector< Polygon > & data, std::ostream & out, std::istream & in)
+  //{
+  //  Polygon polygon;
+  //  in >> polygon;
+  //  if (polygon.points.size() < 3)
+  //  {
+  //    invalidPrint(out);
+  //    return;
+  //  }
+  //  using namespace std::placeholders;
+  //  std::vector< Polygon > temp(data.size());
+  //  std::transform(data.begin(), data.end(), temp.begin(), sortPoints);
+  //  Polygon tempPolygon = sortPoints(polygon);
+  //  auto func = std::bind(isIdentical, _1, tempPolygon);
+  //  out << std::count_if(temp.begin(), temp.end(), func) << '\n';
+  //}
 }
