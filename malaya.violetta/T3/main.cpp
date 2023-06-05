@@ -32,24 +32,21 @@ int main(int argc, char * argv[])
   malaya::Commands comms;
   while (!std::cin.eof())
   {
-    std::string command;
     try
     {
+      std::string command;
       command = malaya::inputCommand(std::cin);
+      malaya::doCommand(data, comms, command, std::cin, std::cout);
     }
     catch (const std::out_of_range &)
-    {}
+    {
+      break;
+    }
     catch (const std::invalid_argument &)
     {
       malaya::invalidPrint(std::cout);
       std::cout << '\n';
     }
-    try
-    {
-      malaya::doCommand(data, comms, command, std::cin, std::cout);
-    }
-    catch (const std::invalid_argument & exception)
-    {}
     if (!std::cin)
     {
       std::cin.clear();
