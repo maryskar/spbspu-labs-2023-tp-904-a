@@ -30,7 +30,7 @@ namespace malaya
     out << "<INVALID COMMAND>";
     return out;
   }
-  void doCommand(const std::vector< Polygon > & data, const details::comms & dicts, std::string & command,
+  void doCommand(const std::vector< Polygon > & data, const allComms & dicts, std::string & command,
                  std::istream & in, std::ostream & out)
   {
     auto iter1 = std::get< 0 >(dicts).find(command);
@@ -64,9 +64,9 @@ namespace malaya
       return;
     }
   }
-  details::comms makeDictionary()
+  allComms makeDictionary()
   {
-    details::firstDict dict1;
+    firstDict dict1;
     dict1.insert({"AREA EVEN", outAreaEven});
     dict1.insert({"AREA ODD", outAreaOdd});
     dict1.insert({"AREA MEAN", outAreaMean});
@@ -77,11 +77,11 @@ namespace malaya
     dict1.insert({"COUNT EVEN", outCountEven});
     dict1.insert({"COUNT ODD", outCountOdd});
     dict1.insert({"RECTS", outRects});
-    details::secondDict dict2;
+    secondDict dict2;
     dict2.insert({"AREA", outAreaNum});
     dict2.insert({"COUNT", outCountNum});
-    details::thirdDict dict3;
+    thirdDict dict3;
     dict3.insert({"PERMS", outPerms});
-    return details::comms{dict1, dict2, dict3};
+    return allComms{dict1, dict2, dict3};
   }
 }
