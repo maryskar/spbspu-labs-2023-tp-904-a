@@ -22,7 +22,7 @@ namespace malaya
   {
     std::vector< Polygon > filtPolygons;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(filtPolygons), pred);
-    std::vector< double > values(polygons.size());
+    std::vector< double > values(filtPolygons.size());
     std::transform(filtPolygons.begin(), filtPolygons.end(), values.begin(), getArea);
     IOStreamsGuard guard(out);
     out << std::fixed << std::setprecision(1);
@@ -30,19 +30,20 @@ namespace malaya
   }
   void outAreaOdd(const std::vector< Polygon > & polygons, std::ostream & out)
   {
-    outArea(polygons, out, isEvenPoints);
-  }
-  void outAreaEven(const std::vector< Polygon > & polygons, std::ostream & out)
-  {
     using namespace std::placeholders;
     auto func = std::bind(std::logical_not<>{}, std::bind(isEvenPoints, _1));
     outArea(polygons, out, func);
+  }
+  void outAreaEven(const std::vector< Polygon > & polygons, std::ostream & out)
+  {
+    outArea(polygons, out, isEvenPoints);
   }
   void outAreaNum(const std::vector< Polygon > & polygons, size_t num, std::ostream & out)
   {
     if (num < 3)
     {
       invalidPrint(out);
+      out << '\n';
       return;
     }
     using namespace std::placeholders;
