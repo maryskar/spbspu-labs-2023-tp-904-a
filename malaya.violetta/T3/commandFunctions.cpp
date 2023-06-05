@@ -184,7 +184,7 @@ namespace malaya
   }
   bool isPermutation(const Polygon & first, const Polygon & second)
   {
-    return std::is_permutation(first.points.begin(), first.points.end(), second.points.begin());
+    return std::is_permutation(first.points.begin(), first.points.end(), second.points.begin(), second.points.end());
   }
   void outPerms(const std::vector< Polygon > & data, std::ostream & out, std::istream & in)
   {
