@@ -29,7 +29,7 @@ int main(int argc, char * argv[])
       in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
-  auto comms = malaya::makeDictionary();
+  malaya::Commands comms;
   while (!std::cin.eof())
   {
     std::string command;

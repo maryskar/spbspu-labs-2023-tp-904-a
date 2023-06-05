@@ -17,25 +17,12 @@ namespace malaya
   {
     return polygon.points.size() == num;
   }
-  double areaEven(const Polygon & polygon)
-  {
-    return (isEvenPoints(polygon) ? getArea(polygon) : 0.0);
-  }
-  double areaOdd(const Polygon & polygon)
-  {
-    return (!isEvenPoints(polygon) ? getArea(polygon) : 0.0);
-  }
-  double areaNum(const Polygon & polygon, size_t num)
-  {
-    return (isEqualToNum(polygon, num) ? getArea(polygon) : 0.0);
-  }
   template< class Predicate >
   void outArea(const std::vector< Polygon > & polygons, std::ostream & out, Predicate pred)
   {
     std::vector< Polygon > filtPolygons;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(filtPolygons), pred);
     std::vector< double > values(polygons.size());
-    //std::transform(polygons.begin(), polygons.end(), values.begin(), pred);
     std::transform(filtPolygons.begin(), filtPolygons.end(), values.begin(), pred);
     IOStreamsGuard guard(out);
     out << std::fixed << std::setprecision(1);
@@ -43,12 +30,10 @@ namespace malaya
   }
   void outAreaOdd(const std::vector< Polygon > & polygons, std::ostream & out)
   {
-    //outArea(polygons, out, areaOdd);
     outArea(polygons, out, isEvenPoints);
   }
   void outAreaEven(const std::vector< Polygon > & polygons, std::ostream & out)
   {
-    //outArea(polygons, out, areaEven);
     using namespace std::placeholders;
     auto func = std::bind(std::logical_not<>{}, std::bind(isEvenPoints, _1));
     outArea(polygons, out, func);
@@ -61,7 +46,6 @@ namespace malaya
       return;
     }
     using namespace std::placeholders;
-    //auto pred = std::bind(areaNum, _1, num);
     auto pred = std::bind(isEqualToNum, _1, num);
     outArea(polygons, out, pred);
   }
@@ -209,31 +193,4 @@ namespace malaya
     auto func = std::bind(isPermutation, _1, polygon);
     out << std::count_if(data.begin(), data.end(), func) << '\n';
   }
-  //Polygon sortPoints(const Polygon & polygon)
-  //{
-  //  std::vector< Point > points = polygon.points;
-  //  std::sort(points.begin(), points.end(), PointComparator{});
-  //  return Polygon{points};
-  //}
-  //bool isIdentical(const Polygon & left, const Polygon & right)
-  //{
-  //  return left.points == right.points;
-  //}
-
-  //void outPerms(const std::vector< Polygon > & data, std::ostream & out, std::istream & in)
-  //{
-  //  Polygon polygon;
-  //  in >> polygon;
-  //  if (polygon.points.size() < 3)
-  //  {
-  //    invalidPrint(out);
-  //    return;
-  //  }
-  //  using namespace std::placeholders;
-  //  std::vector< Polygon > temp(data.size());
-  //  std::transform(data.begin(), data.end(), temp.begin(), sortPoints);
-  //  Polygon tempPolygon = sortPoints(polygon);
-  //  auto func = std::bind(isIdentical, _1, tempPolygon);
-  //  out << std::count_if(temp.begin(), temp.end(), func) << '\n';
-  //}
 }
