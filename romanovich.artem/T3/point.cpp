@@ -37,11 +37,8 @@ double romanovich::doScalarMultiplication(const romanovich::Point &v1, const rom
 }
 romanovich::Point &romanovich::Point::operator=(const romanovich::Point &rhs)
 {
-  if (this != &rhs)
-  {
-    x = rhs.x;
-    y = rhs.y;
-  }
+  x = rhs.x;
+  y = rhs.y;
   return *this;
 }
 romanovich::Point::Point(const Point &rhs):
