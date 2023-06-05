@@ -9,7 +9,8 @@ namespace
 }
 std::istream &romanovich::operator>>(std::istream &in, romanovich::Point &dest)
 {
-  if (!checkSentry(in))
+  std::istream::sentry sentry(in);
+  if (!sentry)
   {
     return in;
   }
