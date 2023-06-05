@@ -32,19 +32,26 @@ namespace malaya
   template< class Predicate >
   void outArea(const std::vector< Polygon > & polygons, std::ostream & out, Predicate pred)
   {
+    std::vector< Polygon > filtPolygons;
+    std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(filtPolygons), pred);
     std::vector< double > values(polygons.size());
-    std::transform(polygons.begin(), polygons.end(), values.begin(), pred);
+    //std::transform(polygons.begin(), polygons.end(), values.begin(), pred);
+    std::transform(filtPolygons.begin(), filtPolygons.end(), values.begin(), pred);
     IOStreamsGuard guard(out);
     out << std::fixed << std::setprecision(1);
     out << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
   }
   void outAreaOdd(const std::vector< Polygon > & polygons, std::ostream & out)
   {
-    outArea(polygons, out, areaOdd);
+    //outArea(polygons, out, areaOdd);
+    outArea(polygons, out, isEvenPoints);
   }
   void outAreaEven(const std::vector< Polygon > & polygons, std::ostream & out)
   {
-    outArea(polygons, out, areaEven);
+    //outArea(polygons, out, areaEven);
+    using namespace std::placeholders;
+    auto func = std::bind(std::logical_not<>{}, std::bind(isEvenPoints, _1));
+    outArea(polygons, out, func);
   }
   void outAreaNum(const std::vector< Polygon > & polygons, size_t num, std::ostream & out)
   {
@@ -54,7 +61,8 @@ namespace malaya
       return;
     }
     using namespace std::placeholders;
-    auto pred = std::bind(areaNum, _1, num);
+    //auto pred = std::bind(areaNum, _1, num);
+    auto pred = std::bind(isEqualToNum, _1, num);
     outArea(polygons, out, pred);
   }
   template< class T >

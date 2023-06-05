@@ -7,7 +7,6 @@ namespace malaya
 {
   std::string inputCommand(std::istream & in);
   std::ostream & invalidPrint(std::ostream & out);
-
   using firstComType = void (*)(const std::vector< Polygon > & data, std::ostream & out);
   using secondComType = void (*)(const std::vector< Polygon > & data, size_t num, std::ostream & out);
   using thirdComType = void (*)(const std::vector< Polygon > & data, std::ostream & out, std::istream & in);
