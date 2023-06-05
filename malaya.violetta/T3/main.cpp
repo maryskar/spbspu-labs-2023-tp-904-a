@@ -42,6 +42,7 @@ int main(int argc, char * argv[])
     catch (const std::invalid_argument &)
     {
       malaya::invalidPrint(std::cout);
+      std::cout << '\n';
     }
     try
     {

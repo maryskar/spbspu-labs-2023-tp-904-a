@@ -25,9 +25,10 @@ namespace malaya
     }
     return command;
   }
-  void invalidPrint(std::ostream & out)
+  std::ostream & invalidPrint(std::ostream & out)
   {
-    out << "<INVALID COMMAND>\n";
+    out << "<INVALID COMMAND>";
+    return out;
   }
   void doCommand(const std::vector< Polygon > & data, const allComms & dicts, std::string & command, std::istream & in,
                  std::ostream & out)
@@ -58,6 +59,7 @@ namespace malaya
     if (!in.eof())
     {
       invalidPrint(out);
+      out << '\n';
       in.setstate(std::ios::failbit);
       return;
     }

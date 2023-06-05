@@ -194,6 +194,7 @@ namespace malaya
     if (polygon.points.size() < 3)
     {
       invalidPrint(out);
+      out << '\n';
       return;
     }
     using namespace std::placeholders;
