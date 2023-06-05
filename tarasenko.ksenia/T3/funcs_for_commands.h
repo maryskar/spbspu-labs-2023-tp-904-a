@@ -103,7 +103,7 @@ namespace tarasenko
     return *std::max_element(areas.begin(), areas.end());
   }
 
-  double getMaxVerts(const std::vector< Polygon >& data)
+  size_t getMaxVerts(const std::vector< Polygon >& data)
   {
     std::vector< size_t > verts;
     std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
@@ -117,13 +117,29 @@ namespace tarasenko
     return *std::min_element(areas.begin(), areas.end());
   }
 
-  double getMinVerts(const std::vector< Polygon >& data)
+  size_t getMinVerts(const std::vector< Polygon >& data)
   {
     std::vector< size_t > verts;
     std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
     return *std::min_element(verts.begin(), verts.end());
   }
 
+  size_t getNumEven(const std::vector< Polygon >& data)
+  {
+    auto cond = std::bind(isEven, std::bind(getNumOfVerts, _1));
+    return std::count_if(data.begin(), data.end(), cond);
+  }
 
+  size_t getNumOdd(const std::vector< Polygon >& data)
+  {
+    auto cond = std::bind(isOdd, std::bind(getNumOfVerts, _1));
+    return std::count_if(data.begin(), data.end(), cond);
+  }
+
+  size_t getNumWithEqualNumVerts(const std::vector< Polygon >& data, size_t n)
+  {
+    auto cond = std::bind(std::equal_to< size_t >{}, std::bind(getNumOfVerts, _1), n);
+    return std::count_if(data.begin(), data.end(), cond);
+  }
 }
 #endif
