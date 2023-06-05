@@ -23,7 +23,7 @@ namespace malaya
     std::vector< Polygon > filtPolygons;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(filtPolygons), pred);
     std::vector< double > values(polygons.size());
-    std::transform(filtPolygons.begin(), filtPolygons.end(), values.begin(), pred);
+    std::transform(filtPolygons.begin(), filtPolygons.end(), values.begin(), getArea);
     IOStreamsGuard guard(out);
     out << std::fixed << std::setprecision(1);
     out << std::accumulate(values.begin(), values.end(), 0.0) << '\n';
@@ -71,6 +71,7 @@ namespace malaya
     if (data.empty())
     {
       invalidPrint(out);
+      out << '\n';
       return;
     }
     out << std::fixed << std::setprecision(1) << minMaxArea(data, minElem< double >) << '\n';
@@ -80,6 +81,7 @@ namespace malaya
     if (data.empty())
     {
       invalidPrint(out);
+      out << '\n';
       return;
     }
     out << std::fixed << std::setprecision(1) << minMaxArea(data, maxElem< double >) << '\n';
@@ -89,6 +91,7 @@ namespace malaya
     if (data.empty())
     {
       invalidPrint(out);
+      out << '\n';
       return;
     }
     std::vector< double > values(data.size());
@@ -112,6 +115,7 @@ namespace malaya
     if (data.empty())
     {
       invalidPrint(out);
+      out << '\n';
       return;
     }
     out << minMaxVertexes(data, minElem< size_t >) << '\n';
@@ -121,6 +125,7 @@ namespace malaya
     if (data.empty())
     {
       invalidPrint(out);
+      out << '\n';
       return;
     }
     out << minMaxVertexes(data, maxElem< size_t >) << '\n';
@@ -145,6 +150,7 @@ namespace malaya
     if (num < 3)
     {
       invalidPrint(out);
+      out << '\n';
       return;
     }
     using namespace std::placeholders;
