@@ -16,11 +16,11 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::Point &dest)
   char openParenthesis = '(';
   char comma = ';';
   char closeParenthesis = ')';
-  return in >> openParenthesis >> dest.x_ >> comma >> dest.y_ >> closeParenthesis;
+  return in >> openParenthesis >> dest.x >> comma >> dest.y >> closeParenthesis;
 }
 bool romanovich::operator==(const romanovich::Point &lhs, const romanovich::Point &rhs)
 {
-  return lhs.x_ == rhs.x_ && lhs.y_ == rhs.y_;
+  return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 bool romanovich::operator!=(const romanovich::Point &lhs, const romanovich::Point &rhs)
 {
@@ -28,28 +28,28 @@ bool romanovich::operator!=(const romanovich::Point &lhs, const romanovich::Poin
 }
 romanovich::Point romanovich::operator-(const romanovich::Point &lhs, const romanovich::Point &rhs)
 {
-  return romanovich::Point{lhs.x_ - rhs.x_, lhs.y_ - rhs.y_};
+  return romanovich::Point{lhs.x - rhs.x, lhs.y - rhs.y};
 }
 double romanovich::doScalarMultiplication(const romanovich::Point &v1, const romanovich::Point &v2)
 {
-  return v1.x_ * v2.x_ + v1.y_ * v2.y_;
+  return v1.x * v2.x + v1.y * v2.y;
 }
 romanovich::Point &romanovich::Point::operator=(const romanovich::Point &rhs)
 {
   if (this != &rhs)
   {
-    x_ = rhs.x_;
-    y_ = rhs.y_;
+    x = rhs.x;
+    y = rhs.y;
   }
   return *this;
 }
 romanovich::Point::Point(const Point &rhs):
-  x_(rhs.x_),
-  y_(rhs.y_)
+  x(rhs.x),
+  y(rhs.y)
 {
 }
 romanovich::Point::Point(int x, int y):
-  x_(x),
-  y_(y)
+  x(x),
+  y(y)
 {
 }

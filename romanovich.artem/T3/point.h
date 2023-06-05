@@ -5,8 +5,8 @@ namespace romanovich
 {
   struct Point
   {
-    int x_;
-    int y_;
+    int x;
+    int y;
     Point &operator=(const Point &rhs);
     Point(const Point &rhs);
     Point(int x, int y);

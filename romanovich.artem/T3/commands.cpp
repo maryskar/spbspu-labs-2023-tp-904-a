@@ -10,14 +10,14 @@ namespace
     std::cout << "<INVALID COMMAND>\n";
   }
   Polygon const &findMinMaxEl(const std::vector< Polygon > &polygons,
-                                const std::function< bool(const Polygon &, const Polygon &) > &comp)
+    const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
     auto result = std::minmax_element(polygons.begin(), polygons.end(), comp);
     const auto &el = comp(*result.second, *result.first) ? *result.second : *result.first;
     return el;
   }
   void findMinMaxElArea(const std::vector< Polygon > &polygons,
-                          const std::function< bool(const Polygon &, const Polygon &) > &comp)
+    const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
     if (polygons.empty())
     {
@@ -29,7 +29,7 @@ namespace
     }
   }
   void findMinMaxElPointsCount(const std::vector< Polygon > &polygons,
-                                 const std::function< bool(const Polygon &, const Polygon &) > &comp)
+    const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
     if (polygons.empty())
     {
@@ -79,27 +79,27 @@ namespace romanovich
   void CommandProcessor::calcAreaMin(const std::vector< Polygon > &polygons)
   {
     const auto areaComp = static_cast<const std::function< bool(const Polygon &,
-                                                                  const Polygon &) > &>(Polygon::AreaComp{});
+      const Polygon &) > &>(Polygon::AreaComp{});
     findMinMaxElArea(polygons, areaComp);
   }
   void CommandProcessor::calcAreaMax(const std::vector< Polygon > &polygons)
   {
     const auto areaComp = static_cast<const std::function< bool(const Polygon &,
-                                                                  const Polygon &) > &>(Polygon::AreaComp{});
+      const Polygon &) > &>(Polygon::AreaComp{});
     const auto areaCompNegate = std::bind(std::logical_not<>(), std::bind(areaComp, _1, _2));
     findMinMaxElArea(polygons, areaCompNegate);
   }
   void CommandProcessor::calcPointsMax(const std::vector< Polygon > &polygons)
   {
     const auto pointsComp = static_cast<const std::function< bool(const Polygon &,
-                                                                    const Polygon &) > &>(Polygon::PointsCountComp{});
+      const Polygon &) > &>(Polygon::PointsCountComp{});
     const auto pointsCompNegate = std::bind(std::logical_not<>(), std::bind(pointsComp, _1, _2));
     findMinMaxElPointsCount(polygons, pointsCompNegate);
   }
   void CommandProcessor::calcPointsMin(const std::vector< Polygon > &polygons)
   {
     const auto pointsComp = static_cast<const std::function< bool(const Polygon &,
-                                                                    const Polygon &) > &>(Polygon::PointsCountComp{});
+      const Polygon &) > &>(Polygon::PointsCountComp{});
     findMinMaxElPointsCount(polygons, pointsComp);
   }
   void CommandProcessor::calcAreaMean(const std::vector< Polygon > &polygons)
