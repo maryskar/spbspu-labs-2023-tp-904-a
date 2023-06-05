@@ -1,4 +1,5 @@
 #ifndef FT_COMMANDS_HPP
+#define FT_COMMANDS_HPP
 #include <iosfwd>
 #include "helpFunctions.hpp"
 
@@ -16,5 +17,4 @@ namespace malaya
   void search(dictOfDicts &, const std::string & name,
               const std::string & key, std::ostream & out);
 }
-#define FT_COMMANDS_HPP
 #endif

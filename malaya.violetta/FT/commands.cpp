@@ -1,6 +1,7 @@
 #include "commands.hpp"
 #include <iostream>
 #include <iterator>
+#include <algorithm>
 #include "helpFunctions.hpp"
 
 namespace malaya
@@ -50,14 +51,14 @@ namespace malaya
     }
   }
   std::ostream & operator<<(std::ostream & out,
-    const std::pair< std::string, size_t > & data)
+     const std::pair< std::string, size_t > & data)
   {
     std::ostream::sentry ostreamChecker(out);
     if (!ostreamChecker)
     {
       return out;
     }
-    out << data.first << " " << data.second << '\n';
+    out << data.first << " " << data.second << "\n";
     return out;
   }
   void printDict(const dictionary & dict, std::ostream & out)
