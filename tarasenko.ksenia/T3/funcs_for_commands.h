@@ -141,5 +141,31 @@ namespace tarasenko
     auto cond = std::bind(std::equal_to< size_t >{}, std::bind(getNumOfVerts, _1), n);
     return std::count_if(data.begin(), data.end(), cond);
   }
+
+  bool isRightAngle(const Point& a, const Point& b, const Point& c)
+  {
+    return (b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0;
+  }
+
+  bool hasRightAngles(const Polygon& p)
+  {
+    auto n = p.points.size();
+    for (int i = 0; i < n; i++)
+    {
+      Point a = p.points[i];
+      Point b = p.points[(i + 1) % n];
+      Point c = p.points[(i + 2) % n];
+      if (isRightAngle(a, b, c))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  size_t getNumRightShapes(const std::vector< Polygon >& data)
+  {
+    return std::count_if(data.begin(), data.end(), hasRightAngles);
+  }
 }
 #endif

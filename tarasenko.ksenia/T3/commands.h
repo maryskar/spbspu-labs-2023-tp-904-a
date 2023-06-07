@@ -24,8 +24,8 @@ namespace tarasenko
        {"AREA"},
        {"COUNT"},
        {"AREA EVEN", "AREA ODD", "AREA MEAN", "MAX AREA", "MIN AREA"},
-       {"MAX VERTEXES", "MIN VERTEXES", "COUNT EVEN", "COUNT ODD"},
-       {"INFRAME", "RIGHTSHAPES"}
+       {"MAX VERTEXES", "MIN VERTEXES", "COUNT EVEN", "COUNT ODD", "RIGHTSHAPES"},
+       {"INFRAME"}
      };
 
      type_1.insert(std::make_pair("AREA", &getAreaWithEqualNumVerts));
@@ -41,6 +41,7 @@ namespace tarasenko
      type_4.insert(std::make_pair("MIN VERTEXES", &getMinVerts));
      type_4.insert(std::make_pair("COUNT EVEN", &getNumEven));
      type_4.insert(std::make_pair("COUNT ODD", &getNumOdd));
+     type_4.insert(std::make_pair("RIGHTSHAPES", &getNumRightShapes));
    }
 
    bool find(const std::string& name)
