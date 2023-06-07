@@ -9,5 +9,6 @@ namespace dimkashelk
     std::vector< Point > points;
   };
   std::istream &operator>>(std::istream &in, Polygon &polygon);
+  double getArea(const Polygon &polygon);
 }
 #endif
