@@ -2,13 +2,14 @@
 #include <algorithm>
 #include <iomanip>
 #include <numeric>
+#include <functional>
 #include "polygon.h"
 #include "io.h"
 namespace
 {
   typedef dimkashelk::Polygon polygon;
   typedef std::vector< polygon > v_polygon;
-  bool isMultiple(const polygon &pol, int number)
+  bool isMultiple(const polygon &pol, size_t number)
   {
     if (number == 0)
     {
@@ -60,4 +61,14 @@ void dimkashelk::printAreaMean(const std::vector< Polygon > &pol, std::ostream &
   double sum_area = std::accumulate(areas.begin(), areas.end(), 0.0);
   iofmtguard iofmtguard(out);
   out << std::fixed << std::setprecision(1) << (sum_area / pol.size()) << '\n';
+}
+void dimkashelk::printAreaNumOfVertex(const std::vector< Polygon > &pol, std::ostream &out, size_t num)
+{
+  if (num < 3)
+  {
+    throw std::logic_error("No polygons with this count of vertex");
+  }
+  using namespace std::placeholders;
+  auto checker = std::bind(isMultiple, _1, num);
+  printArea(pol, out, checker);
 }
