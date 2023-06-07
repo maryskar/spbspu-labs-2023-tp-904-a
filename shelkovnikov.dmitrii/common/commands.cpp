@@ -8,9 +8,13 @@ namespace
 {
   typedef dimkashelk::Polygon polygon;
   typedef std::vector< polygon > v_polygon;
-  bool isEven(const polygon &polygon)
+  bool isEven(const polygon &pol)
   {
-    return polygon.points.size() % 2 == 0;
+    return pol.points.size() % 2 == 0;
+  }
+  bool isOdd(const polygon &pol)
+  {
+    return !isEven(pol);
   }
   void printArea(const v_polygon &filtered, std::ostream &out)
   {
@@ -31,4 +35,8 @@ void dimkashelk::printAreaEven(const std::vector< Polygon > &polygon, std::ostre
 {
   auto filtered = getFilteredPolygons(polygon, isEven);
   printArea(filtered, out);
+}
+void dimkashelk::printAreaOdd(const std::vector<Polygon> &polygon, std::ostream &out)
+{
+
 }
