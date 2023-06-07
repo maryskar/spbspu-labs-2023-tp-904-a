@@ -25,6 +25,10 @@ namespace
   {
     return !isEven(pol);
   }
+  bool isLessArea(const polygon &lnr, const polygon &rnl)
+  {
+    return dimkashelk::getArea(lnr) < dimkashelk::getArea(rnl);
+  }
   template< typename UnaryOperation >
   v_polygon getFilteredPolygons(const v_polygon &pol, UnaryOperation op)
   {
@@ -39,7 +43,7 @@ namespace
     std::vector< double > filtered_area;
     std::transform(filtered.begin(), filtered.end(), std::back_inserter(filtered_area), dimkashelk::getArea);
     dimkashelk::iofmtguard iofmtguard(out);
-    out << std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0) << '\n';
+    out << std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
   }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
@@ -60,7 +64,7 @@ void dimkashelk::printAreaMean(const std::vector< Polygon > &pol, std::ostream &
   std::transform(pol.begin(), pol.end(), std::back_inserter(areas), getArea);
   double sum_area = std::accumulate(areas.begin(), areas.end(), 0.0);
   iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1) << (sum_area / pol.size()) << '\n';
+  out << std::fixed << std::setprecision(1) << (sum_area / pol.size());
 }
 void dimkashelk::printAreaNumOfVertex(const std::vector< Polygon > &pol, std::ostream &out, size_t num)
 {
@@ -71,4 +75,9 @@ void dimkashelk::printAreaNumOfVertex(const std::vector< Polygon > &pol, std::os
   using namespace std::placeholders;
   auto checker = std::bind(isMultiple, _1, num);
   printArea(pol, out, checker);
+}
+void dimkashelk::printMaxArea(const std::vector< Polygon > &pol, std::ostream &out)
+{
+  auto res = *std::max_element(pol.begin(), pol.end(), isLessArea);
+  out << std::setprecision(1) << getArea(res);
 }
