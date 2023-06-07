@@ -116,18 +116,14 @@ double ganiullin::getArea(const Polygon& polygon)
 std::pair< ganiullin::Point, ganiullin::Point > getPolygonFrame(
     const ganiullin::Polygon& polygon)
 {
-  int minX = (*std::min_element(std::begin(polygon.points),
-                  std::end(polygon.points), isXLess))
-                 .x;
-  int minY = (*std::min_element(std::begin(polygon.points),
-                  std::end(polygon.points), isYLess))
-                 .y;
-  int maxX = (*std::max_element(std::begin(polygon.points),
-                  std::end(polygon.points), isXLess))
-                 .x;
-  int maxY = (*std::max_element(std::begin(polygon.points),
-                  std::end(polygon.points), isYLess))
-                 .y;
+  auto pointsBeginIt = std::begin(polygon.points);
+  auto pointsEndIt = std::end(polygon.points);
+
+  int minX = (*std::min_element(pointsBeginIt, pointsEndIt, isXLess)).x;
+  int minY = (*std::min_element(pointsBeginIt, pointsEndIt, isYLess)).y;
+  int maxX = (*std::max_element(pointsBeginIt, pointsEndIt, isXLess)).x;
+  int maxY = (*std::max_element(pointsBeginIt, pointsEndIt, isYLess)).y;
+
   return {{minX, minY}, {maxX, maxY}};
 }
 std::pair< ganiullin::Point, ganiullin::Point > ganiullin::getFrame(
@@ -138,15 +134,23 @@ std::pair< ganiullin::Point, ganiullin::Point > ganiullin::getFrame(
     throw std::logic_error("Polygons vector should not be empty");
   }
   std::pair< Point, Point > firstFrame = getPolygonFrame(polygons[0]);
-  return std::accumulate(std::begin(polygons) + 1, std::end(polygons),
-      firstFrame, std::bind(getFrameUnion, _1, std::bind(getPolygonFrame, _2)));
+
+  auto polygonsBeginIt = std::begin(polygons) + 1;
+  auto polygonsEndIt = std::end(polygons);
+  auto foldFrame = std::bind(getFrameUnion, _1, std::bind(getPolygonFrame, _2));
+
+  return std::accumulate(polygonsBeginIt, polygonsEndIt, firstFrame, foldFrame);
 }
 
 bool isPointInFrame(const ganiullin::Point& point,
     const std::pair< ganiullin::Point, ganiullin::Point > frame)
 {
-  return point.x >= frame.first.x && point.x <= frame.second.x &&
-         point.y >= frame.first.y && point.y <= frame.second.y;
+  bool isInLeftBorder = frame.first.x <= point.x;
+  bool isInRightBorder = frame.second.x >= point.x;
+  bool isInTopBorder = frame.first.y <= point.y;
+  bool isInBottomBorder = frame.second.y >= point.y;
+
+  return isInLeftBorder && isInRightBorder && isInBottomBorder && isInTopBorder;
 }
 
 bool ganiullin::isInFrame(const Polygon& fig,
@@ -167,28 +171,36 @@ bool ganiullin::isSame(const Polygon& lhs, const Polygon& rhs)
   if (lhs.points.size() != rhs.points.size()) {
     return false;
   }
-  std::vector< Point > first;
-  first.reserve(lhs.points.size());
-  std::vector< Point > second;
-  second.reserve(lhs.points.size());
+  std::vector< Point > lhsCopy;
+  lhsCopy.reserve(lhs.points.size());
+  std::vector< Point > rhsCopy;
+  rhsCopy.reserve(lhs.points.size());
   std::vector< bool > areTranslatedPoints;
   areTranslatedPoints.reserve(lhs.points.size());
 
-  std::copy(std::begin(lhs.points), std::end(lhs.points),
-      std::back_inserter(first));
-  std::copy(std::begin(rhs.points), std::end(rhs.points),
-      std::back_inserter(second));
-  std::sort(std::begin(first), std::end(first), comparePoints);
-  std::sort(std::begin(second), std::end(second), comparePoints);
-  int diffX = first[0].x - second[0].x;
-  int diffY = first[0].y - second[0].y;
-  std::transform(std::begin(first), std::end(first), std::begin(second),
-      std::back_inserter(areTranslatedPoints),
-      std::bind(std::equal_to< Point >{}, _1,
-          std::bind(translatePoint, _2, diffX, diffY)));
-  return std::all_of(std::begin(areTranslatedPoints),
-      std::end(areTranslatedPoints),
-      std::bind(std::logical_and< bool >{}, _1, true));
+  auto lhsCopyBeginIt = std::begin(lhsCopy);
+  auto lhsCopyEndIt = std::end(lhsCopy);
+  auto rhsCopyBeginIt = std::begin(rhsCopy);
+  auto rhsCopyEndIt = std::end(rhsCopy);
+  auto transBeginIt = std::begin(areTranslatedPoints);
+  auto transEndIt = std::end(areTranslatedPoints);
+
+  std::copy(std::begin(lhs.points), std::end(lhs.points), lhsCopyBeginIt);
+  std::copy(std::begin(rhs.points), std::end(rhs.points), rhsCopyBeginIt);
+  std::sort(lhsCopyBeginIt, lhsCopyEndIt, comparePoints);
+  std::sort(rhsCopyBeginIt, rhsCopyEndIt, comparePoints);
+  int diffX = lhsCopy[0].x - rhsCopy[0].x;
+  int diffY = lhsCopy[0].y - rhsCopy[0].y;
+
+  auto isPointTranslated = std::bind(std::equal_to< Point >{}, _1,
+      std::bind(translatePoint, _2, diffX, diffY));
+
+  std::transform(lhsCopyBeginIt, lhsCopyEndIt, rhsCopyBeginIt, transBeginIt,
+      isPointTranslated);
+
+  auto isTrue = std::bind(std::logical_and< bool >{}, _1, true);
+
+  return std::all_of(transBeginIt, transEndIt, isTrue);
 }
 
 size_t ganiullin::getNumOfVertexes(const Polygon& fig)

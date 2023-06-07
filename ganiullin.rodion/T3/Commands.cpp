@@ -12,31 +12,47 @@ double processAreaEven(const std::vector< ganiullin::Polygon >& polygons)
   using namespace std::placeholders;
   std::vector< ganiullin::Polygon > filteredPolygons;
   std::vector< double > areas;
+
+  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
   auto hasEvenVertexes = std::bind(std::equal_to< size_t >{},
-      std::bind(std::modulus< size_t >{},
-          std::bind(ganiullin::getNumOfVertexes, _1), 2),
-      0);
-  std::copy_if(std::begin(polygons), std::end(polygons),
-      std::back_inserter(filteredPolygons), hasEvenVertexes);
+      std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 0);
+
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+  auto filteredInsertIt = std::back_inserter(filteredPolygons);
+
+  std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt,
+      hasEvenVertexes);
   areas.reserve(filteredPolygons.size());
-  std::transform(std::begin(filteredPolygons), std::end(filteredPolygons),
-      std::back_inserter(areas), ganiullin::getArea);
+
+  auto filterBeginIt = std::begin(filteredPolygons);
+  auto filterEndIt = std::end(filteredPolygons);
+  auto areasInsertIt = std::back_inserter(areas);
+
+  std::transform(filterBeginIt, filterEndIt, areasInsertIt, ganiullin::getArea);
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
 double processAreaOdd(const std::vector< ganiullin::Polygon >& polygons)
 {
   using namespace std::placeholders;
+  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
   auto hasOddVertex = std::bind(std::equal_to< size_t >{},
-      std::bind(std::modulus< size_t >{},
-          std::bind(ganiullin::getNumOfVertexes, _1), 2),
-      1);
+      std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 1);
   std::vector< ganiullin::Polygon > filteredPolygons;
   std::vector< double > areas;
-  std::copy_if(std::begin(polygons), std::end(polygons),
-      std::back_inserter(filteredPolygons), hasOddVertex);
+
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+  auto filteredInsertIt = std::back_inserter(filteredPolygons);
+
+  std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt, hasOddVertex);
   areas.reserve(filteredPolygons.size());
-  std::transform(std::begin(filteredPolygons), std::end(filteredPolygons),
-      std::back_inserter(areas), ganiullin::getArea);
+
+  auto filterBeginIt = std::begin(filteredPolygons);
+  auto filterEndIt = std::end(filteredPolygons);
+  auto areasInsertIt = std::back_inserter(areas);
+
+  std::transform(filterBeginIt, filterEndIt, areasInsertIt, ganiullin::getArea);
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
 double processAreaMean(const std::vector< ganiullin::Polygon >& polygons)
@@ -46,8 +62,13 @@ double processAreaMean(const std::vector< ganiullin::Polygon >& polygons)
   }
   std::vector< double > areas;
   areas.reserve(polygons.size());
-  std::transform(std::begin(polygons), std::end(polygons),
-      std::back_inserter(areas), ganiullin::getArea);
+
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+  auto areasInsertIt = std::back_inserter(areas);
+
+  std::transform(polygonsBeginIt, polygonsEndIt, areasInsertIt,
+      ganiullin::getArea);
   return std::accumulate(std::begin(areas), std::end(areas), 0.0) /
          polygons.size();
 }
@@ -57,13 +78,21 @@ double processAreaVertexNum(const std::vector< ganiullin::Polygon >& polygons,
   using namespace std::placeholders;
   std::vector< ganiullin::Polygon > filteredPolygons;
   std::vector< double > areas;
-  std::copy_if(std::begin(polygons), std::end(polygons),
-      std::back_inserter(filteredPolygons),
-      std::bind(std::equal_to< size_t >{},
-          std::bind(ganiullin::getNumOfVertexes, _1), vertexNum));
+
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+  auto filteredInsertIt = std::back_inserter(filteredPolygons);
+  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
+
+  std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt,
+      std::bind(std::equal_to< size_t >{}, getNumOfVertexes, vertexNum));
   areas.reserve(filteredPolygons.size());
-  std::transform(std::begin(filteredPolygons), std::end(filteredPolygons),
-      std::back_inserter(areas), ganiullin::getArea);
+
+  auto filterBeginIt = std::begin(filteredPolygons);
+  auto filterEndIt = std::end(filteredPolygons);
+  auto areasInsertIt = std::back_inserter(areas);
+
+  std::transform(filterBeginIt, filterEndIt, areasInsertIt, ganiullin::getArea);
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
 
@@ -74,8 +103,13 @@ double processMaxArea(const std::vector< ganiullin::Polygon >& polygons)
   }
   std::vector< double > areas;
   areas.reserve(polygons.size());
-  std::transform(std::begin(polygons), std::end(polygons),
-      std::back_inserter(areas), ganiullin::getArea);
+
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+  auto areasInsertIt = std::back_inserter(areas);
+
+  std::transform(polygonsBeginIt, polygonsEndIt, areasInsertIt,
+      ganiullin::getArea);
   return (*std::max_element(std::begin(areas), std::end(areas)));
 }
 size_t processMaxVertexNum(const std::vector< ganiullin::Polygon >& polygons)
@@ -86,8 +120,12 @@ size_t processMaxVertexNum(const std::vector< ganiullin::Polygon >& polygons)
   std::vector< size_t > numVertexes;
   numVertexes.reserve(polygons.size());
 
-  std::transform(std::begin(polygons), std::end(polygons),
-      std::back_inserter(numVertexes), ganiullin::getNumOfVertexes);
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+  auto vertexInsertIt = std::back_inserter(numVertexes);
+
+  std::transform(polygonsBeginIt, polygonsEndIt, vertexInsertIt,
+      ganiullin::getNumOfVertexes);
   return (*std::max_element(std::begin(numVertexes), std::end(numVertexes)));
 }
 
@@ -98,8 +136,13 @@ double processMinArea(const std::vector< ganiullin::Polygon >& polygons)
   }
   std::vector< double > areas;
   areas.reserve(polygons.size());
-  std::transform(std::begin(polygons), std::end(polygons),
-      std::back_inserter(areas), ganiullin::getArea);
+
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+  auto areasInsertIt = std::back_inserter(areas);
+
+  std::transform(polygonsBeginIt, polygonsEndIt, areasInsertIt,
+      ganiullin::getArea);
   return (*std::min_element(std::begin(areas), std::end(areas)));
 }
 size_t processMinVertexNum(const std::vector< ganiullin::Polygon >& polygons)
@@ -109,37 +152,48 @@ size_t processMinVertexNum(const std::vector< ganiullin::Polygon >& polygons)
   }
   std::vector< size_t > numVertexes;
   numVertexes.reserve(polygons.size());
-  std::transform(std::begin(polygons), std::end(polygons),
-      std::back_inserter(numVertexes), ganiullin::getNumOfVertexes);
+
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+  auto vertexInsertIt = std::back_inserter(numVertexes);
+
+  std::transform(polygonsBeginIt, polygonsEndIt, vertexInsertIt,
+      ganiullin::getNumOfVertexes);
   return (*std::min_element(std::begin(numVertexes), std::end(numVertexes)));
 }
 size_t processCountEven(const std::vector< ganiullin::Polygon >& polygons)
 {
   using namespace std::placeholders;
+  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
   auto hasEvenVertexes = std::bind(std::equal_to< size_t >{},
-      std::bind(std::modulus< size_t >{},
-          std::bind(ganiullin::getNumOfVertexes, _1), 2),
-      0);
-  return std::count_if(std::begin(polygons), std::end(polygons),
-      hasEvenVertexes);
+      std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 0);
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+  return std::count_if(polygonsBeginIt, polygonsEndIt, hasEvenVertexes);
 }
 size_t processCountOdd(const std::vector< ganiullin::Polygon >& polygons)
 {
   using namespace std::placeholders;
+  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
   auto hasOddVertexes = std::bind(std::equal_to< size_t >{},
-      std::bind(std::modulus< size_t >{},
-          std::bind(ganiullin::getNumOfVertexes, _1), 2),
-      1);
-  return std::count_if(std::begin(polygons), std::end(polygons),
-      hasOddVertexes);
+      std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 1);
+
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+
+  return std::count_if(polygonsBeginIt, polygonsEndIt, hasOddVertexes);
 }
 size_t processCountVertexNum(const std::vector< ganiullin::Polygon >& polygons,
     size_t vertexNum)
 {
   using namespace std::placeholders;
-  return std::count_if(std::begin(polygons), std::end(polygons),
-      std::bind(std::equal_to< size_t >{},
-          std::bind(ganiullin::getNumOfVertexes, _1), vertexNum));
+
+  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+
+  return std::count_if(polygonsBeginIt, polygonsEndIt,
+      std::bind(std::equal_to< size_t >{}, getNumOfVertexes, vertexNum));
 }
 bool processInFrame(const std::vector< ganiullin::Polygon >& polygons,
     const ganiullin::Polygon& fig)
@@ -151,7 +205,11 @@ size_t processSame(const std::vector< ganiullin::Polygon >& polygons,
     const ganiullin::Polygon& fig)
 {
   using namespace std::placeholders;
-  return std::count_if(std::begin(polygons), std::end(polygons),
+
+  auto polygonsBeginIt = std::begin(polygons);
+  auto polygonsEndIt = std::end(polygons);
+
+  return std::count_if(polygonsBeginIt, polygonsEndIt,
       std::bind(ganiullin::isSame, _1, fig));
 }
 
