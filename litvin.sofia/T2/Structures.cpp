@@ -56,8 +56,16 @@ namespace litvin
     {
       return in;
     }
+    using sep = DelimiterIO;
     ScopeGuard guard(in);
-    return in >> std::scientific >> dest.ref;
+    int integer = 0;
+    size_t fractional = 0;
+    int power = 0;
+    double mantissa = 0;
+    in >> integer >> sep{'.'} >> fractional >> sep{'e'} >> power;
+    mantissa = integer + static_cast< double >(fractional) / 10;
+    dest.ref = mantissa * std::pow(10, power);
+    return in;
   }
   std::istream & operator>>(std::istream & in, StringIO && dest)
   {
