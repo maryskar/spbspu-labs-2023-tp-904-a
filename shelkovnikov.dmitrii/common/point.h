@@ -7,5 +7,6 @@ namespace dimkashelk
   {
     int x, y;
   };
+  std::istream &operator>>(std::istream &in, Point &point);
 }
 #endif
