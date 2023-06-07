@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <numeric>
+#include <tuple>
 #include <functional>
 #include "polygon.h"
 #include "io.h"
@@ -80,27 +81,32 @@ namespace
     unsigned res22 = getDirection(second1, second2, first2);
     return res11 != res12 && res21 != res22;
   }
-  pair getIntersectTwoSegment(const pair first, const pair second)
+  template< typename BinaryOperation >
+  bool isIntersect(BinaryOperation func, const polygon &pol)
   {
-    return {std::min(first.first, second.first), std::max(first.second, second.second)};
-  }
-  pair getProjectionOnX(const dimkashelk::Point &first, const dimkashelk::Point &second)
-  {
-    return {first.x, second.x};
-  }
-  pair getProjectionOnXOfPolygon(const polygon &pol)
-  {
-    std::vector< pair > values;
+    std::vector< bool > values;
     auto begin_first = pol.points.begin();
     auto begin_second = begin_first;
     begin_second++;
     auto end = pol.points.end();
     end--;
-    std::transform(begin_first, end, begin_second, std::back_inserter(values), getProjectionOnX);
-    auto res = std::accumulate(values.begin(), values.end(), std::pair< double, double >{0.0, 0.0}, getIntersectTwoSegment);
-    return res;
+    std::transform(begin_first, end, begin_second, std::back_inserter(values), func);
+    values.push_back(func(pol.points[0], *end));
+    auto res = std::count(values.begin(), values.end(), true);
+    return res > 0;
   }
-
+  bool isIntersectSegmentAndPolygon(const polygon &pol, const point first1, const point first2)
+  {
+    using namespace std::placeholders;
+    auto func = std::bind(isIntersectTwoSegment, _1, _2, first1, first2);
+    return isIntersect(func, pol);
+  }
+  bool isIntersectTwoPolygon(const polygon &first, const polygon &second)
+  {
+    using namespace std::placeholders;
+    auto func = std::bind(isIntersectSegmentAndPolygon, second, _1, _2);
+    return isIntersect(func, first);
+  }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
 {
