@@ -169,3 +169,19 @@ void dimkashelk::printCountNumOfVertex(const std::vector< Polygon > &pol, std::o
   using namespace std::placeholders;
   printCount(pol, out, std::bind(isEqualNum, _1, num));
 }
+void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostream &out, std::istream &in)
+{
+  Polygon polygon;
+  in >> polygon;
+  std::vector< bool > values;
+  auto begin_first = pol.begin();
+  auto begin_second = begin_first;
+  begin_second++;
+  auto end = pol.end();
+  end--;
+  using namespace std::placeholders;
+  auto func = std::bind(isIntersectTwoPolygon, _1, polygon);
+  std::transform(begin_first, end, std::back_inserter(values), func);
+  auto res = std::count(values.begin(), values.end(), true);
+  out << res;
+}

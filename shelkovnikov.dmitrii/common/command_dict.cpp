@@ -15,6 +15,6 @@ dimkashelk::comm_dict_t dimkashelk::createCommDict()
   res.dic1["COUNT ODD"] = printCountOdd;
   res.dic2["COUNT"] = printCountNumOfVertex;
   res.dic3["INTERSECTIONS"] = printIntersections;
-  res.dic3["SAME"] = printSame;
+  //res.dic3["SAME"] = printSame;
   return res;
 }
