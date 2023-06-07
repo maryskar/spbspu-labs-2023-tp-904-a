@@ -4,7 +4,7 @@
 #include <cmath>
 namespace litvin
 {
-  void sci(std::ostream & out, double num)
+  void convertToScientific(std::ostream & out, double num)
   {
     int pow = 0;
     if (std::abs(num) >= 10)
@@ -24,7 +24,7 @@ namespace litvin
       }
     }
     std::stringstream stream;
-    stream << std::fixed << std::setprecision(2) << num;
+    stream << std::fixed << std::setprecision(1) << num;
     std::string res = stream.str();
     res += 'e';
     if (pow >= 0)
