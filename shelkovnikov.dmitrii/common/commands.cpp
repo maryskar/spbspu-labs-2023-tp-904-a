@@ -38,14 +38,26 @@ namespace
     std::vector< double > filtered_area;
     std::transform(filtered.begin(), filtered.end(), std::back_inserter(filtered_area), dimkashelk::getArea);
     dimkashelk::iofmtguard iofmtguard(out);
-    out << std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
+    out << std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0) << '\n';
   }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
 {
   printArea(pol, out, isEven);
 }
-void dimkashelk::printAreaOdd(const std::vector<Polygon> &pol, std::ostream &out)
+void dimkashelk::printAreaOdd(const std::vector< Polygon > &pol, std::ostream &out)
 {
   printArea(pol, out, isOdd);
+}
+void dimkashelk::printAreaMean(const std::vector< Polygon > &pol, std::ostream &out)
+{
+  if (pol.empty())
+  {
+    throw std::logic_error("No mean area of empty vector");
+  }
+  std::vector< double > areas;
+  std::transform(pol.begin(), pol.end(), std::back_inserter(areas), getArea);
+  double sum_area = std::accumulate(areas.begin(), areas.end(), 0.0);
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1) << (sum_area / pol.size()) << '\n';
 }
