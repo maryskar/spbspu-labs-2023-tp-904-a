@@ -8,9 +8,17 @@ namespace
 {
   typedef dimkashelk::Polygon polygon;
   typedef std::vector< polygon > v_polygon;
+  bool isMultiple(const polygon &pol, int number)
+  {
+    if (number == 0)
+    {
+      throw std::logic_error("Division by zero");
+    }
+    return pol.points.size() % number == 0;
+  }
   bool isEven(const polygon &pol)
   {
-    return pol.points.size() % 2 == 0;
+    return isMultiple(pol, 2);
   }
   bool isOdd(const polygon &pol)
   {
