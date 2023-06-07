@@ -9,6 +9,7 @@ namespace
 {
   typedef dimkashelk::Polygon polygon;
   typedef std::vector< polygon > v_polygon;
+  using pair = std::pair< double, double >;
   bool isMultiple(const polygon &pol, size_t number)
   {
     if (number == 0)
@@ -65,9 +66,28 @@ namespace
     auto res = std::count_if(pol.begin(), pol.end(), op);
     out << res;
   }
-  std::pair< double, double > getProjectionOnX(const dimkashelk::Point &first, const dimkashelk::Point &second)
+  bool isIntersectTwoSegment(const pair first, const pair second)
+  {
+    return second.first <= first.second;
+  }
+  pair getIntersectTwoSegment(const pair first, const pair second)
+  {
+    return {std::min(first.first, second.first), std::max(first.second, second.second)};
+  }
+  pair getProjectionOnX(const dimkashelk::Point &first, const dimkashelk::Point &second)
   {
     return {first.x, second.x};
+  }
+  pair getProjectionOnX(const polygon &pol)
+  {
+    auto begin_first = pol.points.begin();
+    auto begin_second = begin_first;
+    begin_second++;
+    auto end = polygon.points.end();
+    end--;
+    dimkashelk::AreaStorage areaStorage;
+    std::transform(begin_first, end, begin_second, std::back_inserter(values), areaStorage);
+
   }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
