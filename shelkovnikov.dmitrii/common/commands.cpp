@@ -65,6 +65,10 @@ namespace
     auto res = std::count_if(pol.begin(), pol.end(), op);
     out << res;
   }
+  std::pair< double, double > getProjectionOnX(const dimkashelk::Point &first, const dimkashelk::Point &second)
+  {
+    return {first.x, second.x};
+  }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
 {
