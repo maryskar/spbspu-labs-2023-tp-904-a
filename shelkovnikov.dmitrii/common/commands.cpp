@@ -23,11 +23,12 @@ namespace
   v_polygon getFilteredPolygons(const v_polygon &pol, UnaryOperation op)
   {
     v_polygon result;
-    std::transform(pol.begin(), pol.end(), std::back_inserter(result), op);
+    std::copy_if(pol.begin(), pol.end(), std::back_inserter(result), op);
     return result;
   }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &polygon, std::ostream &out)
 {
-
+  auto filtered = getFilteredPolygons(polygon, isEven);
+  printArea(filtered, out);
 }
