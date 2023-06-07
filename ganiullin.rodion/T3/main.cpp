@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
     return 1;
   }
   std::ifstream file(argv[1]);
+
   if (!file.is_open()) {
     std::cerr << "Couldn't open a file" << '\n';
     return 1;
@@ -31,6 +32,7 @@ int main(int argc, char* argv[])
       file.ignore(MAX_STREAM_SIZE, '\n');
     }
   }
+  file.close();
 
   auto commands = ganiullin::createCommandDicts();
   auto readCommand =

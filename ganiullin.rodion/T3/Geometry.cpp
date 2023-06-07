@@ -106,10 +106,13 @@ double ganiullin::getArea(const Polygon& polygon)
   std::vector< double > areas;
   areas.reserve(polygon.points.size() - 2);
   const Point pivot = polygon.points[0];
+  auto polygonBeginIt = std::begin(polygon.points);
+  auto polygonEndIt = std::end(polygon.points);
+  auto areasInsertIt = std::back_inserter(areas);
+  auto getPivotTriangleArea = std::bind(getTriangleArea, _1, _2, pivot);
 
-  std::transform(std::begin(polygon.points) + 1, std::end(polygon.points) - 1,
-      std::begin(polygon.points) + 2, std::back_inserter(areas),
-      std::bind(getTriangleArea, _1, _2, pivot));
+  std::transform(polygonBeginIt + 1, polygonEndIt - 1, polygonBeginIt + 2,
+      areasInsertIt, getPivotTriangleArea);
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
 
@@ -178,15 +181,18 @@ bool ganiullin::isSame(const Polygon& lhs, const Polygon& rhs)
   std::vector< bool > areTranslatedPoints;
   areTranslatedPoints.reserve(lhs.points.size());
 
+  auto lhsCopyInsertIt = std::back_inserter(lhsCopy);
+  auto rhsCopyInsertIt = std::back_inserter(rhsCopy);
+
+  std::copy(std::begin(lhs.points), std::end(lhs.points), lhsCopyInsertIt);
+  std::copy(std::begin(rhs.points), std::end(rhs.points), rhsCopyInsertIt);
+
   auto lhsCopyBeginIt = std::begin(lhsCopy);
   auto lhsCopyEndIt = std::end(lhsCopy);
   auto rhsCopyBeginIt = std::begin(rhsCopy);
   auto rhsCopyEndIt = std::end(rhsCopy);
-  auto transBeginIt = std::begin(areTranslatedPoints);
-  auto transEndIt = std::end(areTranslatedPoints);
+  auto transInsertIt = std::back_inserter(areTranslatedPoints);
 
-  std::copy(std::begin(lhs.points), std::end(lhs.points), lhsCopyBeginIt);
-  std::copy(std::begin(rhs.points), std::end(rhs.points), rhsCopyBeginIt);
   std::sort(lhsCopyBeginIt, lhsCopyEndIt, comparePoints);
   std::sort(rhsCopyBeginIt, rhsCopyEndIt, comparePoints);
   int diffX = lhsCopy[0].x - rhsCopy[0].x;
@@ -195,9 +201,11 @@ bool ganiullin::isSame(const Polygon& lhs, const Polygon& rhs)
   auto isPointTranslated = std::bind(std::equal_to< Point >{}, _1,
       std::bind(translatePoint, _2, diffX, diffY));
 
-  std::transform(lhsCopyBeginIt, lhsCopyEndIt, rhsCopyBeginIt, transBeginIt,
+  std::transform(lhsCopyBeginIt, lhsCopyEndIt, rhsCopyBeginIt, transInsertIt,
       isPointTranslated);
 
+  auto transBeginIt = std::begin(areTranslatedPoints);
+  auto transEndIt = std::end(areTranslatedPoints);
   auto isTrue = std::bind(std::logical_and< bool >{}, _1, true);
 
   return std::all_of(transBeginIt, transEndIt, isTrue);
