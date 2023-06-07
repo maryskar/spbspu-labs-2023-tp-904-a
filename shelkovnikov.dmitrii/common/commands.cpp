@@ -29,6 +29,10 @@ namespace
   {
     return dimkashelk::getArea(lnr) < dimkashelk::getArea(rnl);
   }
+  bool isEqualNum(const polygon &pol, size_t num)
+  {
+    return pol.points.size() == num;
+  }
   bool isLessVertex(const polygon &lnr, const polygon &rnl)
   {
     return lnr.points.size() < rnl.points.size();
@@ -54,6 +58,12 @@ namespace
   {
     auto res = *std::max_element(pol.begin(), pol.end(), op);
     out << std::setprecision(1) << getArea(res);
+  }
+  template< typename UnaryOperation >
+  void printCount(const v_polygon &pol, std::ostream &out, UnaryOperation op)
+  {
+    auto res = std::count_if(pol.begin(), pol.end(), op);
+    out << res;
   }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
@@ -103,4 +113,8 @@ void dimkashelk::printMinVertex(const std::vector< Polygon > &pol, std::ostream 
 {
   using namespace std::placeholders;
   printResult(pol, out, std::bind(isLessVertex, _2, _1));
+}
+void dimkashelk::printCountEven(const std::vector< Polygon > &pol, std::ostream &out)
+{
+  printCount(pol, out, isEven);
 }
