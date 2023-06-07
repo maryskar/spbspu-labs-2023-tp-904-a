@@ -29,6 +29,10 @@ namespace
   {
     return dimkashelk::getArea(lnr) < dimkashelk::getArea(rnl);
   }
+  bool isLessVertex(const polygon &lnr, const polygon &rnl)
+  {
+    return lnr.points.size() < rnl.points.size();
+  }
   template< typename UnaryOperation >
   v_polygon getFilteredPolygons(const v_polygon &pol, UnaryOperation op)
   {
@@ -44,6 +48,12 @@ namespace
     std::transform(filtered.begin(), filtered.end(), std::back_inserter(filtered_area), dimkashelk::getArea);
     dimkashelk::iofmtguard iofmtguard(out);
     out << std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
+  }
+  template< typename UnaryOperation >
+  void printResult(const v_polygon &pol, std::ostream &out, UnaryOperation op)
+  {
+    auto res = *std::max_element(pol.begin(), pol.end(), op);
+    out << std::setprecision(1) << getArea(res);
   }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
@@ -80,4 +90,8 @@ void dimkashelk::printMaxArea(const std::vector< Polygon > &pol, std::ostream &o
 {
   auto res = *std::max_element(pol.begin(), pol.end(), isLessArea);
   out << std::setprecision(1) << getArea(res);
+}
+void dimkashelk::printMaxVertex(const std::vector< Polygon > &polygon, std::ostream &out)
+{
+  printResult(polygon, out, isLessVertex);
 }
