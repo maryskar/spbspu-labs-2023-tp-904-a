@@ -88,10 +88,9 @@ void dimkashelk::printAreaNumOfVertex(const std::vector< Polygon > &pol, std::os
 }
 void dimkashelk::printMaxArea(const std::vector< Polygon > &pol, std::ostream &out)
 {
-  auto res = *std::max_element(pol.begin(), pol.end(), isLessArea);
-  out << std::setprecision(1) << getArea(res);
+  printResult(pol, out, isLessArea);
 }
-void dimkashelk::printMaxVertex(const std::vector< Polygon > &polygon, std::ostream &out)
+void dimkashelk::printMaxVertex(const std::vector< Polygon > &pol, std::ostream &out)
 {
-  printResult(polygon, out, isLessVertex);
+  printResult(pol, out, isLessVertex);
 }
