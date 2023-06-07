@@ -10,6 +10,7 @@ namespace
   typedef dimkashelk::Polygon polygon;
   typedef std::vector< polygon > v_polygon;
   using pair = std::pair< double, double >;
+  using point = dimkashelk::Point;
   bool isMultiple(const polygon &pol, size_t number)
   {
     if (number == 0)
@@ -66,9 +67,18 @@ namespace
     auto res = std::count_if(pol.begin(), pol.end(), op);
     out << res;
   }
-  bool isIntersectTwoSegment(const pair first, const pair second)
+  unsigned getDirection(const point f, const point s, const point t)
   {
-    return second.first <= first.second;
+    int res = (s.y - f.y) * (t.x - s.x) - (s.x - f.x) * (t.y - s.y);
+    return (res < 0)? -1: (res > 0)? 1: 0;
+  }
+  bool isIntersectTwoSegment(const point first1, const point first2, const point second1, const point second2)
+  {
+    unsigned res11 = getDirection(first1, first2, second1);
+    unsigned res12 = getDirection(first1, first2, second2);
+    unsigned res21 = getDirection(second1, second2, first1);
+    unsigned res22 = getDirection(second1, second2, first2);
+    return res11 != res12 && res21 != res22;
   }
   pair getIntersectTwoSegment(const pair first, const pair second)
   {
@@ -90,6 +100,7 @@ namespace
     auto res = std::accumulate(values.begin(), values.end(), std::pair< double, double >{0.0, 0.0}, getIntersectTwoSegment);
     return res;
   }
+
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
 {
