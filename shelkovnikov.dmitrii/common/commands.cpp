@@ -78,16 +78,17 @@ namespace
   {
     return {first.x, second.x};
   }
-  pair getProjectionOnX(const polygon &pol)
+  pair getProjectionOnXOfPolygon(const polygon &pol)
   {
+    std::vector< pair > values;
     auto begin_first = pol.points.begin();
     auto begin_second = begin_first;
     begin_second++;
-    auto end = polygon.points.end();
+    auto end = pol.points.end();
     end--;
-    dimkashelk::AreaStorage areaStorage;
-    std::transform(begin_first, end, begin_second, std::back_inserter(values), areaStorage);
-
+    std::transform(begin_first, end, begin_second, std::back_inserter(values), getProjectionOnX);
+    auto res = std::accumulate(values.begin(), values.end(), std::pair< double, double >{0.0, 0.0}, getIntersectTwoSegment);
+    return res;
   }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
