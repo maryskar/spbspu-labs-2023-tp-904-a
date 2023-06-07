@@ -99,3 +99,8 @@ void dimkashelk::printMinArea(const std::vector< Polygon > &pol, std::ostream &o
   using namespace std::placeholders;
   printResult(pol, out, std::bind(isLessArea, _2, _1));
 }
+void dimkashelk::printMinVertex(const std::vector< Polygon > &pol, std::ostream &out)
+{
+  using namespace std::placeholders;
+  printResult(pol, out, std::bind(isLessVertex, _2, _1));
+}
