@@ -118,3 +118,7 @@ void dimkashelk::printCountEven(const std::vector< Polygon > &pol, std::ostream 
 {
   printCount(pol, out, isEven);
 }
+void dimkashelk::printCountOdd(const std::vector< Polygon > &pol, std::ostream &out)
+{
+  printCount(pol, out, isOdd);
+}
