@@ -5,9 +5,7 @@ namespace dimkashelk
 {
   struct AreaStorage
   {
-    AreaStorage();
     double operator()(const Point &lnr, const Point &rnl);
-    double area;
   };
 }
 #endif
