@@ -122,3 +122,8 @@ void dimkashelk::printCountOdd(const std::vector< Polygon > &pol, std::ostream &
 {
   printCount(pol, out, isOdd);
 }
+void dimkashelk::printCountNumOfVertex(const std::vector< Polygon > &pol, std::ostream &out, size_t num)
+{
+  using namespace std::placeholders;
+  printCount(pol, out, std::bind(isEqualNum, _1, num));
+}
