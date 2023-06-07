@@ -16,13 +16,6 @@ namespace
   {
     return !isEven(pol);
   }
-  void printArea(const v_polygon &filtered, std::ostream &out)
-  {
-    std::vector< double > filtered_area;
-    std::transform(filtered.begin(), filtered.end(), std::back_inserter(filtered_area), dimkashelk::getArea);
-    dimkashelk::iofmtguard iofmtguard(out);
-    out << std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
-  }
   template< typename UnaryOperation >
   v_polygon getFilteredPolygons(const v_polygon &pol, UnaryOperation op)
   {
@@ -30,13 +23,21 @@ namespace
     std::copy_if(pol.begin(), pol.end(), std::back_inserter(result), op);
     return result;
   }
+  template< typename UnaryOperation >
+  void printArea(const v_polygon &pol, std::ostream &out, UnaryOperation op)
+  {
+    auto filtered = getFilteredPolygons(pol, op);
+    std::vector< double > filtered_area;
+    std::transform(filtered.begin(), filtered.end(), std::back_inserter(filtered_area), dimkashelk::getArea);
+    dimkashelk::iofmtguard iofmtguard(out);
+    out << std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
+  }
 }
-void dimkashelk::printAreaEven(const std::vector< Polygon > &polygon, std::ostream &out)
+void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
 {
-  auto filtered = getFilteredPolygons(polygon, isEven);
-  printArea(filtered, out);
+  printArea(pol, out, isEven);
 }
-void dimkashelk::printAreaOdd(const std::vector<Polygon> &polygon, std::ostream &out)
+void dimkashelk::printAreaOdd(const std::vector<Polygon> &pol, std::ostream &out)
 {
-
+  printArea(pol, out, isOdd);
 }
