@@ -94,3 +94,8 @@ void dimkashelk::printMaxVertex(const std::vector< Polygon > &pol, std::ostream 
 {
   printResult(pol, out, isLessVertex);
 }
+void dimkashelk::printMinArea(const std::vector< Polygon > &pol, std::ostream &out)
+{
+  using namespace std::placeholders;
+  printResult(pol, out, std::bind(isLessArea, _2, _1));
+}
