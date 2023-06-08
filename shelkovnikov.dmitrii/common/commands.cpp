@@ -53,7 +53,7 @@ namespace
     std::vector< double > filtered_area;
     std::transform(filtered.begin(), filtered.end(), std::back_inserter(filtered_area), dimkashelk::getArea);
     dimkashelk::iofmtguard iofmtguard(out);
-    out << std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
+    out << std::fixed <<std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
   }
   template < typename UnaryOperation >
   void printResult(const v_polygon &pol, std::ostream &out, UnaryOperation op)
