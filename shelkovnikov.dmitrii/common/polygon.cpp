@@ -17,6 +17,7 @@ std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &poly
     in.setstate(std::ios::failbit);
     return in;
   }
+  polygon.points.clear();
   std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(polygon.points));
   return in;
 }

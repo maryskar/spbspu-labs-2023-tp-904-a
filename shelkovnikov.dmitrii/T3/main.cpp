@@ -32,20 +32,22 @@ std::string inputCommand(std::istream &in)
   return res;
 }
 void doCommand(std::vector< dimkashelk::Polygon > &data,
-  dimkashelk::comm_dict_t allCommands,
-  std::string &command,
-  std::istream &in,
-  std::ostream &out)
+    dimkashelk::comm_dict_t &allCommands,
+    std::string &command,
+    std::istream &in,
+    std::ostream &out)
 {
   try
   {
     allCommands.dic3.at(command)(data, out, in);
+    return;
   }
   catch (const std::out_of_range &e)
   {}
   try
   {
     allCommands.dic1.at(command)(data, out);
+    return;
   }
   catch (const std::out_of_range &e)
   {}
@@ -69,7 +71,7 @@ int main(int argc, char *argv[])
   constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   using input_iter = std::istream_iterator< dimkashelk::Polygon >;
   std::vector< dimkashelk::Polygon > data;
-  while (in)
+  while (!in.eof())
   {
     std::copy(input_iter(in), input_iter(), std::back_inserter(data));
     if (!in)
@@ -79,7 +81,7 @@ int main(int argc, char *argv[])
     }
   }
   auto commands = dimkashelk::createCommDict();
-  while (std::cin)
+  while (!std::cin.eof())
   {
     try
     {
@@ -90,6 +92,7 @@ int main(int argc, char *argv[])
     catch (const std::logic_error &e)
     {
       outInvalidCommandMessage(std::cout) << '\n';
+      std::cin.clear();
       std::cin.ignore(max_size, '\n');
     }
     catch (const std::runtime_error &e)
