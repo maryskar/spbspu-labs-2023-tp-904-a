@@ -127,7 +127,7 @@ namespace
   }
   point movePoint(const point &p, int dX, int dY)
   {
-    return {p.x + dX, p.y + dY};
+    return {p.x - dX, p.y - dY};
   }
   polygon moveFirstCoordToStartCoords(const polygon &pol)
   {
@@ -219,6 +219,10 @@ void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostr
 {
   Polygon polygon;
   in >> polygon;
+  if (!in || in.peek() != '\n')
+  {
+    throw std::logic_error("Check input");
+  }
   std::vector< bool > values;
   auto begin_first = pol.begin();
   auto begin_second = begin_first;
