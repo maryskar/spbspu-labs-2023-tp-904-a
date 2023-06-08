@@ -193,6 +193,10 @@ void dimkashelk::printCountOdd(const std::vector< Polygon > &pol, std::ostream &
 }
 void dimkashelk::printCountNumOfVertex(const std::vector< Polygon > &pol, std::ostream &out, size_t num)
 {
+  if (num < 3)
+  {
+    throw std::logic_error("No polygons");
+  }
   using namespace std::placeholders;
   printCount(pol, out, std::bind(isEqualNum, _1, num));
 }
