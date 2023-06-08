@@ -18,7 +18,6 @@ int main(int argc, char* argv[])
     return 1;
   }
   std::ifstream file(argv[1]);
-
   if (!file.is_open()) {
     std::cerr << "Couldn't open a file" << '\n';
     return 1;
@@ -34,15 +33,11 @@ int main(int argc, char* argv[])
   }
   file.close();
 
-  auto commands = ganiullin::createCommandDicts();
-  auto readCommand =
-      std::bind(ganiullin::readCommand, std::ref(std::cin), commands);
-  auto execCommand = std::bind(ganiullin::executeCommand, readCommand, polygons,
-      commands, std::ref(std::cin), std::ref(std::cout));
+  ganiullin::CommandHandler commandHandler{};
 
   while (!std::cin.eof()) {
     try {
-      execCommand();
+      commandHandler.readAndExecuteCommand(polygons, std::cin, std::cout);
     } catch (const std::logic_error& e) {
       std::cin.setstate(std::ios::failbit);
     } catch (const std::runtime_error& e) {
