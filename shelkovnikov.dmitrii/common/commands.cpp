@@ -237,14 +237,9 @@ void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostr
     throw std::logic_error("Check input");
   }
   std::vector< bool > values;
-  auto begin_first = pol.begin();
-  auto begin_second = begin_first;
-  begin_second++;
-  auto end = pol.end();
-  end--;
   using namespace std::placeholders;
   auto func = std::bind(isIntersectTwoPolygon, _1, polygon);
-  std::transform(begin_first, end, std::back_inserter(values), func);
+  std::transform(pol.begin(), pol.end(), std::back_inserter(values), func);
   auto res = std::count(values.begin(), values.end(), true);
   dimkashelk::iofmtguard iofmtguard(out);
   out << res;
