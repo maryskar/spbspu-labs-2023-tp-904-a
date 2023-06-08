@@ -137,7 +137,7 @@ namespace
   {
     using namespace std::placeholders;
     auto func = std::bind(isIntersectSegmentAndPolygon, second, _1, _2);
-    return isIntersect(func, first) || ;
+    return isIntersect(func, first) || isPolygonInPolygon(first, second);
   }
   bool isEqualPoint(const point &p1, const point &p2)
   {
