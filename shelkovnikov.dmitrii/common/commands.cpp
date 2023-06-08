@@ -105,7 +105,7 @@ namespace
     std::vector< unsigned > values;
     std::transform(pol.points.begin(), --pol.points.end(), ++pol.points.begin(), std::back_inserter(values), func);
     values.push_back(func(*(--pol.points.end()), *pol.points.begin()));
-    return -std::accumulate(values.begin(), values.end(), 0) == values.size();
+    return std::accumulate(values.begin(), values.end(), 0) == values.size();
   }
   bool isPolygonInPolygon(const polygon &first, const polygon &second)
   {
