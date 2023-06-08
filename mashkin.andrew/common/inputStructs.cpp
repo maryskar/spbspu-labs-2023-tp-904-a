@@ -1,4 +1,5 @@
 #include "inputStructs.h"
+#include <iostream>
 
 namespace mashkin
 {

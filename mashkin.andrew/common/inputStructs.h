@@ -1,5 +1,6 @@
 #ifndef MASHKIN_ANDREW_INPUTSTRUCTS_H
 #define MASHKIN_ANDREW_INPUTSTRUCTS_H
+#include <iostream>
 
 namespace mashkin
 {
