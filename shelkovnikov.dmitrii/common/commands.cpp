@@ -39,14 +39,14 @@ namespace
   {
     return lnr.points.size() < rnl.points.size();
   }
-  template< typename UnaryOperation >
+  template < typename UnaryOperation >
   v_polygon getFilteredPolygons(const v_polygon &pol, UnaryOperation op)
   {
     v_polygon result;
     std::copy_if(pol.begin(), pol.end(), std::back_inserter(result), op);
     return result;
   }
-  template< typename UnaryOperation >
+  template < typename UnaryOperation >
   void printArea(const v_polygon &pol, std::ostream &out, UnaryOperation op)
   {
     auto filtered = getFilteredPolygons(pol, op);
@@ -55,13 +55,13 @@ namespace
     dimkashelk::iofmtguard iofmtguard(out);
     out << std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
   }
-  template< typename UnaryOperation >
+  template < typename UnaryOperation >
   void printResult(const v_polygon &pol, std::ostream &out, UnaryOperation op)
   {
     auto res = *std::max_element(pol.begin(), pol.end(), op);
     out << std::setprecision(1) << getArea(res);
   }
-  template< typename UnaryOperation >
+  template < typename UnaryOperation >
   void printCount(const v_polygon &pol, std::ostream &out, UnaryOperation op)
   {
     auto res = std::count_if(pol.begin(), pol.end(), op);
@@ -70,7 +70,7 @@ namespace
   unsigned getDirection(const point f, const point s, const point t)
   {
     int res = (s.y - f.y) * (t.x - s.x) - (s.x - f.x) * (t.y - s.y);
-    return (res < 0)? -1: (res > 0)? 1: 0;
+    return (res < 0) ? -1 : (res > 0) ? 1 : 0;
   }
   bool isIntersectTwoSegment(const point first1, const point first2, const point second1, const point second2)
   {
@@ -80,7 +80,7 @@ namespace
     unsigned res22 = getDirection(second1, second2, first2);
     return res11 != res12 && res21 != res22;
   }
-  template< typename BinaryOperation >
+  template < typename BinaryOperation >
   bool isIntersect(BinaryOperation func, const polygon &pol)
   {
     std::vector< bool > values;
@@ -106,6 +106,10 @@ namespace
     auto func = std::bind(isIntersectSegmentAndPolygon, second, _1, _2);
     return isIntersect(func, first);
   }
+  bool isEqualPoint(const point &p1, const point &p2)
+  {
+    return p1.x == p2.x && p1.y == p2.y;
+  }
   point movePoint(const point &p, int dX, int dY)
   {
     return {p.x + dX, p.y + dY};
@@ -122,8 +126,13 @@ namespace
   }
   bool isSamePolygons(const polygon &first, const polygon &second)
   {
-    using namespace std::placeholders;
-
+    if (first.points.size() != second.points.size())
+    {
+      return false;
+    }
+    auto movedFirst = moveFirstCoordToStartCoords(first);
+    auto movedSecond = moveFirstCoordToStartCoords(second);
+    return std::equal(movedFirst.points.begin(), movedFirst.points.end(), movedSecond.points.begin(), isEqualPoint);
   }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
@@ -203,12 +212,11 @@ void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostr
   auto res = std::count(values.begin(), values.end(), true);
   out << res;
 }
-void dimkashelk::printSame(const std::vector<Polygon> &pol, std::ostream &out, std::istream &in)
+void dimkashelk::printSame(const std::vector< Polygon > &pol, std::ostream &out, std::istream &in)
 {
   Polygon polygon;
   in >> polygon;
   using namespace std::placeholders;
   auto filterBySize = std::bind(isEqualNum, _1, polygon.points.size());
   auto filteredBySize = getFilteredPolygons(pol, filterBySize);
-
 }
