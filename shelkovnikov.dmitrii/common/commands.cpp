@@ -177,7 +177,7 @@ void dimkashelk::printAreaNumOfVertex(const std::vector< Polygon > &pol, std::os
     throw std::logic_error("No polygons with this count of vertex");
   }
   using namespace std::placeholders;
-  auto checker = std::bind(isMultiple, _1, num);
+  auto checker = std::bind(isEqualNum, _1, num);
   printArea(pol, out, checker);
 }
 void dimkashelk::printMaxArea(const std::vector< Polygon > &pol, std::ostream &out)
