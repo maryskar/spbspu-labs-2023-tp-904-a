@@ -68,18 +68,21 @@ namespace
   void printResult(const v_polygon &pol, std::ostream &out, UnaryOperation op)
   {
     auto res = getResult(pol, op);
+    dimkashelk::iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getArea(res);
   }
   template < typename UnaryOperation >
   void printResultVertex(const v_polygon &pol, std::ostream &out, UnaryOperation op)
   {
     auto res = getResult(pol, op);
+    dimkashelk::iofmtguard iofmtguard(out);
     out << res.points.size();
   }
   template < typename UnaryOperation >
   void printCount(const v_polygon &pol, std::ostream &out, UnaryOperation op)
   {
     auto res = std::count_if(pol.begin(), pol.end(), op);
+    dimkashelk::iofmtguard iofmtguard(out);
     out << res;
   }
   unsigned getDirection(const point f, const point s, const point t)
@@ -251,6 +254,7 @@ void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostr
   auto func = std::bind(isIntersectTwoPolygon, _1, polygon);
   std::transform(begin_first, end, std::back_inserter(values), func);
   auto res = std::count(values.begin(), values.end(), true);
+  dimkashelk::iofmtguard iofmtguard(out);
   out << res;
 }
 void dimkashelk::printSame(const std::vector< Polygon > &pol, std::ostream &out, std::istream &in)
@@ -262,5 +266,6 @@ void dimkashelk::printSame(const std::vector< Polygon > &pol, std::ostream &out,
   auto filteredBySize = getFilteredPolygons(pol, filterBySize);
   auto func = std::bind(isSamePolygons, _1, polygon);
   auto count = std::count_if(filteredBySize.begin(), filteredBySize.end(), func);
+  dimkashelk::iofmtguard iofmtguard(out);
   out << count;
 }
