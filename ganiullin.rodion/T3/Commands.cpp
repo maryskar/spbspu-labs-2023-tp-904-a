@@ -7,15 +7,20 @@
 #include <stdexcept>
 #include "FormatGuard.h"
 
+using namespace std::placeholders;
+
+const auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
+const auto hasEvenVertexes = std::bind(std::equal_to< size_t >{},
+    std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 0);
+const auto hasOddVertexes =
+    std::bind(std::logical_not< bool >{}, hasEvenVertexes);
+const auto hasVertexesEqualTo =
+    std::bind(std::equal_to< size_t >{}, getNumOfVertexes, _2);
+
 double processAreaEven(const std::vector< ganiullin::Polygon >& polygons)
 {
-  using namespace std::placeholders;
   std::vector< ganiullin::Polygon > filteredPolygons;
   std::vector< double > areas;
-
-  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
-  auto hasEvenVertexes = std::bind(std::equal_to< size_t >{},
-      std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 0);
 
   auto polygonsBeginIt = std::begin(polygons);
   auto polygonsEndIt = std::end(polygons);
@@ -34,10 +39,6 @@ double processAreaEven(const std::vector< ganiullin::Polygon >& polygons)
 }
 double processAreaOdd(const std::vector< ganiullin::Polygon >& polygons)
 {
-  using namespace std::placeholders;
-  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
-  auto hasOddVertex = std::bind(std::equal_to< size_t >{},
-      std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 1);
   std::vector< ganiullin::Polygon > filteredPolygons;
   std::vector< double > areas;
 
@@ -45,7 +46,9 @@ double processAreaOdd(const std::vector< ganiullin::Polygon >& polygons)
   auto polygonsEndIt = std::end(polygons);
   auto filteredInsertIt = std::back_inserter(filteredPolygons);
 
-  std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt, hasOddVertex);
+  std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt,
+      hasOddVertexes);
+
   areas.reserve(filteredPolygons.size());
 
   auto filterBeginIt = std::begin(filteredPolygons);
@@ -76,17 +79,15 @@ double processAreaMean(const std::vector< ganiullin::Polygon >& polygons)
 double processAreaVertexNum(const std::vector< ganiullin::Polygon >& polygons,
     size_t vertexNum)
 {
-  using namespace std::placeholders;
   std::vector< ganiullin::Polygon > filteredPolygons;
   std::vector< double > areas;
 
   auto polygonsBeginIt = std::begin(polygons);
   auto polygonsEndIt = std::end(polygons);
   auto filteredInsertIt = std::back_inserter(filteredPolygons);
-  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
 
   std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt,
-      std::bind(std::equal_to< size_t >{}, getNumOfVertexes, vertexNum));
+      std::bind(hasVertexesEqualTo, _1, vertexNum));
   areas.reserve(filteredPolygons.size());
 
   auto filterBeginIt = std::begin(filteredPolygons);
@@ -164,21 +165,12 @@ size_t processMinVertexNum(const std::vector< ganiullin::Polygon >& polygons)
 }
 size_t processCountEven(const std::vector< ganiullin::Polygon >& polygons)
 {
-  using namespace std::placeholders;
-  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
-  auto hasEvenVertexes = std::bind(std::equal_to< size_t >{},
-      std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 0);
   auto polygonsBeginIt = std::begin(polygons);
   auto polygonsEndIt = std::end(polygons);
   return std::count_if(polygonsBeginIt, polygonsEndIt, hasEvenVertexes);
 }
 size_t processCountOdd(const std::vector< ganiullin::Polygon >& polygons)
 {
-  using namespace std::placeholders;
-  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
-  auto hasOddVertexes = std::bind(std::equal_to< size_t >{},
-      std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 1);
-
   auto polygonsBeginIt = std::begin(polygons);
   auto polygonsEndIt = std::end(polygons);
 
@@ -187,14 +179,11 @@ size_t processCountOdd(const std::vector< ganiullin::Polygon >& polygons)
 size_t processCountVertexNum(const std::vector< ganiullin::Polygon >& polygons,
     size_t vertexNum)
 {
-  using namespace std::placeholders;
-
-  auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
   auto polygonsBeginIt = std::begin(polygons);
   auto polygonsEndIt = std::end(polygons);
 
   return std::count_if(polygonsBeginIt, polygonsEndIt,
-      std::bind(std::equal_to< size_t >{}, getNumOfVertexes, vertexNum));
+      std::bind(hasVertexesEqualTo, _1, vertexNum));
 }
 bool processInFrame(const std::vector< ganiullin::Polygon >& polygons,
     const ganiullin::Polygon& fig)
@@ -205,8 +194,6 @@ bool processInFrame(const std::vector< ganiullin::Polygon >& polygons,
 size_t processSame(const std::vector< ganiullin::Polygon >& polygons,
     const ganiullin::Polygon& fig)
 {
-  using namespace std::placeholders;
-
   auto polygonsBeginIt = std::begin(polygons);
   auto polygonsEndIt = std::end(polygons);
 
@@ -335,7 +322,6 @@ void ganiullin::CommandHandler::readAndExecuteCommand(
 }
 std::string ganiullin::CommandHandler::readCommand(std::istream& in) const
 {
-  using namespace std::placeholders;
   std::string command;
   in >> command;
   if (!in) {
