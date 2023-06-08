@@ -251,6 +251,10 @@ void dimkashelk::printSame(const std::vector< Polygon > &pol, std::ostream &out,
 {
   Polygon polygon;
   in >> polygon;
+  if (!in || in.peek() != '\n')
+  {
+    throw std::logic_error("Check input");
+  }
   using namespace std::placeholders;
   auto filterBySize = std::bind(isEqualNum, _1, polygon.points.size());
   auto filteredBySize = getFilteredPolygons(pol, filterBySize);
