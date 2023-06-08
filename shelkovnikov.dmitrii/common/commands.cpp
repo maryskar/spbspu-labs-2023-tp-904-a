@@ -93,7 +93,7 @@ namespace
     unsigned res12 = getDirection(first1, first2, second2);
     unsigned res21 = getDirection(second1, second2, first1);
     unsigned res22 = getDirection(second1, second2, first2);
-    return res11 != res12 && res21 != res22;
+    return res11 != res12 && res21 != res22 || res11 == 0 || res12 == 0 || res21 == 0 || res22 == 0;
   }
   bool isPointInPolygon(const polygon &pol, const point p)
   {
