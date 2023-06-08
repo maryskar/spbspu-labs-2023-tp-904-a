@@ -10,7 +10,6 @@ namespace
 {
   typedef dimkashelk::Polygon polygon;
   typedef std::vector< polygon > v_polygon;
-  using pair = std::pair< double, double >;
   using point = dimkashelk::Point;
   bool isMultiple(const polygon &pol, size_t number)
   {
@@ -107,6 +106,25 @@ namespace
     auto func = std::bind(isIntersectSegmentAndPolygon, second, _1, _2);
     return isIntersect(func, first);
   }
+  point movePoint(const point &p, int dX, int dY)
+  {
+    return {p.x + dX, p.y + dY};
+  }
+  polygon moveFirstCoordToStartCoords(const polygon &pol)
+  {
+    int diffX = pol.points[0].x;
+    int diffY = pol.points[0].y;
+    using namespace std::placeholders;
+    auto func = std::bind(movePoint, _1, diffX, diffY);
+    std::vector< point > newPoints;
+    std::transform(pol.points.begin(), pol.points.end(), std::back_inserter(newPoints), func);
+    return polygon{newPoints};
+  }
+  bool isSamePolygons(const polygon &first, const polygon &second)
+  {
+    using namespace std::placeholders;
+
+  }
 }
 void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
 {
@@ -184,4 +202,13 @@ void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostr
   std::transform(begin_first, end, std::back_inserter(values), func);
   auto res = std::count(values.begin(), values.end(), true);
   out << res;
+}
+void dimkashelk::printSame(const std::vector<Polygon> &pol, std::ostream &out, std::istream &in)
+{
+  Polygon polygon;
+  in >> polygon;
+  using namespace std::placeholders;
+  auto filterBySize = std::bind(isEqualNum, _1, polygon.points.size());
+  auto filteredBySize = getFilteredPolygons(pol, filterBySize);
+
 }
