@@ -59,7 +59,7 @@ namespace
   void printResult(const v_polygon &pol, std::ostream &out, UnaryOperation op)
   {
     auto res = *std::max_element(pol.begin(), pol.end(), op);
-    out << std::setprecision(1) << getArea(res);
+    out << std::fixed << std::setprecision(1) << getArea(res);
   }
   template < typename UnaryOperation >
   void printCount(const v_polygon &pol, std::ostream &out, UnaryOperation op)
