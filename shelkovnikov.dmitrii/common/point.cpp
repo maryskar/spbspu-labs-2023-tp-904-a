@@ -14,7 +14,3 @@ std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Point &point)
   in >> DelimiterIO{')'};
   return in;
 }
-bool dimkashelk::operator==(const dimkashelk::Point &p1, const dimkashelk::Point &p2)
-{
-  return p1.x == p2.x && p1.y == p2.y;
-}
