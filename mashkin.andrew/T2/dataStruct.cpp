@@ -1,5 +1,4 @@
 #include "dataStruct.h"
-#include <bitset>
 #include <cmath>
 #include <cstddef>
 #include <iomanip>

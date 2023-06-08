@@ -1,5 +1,6 @@
 #include "inputStructs.h"
 #include <iostream>
+#include <bitset>
 
 namespace mashkin
 {
