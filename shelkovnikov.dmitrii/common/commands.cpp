@@ -219,4 +219,7 @@ void dimkashelk::printSame(const std::vector< Polygon > &pol, std::ostream &out,
   using namespace std::placeholders;
   auto filterBySize = std::bind(isEqualNum, _1, polygon.points.size());
   auto filteredBySize = getFilteredPolygons(pol, filterBySize);
+  auto func = std::bind(isSamePolygons, _1, polygon);
+  auto count = std::count_if(filteredBySize.begin(), filteredBySize.end(), func);
+  out << count;
 }
