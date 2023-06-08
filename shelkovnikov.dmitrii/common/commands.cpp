@@ -56,10 +56,25 @@ namespace
     out << std::fixed <<std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
   }
   template < typename UnaryOperation >
+  polygon getResult(const v_polygon &pol, UnaryOperation op)
+  {
+    if (pol.empty())
+    {
+      throw std::logic_error("Nothing...");
+    }
+    return *std::max_element(pol.begin(), pol.end(), op);
+  }
+  template < typename UnaryOperation >
   void printResult(const v_polygon &pol, std::ostream &out, UnaryOperation op)
   {
-    auto res = *std::max_element(pol.begin(), pol.end(), op);
+    auto res = getResult(pol, op);
     out << std::fixed << std::setprecision(1) << getArea(res);
+  }
+  template < typename UnaryOperation >
+  void printResultVertex(const v_polygon &pol, std::ostream &out, UnaryOperation op)
+  {
+    auto res = getResult(pol, op);
+    out << res.points.size();
   }
   template < typename UnaryOperation >
   void printCount(const v_polygon &pol, std::ostream &out, UnaryOperation op)
@@ -171,7 +186,7 @@ void dimkashelk::printMaxArea(const std::vector< Polygon > &pol, std::ostream &o
 }
 void dimkashelk::printMaxVertex(const std::vector< Polygon > &pol, std::ostream &out)
 {
-  printResult(pol, out, isLessVertex);
+  printResultVertex(pol, out, isLessVertex);
 }
 void dimkashelk::printMinArea(const std::vector< Polygon > &pol, std::ostream &out)
 {
@@ -181,7 +196,7 @@ void dimkashelk::printMinArea(const std::vector< Polygon > &pol, std::ostream &o
 void dimkashelk::printMinVertex(const std::vector< Polygon > &pol, std::ostream &out)
 {
   using namespace std::placeholders;
-  printResult(pol, out, std::bind(isLessVertex, _2, _1));
+  printResultVertex(pol, out, std::bind(isLessVertex, _2, _1));
 }
 void dimkashelk::printCountEven(const std::vector< Polygon > &pol, std::ostream &out)
 {
@@ -198,7 +213,7 @@ void dimkashelk::printCountNumOfVertex(const std::vector< Polygon > &pol, std::o
     throw std::logic_error("No polygons");
   }
   using namespace std::placeholders;
-  printCount(pol, out, std::bind(isEqualNum, _1, num));
+  printResultVertex(pol, out, std::bind(isEqualNum, _1, num));
 }
 void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostream &out, std::istream &in)
 {
