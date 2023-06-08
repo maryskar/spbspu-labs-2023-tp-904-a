@@ -226,7 +226,8 @@ void dimkashelk::printCountNumOfVertex(const std::vector< Polygon > &pol, std::o
     throw std::logic_error("No polygons");
   }
   using namespace std::placeholders;
-  printResultVertex(pol, out, std::bind(isEqualNum, _1, num));
+  auto func = std::bind(isEqualNum, _1, num);
+  out << std::count_if(pol.begin(), pol.end(), func);
 }
 void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostream &out, std::istream &in)
 {
