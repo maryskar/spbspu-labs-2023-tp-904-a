@@ -6,7 +6,7 @@
 #include <ios>
 #include <iostream>
 #include <string>
-#include <InputStructs.h>
+#include <inputStructs.h>
 
 namespace mashkin
 {
