@@ -95,6 +95,24 @@ namespace
     unsigned res22 = getDirection(second1, second2, first2);
     return res11 != res12 && res21 != res22;
   }
+  bool isPointInPolygon(const polygon &pol, const point p)
+  {
+    using namespace std::placeholders;
+    auto func = std::bind(getDirection, _1, _2, p);
+    std::vector< unsigned > values;
+    std::transform(pol.points.begin(), --pol.points.end(), ++pol.points.begin(), std::back_inserter(values), func);
+    values.push_back(func(*(--pol.points.end()), *pol.points.begin()));
+    return -std::accumulate(values.begin(), values.end(), 0) == values.size();
+  }
+  bool isPolygonInPolygon(const polygon &first, const polygon &second)
+  {
+    using namespace std::placeholders;
+    auto func = std::bind(isPointInPolygon, first, _1);
+    std::vector< bool > values;
+    std::transform(second.points.begin(), second.points.end(), std::back_inserter(values), func);
+    auto res = std::find(values.begin(), values.end(), false);
+    return res == values.end();
+  }
   template < typename BinaryOperation >
   bool isIntersect(BinaryOperation func, const polygon &pol)
   {
@@ -119,7 +137,7 @@ namespace
   {
     using namespace std::placeholders;
     auto func = std::bind(isIntersectSegmentAndPolygon, second, _1, _2);
-    return isIntersect(func, first);
+    return isIntersect(func, first) || ;
   }
   bool isEqualPoint(const point &p1, const point &p2)
   {
