@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
     {
       auto command = inputCommand(std::cin);
       doCommand(data, commands, command, std::cin, std::cout);
+      std::cout << '\n';
     }
     catch (const std::logic_error &e)
     {
