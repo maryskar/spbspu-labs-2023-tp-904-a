@@ -1,5 +1,7 @@
 #include "scopeguard.hpp"
 
+#include <ios>
+
 hrushchev::iofmtguard::iofmtguard(std::basic_ios< char >& s):
 	s_(s),
 	fill_(s.fill()),
