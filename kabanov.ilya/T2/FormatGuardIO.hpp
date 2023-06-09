@@ -3,10 +3,10 @@
 
 #include <iomanip>
 
-namespace ilyak {
+namespace kabanov {
   class FormatGuardIO {
   public:
-    FormatGuardIO(std::basic_ios< char >& s);
+    explicit FormatGuardIO(std::basic_ios< char >& s);
     ~FormatGuardIO();
 
   private:

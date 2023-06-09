@@ -1,8 +1,9 @@
 #include "DataStruct.hpp"
 
+#include "TypesIO.hpp"
 #include "FormatGuardIO.hpp"
 
-std::istream& ilyak::operator>>(std::istream& in, ilyak::DataStruct& dest)
+std::istream& kabanov::operator>>(std::istream& in, kabanov::DataStruct& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -13,14 +14,14 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::DataStruct& dest)
   char key2 = '0';
   std::string key3 = "";
   {
-    in >> ilyak::DelimiterIO{ '(' };
+    in >> kabanov::DelimiterIO{ '(' };
     bool isKey1 = false;
     bool isKey2 = false;
     bool isKey3 = false;
     for (std::size_t i = 0; i < 3; ++i)
     {
       size_t labelNum = 0;
-      in >> ilyak::DelimiterIO{ ':' } >> ilyak::LabelIO{ "key" } >> labelNum;
+      in >> kabanov::DelimiterIO{ ':' } >> kabanov::LabelIO{ "key" } >> labelNum;
 
       switch (labelNum)
       {
@@ -29,7 +30,7 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::DataStruct& dest)
         {
           in.setstate(std::ios::failbit);
         }
-        in >> ilyak::ULongLongBinI{ key1 };
+        in >> kabanov::ULongLongBinI{ key1 };
         isKey1 = true;
         break;
       case 2:
@@ -37,7 +38,7 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::DataStruct& dest)
         {
           in.setstate(std::ios::failbit);
         }
-        in >> ilyak::CharIO{ key2 };
+        in >> kabanov::CharIO{ key2 };
         isKey2 = true;
         break;
       case 3:
@@ -45,7 +46,7 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::DataStruct& dest)
         {
           in.setstate(std::ios::failbit);
         }
-        in >> ilyak::StringIO{ key3 };
+        in >> kabanov::StringIO{ key3 };
          isKey3 = true;
         break;
       default:
@@ -53,8 +54,8 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::DataStruct& dest)
         break;
       }
     }
-    in >> ilyak::DelimiterIO{ ':' };
-    in >> ilyak::DelimiterIO{ ')' };
+    in >> kabanov::DelimiterIO{ ':' };
+    in >> kabanov::DelimiterIO{ ')' };
   }
   if (in)
   {
@@ -63,22 +64,22 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::DataStruct& dest)
   return in;
 }
 
-std::ostream& ilyak::operator<<(std::ostream& out, const ilyak::DataStruct& src)
+std::ostream& kabanov::operator<<(std::ostream& out, const kabanov::DataStruct& src)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
   {
     return out;
   }
-  ilyak::FormatGuardIO guard(out);
+  kabanov::FormatGuardIO guard(out);
 
-  out << "(:key1" << ' ' << ilyak::ULongLongBinO{ src.key1 } << ':';
+  out << "(:key1" << ' ' << kabanov::ULongLongBinO{ src.key1 } << ':';
   out << "key2" << " '" << src.key2 << "':";
   out << "key3" << " \"" << src.key3 << "\":)";
   return out;
 }
 
-bool ilyak::comp(const ilyak::DataStruct& lhs, const ilyak::DataStruct& rhs)
+bool kabanov::comp(const kabanov::DataStruct& lhs, const kabanov::DataStruct& rhs)
 {
   if (lhs.key1 != rhs.key1)
   {

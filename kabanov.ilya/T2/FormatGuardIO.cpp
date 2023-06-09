@@ -1,13 +1,13 @@
 #include "FormatGuardIO.hpp"
 
-ilyak::FormatGuardIO::FormatGuardIO(std::basic_ios< char >& s):
+kabanov::FormatGuardIO::FormatGuardIO(std::basic_ios< char >& s):
   s_(s),
   fill_(s.fill()),
   precision_(s.precision()),
   flags_(s.flags())
 {}
 
-ilyak::FormatGuardIO::~FormatGuardIO()
+kabanov::FormatGuardIO::~FormatGuardIO()
 {
   s_.fill(fill_);
   s_.precision(precision_);

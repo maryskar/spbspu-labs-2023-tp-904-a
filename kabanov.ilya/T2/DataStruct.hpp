@@ -4,9 +4,7 @@
 #include <iostream>
 #include <iomanip>
 
-#include "TypesIO.hpp"
-
-namespace ilyak
+namespace kabanov
 {
   struct DataStruct
   {

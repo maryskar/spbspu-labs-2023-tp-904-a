@@ -4,7 +4,7 @@
 #include <bitset>
 #include <algorithm>
 
-std::istream& ilyak::operator>>(std::istream& in, ilyak::DelimiterIO&& dest)
+std::istream& kabanov::operator>>(std::istream& in, kabanov::DelimiterIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -20,7 +20,7 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::DelimiterIO&& dest)
   return in;
 }
 
-std::istream& ilyak::operator>>(std::istream& in, ilyak::LabelIO&& dest)
+std::istream& kabanov::operator>>(std::istream& in, kabanov::LabelIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -38,7 +38,7 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::LabelIO&& dest)
   return in;
 }
 
-std::istream& ilyak::operator>>(std::istream& in, ilyak::LiteralIO&& dest)
+std::istream& kabanov::operator>>(std::istream& in, kabanov::LiteralIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -54,7 +54,7 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::LiteralIO&& dest)
   return in;
 }
 
-std::istream& ilyak::operator>>(std::istream& in, ilyak::ULongLongBinI&& dest)
+std::istream& kabanov::operator>>(std::istream& in, kabanov::ULongLongBinI&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -74,7 +74,7 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::ULongLongBinI&& dest)
   return in;
 }
 
-std::ostream& ilyak::operator<<(std::ostream& out, ilyak::ULongLongBinO&& dest)
+std::ostream& kabanov::operator<<(std::ostream& out, kabanov::ULongLongBinO&& dest)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
@@ -97,19 +97,19 @@ std::ostream& ilyak::operator<<(std::ostream& out, ilyak::ULongLongBinO&& dest)
   return out << "0b" << str;
 }
 
-std::istream& ilyak::operator>>(std::istream& in, ilyak::CharIO&& dest)
+std::istream& kabanov::operator>>(std::istream& in, kabanov::CharIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  in >> ilyak::DelimiterIO{ '\'' } >> dest.ref >> ilyak::DelimiterIO{ '\'' };
+  in >> kabanov::DelimiterIO{ '\'' } >> dest.ref >> kabanov::DelimiterIO{ '\'' };
 
   return in;
 }
 
-std::istream& ilyak::operator>>(std::istream& in, ilyak::StringIO&& dest)
+std::istream& kabanov::operator>>(std::istream& in, kabanov::StringIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -117,5 +117,5 @@ std::istream& ilyak::operator>>(std::istream& in, ilyak::StringIO&& dest)
     return in;
   }
 
-  return std::getline(in >> ilyak::DelimiterIO{ '"' }, dest.ref, '"');
+  return std::getline(in >> kabanov::DelimiterIO{ '"' }, dest.ref, '"');
 }
