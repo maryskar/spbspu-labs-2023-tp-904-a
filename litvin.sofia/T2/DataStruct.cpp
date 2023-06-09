@@ -68,7 +68,7 @@ namespace litvin
     ScopeGuard guard(out);
     out << "(";
     out << ":key1 ";
-    convertToScientific(out, dest.key1);
+    out << convertToScientific(dest.key1);
     out << ':';
     out << "key2 ";
     out << "(:N " << dest.key2.first;
