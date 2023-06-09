@@ -11,10 +11,7 @@ namespace zhuravlev
     std::string key3;
   };
 
-  struct DataComparator
-  {
-    bool operator()(const Data& lhs, const Data& rhs);
-  };
+  bool dataComparator(const Data& lhs, const Data& rhs);
 }
 
 
