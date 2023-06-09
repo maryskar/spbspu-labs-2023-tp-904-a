@@ -95,7 +95,7 @@ namespace malaya
     {}
     size_t pos = command.find(' ');
     size_t num = std::stoull(command.substr(pos));
-    dicts.doComm(command, data, num, out);
+    dicts.doComm(command.substr(0, pos), data, num, out);
 
     //auto iter1 = dicts.getFirst().find(command);
     //if (iter1 != dicts.getFirst().end())
