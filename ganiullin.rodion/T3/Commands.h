@@ -7,31 +7,30 @@
 
 namespace ganiullin {
 
-  void printErrorMessage(std::ostream& out);
+  std::ostream& printErrorMessage(std::ostream& out);
 
   class CommandHandler {
+  public:
+    CommandHandler();
+    ~CommandHandler() = default;
+
+    std::string readCommand(std::istream& in) const;
+    std::ostream& executeCommand(const std::string& command,
+        const std::vector< Polygon >& polygons, std::istream& in,
+        std::ostream& out) const;
+
   private:
-    using PolygonCommand = void (*)(const std::vector< Polygon >& polygons,
+    using Polygons = std::vector< Polygon >;
+    using PolygonCommand = std::ostream& (*)(const Polygons& polygons,
         const Polygon& fig, std::ostream& out);
-    using VertexCommand = void (*)(const std::vector< Polygon >& polygons,
+    using VertexCommand = std::ostream& (*)(const Polygons& polygons,
         const size_t vertexes, std::ostream& out);
-    using StateCommand = void (*)(const std::vector< Polygon >& polygons,
+    using StateCommand = std::ostream& (*)(const Polygons& polygons,
         std::ostream& out);
 
     std::map< std::string, PolygonCommand > polygonCommandDict_;
     std::map< std::string, VertexCommand > vertexCommandDict_;
     std::map< std::string, StateCommand > stateCommandDict_;
-
-    std::string readCommand(std::istream& in) const;
-    void executeCommand(const std::string& command,
-        const std::vector< Polygon > polygons, std::istream& in,
-        std::ostream& out) const;
-
-  public:
-    CommandHandler();
-    ~CommandHandler() = default;
-    void readAndExecuteCommand(const std::vector< Polygon > polygons,
-        std::istream& in, std::ostream& out) const;
   };
 }
 #endif
