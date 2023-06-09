@@ -272,7 +272,7 @@ namespace {
   {
     ganiullin::iofmtguard iofmtguard(out);
     return out << std::fixed << std::setprecision(1)
-               << processAreaMean(polygons);
+               << processMinVertexNum(polygons);
   }
   std::ostream& printCountEven(
       const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
@@ -311,6 +311,7 @@ namespace {
   {
     return out << processInFrame(polygons, fig);
   }
+
   std::ostream& printSame(const std::vector< ganiullin::Polygon >& polygons,
       const ganiullin::Polygon& fig, std::ostream& out)
   {
