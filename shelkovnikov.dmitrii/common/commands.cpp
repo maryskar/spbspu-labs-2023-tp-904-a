@@ -42,7 +42,7 @@ namespace
   void printArea(const v_polygon &pol, std::ostream &out, UnaryOperation op)
   {
     auto filtered = getFilteredPolygons(pol, op);
-    std::vector< double > filtered_area;
+    std::vector< double > filtered_area(filtered.size());
     std::transform(filtered.begin(), filtered.end(), std::back_inserter(filtered_area), dimkashelk::getArea);
     dimkashelk::iofmtguard iofmtguard(out);
     out << std::fixed <<std::setprecision(1) << std::accumulate(filtered_area.begin(), filtered_area.end(), 0.0);
@@ -94,7 +94,7 @@ namespace
   {
     using namespace std::placeholders;
     auto func = std::bind(getDirection, _1, _2, p);
-    std::vector< unsigned > values;
+    std::vector< unsigned > values(pol.points.size());
     std::transform(pol.points.begin(), --pol.points.end(), ++pol.points.begin(), std::back_inserter(values), func);
     values.push_back(func(*(--pol.points.end()), *pol.points.begin()));
     auto res = static_cast< long long >(std::accumulate(values.begin(), values.end(), 0));
@@ -105,7 +105,7 @@ namespace
   {
     using namespace std::placeholders;
     auto func = std::bind(isPointInPolygon, first, _1);
-    std::vector< bool > values;
+    std::vector< bool > values(second.points.size());
     std::transform(second.points.begin(), second.points.end(), std::back_inserter(values), func);
     auto res = std::find(values.begin(), values.end(), false);
     return res == values.end();
@@ -113,7 +113,7 @@ namespace
   template < typename BinaryOperation >
   bool isIntersect(BinaryOperation func, const polygon &pol)
   {
-    std::vector< bool > values;
+    std::vector< bool > values(pol.points.size());
     auto begin_first = pol.points.begin();
     auto begin_second = begin_first;
     begin_second++;
@@ -150,7 +150,7 @@ namespace
     int diffY = pol.points[0].y;
     using namespace std::placeholders;
     auto func = std::bind(movePoint, _1, diffX, diffY);
-    std::vector< point > newPoints;
+    std::vector< point > newPoints(pol.points.size());
     std::transform(pol.points.begin(), pol.points.end(), std::back_inserter(newPoints), func);
     return polygon{newPoints};
   }
@@ -179,7 +179,7 @@ void dimkashelk::printAreaMean(const std::vector< Polygon > &pol, std::ostream &
   {
     throw std::logic_error("No mean area of empty vector");
   }
-  std::vector< double > areas;
+  std::vector< double > areas(pol.size());
   std::transform(pol.begin(), pol.end(), std::back_inserter(areas), getArea);
   double sum_area = std::accumulate(areas.begin(), areas.end(), 0.0);
   iofmtguard iofmtguard(out);
@@ -239,7 +239,7 @@ void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostr
   {
     throw std::logic_error("Check input");
   }
-  std::vector< bool > values;
+  std::vector< bool > values(pol.size());
   using namespace std::placeholders;
   auto func = std::bind(isIntersectTwoPolygon, _1, polygon);
   std::transform(pol.begin(), pol.end(), std::back_inserter(values), func);

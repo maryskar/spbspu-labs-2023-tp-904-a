@@ -24,7 +24,7 @@ std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &poly
 double dimkashelk::getArea(const dimkashelk::Polygon &polygon)
 {
   size_t countPoints = polygon.points.size();
-  std::vector< double > values;
+  std::vector< double > values(countPoints - 1);
   auto begin_first = polygon.points.begin();
   auto begin_second = begin_first;
   begin_second++;
