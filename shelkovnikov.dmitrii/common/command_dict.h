@@ -23,6 +23,5 @@ namespace dimkashelk
     std::map< std::string, comm_with_size_t > initializeSizeTCommand();
     std::map< std::string, comm_with_input_t > initializeInputCommand();
   };
-  //comm_dict_t createCommDict();
 }
 #endif

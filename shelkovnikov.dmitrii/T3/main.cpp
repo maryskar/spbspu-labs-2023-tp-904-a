@@ -31,30 +31,6 @@ std::string inputCommand(std::istream &in)
   res += ' ' + temp;
   return res;
 }
-void doCommand(std::vector< dimkashelk::Polygon > &data,
-    dimkashelk::comm_dict_t &allCommands,
-    std::string &command,
-    std::istream &in,
-    std::ostream &out)
-{
-  try
-  {
-    allCommands.dic3.at(command)(data, out, in);
-    return;
-  }
-  catch (const std::out_of_range &e)
-  {}
-  try
-  {
-    allCommands.dic1.at(command)(data, out);
-    return;
-  }
-  catch (const std::out_of_range &e)
-  {}
-  auto spaceIndex = command.find(' ');
-  auto index = std::stoull(command.substr(spaceIndex));
-  allCommands.dic2.at(command.substr(0, spaceIndex))(data, out, index);
-}
 int main(int argc, char *argv[])
 {
   if (argc != 2)
@@ -80,13 +56,13 @@ int main(int argc, char *argv[])
       in.ignore(max_size, '\n');
     }
   }
-  auto commands = dimkashelk::createCommDict();
+  dimkashelk::CommandContainer commandContainer;
   while (!std::cin.eof())
   {
     try
     {
       auto command = inputCommand(std::cin);
-      doCommand(data, commands, command, std::cin, std::cout);
+      commandContainer.doCommand(command, data, std::cout, std::cin);
       std::cout << '\n';
     }
     catch (const std::logic_error &e)
