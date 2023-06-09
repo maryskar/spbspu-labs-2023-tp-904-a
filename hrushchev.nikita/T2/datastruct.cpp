@@ -1,5 +1,6 @@
 #include "datastruct.hpp"
 #include <complex>
+#include <string>
 
 namespace hrushchev
 {
@@ -15,7 +16,7 @@ namespace hrushchev
   		{
   			return std::abs(lhs.key2) < std::abs(rhs.key2);
   		}
-  		return lhs.key3 < lhs.key3;
+  		return lhs.key3.length() < lhs.key3.length();
   	}
   }
 }
