@@ -23,19 +23,19 @@ namespace malaya
   }
   void Commands::doComm(const std::string & comm, const std::vector< Polygon > & data, std::ostream & out) const
   {
-    auto func = dict1.at("comm");
+    auto func = dict1.at(comm);
     func(data, out);
   }
   void Commands::doComm(const std::string & comm, const std::vector< Polygon > & data,
                         size_t num, std::ostream & out) const
   {
-    auto func = dict2.at("comm");
+    auto func = dict2.at(comm);
     func(data, num, out);
   }
   void Commands::doComm(const std::string & comm, const std::vector< Polygon > & data,
                         std::ostream & out, std::istream & in) const
   {
-    auto func = dict3.at("comm");
+    auto func = dict3.at(comm);
     func(data, out, in);
   }
   //const Commands::firstDict & Commands::getFirst() const
