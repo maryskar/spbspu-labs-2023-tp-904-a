@@ -2,7 +2,7 @@
 #include <iterator>
 #include <algorithm>
 #include <numeric>
-#include <iostream>
+#include <limits>
 #include "area_storage.h"
 std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &polygon)
 {
@@ -13,10 +13,10 @@ std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &poly
   }
   size_t count = 0;
   in >> count;
-  std::string endOfLine;
+  constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   if (count < 3)
   {
-    std::getline(in, endOfLine);
+    in.ignore(max_size, '\n');
     in.setstate(std::ios::failbit);
     return in;
   }
@@ -24,11 +24,10 @@ std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &poly
   std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(polygon.points));
   if (!in)
   {
-    in.clear();
-    std::getline(in, endOfLine);
-    in.setstate(std::ios::failbit);
+    in.ignore(max_size, '\n');
     return in;
   }
+  std::string endOfLine;
   std::getline(in, endOfLine);
   if (endOfLine.find_first_not_of(' ') != std::string::npos)
   {
