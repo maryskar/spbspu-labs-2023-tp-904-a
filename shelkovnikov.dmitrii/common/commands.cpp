@@ -4,7 +4,6 @@
 #include <numeric>
 #include <tuple>
 #include <functional>
-#include <limits>
 #include "polygon.h"
 #include "io.h"
 namespace
@@ -121,7 +120,7 @@ namespace
     auto end = pol.points.end();
     end--;
     std::transform(begin_first, end, begin_second, std::back_inserter(values), func);
-    values.push_back(func(pol.points[0], *end));
+    values.push_back(func(pol.points.front(), pol.points.back()));
     auto res = std::count(values.begin(), values.end(), true);
     return res > 0;
   }
@@ -147,8 +146,8 @@ namespace
   }
   polygon moveFirstCoordToStartCoords(const polygon &pol)
   {
-    int diffX = pol.points[0].x;
-    int diffY = pol.points[0].y;
+    int diffX = pol.points.front().x;
+    int diffY = pol.points.front().y;
     using namespace std::placeholders;
     auto func = std::bind(movePoint, _1, diffX, diffY);
     std::vector< point > newPoints(pol.points.size());

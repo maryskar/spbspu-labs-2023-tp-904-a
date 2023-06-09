@@ -41,7 +41,7 @@ double dimkashelk::getArea(const dimkashelk::Polygon &polygon)
   dimkashelk::AreaStorage areaStorage;
   std::transform(begin_first, end, begin_second, std::back_inserter(values), areaStorage);
   double area = std::accumulate(values.begin(), values.end(), 0.0);
-  area += areaStorage(polygon.points[countPoints - 1], polygon.points[0]);
+  area += areaStorage(polygon.points.back(), polygon.points.front());
   area = std::abs(area) / 2;
   return area;
 }
