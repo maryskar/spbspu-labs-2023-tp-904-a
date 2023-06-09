@@ -213,7 +213,7 @@ namespace {
     if (ganiullin::isInFrame(fig, getFrame(polygons))) {
       return "<TRUE>";
     }
-    return "<FALSE";
+    return "<FALSE>";
   }
 
   size_t processSame(const std::vector< ganiullin::Polygon >& polygons,

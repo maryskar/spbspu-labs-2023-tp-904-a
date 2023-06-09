@@ -52,11 +52,14 @@ namespace {
       const std::pair< ganiullin::Point, ganiullin::Point > frame)
   {
     using namespace std::placeholders;
-    auto isPointLess = std::bind(comparePoints, _1, _2);
-    auto isPointMore = std::bind(comparePoints, _2, _1);
+    auto isPointXLess = std::bind(isXLess, _1, _2);
+    auto isPointYLess = std::bind(isYLess, _1, _2);
+    auto isPointLess =
+        std::bind(std::logical_and< bool >{}, isPointXLess, isPointYLess);
+    auto isPointMore = std::bind(isPointLess, _2, _1);
 
-    return !isPointLess(frame.first, point) &&
-           !isPointMore(frame.second, point);
+    return !isPointLess(point, frame.first) &&
+           !isPointMore(point, frame.second);
   }
   std::pair< ganiullin::Point, ganiullin::Point > getPolygonFrame(
       const ganiullin::Polygon& polygon)
@@ -172,8 +175,10 @@ bool ganiullin::isInFrame(const Polygon& fig,
 {
   using namespace std::placeholders;
   auto isPointInThisFrame = std::bind(isPointInFrame, _1, frame);
-  return std::all_of(std::begin(fig.points), std::end(fig.points),
-      isPointInThisFrame);
+  auto figureBeginIt = std::begin(fig.points);
+  auto figureEndIt = std::end(fig.points);
+
+  return std::all_of(figureBeginIt, figureEndIt, isPointInThisFrame);
 }
 
 bool ganiullin::isSame(const Polygon& lhs, const Polygon& rhs)
