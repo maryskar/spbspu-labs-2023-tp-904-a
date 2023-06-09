@@ -3,6 +3,7 @@
 #include <iterator>
 #include <limits>
 #include <fstream>
+#include <string>
 #include "polygon.h"
 
 int main(int argc, char** argv)
@@ -33,6 +34,11 @@ int main(int argc, char** argv)
       inpFile.clear();
       inpFile.ignore(maxSize, '\n');
     }
+  }
+  while (!std::cin.eof())
+  {
+    std::string command;
+    std::cin >> command;
   }
   return 0;
 }
