@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include "polygon.h"
+#include "commands.h"
 
 int main(int argc, char** argv)
 {
@@ -38,7 +39,7 @@ int main(int argc, char** argv)
   while (!std::cin.eof())
   {
     std::string command;
-    std::cin >> command;
+    runCommand(std::cin, command);
   }
   return 0;
 }
