@@ -46,10 +46,6 @@ int main(int argc, char * argv[])
     {
       malaya::invalidPrint(std::cout);
       std::cout << '\n';
-    }
-    if (!std::cin)
-    {
-      std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }

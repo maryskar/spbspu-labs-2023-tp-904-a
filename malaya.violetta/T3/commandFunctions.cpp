@@ -6,7 +6,6 @@
 #include <cmath>
 #include <iomanip>
 #include <IOStreamsGuard.hpp>
-#include "helpFunctions.hpp"
 namespace malaya
 {
   bool isEvenPoints(const Polygon & polygon)
