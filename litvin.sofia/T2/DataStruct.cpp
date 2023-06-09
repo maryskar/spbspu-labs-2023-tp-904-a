@@ -1,5 +1,6 @@
 #include "DataStruct.hpp"
-#include <iostream>
+#include "ScopeGuard.hpp"
+#include "Structures.hpp"
 namespace litvin
 {
   std::istream & operator>>(std::istream & in, DataStruct & dest)

@@ -1,6 +1,5 @@
 #include "DataStruct.hpp"
 #include <iterator>
-#include <vector>
 #include <algorithm>
 #include <limits>
 #include <deque>

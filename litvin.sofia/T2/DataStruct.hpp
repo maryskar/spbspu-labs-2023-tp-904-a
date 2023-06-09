@@ -1,7 +1,6 @@
 #ifndef T2_DATASTRUCT_HPP
 #define T2_DATASTRUCT_HPP
-#include "ScopeGuard.hpp"
-#include "Structures.hpp"
+#include <iostream>
 namespace litvin
 {
   struct DataStruct
