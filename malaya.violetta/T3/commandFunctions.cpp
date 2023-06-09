@@ -41,9 +41,6 @@ namespace malaya
   {
     if (num < 3)
     {
-      //invalidPrint(out);
-      //out << '\n';
-      //return;
       throw std::invalid_argument("Invalid command option");
     }
     using namespace std::placeholders;
@@ -71,9 +68,6 @@ namespace malaya
   {
     if (data.empty())
     {
-      //invalidPrint(out);
-      //out << '\n';
-      //return;
       throw std::invalid_argument("Polygon vector is empty");
     }
     out << std::fixed << std::setprecision(1) << minMaxArea(data, minElem< double >) << '\n';
@@ -82,9 +76,6 @@ namespace malaya
   {
     if (data.empty())
     {
-      //invalidPrint(out);
-      //out << '\n';
-      //return;
       throw std::invalid_argument("Polygon vector is empty");
     }
     out << std::fixed << std::setprecision(1) << minMaxArea(data, maxElem< double >) << '\n';
@@ -93,9 +84,6 @@ namespace malaya
   {
     if (data.empty())
     {
-      //invalidPrint(out);
-      //out << '\n';
-      //return;
       throw std::invalid_argument("Polygon vector is empty");
     }
     std::vector< double > values(data.size());
@@ -118,9 +106,6 @@ namespace malaya
   {
     if (data.empty())
     {
-      //invalidPrint(out);
-      //out << '\n';
-      //return;
       throw std::invalid_argument("Polygon vector is empty");
     }
     out << minMaxVertexes(data, minElem< size_t >) << '\n';
@@ -129,9 +114,6 @@ namespace malaya
   {
     if (data.empty())
     {
-      //invalidPrint(out);
-      //out << '\n';
-      //return;
       throw std::invalid_argument("Polygon vector is empty");
     }
     out << minMaxVertexes(data, maxElem< size_t >) << '\n';
@@ -156,9 +138,6 @@ namespace malaya
     if (num < 3)
     {
       throw std::invalid_argument("Invalid command option");
-      //invalidPrint(out);
-      //out << '\n';
-      //return;
     }
     using namespace std::placeholders;
     auto func = std::bind(isEqualToNum, _1, num);
@@ -198,9 +177,6 @@ namespace malaya
     in >> polygon;
     if (polygon.points.size() < 3)
     {
-      //invalidPrint(out);
-      //out << '\n';
-      //return;
       throw std::invalid_argument("Invalid command option");
     }
     using namespace std::placeholders;
