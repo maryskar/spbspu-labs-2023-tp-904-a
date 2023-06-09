@@ -18,7 +18,7 @@ namespace hrushchev
 
 	struct Comparator
   {
-    bool operator()(const DataStruct &lhs, const DataStruct &rhs) const;
+    bool operator()(const DataStruct& lhs, const DataStruct& rhs) const;
   };
 }
 
