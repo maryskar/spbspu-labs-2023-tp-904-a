@@ -1,11 +1,11 @@
 #ifndef STREAMGUARD_H
 #define STREAMGUARD_H
-#include <iomainp>
+#include <iomanip>
 namespace aksenov {
   class StreamGuard
   {
   public:
-    StreamGuard(std::basic_ios<char> &s);
+    StreamGuard(std::basic_ios< char > &s);
     ~StreamGuard();
   private:
     std::basic_ios<char> &s_;
