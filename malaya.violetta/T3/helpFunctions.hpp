@@ -17,9 +17,12 @@ namespace malaya
     using secondDict = std::map< std::string, secondComType >;
     using thirdDict = std::map< std::string, thirdComType >;
     Commands();
-    const firstDict & getFirst() const;
-    const secondDict & getSecond() const;
-    const thirdDict & getThird() const;
+    //const firstDict & getFirst() const;
+    //const secondDict & getSecond() const;
+    //const thirdDict & getThird() const;
+    void doComm(const std::string &, const std::vector< Polygon > &, std::ostream &) const;
+    void doComm(const std::string &, const std::vector< Polygon > &, size_t, std::ostream &) const;
+    void doComm(const std::string &, const std::vector< Polygon > &, std::ostream &, std::istream &) const;
    private:
     firstDict dict1;
     secondDict dict2;

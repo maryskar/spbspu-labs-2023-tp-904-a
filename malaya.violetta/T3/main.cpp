@@ -38,11 +38,11 @@ int main(int argc, char * argv[])
       command = malaya::inputCommand(std::cin);
       malaya::doCommand(data, comms, command, std::cin, std::cout);
     }
-    catch (const std::out_of_range &)
+    catch (const std::runtime_error &)
     {
       break;
     }
-    catch (const std::invalid_argument &)
+    catch (const std::logic_error &)
     {
       malaya::invalidPrint(std::cout);
       std::cout << '\n';
