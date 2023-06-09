@@ -20,6 +20,10 @@ std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &poly
   }
   polygon.points.clear();
   std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(polygon.points));
+  if (!in)
+  {
+    return in;
+  }
   std::string endOfLine;
   std::getline(in, endOfLine);
   if (endOfLine.find_first_not_of(' ') != std::string::npos)
