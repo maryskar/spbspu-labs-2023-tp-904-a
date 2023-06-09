@@ -1,20 +1,36 @@
 #include "command_dict.h"
 #include "commands.h"
-dimkashelk::comm_dict_t dimkashelk::createCommDict()
+using container = dimkashelk::CommandContainer;
+container::CommandContainer():
+  dict_simple_command_(initializeSimpleCommand()),
+  dict_with_size_t_command_(initializeSizeTCommand()),
+  dict_with_input_command_(initializeInputCommand())
+{}
+std::map< std::string, container::comm_t > container::initializeSimpleCommand()
 {
-  dimkashelk::comm_dict_t res{};
-  res.dic1["AREA EVEN"] = printAreaEven;
-  res.dic1["AREA ODD"] = printAreaOdd;
-  res.dic1["AREA MEAN"] = printAreaMean;
-  res.dic2["AREA"] = printAreaNumOfVertex;
-  res.dic1["MAX AREA"] = printMaxArea;
-  res.dic1["MAX VERTEXES"] = printMaxVertex;
-  res.dic1["MIN AREA"] = printMinArea;
-  res.dic1["MIN VERTEXES"] = printMinVertex;
-  res.dic1["COUNT EVEN"] = printCountEven;
-  res.dic1["COUNT ODD"] = printCountOdd;
-  res.dic2["COUNT"] = printCountNumOfVertex;
-  res.dic3["INTERSECTIONS"] = printIntersections;
-  res.dic3["SAME"] = printSame;
-  return res;
+  std::map< std::string, comm_t > dic;
+  dic["AREA EVEN"] = printAreaEven;
+  dic["AREA ODD"] = printAreaOdd;
+  dic["AREA MEAN"] = printAreaMean;
+  dic["MAX AREA"] = printMaxArea;
+  dic["MAX VERTEXES"] = printMaxVertex;
+  dic["MIN AREA"] = printMinArea;
+  dic["MIN VERTEXES"] = printMinVertex;
+  dic["COUNT EVEN"] = printCountEven;
+  dic["COUNT ODD"] = printCountOdd;
+  return dic;
+}
+std::map< std::string, container::comm_with_size_t > container::initializeSizeTCommand()
+{
+  std::map< std::string, comm_with_size_t > dic;
+  dic["AREA"] = printAreaNumOfVertex;
+  dic["COUNT"] = printCountNumOfVertex;
+  return dic;
+}
+std::map< std::string, container::comm_with_input_t > container::initializeInputCommand()
+{
+  std::map< std::string, comm_with_input_t > dic;
+  dic["INTERSECTIONS"] = printIntersections;
+  dic["SAME"] = printSame;
+  return dic;
 }

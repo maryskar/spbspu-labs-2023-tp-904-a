@@ -7,15 +7,21 @@
 #include "polygon.h"
 namespace dimkashelk
 {
+  class CommandContainer
+  {
   using comm_t = void(*)(const std::vector< Polygon > &data, std::ostream &out);
   using comm_with_size_t = void(*)(const std::vector< Polygon > &data, std::ostream &out, size_t n);
   using comm_with_input_t = void(*)(const std::vector< Polygon > &data, std::ostream &out, std::istream &in);
-  struct comm_dict_t
-  {
-    std::map< std::string, comm_t > dic1;
-    std::map< std::string, comm_with_size_t > dic2;
-    std::map< std::string, comm_with_input_t > dic3;
+  public:
+    CommandContainer();
+  private:
+    std::map< std::string, comm_t > dict_simple_command_;
+    std::map< std::string, comm_with_size_t > dict_with_size_t_command_;
+    std::map< std::string, comm_with_input_t > dict_with_input_command_;
+    std::map< std::string, comm_t > initializeSimpleCommand();
+    std::map< std::string, comm_with_size_t > initializeSizeTCommand();
+    std::map< std::string, comm_with_input_t > initializeInputCommand();
   };
-  comm_dict_t createCommDict();
+  //comm_dict_t createCommDict();
 }
 #endif
