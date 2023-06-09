@@ -6,6 +6,26 @@ container::CommandContainer():
   dict_with_size_t_command_(initializeSizeTCommand()),
   dict_with_input_command_(initializeInputCommand())
 {}
+void container::doCommand(std::string command, std::vector< Polygon > data, std::ostream &out, std::istream &in)
+{
+  try
+  {
+    dict_with_input_command_.at(command)(data, out, in);
+    return;
+  }
+  catch (const std::out_of_range &e)
+  {}
+  try
+  {
+    dict_simple_command_.at(command)(data, out);
+    return;
+  }
+  catch (const std::out_of_range &e)
+  {}
+  auto spaceIndex = command.find(' ');
+  auto index = std::stoull(command.substr(spaceIndex));
+  dict_with_size_t_command_.at(command.substr(0, spaceIndex))(data, out, index);
+}
 std::map< std::string, container::comm_t > container::initializeSimpleCommand()
 {
   std::map< std::string, comm_t > dic;

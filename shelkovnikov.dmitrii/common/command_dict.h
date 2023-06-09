@@ -14,6 +14,7 @@ namespace dimkashelk
   using comm_with_input_t = void(*)(const std::vector< Polygon > &data, std::ostream &out, std::istream &in);
   public:
     CommandContainer();
+    void doCommand(std::string command, std::vector< Polygon > data, std::ostream &out, std::istream &in);
   private:
     std::map< std::string, comm_t > dict_simple_command_;
     std::map< std::string, comm_with_size_t > dict_with_size_t_command_;
