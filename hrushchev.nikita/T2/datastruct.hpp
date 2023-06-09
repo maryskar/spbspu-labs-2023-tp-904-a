@@ -1,4 +1,5 @@
 #include <string>
+#include <complex>
 
 namespace hrushchev
 {
@@ -8,4 +9,6 @@ namespace hrushchev
 		std::complex< double > key2;
 		std::string key3;
 	};
+	
+	std::ostream& operator<<(std::ostream& out, const DataStruct& data);
 }
