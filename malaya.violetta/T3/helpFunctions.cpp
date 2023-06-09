@@ -65,7 +65,7 @@ namespace malaya
     return out;
   }
   void doCommand(const std::vector< Polygon > & data, const Commands & dicts, std::string & command,
-                 std::istream & in, std::ostream & out)
+      std::istream & in, std::ostream & out)
   {
     try
     {

@@ -61,8 +61,8 @@ namespace malaya
   double getArea(const Polygon & polygon)
   {
     double res = 0.0;
-    //size_t size = polygon.points.size();
-    std::vector< double > values(polygon.points.size());
+    size_t size = polygon.points.size();
+    std::vector< double > values(size);
     auto endIt = polygon.points.end();
     std::transform(polygon.points.begin(), --endIt, ++polygon.points.begin(), values.begin(), areaCounter{});
     res = std::accumulate(values.begin(), values.end(), 0.0);
@@ -70,7 +70,6 @@ namespace malaya
     int x2 = polygon.points.front().x;
     int y1 = polygon.points.back().y;
     int y2 = polygon.points.front().y;
-    //res += 0.5 * (polygon.points.back().x * polygon.points[0].y - polygon.points.back().y * polygon.points[0].x);
     res += 0.5 * (x1 * y2 - y1 * x2);
     return std::abs(res);
   }
