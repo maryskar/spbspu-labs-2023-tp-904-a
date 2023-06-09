@@ -4,7 +4,7 @@
 #include <cmath>
 namespace litvin
 {
-  std::string convertToScientific(double num)
+  std::basic_string< char > convertToScientific(double num)
   {
     int pow = 0;
     if (std::abs(num) >= 10)

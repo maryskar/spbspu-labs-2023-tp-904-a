@@ -23,7 +23,7 @@ namespace litvin
   {
     std::string exp;
   };
-  std::string convertToScientific(double num);
+  std::basic_string< char > convertToScientific(double num);
   std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   std::istream & operator>>(std::istream & in, DoubleIO && dest);
   std::istream & operator>>(std::istream & in, StringIO && dest);
