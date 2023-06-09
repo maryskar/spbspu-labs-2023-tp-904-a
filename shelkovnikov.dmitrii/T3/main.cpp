@@ -69,7 +69,6 @@ int main(int argc, char *argv[])
     {
       outInvalidCommandMessage(std::cout) << '\n';
       std::cin.clear();
-      std::cin.ignore(max_size, '\n');
     }
     catch (const std::runtime_error &e)
     {
