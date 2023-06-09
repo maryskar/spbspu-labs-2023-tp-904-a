@@ -2,6 +2,7 @@
 #include <iterator>
 #include <algorithm>
 #include <numeric>
+#include <iostream>
 #include "area_storage.h"
 std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &polygon)
 {
@@ -19,6 +20,13 @@ std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &poly
   }
   polygon.points.clear();
   std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(polygon.points));
+  std::string endOfLine;
+  std::getline(in, endOfLine);
+  if (endOfLine.find_first_not_of(' ') != std::string::npos)
+  {
+    in.setstate(std::ios::failbit);
+    return in;
+  }
   return in;
 }
 double dimkashelk::getArea(const dimkashelk::Polygon &polygon)

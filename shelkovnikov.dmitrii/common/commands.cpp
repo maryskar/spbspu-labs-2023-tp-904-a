@@ -4,6 +4,7 @@
 #include <numeric>
 #include <tuple>
 #include <functional>
+#include <limits>
 #include "polygon.h"
 #include "io.h"
 namespace
@@ -235,7 +236,7 @@ void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostr
 {
   Polygon polygon;
   in >> polygon;
-  if (!in || in.peek() != '\n')
+  if (!in)
   {
     throw std::logic_error("Check input");
   }
@@ -251,7 +252,7 @@ void dimkashelk::printSame(const std::vector< Polygon > &pol, std::ostream &out,
 {
   Polygon polygon;
   in >> polygon;
-  if (!in || in.peek() != '\n')
+  if (!in)
   {
     throw std::logic_error("Check input");
   }
