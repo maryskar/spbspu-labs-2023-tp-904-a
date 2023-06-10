@@ -69,4 +69,18 @@ namespace hrushchev
     }
     return in;
   }
+
+  std::ostream& operator<<(std::ostream& out, const DataStruct& data)
+  {
+    std::ostream::sentry sentry(out);
+    if (!sentry)
+    {
+      return out;
+    }
+    iofmtguard fmtguard(out);
+    out << "(:key1" << data.key1;
+    out << ":key2  #c(" << data.key2.real() << " " << data.key2.imag();
+    out << "):key3 \"" << data.key3 << "\":)";
+    return out;
+  }
 }
