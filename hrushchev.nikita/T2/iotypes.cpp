@@ -2,7 +2,7 @@
 
 namespace hrushchev
 {
-  std::istream& operator>>(std::istream &in, DelimiterIO &&dest)
+  std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -16,5 +16,15 @@ namespace hrushchev
       in.setstate(std::ios::failbit);
     }
     return in;
+  }
+
+  std::istream& operator>>(std::istream& in, UnsignedLongLongIO&& dest)
+  {
+  	std::istream::sentry sentry(in);
+  	if (!sentry)
+  	{
+  		return in;
+  	}
+  	return in >> dest.num;
   }
 }
