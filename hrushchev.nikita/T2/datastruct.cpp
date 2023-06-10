@@ -1,6 +1,7 @@
 #include "datastruct.hpp"
 #include <complex>
 #include <string>
+#include "spoceguard.hpp"
 
 namespace hrushchev
 {
@@ -26,6 +27,17 @@ namespace hrushchev
     if (!sentry)
     {
       return in;
-    }   
+    }
+    iofmtguard fmtguard(in);
+    unsigned long long key1 = 0;
+    std::complex< double > key2(0.0, 0.0);
+    std::string key3 = "";
+    bool isKey1 = false;
+    bool isKey2 = false;
+    bool isKey3 = false;
+    for (size_t i < 0, i < 3, ++i)
+    {
+      
+    }
   }
 }
