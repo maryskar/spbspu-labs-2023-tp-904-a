@@ -2,6 +2,7 @@
 #include <complex>
 #include <string>
 #include "scopeguard.hpp"
+#include "iotypes.hpp"
 
 namespace hrushchev
 {
@@ -39,6 +40,25 @@ namespace hrushchev
     {
       std::string key;
       in >> LabelIO{key};
+      if (key.substr(0,3) == "key")
+      {
+        if (key[3] == '1' || !isKey1)
+        {
+          in >> UnsignedLongLongIO{key1};
+        }
+        else if (key[3] == '2' || !isKey2)
+        {
+          in >> ComplexIO{key2};
+        }
+        else if (key[3] == '3' || !isKey3)
+        {
+          in >> StringIO{key3};
+        }
+        else
+        {
+          in.setstate(std::ios::failbit);
+        }
+      }
     }
   }
 }

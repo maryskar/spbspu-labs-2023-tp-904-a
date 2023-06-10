@@ -18,8 +18,7 @@ namespace hrushchev
 
   struct ComplexIO
   {
-    double real;
-    double imag;
+    std::complex< double > cmp;
   };
 
   struct StringIO

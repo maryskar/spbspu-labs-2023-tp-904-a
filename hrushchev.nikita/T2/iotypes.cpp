@@ -1,5 +1,4 @@
 #include "iotypes.hpp"
-#include "ios"
 
 namespace hrushchev
 {
@@ -36,8 +35,11 @@ namespace hrushchev
   	{
   		return in;
   	}
+    double real = 0.0;
+    double imag = 0.0;
   	in >> DelimiterIO{'#'} >> DelimiterIO{'c'} >> DelimiterIO{'('}; 
-  	in >> dest.real >> DelimiterIO{' '} >> dest.imag >> DelimiterIO{')'};
+  	in >> real >> DelimiterIO{' '} >> imag >> DelimiterIO{')'};
+    dest.cmp = std::complex< double >(real, imag);
   	return in;
   }
 
