@@ -40,7 +40,7 @@ namespace hrushchev
   	return in;
   }
 
-  std::istream &operator>>(std::istream &in, StringIO &&dest)
+  std::istream& operator>>(std::istream& in, StringIO&& dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)

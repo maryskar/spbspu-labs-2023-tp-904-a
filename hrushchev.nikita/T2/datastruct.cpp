@@ -19,4 +19,13 @@ namespace hrushchev
   		return lhs.key3.length() < lhs.key3.length();
   	}
   }
+
+  std::istream& operator>>(std::istream& in, DataStruct& data)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }   
+  }
 }
