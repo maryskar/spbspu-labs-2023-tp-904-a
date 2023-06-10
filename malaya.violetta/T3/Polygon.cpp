@@ -11,17 +11,6 @@ namespace malaya
   {
     return (left.x == right.x && left.y == right.y);
   }
-  bool PointComparator::operator()(const Point & left, const Point & right)
-  {
-    if (left.x != right.x)
-    {
-      return left.x < right.x;
-    }
-    else
-    {
-      return left.y < right.y;
-    }
-  }
   std::istream & operator>>(std::istream & in, Point & point)
   {
     std::istream::sentry istreamChecker(in);
