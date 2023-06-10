@@ -36,6 +36,7 @@ namespace hrushchev
     bool isKey1 = false;
     bool isKey2 = false;
     bool isKey3 = false;
+    in >> DelimiterIO{'('} >> DelimiterIO{':'};
     for (size_t i = 0; i < 3; ++i)
     {
       std::string key;
@@ -57,8 +58,15 @@ namespace hrushchev
         else
         {
           in.setstate(std::ios::failbit);
+          return in;
         }
       }
+      in >> DelimiterIO{')'};
     }
+    if (in)
+    {
+      data = DataStruct{key1, key2, key3};
+    }
+    return in;
   }
 }
