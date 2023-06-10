@@ -27,4 +27,14 @@ namespace hrushchev
   	}
   	return in >> dest.num;
   }
+
+  std::istream& operator>>(std::istream& in, ComplexIO&& dest)
+  {
+  	std::istream::sentry sentry(in);
+  	if (!sentry)
+  	{
+  		return in;
+  	}
+  	return in >> DelimiterIO{"#"} >> DelimiterIO{"c"} >> DelimiterIO{"("}; 
+  }
 }
