@@ -1,7 +1,10 @@
 #ifndef CONVERTTOBIN_H
 #define CONVERTTOBIN_H
+
+#include <string>
+
 namespace tarasenko
 {
-  unsigned long long convertToBin(unsigned long long num);
+  std::string convertToBin(unsigned long long num);
 }
 #endif

@@ -1,14 +1,12 @@
 #include "convert_to_bin.h"
 
-unsigned long long tarasenko::convertToBin(unsigned long long num)
+std::string tarasenko::convertToBin(unsigned long long num)
 {
-  unsigned long long bin_num = 0;
-  unsigned long long k = 1;
+  std::string bin_num = "";
   while (num)
   {
-    bin_num += (num % 2) * k;
-    k *= 10;
+    bin_num = (num % 2 ? "1" : "0") + bin_num;
     num /= 2;
   }
-  return bin_num;
+  return (bin_num == "0" ? "0b" : "0b0") + bin_num;
 }
