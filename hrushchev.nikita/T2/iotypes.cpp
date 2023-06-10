@@ -1,4 +1,5 @@
 #include "iotypes.hpp"
+#include "ios"
 
 namespace hrushchev
 {
@@ -47,6 +48,21 @@ namespace hrushchev
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO{ '"' }, dest.str, '"');
+    return std::getline(in >> DelimiterIO{'"'}, dest.str, '"');
+  }
+
+  std::istream& operator>>(std::istream& in, LabelIO&& dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    std::string data = "";
+    if ((in >> StringIO{data}) && (data != dest.str))
+    {
+      in.setstate(std::ios::failbit);
+    }
+    return in;
   }
 }

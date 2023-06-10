@@ -29,12 +29,14 @@ namespace hrushchev
 
   struct LabelIO
   {
-    std::string std;
-  }
-  
+    std::string str;
+  };
+
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
   std::istream& operator>>(std::istream& in, UnsignedLongLongIO&& dest);
   std::istream& operator>>(std::istream& in, ComplexIO&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
+  std::istream& operator>>(std::istream& in, LabelIO&& dest);
 }
+
 #endif

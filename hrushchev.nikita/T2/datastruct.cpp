@@ -1,7 +1,7 @@
 #include "datastruct.hpp"
 #include <complex>
 #include <string>
-#include "spoceguard.hpp"
+#include "scopeguard.hpp"
 
 namespace hrushchev
 {
@@ -35,9 +35,10 @@ namespace hrushchev
     bool isKey1 = false;
     bool isKey2 = false;
     bool isKey3 = false;
-    for (size_t i < 0, i < 3, ++i)
+    for (size_t i = 0; i < 3; ++i)
     {
-      
+      std::string key;
+      in >> LabelIO{key};
     }
   }
 }
