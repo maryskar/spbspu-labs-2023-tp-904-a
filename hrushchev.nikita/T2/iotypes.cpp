@@ -35,6 +35,8 @@ namespace hrushchev
   	{
   		return in;
   	}
-  	return in >> DelimiterIO{"#"} >> DelimiterIO{"c"} >> DelimiterIO{"("}; 
+  	in >> DelimiterIO{'#'} >> DelimiterIO{'c'} >> DelimiterIO{'('}; 
+  	in >> dest.real >> DelimiterIO{' '} >> dest.imag >> DelimiterIO{')'};
+  	return in;
   }
 }
