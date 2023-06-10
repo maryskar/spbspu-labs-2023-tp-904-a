@@ -1,5 +1,5 @@
-#include <bitset>
 #include "structs_io.h"
+#include <bitset>
 
 std::istream& tarasenko::operator>>(std::istream& in, DelimiterIO&& dest)
 {
@@ -73,7 +73,7 @@ std::istream& tarasenko::operator>>(std::istream& in, ULLBinIO&& dest)
   {
     return in;
   }
-  char buf[3];
+  char buf[3]{};
   std::cin.get(buf, 3);
   if (in && buf[0] != 0 && buf[1] != 'b' && buf[1] != 'B')
   {

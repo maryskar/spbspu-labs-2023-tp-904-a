@@ -2,7 +2,6 @@
 #define DATASTRUCT_H
 
 #include <string>
-#include <bitset>
 
 namespace tarasenko
 {

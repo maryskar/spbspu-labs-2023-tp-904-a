@@ -23,7 +23,7 @@ std::istream& tarasenko::operator>>(std::istream& in, DataStruct& dest)
     in >> sep{'('} >> sep{':'};
     while (in && !(key1_was && key2_was && key3_was))
     {
-      char buf[5];
+      char buf[5]{};
       std::cin.get(buf, 5);
       std::string s(buf);
       if (s.substr(0, 3) != "key")
