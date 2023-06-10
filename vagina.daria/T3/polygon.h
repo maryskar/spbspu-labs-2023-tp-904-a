@@ -16,6 +16,7 @@ namespace vagina
 
   std::istream& operator>>(std::istream& in, Point& dest);
   std::istream& operator>>(std::istream& in, Polygon& dest);
+  double getArea(const Polygon& dest);
 }
 
 
