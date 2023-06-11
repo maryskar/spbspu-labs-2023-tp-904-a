@@ -20,10 +20,15 @@ int main(int argNum, char* argv[])
     std::cerr << "Error: file could not be opened." << '\n';
     return 1;
   }
+  constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   std::vector< vagina::Polygon > inData;
   while (!in.eof())
   {
-    in.clear();
+    if (in.fail())
+    {
+      in.clear();
+      in.ignore(max_size, '\n');
+    }
     std::copy(std::istream_iterator< vagina::Polygon >(in),
       std::istream_iterator< vagina::Polygon >(),
       std::back_inserter(inData));
@@ -31,7 +36,6 @@ int main(int argNum, char* argv[])
   in.close();
   auto read = std::bind(vagina::readCommand, std::ref(std::cin));
   auto commands = vagina::createDictionaryOfCommands();
-  constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   while (!std::cin.eof())
   {
     try
