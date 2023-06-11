@@ -7,12 +7,10 @@ bool vagina::isEven(const Polygon & pol)
 {
   return (pol.points.size() % 2 == 0);
 }
-
 bool vagina::isCountOfVertexes(const Polygon& pol, std::size_t param)
 {
   return (pol.points.size() == param);
 }
-
 void vagina::areaEven(const std::vector< Polygon >& dest, std::ostream& out)
 {
   std::vector< Polygon > tmp;
@@ -22,7 +20,6 @@ void vagina::areaEven(const std::vector< Polygon >& dest, std::ostream& out)
   std::transform(tmp.begin(), tmp.end(), tmpS.begin(), getArea);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
-
 void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
 {
   std::vector< Polygon > tmp;
@@ -32,7 +29,6 @@ void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
   std::transform(tmp.begin(), tmp.end(), tmpS.begin(), getArea);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
-
 void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
@@ -44,7 +40,6 @@ void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
   std::transform(dest.begin(), dest.end(), tmp.begin(), getArea);
   out << std::setprecision(1) << std::accumulate(tmp.begin(), tmp.end(), 0.0) / dest.size() << "\n";
 }
-
 void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out, std::size_t param)
 {
   std::vector< Polygon > tmp(dest.size());
@@ -54,7 +49,6 @@ void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out,
   std::transform(tmp.begin(), tmp.end(), tmpS.begin(), getArea);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
-
 void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
@@ -67,7 +61,6 @@ void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
   std::sort(tmp.begin(), tmp.end(), comparatorArea);
   out << std::setprecision(1) << getArea(tmp[0]) << "\n";
 }
-
 void vagina::maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty()) {
@@ -79,7 +72,6 @@ void vagina::maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
   std::sort(tmp.begin(), tmp.end(), comparatorVertexes);
   out << std::setprecision(1) << tmp[0].points.size() << "\n";
 }
-
 void vagina::minArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
@@ -143,4 +135,69 @@ void vagina::perms(const std::vector < Polygon >& dest, std::ostream& out, std::
 void vagina::messageInvalidCommand(std::ostream& out)
 {
   out << "<INVALID COMMAND>\n";
+}
+vagina::DictionaryOfCommands vagina::createDictionaryOfCommands()
+{
+  DictionaryOfCommands result{};
+  result.polygon.insert({"AREA EVEN", areaEven});
+  result.polygon.insert({"AREA ODD", areaOdd});
+  result.polygon.insert({"AREA MEAN", areaMean});
+  result.polygon.insert({"MAX AREA", maxArea});
+  result.polygon.insert({"MAX VERTEXES", maxVertexes});
+  result.polygon.insert({"MIN AREA", minArea});
+  result.polygon.insert({"MIN VERTEXES", minVertexes});
+  result.polygon.insert({"COUNT EVEN", countEven});
+  result.polygon.insert({"COUNT ODD", countOdd});
+  result.polygon.insert({"RECTS", rects});
+  result.vertexes.insert({"AREA NUM", areaVertexes});
+  result.vertexes.insert({"COUNT NUM", countVertexes});
+  result.perms.insert({"PERMS", perms});
+  return result;
+}
+std::string vagina::readCommand(std::istream& in)
+{
+  std::string comm = " ";
+  in >> comm;
+  if (!in)
+  {
+    throw std::runtime_error("EOF");
+  }
+  if (comm != "PERMS" && comm != "RECTS")
+  {
+    std::string param = " ";
+    in >> param;
+    if (!in)
+    {
+      throw std::invalid_argument("Invalid parameter");
+    }
+    comm += " ";
+    comm += param;
+  }
+  return comm;
+}
+void vagina::doCommand(const std::string& command, const DictionaryOfCommands& commands,
+  const std::vector< Polygon >& dest, std::istream& in, std::ostream& out)
+{
+  using namespace std::placeholders;
+  try
+  {
+    auto perm = std::bind(commands.perms.at(command), _1, std::ref(out), std::ref(in));
+    perm(dest);
+    return;
+  }
+  catch (const std::out_of_range & e)
+  {}
+  try
+  {
+    auto polygon = std::bind(commands.polygon.at(command), _1, std::ref(out));
+    polygon(dest);
+    return;
+  }
+  catch (const std::out_of_range & e)
+  {}
+  std::size_t space = command.find(' ');
+  std::size_t num = std::stoull(command.substr(space));
+  auto vertexes = std::bind(commands.vertexes.at(command.substr(0, space) + " NUM"),
+    _1, std::ref(out), num);
+  vertexes(dest);
 }
