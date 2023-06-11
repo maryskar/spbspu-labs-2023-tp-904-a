@@ -1,5 +1,5 @@
-#ifndef T3_COMMANDSFUNC_H
-#define T3_COMMANDSFUNC_H
+#ifndef T3_COMMS_H
+#define T3_COMMS_H
 #include "polygon.h"
 #include <map>
 
