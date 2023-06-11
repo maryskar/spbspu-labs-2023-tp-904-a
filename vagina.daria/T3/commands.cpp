@@ -117,6 +117,11 @@ void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& ou
   out << std::count_if(dest.begin(), dest.end(),
     [&](Polygon i) { return isCountOfVertexes(i, param); }) << "\n";
 }
+void vagina::rects(const std::vector < Polygon >& dest, std::ostream& out)
+{
+  out << std::count_if(dest.begin(), dest.end(),
+    [&](Polygon i) { return isRectangle(i); }) << "\n";
+}
 void vagina::messageInvalidCommand(std::ostream& out)
 {
   out << "<INVALID COMMAND>\n";

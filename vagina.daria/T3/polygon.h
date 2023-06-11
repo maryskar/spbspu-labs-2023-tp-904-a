@@ -18,6 +18,8 @@ namespace vagina
   std::istream& operator>>(std::istream& in, Point& dest);
   std::istream& operator>>(std::istream& in, Polygon& dest);
   double getArea(const Polygon& dest);
+  bool isParallelogram(const Polygon& dest);
+  bool isRectangle(const Polygon& dest);
 }
 
 
