@@ -12,6 +12,9 @@ namespace vagina
   void maxVertexes(const std::vector < Polygon >& dest, std::ostream& out);
   void minArea(const std::vector < Polygon >& dest, std::ostream& out);
   void minVertexes(const std::vector < Polygon >& dest, std::ostream& out);
+  void countEven(const std::vector < Polygon >& dest, std::ostream& out);
+  void countOdd(const std::vector < Polygon >& dest, std::ostream& out);
+  void countVertexes(const std::vector < Polygon >& dest, std::ostream& out, std::size_t param);
   bool isEven(const Polygon & pol);
   bool isCountOfVertexes(const Polygon& pol, std::size_t param);
   void messageInvalidCommand(std::ostream& out);

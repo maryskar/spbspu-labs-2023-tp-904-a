@@ -102,6 +102,21 @@ void vagina::minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
   std::sort(tmp.begin(), tmp.end(), comparatorVertexes);
   out << std::setprecision(1) << tmp[0].points.size() << "\n";
 }
+void vagina::countEven(const std::vector < Polygon >& dest, std::ostream& out)
+{
+  out << std::count_if(dest.begin(), dest.end(),
+    [&](Polygon i) { return isEven(i); }) << "\n";
+}
+void vagina::countOdd(const std::vector < Polygon >& dest, std::ostream& out)
+{
+  out << std::count_if(dest.begin(), dest.end(),
+    [&](Polygon i) { return !isEven(i); }) << "\n";
+}
+void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& out, std::size_t param)
+{
+  out << std::count_if(dest.begin(), dest.end(),
+    [&](Polygon i) { return isCountOfVertexes(i, param); }) << "\n";
+}
 void vagina::messageInvalidCommand(std::ostream& out)
 {
   out << "<INVALID COMMAND>\n";
