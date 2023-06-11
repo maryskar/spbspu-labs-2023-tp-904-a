@@ -17,6 +17,7 @@ namespace vagina
   bool comparatorVertexes(const Polygon& lhs, const Polygon& rhs);
   std::istream& operator>>(std::istream& in, Point& dest);
   std::istream& operator>>(std::istream& in, Polygon& dest);
+  bool operator==(const Point& lhs, const Point& rhs);
   double getArea(const Polygon& dest);
   bool isParallelogram(const Polygon& dest);
   bool isRectangle(const Polygon& dest);

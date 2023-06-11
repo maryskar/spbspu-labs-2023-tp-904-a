@@ -91,3 +91,8 @@ bool vagina::isRectangle(const Polygon& dest)
   }
   return false;
 }
+
+bool vagina::operator==(const Point& lhs, const Point& rhs)
+{
+  return ((lhs.x == rhs.x) && (lhs.y == rhs.y));
+}

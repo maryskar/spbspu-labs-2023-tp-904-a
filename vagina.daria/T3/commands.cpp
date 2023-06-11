@@ -1,5 +1,6 @@
 #include "commands.h"
 #include <algorithm>
+#include <functional>
 #include <numeric>
 
 bool vagina::isEven(const Polygon & pol)
@@ -121,6 +122,23 @@ void vagina::rects(const std::vector < Polygon >& dest, std::ostream& out)
 {
   out << std::count_if(dest.begin(), dest.end(),
     [&](Polygon i) { return isRectangle(i); }) << "\n";
+}
+bool vagina::isPerm(const Polygon& lhs, const Polygon& rhs)
+{
+  return std::is_permutation(lhs.points.begin(), lhs.points.end(), rhs.points.begin(), rhs.points.end());
+}
+void vagina::perms(const std::vector < Polygon >& dest, std::ostream& out, std::istream& in)
+{
+  Polygon pol;
+  in >> pol;
+  if (pol.points.size() < 3)
+  {
+    messageInvalidCommand(out);
+    return;
+  }
+  using namespace std::placeholders;
+  auto perm = std::bind(isPerm, _1, pol);
+  out << std::count_if(dest.begin(), dest.end(), perm) << '\n';
 }
 void vagina::messageInvalidCommand(std::ostream& out)
 {
