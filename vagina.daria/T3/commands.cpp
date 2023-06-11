@@ -1,4 +1,4 @@
-#include "commandsFunc.h"
+#include "commands.h"
 #include <algorithm>
 #include <functional>
 #include <numeric>

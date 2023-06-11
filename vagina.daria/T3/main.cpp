@@ -4,7 +4,7 @@
 #include <functional>
 #include <limits>
 #include "polygon.h"
-#include "commandsFunc.h"
+#include "commands.h"
 
 int main(int argNum, char* argv[])
 {
