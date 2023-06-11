@@ -1,5 +1,5 @@
-#ifndef T3_COMMS_H
-#define T3_COMMS_H
+#ifndef T3_COMMANDS_H
+#define T3_COMMANDS_H
 #include "polygon.h"
 #include <map>
 namespace vagina
