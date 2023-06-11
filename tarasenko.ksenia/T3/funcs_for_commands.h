@@ -5,6 +5,7 @@
 #include <functional>
 #include <algorithm>
 #include <numeric>
+#include <valarray>
 #include "data_struct.h"
 
 namespace tarasenko
@@ -24,18 +25,17 @@ namespace tarasenko
     return std::abs(s);
   }
 
-  double getPolygonArea(const Polygon& polygon)
+  double getPolygonArea(const Polygon& p)
   {
-    if (polygon.points.size() < 3)
+    if (p.points.size() < 3)
     {
       return 0.0;
     }
-    Point first = polygon.points[0];
-    std::vector< double > areas;
+    Point first = p.points[0];
+    std::vector< double > areas = {};
     auto calculateAreas = std::bind(getTriangleArea, first, _1, _2);
 
-    std::transform(polygon.points.begin() + 1, polygon.points.end() - 1,
-                   polygon.points.begin() + 2,
+    std::transform(p.points.begin() + 1, p.points.end() - 1, p.points.begin() + 2,
                    std::back_inserter(areas), calculateAreas);
 
     double area = std::accumulate(areas.begin(), areas.end(), 0.0);
@@ -57,7 +57,7 @@ namespace tarasenko
     auto cond = std::bind(isEven, std::bind(getNumOfVerts, _1));
     auto evenPolygons = std::vector< Polygon >{};
     std::copy_if(data.begin(), data.end(), std::back_inserter(evenPolygons), cond);
-    std::vector< double > areas;
+    std::vector< double > areas = {};
     std::transform(evenPolygons.begin(), evenPolygons.end(),
                    std::back_inserter(areas), getPolygonArea);
     return std::accumulate(areas.begin(), areas.end(), 0.0);
@@ -68,7 +68,7 @@ namespace tarasenko
     auto cond = std::bind(isOdd, std::bind(getNumOfVerts, _1));
     auto oddPolygons = std::vector< Polygon >{};
     std::copy_if(data.begin(), data.end(), std::back_inserter(oddPolygons), cond);
-    std::vector< double > areas;
+    std::vector< double > areas = {};
     std::transform(oddPolygons.begin(), oddPolygons.end(),
                    std::back_inserter(areas), getPolygonArea);
     return std::accumulate(areas.begin(), areas.end(), 0.0);
@@ -80,7 +80,7 @@ namespace tarasenko
     {
       return 0.0;
     }
-    std::vector< double > areas;
+    std::vector< double > areas = {};
     std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
     return std::accumulate(areas.begin(), areas.end(), 0.0) / data.size();
   }
@@ -90,7 +90,7 @@ namespace tarasenko
     auto cond = std::bind(std::equal_to< size_t >{}, std::bind(getNumOfVerts, _1), n);
     auto equalPolygons = std::vector< Polygon >{};
     std::copy_if(data.begin(), data.end(), std::back_inserter(equalPolygons), cond);
-    std::vector< double > areas;
+    std::vector< double > areas = {};
     std::transform(equalPolygons.begin(), equalPolygons.end(),
                    std::back_inserter(areas), getPolygonArea);
     return std::accumulate(areas.begin(), areas.end(), 0.0);
@@ -98,28 +98,28 @@ namespace tarasenko
 
   double getMaxArea(const std::vector< Polygon >& data)
   {
-    std::vector< double > areas;
+    std::vector< double > areas = {};
     std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
     return *std::max_element(areas.begin(), areas.end());
   }
 
   size_t getMaxVerts(const std::vector< Polygon >& data)
   {
-    std::vector< size_t > verts;
+    std::vector< size_t > verts = {};
     std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
     return *std::max_element(verts.begin(), verts.end());
   }
 
   double getMinArea(const std::vector< Polygon >& data)
   {
-    std::vector< double > areas;
+    std::vector< double > areas = {};
     std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
     return *std::min_element(areas.begin(), areas.end());
   }
 
   size_t getMinVerts(const std::vector< Polygon >& data)
   {
-    std::vector< size_t > verts;
+    std::vector< size_t > verts = {};
     std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
     return *std::min_element(verts.begin(), verts.end());
   }
@@ -150,17 +150,16 @@ namespace tarasenko
   bool hasRightAngles(const Polygon& p)
   {
     auto n = p.points.size();
-    for (int i = 0; i < n; i++)
-    {
-      Point a = p.points[i];
-      Point b = p.points[(i + 1) % n];
-      Point c = p.points[(i + 2) % n];
-      if (isRightAngle(a, b, c))
-      {
-        return true;
-      }
-    }
-    return false;
+    auto points = p.points;
+    auto cond = [&](size_t i){
+      Point a = points[i];
+      Point b = points[(i + 1) % n];
+      Point c = points[(i + 2) % n];
+      return isRightAngle(a, b, c);
+    };
+    std::vector< size_t > indexes(n);
+    std::iota(indexes.begin(), indexes.end(), 0);
+    return std::any_of(indexes.begin(), indexes.end(), cond);
   }
 
   size_t getNumRightShapes(const std::vector< Polygon >& data)
