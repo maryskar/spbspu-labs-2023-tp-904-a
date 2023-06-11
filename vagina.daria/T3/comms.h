@@ -2,7 +2,6 @@
 #define T3_COMMS_H
 #include "polygon.h"
 #include <map>
-
 namespace vagina
 {
   void areaEven(const std::vector< Polygon >& dest, std::ostream& out);
