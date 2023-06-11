@@ -50,3 +50,13 @@ double vagina::getArea(const Polygon& dest)
   area = std::accumulate(arr.begin(), arr.end(), 0.0);
   return std::abs(area * 0.5);
 }
+
+bool vagina::comparatorArea(const Polygon& lhs, const Polygon& rhs)
+{
+  return (getArea(lhs) > getArea(rhs));
+}
+
+bool vagina::comparatorVertexes(const Polygon& lhs, const Polygon& rhs)
+{
+  return (lhs.points.size() > rhs.points.size());
+}
