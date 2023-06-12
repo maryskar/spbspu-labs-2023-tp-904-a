@@ -56,8 +56,11 @@ void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out,
   std::vector< Polygon > tmp;
   std::copy_if(dest.begin(), dest.end(), tmp.begin(),
     [&](Polygon i) { return isCountOfVertexes(i, param); });
-  std::vector< double > tmpS(tmp.size());
-  std::transform(tmp.begin(), tmp.end(), tmpS.begin(), getArea);
+  std::size_t count = std::count_if(dest.begin(), dest.end(),
+    [&](Polygon i) { return isCountOfVertexes(i, param); });
+  std::vector< double > tmpS(count);
+  auto fin = tmp.begin() + count;
+  std::transform(tmp.begin(), fin, tmpS.begin(), getArea);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
