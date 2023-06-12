@@ -37,7 +37,7 @@ namespace hrushchev
     }
     double real = 0.0;
     double imag = 0.0;
-    in >> DelimiterIO{'#'} >> DelimiterIO{'c'} >> DelimiterIO{'('}; 
+    in >> DelimiterIO{'#'} >> DelimiterIO{'c'} >> DelimiterIO{'('};
     in >> real >> imag >> DelimiterIO{')'};
     dest.cmp = std::complex< double >(real, imag);
     return in;
