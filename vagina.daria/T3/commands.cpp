@@ -42,6 +42,11 @@ void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
 }
 void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out, std::size_t param)
 {
+  if (param < 3)
+  {
+    messageInvalidCommand(out);
+    return;
+  }
   std::vector< Polygon > tmp(dest.size());
   std::copy_if(dest.begin(), dest.end(), tmp.begin(),
     [&](Polygon i) { return isCountOfVertexes(i, param); });
@@ -63,7 +68,8 @@ void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
 }
 void vagina::maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
-  if (dest.empty()) {
+  if (dest.empty())
+  {
     messageInvalidCommand(out);
     return;
   }
@@ -107,6 +113,11 @@ void vagina::countOdd(const std::vector < Polygon >& dest, std::ostream& out)
 }
 void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& out, std::size_t param)
 {
+  if (param < 3)
+  {
+    messageInvalidCommand(out);
+    return;
+  }
   out << std::count_if(dest.begin(), dest.end(),
     [&](Polygon i) { return isCountOfVertexes(i, param); }) << "\n";
 }
