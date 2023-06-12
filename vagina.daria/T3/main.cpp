@@ -34,14 +34,13 @@ int main(int argNum, char* argv[])
       std::back_inserter(polygon));
   }
   in.close();
-  auto read = std::bind(vagina::readCommand, std::ref(std::cin));
-  auto commands = vagina::createDictionaryOfCommands();
-  auto doComm = std::bind(vagina::doCommand, read, commands, polygon, std::ref(std::cin), std::ref(std::cout));
-  do
+  auto dictionary = vagina::createDictionaryOfCommands();
+  while (!std::cin.eof())
   {
     try
     {
-      doComm();
+      auto read = vagina::readCommand(std::cin);
+      vagina::doCommand(read, dictionary, polygon, std::cin, std::cout);
     }
     catch (const std::logic_error & e)
     {
@@ -53,6 +52,5 @@ int main(int argNum, char* argv[])
       break;
     }
   }
-  while (!std::cin.eof());
   return 0;
 }
