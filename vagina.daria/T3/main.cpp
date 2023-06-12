@@ -36,11 +36,12 @@ int main(int argNum, char* argv[])
   in.close();
   auto read = std::bind(vagina::readCommand, std::ref(std::cin));
   auto commands = vagina::createDictionaryOfCommands();
-  while (!std::cin.eof())
+  auto doComm = std::bind(vagina::doCommand, read, commands, polygon, std::ref(std::cin), std::ref(std::cout));
+  do
   {
     try
     {
-      std::bind(vagina::doCommand, read, commands, polygon, std::ref(std::cin), std::ref(std::cout));
+      doComm();
     }
     catch (const std::logic_error & e)
     {
@@ -53,5 +54,6 @@ int main(int argNum, char* argv[])
       break;
     }
   }
+  while (!std::cin.eof());
   return 0;
 }
