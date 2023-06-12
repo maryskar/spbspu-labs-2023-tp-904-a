@@ -46,7 +46,6 @@ int main(int argNum, char* argv[])
     catch (const std::logic_error & e)
     {
       vagina::messageInvalidCommand(std::cout);
-      std::cout << '\n';
       std::cin.ignore(max_size, '\n');
     }
     catch (const std::runtime_error & e)
