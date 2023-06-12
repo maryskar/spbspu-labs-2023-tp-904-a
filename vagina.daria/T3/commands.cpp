@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <functional>
 #include <numeric>
-#include "IOFmtGuard.h"
 
 bool vagina::isEven(const Polygon & pol)
 {
@@ -21,7 +20,6 @@ void vagina::areaEven(const std::vector< Polygon >& dest, std::ostream& out)
     [&](Polygon i) { return isEven(i); });
   std::vector< double > tmpS(count);
   std::transform(tmp.begin(), tmp.end(), std::back_inserter(tmpS), getArea);
-  iofmtguard iofmtguard(out);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
@@ -33,7 +31,6 @@ void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
     [&](Polygon i) { return !isEven(i); });
   std::vector< double > tmpS(count);
   std::transform(tmp.begin(), tmp.end(), std::back_inserter(tmpS), getArea);
-  iofmtguard iofmtguard(out);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
@@ -59,7 +56,6 @@ void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out,
     [&](Polygon i) { return isCountOfVertexes(i, param); });
   std::vector< double > tmpS(tmp.size());
   std::transform(tmp.begin(), tmp.end(), tmpS.begin(), getArea);
-  iofmtguard iofmtguard(out);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
