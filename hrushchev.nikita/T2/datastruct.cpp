@@ -30,39 +30,39 @@ namespace hrushchev
       return in;
     }
     iofmtguard fmtguard(in);
+
     unsigned long long key1 = 0;
     std::complex< double > key2(0.0, 0.0);
     std::string key3 = "";
+
     bool isKey1 = false;
     bool isKey2 = false;
     bool isKey3 = false;
+
     in >> DelimiterIO{'('} >> DelimiterIO{':'};
     for (size_t i = 0; i < 3; ++i)
     {
       std::string key;
-      in >> LabelIO{key};
-      if (key.substr(0,3) == "key")
+      in >> key;
+      if (key == "key1" && !isKey1)
       {
-        if (key[3] == '1' || !isKey1)
-        {
-          in >> UnsignedLongLongIO{key1};
-        }
-        else if (key[3] == '2' || !isKey2)
-        {
-          in >> ComplexIO{key2};
-        }
-        else if (key[3] == '3' || !isKey3)
-        {
-          in >> StringIO{key3};
-        }
-        else
-        {
-          in.setstate(std::ios::failbit);
-          return in;
-        }
+        in >> UnsignedLongLongIO{key1} >> DelimiterIO{':'};
       }
-      in >> DelimiterIO{')'};
+      else if (key == "key2" && !isKey2)
+      {
+        in >> ComplexIO{key2} >> DelimiterIO{':'};
+      }
+      else if (key == "key3" && !isKey3)
+      {
+        in >> StringIO{key3} >> DelimiterIO{':'};
+      }
+      else
+      {
+        in.setstate(std::ios::failbit);
+        return in;
+      }
     }
+    in >> DelimiterIO{')'};
     if (in)
     {
       data = DataStruct{key1, key2, key3};
@@ -78,8 +78,8 @@ namespace hrushchev
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "(:key1" << data.key1;
-    out << ":key2  #c(" << data.key2.real() << " " << data.key2.imag();
+    out << "(:key1 0" << data.key1;
+    out << ":key2 #c(" << data.key2.real() << " " << data.key2.imag();
     out << "):key3 \"" << data.key3 << "\":)";
     return out;
   }

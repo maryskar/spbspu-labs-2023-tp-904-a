@@ -38,7 +38,7 @@ namespace hrushchev
     double real = 0.0;
     double imag = 0.0;
   	in >> DelimiterIO{'#'} >> DelimiterIO{'c'} >> DelimiterIO{'('}; 
-  	in >> real >> DelimiterIO{' '} >> imag >> DelimiterIO{')'};
+  	in >> real >> imag >> DelimiterIO{')'};
     dest.cmp = std::complex< double >(real, imag);
   	return in;
   }
@@ -51,20 +51,5 @@ namespace hrushchev
       return in;
     }
     return std::getline(in >> DelimiterIO{'"'}, dest.str, '"');
-  }
-
-  std::istream& operator>>(std::istream& in, LabelIO&& dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    std::string data = "";
-    if ((in >> StringIO{data}) && (data != dest.str))
-    {
-      in.setstate(std::ios::failbit);
-    }
-    return in;
-  }
+  } 
 }

@@ -18,24 +18,18 @@ namespace hrushchev
 
   struct ComplexIO
   {
-    std::complex< double > cmp;
+    std::complex< double >& cmp;
   };
 
   struct StringIO
   {
-    std::string str;
-  };
-
-  struct LabelIO
-  {
-    std::string str;
+    std::string& str;
   };
 
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
   std::istream& operator>>(std::istream& in, UnsignedLongLongIO&& dest);
   std::istream& operator>>(std::istream& in, ComplexIO&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
-  std::istream& operator>>(std::istream& in, LabelIO&& dest);
 }
 
 #endif
