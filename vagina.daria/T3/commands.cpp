@@ -92,7 +92,8 @@ void vagina::minArea(const std::vector < Polygon >& dest, std::ostream& out)
 }
 void vagina::minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
-  if (dest.empty()) {
+  if (dest.empty())
+  {
     messageInvalidCommand(out);
     return;
   }
