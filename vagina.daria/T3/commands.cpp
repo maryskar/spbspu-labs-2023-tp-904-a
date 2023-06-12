@@ -53,7 +53,7 @@ void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out,
     messageInvalidCommand(out);
     return;
   }
-  std::vector< Polygon > tmp;
+  std::vector< Polygon > tmp (dest.size());
   std::copy_if(dest.begin(), dest.end(), tmp.begin(),
     [&](Polygon i) { return isCountOfVertexes(i, param); });
   std::size_t count = std::count_if(dest.begin(), dest.end(),
