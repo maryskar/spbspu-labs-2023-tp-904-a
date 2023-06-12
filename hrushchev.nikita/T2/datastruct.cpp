@@ -1,6 +1,7 @@
 #include "datastruct.hpp"
 #include <complex>
 #include <string>
+#include <iomanip>
 #include "scopeguard.hpp"
 #include "iotypes.hpp"
 
@@ -79,6 +80,7 @@ namespace hrushchev
     }
     iofmtguard fmtguard(out);
     out << "(:key1 0" << data.key1;
+    out << std::fixed << std::setprecision(1);
     out << ":key2 #c(" << data.key2.real() << " " << data.key2.imag();
     out << "):key3 \"" << data.key3 << "\":)";
     return out;
