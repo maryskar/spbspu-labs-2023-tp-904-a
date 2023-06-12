@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iterator>
 #include <numeric>
-#include "../common/TypesIO.h"
+#include "TypesIO.h"
 
 std::istream& vagina::operator>>(std::istream& in, Point& dest)
 {
@@ -27,6 +27,7 @@ std::istream& vagina::operator>>(std::istream& in, Polygon& dest)
   if (count < 3)
   {
     in.setstate(std::ios::failbit);
+    return in;
   }
   Polygon polygon;
   std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(polygon.points));

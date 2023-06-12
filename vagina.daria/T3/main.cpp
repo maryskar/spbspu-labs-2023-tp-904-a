@@ -21,7 +21,7 @@ int main(int argNum, char* argv[])
     return 1;
   }
   constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
-  std::vector< vagina::Polygon > inData;
+  std::vector< vagina::Polygon > polygon;
   while (!in.eof())
   {
     if (in.fail())
@@ -31,7 +31,7 @@ int main(int argNum, char* argv[])
     }
     std::copy(std::istream_iterator< vagina::Polygon >(in),
       std::istream_iterator< vagina::Polygon >(),
-      std::back_inserter(inData));
+      std::back_inserter(polygon));
   }
   in.close();
   auto read = std::bind(vagina::readCommand, std::ref(std::cin));
@@ -40,7 +40,7 @@ int main(int argNum, char* argv[])
   {
     try
     {
-      std::bind(vagina::doCommand, read, commands, inData, std::ref(std::cin), std::ref(std::cout));
+      std::bind(vagina::doCommand, read, commands, polygon, std::ref(std::cin), std::ref(std::cout));
     }
     catch (const std::logic_error & e)
     {
