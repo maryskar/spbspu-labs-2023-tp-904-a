@@ -13,19 +13,23 @@ bool vagina::isCountOfVertexes(const Polygon& pol, std::size_t param)
 }
 void vagina::areaEven(const std::vector< Polygon >& dest, std::ostream& out)
 {
-  std::vector< Polygon > tmp;
+  std::vector< Polygon > tmp (dest.size());
   std::copy_if(dest.begin(), dest.end(), tmp.begin(),
     [&](Polygon i) { return isEven(i); });
-  std::vector< double > tmpS(tmp.size());
+  std::size_t count = std::count_if(dest.begin(), dest.end(),
+    [&](Polygon i) { return isEven(i); });
+  std::vector< double > tmpS(count);
   std::transform(tmp.begin(), tmp.end(), tmpS.begin(), getArea);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
 {
-  std::vector< Polygon > tmp;
+  std::vector< Polygon > tmp (dest.size());
   std::copy_if(dest.begin(), dest.end(), tmp.begin(),
     [&](Polygon i) { return !isEven(i); });
-  std::vector< double > tmpS(tmp.size());
+  std::size_t count = std::count_if(dest.begin(), dest.end(),
+    [&](Polygon i) { return !isEven(i); });
+  std::vector< double > tmpS(count);
   std::transform(tmp.begin(), tmp.end(), tmpS.begin(), getArea);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
