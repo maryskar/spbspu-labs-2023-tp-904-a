@@ -19,7 +19,7 @@ void vagina::areaEven(const std::vector< Polygon >& dest, std::ostream& out)
   std::size_t count = std::count_if(dest.begin(), dest.end(),
     [&](Polygon i) { return isEven(i); });
   std::vector< double > tmpS(count);
-  std::transform(tmp.begin(), tmp.end(), tmpS.begin(), getArea);
+  std::transform(tmp.begin(), tmp.end(), std::back_inserter(tmpS), getArea);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
@@ -30,7 +30,7 @@ void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
   std::size_t count = std::count_if(dest.begin(), dest.end(),
     [&](Polygon i) { return !isEven(i); });
   std::vector< double > tmpS(count);
-  std::transform(tmp.begin(), tmp.end(), tmpS.begin(), getArea);
+  std::transform(tmp.begin(), tmp.end(), std::back_inserter(tmpS), getArea);
   out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
