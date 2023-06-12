@@ -1,7 +1,7 @@
 #ifndef T3_POLYGON_H
 #define T3_POLYGON_H
-#include <vector>
 #include <iomanip>
+#include <vector>
 
 namespace vagina
 {

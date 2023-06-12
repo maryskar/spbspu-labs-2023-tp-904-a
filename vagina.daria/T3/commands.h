@@ -1,7 +1,8 @@
 #ifndef T3_COMMANDS_H
 #define T3_COMMANDS_H
-#include "polygon.h"
 #include <map>
+#include "polygon.h"
+
 namespace vagina
 {
   void areaEven(const std::vector< Polygon >& dest, std::ostream& out);
@@ -17,13 +18,13 @@ namespace vagina
   void countVertexes(const std::vector < Polygon >& dest, std::ostream& out, std::size_t param);
   void rects(const std::vector < Polygon >& dest, std::ostream& out);
   void perms(const std::vector < Polygon >& dest, std::ostream& out, std::istream& in);
-  bool isEven(const Polygon & pol);
+  bool isEven(const Polygon& pol);
   bool isCountOfVertexes(const Polygon& pol, std::size_t param);
   bool isPerm(const Polygon& lhs, const Polygon& rhs);
   void messageInvalidCommand(std::ostream& out);
-  using commandPolygon = void(*)(const std::vector< Polygon > & data, std::ostream & out);
-  using commandVertexes = void(*)(const std::vector< Polygon > & data, std::ostream & out, size_t n);
-  using commandPerms = void(*)(const std::vector< Polygon > & data, std::ostream & out, std::istream & in);
+  using commandPolygon = void(*)(const std::vector< Polygon >& data, std::ostream& out);
+  using commandVertexes = void(*)(const std::vector< Polygon >& data, std::ostream& out, size_t n);
+  using commandPerms = void(*)(const std::vector< Polygon >& data, std::ostream& out, std::istream& in);
   struct DictionaryOfCommands
   {
     std::map< std::string, commandPolygon > polygon;

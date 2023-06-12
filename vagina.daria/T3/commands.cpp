@@ -3,7 +3,7 @@
 #include <functional>
 #include <numeric>
 
-bool vagina::isEven(const Polygon & pol)
+bool vagina::isEven(const Polygon& pol)
 {
   return (pol.points.size() % 2 == 0);
 }

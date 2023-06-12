@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iterator>
 #include <numeric>
-#include "TypesIO.h"
+#include <TypesIO.h>
 
 std::istream& vagina::operator>>(std::istream& in, Point& dest)
 {
@@ -14,7 +14,6 @@ std::istream& vagina::operator>>(std::istream& in, Point& dest)
   in >> DelimiterIO{ '(' } >> dest.x >> DelimiterIO{ ';' } >> dest.y >> DelimiterIO{ ')' };
   return in;
 }
-
 std::istream& vagina::operator>>(std::istream& in, Polygon& dest)
 {
   std::istream::sentry sentry(in);
@@ -37,7 +36,6 @@ std::istream& vagina::operator>>(std::istream& in, Polygon& dest)
   }
   return in;
 }
-
 double vagina::getArea(const Polygon& dest)
 {
   double area;
@@ -52,17 +50,14 @@ double vagina::getArea(const Polygon& dest)
   area += (--dest.points.end())->x * dest.points.begin()->y - dest.points.begin()->x * (--dest.points.end())->y;
   return std::abs(area * 0.5);
 }
-
 bool vagina::comparatorArea(const Polygon& lhs, const Polygon& rhs)
 {
   return (getArea(lhs) > getArea(rhs));
 }
-
 bool vagina::comparatorVertexes(const Polygon& lhs, const Polygon& rhs)
 {
   return (lhs.points.size() > rhs.points.size());
 }
-
 bool vagina::isParallelogram(const Polygon& dest)
 {
   if (dest.points.size() == 4)
@@ -72,11 +67,9 @@ bool vagina::isParallelogram(const Polygon& dest)
     Point p3 = dest.points[2];
     Point p4 = dest.points[3];
     return (((p2.x - p1.x) == (p3.x - p4.x)) && ((p4.y - p1.y) == (p3.y - p2.y)));
-    return (((p2.y - p1.y) == (p3.y - p4.y)) && ((p4.x - p1.x) == (p3.x - p2.x)));
   }
   return false;
 }
-
 bool vagina::isRectangle(const Polygon& dest)
 {
   if (dest.points.size() == 4)
@@ -93,7 +86,6 @@ bool vagina::isRectangle(const Polygon& dest)
   }
   return false;
 }
-
 bool vagina::operator==(const Point& lhs, const Point& rhs)
 {
   return ((lhs.x == rhs.x) && (lhs.y == rhs.y));
