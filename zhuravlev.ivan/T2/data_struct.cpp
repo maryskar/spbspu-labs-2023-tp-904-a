@@ -2,7 +2,7 @@
 
 namespace zhuravlev
 {
-  bool dataComparator(const Data &lhs, const Data &rhs)
+  bool dataComparator(const DataStruct& lhs, const DataStruct& rhs)
   {
     if (lhs.key1 == rhs.key1)
     {
