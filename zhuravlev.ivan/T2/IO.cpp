@@ -27,7 +27,7 @@ namespace zhuravlev
     {
       return in;
     }
-    return in >> DelimetrIO{ '0b' } >> dest.ref;
+    return in >> DelimetrIO{ "0b" } >> dest.ref;
   }
 
   std::istream &operator>>(std::istream& in, HexIO&& dest)
