@@ -23,7 +23,6 @@ int main()
     }
     std::copy(std::istream_iterator< DataStruct >(std::cin), iter_data(),std::back_inserter(data));
   }
-
   std::sort(data.begin(), data.end(), zhuravlev::dataComparator);
   std::copy(data.begin(), data.end(), output_data_iter(std::cout, "\n"));
   return 0;

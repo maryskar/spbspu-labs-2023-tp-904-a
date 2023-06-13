@@ -64,47 +64,4 @@ namespace zhuravlev
     }
     return in;
   }
-  std::istream &operator>>(std::istream &in, DataStruct &dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    DataStruct input;
-    {
-      using sep = DelimetrIO;
-      using label = LabelIO;
-      using dbl = BinIO;
-      using hex = HexIO;
-      using str = StringIO;
-      in >> sep{ '(' };
-      in >> label{ "key1" } >> sep{ ':' } >> dbl{ input.key1 };
-      in >> sep{ ',' };
-      in >> label{ "key2" } >> sep{ ':' } >> hex{ input.key2 };
-      in >> sep{ ',' };
-      in >> label{ "key3" } >> sep{ ':' } >> str{ input.key3 };
-      in >> sep{ ')' };
-    }
-    if (in)
-    {
-      dest = input;
-    }
-    return in;
-  }
-  std::ostream &operator<<(std::ostream &out, const DataStruct &src)
-  {
-    std::ostream::sentry sentry(out);
-    if (!sentry)
-    {
-      return out;
-    }
-    iofmtguard fmtguard(out);
-    out << "(";
-    out << ":key1 0b" << src.key1;
-    out << ":key2 0x" << std::hex << src.key2;
-    out << ":key3 \"" << src.key3;
-    out << "\":)";
-    return out;
-  }
 }
