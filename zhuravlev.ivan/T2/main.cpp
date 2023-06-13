@@ -1,12 +1,7 @@
 #include <iostream>
-#include <sstream>
-#include <string>
-#include <cassert>
 #include <iterator>
 #include <vector>
 #include <algorithm>
-#include <iomanip>
-#include "iofmtguard.hpp"
 #include "data_struct.hpp"
 
 int main()
