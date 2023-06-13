@@ -28,7 +28,7 @@ namespace zhuravlev
 
   struct LabelIO
   {
-    std::string& expression;
+    std::string expression;
   };
 
   std::istream& operator>>(std::istream& in, DelimetrIO&& dest);
