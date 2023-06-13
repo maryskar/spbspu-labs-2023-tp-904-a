@@ -16,7 +16,7 @@ namespace zhuravlev
     }
     return lhs.key1 == rhs.key1;
   }
-  std::istream &operator>>(std::istream &in, DataStruct &dest)
+  std::istream &operator>>(std::istream& in, DataStruct& dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
