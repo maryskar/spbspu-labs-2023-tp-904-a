@@ -52,9 +52,19 @@ namespace tarasenko
     return !hasEvenVerts(p);
   }
 
+  bool hasEqualNumVerts(const Polygon& p, size_t n)
+  {
+    return getNumOfVerts(p) == n;
+  }
+
   double getPolygonAreaIf(const Polygon& p, bool(*cond)(const Polygon& p))
   {
     return cond(p) ? getPolygonArea(p) : 0.0;
+  }
+
+  double getPolygonAreaIfHasEqualVerts(const Polygon& p, size_t n)
+  {
+    return hasEqualNumVerts(p, n) ? getPolygonArea(p) : 0.0;
   }
 
   double getAreaIf(const std::vector< Polygon >& data, bool(*cond)(const Polygon& p))
@@ -75,53 +85,59 @@ namespace tarasenko
     return getAreaIf(data, hasOddVerts);
   }
 
+  double getAreaWithEqualNumVerts(const std::vector< Polygon >& data, size_t n)
+  {
+    auto op = std::bind(getPolygonAreaIfHasEqualVerts, _1, n);
+    std::vector< double > areas = {};
+    std::transform(data.begin(), data.end(), std::back_inserter(areas), op);
+    return std::accumulate(areas.begin(), areas.end(), 0.0);
+  }
+
+  std::vector< double > getAreasOf(const std::vector< Polygon >& data)
+  {
+    std::vector< double > areas = {};
+    std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
+    return areas;
+  }
+
   double getAreaMean(const std::vector< Polygon >& data)
   {
     if (data.empty())
     {
       throw std::invalid_argument("Data is empty");
     }
-    std::vector< double > areas = {};
-    std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
+    std::vector< double > areas = getAreasOf(data);
     return std::accumulate(areas.begin(), areas.end(), 0.0) / data.size();
-  }
-
-  double getAreaWithEqualNumVerts(const std::vector< Polygon >& data, size_t n)
-  {
-    auto cond = std::bind(std::equal_to< size_t >{}, std::bind(getNumOfVerts, _1), n);
-    auto equalPolygons = std::vector< Polygon >{};
-    std::copy_if(data.begin(), data.end(), std::back_inserter(equalPolygons), cond);
-    std::vector< double > areas = {};
-    std::transform(equalPolygons.begin(), equalPolygons.end(),
-                   std::back_inserter(areas), getPolygonArea);
-    return std::accumulate(areas.begin(), areas.end(), 0.0);
   }
 
   double getMaxArea(const std::vector< Polygon >& data)
   {
-    std::vector< double > areas = {};
-    std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
+    std::vector< double > areas = getAreasOf(data);
     return *std::max_element(areas.begin(), areas.end());
-  }
-
-  size_t getMaxVerts(const std::vector< Polygon >& data)
-  {
-    std::vector< size_t > verts = {};
-    std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
-    return *std::max_element(verts.begin(), verts.end());
   }
 
   double getMinArea(const std::vector< Polygon >& data)
   {
-    std::vector< double > areas = {};
-    std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
+    std::vector< double > areas = getAreasOf(data);
     return *std::min_element(areas.begin(), areas.end());
+  }
+
+  std::vector< size_t > getVertsOf(const std::vector< Polygon >& data)
+  {
+    std::vector< size_t > verts = {};
+    std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
+    return verts;
+  }
+
+  size_t getMaxVerts(const std::vector< Polygon >& data)
+  {
+    std::vector< size_t > verts = getVertsOf(data);
+    return *std::max_element(verts.begin(), verts.end());
   }
 
   size_t getMinVerts(const std::vector< Polygon >& data)
   {
-    std::vector< size_t > verts = {};
-    std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
+    std::vector< size_t > verts = getVertsOf(data);
     return *std::min_element(verts.begin(), verts.end());
   }
 
@@ -137,7 +153,7 @@ namespace tarasenko
 
   size_t getNumWithEqualNumVerts(const std::vector< Polygon >& data, size_t n)
   {
-    auto cond = std::bind(std::equal_to< size_t >{}, std::bind(getNumOfVerts, _1), n);
+    auto cond = std::bind(hasEqualNumVerts, _1, n);
     return std::count_if(data.begin(), data.end(), cond);
   }
 
