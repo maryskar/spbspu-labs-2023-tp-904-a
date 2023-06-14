@@ -29,56 +29,57 @@ namespace tarasenko
   {
     if (p.points.size() < 3)
     {
-      return 0.0;
+      throw std::invalid_argument("The figure is incorrect");
     }
     Point first = p.points[0];
     std::vector< double > areas = {};
-    auto calculateAreas = std::bind(getTriangleArea, first, _1, _2);
+    auto calculateArea = std::bind(getTriangleArea, first, _1, _2);
 
     std::transform(p.points.begin() + 1, p.points.end() - 1, p.points.begin() + 2,
-                   std::back_inserter(areas), calculateAreas);
+                   std::back_inserter(areas), calculateArea);
 
     double area = std::accumulate(areas.begin(), areas.end(), 0.0);
     return area;
   }
 
-  bool isEven(size_t n)
+  bool hasEvenVerts(const Polygon& p)
   {
-    return !(n % 2);
+    return !(getNumOfVerts(p) % 2);
   }
 
-  bool isOdd(size_t n)
+  bool hasOddVerts(const Polygon& p)
   {
-    return !isEven(n);
+    return !hasEvenVerts(p);
+  }
+
+  double getPolygonAreaIf(const Polygon& p, bool(*cond)(const Polygon& p))
+  {
+    return cond(p) ? getPolygonArea(p) : 0.0;
+  }
+
+  double getAreaIf(const std::vector< Polygon >& data, bool(*cond)(const Polygon& p))
+  {
+    auto op = std::bind(getPolygonAreaIf, _1, cond);
+    std::vector< double > areas = {};
+    std::transform(data.begin(), data.end(), std::back_inserter(areas), op);
+    return std::accumulate(areas.begin(), areas.end(), 0.0);
   }
 
   double getAreaEven(const std::vector< Polygon >& data)
   {
-    auto cond = std::bind(isEven, std::bind(getNumOfVerts, _1));
-    auto evenPolygons = std::vector< Polygon >{};
-    std::copy_if(data.begin(), data.end(), std::back_inserter(evenPolygons), cond);
-    std::vector< double > areas = {};
-    std::transform(evenPolygons.begin(), evenPolygons.end(),
-                   std::back_inserter(areas), getPolygonArea);
-    return std::accumulate(areas.begin(), areas.end(), 0.0);
+    return getAreaIf(data, hasEvenVerts);
   }
 
   double getAreaOdd(const std::vector< Polygon >& data)
   {
-    auto cond = std::bind(isOdd, std::bind(getNumOfVerts, _1));
-    auto oddPolygons = std::vector< Polygon >{};
-    std::copy_if(data.begin(), data.end(), std::back_inserter(oddPolygons), cond);
-    std::vector< double > areas = {};
-    std::transform(oddPolygons.begin(), oddPolygons.end(),
-                   std::back_inserter(areas), getPolygonArea);
-    return std::accumulate(areas.begin(), areas.end(), 0.0);
+    return getAreaIf(data, hasOddVerts);
   }
 
   double getAreaMean(const std::vector< Polygon >& data)
   {
     if (data.empty())
     {
-      return 0.0;
+      throw std::invalid_argument("Data is empty");
     }
     std::vector< double > areas = {};
     std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
@@ -126,14 +127,12 @@ namespace tarasenko
 
   size_t getNumEven(const std::vector< Polygon >& data)
   {
-    auto cond = std::bind(isEven, std::bind(getNumOfVerts, _1));
-    return std::count_if(data.begin(), data.end(), cond);
+    return std::count_if(data.begin(), data.end(), hasEvenVerts);
   }
 
   size_t getNumOdd(const std::vector< Polygon >& data)
   {
-    auto cond = std::bind(isOdd, std::bind(getNumOfVerts, _1));
-    return std::count_if(data.begin(), data.end(), cond);
+    return std::count_if(data.begin(), data.end(), hasOddVerts);
   }
 
   size_t getNumWithEqualNumVerts(const std::vector< Polygon >& data, size_t n)
@@ -227,18 +226,6 @@ namespace tarasenko
     {
       throw std::invalid_argument("Data is empty");
     }
-    /*Polygon poly;
-    int min_x = data[0].points[0].x;
-    int min_y = data[0].points[0].y;
-    int max_x = min_x;
-    int max_y = min_y;
-    for (auto polygon: data)
-    {
-      min_x = std::min(getFrameRect(polygon).points[0].x, min_x);
-      min_y = std::min(getFrameRect(polygon).points[0].y, min_y);
-      max_x = std::max(getFrameRect(polygon).points[2].x, max_x);
-      max_y = std::max(getFrameRect(polygon).points[2].x, max_y);
-    }*/
     auto comp_minx = std::bind(std::less<>{}, std::bind(getMinX, _1), std::bind(getMinX, _2));
     auto poly_with_minx = std::min_element(data.begin(), data.end(), comp_minx);
     auto min_x = getMinX(*poly_with_minx);
@@ -260,12 +247,7 @@ namespace tarasenko
     return Polygon{points_rect};
   }
 
-  bool belongToInterval(int p, int begin, int end)
-  {
-    return p >= begin && p <= end;
-  }
-
-  std::string isInFrame(const std::vector< Polygon >& data, const Polygon& poly)
+  bool isInFrame(const std::vector< Polygon >& data, const Polygon& poly)
   {
     auto frame_data = getFrameRectForCompositeShapes(data);
     auto frame_poly = getFrameRect(poly);
@@ -274,16 +256,9 @@ namespace tarasenko
     auto p2_data = frame_data.points[2];
     auto p2_poly = frame_poly.points[2];
 
-    bool poly_minx_in_frame =  belongToInterval(p1_poly.x, p1_data.x, p2_data.x);
-    bool poly_miny_in_frame =  belongToInterval(p1_poly.y, p1_data.y, p2_data.y);
-    bool poly_maxx_in_frame =  belongToInterval(p2_poly.x, p1_data.x, p2_data.x);
-    bool poly_maxy_in_frame =  belongToInterval(p2_poly.y, p1_data.y, p2_data.y);
-
-    if (poly_minx_in_frame && poly_miny_in_frame && poly_maxx_in_frame && poly_maxy_in_frame)
-    {
-      return "<TRUE>";
-    }
-    return "<FALSE>";
+    bool cond_1 = p1_poly.x >= p1_data.x && p1_poly.y >= p1_data.y;
+    bool cond_2 = p2_poly.x <= p2_data.x && p2_poly.y <= p2_data.y;
+    return cond_1 && cond_2;
   }
 }
 #endif

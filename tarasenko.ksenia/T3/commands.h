@@ -109,8 +109,7 @@ namespace tarasenko
      }
    }
 
-   void get(const std::string& key,
-       std::function< std::string(const std::vector< Polygon >&, const Polygon&) >& command)
+   void get(const std::string& key, std::function< bool(const std::vector< Polygon >&, const Polygon&) >& command)
    {
      try
      {
@@ -128,7 +127,7 @@ namespace tarasenko
    std::map< std::string, std::function< size_t(const std::vector< Polygon >&, const size_t&) > > type_2;
    std::map< std::string, std::function< double(const std::vector< Polygon >&) > > type_3;
    std::map< std::string, std::function< size_t(const std::vector< Polygon >&) > > type_4;
-   std::map< std::string, std::function< std::string(const std::vector< Polygon >&, const Polygon&) > > type_5;
+   std::map< std::string, std::function< bool(const std::vector< Polygon >&, const Polygon&) > > type_5;
   };
 }
 #endif
