@@ -2,8 +2,10 @@
 #include <vector>
 #include <limits>
 #include <iterator>
+#include <iostream>
 #include "polygon.h"
 #include "polygon_io.h"
+#include "command_system.h"
 
 int main(int argc, char **argv)
 {
@@ -29,6 +31,27 @@ int main(int argc, char **argv)
     if (file.fail()) {
       file.clear();
       file.ignore(streamsize_limits::max(), '\n');
+    }
+  }
+
+  auto commands = kumachev::createCommandSystem();
+  std::istream &in = std::cin;
+  std::ostream &out = std::cout;
+
+  while (!in.eof()) {
+    try {
+      auto command = kumachev::inputCommand(in);
+      kumachev::handleCommand(command, shapes, in, out);
+      out << '\n';
+    }
+    catch (const std::logic_error &e) {
+      kumachev::printInvalid(out);
+      out << '\n';
+      in.ignore(streamsize_limits::max(), '\n');
+      in.clear();
+    }
+    catch (const std::runtime_error &e) {
+      break;
     }
   }
 
