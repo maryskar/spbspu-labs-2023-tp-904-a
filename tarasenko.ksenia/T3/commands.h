@@ -42,6 +42,8 @@ namespace tarasenko
      type_4.insert(std::make_pair("COUNT EVEN", &getNumEven));
      type_4.insert(std::make_pair("COUNT ODD", &getNumOdd));
      type_4.insert(std::make_pair("RIGHTSHAPES", &getNumRightShapes));
+
+     type_5.insert(std::make_pair("INFRAME", &isInFrame));
    }
 
    bool find(const std::string& name)
@@ -107,12 +109,26 @@ namespace tarasenko
      }
    }
 
+   void get(const std::string& key,
+       std::function< std::string(const std::vector< Polygon >&, const Polygon&) >& command)
+   {
+     try
+     {
+       command = type_5.at(key);
+     }
+     catch (const std::out_of_range&)
+     {
+       throw std::out_of_range("Not found");
+     }
+   }
+
   private:
    std::vector< std::vector< std::string > > names;
    std::map< std::string, std::function< double(const std::vector< Polygon >&, const size_t&) > > type_1;
    std::map< std::string, std::function< size_t(const std::vector< Polygon >&, const size_t&) > > type_2;
    std::map< std::string, std::function< double(const std::vector< Polygon >&) > > type_3;
    std::map< std::string, std::function< size_t(const std::vector< Polygon >&) > > type_4;
+   std::map< std::string, std::function< std::string(const std::vector< Polygon >&, const Polygon&) > > type_5;
   };
 }
 #endif

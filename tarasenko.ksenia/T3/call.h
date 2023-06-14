@@ -27,6 +27,14 @@ namespace tarasenko
       commands.get(command1, command);
       out << command(p) << "\n";
     }
+    else if (commands.findIn(command1, 5))
+    {
+      Polygon polygon;
+      in >> polygon;
+      std::function< std::string(const std::vector< Polygon >&, const Polygon&) > command;
+      commands.get(command1, command);
+      out << command(p, polygon) << "\n";
+    }
     else
     {
       std::string command2 = "";

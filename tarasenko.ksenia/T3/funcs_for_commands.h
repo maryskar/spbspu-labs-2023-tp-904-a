@@ -166,5 +166,124 @@ namespace tarasenko
   {
     return std::count_if(data.begin(), data.end(), hasRightAngles);
   }
+
+  int getX(const Point& point)
+  {
+    return point.x;
+  }
+
+  int getY(const Point& point)
+  {
+    return point.y;
+  }
+
+  Polygon getFrameRect(const Polygon& p)
+  {
+    std::vector< int > v_x;
+    std::vector< int > v_y;
+    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_x), getX);
+    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_y), getY);
+    int min_x = *std::min_element(v_x.begin(), v_x.end());
+    int min_y = *std::min_element(v_y.begin(), v_y.end());
+    int max_x = *std::max_element(v_x.begin(), v_x.end());
+    int max_y = *std::max_element(v_y.begin(), v_y.end());
+
+    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y},
+       {max_x, max_y}, {max_x, min_y}};
+    return Polygon{points_rect};
+  }
+
+  int getMinX(const Polygon& p)
+  {
+    std::vector< int > v_x;
+    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_x), getX);
+    return *std::min_element(v_x.begin(), v_x.end());
+  }
+
+  int getMinY(const Polygon& p)
+  {
+    std::vector< int > v_y;
+    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_y), getY);
+    return *std::min_element(v_y.begin(), v_y.end());
+  }
+
+  int getMaxX(const Polygon& p)
+  {
+    std::vector< int > v_x;
+    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_x), getX);
+    return *std::max_element(v_x.begin(), v_x.end());
+  }
+
+  int getMaxY(const Polygon& p)
+  {
+    std::vector< int > v_y;
+    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_y), getY);
+    return *std::max_element(v_y.begin(), v_y.end());
+  }
+
+  Polygon getFrameRectForCompositeShapes(const std::vector< Polygon >& data)
+  {
+    if (data.empty())
+    {
+      throw std::invalid_argument("Data is empty");
+    }
+    /*Polygon poly;
+    int min_x = data[0].points[0].x;
+    int min_y = data[0].points[0].y;
+    int max_x = min_x;
+    int max_y = min_y;
+    for (auto polygon: data)
+    {
+      min_x = std::min(getFrameRect(polygon).points[0].x, min_x);
+      min_y = std::min(getFrameRect(polygon).points[0].y, min_y);
+      max_x = std::max(getFrameRect(polygon).points[2].x, max_x);
+      max_y = std::max(getFrameRect(polygon).points[2].x, max_y);
+    }*/
+    auto comp_minx = std::bind(std::less<>{}, std::bind(getMinX, _1), std::bind(getMinX, _2));
+    auto poly_with_minx = std::min_element(data.begin(), data.end(), comp_minx);
+    auto min_x = getMinX(*poly_with_minx);
+
+    auto comp_miny = std::bind(std::less<>{}, std::bind(getMinY, _1), std::bind(getMinY, _2));
+    auto poly_with_miny = std::min_element(data.begin(), data.end(), comp_miny);
+    auto min_y = getMinY(*poly_with_miny);
+
+    auto comp_maxx = std::bind(std::less<>{}, std::bind(getMaxX, _1), std::bind(getMaxX, _2));
+    auto poly_with_maxx = std::max_element(data.begin(), data.end(), comp_maxx);
+    auto max_x = getMinX(*poly_with_maxx);
+
+    auto comp_maxy = std::bind(std::less<>{}, std::bind(getMaxY, _1), std::bind(getMaxY, _2));
+    auto poly_with_maxy = std::max_element(data.begin(), data.end(), comp_maxy);
+    auto max_y = getMaxY(*poly_with_maxy);
+
+    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y},
+                                     {max_x, max_y}, {max_x, min_y}};
+    return Polygon{points_rect};
+  }
+
+  bool belongToInterval(int p, int begin, int end)
+  {
+    return p >= begin && p <= end;
+  }
+
+  std::string isInFrame(const std::vector< Polygon >& data, const Polygon& poly)
+  {
+    auto frame_data = getFrameRectForCompositeShapes(data);
+    auto frame_poly = getFrameRect(poly);
+    auto p1_data = frame_data.points[0];
+    auto p1_poly = frame_poly.points[0];
+    auto p2_data = frame_data.points[2];
+    auto p2_poly = frame_poly.points[2];
+
+    bool poly_minx_in_frame =  belongToInterval(p1_poly.x, p1_data.x, p2_data.x);
+    bool poly_miny_in_frame =  belongToInterval(p1_poly.y, p1_data.y, p2_data.y);
+    bool poly_maxx_in_frame =  belongToInterval(p2_poly.x, p1_data.x, p2_data.x);
+    bool poly_maxy_in_frame =  belongToInterval(p2_poly.y, p1_data.y, p2_data.y);
+
+    if (poly_minx_in_frame && poly_miny_in_frame && poly_maxx_in_frame && poly_maxy_in_frame)
+    {
+      return "<TRUE>";
+    }
+    return "<FALSE>";
+  }
 }
 #endif
