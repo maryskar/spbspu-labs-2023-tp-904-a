@@ -18,14 +18,14 @@ namespace tarasenko
     return in;
   }
 
-  void call(const std::string& command1, std::vector< Polygon >& p, std::istream& in, std::ostream& out)
+  void call(const std::string& command1, std::vector< Polygon >& data, std::istream& in, std::ostream& out)
   {
     Commands commands;
     if (commands.findIn(command1, 4))
     {
       std::function< size_t(const std::vector< Polygon >&) > command;
       commands.get(command1, command);
-      out << command(p) << "\n";
+      out << command(data) << "\n";
     }
     else if (commands.findIn(command1, 5))
     {
@@ -33,7 +33,7 @@ namespace tarasenko
       in >> polygon;
       std::function< bool(const std::vector< Polygon >&, const Polygon&) > command;
       commands.get(command1, command);
-      out << (command(p, polygon) ? "<TRUE>" : "<FALSE>") << "\n";
+      out << (command(data, polygon) ? "<TRUE>" : "<FALSE>") << "\n";
     }
     else
     {
@@ -47,13 +47,13 @@ namespace tarasenko
           {
             std::function< double(const std::vector< Polygon >&) > command;
             commands.get(command1 + " " + command2, command);
-            out << std::fixed << std::setprecision(1) << command(p) << "\n";
+            out << std::fixed << std::setprecision(1) << command(data) << "\n";
           }
           else
           {
             std::function< size_t(const std::vector< Polygon >&) > command;
             commands.get(command1 + " " + command2, command);
-            out << command(p) << "\n";
+            out << command(data) << "\n";
           }
         }
         else
@@ -63,14 +63,14 @@ namespace tarasenko
             std::function< double(const std::vector< Polygon >&, const size_t&) > command;
             commands.get(command1, command);
             auto n = std::stoull(command2);
-            out << std::fixed << std::setprecision(1) << command(p, n) << "\n";
+            out << std::fixed << std::setprecision(1) << command(data, n) << "\n";
           }
           else
           {
             std::function< size_t(const std::vector< Polygon >&, const size_t&) > command;
             commands.get(command1, command);
             auto n = std::stoull(command2);
-            out << command(p, n) << "\n";
+            out << command(data, n) << "\n";
           }
         }
       }

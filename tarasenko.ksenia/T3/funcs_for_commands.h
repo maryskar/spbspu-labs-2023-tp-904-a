@@ -166,7 +166,7 @@ namespace tarasenko
   {
     auto n = p.points.size();
     auto points = p.points;
-    auto cond = [&](size_t i){
+    auto cond = [&](size_t i) {
       Point a = points[i];
       Point b = points[(i + 1) % n];
       Point c = points[(i + 2) % n];
@@ -192,48 +192,54 @@ namespace tarasenko
     return point.y;
   }
 
-  Polygon getFrameRect(const Polygon& p)
+  std::vector< int > getVectorXOf(const Polygon& p)
   {
-    std::vector< int > v_x;
-    std::vector< int > v_y;
+    std::vector< int > v_x = {};
     std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_x), getX);
-    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_y), getY);
-    int min_x = *std::min_element(v_x.begin(), v_x.end());
-    int min_y = *std::min_element(v_y.begin(), v_y.end());
-    int max_x = *std::max_element(v_x.begin(), v_x.end());
-    int max_y = *std::max_element(v_y.begin(), v_y.end());
+    return v_x;
+  }
 
-    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y},
-       {max_x, max_y}, {max_x, min_y}};
-    return Polygon{points_rect};
+  std::vector< int > getVectorYOf(const Polygon& p)
+  {
+    std::vector< int > v_y = {};
+    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_y), getY);
+    return v_y;
   }
 
   int getMinX(const Polygon& p)
   {
-    std::vector< int > v_x;
-    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_x), getX);
+    std::vector< int > v_x = getVectorXOf(p);
     return *std::min_element(v_x.begin(), v_x.end());
   }
 
   int getMinY(const Polygon& p)
   {
-    std::vector< int > v_y;
-    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_y), getY);
+    std::vector< int > v_y = getVectorYOf(p);
     return *std::min_element(v_y.begin(), v_y.end());
   }
 
   int getMaxX(const Polygon& p)
   {
-    std::vector< int > v_x;
-    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_x), getX);
+    std::vector< int > v_x = getVectorXOf(p);
     return *std::max_element(v_x.begin(), v_x.end());
   }
 
   int getMaxY(const Polygon& p)
   {
-    std::vector< int > v_y;
-    std::transform(p.points.begin(), p.points.end(), std::back_inserter(v_y), getY);
+    std::vector< int > v_y = getVectorYOf(p);
     return *std::max_element(v_y.begin(), v_y.end());
+  }
+
+  Polygon getFrameRect(const Polygon& p)
+  {
+    int min_x = getMinX(p);
+    int min_y = getMinY(p);
+    int max_x = getMaxX(p);
+    int max_y = getMaxY(p);
+
+    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y},
+       {max_x, max_y}, {max_x, min_y}};
+    return Polygon{points_rect};
   }
 
   Polygon getFrameRectForCompositeShapes(const std::vector< Polygon >& data)
@@ -259,7 +265,7 @@ namespace tarasenko
     auto max_y = getMaxY(*poly_with_maxy);
 
     std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y},
-                                     {max_x, max_y}, {max_x, min_y}};
+       {max_x, max_y}, {max_x, min_y}};
     return Polygon{points_rect};
   }
 
@@ -267,6 +273,7 @@ namespace tarasenko
   {
     auto frame_data = getFrameRectForCompositeShapes(data);
     auto frame_poly = getFrameRect(poly);
+
     auto p1_data = frame_data.points[0];
     auto p1_poly = frame_poly.points[0];
     auto p2_data = frame_data.points[2];
