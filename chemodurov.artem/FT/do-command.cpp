@@ -1,4 +1,16 @@
 #include "do-command.hpp"
+#include <iostream>
+
+std::string chemodurov::readCommand(std::istream & in)
+{
+  std::string res;
+  in >> res;
+  if (!in)
+  {
+    throw std::runtime_error("End of reading");
+  }
+  return res;
+}
 
 void chemodurov::doCommandFromMaps(const std::string & name_cmd,
     const CommandsMaps & cmds,
