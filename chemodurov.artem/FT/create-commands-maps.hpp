@@ -15,10 +15,13 @@ namespace chemodurov
     using fst_cmd_t = void(*)(std::ostream &);
     using snd_cmd_t = void(*)(std::istream &, DictWithFreqDicts &);
     using trd_cmd_t = void(*)(std::istream &, std::ostream &, const DictWithFreqDicts &);
-    Map< std::string, fst_cmd_t > fst_map_;
-    Map< std::string, snd_cmd_t > snd_map_;
-    Map< std::string, trd_cmd_t > trd_map_;
+    std::map< std::string, fst_cmd_t > fst_map_;
+    std::map< std::string, snd_cmd_t > snd_map_;
+    std::map< std::string, trd_cmd_t > trd_map_;
   };
+
+  std::ostream & outEmpty(std::ostream & out);
+  std::ostream & outInvalidCommand(std::ostream & out);
 }
 
 #endif

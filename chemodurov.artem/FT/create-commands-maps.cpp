@@ -1,11 +1,22 @@
 #include "create-commands-maps.hpp"
 #include <iostream>
 #include <fstream>
-#include <create-command-dictionary.hpp>
-#include <sort-and-print-random-value.hpp>
+#include <functional>
+#include <algorithm>
+#include <iterator>
 
 namespace chemodurov
 {
+  std::ostream & outEmpty(std::ostream & out)
+  {
+    return out << "<EMPTY>";
+  }
+
+  std::ostream & outInvalidCommand(std::ostream & out)
+  {
+    return out << "<INVALID COMMAND>";
+  }
+
   std::string getWordFromString(const std::string & data)
   {
     size_t space_ind = data.find(' ');
@@ -117,7 +128,7 @@ namespace chemodurov
     if (!dic.empty())
     {
       out << line << ' ';
-      print(dic.begin(), dic.end(), out);
+      std::copy(dic.begin(), dic.end(), std::ostream_iterator< FreqDict::value_type >(out));
     }
     else
     {
@@ -295,7 +306,7 @@ namespace chemodurov
     }
     try
     {
-      shellSort< iter_t *, decltype(isGreaterSizeT< iter_t >) >(iters, iters_size, isGreaterSizeT);
+      std::sort< iter_t *, decltype(isGreaterSizeT< iter_t >) >(iters, iters + iters_size, isGreaterSizeT);
       size_t to_print = std::min(num, iters_size);
       for (size_t i = 0; i < to_print; ++i)
       {
