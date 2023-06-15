@@ -4,7 +4,7 @@
 #include <functional>
 #include <algorithm>
 #include <iterator>
-
+#include <vector>
 namespace chemodurov
 {
   std::ostream & outEmpty(std::ostream & out)
@@ -128,7 +128,8 @@ namespace chemodurov
     if (!dic.empty())
     {
       out << line << ' ';
-      std::copy(dic.begin(), dic.end(), std::ostream_iterator< FreqDict::value_type >(out));
+      using out_it_t = std::ostream_iterator< FreqDict::value_type >;
+      std::copy(dic.begin(), dic.end(), out_it_t(out));
     }
     else
     {
@@ -257,12 +258,12 @@ namespace chemodurov
   void unionDicts(const DictWithFreqDicts & data, FreqDict & lhs, const std::string & rhs)
   {
     const auto & rhs_dict = data.at(rhs);
-    for (auto & lh : lhs)
+    for (auto & i : lhs)
     {
-      auto it = rhs_dict.find(lh.first);
+      auto it = rhs_dict.find(i.first);
       if (it != rhs_dict.end())
       {
-        lh.second = lh.second + it->second;
+        i.second = i.second + it->second;
       }
     }
     for (const auto & i : rhs_dict)
@@ -286,6 +287,7 @@ namespace chemodurov
     return lhs->second > rhs->second;
   }
 
+
   void topCommand(std::istream & in, std::ostream & out, const DictWithFreqDicts & data)
   {
     size_t num = 0;
@@ -299,31 +301,24 @@ namespace chemodurov
     const auto & dict = data.at(name_dict);
     size_t iters_size = 0;
     using iter_t = FreqDict::const_iterator;
-    auto iters = new iter_t[dict.size()];
+    auto iters = std::vector< iter_t >(dict.size());
     for (auto i = dict.begin(); i != dict.end(); ++i)
     {
       iters[iters_size++] = i;
     }
-    try
+    using iter_on_iter_t = std::vector< iter_t >::iterator;
+    using compare_t = decltype(isGreaterSizeT< iter_t >);
+    std::sort< iter_on_iter_t, compare_t >(iters.begin(), iters.end(), isGreaterSizeT);
+    size_t to_print = std::min(num, iters_size);
+    for (size_t i = 0; i < to_print; ++i)
     {
-      std::sort< iter_t *, decltype(isGreaterSizeT< iter_t >) >(iters, iters + iters_size, isGreaterSizeT);
-      size_t to_print = std::min(num, iters_size);
-      for (size_t i = 0; i < to_print; ++i)
+      if (i > 0)
       {
-        if (i > 0)
-        {
-          out << ' ';
-        }
-        out << iters[i]->first << ' ' << iters[i]->second;
+        out << ' ';
       }
-      out << '\n';
+      out << iters[i]->first << ' ' << iters[i]->second;
     }
-    catch (...)
-    {
-      delete [] iters;
-      throw;
-    }
-    delete [] iters;
+    out << '\n';
   }
 
   void insertCommand(std::istream & in, DictWithFreqDicts & data)
