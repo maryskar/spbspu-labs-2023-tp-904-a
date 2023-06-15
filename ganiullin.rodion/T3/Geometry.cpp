@@ -30,6 +30,7 @@ namespace {
     int minY = std::min< int >(lhs.first.y, rhs.first.y);
     int maxX = std::max< int >(lhs.second.x, rhs.second.x);
     int maxY = std::max< int >(lhs.second.y, rhs.second.y);
+
     return {{minX, minY}, {maxX, maxY}};
   }
   bool comparePoints(const ganiullin::Point& p1, const ganiullin::Point& p2)
@@ -46,6 +47,7 @@ namespace {
         std::pair< int, int >(p3.x - p1.x, p3.y - p1.y);
     std::pair< int, int > secondVector =
         std::pair< int, int >(p2.x - p1.x, p2.y - p1.y);
+
     return crossProduct(firstVector, secondVector) / 2.0;
   }
   bool isPointInFrame(const ganiullin::Point& point,
@@ -133,6 +135,7 @@ std::ostream& ganiullin::operator<<(std::ostream& out, const Polygon& polygon)
   auto outIter = std::ostream_iterator< Point >(out, " ");
   out << polygon.points.size() << ' ';
   std::copy(std::begin(polygon.points), std::end(polygon.points), outIter);
+
   return out;
 }
 bool ganiullin::operator==(const Point& first, const Point& second)
@@ -152,6 +155,7 @@ double ganiullin::getArea(const Polygon& polygon)
 
   std::transform(polygonBeginIt + 1, polygonEndIt - 1, polygonBeginIt + 2,
       areasInsertIt, getPivotTriangleArea);
+
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
 std::pair< ganiullin::Point, ganiullin::Point > ganiullin::getFrame(

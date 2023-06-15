@@ -6,6 +6,7 @@
 #include <numeric>
 #include <stdexcept>
 #include "FormatGuard.h"
+#include "TypesIO.h"
 
 namespace {
   using namespace std::placeholders;
@@ -37,6 +38,7 @@ namespace {
 
     std::transform(filterBeginIt, filterEndIt, areasInsertIt,
         ganiullin::getArea);
+
     return std::accumulate(std::begin(areas), std::end(areas), 0.0);
   }
   double processAreaOdd(const std::vector< ganiullin::Polygon >& polygons)
@@ -50,7 +52,6 @@ namespace {
 
     std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt,
         hasOddVertexes);
-
     areas.reserve(filteredPolygons.size());
 
     auto filterBeginIt = std::begin(filteredPolygons);
@@ -80,6 +81,7 @@ namespace {
         ganiullin::getArea);
     auto areasBeginIt = std::begin(areas);
     auto areasEndIt = std::end(areas);
+
     return std::accumulate(areasBeginIt, areasEndIt, 0.0) / polygons.size();
   }
   double processAreaVertexNum(const std::vector< ganiullin::Polygon >& polygons,
@@ -102,6 +104,7 @@ namespace {
 
     std::transform(filterBeginIt, filterEndIt, areasInsertIt,
         ganiullin::getArea);
+
     auto areasBeginIt = std::begin(areas);
     auto areasEndIt = std::end(areas);
 
@@ -122,6 +125,7 @@ namespace {
 
     std::transform(polygonsBeginIt, polygonsEndIt, areasInsertIt,
         ganiullin::getArea);
+
     auto areasBeginIt = std::begin(areas);
     auto areasEndIt = std::end(areas);
 
@@ -141,6 +145,7 @@ namespace {
 
     std::transform(polygonsBeginIt, polygonsEndIt, vertexInsertIt,
         ganiullin::getNumOfVertexes);
+
     auto vertexBeginIt = std::begin(numVertexes);
     auto vertexEndIt = std::end(numVertexes);
 
@@ -161,6 +166,7 @@ namespace {
 
     std::transform(polygonsBeginIt, polygonsEndIt, areasInsertIt,
         ganiullin::getArea);
+
     auto areasBeginIt = std::begin(areas);
     auto areasEndIt = std::end(areas);
 
@@ -180,6 +186,7 @@ namespace {
 
     std::transform(polygonsBeginIt, polygonsEndIt, vertexInsertIt,
         ganiullin::getNumOfVertexes);
+
     auto vertexBeginIt = std::begin(numVertexes);
     auto vertexEndIt = std::end(numVertexes);
 
@@ -189,6 +196,7 @@ namespace {
   {
     auto polygonsBeginIt = std::begin(polygons);
     auto polygonsEndIt = std::end(polygons);
+
     return std::count_if(polygonsBeginIt, polygonsEndIt, hasEvenVertexes);
   }
   size_t processCountOdd(const std::vector< ganiullin::Polygon >& polygons)
@@ -372,9 +380,9 @@ std::ostream& ganiullin::CommandHandler::executeCommand(
   }
   if (polygonCommandDict_.find(command) != std::end(polygonCommandDict_)) {
     Polygon param;
+    in >> param >> DelimiterIO{'\n'};
 
-    in >> param;
-    if (!in || in.peek() != '\n') {
+    if (!in) {
       in.setstate(std::ios::failbit);
       return out;
     }
