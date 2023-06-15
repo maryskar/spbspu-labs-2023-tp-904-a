@@ -2,6 +2,8 @@
 #include <iostream>
 #include <iterator>
 #include <algorithm>
+#include <cctype>
+#include <functional>
 #include "helpFunctions.hpp"
 
 namespace malaya
@@ -26,39 +28,45 @@ namespace malaya
     out << "FIND_MOST_FREQUENT <dict1> - shows the most frequent word in the dict\n";
     out << "IS_SUBSET <dict1> <dict2> - checks if one dictionary is subset of another\n";
   }
-  void deleteKey(dictOfDicts & dicts, const std::string & name,
-                 const std::string & key, std::ostream & out)
+  void deleteKey(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
-    try
-    {
-      findDict(dicts, name).erase(key);
-    }
-    catch(const std::out_of_range & exception)
-    {
-      printNotFound(out);
-    }
+    std::string name, key = " ";
+    in >> name >> key;
+    findDict(dicts, name).erase(key);
   }
-  void insert(dictOfDicts & dicts, const std::string & name,
-              const std::string & key, std::ostream & out)
+  bool isLetter(unsigned char symbol)
   {
-    try
+    return std::isalpha(symbol);
+  }
+  std::string strFilter(const std::string & str)
+  {
+    std::string result = "";
+    std::copy_if(str.begin(), str.end(), result.begin(), isLetter);
+    return result;
+  }
+  void insert(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  {
+    std::string name, key = " ";
+    in >> name >> key;
+    key = strFilter(key);
+    if (!key.empty())
     {
       ++findDict(dicts, name)[key];
     }
-    catch(const std::out_of_range & exception)
+    else
     {
-      printNotFound(out);
+      throw std::invalid_argument("Incorrect word");
     }
   }
   std::ostream & operator<<(std::ostream & out,
-     const std::pair< std::string, size_t > & data)
+    const std::pair< std::string, size_t > & data)
   {
     std::ostream::sentry ostreamChecker(out);
     if (!ostreamChecker)
     {
       return out;
     }
-    out << data.first << " " << data.second << "\n";
+    out << data.first << " " << data.second;
     return out;
   }
   void printDict(const dictionary & dict, std::ostream & out)
@@ -66,54 +74,30 @@ namespace malaya
     using outIt = std::ostream_iterator< std::pair< std::string, size_t > >;
     //std::copy(dict.begin(), dict.end(), outIt(out, "\n"));
   }
-  void print(dictOfDicts & dicts, const std::string & name, std::ostream & out)
+  void print(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
-    try
-    {
-      printDict(findDict(dicts, name), out);
-    }
-    catch(const std::out_of_range & exception)
-    {
-      printNotFound(out);
-    }
+    std::string name = " ";
+    in >> name;
+    printDict(findDict(dicts, name), out);
   }
 
-  void man(const std::string & command, const descriptDict & comms,
-           std::ostream & out)
+  void man(const descriptDict & comms, std::istream & in, std::ostream & out)
   {
-    auto iter = comms.find(command);
-    if(iter != comms.end())
-    {
-      out << iter->second;
-    }
-    else
-    {
-      printInvalid(out);
-    }
+    std::string name = " ";
+    in >> name;
+    out << comms.at(name);
   }
 
-  void delDic(dictOfDicts & dicts, const std::string & name, std::ostream & out)
+  void delDic(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
+    std::string name = " ";
+    in >> name;
     dicts.erase(name);
   }
 
   void search(dictOfDicts & dicts, const std::string & name,
               const std::string & key, std::ostream & out)
   {
-    try
-    {
-      try
-      {
-        out << findDict(dicts, name).at(key);
-      }
-      catch(const std::out_of_range & exception)
-      {
-        out << "Word not found\n";
-      }
-    }
-    catch(const std::out_of_range & exception)
-    {
-      printNotFound(out);
-    }
+    out << findDict(dicts, name).at(key); //разные исключения?
   }
 }

@@ -4,13 +4,15 @@
 #include <algorithm>
 namespace malaya
 {
-  void printNotFound(std::ostream & out)
+  std::ostream & printNotFound(std::ostream & out)
   {
-    out << "Dictionary not found\n";
+    out << "Dictionary not found";
+    return out;
   }
-  void printInvalid(std::ostream & out)
+  std::ostream & printInvalid(std::ostream & out)
   {
-    out << "<INVALID COMMAND>\n";
+    out << "<INVALID COMMAND>";
+    return out;
   }
 
   dictionary & findDict(dictOfDicts & dicts, const std::string & name)
@@ -32,10 +34,10 @@ namespace malaya
     //std::copy_n(inIt(in), size, std::inserter(pair.second, pair.second.end())); // сделать структуру word
   }
 
-  dictOfDicts readDictionaries(std::istream & in)
-  {
-    dictOfDicts dictionaries;
-    using inIt = std::istream_iterator< std::pair< std::string, dictionary > >;
-    //std::copy(inIt(in), inIt(), std::inserter(dictionaries, dictionaries.end()));
-  }
+  //dictOfDicts readDictionaries(std::istream & in)
+  //{
+  //  dictOfDicts dictionaries;
+  //  using inIt = std::istream_iterator< std::pair< std::string, dictionary > >;
+  //  //std::copy(inIt(in), inIt(), std::inserter(dictionaries, dictionaries.end()));
+  //}
 }
