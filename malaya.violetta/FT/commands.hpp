@@ -11,7 +11,9 @@ namespace malaya
   void man(const descriptDict &, std::istream & in, std::ostream & out);
   void delDic(dictOfDicts &, std::istream & in, std::ostream & out);
   void search(dictOfDicts &, std::istream & in, std::ostream & out);
-  void man(const descriptDict & comms, std::istream & in, std::ostream & out);
   void mostFreq(dictOfDicts &, std::istream & in, std::ostream & out);
+  void areSame(dictOfDicts & dicts, std::istream & in, std::ostream & out);
+  void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out);
+  void substract(dictOfDicts & dicts, std::istream & in, std::ostream & out);
 }
 #endif

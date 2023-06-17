@@ -37,10 +37,4 @@ namespace malaya
     //std::copy_n(inIt(in), size, std::inserter(pair.second, pair.second.end())); // сделать структуру word
   }
 
-  //dictOfDicts readDictionaries(std::istream & in)
-  //{
-  //  dictOfDicts dictionaries;
-  //  using inIt = std::istream_iterator< std::pair< std::string, dictionary > >;
-  //  //std::copy(inIt(in), inIt(), std::inserter(dictionaries, dictionaries.end()));
-  //}
 }

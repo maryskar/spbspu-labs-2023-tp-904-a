@@ -69,4 +69,10 @@ namespace malaya
     const dictionary::value_type & right)
   {
     return left.second < right.second;
+  }
+  bool WordComparator::operator()(const dictionary::value_type & left,
+    const dictionary::value_type & right)
+  {
+    return left.first < right.first;
+  }
 }

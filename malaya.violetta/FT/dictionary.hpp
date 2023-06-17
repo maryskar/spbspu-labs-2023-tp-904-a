@@ -25,7 +25,11 @@ namespace malaya
   std::ostream & operator<<(std::ostream &, dictionary::value_type);
   struct FrequencyComparator
   {
-    bool operator()( const dictionary::value_type & left, const dictionary::value_type & right);
+    bool operator()(const dictionary::value_type & left, const dictionary::value_type & right);
+  };
+  struct WordComparator
+  {
+    bool operator()(const dictionary::value_type & left, const dictionary::value_type & right);
   };
 }
 

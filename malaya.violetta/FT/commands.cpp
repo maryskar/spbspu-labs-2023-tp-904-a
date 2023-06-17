@@ -117,4 +117,35 @@ namespace malaya
     printYesNo(out, result);
     out << '\n';
   }
+  void isSubset(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  {
+    std::string name1, name2 = " ";
+    in >> name1 >> name2;
+    const auto & dict1 = findDict(dicts, name1);
+    const auto & dict2 = findDict(dicts, name2);
+    bool result = std::includes(dict1.begin(), dict1.end(), dict2.begin(), dict2.end()); //ПОМЕНЯТЬЖДДОЖЩШРПАВДЖ,ЗШАПГНРО
+    printYesNo(out, result);
+  }
+  void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  {
+    std::string name1, name2, name3 = " ";
+    in >> name1 >> name2 >> name3;
+    const auto & dict1 = findDict(dicts, name1);
+    const auto & dict2 = findDict(dicts, name2);
+    dictionary dict3;
+    dicts.insert({name3, dict3});
+    std::set_symmetric_difference(dict1.begin(), dict1.end(), dict2.begin(),
+        dict2.end(), std::inserter(dict3, dict3.end()), WordComparator{});
+  }
+  void substract(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  {
+    std::string name1, name2, name3 = " ";
+    in >> name1 >> name2 >> name3;
+    const auto & dict1 = findDict(dicts, name1);
+    const auto & dict2 = findDict(dicts, name2);
+    dictionary dict3;
+    dicts.insert({name3, dict3});
+    std::set_difference(dict1.begin(), dict1.end(), dict2.begin(),
+        dict2.end(), std::inserter(dict3, dict3.end()), WordComparator{});
+  }
 }
