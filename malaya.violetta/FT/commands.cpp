@@ -126,26 +126,64 @@ namespace malaya
     bool result = std::includes(dict1.begin(), dict1.end(), dict2.begin(), dict2.end()); //ПОМЕНЯТЬЖДДОЖЩШРПАВДЖ,ЗШАПГНРО
     printYesNo(out, result);
   }
+  void symmetricDiff(dictionary & dest, const dictionary & dict1, const dictionary & dict2)
+  {
+    std::set_symmetric_difference(dict1.begin(), dict1.end(),
+        dict2.begin(), dict2.end(), std::inserter(dest, dest.end()), WordComparator{});
+  }
+  void subtract(dictionary & dest, const dictionary & dict1, const dictionary & dict2)
+  {
+    std::set_difference(dict1.begin(), dict1.end(),
+        dict2.begin(), dict2.end(), std::inserter(dest, dest.end()), WordComparator{});
+  }
+  template < class Function >
+  void differences(dictOfDicts & dicts, std::istream & in, std::ostream & out, Function func)
+  {
+    std::string name1, name2, dest = " ";
+    in >> dest >> name1 >> name2;
+    const auto & dict1 = findDict(dicts, name1);
+    const auto & dict2 = findDict(dicts, name2);
+    dictionary destDict;
+    auto iter = dicts.insert({dest, destDict}).first;
+    func(iter->second, dict1, dict2);
+  }
   void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
-    std::string name1, name2, name3 = " ";
-    in >> name1 >> name2 >> name3;
-    const auto & dict1 = findDict(dicts, name1);
-    const auto & dict2 = findDict(dicts, name2);
-    dictionary dict3;
-    dicts.insert({name3, dict3});
-    std::set_symmetric_difference(dict1.begin(), dict1.end(), dict2.begin(),
-        dict2.end(), std::inserter(dict3, dict3.end()), WordComparator{});
+    differences(dicts, in, out, symmetricDiff);
   }
-  void substract(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void doSubtraction(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
-    std::string name1, name2, name3 = " ";
-    in >> name1 >> name2 >> name3;
-    const auto & dict1 = findDict(dicts, name1);
-    const auto & dict2 = findDict(dicts, name2);
-    dictionary dict3;
-    dicts.insert({name3, dict3});
-    std::set_difference(dict1.begin(), dict1.end(), dict2.begin(),
-        dict2.end(), std::inserter(dict3, dict3.end()), WordComparator{});
+    differences(dicts, in, out, subtract);
   }
+  //void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  //{
+  //  std::string name1, name2, name3 = " ";
+  //  in >> name1 >> name2 >> name3;
+  //  const auto & dict1 = findDict(dicts, name1);
+  //  const auto & dict2 = findDict(dicts, name2);
+  //  dictionary dict3;
+  //  auto pair = dicts.insert({name3, dict3});
+  //  if (!pair.second)
+  //  {
+  //    throw std::invalid_argument("You can't use already existing dict");
+  //  }
+  //  std::set_symmetric_difference(dict1.begin(), dict1.end(), dict2.begin(),
+  //      dict2.end(), std::inserter(dict3, dict3.end()), WordComparator{});
+  //}
+  //void subtract(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  //{
+  //  std::string name1, name2, name3 = " ";
+  //  in >> name1 >> name2 >> name3;
+  //  const auto & dict1 = findDict(dicts, name1);
+  //  const auto & dict2 = findDict(dicts, name2);
+  //  dictionary dict3;
+  //  auto pair = dicts.insert({name3, dict3});
+  //  if (!pair.second)
+  //  {
+  //    throw std::invalid_argument("You can't use already existing dict");
+  //  }
+  //  std::set_difference(dict1.begin(), dict1.end(), dict2.begin(),
+  //      dict2.end(), std::inserter(dict3, dict3.end()), WordComparator{});
+  //}
+
 }

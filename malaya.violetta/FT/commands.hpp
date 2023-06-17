@@ -14,6 +14,6 @@ namespace malaya
   void mostFreq(dictOfDicts &, std::istream & in, std::ostream & out);
   void areSame(dictOfDicts & dicts, std::istream & in, std::ostream & out);
   void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out);
-  void substract(dictOfDicts & dicts, std::istream & in, std::ostream & out);
+  void doSubtraction(dictOfDicts & dicts, std::istream & in, std::ostream & out);
 }
 #endif
