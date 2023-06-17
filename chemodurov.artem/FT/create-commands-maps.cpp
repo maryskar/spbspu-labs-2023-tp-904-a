@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <iterator>
 #include <vector>
+
 namespace chemodurov
 {
   std::ostream & outEmpty(std::ostream & out)
@@ -128,8 +129,11 @@ namespace chemodurov
     if (!dic.empty())
     {
       out << line << ' ';
-      using out_it_t = std::ostream_iterator< FreqDict::value_type >;
-      std::copy(dic.begin(), dic.end(), out_it_t(out, " "));
+      {
+        using chemodurov::ios::SpecialDataIO;
+        using out_it_t = std::ostream_iterator< SpecialDataIO >;
+        std::copy(dic.begin(), dic.end(), out_it_t(out, " "));
+      }
     }
     else
     {

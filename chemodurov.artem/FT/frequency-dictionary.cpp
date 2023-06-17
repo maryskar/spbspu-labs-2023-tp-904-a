@@ -52,13 +52,23 @@ namespace chemodurov
     return out << word.getWord();
   }
 
-  std::ostream & operator<<(std::ostream & out, const std::pair< const Word, size_t > & pair)
+  ios::SpecialDataIO::SpecialDataIO(const std::pair< const Word, size_t > & pair):
+   pair_(pair)
+  {}
+
+  const std::pair< const Word, size_t > & ios::SpecialDataIO::getData() const
+  {
+    return pair_;
+  }
+
+  std::ostream & ios::operator<<(std::ostream & out, ios::SpecialDataIO data)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
     {
       return out;
     }
+    const auto & pair = data.getData();
     return out << pair.first << ' ' << pair.second;
   }
 }

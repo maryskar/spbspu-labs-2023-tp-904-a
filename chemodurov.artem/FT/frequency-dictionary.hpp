@@ -14,7 +14,18 @@ namespace chemodurov
   };
   bool operator<(const Word & lhs, const Word & rhs);
   std::ostream & operator<<(std::ostream & out, const Word & word);
-  std::ostream & operator<<(std::ostream & out, const std::pair< const Word, size_t > & pair);
+  namespace ios
+  {
+    class SpecialDataIO
+    {
+     public:
+      SpecialDataIO(const std::pair< const Word, size_t > & pair);
+      const std::pair< const Word, size_t > & getData() const;
+     private:
+      const std::pair< const Word, size_t > & pair_;
+    };
+    std::ostream & operator<<(std::ostream & out, SpecialDataIO pair);
+  }
   using FreqDict = std::map< Word, size_t >;
   using DictWithFreqDicts = std::map< std::string, FreqDict >;
 }
