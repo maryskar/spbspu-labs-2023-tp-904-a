@@ -3,18 +3,17 @@
 #include <map>
 #include <string>
 #include <iosfwd>
+#include "dictionary.hpp"
 namespace malaya
 {
   std::ostream & printNotFound(std::ostream & out);
   std::ostream & printInvalid(std::ostream & out);
-  using dictionary = std::map< std::string, size_t >;
-  using dictOfDicts = std::map< std::string, dictionary >;
-  using descriptDict = std::map< std::string, std::string >; //СДЕЛАТЬ ФУНКЦИЮ ДЛЯ ЗАПОЛНЕНИЯ
+  std::ostream & printYesNo(std::ostream & out, bool number);
+   //СДЕЛАТЬ ФУНКЦИЮ ДЛЯ ЗАПОЛНЕНИЯ
   dictOfDicts readDictionaries(std::istream & in); //реализовать
   dictionary & findDict(dictOfDicts &, const std::string & name);
   using firstFunc = void(*)(const descriptDict &, std::istream &, std::ostream &);
   using secondFunc = void(*)(dictOfDicts &, std::istream &, std::ostream &);
-
   class Commands
   {
    public:
@@ -25,6 +24,5 @@ namespace malaya
     std::map< std::string, firstFunc > dict2_;
     std::map< std::string, secondFunc > dict3_;
   };
-   //реализовать
 }
 #endif

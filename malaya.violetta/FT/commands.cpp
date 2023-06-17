@@ -3,8 +3,6 @@
 #include <iterator>
 #include <algorithm>
 #include <cctype>
-#include <functional>
-#include "helpFunctions.hpp"
 
 namespace malaya
 {
@@ -30,25 +28,16 @@ namespace malaya
   }
   void deleteKey(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
-    std::string name, key = " ";
-    in >> name >> key;
+    std::string name, word = " ";
+    in >> name >> word;
+    Word key(word);
     findDict(dicts, name).erase(key);
-  }
-  bool isLetter(unsigned char symbol)
-  {
-    return std::isalpha(symbol);
-  }
-  std::string strFilter(const std::string & str)
-  {
-    std::string result = "";
-    std::copy_if(str.begin(), str.end(), result.begin(), isLetter);
-    return result;
   }
   void insert(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
-    std::string name, key = " ";
-    in >> name >> key;
-    key = strFilter(key);
+    std::string name, word = " ";
+    in >> name >> word;
+    Word key(word);
     if (!key.empty())
     {
       ++findDict(dicts, name)[key];
@@ -58,8 +47,7 @@ namespace malaya
       throw std::invalid_argument("Incorrect word");
     }
   }
-  std::ostream & operator<<(std::ostream & out,
-    const std::pair< std::string, size_t > & data)
+  std::ostream & operator<<(std::ostream & out, const std::pair< const std::string, size_t > & data)
   {
     std::ostream::sentry ostreamChecker(out);
     if (!ostreamChecker)
@@ -71,8 +59,16 @@ namespace malaya
   }
   void printDict(const dictionary & dict, std::ostream & out)
   {
-    using outIt = std::ostream_iterator< std::pair< std::string, size_t > >;
-    //std::copy(dict.begin(), dict.end(), outIt(out, "\n"));
+    if(!dict.empty())
+    {
+      using outIt = std::ostream_iterator< dictionary::value_type >;
+      std::copy(dict.begin(), dict.end(), outIt(out, "\n"));
+    }
+    else
+    {
+      printNotFound(out);
+      out << '\n';
+    }
   }
   void print(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
@@ -95,9 +91,30 @@ namespace malaya
     dicts.erase(name);
   }
 
-  void search(dictOfDicts & dicts, const std::string & name,
-              const std::string & key, std::ostream & out)
+  void search(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
+    std::string name, word = " ";
+    in >> name >> word;
+    Word key(word);
     out << findDict(dicts, name).at(key); //разные исключения?
+  }
+  const Word & maxElem(const dictionary & dict)
+  {
+    return std::max_element(dict.begin(), dict.end(), FrequencyComparator{})->first;
+  }
+  void mostFreq(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  {
+    std::string name = " ";
+    in >> name;
+    out << maxElem(findDict(dicts, name));
+  }
+  void areSame(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  {
+    std::string name1, name2 = " ";
+    in >> name1 >> name2;
+    const auto & dict1 = findDict(dicts, name1);
+    bool result = std::equal(dict1.begin(), dict1.end(), findDict(dicts, name2).begin());
+    printYesNo(out, result);
+    out << '\n';
   }
 }
