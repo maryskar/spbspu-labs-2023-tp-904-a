@@ -129,7 +129,7 @@ namespace chemodurov
     {
       out << line << ' ';
       using out_it_t = std::ostream_iterator< FreqDict::value_type >;
-      std::copy(dic.begin(), dic.end(), out_it_t(out));
+      std::copy(dic.begin(), dic.end(), out_it_t(out, " "));
     }
     else
     {
@@ -287,6 +287,13 @@ namespace chemodurov
     return lhs->second > rhs->second;
   }
 
+  std::string transformPair(const FreqDict::const_iterator & iter)
+  {
+    std::string res;
+    res = iter->first.getWord();
+    res += ' ' + std::to_string(iter->second);
+    return res;
+  }
 
   void topCommand(std::istream & in, std::ostream & out, const DictWithFreqDicts & data)
   {
@@ -310,14 +317,8 @@ namespace chemodurov
     using compare_t = decltype(isGreaterSizeT< iter_t >);
     std::sort< iter_on_iter_t, compare_t >(iters.begin(), iters.end(), isGreaterSizeT);
     size_t to_print = std::min(num, iters_size);
-    for (size_t i = 0; i < to_print; ++i)
-    {
-      if (i > 0)
-      {
-        out << ' ';
-      }
-      out << iters[i]->first << ' ' << iters[i]->second;
-    }
+    using out_it_t = std::ostream_iterator< std::string >;
+    std::transform(iters.begin(), iters.begin() + to_print, out_it_t(out, " "), transformPair);
     out << '\n';
   }
 

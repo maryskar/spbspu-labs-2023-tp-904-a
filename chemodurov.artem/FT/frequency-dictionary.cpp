@@ -6,7 +6,7 @@ namespace chemodurov
 {
   bool isAlphabet(char c)
   {
-    return !std::isalpha(static_cast< unsigned char >(c));
+    return std::isalpha(static_cast< unsigned char >(c));
   }
 
   char toLower(char c)
@@ -17,13 +17,10 @@ namespace chemodurov
   Word::Word(const std::string & str_word):
    data_(str_word)
   {
-    auto it = std::find_if_not(data_.begin(), data_.end(), isAlphabet);
+    auto it = std::find_if(data_.begin(), data_.end(), isAlphabet);
     data_.erase(data_.begin(), it);
-    auto rit = std::find_if_not(data_.rbegin(), data_.rend(), isAlphabet);
-    if (rit != data_.rend())
-    {
-      data_.erase(rit.base() - 1, data_.end());
-    }
+    auto rit = std::find_if(data_.rbegin(), data_.rend(), isAlphabet);
+    data_.erase(rit.base(), data_.end());
     if (!data_.empty() && !isAlphabet(data_[0]))
     {
       data_.erase(0, 1);
