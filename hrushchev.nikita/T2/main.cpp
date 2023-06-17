@@ -1,13 +1,13 @@
 #include <iostream>
 #include <limits>
-#include <vector>
+#include <deque>
 #include <iterator>
 #include <algorithm>
 #include "datastruct.hpp"
 
 int main()
 {
-  std::vector< hrushchev::DataStruct > data;
+  std::deque< hrushchev::DataStruct > data;
 
   while (!std::cin.eof())
   {
