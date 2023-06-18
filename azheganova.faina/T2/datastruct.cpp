@@ -35,7 +35,7 @@ std::istream & azheganova::operator>>(std::istream & in, DataStruct & dest)
     using dbl = DoubleIO;
     using ull = UnsignedLongLongIO;
     using str = StringIO;
-    in >> sep{ '(' } >> sep { ':' };
+    in >> sep{ '(' } >> sep{ ':' };
     for (size_t i = 1; i <= 3; i++)
     {
       size_t num = 0;
