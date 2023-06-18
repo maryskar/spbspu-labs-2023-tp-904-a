@@ -7,10 +7,14 @@
 #include <vector>
 #include <iomanip>
 #include "commands.h"
-#include "message.h"
 
 namespace tarasenko
 {
+  std::ostream& outMessageInvalidCommand(std::ostream& out)
+  {
+    return out << "<INVALID COMMAND>";
+  }
+
   std::istream& readTrash(std::istream& in)
   {
     std::string trash = "";
