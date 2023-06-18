@@ -73,7 +73,11 @@ std::istream& tarasenko::operator>>(std::istream& in, ULLBinIO&& dest)
   {
     return in;
   }
+<<<<<<< HEAD
   char buf[3];
+=======
+  char buf[3]{};
+>>>>>>> master
   std::cin.get(buf, 3);
   if (in && buf[0] != 0 && buf[1] != 'b' && buf[1] != 'B')
   {

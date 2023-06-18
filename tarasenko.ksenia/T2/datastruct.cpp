@@ -1,7 +1,7 @@
 #include "datastruct.h"
 #include <iostream>
-#include "structs_io.h"
-#include "iofmtguard.h"
+#include <structs_io.h>
+#include <iofmtguard.h>
 #include "convert_to_bin.h"
 
 std::istream& tarasenko::operator>>(std::istream& in, DataStruct& dest)
@@ -14,20 +14,16 @@ std::istream& tarasenko::operator>>(std::istream& in, DataStruct& dest)
   DataStruct input;
   {
     using sep = DelimiterIO;
-    using label = LabelIO;
     using ull = ULLIO;
     using ullbin = ULLBinIO;
     using str = StringIO;
-    //(:key1 10ull:key2 0b0111:key3 "Data":)
-    //(:key2 0b0111:key1 10ull:key3 "Data":)
-    //(:key3 "Data":key2 0b0111:key1 10ull:)
     bool key1_was = false;
     bool key2_was = false;
     bool key3_was = false;
     in >> sep{'('} >> sep{':'};
     while (in && !(key1_was && key2_was && key3_was))
     {
-      char buf[5];
+      char buf[5]{};
       std::cin.get(buf, 5);
       std::string s(buf);
       if (s.substr(0, 3) != "key")
@@ -75,9 +71,10 @@ std::ostream& tarasenko::operator<<(std::ostream& out, const DataStruct& src)
     return out;
   }
   iofmtguard fmtguard(out);
+  auto key2 = convertToBin(src.key2);
   out << "(:";
   out << "key1" << " " << src.key1 << "ull" << ":";
-  out << "key2" << " " << "0b0" << convertToBin(src.key2) << ":";
+  out << "key2" << " " << key2 << ":";
   out << "key3" << " " << '"' << src.key3 << '"';
   out << ":)";
   return out;
