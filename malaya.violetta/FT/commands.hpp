@@ -15,5 +15,6 @@ namespace malaya
   void areSame(dictOfDicts & dicts, std::istream & in, std::ostream & out);
   void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out);
   void doSubtraction(dictOfDicts & dicts, std::istream & in, std::ostream & out);
+  void isSubset(dictOfDicts & dicts, std::istream & in, std::ostream & out);
 }
 #endif

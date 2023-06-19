@@ -18,7 +18,9 @@ namespace malaya
   {
    public:
     Commands();
-    void doCommand();
+    void doCommand(std::ostream & out);
+    void doCommand(const descriptDict &, std::istream &, std::ostream &);
+    void doCommand(dictOfDicts &, std::istream &, std::ostream &);
    private:
     std::map< std::string, void(*)(std::ostream & out) > dict1_;
     std::map< std::string, firstFunc > dict2_;

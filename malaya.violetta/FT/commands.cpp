@@ -3,7 +3,7 @@
 #include <iterator>
 #include <algorithm>
 #include <cctype>
-
+#include <functional>
 namespace malaya
 {
   void info(std::ostream & out)
@@ -117,15 +117,72 @@ namespace malaya
     printYesNo(out, result);
     out << '\n';
   }
+  //template < class Function >
+  //const dictionary::value_type & mergeOrIntersect(const dictionary::value_type & first,
+  //    const dictionary::value_type & second, Function func)
+  //{
+  //  return func(first, second) ?
+  //}
+  //const dictionary::value_type & intersect(dictionary::iterator & first,
+  //    dictionary::iterator & second)
+  //{
+  //  if()
+  //}
+  //void getIntersection(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  //{
+  //  std::string name1, name2, dest = " ";
+  //  in >> dest >> name1 >> name2;
+  //  const auto & dict1 = findDict(dicts, name1);
+  //  const auto & dict2 = findDict(dicts, name2);
+  //  dictionary destDict;
+  //  auto iter = dicts.insert({dest, destDict}).first;
+  //  dictionary temp;
+  //  std::transform()
+  //}
+  //void isSubset(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  //{
+  //  std::string name1, name2 = " ";
+  //  in >> name1 >> name2;
+  //  const auto & dict1 = findDict(dicts, name1);
+  //  const auto & dict2 = findDict(dicts, name2);
+  //  bool result = std::includes(dict1.begin(), dict1.end(), dict2.begin(), dict2.end()); //ПОМЕНЯТЬЖДДОЖЩШРПАВДЖ,ЗШАПГНРО
+  //  printYesNo(out, result);
+  //}
+  bool includes(const dictionary::value_type & data, const dictionary & dict)
+  {
+    try
+    {
+      size_t freq = dict.at(data.first);
+      return data.second <= freq;
+    }
+    catch(const std::out_of_range & e)
+    {
+      return false;
+    }
+  }
   void isSubset(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
     std::string name1, name2 = " ";
     in >> name1 >> name2;
     const auto & dict1 = findDict(dicts, name1);
     const auto & dict2 = findDict(dicts, name2);
-    bool result = std::includes(dict1.begin(), dict1.end(), dict2.begin(), dict2.end()); //ПОМЕНЯТЬЖДДОЖЩШРПАВДЖ,ЗШАПГНРО
+    using namespace std::placeholders;
+    auto func = std::bind(includes, _1, dict2);
+    size_t size = std::count_if(dict1.begin(), dict1.end(), func);
+    bool result = size == dict1.size();
     printYesNo(out, result);
+    out << '\n';
   }
+  //void merge(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  //{
+  //  std::string name1, name2, dest = " ";
+  //  in >> dest >> name1 >> name2;
+  //  const auto & dict1 = findDict(dicts, name1);
+  //  const auto & dict2 = findDict(dicts, name2);
+  //  dictionary destDict;
+  //  auto iter = dicts.insert({dest, destDict}).first;
+  //  //std::transform(dict1.begin(), dict1.end(), )
+  //}
   void symmetricDiff(dictionary & dest, const dictionary & dict1, const dictionary & dict2)
   {
     std::set_symmetric_difference(dict1.begin(), dict1.end(),
