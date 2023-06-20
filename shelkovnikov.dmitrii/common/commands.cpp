@@ -8,8 +8,8 @@
 #include "io.h"
 namespace
 {
-  typedef dimkashelk::Polygon polygon;
-  typedef std::vector< polygon > v_polygon;
+  using polygon = dimkashelk::Polygon;
+  using v_polygon = std::vector< polygon >;
   using point = dimkashelk::Point;
   bool isEven(const polygon &pol)
   {
