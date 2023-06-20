@@ -13,7 +13,10 @@ namespace
   using point = dimkashelk::Point;
   bool isEven(const polygon &pol)
   {
-    return pol.points.size() % 2 == 0;
+    using size_type = std::vector< point >::size_type;
+    using namespace std::placeholders;
+    auto res = std::bind(std::equal_to< size_type >{}, std::bind(std::modulus< size_type >{}, _1, 2), 0);
+    return res(pol.points.size());
   }
   bool isOdd(const polygon &pol)
   {
