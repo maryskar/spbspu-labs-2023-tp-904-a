@@ -8,9 +8,6 @@
 #include "io.h"
 namespace
 {
-  using polygon = dimkashelk::Polygon;
-  using v_polygon = std::vector< polygon >;
-  using point = dimkashelk::Point;
   bool isEven(const polygon &pol)
   {
     using size_type = std::vector< point >::size_type;
@@ -168,15 +165,15 @@ namespace
     return std::equal(movedFirst.points.begin(), movedFirst.points.end(), movedSecond.points.begin(), isEqualPoint);
   }
 }
-void dimkashelk::printAreaEven(const std::vector< Polygon > &pol, std::ostream &out)
+void dimkashelk::printAreaEven(const v_polygon &pol, std::ostream &out)
 {
   printArea(pol, out, isEven);
 }
-void dimkashelk::printAreaOdd(const std::vector< Polygon > &pol, std::ostream &out)
+void dimkashelk::printAreaOdd(const v_polygon &pol, std::ostream &out)
 {
   printArea(pol, out, isOdd);
 }
-void dimkashelk::printAreaMean(const std::vector< Polygon > &pol, std::ostream &out)
+void dimkashelk::printAreaMean(const v_polygon &pol, std::ostream &out)
 {
   if (pol.empty())
   {
@@ -188,7 +185,7 @@ void dimkashelk::printAreaMean(const std::vector< Polygon > &pol, std::ostream &
   iofmtguard iofmtguard(out);
   out << std::fixed << std::setprecision(1) << (sum_area / pol.size());
 }
-void dimkashelk::printAreaNumOfVertex(const std::vector< Polygon > &pol, std::ostream &out, size_t num)
+void dimkashelk::printAreaNumOfVertex(const v_polygon &pol, std::ostream &out, size_t num)
 {
   if (num < 3)
   {
@@ -198,33 +195,33 @@ void dimkashelk::printAreaNumOfVertex(const std::vector< Polygon > &pol, std::os
   auto checker = std::bind(isEqualNum, _1, num);
   printArea(pol, out, checker);
 }
-void dimkashelk::printMaxArea(const std::vector< Polygon > &pol, std::ostream &out)
+void dimkashelk::printMaxArea(const v_polygon &pol, std::ostream &out)
 {
   printResult(pol, out, isLessArea);
 }
-void dimkashelk::printMaxVertex(const std::vector< Polygon > &pol, std::ostream &out)
+void dimkashelk::printMaxVertex(const v_polygon &pol, std::ostream &out)
 {
   printResultVertex(pol, out, isLessVertex);
 }
-void dimkashelk::printMinArea(const std::vector< Polygon > &pol, std::ostream &out)
+void dimkashelk::printMinArea(const v_polygon &pol, std::ostream &out)
 {
   using namespace std::placeholders;
   printResult(pol, out, std::bind(isLessArea, _2, _1));
 }
-void dimkashelk::printMinVertex(const std::vector< Polygon > &pol, std::ostream &out)
+void dimkashelk::printMinVertex(const v_polygon &pol, std::ostream &out)
 {
   using namespace std::placeholders;
   printResultVertex(pol, out, std::bind(isLessVertex, _2, _1));
 }
-void dimkashelk::printCountEven(const std::vector< Polygon > &pol, std::ostream &out)
+void dimkashelk::printCountEven(const v_polygon &pol, std::ostream &out)
 {
   printCount(pol, out, isEven);
 }
-void dimkashelk::printCountOdd(const std::vector< Polygon > &pol, std::ostream &out)
+void dimkashelk::printCountOdd(const v_polygon &pol, std::ostream &out)
 {
   printCount(pol, out, isOdd);
 }
-void dimkashelk::printCountNumOfVertex(const std::vector< Polygon > &pol, std::ostream &out, size_t num)
+void dimkashelk::printCountNumOfVertex(const v_polygon &pol, std::ostream &out, size_t num)
 {
   if (num < 3)
   {
@@ -234,7 +231,7 @@ void dimkashelk::printCountNumOfVertex(const std::vector< Polygon > &pol, std::o
   auto func = std::bind(isEqualNum, _1, num);
   out << std::count_if(pol.begin(), pol.end(), func);
 }
-void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostream &out, std::istream &in)
+void dimkashelk::printIntersections(const v_polygon &pol, std::ostream &out, std::istream &in)
 {
   Polygon polygon;
   in >> polygon;
@@ -250,7 +247,7 @@ void dimkashelk::printIntersections(const std::vector< Polygon > &pol, std::ostr
   dimkashelk::iofmtguard iofmtguard(out);
   out << res;
 }
-void dimkashelk::printSame(const std::vector< Polygon > &pol, std::ostream &out, std::istream &in)
+void dimkashelk::printSame(const v_polygon &pol, std::ostream &out, std::istream &in)
 {
   Polygon polygon;
   in >> polygon;
