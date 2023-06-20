@@ -6,7 +6,7 @@ container::CommandContainer():
   dict_with_size_t_command_(initializeSizeTCommand()),
   dict_with_input_command_(initializeInputCommand())
 {}
-void container::doCommand(std::string command, std::vector< Polygon > &data, std::ostream &out, std::istream &in)
+void container::doCommand(std::string command, const std::vector< Polygon > &data, std::ostream &out, std::istream &in)
 {
   try
   {
