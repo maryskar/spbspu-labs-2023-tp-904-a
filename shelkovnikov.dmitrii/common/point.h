@@ -7,6 +7,10 @@ namespace dimkashelk
   {
     int x, y;
   };
+  struct AreaStorage
+  {
+    double operator()(const Point &lnr, const Point &rnl);
+  };
   std::istream &operator>>(std::istream &in, Point &point);
 }
 #endif

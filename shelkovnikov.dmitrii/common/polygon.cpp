@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <numeric>
 #include <limits>
-#include "area_storage.h"
 std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &polygon)
 {
   std::istream::sentry sentry(in);
