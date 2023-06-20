@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <numeric>
 #include <limits>
-std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &polygon)
+std::istream &dimkashelk::operator>>(std::istream &in, Polygon &polygon)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -35,7 +35,7 @@ std::istream &dimkashelk::operator>>(std::istream &in, dimkashelk::Polygon &poly
   }
   return in;
 }
-double dimkashelk::getArea(const dimkashelk::Polygon &polygon)
+double dimkashelk::getArea(const Polygon &polygon)
 {
   size_t countPoints = polygon.points.size();
   std::vector< double > values(countPoints - 1);
