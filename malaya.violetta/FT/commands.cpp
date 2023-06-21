@@ -2,11 +2,11 @@
 #include <iostream>
 #include <iterator>
 #include <algorithm>
-#include <cctype>
 #include <functional>
+#include "helpFunctions.hpp"
 namespace malaya
 {
-  void info(std::ostream & out)
+  void info(std::ostream & out) // INPUT AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
   {
     out << "INFO - shows all commands and short info about them\n";
     out << "MAN <command> - shows full information about command\n";
@@ -47,16 +47,6 @@ namespace malaya
       throw std::invalid_argument("Incorrect word");
     }
   }
-  std::ostream & operator<<(std::ostream & out, const std::pair< const std::string, size_t > & data)
-  {
-    std::ostream::sentry ostreamChecker(out);
-    if (!ostreamChecker)
-    {
-      return out;
-    }
-    out << data.first << " " << data.second;
-    return out;
-  }
   void printDict(const dictionary & dict, std::ostream & out)
   {
     if(!dict.empty())
@@ -70,7 +60,7 @@ namespace malaya
       out << '\n';
     }
   }
-  void print(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void print(const dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
     std::string name = " ";
     in >> name;
@@ -91,7 +81,7 @@ namespace malaya
     dicts.erase(name);
   }
 
-  void search(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void search(const dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
     std::string name, word = " ";
     in >> name >> word;
@@ -102,13 +92,13 @@ namespace malaya
   {
     return std::max_element(dict.begin(), dict.end(), FrequencyComparator{})->first;
   }
-  void mostFreq(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void mostFreq(const dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
     std::string name = " ";
     in >> name;
     out << maxElem(findDict(dicts, name));
   }
-  void areSame(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void areSame(const dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
     std::string name1, name2 = " ";
     in >> name1 >> name2;
@@ -160,7 +150,7 @@ namespace malaya
       return false;
     }
   }
-  void isSubset(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void isSubset(const dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
     std::string name1, name2 = " ";
     in >> name1 >> name2;
