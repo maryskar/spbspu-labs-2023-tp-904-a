@@ -39,7 +39,7 @@ int main(int argc, char** argv)
   while (!std::cin.eof())
   {
     std::string command;
-    runCommand(std::cin, command);
+    runCommand(std::cin, command, res);
   }
   return 0;
 }
