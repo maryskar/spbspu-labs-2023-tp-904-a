@@ -1,4 +1,5 @@
 #include "solvingCommands.h"
+#include <algorithm>
 
 namespace mashkin
 {
