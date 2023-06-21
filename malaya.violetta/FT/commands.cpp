@@ -186,12 +186,12 @@ namespace malaya
     const auto & dict1 = findDict(dicts, name1);
     const auto & dict2 = findDict(dicts, name2);
     dictionary destDict;
-    auto iter = dicts.insert({dest, destDict}).first;
+    dicts.insert({dest, destDict}).first;
     using namespace std::placeholders;
     auto func = std::bind(toIntersect, _1, dict2);
     dictionary tempDict;
     std::transform(dict1.begin(), dict1.end(), std::inserter(tempDict, tempDict.end()), func);
-    std::copy_if(tempDict.begin(), tempDict.end(), std::inserter(iter->second, iter->second.end()), isEqualToSpace);
+    std::copy_if(tempDict.begin(), tempDict.end(), std::inserter(destDict, destDict.end()), isEqualToSpace);
   }
   void merge(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
@@ -200,7 +200,7 @@ namespace malaya
     const auto & dict1 = findDict(dicts, name1);
     const auto & dict2 = findDict(dicts, name2);
     dictionary destDict;
-    auto iter = dicts.insert({dest, destDict}).first;
+    dicts.insert({dest, destDict}).first;
     using namespace std::placeholders;
     auto func = std::bind(includes, _1, dict2);
     //std::transform(dict1.begin(), dict1.end(), )
@@ -223,8 +223,8 @@ namespace malaya
     const auto & dict1 = findDict(dicts, name1);
     const auto & dict2 = findDict(dicts, name2);
     dictionary destDict;
-    auto iter = dicts.insert({dest, destDict}).first;
-    func(iter->second, dict1, dict2);
+    dicts.insert({dest, destDict}).first;
+    func(destDict, dict1, dict2);
   }
   void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
@@ -233,6 +233,22 @@ namespace malaya
   void doSubtraction(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
     differences(dicts, in, out, subtract);
+  }
+  void insertToDict(const std::string & str, dictionary & dict)
+  {
+    Word word(str);
+    ++dict[word];
+  }
+  void input(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  {
+    std::string name = " ";
+    in >> name;
+    dictionary dic;
+    dicts.insert({name, dic});
+    using inIter = std::istream_iterator< std::string >;
+    using namespace std::placeholders;
+    auto func = std::bind(insertToDict, _1, dic);
+    std::for_each(inIter(in), inIter(), func); //??????????????????????
   }
   //void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out)
   //{

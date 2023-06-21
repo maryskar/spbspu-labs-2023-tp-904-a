@@ -56,7 +56,9 @@ namespace malaya
     {
       return in;
     }
-    in >> word.data_;
+    std::string temp = "";
+    in >> temp;
+    word.data_ = strFilter(temp);
     return in;
   }
   std::ostream & operator<<(std::ostream & out, const dictionary::value_type & data)
