@@ -22,19 +22,5 @@ namespace malaya
   {
     return dicts.at(name);
   }
-  std::istream & operator>>(std::istream & in,
-    std::pair< std::string, dictionary > && pair)
-  {
-    std::istream::sentry istreamChecker(in);
-    if (!istreamChecker)
-    {
-      return in;
-    }
-    using inIt = std::istream_iterator< std::string >;
-    in >> pair.first;
-    size_t size;
-    in >> size;
-    //std::copy_n(inIt(in), size, std::inserter(pair.second, pair.second.end())); // сделать структуру word
-  }
 
 }

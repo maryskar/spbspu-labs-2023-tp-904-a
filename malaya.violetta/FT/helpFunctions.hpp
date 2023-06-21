@@ -9,8 +9,7 @@ namespace malaya
   std::ostream & printNotFound(std::ostream & out);
   std::ostream & printInvalid(std::ostream & out);
   std::ostream & printYesNo(std::ostream & out, bool number);
-   //СДЕЛАТЬ ФУНКЦИЮ ДЛЯ ЗАПОЛНЕНИЯ
-  dictOfDicts readDictionaries(std::istream & in); //реализовать
+  descriptDict makeDescriptDict();
   dictionary & findDict(dictOfDicts &, const std::string & name);
   using firstFunc = void(*)(const descriptDict &, std::istream &, std::ostream &);
   using secondFunc = void(*)(dictOfDicts &, std::istream &, std::ostream &);

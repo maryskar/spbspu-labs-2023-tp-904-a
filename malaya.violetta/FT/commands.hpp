@@ -16,5 +16,9 @@ namespace malaya
   void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out);
   void doSubtraction(dictOfDicts & dicts, std::istream & in, std::ostream & out);
   void isSubset(dictOfDicts & dicts, std::istream & in, std::ostream & out);
+
+  void merge(dictOfDicts & dicts, std::istream & in, std::ostream & out); //to do
+  void getIntersection(dictOfDicts & dicts, std::istream & in, std::ostream & out); //to do
+  void input(dictOfDicts & dicts, std::istream & in, std::ostream & out); //to do
 }
 #endif

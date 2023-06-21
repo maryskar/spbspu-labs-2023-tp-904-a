@@ -173,16 +173,48 @@ namespace malaya
     printYesNo(out, result);
     out << '\n';
   }
-  //void merge(dictOfDicts & dicts, std::istream & in, std::ostream & out)
-  //{
-  //  std::string name1, name2, dest = " ";
-  //  in >> dest >> name1 >> name2;
-  //  const auto & dict1 = findDict(dicts, name1);
-  //  const auto & dict2 = findDict(dicts, name2);
-  //  dictionary destDict;
-  //  auto iter = dicts.insert({dest, destDict}).first;
-  //  //std::transform(dict1.begin(), dict1.end(), )
-  //}
+  dictionary::value_type toIntersect(const dictionary::value_type & data, const dictionary & dict)
+  {
+    try
+    {
+      size_t num = dict.at(data.first);
+      return dictionary::value_type {data.first, data.second + num};
+    }
+    catch (const std::out_of_range & e)
+    {
+      return dictionary::value_type {" ", 0};
+    }
+  }
+  bool isEqualToSpace(const dictionary::value_type & data)
+  {
+    return data.first.getString() == " ";
+  }
+  void getIntersection(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  {
+    std::string name1, name2, dest = " ";
+    in >> dest >> name1 >> name2;
+    const auto & dict1 = findDict(dicts, name1);
+    const auto & dict2 = findDict(dicts, name2);
+    dictionary destDict;
+    auto iter = dicts.insert({dest, destDict}).first;
+    using namespace std::placeholders;
+    auto func = std::bind(toIntersect, _1, dict2);
+    dictionary tempDict;
+    std::transform(dict1.begin(), dict1.end(), std::inserter(tempDict, tempDict.end()), func);
+    std::copy_if(tempDict.begin(), tempDict.end(), std::inserter(iter->second, iter->second.end()), isEqualToSpace);
+  }
+  void merge(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  {
+    std::string name1, name2, dest = " ";
+    in >> dest >> name1 >> name2;
+    const auto & dict1 = findDict(dicts, name1);
+    const auto & dict2 = findDict(dicts, name2);
+    dictionary destDict;
+    auto iter = dicts.insert({dest, destDict}).first;
+    using namespace std::placeholders;
+    auto func = std::bind(includes, _1, dict2);
+    //std::transform(dict1.begin(), dict1.end(), )
+  }
   void symmetricDiff(dictionary & dest, const dictionary & dict1, const dictionary & dict2)
   {
     std::set_symmetric_difference(dict1.begin(), dict1.end(),

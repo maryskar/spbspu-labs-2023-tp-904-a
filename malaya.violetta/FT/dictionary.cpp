@@ -35,6 +35,10 @@ namespace malaya
   {
     return left.data_ < right.data_;
   }
+  std::string Word::getString() const
+  {
+    return data_;
+  }
   std::ostream & operator<<(std::ostream & out, const Word & word)
   {
     std::ostream::sentry checker(out);
