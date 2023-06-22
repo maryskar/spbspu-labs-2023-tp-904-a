@@ -8,8 +8,7 @@
 #include <stdexcept>
 #include "TypesIO.h"
 namespace {
-  int crossProduct(const std::pair< int, int > lhs,
-      const std::pair< int, int > rhs)
+  int crossProduct(const std::pair< int, int > lhs, const std::pair< int, int > rhs)
   {
     return std::abs(lhs.first * rhs.second - lhs.second * rhs.first);
   }
@@ -43,10 +42,8 @@ namespace {
   double getTriangleArea(const ganiullin::Point p1, const ganiullin::Point p2,
       const ganiullin::Point p3)
   {
-    std::pair< int, int > firstVector =
-        std::pair< int, int >(p3.x - p1.x, p3.y - p1.y);
-    std::pair< int, int > secondVector =
-        std::pair< int, int >(p2.x - p1.x, p2.y - p1.y);
+    std::pair< int, int > firstVector = std::pair< int, int >(p3.x - p1.x, p3.y - p1.y);
+    std::pair< int, int > secondVector = std::pair< int, int >(p2.x - p1.x, p2.y - p1.y);
 
     return crossProduct(firstVector, secondVector) / 2.0;
   }
@@ -56,15 +53,12 @@ namespace {
     using namespace std::placeholders;
     auto isPointXLess = std::bind(isXLess, _1, _2);
     auto isPointYLess = std::bind(isYLess, _1, _2);
-    auto isPointLess =
-        std::bind(std::logical_and< bool >{}, isPointXLess, isPointYLess);
+    auto isPointLess = std::bind(std::logical_and< bool >{}, isPointXLess, isPointYLess);
     auto isPointMore = std::bind(isPointLess, _2, _1);
 
-    return !isPointLess(point, frame.first) &&
-           !isPointMore(point, frame.second);
+    return !isPointLess(point, frame.first) && !isPointMore(point, frame.second);
   }
-  std::pair< ganiullin::Point, ganiullin::Point > getPolygonFrame(
-      const ganiullin::Polygon& polygon)
+  std::pair< ganiullin::Point, ganiullin::Point > getPolygonFrame(const ganiullin::Polygon& polygon)
   {
     auto pointsBeginIt = std::begin(polygon.points);
     auto pointsEndIt = std::end(polygon.points);
@@ -153,8 +147,8 @@ double ganiullin::getArea(const Polygon& polygon)
   auto areasInsertIt = std::back_inserter(areas);
   auto getPivotTriangleArea = std::bind(getTriangleArea, _1, _2, pivot);
 
-  std::transform(polygonBeginIt + 1, polygonEndIt - 1, polygonBeginIt + 2,
-      areasInsertIt, getPivotTriangleArea);
+  std::transform(polygonBeginIt + 1, polygonEndIt - 1, polygonBeginIt + 2, areasInsertIt,
+      getPivotTriangleArea);
 
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
@@ -174,8 +168,7 @@ std::pair< ganiullin::Point, ganiullin::Point > ganiullin::getFrame(
   return std::accumulate(polygonsBeginIt, polygonsEndIt, firstFrame, foldFrame);
 }
 
-bool ganiullin::isInFrame(const Polygon& fig,
-    const std::pair< Point, Point >& frame)
+bool ganiullin::isInFrame(const Polygon& fig, const std::pair< Point, Point >& frame)
 {
   using namespace std::placeholders;
   auto isPointInThisFrame = std::bind(isPointInFrame, _1, frame);
@@ -215,11 +208,10 @@ bool ganiullin::isSame(const Polygon& lhs, const Polygon& rhs)
   int diffX = lhsCopy[0].x - rhsCopy[0].x;
   int diffY = lhsCopy[0].y - rhsCopy[0].y;
 
-  auto isPointTranslated = std::bind(std::equal_to< Point >{}, _1,
-      std::bind(translatePoint, _2, diffX, diffY));
+  auto isPointTranslated =
+      std::bind(std::equal_to< Point >{}, _1, std::bind(translatePoint, _2, diffX, diffY));
 
-  std::transform(lhsCopyBeginIt, lhsCopyEndIt, rhsCopyBeginIt, transInsertIt,
-      isPointTranslated);
+  std::transform(lhsCopyBeginIt, lhsCopyEndIt, rhsCopyBeginIt, transInsertIt, isPointTranslated);
 
   auto transBeginIt = std::begin(areTranslatedPoints);
   auto transEndIt = std::end(areTranslatedPoints);
