@@ -3,13 +3,14 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
+#include <fstream>
 #include "helpFunctions.hpp"
 namespace malaya
 {
   void info(std::ostream & out) // INPUT AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
   {
     out << "INFO - shows all commands and short info about them\n";
-    out << "MAN <command> - shows full information about command\n";
+    out << "MAN <command> - shows information about one command\n";
     out << "MERGE <dest> <dict1> <dict2> - merges two dictionaries and writes result ";
     out << "to dest dictionary\n";
     out << "GET_INTERSECTION <dest> <dict1> <dict2> - puts same elements of two dictionaries to dest\n";
@@ -25,15 +26,16 @@ namespace malaya
     out << "of two dictionaries\n";
     out << "FIND_MOST_FREQUENT <dict1> - shows the most frequent word in the dict\n";
     out << "IS_SUBSET <dict1> <dict2> - checks if one dictionary is subset of another\n";
+    out << "INPUT <dict> <filename> - creates new dict and fills it with file contents\n";
   }
-  void deleteKey(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void deleteKey(dictOfDicts & dicts, std::istream & in)
   {
     std::string name, word = " ";
     in >> name >> word;
     Word key(word);
     findDict(dicts, name).erase(key);
   }
-  void insert(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void insert(dictOfDicts & dicts, std::istream & in)
   {
     std::string name, word = " ";
     in >> name >> word;
@@ -74,7 +76,7 @@ namespace malaya
     out << comms.at(name);
   }
 
-  void delDic(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void delDic(dictOfDicts & dicts, std::istream & in)
   {
     std::string name = " ";
     in >> name;
@@ -86,7 +88,15 @@ namespace malaya
     std::string name, word = " ";
     in >> name >> word;
     Word key(word);
-    out << findDict(dicts, name).at(key); //разные исключения?
+    try
+    {
+      out << findDict(dicts, name).at(key);
+    }
+    catch (const std::out_of_range & e)
+    {
+      printNotFound(out);
+      out << '\n';
+    }
   }
   const Word & maxElem(const dictionary & dict)
   {
@@ -107,37 +117,6 @@ namespace malaya
     printYesNo(out, result);
     out << '\n';
   }
-  //template < class Function >
-  //const dictionary::value_type & mergeOrIntersect(const dictionary::value_type & first,
-  //    const dictionary::value_type & second, Function func)
-  //{
-  //  return func(first, second) ?
-  //}
-  //const dictionary::value_type & intersect(dictionary::iterator & first,
-  //    dictionary::iterator & second)
-  //{
-  //  if()
-  //}
-  //void getIntersection(dictOfDicts & dicts, std::istream & in, std::ostream & out)
-  //{
-  //  std::string name1, name2, dest = " ";
-  //  in >> dest >> name1 >> name2;
-  //  const auto & dict1 = findDict(dicts, name1);
-  //  const auto & dict2 = findDict(dicts, name2);
-  //  dictionary destDict;
-  //  auto iter = dicts.insert({dest, destDict}).first;
-  //  dictionary temp;
-  //  std::transform()
-  //}
-  //void isSubset(dictOfDicts & dicts, std::istream & in, std::ostream & out)
-  //{
-  //  std::string name1, name2 = " ";
-  //  in >> name1 >> name2;
-  //  const auto & dict1 = findDict(dicts, name1);
-  //  const auto & dict2 = findDict(dicts, name2);
-  //  bool result = std::includes(dict1.begin(), dict1.end(), dict2.begin(), dict2.end()); //ПОМЕНЯТЬЖДДОЖЩШРПАВДЖ,ЗШАПГНРО
-  //  printYesNo(out, result);
-  //}
   bool includes(const dictionary::value_type & data, const dictionary & dict)
   {
     try
@@ -179,7 +158,7 @@ namespace malaya
   {
     return data.first.getString() == " ";
   }
-  void getIntersection(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void getIntersection(dictOfDicts & dicts, std::istream & in)
   {
     std::string name1, name2, dest = " ";
     in >> dest >> name1 >> name2;
@@ -193,7 +172,11 @@ namespace malaya
     std::transform(dict1.begin(), dict1.end(), std::inserter(tempDict, tempDict.end()), func);
     std::copy_if(tempDict.begin(), tempDict.end(), std::inserter(destDict, destDict.end()), isEqualToSpace);
   }
-  void merge(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void toMerge(const dictionary::value_type & data, dictionary & dict)
+  {
+    dict[data.first] += data.second;
+  }
+  void merge(dictOfDicts & dicts, std::istream & in)
   {
     std::string name1, name2, dest = " ";
     in >> dest >> name1 >> name2;
@@ -202,8 +185,9 @@ namespace malaya
     dictionary destDict;
     dicts.insert({dest, destDict}).first;
     using namespace std::placeholders;
-    auto func = std::bind(includes, _1, dict2);
-    //std::transform(dict1.begin(), dict1.end(), )
+    auto func = std::bind(toMerge, _1, destDict);
+    std::for_each(dict1.begin(), dict1.end(), func);
+    std::for_each(dict2.begin(), dict2.end(), func);
   }
   void symmetricDiff(dictionary & dest, const dictionary & dict1, const dictionary & dict2)
   {
@@ -216,7 +200,7 @@ namespace malaya
         dict2.begin(), dict2.end(), std::inserter(dest, dest.end()), WordComparator{});
   }
   template < class Function >
-  void differences(dictOfDicts & dicts, std::istream & in, std::ostream & out, Function func)
+  void differences(dictOfDicts & dicts, std::istream & in, Function func)
   {
     std::string name1, name2, dest = " ";
     in >> dest >> name1 >> name2;
@@ -226,20 +210,20 @@ namespace malaya
     dicts.insert({dest, destDict}).first;
     func(destDict, dict1, dict2);
   }
-  void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void doSymmetricDifference(dictOfDicts & dicts, std::istream & in)
   {
-    differences(dicts, in, out, symmetricDiff);
+    differences(dicts, in, symmetricDiff);
   }
-  void doSubtraction(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void doSubtraction(dictOfDicts & dicts, std::istream & in)
   {
-    differences(dicts, in, out, subtract);
+    differences(dicts, in, subtract);
   }
   void insertToDict(const std::string & str, dictionary & dict)
   {
     Word word(str);
     ++dict[word];
   }
-  void input(dictOfDicts & dicts, std::istream & in, std::ostream & out)
+  void input(dictOfDicts & dicts, std::istream & in)
   {
     std::string name = " ";
     in >> name;
@@ -247,38 +231,14 @@ namespace malaya
     dicts.insert({name, dic});
     using inIter = std::istream_iterator< std::string >;
     using namespace std::placeholders;
+    std::string filename = " ";
+    in >> filename;
+    std::ifstream inFile(filename);
+    if (!inFile.is_open())
+    {
+      throw std::invalid_argument("File not found");
+    }
     auto func = std::bind(insertToDict, _1, dic);
-    std::for_each(inIter(in), inIter(), func); //??????????????????????
+    std::for_each(inIter(inFile), inIter(), func); //??????????????????????
   }
-  //void doSymmetricDifference(dictOfDicts & dicts, std::istream & in, std::ostream & out)
-  //{
-  //  std::string name1, name2, name3 = " ";
-  //  in >> name1 >> name2 >> name3;
-  //  const auto & dict1 = findDict(dicts, name1);
-  //  const auto & dict2 = findDict(dicts, name2);
-  //  dictionary dict3;
-  //  auto pair = dicts.insert({name3, dict3});
-  //  if (!pair.second)
-  //  {
-  //    throw std::invalid_argument("You can't use already existing dict");
-  //  }
-  //  std::set_symmetric_difference(dict1.begin(), dict1.end(), dict2.begin(),
-  //      dict2.end(), std::inserter(dict3, dict3.end()), WordComparator{});
-  //}
-  //void subtract(dictOfDicts & dicts, std::istream & in, std::ostream & out)
-  //{
-  //  std::string name1, name2, name3 = " ";
-  //  in >> name1 >> name2 >> name3;
-  //  const auto & dict1 = findDict(dicts, name1);
-  //  const auto & dict2 = findDict(dicts, name2);
-  //  dictionary dict3;
-  //  auto pair = dicts.insert({name3, dict3});
-  //  if (!pair.second)
-  //  {
-  //    throw std::invalid_argument("You can't use already existing dict");
-  //  }
-  //  std::set_difference(dict1.begin(), dict1.end(), dict2.begin(),
-  //      dict2.end(), std::inserter(dict3, dict3.end()), WordComparator{});
-  //}
-
 }
