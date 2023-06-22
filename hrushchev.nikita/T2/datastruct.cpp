@@ -23,7 +23,7 @@ namespace hrushchev
     }
   }
 
-  std::istream& operator>>(std::istream& in, DataStruct& data)
+  std::istream& hrushchev::operator>>(std::istream& in, DataStruct& data)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -71,7 +71,7 @@ namespace hrushchev
     return in;
   }
 
-  std::ostream& operator<<(std::ostream& out, const DataStruct& data)
+  std::ostream& hrushchev::operator<<(std::ostream& out, const DataStruct& data)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
