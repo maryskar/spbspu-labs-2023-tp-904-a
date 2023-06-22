@@ -7,8 +7,7 @@
 #include "Commands.h"
 #include "Geometry.h"
 
-constexpr size_t MAX_STREAM_SIZE =
-    std::numeric_limits< std::streamsize >::max();
+constexpr size_t MAX_STREAM_SIZE = std::numeric_limits< std::streamsize >::max();
 
 int main(int argc, char* argv[])
 {

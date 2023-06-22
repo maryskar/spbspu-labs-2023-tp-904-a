@@ -20,8 +20,7 @@ namespace ganiullin {
 
   private:
     using Polygons = std::vector< Polygon >;
-    using PolygonCommand = std::ostream& (*)(const Polygons& polygons, const Polygon& fig,
-        std::ostream& out);
+    using PolygonCommand = std::ostream& (*)(const Polygons& polygons, const Polygon& fig, std::ostream& out);
     using VertexCommand = std::ostream& (*)(const Polygons& polygons, const size_t vertexes,
         std::ostream& out);
     using StateCommand = std::ostream& (*)(const Polygons& polygons, std::ostream& out);

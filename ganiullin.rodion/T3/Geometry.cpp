@@ -39,8 +39,7 @@ namespace {
     }
     return p1.x < p2.x;
   }
-  double getTriangleArea(const ganiullin::Point p1, const ganiullin::Point p2,
-      const ganiullin::Point p3)
+  double getTriangleArea(const ganiullin::Point p1, const ganiullin::Point p2, const ganiullin::Point p3)
   {
     std::pair< int, int > firstVector = std::pair< int, int >(p3.x - p1.x, p3.y - p1.y);
     std::pair< int, int > secondVector = std::pair< int, int >(p2.x - p1.x, p2.y - p1.y);
@@ -152,8 +151,7 @@ double ganiullin::getArea(const Polygon& polygon)
 
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
-std::pair< ganiullin::Point, ganiullin::Point > ganiullin::getFrame(
-    const std::vector< Polygon >& polygons)
+std::pair< ganiullin::Point, ganiullin::Point > ganiullin::getFrame(const std::vector< Polygon >& polygons)
 {
   using namespace std::placeholders;
   if (polygons.size() == 0) {
