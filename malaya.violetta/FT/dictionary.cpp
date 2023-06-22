@@ -9,7 +9,7 @@ namespace malaya
   }
   char toLowerCase(char symbol)
   {
-    return std::tolower(symbol);
+    return static_cast< char >(std::tolower(symbol));
   }
   std::string strFilter(const std::string & str)
   {
