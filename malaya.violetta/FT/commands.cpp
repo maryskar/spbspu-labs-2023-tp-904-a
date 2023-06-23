@@ -150,9 +150,7 @@ namespace malaya
       return dictionary::value_type {data.first, data.second + num};
     }
     catch (const std::out_of_range & e)
-    {
-      return dictionary::value_type {" ", 0};
-    }
+    {}
   }
   bool isEqualToSpace(const dictionary::value_type & data)
   {
@@ -167,9 +165,7 @@ namespace malaya
     dictionary destDict;
     using namespace std::placeholders;
     auto func = std::bind(toIntersect, _1, std::ref(dict2));
-    dictionary tempDict;
-    std::transform(dict1.begin(), dict1.end(), std::inserter(tempDict, tempDict.end()), func);
-    std::copy_if(tempDict.begin(), tempDict.end(), std::inserter(destDict, destDict.end()), isEqualToSpace);
+    std::transform(dict1.begin(), dict1.end(), std::inserter(destDict, destDict.end()), func);
     dicts.insert({dest, destDict});
   }
   void toMerge(const dictionary::value_type & data, dictionary & dict)
