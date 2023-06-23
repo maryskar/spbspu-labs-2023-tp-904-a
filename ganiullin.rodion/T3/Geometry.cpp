@@ -49,13 +49,12 @@ namespace {
   bool isPointInFrame(const ganiullin::Point& point,
       const std::pair< ganiullin::Point, ganiullin::Point > frame)
   {
-    using namespace std::placeholders;
-    auto isPointXLess = std::bind(isXLess, _1, _2);
-    auto isPointYLess = std::bind(isYLess, _1, _2);
-    auto isPointLess = std::bind(std::logical_and< bool >{}, isPointXLess, isPointYLess);
-    auto isPointMore = std::bind(isPointLess, _2, _1);
+    int minX = frame.first.x;
+    int minY = frame.first.y;
+    int maxX = frame.second.x;
+    int maxY = frame.second.y;
 
-    return !isPointLess(point, frame.first) && !isPointMore(point, frame.second);
+    return minX <= point.x && point.x <= maxX && minY <= point.y && point.y <= maxY;
   }
   std::pair< ganiullin::Point, ganiullin::Point > getPolygonFrame(const ganiullin::Polygon& polygon)
   {

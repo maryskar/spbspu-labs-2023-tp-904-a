@@ -12,8 +12,8 @@ namespace {
   using namespace std::placeholders;
 
   const auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
-  const auto hasEvenVertexes = std::bind(std::equal_to< size_t >{},
-      std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 0);
+  const auto hasEvenVertexes =
+      std::bind(std::equal_to< size_t >{}, std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 0);
   const auto hasOddVertexes = std::bind(std::logical_not< bool >{}, hasEvenVertexes);
   const auto hasVertexesEqualTo = std::bind(std::equal_to< size_t >{}, getNumOfVertexes, _2);
 
@@ -201,8 +201,7 @@ namespace {
 
     return std::count_if(polygonsBeginIt, polygonsEndIt, hasVertexesEqualToNum);
   }
-  std::string processInFrame(const std::vector< ganiullin::Polygon >& polygons,
-      const ganiullin::Polygon& fig)
+  std::string processInFrame(const std::vector< ganiullin::Polygon >& polygons, const ganiullin::Polygon& fig)
   {
     if (ganiullin::isInFrame(fig, getFrame(polygons))) {
       return "<TRUE>";
@@ -210,8 +209,7 @@ namespace {
     return "<FALSE>";
   }
 
-  size_t processSame(const std::vector< ganiullin::Polygon >& polygons,
-      const ganiullin::Polygon& fig)
+  size_t processSame(const std::vector< ganiullin::Polygon >& polygons, const ganiullin::Polygon& fig)
   {
     auto polygonsBeginIt = std::begin(polygons);
     auto polygonsEndIt = std::end(polygons);
@@ -246,13 +244,11 @@ namespace {
     return out << std::fixed << std::setprecision(1) << processMinArea(polygons);
   }
 
-  std::ostream& printMaxVertexNum(const std::vector< ganiullin::Polygon >& polygons,
-      std::ostream& out)
+  std::ostream& printMaxVertexNum(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
   {
     return out << processMaxVertexNum(polygons);
   }
-  std::ostream& printMinVertexNum(const std::vector< ganiullin::Polygon >& polygons,
-      std::ostream& out)
+  std::ostream& printMinVertexNum(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     return out << std::fixed << std::setprecision(1) << processMinVertexNum(polygons);
@@ -266,8 +262,8 @@ namespace {
     return out << processCountOdd(polygons);
   }
 
-  std::ostream& printAreaVertexNum(const std::vector< ganiullin::Polygon >& polygons,
-      size_t vertexNum, std::ostream& out)
+  std::ostream& printAreaVertexNum(const std::vector< ganiullin::Polygon >& polygons, size_t vertexNum,
+      std::ostream& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     if (vertexNum < 3) {
@@ -275,8 +271,8 @@ namespace {
     }
     return out << std::fixed << std::setprecision(1) << processAreaVertexNum(polygons, vertexNum);
   }
-  std::ostream& printCountVertexNum(const std::vector< ganiullin::Polygon >& polygons,
-      size_t vertexNum, std::ostream& out)
+  std::ostream& printCountVertexNum(const std::vector< ganiullin::Polygon >& polygons, size_t vertexNum,
+      std::ostream& out)
   {
     if (vertexNum < 3) {
       throw std::logic_error("Polygon should have more vertexes");
@@ -284,14 +280,14 @@ namespace {
     return out << processCountVertexNum(polygons, vertexNum);
   }
 
-  std::ostream& printInFrame(const std::vector< ganiullin::Polygon >& polygons,
-      const ganiullin::Polygon& fig, std::ostream& out)
+  std::ostream& printInFrame(const std::vector< ganiullin::Polygon >& polygons, const ganiullin::Polygon& fig,
+      std::ostream& out)
   {
     return out << processInFrame(polygons, fig);
   }
 
-  std::ostream& printSame(const std::vector< ganiullin::Polygon >& polygons,
-      const ganiullin::Polygon& fig, std::ostream& out)
+  std::ostream& printSame(const std::vector< ganiullin::Polygon >& polygons, const ganiullin::Polygon& fig,
+      std::ostream& out)
   {
     return out << processSame(polygons, fig);
   }
