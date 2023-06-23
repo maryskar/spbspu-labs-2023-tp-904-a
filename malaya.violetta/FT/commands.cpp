@@ -54,7 +54,7 @@ namespace malaya
     if(!dict.empty())
     {
       using outIt = std::ostream_iterator< dictionary::value_type >;
-      std::copy(dict.begin(), dict.end(), outIt(out, "\n"));
+      std::copy(dict.begin(), dict.end(), outIt(out, " "));
     }
     else
     {
@@ -136,7 +136,7 @@ namespace malaya
     const auto & dict1 = findDict(dicts, name1);
     const auto & dict2 = findDict(dicts, name2);
     using namespace std::placeholders;
-    auto func = std::bind(includes, _1, dict2);
+    auto func = std::bind(includes, _1, std::ref(dict2));
     size_t size = std::count_if(dict1.begin(), dict1.end(), func);
     bool result = size == dict1.size();
     printYesNo(out, result);
@@ -165,12 +165,12 @@ namespace malaya
     const auto & dict1 = findDict(dicts, name1);
     const auto & dict2 = findDict(dicts, name2);
     dictionary destDict;
-    dicts.insert({dest, destDict}).first;
     using namespace std::placeholders;
-    auto func = std::bind(toIntersect, _1, dict2);
+    auto func = std::bind(toIntersect, _1, std::ref(dict2));
     dictionary tempDict;
     std::transform(dict1.begin(), dict1.end(), std::inserter(tempDict, tempDict.end()), func);
     std::copy_if(tempDict.begin(), tempDict.end(), std::inserter(destDict, destDict.end()), isEqualToSpace);
+    dicts.insert({dest, destDict});
   }
   void toMerge(const dictionary::value_type & data, dictionary & dict)
   {
@@ -183,11 +183,11 @@ namespace malaya
     const auto & dict1 = findDict(dicts, name1);
     const auto & dict2 = findDict(dicts, name2);
     dictionary destDict;
-    dicts.insert({dest, destDict}).first;
     using namespace std::placeholders;
-    auto func = std::bind(toMerge, _1, destDict);
+    auto func = std::bind(toMerge, _1, std::ref(destDict));
     std::for_each(dict1.begin(), dict1.end(), func);
     std::for_each(dict2.begin(), dict2.end(), func);
+    dicts.insert({dest, destDict});
   }
   void symmetricDiff(dictionary & dest, const dictionary & dict1, const dictionary & dict2)
   {
@@ -207,8 +207,8 @@ namespace malaya
     const auto & dict1 = findDict(dicts, name1);
     const auto & dict2 = findDict(dicts, name2);
     dictionary destDict;
-    dicts.insert({dest, destDict}).first;
     func(destDict, dict1, dict2);
+    dicts.insert({dest, destDict});
   }
   void doSymmetricDifference(dictOfDicts & dicts, std::istream & in)
   {
@@ -221,14 +221,15 @@ namespace malaya
   void insertToDict(const std::string & str, dictionary & dict)
   {
     Word word(str);
-    ++dict[word];
+    if (!word.empty())
+    {
+      ++dict[word];
+    }
   }
   void input(dictOfDicts & dicts, std::istream & in)
   {
     std::string name = " ";
     in >> name;
-    dictionary dic;
-    dicts.insert({name, dic});
     using inIter = std::istream_iterator< std::string >;
     using namespace std::placeholders;
     std::string filename = " ";
@@ -238,7 +239,9 @@ namespace malaya
     {
       throw std::invalid_argument("File not found");
     }
-    auto func = std::bind(insertToDict, _1, dic);
-    std::for_each(inIter(inFile), inIter(), func); //??????????????????????
+    dictionary dic;
+    auto func = std::bind(insertToDict, _1, std::ref(dic));
+    std::for_each(inIter(inFile), inIter(), func);
+    dicts.insert({name, dic});
   }
 }

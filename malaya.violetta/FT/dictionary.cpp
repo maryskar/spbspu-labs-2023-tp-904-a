@@ -13,9 +13,10 @@ namespace malaya
   }
   std::string strFilter(const std::string & str)
   {
-    std::string result = "";
-    std::copy_if(str.begin(), str.end(), result.begin(), isLetter);
-    std::transform(result.begin(), result.end(), result.begin(), toLowerCase);
+    std::string temp;
+    std::copy_if(str.begin(), str.end(), std::back_inserter(temp), isLetter);
+    std::string result;
+    std::transform(temp.begin(), temp.end(), std::back_inserter(result), toLowerCase);
     return result;
   }
   Word::Word(std::string str):
