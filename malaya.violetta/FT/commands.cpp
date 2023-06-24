@@ -15,7 +15,7 @@ namespace malaya
     out << "to dest dictionary\n";
     out << "GET_INTERSECTION <dest> <dict1> <dict2> - puts same elements of two dictionaries to dest\n";
     out << "SEARCH <dict> <key> - searches the element in dictionary and shows the value\n";
-    out << "INSERTS <dict> <key> - inserts key to dictionary\n";
+    out << "INSERT <dict> <key> - inserts key to dictionary\n";
     out << "DELETE_KEY <dict> <key> - deletes key from dictionary\n";
     out << "DELETE_DICT <dict> <key> - deletes dictionary\n";
     out << "PRINT <dict> - prints all keys from dictionaries with their values\n";
@@ -147,7 +147,7 @@ namespace malaya
     try
     {
       size_t num = dict.at(data.first);
-      return dictionary::value_type {data.first, data.second + num};
+      return dictionary::value_type {data.first, std::min(data.second, num)};
     }
     catch (const std::out_of_range & e)
     {}
