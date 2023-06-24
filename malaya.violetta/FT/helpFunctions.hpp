@@ -32,7 +32,5 @@ namespace malaya
   };
   void executeCommand(dictOfDicts &, const std::string &, const descriptDict &,
       const Commands &, std::ostream & out, std::istream & in);
-  void executeCommand(const dictOfDicts &, const std::string &, const descriptDict &, const Commands &);
-
 }
 #endif

@@ -11,7 +11,6 @@ namespace malaya
    public:
     explicit Word(std::string str);
     bool empty();
-    std::string getString() const;
     friend bool operator==(const Word & left, const Word & right);
     friend bool operator<(const Word & left, const Word & right);
     friend std::ostream & operator<<(std::ostream & out, const Word & word);

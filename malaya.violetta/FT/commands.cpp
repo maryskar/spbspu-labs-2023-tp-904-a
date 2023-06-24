@@ -7,7 +7,7 @@
 #include "helpFunctions.hpp"
 namespace malaya
 {
-  void info(std::ostream & out) // INPUT AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+  void info(std::ostream & out)
   {
     out << "INFO - shows all commands and short info about them\n";
     out << "MAN <command> - shows information about one command\n";
@@ -151,10 +151,6 @@ namespace malaya
     }
     catch (const std::out_of_range & e)
     {}
-  }
-  bool isEqualToSpace(const dictionary::value_type & data)
-  {
-    return data.first.getString() == " ";
   }
   void getIntersection(dictOfDicts & dicts, std::istream & in)
   {
