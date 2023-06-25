@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
   while (!std::cin.eof()) {
     try {
       std::string command = commandHandler.readCommand(std::cin);
-      commandHandler.executeCommand(command, polygons, std::cin, std::cout);
+      commandHandler.execCommand(command, polygons, std::cin, std::cout);
     } catch (const std::logic_error& e) {
       std::cin.setstate(std::ios::failbit);
     } catch (const std::runtime_error& e) {

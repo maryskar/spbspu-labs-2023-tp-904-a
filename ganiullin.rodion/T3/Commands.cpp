@@ -9,17 +9,21 @@
 #include "TypesIO.h"
 
 namespace {
+  using OutS = std::ostream;
+  using InS = std::istream;
   using namespace std::placeholders;
+  using PolyVector = std::vector< ganiullin::Polygon >;
 
   const auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
-  const auto hasEvenVertexes =
-      std::bind(std::equal_to< size_t >{}, std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2), 0);
+  const auto getNumOfVertModTwo = std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2);
+
+  const auto hasEvenVertexes = std::bind(std::equal_to< size_t >{}, getNumOfVertModTwo, 0);
   const auto hasOddVertexes = std::bind(std::logical_not< bool >{}, hasEvenVertexes);
   const auto hasVertexesEqualTo = std::bind(std::equal_to< size_t >{}, getNumOfVertexes, _2);
 
-  double processAreaEven(const std::vector< ganiullin::Polygon >& polygons)
+  double processAreaEven(const PolyVector& polygons)
   {
-    std::vector< ganiullin::Polygon > filteredPolygons;
+    PolyVector filteredPolygons;
     std::vector< double > areas;
 
     auto polygonsBeginIt = std::begin(polygons);
@@ -37,9 +41,9 @@ namespace {
 
     return std::accumulate(std::begin(areas), std::end(areas), 0.0);
   }
-  double processAreaOdd(const std::vector< ganiullin::Polygon >& polygons)
+  double processAreaOdd(const PolyVector& polygons)
   {
-    std::vector< ganiullin::Polygon > filteredPolygons;
+    PolyVector filteredPolygons;
     std::vector< double > areas;
 
     auto polygonsBeginIt = std::begin(polygons);
@@ -59,7 +63,7 @@ namespace {
 
     return std::accumulate(areasBeginIt, areasEndIt, 0.0);
   }
-  double processAreaMean(const std::vector< ganiullin::Polygon >& polygons)
+  double processAreaMean(const PolyVector& polygons)
   {
     if (polygons.size() == 0) {
       throw std::logic_error("Polygons vector should not be empty");
@@ -77,17 +81,16 @@ namespace {
 
     return std::accumulate(areasBeginIt, areasEndIt, 0.0) / polygons.size();
   }
-  double processAreaVertexNum(const std::vector< ganiullin::Polygon >& polygons, size_t vertexNum)
+  double processAreaVertexNum(const PolyVector& polygons, size_t vertexNum)
   {
-    std::vector< ganiullin::Polygon > filteredPolygons;
+    PolyVector filteredPolygons;
     std::vector< double > areas;
 
-    auto polygonsBeginIt = std::begin(polygons);
-    auto polygonsEndIt = std::end(polygons);
+    auto polyBeginIt = std::begin(polygons);
+    auto polyEndIt = std::end(polygons);
     auto filteredInsertIt = std::back_inserter(filteredPolygons);
 
-    std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt,
-        std::bind(hasVertexesEqualTo, _1, vertexNum));
+    std::copy_if(polyBeginIt, polyEndIt, filteredInsertIt, std::bind(hasVertexesEqualTo, _1, vertexNum));
     areas.reserve(filteredPolygons.size());
 
     auto filterBeginIt = std::begin(filteredPolygons);
@@ -102,7 +105,7 @@ namespace {
     return std::accumulate(areasBeginIt, areasEndIt, 0.0);
   }
 
-  double processMaxArea(const std::vector< ganiullin::Polygon >& polygons)
+  double processMaxArea(const PolyVector& polygons)
   {
     if (polygons.size() == 0) {
       throw std::logic_error("Polygons vector should not be empty");
@@ -121,7 +124,7 @@ namespace {
 
     return (*std::max_element(areasBeginIt, areasEndIt));
   }
-  size_t processMaxVertexNum(const std::vector< ganiullin::Polygon >& polygons)
+  size_t processMaxVertexNum(const PolyVector& polygons)
   {
     if (polygons.size() == 0) {
       throw std::logic_error("Polygons vector should not be empty");
@@ -141,7 +144,7 @@ namespace {
     return (*std::max_element(vertexBeginIt, vertexEndIt));
   }
 
-  double processMinArea(const std::vector< ganiullin::Polygon >& polygons)
+  double processMinArea(const PolyVector& polygons)
   {
     if (polygons.size() == 0) {
       throw std::logic_error("Polygons vector should not be empty");
@@ -160,7 +163,7 @@ namespace {
 
     return (*std::min_element(areasBeginIt, areasEndIt));
   }
-  size_t processMinVertexNum(const std::vector< ganiullin::Polygon >& polygons)
+  size_t processMinVertexNum(const PolyVector& polygons)
   {
     if (polygons.size() == 0) {
       throw std::logic_error("Polygons vector should not be empty");
@@ -179,21 +182,21 @@ namespace {
 
     return (*std::min_element(vertexBeginIt, vertexEndIt));
   }
-  size_t processCountEven(const std::vector< ganiullin::Polygon >& polygons)
+  size_t processCountEven(const PolyVector& polygons)
   {
     auto polygonsBeginIt = std::begin(polygons);
     auto polygonsEndIt = std::end(polygons);
 
     return std::count_if(polygonsBeginIt, polygonsEndIt, hasEvenVertexes);
   }
-  size_t processCountOdd(const std::vector< ganiullin::Polygon >& polygons)
+  size_t processCountOdd(const PolyVector& polygons)
   {
     auto polygonsBeginIt = std::begin(polygons);
     auto polygonsEndIt = std::end(polygons);
 
     return std::count_if(polygonsBeginIt, polygonsEndIt, hasOddVertexes);
   }
-  size_t processCountVertexNum(const std::vector< ganiullin::Polygon >& polygons, size_t vertexNum)
+  size_t processCountVertexNum(const PolyVector& polygons, size_t vertexNum)
   {
     auto polygonsBeginIt = std::begin(polygons);
     auto polygonsEndIt = std::end(polygons);
@@ -201,7 +204,7 @@ namespace {
 
     return std::count_if(polygonsBeginIt, polygonsEndIt, hasVertexesEqualToNum);
   }
-  std::string processInFrame(const std::vector< ganiullin::Polygon >& polygons, const ganiullin::Polygon& fig)
+  std::string processInFrame(const PolyVector& polygons, const ganiullin::Polygon& fig)
   {
     if (ganiullin::isInFrame(fig, getFrame(polygons))) {
       return "<TRUE>";
@@ -209,7 +212,7 @@ namespace {
     return "<FALSE>";
   }
 
-  size_t processSame(const std::vector< ganiullin::Polygon >& polygons, const ganiullin::Polygon& fig)
+  size_t processSame(const PolyVector& polygons, const ganiullin::Polygon& fig)
   {
     auto polygonsBeginIt = std::begin(polygons);
     auto polygonsEndIt = std::end(polygons);
@@ -218,52 +221,51 @@ namespace {
     return std::count_if(polygonsBeginIt, polygonsEndIt, isSameAsFig);
   }
 
-  std::ostream& printAreaEven(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
+  OutS& printAreaEven(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     return out << std::fixed << std::setprecision(1) << processAreaEven(polygons);
   }
-  std::ostream& printAreaOdd(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
+  OutS& printAreaOdd(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     return out << std::fixed << std::setprecision(1) << processAreaOdd(polygons);
   }
-  std::ostream& printAreaMean(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
+  OutS& printAreaMean(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     return out << std::fixed << std::setprecision(1) << processAreaMean(polygons);
   }
-  std::ostream& printMaxArea(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
+  OutS& printMaxArea(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     return out << std::fixed << std::setprecision(1) << processMaxArea(polygons);
   }
-  std::ostream& printMinArea(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
+  OutS& printMinArea(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     return out << std::fixed << std::setprecision(1) << processMinArea(polygons);
   }
 
-  std::ostream& printMaxVertexNum(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
+  OutS& printMaxVertexNum(const PolyVector& polygons, OutS& out)
   {
     return out << processMaxVertexNum(polygons);
   }
-  std::ostream& printMinVertexNum(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
+  OutS& printMinVertexNum(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     return out << std::fixed << std::setprecision(1) << processMinVertexNum(polygons);
   }
-  std::ostream& printCountEven(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
+  OutS& printCountEven(const PolyVector& polygons, OutS& out)
   {
     return out << processCountEven(polygons);
   }
-  std::ostream& printCountOdd(const std::vector< ganiullin::Polygon >& polygons, std::ostream& out)
+  OutS& printCountOdd(const PolyVector& polygons, OutS& out)
   {
     return out << processCountOdd(polygons);
   }
 
-  std::ostream& printAreaVertexNum(const std::vector< ganiullin::Polygon >& polygons, size_t vertexNum,
-      std::ostream& out)
+  OutS& printAreaVertexNum(const PolyVector& polygons, size_t vertexNum, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     if (vertexNum < 3) {
@@ -271,8 +273,7 @@ namespace {
     }
     return out << std::fixed << std::setprecision(1) << processAreaVertexNum(polygons, vertexNum);
   }
-  std::ostream& printCountVertexNum(const std::vector< ganiullin::Polygon >& polygons, size_t vertexNum,
-      std::ostream& out)
+  OutS& printCountVertexNum(const PolyVector& polygons, size_t vertexNum, OutS& out)
   {
     if (vertexNum < 3) {
       throw std::logic_error("Polygon should have more vertexes");
@@ -280,20 +281,18 @@ namespace {
     return out << processCountVertexNum(polygons, vertexNum);
   }
 
-  std::ostream& printInFrame(const std::vector< ganiullin::Polygon >& polygons, const ganiullin::Polygon& fig,
-      std::ostream& out)
+  OutS& printInFrame(const PolyVector& polygons, const ganiullin::Polygon& fig, OutS& out)
   {
     return out << processInFrame(polygons, fig);
   }
 
-  std::ostream& printSame(const std::vector< ganiullin::Polygon >& polygons, const ganiullin::Polygon& fig,
-      std::ostream& out)
+  OutS& printSame(const PolyVector& polygons, const ganiullin::Polygon& fig, OutS& out)
   {
     return out << processSame(polygons, fig);
   }
 }
 
-std::ostream& ganiullin::printErrorMessage(std::ostream& out)
+OutS& ganiullin::printErrorMessage(OutS& out)
 {
   return out << "<INVALID COMMAND>";
 }
@@ -319,7 +318,8 @@ ganiullin::CommandHandler::CommandHandler():
   polygonCommandDict_.insert({"INFRAME", printInFrame});
   polygonCommandDict_.insert({"SAME", printSame});
 }
-std::string ganiullin::CommandHandler::readCommand(std::istream& in) const
+using CH = ganiullin::CommandHandler;
+std::string CH::readCommand(InS& in) const
 {
   std::string command;
   in >> command;
@@ -336,8 +336,7 @@ std::string ganiullin::CommandHandler::readCommand(std::istream& in) const
   }
   return command;
 }
-std::ostream& ganiullin::CommandHandler::executeCommand(const std::string& command,
-    const std::vector< Polygon >& polygons, std::istream& in, std::ostream& out) const
+OutS& CH::execCommand(const std::string& command, const PolyVector& polygons, InS& in, OutS& out) const
 {
   if (stateCommandDict_.find(command) != std::end(stateCommandDict_)) {
     (*stateCommandDict_.find(command)).second(polygons, out);

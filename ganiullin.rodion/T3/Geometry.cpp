@@ -46,8 +46,7 @@ namespace {
 
     return crossProduct(firstVector, secondVector) / 2.0;
   }
-  bool isPointInFrame(const ganiullin::Point& point,
-      const std::pair< ganiullin::Point, ganiullin::Point > frame)
+  bool isPointInFrame(const ganiullin::Point& point, const std::pair< ganiullin::Point, ganiullin::Point > frame)
   {
     int minX = frame.first.x;
     int minY = frame.first.y;
@@ -145,8 +144,7 @@ double ganiullin::getArea(const Polygon& polygon)
   auto areasInsertIt = std::back_inserter(areas);
   auto getPivotTriangleArea = std::bind(getTriangleArea, _1, _2, pivot);
 
-  std::transform(polygonBeginIt + 1, polygonEndIt - 1, polygonBeginIt + 2, areasInsertIt,
-      getPivotTriangleArea);
+  std::transform(polygonBeginIt + 1, polygonEndIt - 1, polygonBeginIt + 2, areasInsertIt, getPivotTriangleArea);
 
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
@@ -205,8 +203,7 @@ bool ganiullin::isSame(const Polygon& lhs, const Polygon& rhs)
   int diffX = lhsCopy[0].x - rhsCopy[0].x;
   int diffY = lhsCopy[0].y - rhsCopy[0].y;
 
-  auto isPointTranslated =
-      std::bind(std::equal_to< Point >{}, _1, std::bind(translatePoint, _2, diffX, diffY));
+  auto isPointTranslated = std::bind(std::equal_to< Point >{}, _1, std::bind(translatePoint, _2, diffX, diffY));
 
   std::transform(lhsCopyBeginIt, lhsCopyEndIt, rhsCopyBeginIt, transInsertIt, isPointTranslated);
 
