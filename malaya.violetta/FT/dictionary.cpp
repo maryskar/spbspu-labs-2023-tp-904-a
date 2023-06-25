@@ -24,7 +24,7 @@ namespace malaya
   {
     data_= strFilter(data_);
   }
-  bool Word::empty()
+  bool Word::empty() const
   {
     return data_.empty();
   }
