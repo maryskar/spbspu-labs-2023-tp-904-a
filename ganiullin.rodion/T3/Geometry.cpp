@@ -21,9 +21,8 @@ namespace {
   {
     return p1.y < p2.y;
   }
-  std::pair< ganiullin::Point, ganiullin::Point > getFrameUnion(
-      const std::pair< ganiullin::Point, ganiullin::Point >& lhs,
-      const std::pair< ganiullin::Point, ganiullin::Point >& rhs)
+
+  ganiullin::Frame getFrameUnion(const ganiullin::Frame& lhs, const ganiullin::Frame& rhs)
   {
     int minX = std::min< int >(lhs.first.x, rhs.first.x);
     int minY = std::min< int >(lhs.first.y, rhs.first.y);
@@ -46,7 +45,7 @@ namespace {
 
     return crossProduct(firstVector, secondVector) / 2.0;
   }
-  bool isPointInFrame(const ganiullin::Point& point, const std::pair< ganiullin::Point, ganiullin::Point > frame)
+  bool isPointInFrame(const ganiullin::Point& point, const ganiullin::Frame frame)
   {
     int minX = frame.first.x;
     int minY = frame.first.y;
@@ -55,7 +54,7 @@ namespace {
 
     return minX <= point.x && point.x <= maxX && minY <= point.y && point.y <= maxY;
   }
-  std::pair< ganiullin::Point, ganiullin::Point > getPolygonFrame(const ganiullin::Polygon& polygon)
+  ganiullin::Frame getPolygonFrame(const ganiullin::Polygon& polygon)
   {
     auto pointsBeginIt = std::begin(polygon.points);
     auto pointsEndIt = std::end(polygon.points);
@@ -148,13 +147,13 @@ double ganiullin::getArea(const Polygon& polygon)
 
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
-std::pair< ganiullin::Point, ganiullin::Point > ganiullin::getFrame(const std::vector< Polygon >& polygons)
+ganiullin::Frame ganiullin::getFrame(const std::vector< Polygon >& polygons)
 {
   using namespace std::placeholders;
   if (polygons.size() == 0) {
     throw std::logic_error("Polygons vector should not be empty");
   }
-  std::pair< Point, Point > firstFrame = getPolygonFrame(polygons[0]);
+  Frame firstFrame = getPolygonFrame(polygons[0]);
 
   auto polygonsBeginIt = std::begin(polygons) + 1;
   auto polygonsEndIt = std::end(polygons);
@@ -163,7 +162,7 @@ std::pair< ganiullin::Point, ganiullin::Point > ganiullin::getFrame(const std::v
   return std::accumulate(polygonsBeginIt, polygonsEndIt, firstFrame, foldFrame);
 }
 
-bool ganiullin::isInFrame(const Polygon& fig, const std::pair< Point, Point >& frame)
+bool ganiullin::isInFrame(const Polygon& fig, const Frame& frame)
 {
   using namespace std::placeholders;
   auto isPointInThisFrame = std::bind(isPointInFrame, _1, frame);

@@ -9,6 +9,8 @@ namespace ganiullin {
   struct Polygon {
     std::vector< Point > points;
   };
+  using Frame = std::pair< Point, Point >;
+
   std::istream& operator>>(std::istream& in, Point& point);
   std::istream& operator>>(std::istream& in, Polygon& polygon);
   std::ostream& operator<<(std::ostream& out, const Polygon& polygon);
@@ -16,9 +18,9 @@ namespace ganiullin {
 
   bool operator==(const Point& first, const Point& second);
   double getArea(const Polygon& polygon);
-  bool isInFrame(const Polygon& fig, const std::pair< Point, Point >& frame);
+  bool isInFrame(const Polygon& fig, const Frame& frame);
   bool isSame(const Polygon& lhs, const Polygon& rhs);
   size_t getNumOfVertexes(const Polygon& fig);
-  std::pair< Point, Point > getFrame(const std::vector< Polygon >& polygons);
+  Frame getFrame(const std::vector< Polygon >& polygons);
 }
 #endif
