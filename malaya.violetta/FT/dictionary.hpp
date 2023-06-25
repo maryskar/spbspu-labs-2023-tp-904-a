@@ -9,7 +9,7 @@ namespace malaya
   class Word
   {
    public:
-    explicit Word(std::string str);
+    explicit Word(const std::string & str);
     bool empty();
     friend bool operator==(const Word & left, const Word & right);
     friend bool operator<(const Word & left, const Word & right);

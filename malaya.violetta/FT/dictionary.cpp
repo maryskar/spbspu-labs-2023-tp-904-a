@@ -19,7 +19,7 @@ namespace malaya
     std::transform(temp.begin(), temp.end(), std::back_inserter(result), toLowerCase);
     return result;
   }
-  Word::Word(std::string str):
+  Word::Word(const std::string & str):
   data_(str)
   {
     data_= strFilter(data_);
