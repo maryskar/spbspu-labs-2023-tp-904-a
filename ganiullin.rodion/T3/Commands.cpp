@@ -318,8 +318,8 @@ ganiullin::CommandHandler::CommandHandler():
   polygonCommandDict_.insert({"INFRAME", printInFrame});
   polygonCommandDict_.insert({"SAME", printSame});
 }
-using CH = ganiullin::CommandHandler;
-std::string CH::readCommand(InS& in) const
+using CommHand = ganiullin::CommandHandler;
+std::string CommHand::readCommand(InS& in) const
 {
   std::string command;
   in >> command;
@@ -336,7 +336,7 @@ std::string CH::readCommand(InS& in) const
   }
   return command;
 }
-OutS& CH::execCommand(const std::string& command, const PolyVector& polygons, InS& in, OutS& out) const
+OutS& CommHand::execCommand(const std::string& command, const PolyVector& polygons, InS& in, OutS& out) const
 {
   if (stateCommandDict_.find(command) != std::end(stateCommandDict_)) {
     (*stateCommandDict_.find(command)).second(polygons, out);
