@@ -1,9 +1,14 @@
 #include "commands.h"
 #include <algorithm>
+#include <functional>
 #include <iostream>
 #include <vector>
+#include <iostream>
+#include <iterator>
 #include "polygon.h"
 #include "solvingCommands.h"
+
+using namespace std::placeholders;
 
 /*void runRightshapes(std::istream& inp, std::string& command);
 void runPerms(std::istream& inp, std::string& command);
@@ -12,24 +17,27 @@ void runMin(std::istream& inp, std::string& command);
 void runMax(std::istream& inp, std::string& command);*/
 void runArea(std::istream& inp, std::string& command, const std::vector< mashkin::Polygon >& res);
 
-std::vector< mashkin::FullArea > getFullArea(const std::vector< mashkin::Polygon >& res)
-{
-  std::vector< mashkin::PositiveArea > halfPA;
-  std::vector< mashkin::NegativeArea > halfNA;
-  std::vector< mashkin::FullArea > area;
-  std::transform(res.begin(), res.end(), std::back_inserter(halfPA), mashkin::calcPositiveArea);
-  std::transform(res.begin(), res.end(), std::back_inserter(halfNA), mashkin::calcNegativeArea);
-  std::transform(halfPA.begin(), halfPA.end(), halfNA.begin(), std::back_inserter(area), mashkin::solveArea);
-  return area;
-}
-
 void runEven(const std::vector< mashkin::Polygon >& res)
 {
-  std::vector< mashkin::FullArea > fullArea = getFullArea(res);
+  using pol = mashkin::Polygon;
+  using outIter = std::ostream_iterator< mashkin::FullArea >;
+  std::vector< pol > data = res;
+  std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), mashkin::isEven);
+  std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
+  std::copy(areas.begin(), areas.end(), outIter(std::cout, "\n"));
 }
 
-/*void runOdd();
-void runMean();
+void runOdd(const std::vector< mashkin::Polygon >& res)
+{
+  using pol = mashkin::Polygon;
+  using outIter = std::ostream_iterator< mashkin::FullArea >;
+  std::vector< pol > data = res;
+  std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), mashkin::isOdd);
+  std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
+  std::copy(areas.begin(), areas.end(), outIter(std::cout, "\n"));
+}
+
+/*void runMean();
 void runAreaNumOfVertexes(std::string& command);*/
 
 void runArea(std::istream& inp, std::string& command, const std::vector< mashkin::Polygon >& res)
@@ -39,11 +47,11 @@ void runArea(std::istream& inp, std::string& command, const std::vector< mashkin
   {
     runEven(res);
   }
-  /*else if (command == "ODD")
+  else if (command == "ODD")
   {
-    runOdd();
+    runOdd(res);
   }
-  else if (command == "MEAN")
+  /*else if (command == "MEAN")
   {
     runMean();
   }
