@@ -106,7 +106,15 @@ namespace malaya
   {
     std::string name = " ";
     in >> name;
-    out << maxElem(findDict(dicts, name));
+    Word res(maxElem(findDict(dicts, name)));
+    if (!res.empty())
+    {
+      out << res;
+    }
+    else
+    {
+      printNotFound(out);
+    }
   }
   void areSame(const dictOfDicts & dicts, std::istream & in, std::ostream & out)
   {
