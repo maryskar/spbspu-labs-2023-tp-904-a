@@ -107,21 +107,6 @@ namespace mashkin
     return out;
   }
 
-  iofmtguard::iofmtguard(std::basic_ios< char >& s):
-    s_(s),
-    fill_(s.fill()),
-    precision_(s.precision()),
-    fmt_(s.flags())
-  {
-  }
-
-  iofmtguard::~iofmtguard()
-  {
-    s_.fill(fill_);
-    s_.precision(precision_);
-    s_.flags(fmt_);
-  }
-
   bool Comparator::operator()(const DataStruct& first, const DataStruct& second)
   {
     if (first.key1 == second.key1)
