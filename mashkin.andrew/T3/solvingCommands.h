@@ -6,13 +6,16 @@ namespace mashkin
 {
   struct XMultiY
   {
+    XMultiY();
+    XMultiY(int&& rhs);
     XMultiY(const mashkin::Point& first, const mashkin::Point& second);
+    XMultiY operator+(const XMultiY& rhs);
     int res;
   };
 
   struct PositiveArea
   {
-    PositiveArea(const Polygon& lhs, const Polygon& rhs);
+    PositiveArea(const Polygon& lhs);
     std::vector< XMultiY > halfArea;
   };
 
