@@ -103,5 +103,6 @@ namespace mashkin
     }
     iofmtguard fmtguard(out);
     out << data.res;
+    return out;
   }
 }
