@@ -18,6 +18,6 @@ namespace malaya
   void isSubset(const dictOfDicts & dicts, std::istream & in, std::ostream & out);
   void merge(dictOfDicts & dicts, std::istream & in);
   void getIntersection(dictOfDicts & dicts, std::istream & in);
-  void input(dictOfDicts & dicts, std::istream & in); //to ask
+  void input(dictOfDicts & dicts, std::istream & in);
 }
 #endif
