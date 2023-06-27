@@ -81,7 +81,7 @@ namespace mashkin
     }
     else if (command == "MEAN")
     {
-      if (data.empty())
+      if (res.empty())
       {
         std::cout << "<INVALID COMMAND>\n";
       }
@@ -183,7 +183,24 @@ namespace mashkin
 
   void runCountEven(const vecPol& res)
   {
+    vecPol data = res;
+    size_t quantity = std::count_if(data.begin(), data.end(), isEven);
+    std::cout << quantity << "\n";
+  }
 
+  void runCountOdd(const vecPol& res)
+  {
+    vecPol data = res;
+    size_t quantity = std::count_if(data.begin(), data.end(), isOdd);
+    std::cout << quantity << "\n";
+  }
+
+  void runCountNumOfVertexes(const vecPol& res, const std::string& command)
+  {
+    vecPol data = res;
+    size_t count = std::stoull(command);
+    size_t quantity = std::count_if(data.begin(), data.end(), std::bind(isEqual, _1, count));
+    std::cout << quantity << "\n";
   }
 
   void runCount(std::istream& inp, std::string& command, const vecPol& res)
