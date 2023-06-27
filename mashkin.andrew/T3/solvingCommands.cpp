@@ -47,13 +47,13 @@ namespace mashkin
 
   FullArea FullArea::operator+(const mashkin::FullArea& rhs)
   {
-    this->res += rhs.res;
+    res += rhs.res;
     return *this;
   }
 
   XMultiY XMultiY::operator+(const XMultiY& rhs)
   {
-    this->res += rhs.res;
+    res += rhs.res;
     return *this;
   }
 
@@ -120,5 +120,10 @@ namespace mashkin
       out << data.res;
     }
     return out;
+  }
+
+  bool isEqual(const Polygon& data, size_t count)
+  {
+    return data.points.size() == count;
   }
 }

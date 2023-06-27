@@ -1,16 +1,34 @@
 #include "commands.h"
 #include <algorithm>
+#include <cstddef>
 #include <functional>
 #include <iostream>
-#include <vector>
-#include <iostream>
 #include <iterator>
-#include <cstddef>
 #include <numeric>
+#include <vector>
 #include "polygon.h"
 #include "solvingCommands.h"
 
 using namespace std::placeholders;
+
+/*struct Person
+{
+  Person(int rhs):
+    res(rhs)
+  {
+  }
+
+  bool operator==(const Person& rhs)
+  {
+    return res == rhs.res;
+  }
+
+  int res;
+};
+
+std::vector< Person > data3;
+using namespace std::placeholders;
+std::sort(std::begin(data3), std::end(data3), std::bind(std::equal_to< Person >(), _1, Person(1)));*/
 
 /*void runRightshapes(std::istream& inp, std::string& command);
 void runPerms(std::istream& inp, std::string& command);
@@ -51,10 +69,15 @@ void runMean(const std::vector< mashkin::Polygon >& res)
   std::cout << sumArea;
 }
 
-void runAreaNumOfVertexes(const std::vector< mashkin::Polygon >& res, const std::string& command)
+void runAreaNumOfVertexes(const std::vector< mashkin::Polygon >& res, const std::string& num)
 {
+  using pol = mashkin::Polygon;
   std::vector< mashkin::Polygon > data;
-  //std::copy_if(res.begin(), res.end(), data.begin(), isNumber);
+  size_t count = std::stoull(num);
+  std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), std::bind(mashkin::isEqual, _1, count));
+  std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
+  mashkin::FullArea sumArea = std::accumulate(areas.begin(), areas.end(), mashkin::FullArea());
+  std::cout << sumArea;
 }
 
 void runArea(std::istream& inp, std::string& command, const std::vector< mashkin::Polygon >& res)

@@ -2,6 +2,7 @@
 #define T3_SOLVINGCOMMANDS_H
 #include "polygon.h"
 #include <vector>
+#include <cstddef>
 
 namespace mashkin
 {
@@ -43,5 +44,6 @@ namespace mashkin
   std::vector< FullArea > getFullArea(const iter& begin, const iter& end);
   bool isOdd(const Polygon& data);
   bool isEven(const Polygon& data);
+  bool isEqual(const Polygon& data, size_t count);
 }
 #endif
