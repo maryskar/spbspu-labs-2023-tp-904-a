@@ -37,4 +37,9 @@ namespace mashkin
     }
     return inp;
   }
+
+  bool Polygon::operator<(const Polygon& rhs)
+  {
+    return points.size() < rhs.points.size();
+  }
 }

@@ -13,6 +13,7 @@ namespace mashkin
   struct Polygon
   {
     std::vector< Point > points;
+    bool operator<(const Polygon& rhs);
   };
 
   std::istream& operator>>(std::istream& inp, Point& point);
