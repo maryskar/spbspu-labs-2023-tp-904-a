@@ -26,7 +26,8 @@ void runEven(const std::vector< mashkin::Polygon >& res)
   std::vector< pol > data = res;
   std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), mashkin::isEven);
   std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
-  std::copy(areas.begin(), areas.end(), outIter(std::cout, "\n"));
+  mashkin::FullArea sumArea = std::accumulate(areas.begin(), areas.end(), mashkin::FullArea());
+  std::cout << sumArea;
 }
 
 void runOdd(const std::vector< mashkin::Polygon >& res)
@@ -36,7 +37,8 @@ void runOdd(const std::vector< mashkin::Polygon >& res)
   std::vector< pol > data = res;
   std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), mashkin::isOdd);
   std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
-  std::copy(areas.begin(), areas.end(), outIter(std::cout, "\n"));
+  mashkin::FullArea sumArea = std::accumulate(areas.begin(), areas.end(), mashkin::FullArea());
+  std::cout << sumArea;
 }
 
 void runMean(const std::vector< mashkin::Polygon >& res)
@@ -49,7 +51,11 @@ void runMean(const std::vector< mashkin::Polygon >& res)
   std::cout << sumArea;
 }
 
-/*void runAreaNumOfVertexes(std::string& command);*/
+void runAreaNumOfVertexes(const std::vector< mashkin::Polygon >& res, const std::string& command)
+{
+  std::vector< mashkin::Polygon > data;
+  //std::copy_if(res.begin(), res.end(), data.begin(), isNumber);
+}
 
 void runArea(std::istream& inp, std::string& command, const std::vector< mashkin::Polygon >& res)
 {
@@ -66,11 +72,10 @@ void runArea(std::istream& inp, std::string& command, const std::vector< mashkin
   {
     runMean(res);
   }
-  /*
   else if (command.find_first_not_of("0123456789") == std::string::npos)
   {
-    runAreaNumOfVertexes(command);
-  }*/
+    runAreaNumOfVertexes(res, command);
+  }
   else
   {
     std::cout << " <INVALID COMMAND>";
