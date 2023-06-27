@@ -19,7 +19,7 @@ namespace mashkin
   using outIter = std::ostream_iterator< farea >;
 
   /*void runRightshapes(std::istream& inp, std::string& command);*/
-  void runPerms(std::istream& inp, std::string& command, const vecPol& res);
+  void runPerms(std::istream& inp, const vecPol& res);
   void runCount(std::istream& inp, std::string& command, const vecPol& res);
   void runMin(std::istream& inp, std::string& command, const vecPol& res);
   void runMax(std::istream& inp, std::string& command, const vecPol& res);
@@ -244,7 +244,7 @@ namespace mashkin
     }
   }
 
-  void runPerms(std::istream& inp, std::string& command, const vecPol& res)
+  void runPerms(std::istream& inp, const vecPol& res)
   {
     vecPol data = res;
     Polygon comp;
@@ -281,7 +281,7 @@ namespace mashkin
     }
     else if (command == "PERMS")
     {
-      runPerms(inp, command, res);
+      runPerms(inp, res);
     }
     /*else if (command == "RIGHTSHAPES")
     {
