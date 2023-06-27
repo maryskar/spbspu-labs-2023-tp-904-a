@@ -39,7 +39,7 @@ namespace malaya
   std::ostream & operator<<(std::ostream & out, const Word & word)
   {
     std::ostream::sentry checker(out);
-    if(!checker)
+    if (!checker)
     {
       return out;
     }
@@ -61,7 +61,7 @@ namespace malaya
   std::ostream & operator<<(std::ostream & out, const dictionary::value_type & data)
   {
     std::ostream::sentry checker(out);
-    if(!checker)
+    if (!checker)
     {
       return out;
     }

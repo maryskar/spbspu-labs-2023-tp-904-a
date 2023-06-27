@@ -51,7 +51,7 @@ namespace malaya
   }
   void printDict(const dictionary & dict, std::ostream & out)
   {
-    if(!dict.empty())
+    if (!dict.empty())
     {
       using outIt = std::ostream_iterator< dictionary::value_type >;
       std::copy(dict.begin(), dict.end(), outIt(out, " "));
