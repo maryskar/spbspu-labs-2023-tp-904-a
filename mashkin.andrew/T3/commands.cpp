@@ -71,7 +71,11 @@ namespace mashkin
   void runArea(std::istream& inp, std::string& command, const vecPol& res)
   {
     inp >> command;
-    if (command == "EVEN")
+    if (res.empty())
+    {
+      std::cout << "<INVALID COMMAND>\n";
+    }
+    else if (command == "EVEN")
     {
       runEven(res);
     }
