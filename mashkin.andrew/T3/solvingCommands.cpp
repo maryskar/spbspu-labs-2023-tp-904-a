@@ -110,15 +110,7 @@ namespace mashkin
       return out;
     }
     iofmtguard fmtguard(out);
-    int doubleToInt = static_cast< int >(data.res);
-    if (0.0 == data.res - doubleToInt)
-    {
-      out << data.res << ".0";
-    }
-    else
-    {
-      out << data.res;
-    }
+    out << std::fixed << std::setprecision(1) << data.res;
     return out;
   }
 
