@@ -32,6 +32,7 @@ namespace mashkin
     FullArea();
     FullArea(const PositiveArea& first, const NegativeArea& second);
     FullArea operator+(const FullArea& rhs);
+    bool operator<(const FullArea& rhs);
     double res;
   };
 

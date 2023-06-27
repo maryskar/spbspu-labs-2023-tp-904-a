@@ -21,8 +21,8 @@ namespace mashkin
   /*void runRightshapes(std::istream& inp, std::string& command);
   void runPerms(std::istream& inp, std::string& command);
   void runCount(std::istream& inp, std::string& command);
-  void runMin(std::istream& inp, std::string& command);
   */
+  void runMin(std::istream& inp, std::string& command, const vecPol& res);
   void runMax(std::istream& inp, std::string& command, const vecPol& res);
   void runArea(std::istream& inp, std::string& command, const vecPol& res);
 
@@ -96,12 +96,12 @@ namespace mashkin
   void runMaxArea(const vecPol& res)
   {
     vecPol data = res;
-    std::sort(data.begin(), data.end());
-    vecFArea areas = getFullArea(--data.end(), data.end());
-    std::copy(areas.begin(), areas.end(), outIter(std::cout, "\n"));
+    vecFArea areas = getFullArea(data.begin(), data.end());
+    std::sort(areas.begin(), areas.end());
+    std::copy(--areas.end(), areas.end(), outIter(std::cout, "\n"));
   }
 
-  void runMacVertexes(const vecPol& res)
+  void runMaxVertexes(const vecPol& res)
   {
     vecPol data = res;
     std::sort(data.begin(), data.end());
@@ -112,13 +112,54 @@ namespace mashkin
   void runMax(std::istream& inp, std::string& command, const std::vector< mashkin::Polygon >& data)
   {
     inp >> command;
-    if (command == "AREA")
+    if (data.empty())
+    {
+      std::cout << "<INVALID COMMAND>\n";
+    }
+    else if (command == "AREA")
     {
       runMaxArea(data);
     }
     else if (command == "VERTEXES")
     {
-      runMacVertexes(data);
+      runMaxVertexes(data);
+    }
+    else
+    {
+      std::cout << "<INVALID COMMAND>";
+    }
+  }
+
+  void runMinArea(const vecPol& res)
+  {
+    vecPol data = res;
+    vecFArea areas = getFullArea(data.begin(), data.end());
+    std::sort(areas.begin(), areas.end());
+    std::copy(areas.begin(), ++areas.begin(), outIter(std::cout, "\n"));
+  }
+
+  void runMinVertexes(const vecPol& res)
+  {
+    vecPol data = res;
+    std::sort(data.begin(), data.end());
+    vecPol::iterator it = data.begin();
+    std::cout << it->points.size() << "\n";
+  }
+
+  void runMin(std::istream& inp, std::string& command, const vecPol& res)
+  {
+    inp >> command;
+    if (res.empty())
+    {
+      std::cout << "<INVALID COMMAND>\n";
+    }
+    else if (command == "AREA")
+    {
+      runMinArea(res);
+    }
+    else if (command == "VERTEXES")
+    {
+      runMinVertexes(res);
     }
     else
     {
@@ -137,11 +178,11 @@ namespace mashkin
     {
       runMax(inp, command, res);
     }
-    /*else if (command == "MIN")
+    else if (command == "MIN")
     {
-      runMin(inp, command);
+      runMin(inp, command, res);
     }
-    else if (command == "COUNT")
+    /*else if (command == "COUNT")
     {
       runCount(inp, command);
     }

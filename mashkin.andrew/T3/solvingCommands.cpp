@@ -118,4 +118,9 @@ namespace mashkin
   {
     return data.points.size() == count;
   }
+
+  bool FullArea::operator<(const mashkin::FullArea& rhs)
+  {
+    return res < rhs.res;
+  }
 }
