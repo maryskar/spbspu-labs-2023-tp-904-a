@@ -29,6 +29,11 @@ namespace mashkin
     Polygon input;
     size_t numOfPoints;
     inp >> numOfPoints;
+    if (numOfPoints < 3)
+    {
+      inp.setstate(std::ios::failbit);
+      return inp;
+    }
     using inpIter = std::istream_iterator< mashkin::Point >;
     std::copy_n(inpIter(inp), numOfPoints, std::back_inserter(input.points));
     if (inp)

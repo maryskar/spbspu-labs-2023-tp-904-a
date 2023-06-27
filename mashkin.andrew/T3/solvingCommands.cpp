@@ -129,4 +129,9 @@ namespace mashkin
     std::sort(lhs.points.begin(), lhs.points.end());
     return lhs.points == rhs.points;
   }
+
+  bool isRightshapes(const Polygon& lhs)
+  {
+    return true;
+  }
 }

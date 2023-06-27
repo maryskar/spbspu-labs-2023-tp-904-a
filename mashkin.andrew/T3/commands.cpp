@@ -18,7 +18,7 @@ namespace mashkin
   using vecFArea = std::vector< farea >;
   using outIter = std::ostream_iterator< farea >;
 
-  /*void runRightshapes(std::istream& inp, std::string& command);*/
+  void runRightshapes(const vecPol& res);
   void runPerms(std::istream& inp, const vecPol& res);
   void runCount(std::istream& inp, std::string& command, const vecPol& res);
   void runMin(std::istream& inp, std::string& command, const vecPol& res);
@@ -260,6 +260,13 @@ namespace mashkin
     std::cout << quantity << "\n";
   }
 
+  void runRightshapes(const vecPol& res)
+  {
+    vecPol data = res;
+    size_t quatity = std::count_if(data.begin(), data.end(), isRightshapes);
+    std::cout << quatity << "\n";
+  }
+
   void runCommand(std::istream& inp, std::string& command, const std::vector< Polygon >& res)
   {
     inp >> command;
@@ -283,16 +290,17 @@ namespace mashkin
     {
       runPerms(inp, res);
     }
-    /*else if (command == "RIGHTSHAPES")
+    else if (command == "RIGHTSHAPES")
     {
-      runRightshapes(inp, command);
-    }*/
+      runRightshapes(res);
+    }
     else if (inp.eof())
     {
       return;
     }
     else
     {
+      inp >> command;
       std::cout << "<INVALID COMMAND>\n";
     }
   }
