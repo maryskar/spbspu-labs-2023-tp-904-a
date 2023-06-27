@@ -94,6 +94,10 @@ namespace mashkin
     {
       runRightshapes(inp, command);
     }*/
+    else if (inp.eof())
+    {
+      return;
+    }
     else
     {
       std::cout << " <INVALID COMMAND>";

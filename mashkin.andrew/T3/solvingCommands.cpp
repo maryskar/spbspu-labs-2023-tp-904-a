@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <numeric>
+#include <iomanip>
 #include <outputStructs.h>
 
 namespace mashkin
@@ -102,7 +103,15 @@ namespace mashkin
       return out;
     }
     iofmtguard fmtguard(out);
-    out << data.res;
+    int doubleToInt = static_cast< int >(data.res);
+    if (0.0 == data.res - doubleToInt)
+    {
+      out << data.res << ".0";
+    }
+    else
+    {
+      out << data.res;
+    }
     return out;
   }
 }
