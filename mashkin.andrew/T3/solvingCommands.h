@@ -46,5 +46,6 @@ namespace mashkin
   bool isOdd(const Polygon& data);
   bool isEven(const Polygon& data);
   bool isEqual(const Polygon& data, size_t count);
+  bool isEqualPoints(Polygon& lhs, Polygon& rhs);
 }
 #endif

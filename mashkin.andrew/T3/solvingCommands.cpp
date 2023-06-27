@@ -123,4 +123,10 @@ namespace mashkin
   {
     return res < rhs.res;
   }
+
+  bool isEqualPoints(Polygon& lhs, Polygon& rhs)
+  {
+    std::sort(lhs.points.begin(), lhs.points.end());
+    return lhs.points == rhs.points;
+  }
 }

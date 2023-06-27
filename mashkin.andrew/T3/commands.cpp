@@ -18,10 +18,9 @@ namespace mashkin
   using vecFArea = std::vector< farea >;
   using outIter = std::ostream_iterator< farea >;
 
-  /*void runRightshapes(std::istream& inp, std::string& command);
-  void runPerms(std::istream& inp, std::string& command);
-  void runCount(std::istream& inp, std::string& command);
-  */
+  /*void runRightshapes(std::istream& inp, std::string& command);*/
+  void runPerms(std::istream& inp, std::string& command, const vecPol& res);
+  void runCount(std::istream& inp, std::string& command, const vecPol& res);
   void runMin(std::istream& inp, std::string& command, const vecPol& res);
   void runMax(std::istream& inp, std::string& command, const vecPol& res);
   void runArea(std::istream& inp, std::string& command, const vecPol& res);
@@ -245,6 +244,22 @@ namespace mashkin
     }
   }
 
+  void runPerms(std::istream& inp, std::string& command, const vecPol& res)
+  {
+    vecPol data = res;
+    Polygon comp;
+    inp >> comp;
+    if (comp.points.size() < 3)
+    {
+      std::cout << "<INVALID COMMAND>\n";
+      return;
+    }
+    std::sort(comp.points.begin(), comp.points.end());
+    size_t quantity = 0;
+    quantity = std::count_if(data.begin(), data.end(), std::bind(isEqualPoints, _1, comp));
+    std::cout << quantity << "\n";
+  }
+
   void runCommand(std::istream& inp, std::string& command, const std::vector< Polygon >& res)
   {
     inp >> command;
@@ -264,11 +279,11 @@ namespace mashkin
     {
       runCount(inp, command, res);
     }
-    /*else if (command == "PERMS")
+    else if (command == "PERMS")
     {
-      runPerms(inp, command);
+      runPerms(inp, command, res);
     }
-    else if (command == "RIGHTSHAPES")
+    /*else if (command == "RIGHTSHAPES")
     {
       runRightshapes(inp, command);
     }*/
@@ -278,7 +293,7 @@ namespace mashkin
     }
     else
     {
-      std::cout << " <INVALID COMMAND>";
+      std::cout << "<INVALID COMMAND>\n";
     }
   }
 }

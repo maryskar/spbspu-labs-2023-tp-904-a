@@ -42,4 +42,18 @@ namespace mashkin
   {
     return points.size() < rhs.points.size();
   }
+
+  bool Point::operator<(const Point& rhs)
+  {
+    if (x == rhs.x)
+    {
+      return y < rhs.y;
+    }
+    return x < rhs.x;
+  }
+
+  bool Point::operator==(const Point& rhs) const
+  {
+    return (x == rhs.x && y == rhs.y);
+  }
 }

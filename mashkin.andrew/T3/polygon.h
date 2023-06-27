@@ -8,6 +8,8 @@ namespace mashkin
   struct Point
   {
     int x, y;
+    bool operator==(const Point& rhs) const;
+    bool operator<(const Point& rhs);
   };
 
   struct Polygon
