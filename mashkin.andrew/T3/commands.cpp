@@ -206,21 +206,38 @@ namespace mashkin
   void runCount(std::istream& inp, std::string& command, const vecPol& res)
   {
     inp >> command;
-    if (res.empty())
+    if (command == "EVEN")
     {
-      std::cout << "<INVALID COMMAND>\n";
-    }
-    else if (command == "EVEN")
-    {
-      runCountEven(res);
+      if (res.empty())
+      {
+        std::cout << 0 << "\n";
+      }
+      else
+      {
+        runCountEven(res);
+      }
     }
     else if (command == "ODD")
     {
-      runCountOdd(res);
+      if (res.empty())
+      {
+        std::cout << 0 << "\n";
+      }
+      else
+      {
+        runCountOdd(res);
+      }
     }
     else if (command.find_first_not_of("0123456789") == std::string::npos)
     {
-      runCountNumOfVertexes(res, command);
+      if (command == "0" || command == "1" || command == "2")
+      {
+        std::cout << "<INVALID COMMAND>\n";
+      }
+      else
+      {
+        runCountNumOfVertexes(res, command);
+      }
     }
     else
     {
