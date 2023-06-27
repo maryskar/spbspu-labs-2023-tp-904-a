@@ -132,7 +132,7 @@ namespace malaya
       size_t freq = dict.at(data.first);
       return data.second <= freq;
     }
-    catch(const std::out_of_range & e)
+    catch (const std::out_of_range & e)
     {
       return false;
     }
