@@ -9,7 +9,6 @@ namespace mashkin
   struct XMultiY
   {
     XMultiY();
-    XMultiY(int&& rhs);
     XMultiY(const Point& first, const Point& second);
     XMultiY operator+(const XMultiY& rhs);
     int res;
@@ -29,7 +28,9 @@ namespace mashkin
 
   struct FullArea
   {
+    FullArea();
     FullArea(const PositiveArea& first, const NegativeArea& second);
+    FullArea operator+(const FullArea& rhs);
     double res;
   };
 

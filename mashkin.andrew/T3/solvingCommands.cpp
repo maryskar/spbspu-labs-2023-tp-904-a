@@ -35,19 +35,26 @@ namespace mashkin
   {
   }
 
-  XMultiY::XMultiY(int&& rhs):
-    res(rhs)
-  {
-  }
-
   XMultiY::XMultiY():
     res(0)
   {
   }
 
+  FullArea::FullArea():
+    res(0.0)
+  {
+  }
+
+  FullArea FullArea::operator+(const mashkin::FullArea& rhs)
+  {
+    this->res += rhs.res;
+    return *this;
+  }
+
   XMultiY XMultiY::operator+(const XMultiY& rhs)
   {
-    return XMultiY{this->res + rhs.res};
+    this->res += rhs.res;
+    return *this;
   }
 
   XMultiY solveXY(const Point& lhs, const Point& rhs)

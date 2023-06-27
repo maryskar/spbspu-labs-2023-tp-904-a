@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 #include <iterator>
+#include <cstddef>
+#include <numeric>
 #include "polygon.h"
 #include "solvingCommands.h"
 
@@ -37,8 +39,17 @@ void runOdd(const std::vector< mashkin::Polygon >& res)
   std::copy(areas.begin(), areas.end(), outIter(std::cout, "\n"));
 }
 
-/*void runMean();
-void runAreaNumOfVertexes(std::string& command);*/
+void runMean(const std::vector< mashkin::Polygon >& res)
+{
+  std::vector< mashkin::Polygon > data = res;
+  size_t quntity = res.size();
+  std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), data.end());
+  mashkin::FullArea sumArea = std::accumulate(areas.begin(), areas.end(), mashkin::FullArea());
+  sumArea.res /= quntity;
+  std::cout << sumArea;
+}
+
+/*void runAreaNumOfVertexes(std::string& command);*/
 
 void runArea(std::istream& inp, std::string& command, const std::vector< mashkin::Polygon >& res)
 {
@@ -51,10 +62,11 @@ void runArea(std::istream& inp, std::string& command, const std::vector< mashkin
   {
     runOdd(res);
   }
-  /*else if (command == "MEAN")
+  else if (command == "MEAN")
   {
-    runMean();
+    runMean(res);
   }
+  /*
   else if (command.find_first_not_of("0123456789") == std::string::npos)
   {
     runAreaNumOfVertexes(command);
