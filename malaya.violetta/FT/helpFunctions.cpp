@@ -111,13 +111,13 @@ namespace malaya
     desc.insert({"DELETE_DICT", "deletes the requested dictionary"});
     desc.insert({"FIND_MOST_FREQUENT", "prints the most frequent word in requested dictionary"});
     desc.insert({"SEARCH", "searches the word in requested dictionary and "
-                           "prints it's frequency; if not found, prints the message"});
+        "prints it's frequency; if not found, prints the message"});
     desc.insert({"INSERT", "inserts the given key to requested dictionary"});
     desc.insert({"DELETE_KEY", "deletes the given key from requested dictionary"});
     desc.insert({"MERGE", "merges two dictionaries and puts the result to dest dictionary"});
     desc.insert({"GET_INTERSECTION", "intersects two dictionaries and puts the result to dest dictionary"});
     desc.insert({"DO_SYMMETRIC_DIFFERENCE", "finds symmetric difference between two dictionaries "
-                                            "and puts the result to dest dictionary"});
+        "and puts the result to dest dictionary"});
     desc.insert({"SUBTRACT", "subtracts one dictionary from another and puts the result to dest dictionary"});
     desc.insert({"IS_SUBSET", "checks if one dictionary is subset of another"});
     desc.insert({"ARE_SAME", "checks if two dictionaries are identical"});
