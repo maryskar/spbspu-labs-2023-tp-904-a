@@ -71,11 +71,7 @@ namespace mashkin
   void runArea(std::istream& inp, std::string& command, const vecPol& res)
   {
     inp >> command;
-    if (res.empty())
-    {
-      std::cout << "<INVALID COMMAND>\n";
-    }
-    else if (command == "EVEN")
+    if (command == "EVEN")
     {
       runEven(res);
     }
@@ -85,15 +81,29 @@ namespace mashkin
     }
     else if (command == "MEAN")
     {
-      runMean(res);
+      if (data.empty())
+      {
+        std::cout << "<INVALID COMMAND>\n";
+      }
+      else
+      {
+        runMean(res);
+      }
     }
     else if (command.find_first_not_of("0123456789") == std::string::npos)
     {
-      runAreaNumOfVertexes(res, command);
+      if (command == "0" || command == "1" || command == "2")
+      {
+        std::cout << "<INVALID COMMAND>\n";
+      }
+      else
+      {
+        runAreaNumOfVertexes(res, command);
+      }
     }
     else
     {
-      std::cout << "<INVALID COMMAND>";
+      std::cout << "<INVALID COMMAND>\n";
     }
   }
 
@@ -171,6 +181,36 @@ namespace mashkin
     }
   }
 
+  void runCountEven(const vecPol& res)
+  {
+
+  }
+
+  void runCount(std::istream& inp, std::string& command, const vecPol& res)
+  {
+    inp >> command;
+    if (res.empty())
+    {
+      std::cout << "<INVALID COMMAND>\n";
+    }
+    else if (command == "EVEN")
+    {
+      runCountEven(res);
+    }
+    else if (command == "ODD")
+    {
+      runCountOdd(res);
+    }
+    else if (command.find_first_not_of("0123456789") == std::string::npos)
+    {
+      runCountNumOfVertexes(res, command);
+    }
+    else
+    {
+      std::cout << "<INVALID COMMAND>";
+    }
+  }
+
   void runCommand(std::istream& inp, std::string& command, const std::vector< Polygon >& res)
   {
     inp >> command;
@@ -186,11 +226,11 @@ namespace mashkin
     {
       runMin(inp, command, res);
     }
-    /*else if (command == "COUNT")
+    else if (command == "COUNT")
     {
-      runCount(inp, command);
+      runCount(inp, command, res);
     }
-    else if (command == "PERMS")
+    /*else if (command == "PERMS")
     {
       runPerms(inp, command);
     }
