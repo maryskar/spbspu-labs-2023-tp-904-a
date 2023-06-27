@@ -40,42 +40,50 @@ void runArea(std::istream& inp, std::string& command, const std::vector< mashkin
 void runEven(const std::vector< mashkin::Polygon >& res)
 {
   using pol = mashkin::Polygon;
+  using outIter = std::ostream_iterator< mashkin::FullArea >;
   std::vector< pol > data = res;
   std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), mashkin::isEven);
   std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
-  mashkin::FullArea sumArea = std::accumulate(areas.begin(), areas.end(), mashkin::FullArea());
-  std::cout << sumArea;
+  std::vector< mashkin::FullArea > sumArea;
+  sumArea.push_back(std::accumulate(areas.begin(), areas.end(), mashkin::FullArea()));
+  std::copy(sumArea.begin(), sumArea.end(), outIter(std::cout, "\n"));
 }
 
 void runOdd(const std::vector< mashkin::Polygon >& res)
 {
   using pol = mashkin::Polygon;
+  using outIter = std::ostream_iterator< mashkin::FullArea >;
   std::vector< pol > data = res;
   std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), mashkin::isOdd);
   std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
-  mashkin::FullArea sumArea = std::accumulate(areas.begin(), areas.end(), mashkin::FullArea());
-  std::cout << sumArea;
+  std::vector< mashkin::FullArea > sumArea;
+  sumArea.push_back(std::accumulate(areas.begin(), areas.end(), mashkin::FullArea()));
+  std::copy(sumArea.begin(), sumArea.end(), outIter(std::cout, "\n"));
 }
 
 void runMean(const std::vector< mashkin::Polygon >& res)
 {
+  using outIter = std::ostream_iterator< mashkin::FullArea >;
   std::vector< mashkin::Polygon > data = res;
   size_t quntity = res.size();
   std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), data.end());
-  mashkin::FullArea sumArea = std::accumulate(areas.begin(), areas.end(), mashkin::FullArea());
-  sumArea.res /= quntity;
-  std::cout << sumArea;
+  std::vector< mashkin::FullArea > sumArea;
+  sumArea.push_back(std::accumulate(areas.begin(), areas.end(), mashkin::FullArea()));
+  sumArea.begin()->res /= quntity;
+  std::copy(sumArea.begin(), sumArea.end(), outIter(std::cout, "\n"));
 }
 
 void runAreaNumOfVertexes(const std::vector< mashkin::Polygon >& res, const std::string& num)
 {
   using pol = mashkin::Polygon;
+  using outIter = std::ostream_iterator< mashkin::FullArea >;
   std::vector< mashkin::Polygon > data = res;
   size_t count = std::stoull(num);
   std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), std::bind(mashkin::isEqual, _1, count));
   std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
-  mashkin::FullArea sumArea = std::accumulate(areas.begin(), areas.end(), mashkin::FullArea());
-  std::cout << sumArea;
+  std::vector< mashkin::FullArea > sumArea;
+  sumArea.push_back(std::accumulate(areas.begin(), areas.end(), mashkin::FullArea()));
+  std::copy(sumArea.begin(), sumArea.end(), outIter(std::cout, "\n"));
 }
 
 void runArea(std::istream& inp, std::string& command, const std::vector< mashkin::Polygon >& res)

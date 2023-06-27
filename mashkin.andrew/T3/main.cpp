@@ -40,7 +40,6 @@ int main(int argc, char** argv)
   {
     std::string command;
     runCommand(std::cin, command, res);
-    std::cout << "\n";
   }
   return 0;
 }
