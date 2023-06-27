@@ -40,7 +40,6 @@ void runArea(std::istream& inp, std::string& command, const std::vector< mashkin
 void runEven(const std::vector< mashkin::Polygon >& res)
 {
   using pol = mashkin::Polygon;
-  using outIter = std::ostream_iterator< mashkin::FullArea >;
   std::vector< pol > data = res;
   std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), mashkin::isEven);
   std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
@@ -51,7 +50,6 @@ void runEven(const std::vector< mashkin::Polygon >& res)
 void runOdd(const std::vector< mashkin::Polygon >& res)
 {
   using pol = mashkin::Polygon;
-  using outIter = std::ostream_iterator< mashkin::FullArea >;
   std::vector< pol > data = res;
   std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), mashkin::isOdd);
   std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
@@ -72,7 +70,7 @@ void runMean(const std::vector< mashkin::Polygon >& res)
 void runAreaNumOfVertexes(const std::vector< mashkin::Polygon >& res, const std::string& num)
 {
   using pol = mashkin::Polygon;
-  std::vector< mashkin::Polygon > data;
+  std::vector< mashkin::Polygon > data = res;
   size_t count = std::stoull(num);
   std::vector< pol >::iterator it = std::partition(data.begin(), data.end(), std::bind(mashkin::isEqual, _1, count));
   std::vector< mashkin::FullArea > areas = mashkin::getFullArea(data.begin(), it);
