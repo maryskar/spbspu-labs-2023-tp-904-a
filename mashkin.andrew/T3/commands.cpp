@@ -4,6 +4,7 @@
 #include <functional>
 #include <iostream>
 #include <iterator>
+#include <limits>
 #include <numeric>
 #include <vector>
 #include "polygon.h"
@@ -249,8 +250,11 @@ namespace mashkin
     vecPol data = res;
     Polygon comp;
     inp >> comp;
-    if (comp.points.size() < 3)
+    if (std::cin.fail())
     {
+      auto maxSize = std::numeric_limits< std::streamsize >::max();
+      std::cin.clear();
+      std::cin.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>\n";
       return;
     }
