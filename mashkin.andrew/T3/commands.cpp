@@ -313,7 +313,7 @@ namespace mashkin
     else if (res.empty())
     {
       std::cerr << "Not enough args\n";
-      trow;
+      throw;
     }
     else
     {
