@@ -36,6 +36,23 @@ namespace mashkin
     double res;
   };
 
+  struct Vector
+  {
+    Vector(const Polygon& rhs);
+    Vector(const Point& first, const Point& second);
+    std::vector< Point > vect;
+  };
+
+  struct Angle
+  {
+    Angle(const Vector& rhs);
+    std::vector< int > ang;
+  };
+
+  int solveAngle(const Point& first, const Point& second);
+  Point getVector(const Point& first, const Point& second);
+  Angle getAngle(const Polygon& data);
+
   std::ostream& operator<<(std::ostream& out, const FullArea& data);
 
   XMultiY solveXY(const Point& lhs, const Point& rhs);
@@ -47,6 +64,6 @@ namespace mashkin
   bool isEven(const Polygon& data);
   bool isEqual(const Polygon& data, size_t count);
   bool isEqualPoints(Polygon& lhs, Polygon& rhs);
-  bool isRightshapes(const Polygon& lhs);
+  bool isRightshapes(const Angle& lhs);
 }
 #endif

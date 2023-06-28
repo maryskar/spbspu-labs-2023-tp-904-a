@@ -1,12 +1,14 @@
 #include "solvingCommands.h"
 #include <algorithm>
 #include <cmath>
-#include <numeric>
+#include <functional>
 #include <iomanip>
+#include <numeric>
 #include <outputStructs.h>
 
 namespace mashkin
 {
+  using namespace std::placeholders;
   using iter = std::vector< Polygon >::iterator;
 
   std::vector< FullArea > getFullArea(const iter& begin, const iter& end)
@@ -64,10 +66,8 @@ namespace mashkin
 
   PositiveArea::PositiveArea(const Polygon& lhs)
   {
-    std::transform(lhs.points.begin(), --lhs.points.end(), ++lhs.points.begin(), std::back_inserter(this->halfArea),
-                   solveXY);
-    std::transform(--lhs.points.end(), lhs.points.end(), lhs.points.begin(), std::back_inserter(this->halfArea),
-                   solveXY);
+    std::transform(lhs.points.begin(), --lhs.points.end(), ++lhs.points.begin(), std::back_inserter(halfArea), solveXY);
+    std::transform(--lhs.points.end(), lhs.points.end(), lhs.points.begin(), std::back_inserter(halfArea), solveXY);
   }
 
   PositiveArea calcPositiveArea(const Polygon& lhs)
@@ -77,10 +77,8 @@ namespace mashkin
 
   NegativeArea::NegativeArea(const Polygon& lhs, const Polygon& rhs)
   {
-    std::transform(++lhs.points.begin(), lhs.points.end(), rhs.points.begin(), std::back_inserter(this->halfArea),
-                   solveXY);
-    std::transform(lhs.points.begin(), ++lhs.points.begin(), --rhs.points.end(), std::back_inserter(this->halfArea),
-                   solveXY);
+    std::transform(++lhs.points.begin(), lhs.points.end(), rhs.points.begin(), std::back_inserter(halfArea), solveXY);
+    std::transform(lhs.points.begin(), ++lhs.points.begin(), --rhs.points.end(), std::back_inserter(halfArea), solveXY);
   }
 
   NegativeArea calcNegativeArea(const Polygon& lhs)
@@ -130,8 +128,43 @@ namespace mashkin
     return lhs.points == rhs.points;
   }
 
-  bool isRightshapes(const Polygon& lhs)
+  bool isRightshapes(const Angle& lhs)
   {
-    return true;
+    if (std::find(lhs.ang.begin(), lhs.ang.end(), 0) == lhs.ang.end())
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  }
+
+  Point getVector(const Point& first, const Point& second)
+  {
+    return {first.x - second.x, first.y - second.y};
+  }
+
+  Vector::Vector(const mashkin::Polygon& rhs)
+  {
+    std::transform(rhs.points.begin(), --rhs.points.end(), ++rhs.points.begin(), std::back_inserter(vect), getVector);
+    std::transform(--rhs.points.end(), rhs.points.end(), rhs.points.begin(), std::back_inserter(vect), getVector);
+  }
+
+  int solveAngle(const Point& first, const Point& second)
+  {
+    return (first.x * second.x + first.y * second.y);
+  }
+
+  Angle::Angle(const mashkin::Vector& rhs)
+  {
+    std::transform(rhs.vect.begin(), --rhs.vect.end(), ++rhs.vect.begin(), std::back_inserter(ang), solveAngle);
+    std::transform(--rhs.vect.end(), rhs.vect.end(), rhs.vect.begin(), std::back_inserter(ang), solveAngle);
+  }
+
+  Angle getAngle(const Polygon& data)
+  {
+    Vector vector(data);
+    return Angle(vector);
   }
 }
