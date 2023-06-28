@@ -19,6 +19,8 @@ namespace mashkin
   using vecFArea = std::vector< farea >;
   using outIter = std::ostream_iterator< farea >;
 
+  constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
+
   void runRightshapes(const vecPol& res);
   void runPerms(std::istream& inp, const vecPol& res);
   void runCount(std::istream& inp, std::string& command, const vecPol& res);
@@ -83,6 +85,7 @@ namespace mashkin
     {
       if (res.empty())
       {
+        inp.ignore(maxSize, '\n');
         std::cout << "<INVALID COMMAND>\n";
       }
       else
@@ -94,6 +97,7 @@ namespace mashkin
     {
       if (command == "0" || command == "1" || command == "2")
       {
+        inp.ignore(maxSize, '\n');
         std::cout << "<INVALID COMMAND>\n";
       }
       else
@@ -103,6 +107,7 @@ namespace mashkin
     }
     else
     {
+      inp.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>\n";
     }
   }
@@ -128,6 +133,7 @@ namespace mashkin
     inp >> command;
     if (data.empty())
     {
+      inp.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>\n";
     }
     else if (command == "AREA")
@@ -140,6 +146,7 @@ namespace mashkin
     }
     else
     {
+      inp.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>";
     }
   }
@@ -165,6 +172,7 @@ namespace mashkin
     inp >> command;
     if (res.empty())
     {
+      inp.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>\n";
     }
     else if (command == "AREA")
@@ -177,6 +185,7 @@ namespace mashkin
     }
     else
     {
+      inp.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>";
     }
   }
@@ -232,6 +241,7 @@ namespace mashkin
     {
       if (command == "0" || command == "1" || command == "2")
       {
+        inp.ignore(maxSize, '\n');
         std::cout << "<INVALID COMMAND>\n";
       }
       else
@@ -241,6 +251,7 @@ namespace mashkin
     }
     else
     {
+      inp.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>";
     }
   }
@@ -250,11 +261,10 @@ namespace mashkin
     vecPol data = res;
     Polygon comp;
     inp >> comp;
-    if (std::cin.fail())
+    if (inp.fail())
     {
-      auto maxSize = std::numeric_limits< std::streamsize >::max();
-      std::cin.clear();
-      std::cin.ignore(maxSize, '\n');
+      inp.clear();
+      inp.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>\n";
       return;
     }
@@ -306,7 +316,7 @@ namespace mashkin
     }
     else
     {
-      inp >> command;
+      inp.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>\n";
     }
   }
