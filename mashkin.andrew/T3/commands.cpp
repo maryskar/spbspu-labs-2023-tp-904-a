@@ -314,11 +314,6 @@ namespace mashkin
     {
       return;
     }
-    else if (res.empty())
-    {
-      std::cerr << "Not enough args\n";
-      throw;
-    }
     else
     {
       inp.ignore(maxSize, '\n');

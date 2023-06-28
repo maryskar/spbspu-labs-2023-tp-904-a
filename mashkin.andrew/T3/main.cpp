@@ -9,7 +9,7 @@
 
 int main(int argc, char** argv)
 {
-  if (argc > 2)
+  if (argc != 2)
   {
     std::cerr << "Error\n";
     return 1;
@@ -38,15 +38,8 @@ int main(int argc, char** argv)
   }
   while (!std::cin.eof())
   {
-    try
-    {
-      std::string command;
-      runCommand(std::cin, command, res);
-    }
-    catch (...)
-    {
-      return 1;
-    }
+    std::string command;
+    runCommand(std::cin, command, res);
   }
   return 0;
 }
