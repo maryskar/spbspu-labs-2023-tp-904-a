@@ -36,20 +36,17 @@ int main(int argc, char** argv)
       inpFile.ignore(maxSize, '\n');
     }
   }
-  if (res.empty())
-  {
-    std::cerr << "Not enough args\n";
-    return 1;
-  }
-  if (std::cin.eof())
-  {
-    std::cerr << "No commands\n";
-    return 1;
-  }
   while (!std::cin.eof())
   {
-    std::string command;
-    runCommand(std::cin, command, res);
+    try
+    {
+      std::string command;
+      runCommand(std::cin, command, res);
+    }
+    catch (...)
+    {
+      return 1;
+    }
   }
   return 0;
 }

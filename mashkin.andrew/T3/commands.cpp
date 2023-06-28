@@ -310,9 +310,10 @@ namespace mashkin
     {
       runRightshapes(res);
     }
-    else if (inp.eof())
+    else if (res.empty())
     {
-      return;
+      std::cerr << "Not enough args\n";
+      trow;
     }
     else
     {
