@@ -36,6 +36,11 @@ int main(int argc, char** argv)
       inpFile.ignore(maxSize, '\n');
     }
   }
+  if (std::cin.eof())
+  {
+    std::cerr << "No commands\n";
+    return 1;
+  }
   while (!std::cin.eof())
   {
     std::string command;
