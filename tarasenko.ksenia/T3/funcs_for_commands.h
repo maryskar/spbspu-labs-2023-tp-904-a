@@ -5,7 +5,6 @@
 #include <functional>
 #include <algorithm>
 #include <numeric>
-#include <valarray>
 #include "data_struct.h"
 
 namespace tarasenko
@@ -87,6 +86,10 @@ namespace tarasenko
 
   double getAreaWithEqualNumVerts(const std::vector< Polygon >& data, size_t n)
   {
+    if (n < 3)
+    {
+      throw std::invalid_argument("The number of vertices is not correct");
+    }
     auto op = std::bind(getPolygonAreaIfHasEqualVerts, _1, n);
     std::vector< double > areas = {};
     std::transform(data.begin(), data.end(), std::back_inserter(areas), op);
@@ -153,6 +156,10 @@ namespace tarasenko
 
   size_t getNumWithEqualNumVerts(const std::vector< Polygon >& data, size_t n)
   {
+    if (n < 3)
+    {
+      throw std::invalid_argument("The number of vertices is not correct");
+    }
     auto cond = std::bind(hasEqualNumVerts, _1, n);
     return std::count_if(data.begin(), data.end(), cond);
   }
