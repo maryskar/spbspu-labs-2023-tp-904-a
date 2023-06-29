@@ -16,10 +16,14 @@ namespace {
     return lhs.second > rhs.second;
   }
 }
-ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs,
-    const FreqDict& rhs, const SubCommand func)
+using InS = std::istream;
+using OutS = std::ostream;
+using Dict = ganiullin::Dict;
+
+Dict ganiullin::getIntersect(const Dict& lhs, const Dict& rhs,
+    const SubComm func)
 {
-  FreqDict res;
+  Dict res;
 
   for (const NodeType& elem : lhs) {
     size_t valueToInsert = 0;
@@ -31,10 +35,9 @@ ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs,
   return res;
 }
 
-ganiullin::FreqDict ganiullin::merge(const FreqDict& lhs, const FreqDict& rhs,
-    const SubCommand func)
+Dict ganiullin::merge(const Dict& lhs, const Dict& rhs, const SubComm func)
 {
-  FreqDict res;
+  Dict res;
   res.reserve(std::max(lhs.size(), rhs.size()));
 
   for (const NodeType& elem : lhs) {
@@ -56,10 +59,9 @@ ganiullin::FreqDict ganiullin::merge(const FreqDict& lhs, const FreqDict& rhs,
   return res;
 }
 
-ganiullin::FreqDict ganiullin::getDifference(const FreqDict& lhs,
-    const FreqDict& rhs)
+Dict ganiullin::getDifference(const Dict& lhs, const Dict& rhs)
 {
-  FreqDict res;
+  Dict res;
 
   for (const NodeType& elem : lhs) {
     size_t valueToInsert = 0;
@@ -78,8 +80,7 @@ ganiullin::FreqDict ganiullin::getDifference(const FreqDict& lhs,
   return res;
 }
 template < class T >
-ganiullin::VectorDict ganiullin::getSorted(const FreqDict& src,
-    const T& predicate)
+ganiullin::VectorDict ganiullin::getSorted(const Dict& src, const T& predicate)
 {
   VectorDict res;
   res.reserve(src.size());
@@ -93,7 +94,7 @@ ganiullin::VectorDict ganiullin::getSorted(const FreqDict& src,
   std::sort(resBeginIt, resEndIt, predicate);
   return res;
 }
-std::ostream& ganiullin::print(std::ostream& out, const FreqDict& src)
+OutS& ganiullin::print(OutS& out, const Dict& src)
 {
   VectorDict res = getSorted(src, compareNodes);
 
@@ -102,8 +103,7 @@ std::ostream& ganiullin::print(std::ostream& out, const FreqDict& src)
   }
   return out;
 }
-std::ostream& ganiullin::printRareElems(std::ostream& out, const FreqDict& src,
-    size_t num)
+OutS& ganiullin::printRareElems(OutS& out, const Dict& src, size_t num)
 {
   using namespace std::placeholders;
   auto compareNodesObj = std::bind(compareNodes, _1, _2);
@@ -120,8 +120,7 @@ std::ostream& ganiullin::printRareElems(std::ostream& out, const FreqDict& src,
   }
   return out;
 }
-std::ostream& ganiullin::printCommonElems(std::ostream& out,
-    const FreqDict& src, size_t num)
+OutS& ganiullin::printCommonElems(OutS& out, const Dict& src, size_t num)
 {
   using namespace std::placeholders;
   auto compareNodesObj = std::bind(compareNodes, _1, _2);
@@ -136,7 +135,7 @@ std::ostream& ganiullin::printCommonElems(std::ostream& out,
   }
   return out;
 }
-std::istream& ganiullin::readText(std::istream& in, FreqDict& src)
+InS& ganiullin::readText(InS& in, Dict& src)
 {
   while (!in.eof()) {
     std::string word = "";
@@ -147,7 +146,7 @@ std::istream& ganiullin::readText(std::istream& in, FreqDict& src)
   }
   return in;
 }
-std::ifstream& ganiullin::loadDict(std::ifstream& in, FreqDict& src)
+std::ifstream& ganiullin::loadDict(std::ifstream& in, Dict& src)
 {
   if (!in.is_open()) {
     throw std::runtime_error("Could not open file");
@@ -161,7 +160,7 @@ std::ifstream& ganiullin::loadDict(std::ifstream& in, FreqDict& src)
   }
   return in;
 }
-std::ofstream& ganiullin::saveDict(std::ofstream& out, const FreqDict& src)
+std::ofstream& ganiullin::saveDict(std::ofstream& out, const Dict& src)
 {
   if (!out.is_open()) {
     throw std::runtime_error("Could not open file");

@@ -4,12 +4,11 @@
 #include "Commands.h"
 #include "FrequencyDictionary.h"
 
-constexpr size_t MAX_STREAM_SIZE =
-    std::numeric_limits< std::streamsize >::max();
+constexpr size_t MAX_SIZE = std::numeric_limits< std::streamsize >::max();
 
 int main()
 {
-  ganiullin::DictOfFreqDicts dicts;
+  ganiullin::Dicts dicts;
   ganiullin::CommandHandler commandHandler{};
 
   while (!std::cin.eof()) {
@@ -23,7 +22,7 @@ int main()
     }
     if (!std::cin) {
       std::cin.clear();
-      std::cin.ignore(MAX_STREAM_SIZE, '\n');
+      std::cin.ignore(MAX_SIZE, '\n');
     }
     std::cout << '\n';
   }

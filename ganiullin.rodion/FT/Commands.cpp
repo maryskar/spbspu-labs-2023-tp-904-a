@@ -5,14 +5,13 @@
 #include "TypesIO.h"
 
 namespace {
-  constexpr size_t MAX_STREAM_SIZE =
-      std::numeric_limits< std::streamsize >::max();
+  constexpr size_t MAX_SIZE = std::numeric_limits< std::streamsize >::max();
 
-  using DictOfFreqDicts = ganiullin::DictOfFreqDicts;
+  using Dicts = ganiullin::Dicts;
   using NodeType = ganiullin::NodeType;
-  using SubCommand = ganiullin::SubCommand;
-  using SubCommandDict = ganiullin::SubCommandDict;
-  using FreqDict = ganiullin::FreqDict;
+  using SubComm = ganiullin::SubComm;
+  using SubCommDict = ganiullin::SubCommDict;
+  using FreqDict = ganiullin::Dict;
   using OutS = std::ostream;
   using InS = std::istream;
 
@@ -38,36 +37,34 @@ namespace {
   }
   OutS& help(OutS& out)
   {
-    out << "1) help - Выводит этот список команд с небольшим пояснением"
-        << '\n';
-    out << "2) load <file> - читает словари из файла";
+    out << "1) help";
+    out << " - Выводит этот список команд с небольшим пояснением" << '\n';
+    out << "2) load <file>";
+    out << " - читает словари из файла ";
     out << "(словарь в формате <dictName> key1 value1 key2 value2)" << '\n';
-    out << "3) save <file> <dicts> - записывает словари в файл в приведенном "
-           "выше формате"
-        << '\n';
-    out << "4) print <dict> - выводит отсортированный по значению словарь. ";
+    out << "3) save <file> <dicts>";
+    out << " - записывает словари в файл в приведенном выше формате" << '\n';
+    out << "4) print <dict>";
+    out << " - выводит отсортированный по значению словарь. ";
     out << "Все слова переводятся в нижний регистр" << '\n';
-    out << "5) union <command> <dict1> <dict2> <dict3> - создает словарь dict3 "
-           "с OR двух словарей*"
-        << '\n';
+    out << "5) union <command> <dict1> <dict2> <dict3>";
+    out << " - создает словарь dict3 с OR двух словарей*" << '\n';
     out << "6) intersection <command> <dict1> <dict2> <dict3>";
     out << " - создает словарь dict3 с AND двух словарей*" << '\n';
-    out << "7) diff <dict1> <dict2> <dict3> - создает словарь dict3 с XOR двух "
-           "словарей"
-        << '\n';
-    out << "8) read <file> <dict> - читает текст из файла и считает частоту "
-           "встречаемости слов"
-        << '\n';
-    out << "9) common <dict> <num> - выводит на экран топ <num> самых частых "
-           "слов"
-        << '\n';
-    out << "10) rare <dict> <num> - выводит на экран топ <num> самых редких "
-           "слов"
-        << '\n';
+    out << "7) diff <dict1> <dict2> <dict3>";
+    out << " - создает словарь dict3 с XOR двух словарей" << '\n';
+    out << "8) read <file> <dict>";
+    out << " - читает текст из файла ";
+    out << "и считает частоту встречаемости слов" << '\n';
+    out << "9) common <dict> <num>";
+    out << " - выводит на экран топ <num> самых частых слов" << '\n';
+    out << "10) rare <dict> <num>";
+    out << " - выводит на экран топ <num> самых редких слов" << '\n';
     out << "11) get <dict> <key> - выводит пару ключ : значение" << '\n';
-    out << "12) dicts - выводит список созданных словарей" << '\n';
-    out << "* <command> при дубликатах ключей используется указанная команда"
-        << '\n';
+    out << "12) dicts";
+    out << " - выводит список созданных словарей" << '\n';
+    out << "* <command>";
+    out << " при дубликатах ключей используется указанная команда" << '\n';
     out << "  PLUS - сумма значений" << '\n';
     out << "  MINUS - разность" << '\n';
     out << "  MIN - минимальное из значений" << '\n';
@@ -75,7 +72,7 @@ namespace {
     out << "  FIRST - берет значение из первого словаря";
     return out;
   }
-  OutS& listDicts(const DictOfFreqDicts& dicts, OutS& out)
+  OutS& listDicts(const Dicts& dicts, OutS& out)
   {
     for (const std::pair< std::string, FreqDict >& elem : dicts) {
       out << elem.first << ' ';
@@ -85,7 +82,7 @@ namespace {
     }
     return out;
   }
-  OutS& printDict(const DictOfFreqDicts& dicts, InS& in, OutS& out)
+  OutS& printDict(const Dicts& dicts, InS& in, OutS& out)
   {
     std::string dictName;
     in >> dictName;
@@ -96,7 +93,7 @@ namespace {
     ganiullin::print(out, dicts.find(dictName)->second);
     return out;
   }
-  OutS& printCommon(const DictOfFreqDicts& dicts, InS& in, OutS& out)
+  OutS& printCommon(const Dicts& dicts, InS& in, OutS& out)
   {
     std::string dictName;
     size_t num = 0;
@@ -108,7 +105,7 @@ namespace {
     }
     return out;
   }
-  OutS& printRare(const DictOfFreqDicts& dicts, InS& in, OutS& out)
+  OutS& printRare(const Dicts& dicts, InS& in, OutS& out)
   {
     std::string dictName;
     size_t num = 0;
@@ -120,7 +117,7 @@ namespace {
     }
     return out;
   }
-  OutS& printElem(const DictOfFreqDicts& dicts, InS& in, OutS& out)
+  OutS& printElem(const Dicts& dicts, InS& in, OutS& out)
   {
     std::string dictName;
     std::string word;
@@ -136,8 +133,8 @@ namespace {
     }
     return out;
   }
-  void getUnion(DictOfFreqDicts& dicts, const SubCommandDict& subCommDict,
-      InS& in, OutS& out)
+  void getUnion(Dicts& dicts, const SubCommDict& subCommDict, InS& in,
+      OutS& out)
   {
     std::string command;
     std::string lhs;
@@ -157,14 +154,14 @@ namespace {
     } else {
       const FreqDict& lhsDict = dicts.find(lhs)->second;
       const FreqDict& rhsDict = dicts.find(rhs)->second;
-      const SubCommand& subComm = subCommDict.find(command)->second;
+      const SubComm& subComm = subCommDict.find(command)->second;
 
       dicts[dictName] = ganiullin::merge(lhsDict, rhsDict, subComm);
       out << dictName;
     }
   }
-  void getIntersection(DictOfFreqDicts& dicts,
-      const SubCommandDict& subCommDict, InS& in, OutS& out)
+  void getIntersection(Dicts& dicts, const SubCommDict& subCommDict, InS& in,
+      OutS& out)
   {
     std::string command;
     std::string lhs;
@@ -184,13 +181,13 @@ namespace {
     } else {
       const FreqDict& lhsDict = dicts.find(lhs)->second;
       const FreqDict& rhsDict = dicts.find(rhs)->second;
-      const SubCommand& subComm = subCommDict.find(command)->second;
+      const SubComm& subComm = subCommDict.find(command)->second;
 
       dicts[dictName] = ganiullin::getIntersect(lhsDict, rhsDict, subComm);
       out << dictName;
     }
   }
-  void getDiff(DictOfFreqDicts& dicts, InS& in, OutS& out)
+  void getDiff(Dicts& dicts, InS& in, OutS& out)
   {
     std::string lhs;
     std::string rhs;
@@ -211,7 +208,7 @@ namespace {
     }
   }
 }
-void loadDicts(DictOfFreqDicts& dicts, InS& in, OutS& out)
+void loadDicts(Dicts& dicts, InS& in, OutS& out)
 {
   using del = ganiullin::DelimiterIO;
   std::string filename;
@@ -228,12 +225,12 @@ void loadDicts(DictOfFreqDicts& dicts, InS& in, OutS& out)
     ganiullin::loadDict(file, dicts[dictName]);
     if (!in) {
       in.clear();
-      in.ignore(MAX_STREAM_SIZE, '\n');
+      in.ignore(MAX_SIZE, '\n');
     }
   }
   out << "File " << filename << " successfully loaded";
 }
-void readIntoDict(DictOfFreqDicts& dicts, InS& in, OutS& out)
+void readIntoDict(Dicts& dicts, InS& in, OutS& out)
 {
   std::string filename;
   std::string dictName;
@@ -247,7 +244,7 @@ void readIntoDict(DictOfFreqDicts& dicts, InS& in, OutS& out)
   ganiullin::readText(file, dicts[dictName]);
   out << "File " << filename << " successfully loaded";
 }
-void saveDicts(const DictOfFreqDicts& dicts, InS& in, OutS& out)
+void saveDicts(const Dicts& dicts, InS& in, OutS& out)
 {
   std::string filename;
   in >> filename;
@@ -318,8 +315,8 @@ std::string CommHand::readCommand(InS& in) const
   }
   return command;
 }
-OutS& CommHand::execCommand(const std::string& command, DictOfFreqDicts& dicts,
-    InS& in, OutS& out) const
+OutS& CommHand::execCommand(const std::string& command, Dicts& dicts, InS& in,
+    OutS& out) const
 {
   if (infoFuncDict_.find(command) != std::end(infoFuncDict_)) {
     infoFuncDict_.find(command)->second(out);

@@ -7,24 +7,23 @@
 
 namespace ganiullin {
   using NodeType = std::pair< std::string, size_t >;
-  using FreqDict = std::unordered_map< std::string, size_t >;
+  using Dict = std::unordered_map< std::string, size_t >;
   using VectorDict = std::vector< std::pair< std::string, size_t > >;
-  using SubCommand = size_t (*)(const size_t&, const size_t&);
+  using SubComm = size_t (*)(const size_t&, const size_t&);
+  using OutS = std::ostream;
+  using InS = std::istream;
 
-  FreqDict merge(const FreqDict& lhs, const FreqDict& rhs,
-      const SubCommand getNewValue);
-  FreqDict getIntersect(const FreqDict& lhs, const FreqDict& rhs,
-      const SubCommand getNewValue);
-  FreqDict getDifference(const FreqDict& lhs, const FreqDict& rhs);
+  Dict merge(const Dict& lhs, const Dict& rhs, const SubComm getNewValue);
+  Dict getIntersect(const Dict& lhs, const Dict& rhs,
+      const SubComm getNewValue);
+  Dict getDifference(const Dict& lhs, const Dict& rhs);
   template < class T >
-  VectorDict getSorted(const FreqDict& src, const T& predicate);
-  std::ostream& print(std::ostream& out, const FreqDict& src);
-  std::ostream& printRareElems(std::ostream& out, const FreqDict& src,
-      size_t num);
-  std::ostream& printCommonElems(std::ostream& out, const FreqDict& src,
-      size_t num);
-  std::istream& readText(std::istream& in, FreqDict& src);
-  std::ifstream& loadDict(std::ifstream& in, FreqDict& src);
-  std::ofstream& saveDict(std::ofstream& out, const FreqDict& src);
+  VectorDict getSorted(const Dict& src, const T& predicate);
+  OutS& print(OutS& out, const Dict& src);
+  OutS& printRareElems(OutS& out, const Dict& src, size_t num);
+  OutS& printCommonElems(OutS& out, const Dict& src, size_t num);
+  InS& readText(InS& in, Dict& src);
+  std::ifstream& loadDict(std::ifstream& in, Dict& src);
+  std::ofstream& saveDict(std::ofstream& out, const Dict& src);
 }
 #endif

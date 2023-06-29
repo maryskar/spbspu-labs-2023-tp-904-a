@@ -6,29 +6,27 @@
 
 namespace ganiullin {
 
-  using DictOfFreqDicts = std::unordered_map< std::string, FreqDict >;
-  using SubCommandDict = std::unordered_map< std::string, SubCommand >;
+  using Dicts = std::unordered_map< std::string, Dict >;
+  using SubCommDict = std::unordered_map< std::string, SubComm >;
+  using OutS = std::ostream;
+  using InS = std::istream;
 
   class CommandHandler {
   public:
     CommandHandler();
     ~CommandHandler() = default;
 
-    std::string readCommand(std::istream& in) const;
-    std::ostream& execCommand(const std::string&, DictOfFreqDicts&,
-        std::istream&, std::ostream&) const;
+    std::string readCommand(InS& in) const;
+    OutS& execCommand(const std::string&, Dicts&, InS&, OutS&) const;
 
   private:
-    using InfoFunc = std::ostream& (*)(std::ostream&);
-    using StateFunc = std::ostream& (*)(const DictOfFreqDicts&, std::ostream&);
-    using PrintFunc = std::ostream& (*)(const DictOfFreqDicts&, std::istream&,
-        std::ostream&);
-    using FuncWithSub = void (*)(DictOfFreqDicts&, const SubCommandDict&,
-        std::istream&, std::ostream&);
-    using OutFileFunc = void (*)(const DictOfFreqDicts&, std::istream&,
-        std::ostream&);
-    using InFileFunc = void (*)(DictOfFreqDicts&, std::istream&, std::ostream&);
-    using FuncNoSub = void (*)(DictOfFreqDicts&, std::istream&, std::ostream&);
+    using InfoFunc = OutS& (*)(OutS&);
+    using StateFunc = OutS& (*)(const Dicts&, OutS&);
+    using PrintFunc = OutS& (*)(const Dicts&, InS&, OutS&);
+    using FuncWithSub = void (*)(Dicts&, const SubCommDict&, InS&, OutS&);
+    using OutFileFunc = void (*)(const Dicts&, InS&, OutS&);
+    using InFileFunc = void (*)(Dicts&, InS&, OutS&);
+    using FuncNoSub = void (*)(Dicts&, InS&, OutS&);
 
     std::unordered_map< std::string, InfoFunc > infoFuncDict_;
     std::unordered_map< std::string, StateFunc > stateFuncDict_;
@@ -37,7 +35,7 @@ namespace ganiullin {
     std::unordered_map< std::string, OutFileFunc > outFileFuncDict_;
     std::unordered_map< std::string, InFileFunc > inFileFuncDict_;
     std::unordered_map< std::string, FuncNoSub > funcNoSubDict_;
-    SubCommandDict subCommandDict_;
+    SubCommDict subCommandDict_;
   };
 }
 #endif
