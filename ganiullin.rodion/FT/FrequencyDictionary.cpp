@@ -7,7 +7,8 @@
 #include "TypesIO.h"
 
 namespace {
-  bool compareNodes(const ganiullin::NodeType& lhs, const ganiullin::NodeType& rhs)
+  bool compareNodes(const ganiullin::NodeType& lhs,
+      const ganiullin::NodeType& rhs)
   {
     if (lhs.second == rhs.second) {
       return lhs.first < rhs.first;
@@ -15,8 +16,8 @@ namespace {
     return lhs.second > rhs.second;
   }
 }
-ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs, const FreqDict& rhs,
-    const SubCommand func)
+ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs,
+    const FreqDict& rhs, const SubCommand func)
 {
   FreqDict res;
 
@@ -55,7 +56,8 @@ ganiullin::FreqDict ganiullin::merge(const FreqDict& lhs, const FreqDict& rhs,
   return res;
 }
 
-ganiullin::FreqDict ganiullin::getDifference(const FreqDict& lhs, const FreqDict& rhs)
+ganiullin::FreqDict ganiullin::getDifference(const FreqDict& lhs,
+    const FreqDict& rhs)
 {
   FreqDict res;
 
@@ -76,7 +78,8 @@ ganiullin::FreqDict ganiullin::getDifference(const FreqDict& lhs, const FreqDict
   return res;
 }
 template < class T >
-ganiullin::VectorDict ganiullin::getSorted(const FreqDict& src, const T& predicate)
+ganiullin::VectorDict ganiullin::getSorted(const FreqDict& src,
+    const T& predicate)
 {
   VectorDict res;
   res.reserve(src.size());
@@ -99,7 +102,8 @@ std::ostream& ganiullin::print(std::ostream& out, const FreqDict& src)
   }
   return out;
 }
-std::ostream& ganiullin::printRareElems(std::ostream& out, const FreqDict& src, size_t num)
+std::ostream& ganiullin::printRareElems(std::ostream& out, const FreqDict& src,
+    size_t num)
 {
   using namespace std::placeholders;
   auto compareNodesObj = std::bind(compareNodes, _1, _2);
@@ -116,7 +120,8 @@ std::ostream& ganiullin::printRareElems(std::ostream& out, const FreqDict& src, 
   }
   return out;
 }
-std::ostream& ganiullin::printCommonElems(std::ostream& out, const FreqDict& src, size_t num)
+std::ostream& ganiullin::printCommonElems(std::ostream& out,
+    const FreqDict& src, size_t num)
 {
   using namespace std::placeholders;
   auto compareNodesObj = std::bind(compareNodes, _1, _2);

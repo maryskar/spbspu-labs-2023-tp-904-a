@@ -15,16 +15,18 @@ namespace ganiullin {
     ~CommandHandler() = default;
 
     std::string readCommand(std::istream& in) const;
-    std::ostream& execCommand(const std::string&, DictOfFreqDicts&, std::istream&,
-        std::ostream&) const;
+    std::ostream& execCommand(const std::string&, DictOfFreqDicts&,
+        std::istream&, std::ostream&) const;
 
   private:
     using InfoFunc = std::ostream& (*)(std::ostream&);
     using StateFunc = std::ostream& (*)(const DictOfFreqDicts&, std::ostream&);
-    using PrintFunc = std::ostream& (*)(const DictOfFreqDicts&, std::istream&, std::ostream&);
-    using FuncWithSub = void (*)(DictOfFreqDicts&, const SubCommandDict&, std::istream&,
+    using PrintFunc = std::ostream& (*)(const DictOfFreqDicts&, std::istream&,
         std::ostream&);
-    using OutFileFunc = void (*)(const DictOfFreqDicts&, std::istream&, std::ostream&);
+    using FuncWithSub = void (*)(DictOfFreqDicts&, const SubCommandDict&,
+        std::istream&, std::ostream&);
+    using OutFileFunc = void (*)(const DictOfFreqDicts&, std::istream&,
+        std::ostream&);
     using InFileFunc = void (*)(DictOfFreqDicts&, std::istream&, std::ostream&);
     using FuncNoSub = void (*)(DictOfFreqDicts&, std::istream&, std::ostream&);
 
