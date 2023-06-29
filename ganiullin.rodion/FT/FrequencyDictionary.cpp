@@ -15,8 +15,7 @@ namespace {
     return lhs.second > rhs.second;
   }
 }
-ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs, const FreqDict& rhs,
-    const SubCommand func)
+ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs, const FreqDict& rhs, const SubCommand func)
 {
   FreqDict res;
 
@@ -30,8 +29,7 @@ ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs, const FreqDict&
   return res;
 }
 
-ganiullin::FreqDict ganiullin::merge(const FreqDict& lhs, const FreqDict& rhs,
-    const SubCommand func)
+ganiullin::FreqDict ganiullin::merge(const FreqDict& lhs, const FreqDict& rhs, const SubCommand func)
 {
   FreqDict res;
   res.reserve(std::max(lhs.size(), rhs.size()));
@@ -75,8 +73,7 @@ ganiullin::FreqDict ganiullin::getDifference(const FreqDict& lhs, const FreqDict
   }
   return res;
 }
-template < class T >
-ganiullin::VectorDict ganiullin::getSorted(const FreqDict& src, const T& predicate)
+template < class T > ganiullin::VectorDict ganiullin::getSorted(const FreqDict& src, const T& predicate)
 {
   VectorDict res;
   res.reserve(src.size());
@@ -101,9 +98,11 @@ std::ostream& ganiullin::print(std::ostream& out, const FreqDict& src)
 }
 std::ostream& ganiullin::printRareElems(std::ostream& out, const FreqDict& src, size_t num)
 {
-  auto compareNodeRev = std::bind(std::logical_not< bool >{}, compareNodes);
+  using namespace std::placeholders;
+  auto compareNodesObj = std::bind(compareNodes, _1, _2);
+  auto compareNodesRev = std::bind(std::logical_not< bool > {}, compareNodesObj);
 
-  VectorDict res = getSorted(src, compareNodeRev);
+  VectorDict res = getSorted(src, compareNodesRev);
 
   for (const NodeType& elem : res) {
     out << '"' << elem.first << "\" " << elem.second << '\n';
@@ -116,7 +115,9 @@ std::ostream& ganiullin::printRareElems(std::ostream& out, const FreqDict& src, 
 }
 std::ostream& ganiullin::printCommonElems(std::ostream& out, const FreqDict& src, size_t num)
 {
-  VectorDict res = getSorted(src, compareNodes);
+  using namespace std::placeholders;
+  auto compareNodesObj = std::bind(compareNodes, _1, _2);
+  VectorDict res = getSorted(src, compareNodesObj);
 
   for (const NodeType& elem : res) {
     out << '"' << elem.first << "\" " << elem.second << '\n';
@@ -131,7 +132,7 @@ std::istream& ganiullin::readText(std::istream& in, FreqDict& src)
 {
   while (!in.eof()) {
     std::string word = "";
-    in >> ganiullin::WordIO{word};
+    in >> ganiullin::WordIO {word};
     if (word.size() != 0) {
       src[word] += 1;
     }
@@ -147,7 +148,7 @@ std::ifstream& ganiullin::loadDict(std::ifstream& in, FreqDict& src)
     std::string word = "";
     size_t val = 0;
 
-    in >> ganiullin::EntryI{word, val};
+    in >> ganiullin::EntryI {word, val};
     src[word] = val;
   }
   return in;

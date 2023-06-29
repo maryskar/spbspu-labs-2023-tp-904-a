@@ -6,46 +6,27 @@
 #include "Geometry.h"
 
 namespace ganiullin {
-  void printAreaEven(const std::vector< Polygon >& polygons, std::ostream& out);
-  void printAreaOdd(const std::vector< Polygon >& polygons, std::ostream& out);
-  void printAreaMean(const std::vector< Polygon >& polygons, std::ostream& out);
-  void printMaxArea(const std::vector< Polygon >& polygons, std::ostream& out);
-  void printMinArea(const std::vector< Polygon >& polygons, std::ostream& out);
-  void printMaxVertexNum(const std::vector< Polygon >& polygons,
-      std::ostream& out);
-  void printMinVertexNum(const std::vector< Polygon >& polygons,
-      std::ostream& out);
-  void printCountEven(const std::vector< Polygon >& polygons,
-      std::ostream& out);
-  void printCountOdd(const std::vector< Polygon >& polygons, std::ostream& out);
 
-  void printAreaVertexNum(const std::vector< Polygon >& polygons,
-      size_t vertexNum, std::ostream& out);
-  void printCountVertexNum(const std::vector< Polygon >& polygons,
-      size_t vertexNum, std::ostream& out);
+  std::ostream& printErrorMessage(std::ostream& out);
+  std::ostream& printBool(std::ostream& out, bool val);
 
-  void printInFrame(const std::vector< Polygon >& polygons, const Polygon& fig,
-      std::ostream& out);
-  void printSame(const std::vector< Polygon >& polygons, const Polygon& fig,
-      std::ostream& out);
+  class CommandHandler {
+  public:
+    CommandHandler();
+    ~CommandHandler() = default;
 
-  struct command_dicts_t {
-    std::map< std::string, void (*)(const std::vector< Polygon >& polygons,
-                               const Polygon& fig, std::ostream& out) >
-        polygonCommandDict;
-    std::map< std::string, void (*)(const std::vector< Polygon >& polygons,
-                               const size_t vertexes, std::ostream& out) >
-        vertexCommandDict;
-    std::map< std::string,
-        void (*)(const std::vector< Polygon >& polygons, std::ostream& out) >
-        stateCommandDict;
+    std::string readCommand(std::istream& in) const;
+    std::ostream& execCommand(const std::string&, const std::vector< Polygon >&, std::istream&, std::ostream&) const;
+
+  private:
+    using Polygons = std::vector< Polygon >;
+    using PolygonCommand = std::ostream& (*)(const Polygons& polygons, const Polygon& fig, std::ostream& out);
+    using VertCommand = std::ostream& (*)(const Polygons& polygons, const size_t vertexes, std::ostream& out);
+    using StateCommand = std::ostream& (*)(const Polygons& polygons, std::ostream& out);
+
+    std::map< std::string, PolygonCommand > polygonCommandDict_;
+    std::map< std::string, VertCommand > vertexCommandDict_;
+    std::map< std::string, StateCommand > stateCommandDict_;
   };
-  std::string readCommand(std::istream& in, const command_dicts_t& commandDict);
-  void executeCommand(const std::string& command,
-      const std::vector< Polygon > polygons, command_dicts_t commandDicts,
-      std::istream& in, std::ostream& out);
-
-  void printErrorMessage(std::ostream& out);
-  command_dicts_t createCommandDicts();
 }
 #endif
