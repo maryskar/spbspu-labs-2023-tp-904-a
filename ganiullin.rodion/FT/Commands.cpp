@@ -33,24 +33,36 @@ namespace {
   }
   std::ostream& help(std::ostream& out)
   {
-    out << "1) help - Выводит этот список команд с небольшим пояснением" << '\n';
+    out << "1) help - Выводит этот список команд с небольшим пояснением"
+        << '\n';
     out << "2) load <file> - читает словари из файла";
     out << "(словарь в формате <dictName> key1 value1 key2 value2)" << '\n';
-    out << "3) save <file> <dicts> - записывает словари в файл в приведенном выше формате" << '\n';
+    out << "3) save <file> <dicts> - записывает словари в файл в приведенном "
+           "выше формате"
+        << '\n';
     out << "4) print <dict> - выводит отсортированный по значению словарь. ";
     out << "Все слова переводятся в нижний регистр" << '\n';
-    out << "5) union <command> <dict1> <dict2> <dict3> - создает словарь dict3 с OR двух словарей*"
+    out << "5) union <command> <dict1> <dict2> <dict3> - создает словарь dict3 "
+           "с OR двух словарей*"
         << '\n';
     out << "6) intersection <command> <dict1> <dict2> <dict3>";
     out << " - создает словарь dict3 с AND двух словарей*" << '\n';
-    out << "7) diff <dict1> <dict2> <dict3> - создает словарь dict3 с XOR двух словарей" << '\n';
-    out << "8) read <file> <dict> - читает текст из файла и считает частоту встречаемости слов"
+    out << "7) diff <dict1> <dict2> <dict3> - создает словарь dict3 с XOR двух "
+           "словарей"
         << '\n';
-    out << "9) common <dict> <num> - выводит на экран топ <num> самых частых слов" << '\n';
-    out << "10) rare <dict> <num> - выводит на экран топ <num> самых редких слов" << '\n';
+    out << "8) read <file> <dict> - читает текст из файла и считает частоту "
+           "встречаемости слов"
+        << '\n';
+    out << "9) common <dict> <num> - выводит на экран топ <num> самых частых "
+           "слов"
+        << '\n';
+    out << "10) rare <dict> <num> - выводит на экран топ <num> самых редких "
+           "слов"
+        << '\n';
     out << "11) get <dict> <key> - выводит пару ключ : значение" << '\n';
     out << "12) dicts - выводит список созданных словарей" << '\n';
-    out << "* <command> при дубликатах ключей используется указанная команда" << '\n';
+    out << "* <command> при дубликатах ключей используется указанная команда"
+        << '\n';
     out << "  PLUS - сумма значений" << '\n';
     out << "  MINUS - разность" << '\n';
     out << "  MIN - минимальное из значений" << '\n';
@@ -65,7 +77,8 @@ namespace {
     }
     return out;
   }
-  std::ostream& printDict(const DictOfFreqDicts& dicts, std::istream& in, std::ostream& out)
+  std::ostream& printDict(const DictOfFreqDicts& dicts, std::istream& in,
+      std::ostream& out)
   {
     std::string dictName;
     in >> dictName;
@@ -76,7 +89,8 @@ namespace {
     ganiullin::print(out, dicts.find(dictName)->second);
     return out;
   }
-  std::ostream& printCommon(const DictOfFreqDicts& dicts, std::istream& in, std::ostream& out)
+  std::ostream& printCommon(const DictOfFreqDicts& dicts, std::istream& in,
+      std::ostream& out)
   {
     std::string dictName;
     size_t num;
@@ -88,7 +102,8 @@ namespace {
     }
     return out;
   }
-  std::ostream& printRare(const DictOfFreqDicts& dicts, std::istream& in, std::ostream& out)
+  std::ostream& printRare(const DictOfFreqDicts& dicts, std::istream& in,
+      std::ostream& out)
   {
     std::string dictName;
     size_t num;
@@ -100,7 +115,8 @@ namespace {
     }
     return out;
   }
-  std::ostream& printElem(const DictOfFreqDicts& dicts, std::istream& in, std::ostream& out)
+  std::ostream& printElem(const DictOfFreqDicts& dicts, std::istream& in,
+      std::ostream& out)
   {
     std::string dictName;
     std::string word;
@@ -116,8 +132,8 @@ namespace {
     }
     return out;
   }
-  void getUnion(DictOfFreqDicts& dicts, const SubCommandDict& subCommDict, std::istream& in,
-      std::ostream& out)
+  void getUnion(DictOfFreqDicts& dicts, const SubCommandDict& subCommDict,
+      std::istream& in, std::ostream& out)
   {
     std::string command;
     std::string lhs;
@@ -142,8 +158,8 @@ namespace {
       dicts[dictName] = ganiullin::merge(lhsDict, rhsDict, subComm);
     }
   }
-  void getIntersection(DictOfFreqDicts& dicts, const SubCommandDict& subCommDict, std::istream& in,
-      std::ostream& out)
+  void getIntersection(DictOfFreqDicts& dicts,
+      const SubCommandDict& subCommDict, std::istream& in, std::ostream& out)
   {
     std::string command;
     std::string lhs;
@@ -220,7 +236,8 @@ void readIntoDict(DictOfFreqDicts& dicts, std::istream& in, std::ostream& out)
   ganiullin::readText(file, dicts[dictName]);
   out << "dict successfully loaded";
 }
-void saveDicts(const DictOfFreqDicts& dicts, std::istream& in, std::ostream& out)
+void saveDicts(const DictOfFreqDicts& dicts, std::istream& in,
+    std::ostream& out)
 {
   std::string filename;
   in >> filename;

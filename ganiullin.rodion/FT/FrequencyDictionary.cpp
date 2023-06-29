@@ -15,7 +15,8 @@ namespace {
     return lhs.second > rhs.second;
   }
 }
-ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs, const FreqDict& rhs, const SubCommand func)
+ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs, const FreqDict& rhs,
+    const SubCommand func)
 {
   FreqDict res;
 
@@ -29,7 +30,8 @@ ganiullin::FreqDict ganiullin::getIntersect(const FreqDict& lhs, const FreqDict&
   return res;
 }
 
-ganiullin::FreqDict ganiullin::merge(const FreqDict& lhs, const FreqDict& rhs, const SubCommand func)
+ganiullin::FreqDict ganiullin::merge(const FreqDict& lhs, const FreqDict& rhs,
+    const SubCommand func)
 {
   FreqDict res;
   res.reserve(std::max(lhs.size(), rhs.size()));
@@ -73,7 +75,8 @@ ganiullin::FreqDict ganiullin::getDifference(const FreqDict& lhs, const FreqDict
   }
   return res;
 }
-template < class T > ganiullin::VectorDict ganiullin::getSorted(const FreqDict& src, const T& predicate)
+template < class T >
+ganiullin::VectorDict ganiullin::getSorted(const FreqDict& src, const T& predicate)
 {
   VectorDict res;
   res.reserve(src.size());

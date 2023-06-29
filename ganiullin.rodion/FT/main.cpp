@@ -9,7 +9,7 @@ constexpr size_t MAX_STREAM_SIZE = std::numeric_limits< std::streamsize >::max()
 int main()
 {
   ganiullin::DictOfFreqDicts dicts;
-  ganiullin::CommandHandler commandHandler {};
+  ganiullin::CommandHandler commandHandler{};
 
   while (!std::cin.eof()) {
     try {
