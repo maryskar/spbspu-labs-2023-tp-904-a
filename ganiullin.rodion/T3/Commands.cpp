@@ -298,8 +298,9 @@ OutS& ganiullin::printBool(OutS& out, bool val)
 {
   if (val) {
     out << "<TRUE>";
+  } else {
+    out << "<FALSE>";
   }
-  out << "<FALSE>";
   return out;
 }
 
