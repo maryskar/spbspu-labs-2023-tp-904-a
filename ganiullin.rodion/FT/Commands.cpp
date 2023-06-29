@@ -114,7 +114,8 @@ namespace {
     }
     return out;
   }
-  void getUnion(DictOfFreqDicts& dicts, const SubCommandDict& subCommDict, std::istream& in, std::ostream& out)
+  void getUnion(DictOfFreqDicts& dicts, const SubCommandDict& subCommDict, std::istream& in,
+      std::ostream& out)
   {
     std::string command;
     std::string lhs;
@@ -139,7 +140,8 @@ namespace {
       dicts[dictName] = ganiullin::merge(lhsDict, rhsDict, subComm);
     }
   }
-  void getIntersection(DictOfFreqDicts& dicts, const SubCommandDict& subCommDict, std::istream& in, std::ostream& out)
+  void getIntersection(DictOfFreqDicts& dicts, const SubCommandDict& subCommDict, std::istream& in,
+      std::ostream& out)
   {
     std::string command;
     std::string lhs;
