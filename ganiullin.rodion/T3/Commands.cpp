@@ -204,12 +204,9 @@ namespace {
 
     return std::count_if(polygonsBeginIt, polygonsEndIt, hasVertexesEqualToNum);
   }
-  std::string processInFrame(const PolyVector& polygons, const ganiullin::Polygon& fig)
+  bool processInFrame(const PolyVector& polygons, const ganiullin::Polygon& fig)
   {
-    if (ganiullin::isInFrame(fig, getFrame(polygons))) {
-      return "<TRUE>";
-    }
-    return "<FALSE>";
+    return ganiullin::isInFrame(fig, getFrame(polygons));
   }
 
   size_t processSame(const PolyVector& polygons, const ganiullin::Polygon& fig)
@@ -283,7 +280,8 @@ namespace {
 
   OutS& printInFrame(const PolyVector& polygons, const ganiullin::Polygon& fig, OutS& out)
   {
-    return out << processInFrame(polygons, fig);
+    ganiullin::printBool(out, processInFrame(polygons, fig));
+    return out;
   }
 
   OutS& printSame(const PolyVector& polygons, const ganiullin::Polygon& fig, OutS& out)
@@ -295,6 +293,14 @@ namespace {
 OutS& ganiullin::printErrorMessage(OutS& out)
 {
   return out << "<INVALID COMMAND>";
+}
+OutS& ganiullin::printBool(OutS& out, bool val)
+{
+  if (val) {
+    out << "<TRUE>";
+  }
+  out << "<FALSE>";
+  return out;
 }
 
 ganiullin::CommandHandler::CommandHandler():

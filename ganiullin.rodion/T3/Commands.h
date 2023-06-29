@@ -8,6 +8,7 @@
 namespace ganiullin {
 
   std::ostream& printErrorMessage(std::ostream& out);
+  std::ostream& printBool(std::ostream& out, bool val);
 
   class CommandHandler {
   public:
