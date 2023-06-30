@@ -29,8 +29,8 @@ Dict ganiullin::getIntersect(const Dict& lhs, const Dict& rhs,
     size_t valueToInsert = 0;
     if (rhs.find(elem.first) != rhs.end()) {
       valueToInsert = func(elem.second, rhs.find(elem.first)->second);
+      res[elem.first] = valueToInsert;
     }
-    res[elem.first] = valueToInsert;
   }
   return res;
 }
