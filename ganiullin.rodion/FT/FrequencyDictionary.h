@@ -20,6 +20,7 @@ namespace ganiullin {
   template < class T >
   VectorDict getSorted(const Dict& src, const T& predicate);
   OutS& print(OutS& out, const Dict& src);
+  OutS& printSomeElems(OutS& out, const VectorDict& src, size_t num);
   OutS& printRareElems(OutS& out, const Dict& src, size_t num);
   OutS& printCommonElems(OutS& out, const Dict& src, size_t num);
   InS& readText(InS& in, Dict& src);

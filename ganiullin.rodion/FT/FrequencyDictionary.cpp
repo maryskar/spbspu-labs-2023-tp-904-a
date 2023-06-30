@@ -97,10 +97,8 @@ ganiullin::VectorDict ganiullin::getSorted(const Dict& src, const T& predicate)
 OutS& ganiullin::print(OutS& out, const Dict& src)
 {
   VectorDict res = getSorted(src, compareNodes);
+  printSomeElems(out, res, res.size());
 
-  for (const NodeType& elem : res) {
-    out << '"' << elem.first << "\" " << elem.second << '\n';
-  }
   return out;
 }
 OutS& ganiullin::printRareElems(OutS& out, const Dict& src, size_t num)
@@ -111,13 +109,7 @@ OutS& ganiullin::printRareElems(OutS& out, const Dict& src, size_t num)
 
   VectorDict res = getSorted(src, compareNodesRev);
 
-  for (const NodeType& elem : res) {
-    out << '"' << elem.first << "\" " << elem.second << '\n';
-    num--;
-    if (num <= 0) {
-      break;
-    }
-  }
+  printSomeElems(out, res, num);
   return out;
 }
 OutS& ganiullin::printCommonElems(OutS& out, const Dict& src, size_t num)
@@ -126,11 +118,16 @@ OutS& ganiullin::printCommonElems(OutS& out, const Dict& src, size_t num)
   auto compareNodesObj = std::bind(compareNodes, _1, _2);
   VectorDict res = getSorted(src, compareNodesObj);
 
-  for (const NodeType& elem : res) {
-    out << '"' << elem.first << "\" " << elem.second << '\n';
-    num--;
-    if (num <= 0) {
-      break;
+  printSomeElems(out, res, num);
+  return out;
+}
+OutS& ganiullin::printSomeElems(OutS& out, const VectorDict& src, size_t num)
+{
+  for (size_t i = 0; i < num && i < src.size(); i++) {
+    NodeType elem = src[i];
+    out << EntryO{elem};
+    if (i != num - 1 && i != src.size() - 1) {
+      out << '\n';
     }
   }
   return out;

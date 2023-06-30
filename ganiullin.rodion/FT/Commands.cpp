@@ -129,7 +129,7 @@ namespace {
       out << "No such word " << word << " in dict " << dictName;
     } else {
       NodeType node = *(dictIt->second.find(word));
-      out << node.first << ' ' << node.second;
+      out << ganiullin::EntryO{node};
     }
     return out;
   }

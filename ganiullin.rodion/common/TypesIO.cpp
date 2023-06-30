@@ -116,3 +116,8 @@ InS& ganiullin::operator>>(InS& in, ULongLongIO&& dest)
   }
   return in >> LabelIO{"0x"} >> std::hex >> dest.ref;
 }
+OutS& ganiullin::operator<<(OutS& out, const EntryO&& dest)
+{
+  out << '"' << dest.ref.first << "\" " << dest.ref.second;
+  return out;
+}
