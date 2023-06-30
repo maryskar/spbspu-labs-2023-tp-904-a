@@ -139,7 +139,7 @@ InS& ganiullin::readText(InS& in, Dict& src)
 {
   while (!in.eof()) {
     std::string word = "";
-    in >> ganiullin::WordIO{word};
+    in >> WordIO{word};
     if (word.size() != 0) {
       src[word] += 1;
     }
@@ -155,7 +155,7 @@ std::ifstream& ganiullin::loadDict(std::ifstream& in, Dict& src)
     std::string word = "";
     size_t val = 0;
 
-    in >> ganiullin::EntryI{word, val};
+    in >> EntryI{word, val};
     src[word] = val;
   }
   return in;

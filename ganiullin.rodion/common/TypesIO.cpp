@@ -13,7 +13,7 @@ InS& ganiullin::operator>>(InS& in, EntryI&& dest)
   in >> dest.ref >> dest.val;
   return in;
 }
-InS& ganiullin::operator>>(InS& in, ganiullin::DelimiterIO&& dest)
+InS& ganiullin::operator>>(InS& in, DelimiterIO&& dest)
 {
   InS::sentry sentry(in);
   if (!sentry) {
@@ -26,7 +26,7 @@ InS& ganiullin::operator>>(InS& in, ganiullin::DelimiterIO&& dest)
   }
   return in;
 }
-InS& ganiullin::operator>>(InS& in, ganiullin::WordIO&& dest)
+InS& ganiullin::operator>>(InS& in, WordIO&& dest)
 {
   InS::sentry sentry(in);
   if (!sentry) {
@@ -87,32 +87,32 @@ OutS& ganiullin::operator<<(OutS& out, const DoubleO&& dest)
              << (exponent < 0 ? "e" : "e+") << exponent;
 }
 
-InS& ganiullin::operator>>(InS& in, ganiullin::StringIO&& dest)
+InS& ganiullin::operator>>(InS& in, StringIO&& dest)
 {
   InS::sentry sentry(in);
   if (!sentry) {
     return in;
   }
-  return std::getline(in >> ganiullin::DelimiterIO{'"'}, dest.ref, '"');
+  return std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
 }
 
-InS& ganiullin::operator>>(InS& in, ganiullin::LabelIO&& dest)
+InS& ganiullin::operator>>(InS& in, LabelIO&& dest)
 {
   InS::sentry sentry(in);
   if (!sentry) {
     return in;
   }
   for (size_t i = 0; i < dest.exp.size(); i++) {
-    in >> ganiullin::DelimiterIO{dest.exp[i]};
+    in >> DelimiterIO{dest.exp[i]};
   }
   return in;
 }
 
-InS& ganiullin::operator>>(InS& in, ganiullin::ULongLongIO&& dest)
+InS& ganiullin::operator>>(InS& in, ULongLongIO&& dest)
 {
   InS::sentry sentry(in);
   if (!sentry) {
     return in;
   }
-  return in >> ganiullin::LabelIO{"0x"} >> std::hex >> dest.ref;
+  return in >> LabelIO{"0x"} >> std::hex >> dest.ref;
 }
