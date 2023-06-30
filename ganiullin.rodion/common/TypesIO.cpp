@@ -4,15 +4,18 @@
 #include <iomanip>
 #include "FormatGuard.h"
 
-std::istream& ganiullin::operator>>(std::istream& in, EntryI&& dest)
+using OutS = std::ostream;
+using InS = std::istream;
+
+InS& ganiullin::operator>>(InS& in, EntryI&& dest)
 {
-  std::istream::sentry sentry(in);
+  InS::sentry sentry(in);
   in >> dest.ref >> dest.val;
   return in;
 }
-std::istream& ganiullin::operator>>(std::istream& in, DelimiterIO&& dest)
+InS& ganiullin::operator>>(InS& in, ganiullin::DelimiterIO&& dest)
 {
-  std::istream::sentry sentry(in);
+  InS::sentry sentry(in);
   if (!sentry) {
     return in;
   }
@@ -23,9 +26,9 @@ std::istream& ganiullin::operator>>(std::istream& in, DelimiterIO&& dest)
   }
   return in;
 }
-std::istream& ganiullin::operator>>(std::istream& in, WordIO&& dest)
+InS& ganiullin::operator>>(InS& in, ganiullin::WordIO&& dest)
 {
-  std::istream::sentry sentry(in);
+  InS::sentry sentry(in);
   if (!sentry) {
     return in;
   }
@@ -47,18 +50,18 @@ std::istream& ganiullin::operator>>(std::istream& in, WordIO&& dest)
   }
   return in;
 }
-std::istream& ganiullin::operator>>(std::istream& in, DoubleI&& dest)
+InS& ganiullin::operator>>(InS& in, DoubleI&& dest)
 {
-  std::istream::sentry sentry(in);
+  InS::sentry sentry(in);
   if (!sentry) {
     return in;
   }
   return in >> std::scientific >> dest.ref;
 }
 
-std::ostream& ganiullin::operator<<(std::ostream& out, const DoubleO&& dest)
+OutS& ganiullin::operator<<(OutS& out, const DoubleO&& dest)
 {
-  std::ostream::sentry sentry(out);
+  OutS::sentry sentry(out);
   iofmtguard iofmtguard(out);
   if (!sentry) {
     return out;
@@ -84,18 +87,18 @@ std::ostream& ganiullin::operator<<(std::ostream& out, const DoubleO&& dest)
              << (exponent < 0 ? "e" : "e+") << exponent;
 }
 
-std::istream& ganiullin::operator>>(std::istream& in, StringIO&& dest)
+InS& ganiullin::operator>>(InS& in, ganiullin::StringIO&& dest)
 {
-  std::istream::sentry sentry(in);
+  InS::sentry sentry(in);
   if (!sentry) {
     return in;
   }
   return std::getline(in >> ganiullin::DelimiterIO{'"'}, dest.ref, '"');
 }
 
-std::istream& ganiullin::operator>>(std::istream& in, LabelIO&& dest)
+InS& ganiullin::operator>>(InS& in, ganiullin::LabelIO&& dest)
 {
-  std::istream::sentry sentry(in);
+  InS::sentry sentry(in);
   if (!sentry) {
     return in;
   }
@@ -105,9 +108,9 @@ std::istream& ganiullin::operator>>(std::istream& in, LabelIO&& dest)
   return in;
 }
 
-std::istream& ganiullin::operator>>(std::istream& in, ULongLongIO&& dest)
+InS& ganiullin::operator>>(InS& in, ganiullin::ULongLongIO&& dest)
 {
-  std::istream::sentry sentry(in);
+  InS::sentry sentry(in);
   if (!sentry) {
     return in;
   }
