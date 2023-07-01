@@ -115,12 +115,20 @@ namespace tarasenko
 
   double getMaxArea(const std::vector< Polygon >& data)
   {
+    if (data.empty())
+    {
+      throw std::invalid_argument("Data is empty");
+    }
     std::vector< double > areas = getAreasOf(data);
     return *std::max_element(areas.begin(), areas.end());
   }
 
   double getMinArea(const std::vector< Polygon >& data)
   {
+    if (data.empty())
+    {
+      throw std::invalid_argument("Data is empty");
+    }
     std::vector< double > areas = getAreasOf(data);
     return *std::min_element(areas.begin(), areas.end());
   }
@@ -134,12 +142,20 @@ namespace tarasenko
 
   size_t getMaxVerts(const std::vector< Polygon >& data)
   {
+    if (data.empty())
+    {
+      throw std::invalid_argument("Data is empty");
+    }
     std::vector< size_t > verts = getVertsOf(data);
     return *std::max_element(verts.begin(), verts.end());
   }
 
   size_t getMinVerts(const std::vector< Polygon >& data)
   {
+    if (data.empty())
+    {
+      throw std::invalid_argument("Data is empty");
+    }
     std::vector< size_t > verts = getVertsOf(data);
     return *std::min_element(verts.begin(), verts.end());
   }
