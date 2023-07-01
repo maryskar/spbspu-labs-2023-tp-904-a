@@ -5,6 +5,7 @@
 #include <functional>
 #include <algorithm>
 #include <numeric>
+#include <iterator>
 #include "data_struct.h"
 
 namespace tarasenko
@@ -305,6 +306,25 @@ namespace tarasenko
     bool cond_1 = p1_poly.x >= p1_data.x && p1_poly.y >= p1_data.y;
     bool cond_2 = p2_poly.x <= p2_data.x && p2_poly.y <= p2_data.y;
     return cond_1 && cond_2;
+  }
+
+  Polygon& getFrameRect(std::istream& in, Polygon& polygon)
+  {
+    size_t count = 0;
+    in >> count;
+    if (count != 4)
+    {
+      throw std::invalid_argument("Incorrect rectangle");
+    }
+    std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(polygon.points));
+    if (in)
+    {
+      return polygon;
+    }
+    else
+    {
+      throw std::invalid_argument("Incorrect rectangle");
+    }
   }
 }
 #endif
