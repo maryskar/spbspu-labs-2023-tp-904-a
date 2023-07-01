@@ -223,11 +223,12 @@ void loadDicts(Dicts& dicts, InS& in, OutS& out)
     std::string dictName;
     file >> dictName;
     ganiullin::loadDict(file, dicts[dictName]);
-    if (!in) {
-      in.clear();
-      in.ignore(MAX_SIZE, '\n');
+    if (!file) {
+      file.clear();
+      file.ignore(MAX_SIZE, '\n');
     }
   }
+  file.close();
   out << "File " << filename << " successfully loaded";
 }
 void readIntoDict(Dicts& dicts, InS& in, OutS& out)
@@ -242,6 +243,7 @@ void readIntoDict(Dicts& dicts, InS& in, OutS& out)
     return;
   }
   ganiullin::readText(file, dicts[dictName]);
+  file.close();
   out << "File " << filename << " successfully loaded";
 }
 void saveDicts(const Dicts& dicts, InS& in, OutS& out)
@@ -262,7 +264,9 @@ void saveDicts(const Dicts& dicts, InS& in, OutS& out)
     }
     file << dictName << ' ';
     ganiullin::saveDict(file, dicts.find(dictName)->second);
+    file << '\n';
   }
+  file.close();
   out << "File " << filename << " successfully loaded";
 }
 using CommHand = ganiullin::CommandHandler;

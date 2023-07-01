@@ -10,7 +10,7 @@ using InS = std::istream;
 InS& ganiullin::operator>>(InS& in, EntryI&& dest)
 {
   InS::sentry sentry(in);
-  in >> dest.ref >> dest.val;
+  in >> WordIO{dest.ref} >> dest.val;
   return in;
 }
 InS& ganiullin::operator>>(InS& in, DelimiterIO&& dest)

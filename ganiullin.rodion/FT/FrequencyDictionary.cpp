@@ -26,9 +26,8 @@ Dict ganiullin::getIntersect(const Dict& lhs, const Dict& rhs,
   Dict res;
 
   for (const NodeType& elem : lhs) {
-    size_t valueToInsert = 0;
     if (rhs.find(elem.first) != rhs.end()) {
-      valueToInsert = func(elem.second, rhs.find(elem.first)->second);
+      size_t valueToInsert = func(elem.second, rhs.find(elem.first)->second);
       res[elem.first] = valueToInsert;
     }
   }
@@ -50,11 +49,9 @@ Dict ganiullin::merge(const Dict& lhs, const Dict& rhs, const SubComm func)
     res[elem.first] = valueToInsert;
   }
   for (const NodeType& elem : rhs) {
-    size_t valueToInsert = 0;
     if (res.find(elem.first) == res.end()) {
-      valueToInsert = elem.second;
+      res[elem.first] = elem.second;
     }
-    res[elem.first] = elem.second;
   }
   return res;
 }
@@ -64,18 +61,14 @@ Dict ganiullin::getDifference(const Dict& lhs, const Dict& rhs)
   Dict res;
 
   for (const NodeType& elem : lhs) {
-    size_t valueToInsert = 0;
     if (rhs.find(elem.first) == rhs.end()) {
-      valueToInsert = elem.second;
+      res[elem.first] = elem.second;
     }
-    res[elem.first] = valueToInsert;
   }
   for (const NodeType& elem : rhs) {
-    size_t valueToInsert = 0;
     if (lhs.find(elem.first) == lhs.end()) {
-      valueToInsert = elem.second;
+      res[elem.first] = elem.second;
     }
-    res[elem.first] = elem.second;
   }
   return res;
 }
@@ -162,8 +155,13 @@ std::ofstream& ganiullin::saveDict(std::ofstream& out, const Dict& src)
   if (!out.is_open()) {
     throw std::runtime_error("Could not open file");
   }
+  size_t i = 0;
   for (const NodeType& elem : src) {
-    out << elem.first << ' ' << elem.second << ' ';
+    i++;
+    out << elem.first << ' ' << elem.second;
+    if (i < src.size()) {
+      out << ' ';
+    }
   }
   return out;
 }
