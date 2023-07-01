@@ -2,7 +2,6 @@
 #define CALL_H
 
 #include <iostream>
-#include <stdexcept>
 #include <string>
 #include <vector>
 #include <iomanip>
