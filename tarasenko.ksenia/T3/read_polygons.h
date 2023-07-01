@@ -7,6 +7,6 @@
 
 namespace tarasenko
 {
-  std::vector< Polygon > readPolygons(std::istream& in);
+  std::vector< Polygon > readPolygons(std::ifstream& in);
 }
 #endif

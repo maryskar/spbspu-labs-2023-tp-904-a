@@ -1,6 +1,20 @@
 #include "data_struct.h"
+#include <algorithm>
+#include <iterator>
 #include <structs_io.h>
 #include <iofmtguard.h>
+
+std::istream& tarasenko::operator>>(std::istream& in, Point& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  using sep = DelimiterIO;
+  in >> sep{'('} >> dest.x >> sep{';'} >> dest.y >> sep{')'};
+  return in;
+}
 
 std::ostream& tarasenko::operator<<(std::ostream& out, const Polygon& src)
 {
@@ -9,7 +23,6 @@ std::ostream& tarasenko::operator<<(std::ostream& out, const Polygon& src)
   {
     return out;
   }
-  iofmtguard fmtguard(out);
   out << '(' << src.points[0].x << ";" << src.points[0].y << ')';
   for (size_t i = 1; i < src.points.size(); ++i)
   {
@@ -26,18 +39,14 @@ std::istream& tarasenko::operator>>(std::istream& in, Polygon& dest)
     return in;
   }
   Polygon input;
+  size_t count = 0;
+  in >> count;
+  if (count < 3)
   {
-    using sep = DelimiterIO;
-
-    size_t n;
-    in >> n;
-    for (size_t i = 0; i < n; i++)
-    {
-      Point p;
-      in >> sep{'('} >> p.x >> sep{';'} >> p.y >> sep{')'};
-      input.points.push_back(p);
-    }
+    in.setstate(std::ios::failbit);
+    return in;
   }
+  std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(input.points));
   if (in)
   {
     dest = input;
