@@ -74,8 +74,13 @@ namespace {
   }
   OutS& listDicts(const Dicts& dicts, OutS& out)
   {
+    size_t i = 0;
     for (const std::pair< std::string, FreqDict >& elem : dicts) {
-      out << elem.first << ' ';
+      out << elem.first;
+      ++i;
+      if (i != dicts.size()) {
+        out << ' ';
+      }
     }
     if (dicts.size() == 0) {
       out << "No dicts";
@@ -222,7 +227,9 @@ void loadDicts(Dicts& dicts, InS& in, OutS& out)
   while (!file.eof()) {
     std::string dictName;
     file >> dictName;
-    ganiullin::loadDict(file, dicts[dictName]);
+    if (dictName.size() != 0) {
+      ganiullin::loadDict(file, dicts[dictName]);
+    }
     if (!file) {
       file.clear();
       file.ignore(MAX_SIZE, '\n');
