@@ -1,10 +1,9 @@
 #include "read_polygons.h"
-#include <fstream>
 #include <string>
 #include <iterator>
 #include <limits>
 
-std::vector< tarasenko::Polygon > tarasenko::readPolygons(std::ifstream& in)
+std::vector< tarasenko::Polygon > tarasenko::readPolygons(std::istream& in)
 {
   std::vector< Polygon > polygons;
   using in_iter = std::istream_iterator< Polygon >;
