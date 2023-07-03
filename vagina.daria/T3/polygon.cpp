@@ -45,8 +45,7 @@ double vagina::getArea(const Polygon& dest)
     return a.x * b.y - a.y * b.x;
   };
   std::vector< int > arr(dest.points.size());
-  std::transform(dest.points.begin(), dest.points.end() - 1, dest.points.begin() + 1,
-    std::back_inserter(arr), getPoint);
+  std::transform(dest.points.begin(), --dest.points.end(), ++dest.points.begin(), std::back_inserter(arr), getPoint);
   area = std::accumulate(arr.begin(), arr.end(), 0.0);
   area += (--dest.points.end())->x * dest.points.begin()->y - dest.points.begin()->x * (--dest.points.end())->y;
   return std::abs(area * 0.5);
