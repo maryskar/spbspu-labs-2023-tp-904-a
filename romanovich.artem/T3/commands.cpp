@@ -20,7 +20,7 @@ namespace
     }
     else
     {
-      std::cout << std::fixed << std::setprecision(1) << findMinMaxEl(polygons, comp).getArea() << "\n";
+      std::cout << std::fixed << std::setprecision(1) << getArea(findMinMaxEl(polygons, comp)) << "\n";
     }
   }
   void findMinMaxElPointsCount(const std::vector< Polygon > &polygons,
@@ -32,7 +32,7 @@ namespace
     }
     else
     {
-      std::cout << findMinMaxEl(polygons, comp).getPointsCount() << '\n';
+      std::cout << getPointsCount(findMinMaxEl(polygons, comp)) << '\n';
     }
   }
   std::vector< double > makeAreasVector(const std::vector< Polygon > &polygons)
@@ -194,7 +194,7 @@ namespace romanovich
       throw std::runtime_error("No polygons.");
     }
     size_t targetNumber = getTargetNumber(argString);
-    auto generatedPolygon = Polygon(getPointsFromString(std::to_string(targetNumber)));
+    auto generatedPolygon = Polygon{getPointsFromString(std::to_string(targetNumber))};
     auto comp = std::bind(romanovich::PolygonComparator(generatedPolygon), _1, _2);
     size_t maxSeqCount = 0;
     size_t currSeqCount = 0;
