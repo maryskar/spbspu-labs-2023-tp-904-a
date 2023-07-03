@@ -146,7 +146,7 @@ namespace romanovich
   {
     try
     {
-      size_t targetNumber = getTargetNumber(command);
+      size_t targetNumber = /*getTargetNumber(command);*/std::stoi(command.substr(5));
       if (targetNumber > 2)
       {
         auto polygonsTmp = pols;
@@ -170,7 +170,7 @@ namespace romanovich
   {
     try
     {
-      size_t targetNumber = getTargetNumber(command);
+      size_t targetNumber = /*getTargetNumber(command);*/std::stoi(command.substr(6));
       if (targetNumber > 2)
       {
         std::cout << std::count_if(polygons.begin(), polygons.end(), romanovich::HasPointsCount{targetNumber}) << "\n";
