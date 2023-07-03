@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     }
     if (points.size() == pointsCount && points.size() > 2)
     {
-      polygons.emplace_back(points);
+      polygons.emplace_back(romanovich::Polygon{points});
     }
   }
   romanovich::CommandProcessor commandProcessor;

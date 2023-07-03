@@ -1,6 +1,7 @@
 #include "commands.h"
 #include <iostream>
 #include <numeric>
+#include "polygonutils.h"
 using namespace romanovich;
 namespace
 {
