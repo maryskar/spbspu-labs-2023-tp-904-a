@@ -5,7 +5,7 @@ size_t romanovich::Polygon::getPointsCount() const
 }
 romanovich::Point romanovich::Polygon::getPoint(size_t index) const
 {
-  return points_.at(index);
+  return points_[index];
 }
 romanovich::Polygon::Polygon(const std::vector< Point > &points):
   points_(points)
