@@ -146,7 +146,7 @@ namespace romanovich
   {
     try
     {
-      size_t targetNumber = /*getTargetNumber(command);*/std::stoi(command.substr(5));
+      size_t targetNumber = getTargetNumber(command);
       if (targetNumber > 2)
       {
         auto polygonsTmp = pols;
@@ -170,7 +170,7 @@ namespace romanovich
   {
     try
     {
-      size_t targetNumber = /*getTargetNumber(command);*/std::stoi(command.substr(6));
+      size_t targetNumber = getTargetNumber(command);
       if (targetNumber > 2)
       {
         std::cout << std::count_if(polygons.begin(), polygons.end(), romanovich::HasPointsCount{targetNumber}) << "\n";
@@ -214,7 +214,8 @@ namespace romanovich
         printError();
         return;
       }
-      auto generatedPolygon = Polygon(getPointsFromString(argString.substr(7)));
+      size_t targetNumber = getTargetNumber(argString);
+      auto generatedPolygon = Polygon(getPointsFromString(std::to_string(targetNumber));
       auto comp = std::bind(romanovich::PolygonComparator(generatedPolygon), _1, _2);
       size_t maxSeqCount = 0;
       size_t currSeqCount = 0;
@@ -259,6 +260,6 @@ namespace romanovich
   }
   int CommandProcessor::getTargetNumber(const std::string &line)
   {
-    return std::stoi(line.substr(line.length()));
+    return std::stoi(line.substr(line.length() - 1, 1));
   }
 }
