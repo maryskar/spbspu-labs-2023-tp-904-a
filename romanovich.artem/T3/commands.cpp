@@ -4,10 +4,6 @@
 using namespace romanovich;
 namespace
 {
-  std::ostream &printError(std::ostream &out)
-  {
-    return out << "<INVALID COMMAND>";
-  }
   Polygon const &findMinMaxEl(const std::vector< Polygon > &polygons,
                               const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
@@ -20,7 +16,7 @@ namespace
   {
     if (polygons.empty())
     {
-      printError(std::cout) << "\n";
+      throw std::runtime_error("No polygons.");
     }
     else
     {
@@ -32,7 +28,7 @@ namespace
   {
     if (polygons.empty())
     {
-      printError(std::cout) << "\n";
+      throw std::runtime_error("No polygons.");
     }
     else
     {
@@ -105,7 +101,7 @@ namespace romanovich
   {
     if (polygons.empty())
     {
-      printError(std::cout) << "\n";
+      throw std::runtime_error("No polygons.");
     }
     else
     {
@@ -139,50 +135,36 @@ namespace romanovich
     }
     else
     {
-      printError(std::cout) << "\n";
+      throw std::runtime_error("Invalid command.");
     }
   }
   void CommandProcessor::calcAreaWithNumber(const std::vector< Polygon > &pols, const std::string &command)
   {
-    try
+    size_t targetNumber = getTargetNumber(command);
+    if (targetNumber > 2)
     {
-      size_t targetNumber = getTargetNumber(command);
-      if (targetNumber > 2)
-      {
-        auto polygonsTmp = pols;
-        polygonsTmp.erase(
-          std::remove_if(polygonsTmp.begin(), polygonsTmp.end(), romanovich::HasNotPointsCount(targetNumber)),
-          polygonsTmp.end());
-        std::vector< double > areas = makeAreasVector(polygonsTmp);
-        std::cout << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
-      }
-      else
-      {
-        printError(std::cout) << "\n";
-      }
+      auto polygonsTmp = pols;
+      polygonsTmp.erase(
+        std::remove_if(polygonsTmp.begin(), polygonsTmp.end(), romanovich::HasNotPointsCount(targetNumber)),
+        polygonsTmp.end());
+      std::vector< double > areas = makeAreasVector(polygonsTmp);
+      std::cout << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
     }
-    catch (...)
+    else
     {
-      printError(std::cout) << "\n";
+      throw std::runtime_error("Invalid input.");
     }
   }
   void CommandProcessor::countWithNumber(const std::vector< Polygon > &polygons, const std::string &command)
   {
-    try
+    size_t targetNumber = getTargetNumber(command);
+    if (targetNumber > 2)
     {
-      size_t targetNumber = getTargetNumber(command);
-      if (targetNumber > 2)
-      {
-        std::cout << std::count_if(polygons.begin(), polygons.end(), romanovich::HasPointsCount{targetNumber}) << "\n";
-      }
-      else
-      {
-        printError(std::cout) << "\n";
-      }
+      std::cout << std::count_if(polygons.begin(), polygons.end(), romanovich::HasPointsCount{targetNumber}) << "\n";
     }
-    catch (...)
+    else
     {
-      printError(std::cout) << "\n";
+      throw std::runtime_error("Invalid input.");
     }
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
@@ -207,51 +189,43 @@ namespace romanovich
   }
   void CommandProcessor::countMaxSeq(const std::vector< Polygon > &polygons, const std::string &argString)
   {
-    try
+    if (polygons.empty())
     {
-      if (polygons.empty())
+      throw std::runtime_error("No polygons.");
+    }
+    size_t targetNumber = getTargetNumber(argString);
+    auto generatedPolygon = Polygon(getPointsFromString(std::to_string(targetNumber)));
+    auto comp = std::bind(romanovich::PolygonComparator(generatedPolygon), _1, _2);
+    size_t maxSeqCount = 0;
+    size_t currSeqCount = 0;
+    bool insideSeq = false;
+    for (const auto &polygon: polygons)
+    {
+      if (comp(polygon, polygon))
       {
-        printError(std::cout) << "\n";
-        return;
-      }
-      size_t targetNumber = getTargetNumber(argString);
-      auto generatedPolygon = Polygon(getPointsFromString(std::to_string(targetNumber)));
-      auto comp = std::bind(romanovich::PolygonComparator(generatedPolygon), _1, _2);
-      size_t maxSeqCount = 0;
-      size_t currSeqCount = 0;
-      bool insideSeq = false;
-      for (const auto &polygon: polygons)
-      {
-        if (comp(polygon, polygon))
+        if (!insideSeq)
         {
-          if (!insideSeq)
-          {
-            insideSeq = true;
-            currSeqCount = 1;
-          }
-          else
-          {
-            ++currSeqCount;
-          }
-          maxSeqCount = std::max(maxSeqCount, currSeqCount);
+          insideSeq = true;
+          currSeqCount = 1;
         }
         else
         {
-          insideSeq = false;
+          ++currSeqCount;
         }
-      }
-      if (maxSeqCount == 0)
-      {
-        printError(std::cout) << "\n";
+        maxSeqCount = std::max(maxSeqCount, currSeqCount);
       }
       else
       {
-        std::cout << maxSeqCount << '\n';
+        insideSeq = false;
       }
     }
-    catch (...)
+    if (maxSeqCount == 0)
     {
-      printError(std::cout) << "\n";
+      throw std::runtime_error("Invalid input.");
+    }
+    else
+    {
+      std::cout << maxSeqCount << '\n';
     }
   }
   void CommandProcessor::countShapesWithRightAngle(const std::vector< Polygon > &polygons)

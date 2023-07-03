@@ -2,6 +2,10 @@
 #include <iostream>
 #include <limits>
 #include "commands.h"
+std::ostream &printError(std::ostream &out)
+{
+  return out << "<INVALID COMMAND>";
+}
 int main(int argc, char *argv[])
 {
   if (argc != 2)
@@ -51,7 +55,14 @@ int main(int argc, char *argv[])
   std::string command;
   while (std::getline(std::cin, command))
   {
-    commandProcessor(command, polygons);
+    try
+    {
+      commandProcessor(command, polygons);
+    }
+    catch (...)
+    {
+      printError(std::cout) << "\n";
+    }
   }
   return 0;
 }
