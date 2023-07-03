@@ -7,6 +7,10 @@ bool vagina::isEven(const Polygon& pol)
 {
   return (pol.points.size() % 2 == 0);
 }
+bool vagina::isOdd(const Polygon& pol)
+{
+  return !isEven(pol);
+}
 bool vagina::isCountOfVertexes(const Polygon& pol, std::size_t param)
 {
   return (pol.points.size() == param);
@@ -24,10 +28,8 @@ void vagina::areaEven(const std::vector< Polygon >& dest, std::ostream& out)
 void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
 {
   std::vector< Polygon > tmp (dest.size());
-  std::copy_if(dest.begin(), dest.end(), tmp.begin(),
-    [&](Polygon i) { return !isEven(i); });
-  std::size_t count = std::count_if(dest.begin(), dest.end(),
-    [&](Polygon i) { return !isEven(i); });
+  std::copy_if(dest.begin(), dest.end(), tmp.begin(), isOdd);
+  std::size_t count = std::count_if(dest.begin(), dest.end(), isOdd);
   std::vector< double > tmpS(count);
   auto fin = tmp.begin() + count;
   std::transform(tmp.begin(), fin, std::back_inserter(tmpS), getArea);
@@ -51,11 +53,11 @@ void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out,
     messageInvalidCommand(out);
     return;
   }
+  using namespace std::placeholders;
+  auto countVert = std::bind(isCountOfVertexes, _1, param);
   std::vector< Polygon > tmp (dest.size());
-  std::copy_if(dest.begin(), dest.end(), tmp.begin(),
-    [&](Polygon i) { return isCountOfVertexes(i, param); });
-  std::size_t count = std::count_if(dest.begin(), dest.end(),
-    [&](Polygon i) { return isCountOfVertexes(i, param); });
+  std::copy_if(dest.begin(), dest.end(), tmp.begin(), countVert);
+  std::size_t count = std::count_if(dest.begin(), dest.end(), countVert);
   std::vector< double > tmpS(count);
   auto fin = tmp.begin() + count;
   std::transform(tmp.begin(), fin, tmpS.begin(), getArea);
@@ -111,13 +113,11 @@ void vagina::minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 }
 void vagina::countEven(const std::vector < Polygon >& dest, std::ostream& out)
 {
-  out << std::count_if(dest.begin(), dest.end(),
-    [&](Polygon i) { return isEven(i); }) << "\n";
+  out << std::count_if(dest.begin(), dest.end(), isEven) << "\n";
 }
 void vagina::countOdd(const std::vector < Polygon >& dest, std::ostream& out)
 {
-  out << std::count_if(dest.begin(), dest.end(),
-    [&](Polygon i) { return !isEven(i); }) << "\n";
+  out << std::count_if(dest.begin(), dest.end(), isOdd) << "\n";
 }
 void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& out, std::size_t param)
 {
@@ -126,13 +126,13 @@ void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& ou
     messageInvalidCommand(out);
     return;
   }
-  out << std::count_if(dest.begin(), dest.end(),
-    [&](Polygon i) { return isCountOfVertexes(i, param); }) << "\n";
+  using namespace std::placeholders;
+  auto countVert = std::bind(isCountOfVertexes, _1, param);
+  out << std::count_if(dest.begin(), dest.end(), countVert) << "\n";
 }
 void vagina::rects(const std::vector < Polygon >& dest, std::ostream& out)
 {
-  out << std::count_if(dest.begin(), dest.end(),
-    [&](Polygon i) { return isRectangle(i); }) << "\n";
+  out << std::count_if(dest.begin(), dest.end(), isRectangle) << "\n";
 }
 bool vagina::isPerm(const Polygon& lhs, const Polygon& rhs)
 {

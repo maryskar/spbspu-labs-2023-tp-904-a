@@ -19,6 +19,7 @@ namespace vagina
   void rects(const std::vector < Polygon >& dest, std::ostream& out);
   void perms(const std::vector < Polygon >& dest, std::ostream& out, std::istream& in);
   bool isEven(const Polygon& pol);
+  bool isOdd(const Polygon& pol);
   bool isCountOfVertexes(const Polygon& pol, std::size_t param);
   bool isPerm(const Polygon& lhs, const Polygon& rhs);
   void messageInvalidCommand(std::ostream& out);
