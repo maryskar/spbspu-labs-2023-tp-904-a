@@ -6,6 +6,10 @@ namespace romanovich
   {
     return lhs.getArea() < rhs.getArea();
   }
+  double AreaFunctor::operator()(const romanovich::Polygon &polygon) const
+  {
+    return polygon.getArea();
+  }
   bool PointsCountComp::operator()(const Polygon &lhs, const Polygon &rhs) const
   {
     return lhs.getPointsCount() < rhs.getPointsCount();

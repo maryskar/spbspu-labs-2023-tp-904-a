@@ -43,7 +43,7 @@ namespace
   {
     std::vector< double > areas;
     areas.resize(polygons.size());
-    std::transform(polygons.begin(), polygons.end(), areas.begin(), romanovich::AreaFunctor());
+    std::transform(polygons.begin(), polygons.end(), areas.begin(), AreaFunctor());
     return areas;
   }
   std::vector< Point > getPointsFromString(const std::string &input)

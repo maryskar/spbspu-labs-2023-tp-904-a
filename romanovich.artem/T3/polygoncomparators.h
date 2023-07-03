@@ -7,6 +7,10 @@ namespace romanovich
   {
     bool operator()(const Polygon &lhs, const Polygon &rhs) const;
   };
+  struct AreaFunctor
+  {
+    double operator()(const romanovich::Polygon &polygon) const;
+  };
   struct PointsCountComp
   {
     bool operator()(const Polygon &lhs, const Polygon &rhs) const;
@@ -21,24 +25,30 @@ namespace romanovich
   };
   struct HasPointsCount
   {
-    explicit HasPointsCount(size_t pointsCount): pointsCount(pointsCount)
-    {}
+    explicit HasPointsCount(size_t pointsCount):
+      pointsCount(pointsCount)
+    {
+    }
     bool operator()(const Polygon &p) const;
   private:
     size_t pointsCount;
   };
   struct HasNotPointsCount
   {
-    explicit HasNotPointsCount(size_t pointsCount): pointsCount(pointsCount)
-    {}
+    explicit HasNotPointsCount(size_t pointsCount):
+      pointsCount(pointsCount)
+    {
+    }
     bool operator()(const Polygon &p) const;
   private:
     size_t pointsCount;
   };
   struct PolygonComparator
   {
-    explicit PolygonComparator(const Polygon &polygon): polygon(polygon)
-    {}
+    explicit PolygonComparator(const Polygon &polygon):
+      polygon(polygon)
+    {
+    }
     bool operator()(const Polygon &a, const Polygon &b) const;
     const Polygon &polygon;
   };
