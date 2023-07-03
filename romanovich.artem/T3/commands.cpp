@@ -215,7 +215,7 @@ namespace romanovich
         return;
       }
       size_t targetNumber = getTargetNumber(argString);
-      auto generatedPolygon = Polygon(getPointsFromString(std::to_string(targetNumber));
+      auto generatedPolygon = Polygon(getPointsFromString(std::to_string(targetNumber)));
       auto comp = std::bind(romanovich::PolygonComparator(generatedPolygon), _1, _2);
       size_t maxSeqCount = 0;
       size_t currSeqCount = 0;
