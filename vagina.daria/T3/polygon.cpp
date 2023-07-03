@@ -1,5 +1,6 @@
 #include "polygon.h"
 #include <algorithm>
+#include <cmath>
 #include <iterator>
 #include <numeric>
 #include <TypesIO.h>
@@ -43,7 +44,7 @@ double vagina::getArea(const Polygon& dest)
   {
     return a.x * b.y - a.y * b.x;
   };
-  std::vector< int > arr;
+  std::vector< int > arr(dest.points.size());
   std::transform(dest.points.begin(), dest.points.end() - 1, dest.points.begin() + 1,
     std::back_inserter(arr), getPoint);
   area = std::accumulate(arr.begin(), arr.end(), 0.0);
@@ -78,10 +79,13 @@ bool vagina::isRectangle(const Polygon& dest)
     Point p2 = dest.points[1];
     Point p3 = dest.points[2];
     Point p4 = dest.points[3];
+    auto firstSide = std::pow(p2.x - p1.x, 2);
+    auto secondSide = std::pow(p4.y - p1.y, 2);
+    auto thirdSide = std::pow(p3.y - p2.y, 2);
+    auto fourthSide = std::pow(p3.x - p4.x, 2);
     if (isParallelogram(dest))
     {
-      return ((p2.x - p1.x) * (p2.x - p1.x) + (p4.y - p1.y) * (p4.y - p1.y)) ==
-        ((p3.y - p2.y) * (p3.y - p2.y) + (p3.x - p4.x) * (p3.x - p4.x));
+      return (firstSide + secondSide) == (thirdSide + fourthSide);
     }
   }
   return false;
