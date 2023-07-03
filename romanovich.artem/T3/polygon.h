@@ -2,7 +2,7 @@
 #define POLYGON_H
 #include <vector>
 #include <algorithm>
-#include "point.h"
+#include "pointutils.h"
 namespace romanovich
 {
   class Polygon
@@ -13,8 +13,8 @@ namespace romanovich
     Point getPoint(size_t index) const;
     double getArea() const;
     bool operator==(const Polygon &rhs) const;
-    auto begin() const;
-    auto end() const;
+    typename std::vector< Point >::const_iterator begin() const;
+    typename std::vector< Point >::const_iterator end() const;
     struct AreaComp
     {
       bool operator()(const Polygon &lhs, const Polygon &rhs) const

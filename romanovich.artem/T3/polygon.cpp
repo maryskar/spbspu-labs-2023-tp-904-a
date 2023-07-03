@@ -42,11 +42,11 @@ bool romanovich::Polygon::operator==(const Polygon &rhs) const
   }
   return true;
 }
-auto romanovich::Polygon::begin() const
+typename std::vector< romanovich::Point >::const_iterator romanovich::Polygon::begin() const
 {
   return points_.begin();
 }
-auto romanovich::Polygon::end() const
+typename std::vector< romanovich::Point >::const_iterator romanovich::Polygon::end() const
 {
   return points_.end();
 }

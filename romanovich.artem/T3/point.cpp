@@ -1,4 +1,4 @@
-#include "point.h"
+#include "pointutils.h"
 std::istream &romanovich::operator>>(std::istream &in, romanovich::Point &dest)
 {
   std::istream::sentry sentry(in);
