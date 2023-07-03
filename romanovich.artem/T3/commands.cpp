@@ -4,9 +4,9 @@
 using namespace romanovich;
 namespace
 {
-  void printError()
+  std::ostream &printError(std::ostream &out)
   {
-    std::cout << "<INVALID COMMAND>\n";
+    return out << "<INVALID COMMAND>";
   }
   Polygon const &findMinMaxEl(const std::vector< Polygon > &polygons,
                               const std::function< bool(const Polygon &, const Polygon &) > &comp)
@@ -20,7 +20,7 @@ namespace
   {
     if (polygons.empty())
     {
-      printError();
+      printError(std::cout) << "\n";
     }
     else
     {
@@ -32,7 +32,7 @@ namespace
   {
     if (polygons.empty())
     {
-      printError();
+      printError(std::cout) << "\n";
     }
     else
     {
@@ -105,7 +105,7 @@ namespace romanovich
   {
     if (polygons.empty())
     {
-      printError();
+      printError(std::cout) << "\n";
     }
     else
     {
@@ -139,7 +139,7 @@ namespace romanovich
     }
     else
     {
-      printError();
+      printError(std::cout) << "\n";
     }
   }
   void CommandProcessor::calcAreaWithNumber(const std::vector< Polygon > &pols, const std::string &command)
@@ -158,12 +158,12 @@ namespace romanovich
       }
       else
       {
-        printError();
+        printError(std::cout) << "\n";
       }
     }
     catch (...)
     {
-      printError();
+      printError(std::cout) << "\n";
     }
   }
   void CommandProcessor::countWithNumber(const std::vector< Polygon > &polygons, const std::string &command)
@@ -177,12 +177,12 @@ namespace romanovich
       }
       else
       {
-        printError();
+        printError(std::cout) << "\n";
       }
     }
     catch (...)
     {
-      printError();
+      printError(std::cout) << "\n";
     }
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
@@ -211,7 +211,7 @@ namespace romanovich
     {
       if (polygons.empty())
       {
-        printError();
+        printError(std::cout) << "\n";
         return;
       }
       size_t targetNumber = getTargetNumber(argString);
@@ -242,7 +242,7 @@ namespace romanovich
       }
       if (maxSeqCount == 0)
       {
-        printError();
+        printError(std::cout) << "\n";
       }
       else
       {
@@ -251,7 +251,7 @@ namespace romanovich
     }
     catch (...)
     {
-      printError();
+      printError(std::cout) << "\n";
     }
   }
   void CommandProcessor::countShapesWithRightAngle(const std::vector< Polygon > &polygons)
