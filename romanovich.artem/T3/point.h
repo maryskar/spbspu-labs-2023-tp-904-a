@@ -7,7 +7,6 @@ namespace romanovich
   {
     int x;
     int y;
-    Point &operator=(const Point &rhs);
   };
 }
 #endif
