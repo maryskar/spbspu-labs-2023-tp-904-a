@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <iomanip>
 #include <functional>
-#include "polygon.h"
+#include "polygoncomparators.h"
 using namespace std::placeholders;
 namespace romanovich
 {
