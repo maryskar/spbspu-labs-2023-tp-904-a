@@ -1,11 +1,13 @@
+#include <fstream>
 #include <iostream>
-#include <vector>
 #include <iterator>
 #include <limits>
-#include <fstream>
+#include <map>
 #include <string>
-#include "polygon.h"
+#include <vector>
 #include "commands.h"
+#include "mapWIthCommands.h"
+#include "polygon.h"
 
 int main(int argc, char** argv)
 {
@@ -36,10 +38,21 @@ int main(int argc, char** argv)
       inpFile.ignore(maxSize, '\n');
     }
   }
+  std::map< std::string, void (*)(std::istream&, const std::vector< mashkin::Polygon >&) > commands;
+  mashkin::createMapWithCommands(commands);
   while (!std::cin.eof())
   {
     std::string command;
-    runCommand(std::cin, command, res);
+    std::cin >> command;
+    if (commands.find(command) != commands.end())
+    {
+      commands[command](std::cin, res);
+    }
+    else
+    {
+      std::cin.ignore(maxSize, '\n');
+      std::cout << "<INVALID COMMAND>\n";
+    }
   }
   return 0;
 }

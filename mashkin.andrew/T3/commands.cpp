@@ -21,13 +21,6 @@ namespace mashkin
 
   constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
 
-  void runRightshapes(const vecPol& res);
-  void runPerms(std::istream& inp, const vecPol& res);
-  void runCount(std::istream& inp, std::string& command, const vecPol& res);
-  void runMin(std::istream& inp, std::string& command, const vecPol& res);
-  void runMax(std::istream& inp, std::string& command, const vecPol& res);
-  void runArea(std::istream& inp, std::string& command, const vecPol& res);
-
   void runEven(const vecPol& res)
   {
     vecPol data = res;
@@ -70,8 +63,9 @@ namespace mashkin
     std::copy(sumArea.begin(), sumArea.end(), outIter(std::cout, "\n"));
   }
 
-  void runArea(std::istream& inp, std::string& command, const vecPol& res)
+  void runArea(std::istream& inp, const vecPol& res)
   {
+    std::string command;
     inp >> command;
     if (command == "EVEN")
     {
@@ -128,8 +122,9 @@ namespace mashkin
     std::cout << it->points.size() << "\n";
   }
 
-  void runMax(std::istream& inp, std::string& command, const std::vector< mashkin::Polygon >& data)
+  void runMax(std::istream& inp, const std::vector< mashkin::Polygon >& data)
   {
+    std::string command;
     inp >> command;
     if (data.empty())
     {
@@ -167,8 +162,9 @@ namespace mashkin
     std::cout << it->points.size() << "\n";
   }
 
-  void runMin(std::istream& inp, std::string& command, const vecPol& res)
+  void runMin(std::istream& inp, const vecPol& res)
   {
+    std::string command;
     inp >> command;
     if (res.empty())
     {
@@ -212,8 +208,9 @@ namespace mashkin
     std::cout << quantity << "\n";
   }
 
-  void runCount(std::istream& inp, std::string& command, const vecPol& res)
+  void runCount(std::istream& inp, const vecPol& res)
   {
+    std::string command;
     inp >> command;
     if (command == "EVEN")
     {
@@ -274,50 +271,12 @@ namespace mashkin
     std::cout << quantity << "\n";
   }
 
-  void runRightshapes(const vecPol& res)
+  void runRightshapes(std::istream&, const vecPol& res)
   {
     vecPol data = res;
     std::vector< Angle > angles;
     std::transform(data.begin(), data.end(), std::back_inserter(angles), getAngle);
     size_t quatity = std::count_if(angles.begin(), angles.end(), isRightshapes);
     std::cout << quatity << "\n";
-  }
-
-  void runCommand(std::istream& inp, std::string& command, const std::vector< Polygon >& res)
-  {
-    inp >> command;
-    if (command == "AREA")
-    {
-      runArea(inp, command, res);
-    }
-    else if (command == "MAX")
-    {
-      runMax(inp, command, res);
-    }
-    else if (command == "MIN")
-    {
-      runMin(inp, command, res);
-    }
-    else if (command == "COUNT")
-    {
-      runCount(inp, command, res);
-    }
-    else if (command == "PERMS")
-    {
-      runPerms(inp, res);
-    }
-    else if (command == "RIGHTSHAPES")
-    {
-      runRightshapes(res);
-    }
-    else if (inp.eof())
-    {
-      return;
-    }
-    else
-    {
-      inp.ignore(maxSize, '\n');
-      std::cout << "<INVALID COMMAND>\n";
-    }
   }
 }

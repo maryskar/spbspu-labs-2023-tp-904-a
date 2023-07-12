@@ -7,6 +7,13 @@
 
 namespace mashkin
 {
-  void runCommand(std::istream& inp, std::string& command, const std::vector< Polygon >& res);
+  using pol = Polygon;
+  using vecPol = std::vector< pol >;
+  void runArea(std::istream& inp, const vecPol& res);
+  void runMax(std::istream& inp, const vecPol& res);
+  void runRightshapes(std::istream&, const vecPol& res);
+  void runPerms(std::istream& inp, const vecPol& res);
+  void runCount(std::istream& inp, const vecPol& res);
+  void runMin(std::istream& inp, const vecPol& res);
 }
 #endif
