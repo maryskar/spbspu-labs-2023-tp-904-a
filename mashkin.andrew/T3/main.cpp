@@ -43,11 +43,11 @@ int main(int argc, char** argv)
   std::string command;
   while (!std::cin.eof())
   {
+    std::cin >> command;
     if (std::cin.eof())
     {
       break;
     }
-    std::cin >> command;
     if (commands.find(command) != commands.end())
     {
       commands[command](std::cin, res);
