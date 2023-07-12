@@ -54,8 +54,13 @@ int main(int argc, char** argv)
     }
     else
     {
-      std::cin.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>\n";
+      std::cin.setstate(std::ios::failbit);
+    }
+    if (std::cin.fail())
+    {
+      std::cin.clear();
+      std::cin.ignore(maxSize, '\n');
     }
   }
   return 0;
