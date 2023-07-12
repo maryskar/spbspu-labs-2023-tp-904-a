@@ -40,9 +40,13 @@ int main(int argc, char** argv)
   }
   std::map< std::string, void (*)(std::istream&, const std::vector< mashkin::Polygon >&) > commands;
   mashkin::createMapWithCommands(commands);
+  std::string command;
   while (!std::cin.eof())
   {
-    std::string command;
+    if (std::cin.eof())
+    {
+      break;
+    }
     std::cin >> command;
     if (commands.find(command) != commands.end())
     {
