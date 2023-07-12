@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 #include "commands.h"
-#include "mapWIthCommands.h"
+#include "mapWithCommands.h"
 #include "polygon.h"
 
 int main(int argc, char** argv)
