@@ -20,7 +20,7 @@ int main()
 
   std::vector< DataStruct > data;
   Comparator cmp;
-  
+
   while (!std::cin.eof())
   {
     std::copy(isit(std::cin), isit(), std::back_inserter(data));
