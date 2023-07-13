@@ -22,6 +22,11 @@ namespace turkin
     std::string exp;
   };
 
+  struct ULL8
+  {
+    std::string exp;
+  };
+
   struct ULL10
   {
     unsigned long long exp;
@@ -42,6 +47,7 @@ namespace turkin
   std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   std::istream & operator>>(std::istream & in, StringIO && dest);
   std::istream & operator>>(std::istream & in, LabelIO && dest);
+  std::istream & operator>>(std::istream & in, ULL8 && dest);
   std::istream & operator>>(std::istream & in, ULL10 && dest);
   std::istream & operator>>(std::istream & in, DataStruct & dest);
   std::ostream & operator<<(std::ostream & out, const DataStruct & dest);
