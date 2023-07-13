@@ -2,6 +2,7 @@
 #define DATA_STRUCT_HPP
 
 #include <string>
+#include <istream>
 
 namespace turkin
 {
@@ -11,6 +12,9 @@ namespace turkin
     unsigned long long key2;
     std::string key3;
   };
+
+  std::istream & operator>>(std::istream & in, DataStruct & dest);
+  std::ostream & operator<<(std::ostream & out, const DataStruct & dest);
 
   struct Comparator
   {
