@@ -12,43 +12,31 @@ namespace turkin
     char exp;
   };
 
-  struct StringIO
-  {
-    std::string & ref;
-  };
-
   struct LabelIO
   {
     std::string exp;
   };
 
-  struct ULL8
+  struct StringIO
   {
-    std::string exp;
+    std::string & ref;
   };
 
-  struct ULL10
+  struct ULL8IO
   {
-    unsigned long long exp;
+    unsigned long long & ref;
   };
 
-  class iofmtguard
+  struct ULL10IO
   {
-  public:
-    iofmtguard(std::basic_ios< char > & s);
-    ~iofmtguard();
-  private:
-    std::basic_ios< char > & s_;
-    char fill_;
-    std::streamsize precision_;
-    std::basic_ios< char >::fmtflags fmt_;
+    unsigned long long & ref;
   };
 
   std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   std::istream & operator>>(std::istream & in, StringIO && dest);
   std::istream & operator>>(std::istream & in, LabelIO && dest);
-  std::istream & operator>>(std::istream & in, ULL8 && dest);
-  std::istream & operator>>(std::istream & in, ULL10 && dest);
+  std::istream & operator>>(std::istream & in, ULL8IO && dest);
+  std::istream & operator>>(std::istream & in, ULL10IO && dest);
   std::istream & operator>>(std::istream & in, DataStruct & dest);
   std::ostream & operator<<(std::ostream & out, const DataStruct & dest);
 }

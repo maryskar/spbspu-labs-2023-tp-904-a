@@ -1,7 +1,27 @@
 #include "io-work.hpp"
 #include <iomanip>
 
-std::istream & operator>>(std::istream & in, turkin::DelimiterIO && dest)
+std::istream & turkin::operator>>(std::istream & in, ULL10IO && dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  return in >> dest.ref >> LabelIO{ "ULL" };
+}
+
+std::istream & turkin::operator>>(std::istream & in, ULL8IO && dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  return in >> dest.ref >> LabelIO{ "ULL" };
+}
+
+std::istream & turkin::operator>>(std::istream & in, DelimiterIO && dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -17,17 +37,17 @@ std::istream & operator>>(std::istream & in, turkin::DelimiterIO && dest)
   return in;
 }
 
-std::istream & operator>>(std::istream & in, turkin::StringIO && dest)
+std::istream & turkin::operator>>(std::istream & in, StringIO && dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  return std::getline(in >> turkin::DelimiterIO{ '"' }, dest.ref, '"');
+  return std::getline(in >> DelimiterIO{ '"' }, dest.ref, '"');
 }
 
-std::istream & operator>>(std::istream & in, turkin::LabelIO && dest)
+std::istream & turkin::operator>>(std::istream & in, LabelIO && dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -35,31 +55,33 @@ std::istream & operator>>(std::istream & in, turkin::LabelIO && dest)
     return in;
   }
   std::string data = "";
-  if ((in >> turkin::StringIO{ data }) && (data != dest.exp))
+  if ((in >> StringIO{ data }) && (data != dest.exp))
   {
     in.setstate(std::ios::failbit);
   }
   return in;
 }
 
-std::istream & operator>>(std::istream & in, turkin::DataStruct & dest)
+std::istream & turkin::operator>>(std::istream & in, DataStruct & dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  turkin::DataStruct input;
+  DataStruct input;
   {
-    using sep = turkin::DelimiterIO;
-    using label = turkin::LabelIO;
-    using ull10 = turkin::ULL10;
-    using str = turkin::StringIO;
+    using sep = DelimiterIO;
+    using label = LabelIO;
+    using ull10 = ULL10IO;
+    using ull8 = ULL8IO;
+    using str = StringIO;
     in >> sep{ '{' };
     in >> label{ "key1" } >> sep{ ':' } >> ull10{ input.key1 };
     in >> sep{ ',' };
-    in >> label{ "key2" } >> sep{ ':' } >> str{ input.key2 };
+    in >> label{ "key2" } >> sep{ ':' } >> ull8{ input.key2 };
     in >> sep{ '}' };
+    in >> label{ "key3" } >> sep{ ':' } >> str{ input.key3 };
   }
   if (in)
   {
@@ -68,31 +90,17 @@ std::istream & operator>>(std::istream & in, turkin::DataStruct & dest)
   return in;
 }
 
-std::ostream & operator<<(std::ostream & out, const turkin::DataStruct & src)
+std::ostream & turkin::operator<<(std::ostream & out, const DataStruct & src)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
   {
     return out;
   }
-  turkin::iofmtguard fmtguard(out);
+  iofmtguard fmtguard(out);
   out << "{ ";
   out << "\"key1\": " << std::fixed << std::setprecision(1) << src.key1 << "d, ";
   out << "\"key2\": " << src.key2;
   out << " }";
   return out;
-}
-
-turkin::iofmtguard::iofmtguard(std::basic_ios< char > & s) :
-  s_(s),
-  fill_(s.fill()),
-  precision_(s.precision()),
-  fmt_(s.flags())
-{}
-
-turkin::iofmtguard::~iofmtguard()
-{
-  s_.fill(fill_);
-  s_.precision(precision_);
-  s_.flags(fmt_);
 }
