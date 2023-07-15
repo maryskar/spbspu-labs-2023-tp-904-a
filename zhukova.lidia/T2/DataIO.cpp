@@ -29,7 +29,7 @@ namespace zhukova
     double re = 0.0;
     double im = 0.0;
     in >> LabelIO{"#c("} >> re >> im >> DelimiterIO{')'};
-    dest.value = std::complex(re, im);
+    dest.value = std::complex< double >(re, im);
     return in;
   }
   std::istream & operator>>(std::istream & in, RationalIO && dest)
@@ -42,7 +42,7 @@ namespace zhukova
     long long natural = 0;
     unsigned long long fraction = 0;
     in >> LabelIO{"(:N"} >> natural >> LabelIO{":D"} >> fraction >> LabelIO{":)"};
-    dest.value = std::pair(natural, fraction);
+    dest.value = std::pair< long long, unsigned long long >(natural, fraction);
     return in;
   }
   std::istream & operator>>(std::istream & in, StringIO && dest)

@@ -1,6 +1,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include "DataStruct.h"
 #include "DataIO.h"
 int main()
