@@ -1,6 +1,6 @@
 #ifndef T3_POLYGON_HPP
 #define T3_POLYGON_HPP
-#include <iosfwd>
+#include <iostream>
 #include <vector>
 namespace litvin
 {
@@ -12,5 +12,7 @@ namespace litvin
   {
     std::vector< Point > points;
   };
+  std::istream & operator>>(std::istream & in, Polygon & dest);
+  std::istream & operator>>(std::istream & in, Point & dest);
 }
 #endif
