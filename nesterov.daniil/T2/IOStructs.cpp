@@ -20,16 +20,6 @@ namespace nesterov
     return in;
   }
 
-  std::istream &operator>>(std::istream &in, DoubleIO &&dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    return in >> dest.ref >> DelimiterIO{'d'};
-  }
-
   std::istream &operator>>(std::istream &in, StringIO &&dest)
   {
     std::istream::sentry sentry(in);
