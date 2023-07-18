@@ -46,3 +46,17 @@ double litvin::calcArea(const Polygon & pol)
   std::abs(res);
   return res / 2;
 }
+double litvin::calcAreaIf(bool (*predicate)(const Polygon & pol), const Polygon & pol)
+{
+  if(!predicate(pol)){
+    return 0.0;
+  }
+  std::vector< int > area(size(pol));
+  std::transform(pol.points.cbegin(), --pol.points.cend(), ++pol.points.cbegin(), std::back_inserter(area), calculate);
+  Point first = pol.points.front();
+  Point last = pol.points.back();
+  area.push_back(calculate(last, first));
+  double res = std::accumulate(area.cbegin(), area.cend(), 0);
+  std::abs(res);
+  return res / 2;
+}
