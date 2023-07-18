@@ -74,4 +74,3 @@ std::istream & litvin::operator>>(std::istream & in, RationalIO && dest)
     return in;
   }
 }
-

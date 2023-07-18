@@ -12,6 +12,8 @@ namespace litvin
   {
     std::vector< Point > points;
   };
+  size_t size(const Polygon & dest);
+  size_t calcArea(const Polygon & dest);
   std::istream & operator>>(std::istream & in, Polygon & dest);
   std::istream & operator>>(std::istream & in, Point & dest);
 }

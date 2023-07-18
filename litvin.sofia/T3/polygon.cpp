@@ -5,7 +5,7 @@
 std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
 {
   std::istream::sentry sentry(in);
-  int num_of_points = 0;
+  size_t num_of_points = 0;
   in >> num_of_points;
   if (!in || num_of_points < 3)
   {
@@ -24,4 +24,12 @@ std::istream & litvin::operator>>(std::istream & in, Point & dest)
     return in;
   }
   return in >> DelimiterIO{'('} >> dest.x >> DelimiterIO{';'} >> dest.y >> DelimiterIO{')'};
+}
+size_t litvin::size(const Polygon & dest)
+{
+  return dest.points.size();
+}
+size_t litvin::calcArea(const Polygon & dest)
+{
+  size_t res = 0;
 }
