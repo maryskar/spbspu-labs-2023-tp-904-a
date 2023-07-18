@@ -1,6 +1,8 @@
 #include "polygon.hpp"
 #include <iterator>
 #include <algorithm>
+#include <numeric>
+#include <cmath>
 #include "iostructures.hpp"
 std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
 {
@@ -29,7 +31,18 @@ size_t litvin::size(const Polygon & dest)
 {
   return dest.points.size();
 }
-size_t litvin::calcArea(const Polygon & dest)
+int calculate(const litvin::Point & p1, const litvin::Point & p2)
 {
-  size_t res = 0;
+  return p1.x * p2.y - p1.y * p2.x;
+}
+double litvin::calcArea(const Polygon & pol)
+{
+  std::vector< int > area(size(pol));
+  std::transform(pol.points.cbegin(), --pol.points.cend(), ++pol.points.cbegin(), std::back_inserter(area), calculate);
+  Point first = pol.points.front();
+  Point last = pol.points.back();
+  area.push_back(calculate(last, first));
+  double res = std::accumulate(area.cbegin(), area.cend(), 0);
+  std::abs(res);
+  return res / 2;
 }
