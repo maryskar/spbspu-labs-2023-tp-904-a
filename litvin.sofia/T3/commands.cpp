@@ -19,8 +19,8 @@ namespace litvin
   {
     std::vector< double > areas(data.size());
     using namespace std::placeholders;
-    auto getArea = std::bind(calcAreaIf, isEven, _1);
-    std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getArea);
+    auto getAreaIfEven = std::bind(calcAreaIf, _1, isEven);
+    std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getAreaIfEven);
     double res = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
     return res;
   }
@@ -28,8 +28,8 @@ namespace litvin
   {
     std::vector< double > areas(data.size());
     using namespace std::placeholders;
-    auto getArea = std::bind(calcAreaIf, isOdd, _1);
-    std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getArea);
+    auto getAreaIfOdd = std::bind(calcAreaIf, _1, isOdd);
+    std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getAreaIfOdd);
     double res = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
     return res;
   }
@@ -39,5 +39,22 @@ namespace litvin
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
     double sum = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
     return sum / areas.size();
+  }
+  bool hasQuantityOfVertexes(const Polygon & pol, size_t num)
+  {
+    return size(pol) == num;
+  }
+  double calcAreaIfNVertexes(const Polygon & pol, size_t number_of_vertexes)
+  {
+    return hasQuantityOfVertexes(pol, number_of_vertexes) ? calcArea(pol) : 0.0;
+  }
+  double getAreaIfNVertexes(const v_pol & data, size_t number_of_vertexes)
+  {
+    std::vector< double > areas(data.size());
+    using namespace std::placeholders;
+    auto calcAreaNVertexes = std::bind(calcAreaIfNVertexes, _1, number_of_vertexes);
+    std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcAreaNVertexes);
+    double res = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
+    return res;
   }
 }

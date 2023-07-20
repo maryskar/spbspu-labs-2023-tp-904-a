@@ -13,7 +13,7 @@ namespace litvin
     std::vector< Point > points;
   };
   size_t size(const Polygon & dest);
-  double calcAreaIf(bool (*predicate)(const Polygon & pol), const Polygon & dest);
+  double calcAreaIf(const Polygon & dest, bool (* predicate)(const Polygon & pol));
   double calcArea(const Polygon & dest);
   std::istream & operator>>(std::istream & in, Polygon & dest);
   std::istream & operator>>(std::istream & in, Point & dest);
