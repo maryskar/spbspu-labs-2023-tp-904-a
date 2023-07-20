@@ -57,4 +57,28 @@ namespace litvin
     double res = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
     return res;
   }
+  double getMaxArea(const v_pol & data)
+  {
+    if (!data.empty())
+    {
+      std::vector< double > areas(data.size());
+      std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
+      auto max = std::max_element(areas.cbegin(), areas.cend());
+      double max_area = *max;
+      return max_area;
+    }
+    throw std::invalid_argument("For max area must be at least one polygon\n");
+  }
+  double getMaxVertexes(const v_pol & data)
+  {
+    if (!data.empty())
+    {
+      std::vector< double > vertexes(data.size());
+      std::transform(data.cbegin(), data.cend(), std::back_inserter(vertexes), size);
+      auto max = std::max_element(vertexes.cbegin(), vertexes.cend());
+      double max_vertexes = *max;
+      return max_vertexes;
+    }
+    throw std::invalid_argument("For max vertexes must be at least one polygon\n");
+  }
 }
