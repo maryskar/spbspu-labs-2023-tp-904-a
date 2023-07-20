@@ -81,4 +81,28 @@ namespace litvin
     }
     throw std::invalid_argument("For max vertexes must be at least one polygon\n");
   }
+  double getMinArea(const v_pol & data)
+  {
+    if (!data.empty())
+    {
+      std::vector< double > areas(data.size());
+      std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
+      auto min = std::min_element(areas.cbegin(), areas.cend());
+      double min_area = *min;
+      return min_area;
+    }
+    throw std::invalid_argument("For min area must be at least one polygon\n");
+  }
+  double getMinVertexes(const v_pol & data)
+  {
+    if (!data.empty())
+    {
+      std::vector< double > vertexes(data.size());
+      std::transform(data.cbegin(), data.cend(), std::back_inserter(vertexes), size);
+      auto min = std::min_element(vertexes.cbegin(), vertexes.cend());
+      double min_vertexes = *min;
+      return min_vertexes;
+    }
+    throw std::invalid_argument("For min vertexes must be at least one polygon\n");
+  }
 }
