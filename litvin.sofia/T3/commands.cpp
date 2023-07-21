@@ -30,8 +30,7 @@ namespace litvin
     using namespace std::placeholders;
     auto getAreaIfOdd = std::bind(calcAreaIf, _1, isOdd);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getAreaIfOdd);
-    double res = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
-    return res;
+    return std::accumulate(areas.cbegin(), areas.cend(), 0.0);
   }
   double getAverageArea(const v_pol & data)
   {
@@ -57,15 +56,31 @@ namespace litvin
     double res = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
     return res;
   }
+  double getMaxOrMinArea(const v_pol & data, bool isTheGreatest)
+  {
+    std::vector< double > areas(data.size());
+    std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
+    if (isTheGreatest)
+    {
+      return *(std::max_element(areas.cbegin(), areas.cend()));
+    }
+    return *(std::min_element(areas.cbegin(), areas.cend()));
+  }
+  double getMaxOrMinVertexes(const v_pol & data, bool isTheGreatest)
+  {
+    std::vector< double > vertexes(data.size());
+    std::transform(data.cbegin(), data.cend(), std::back_inserter(vertexes), size);
+    if (isTheGreatest)
+    {
+      return *std::max_element(vertexes.cbegin(), vertexes.cend());
+    }
+    return *std::min_element(vertexes.cbegin(), vertexes.cend());
+  }
   double getMaxArea(const v_pol & data)
   {
     if (!data.empty())
     {
-      std::vector< double > areas(data.size());
-      std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
-      auto max = std::max_element(areas.cbegin(), areas.cend());
-      double max_area = *max;
-      return max_area;
+      return getMaxOrMinArea(data, 1);
     }
     throw std::invalid_argument("For max area must be at least one polygon\n");
   }
@@ -73,11 +88,7 @@ namespace litvin
   {
     if (!data.empty())
     {
-      std::vector< double > vertexes(data.size());
-      std::transform(data.cbegin(), data.cend(), std::back_inserter(vertexes), size);
-      auto max = std::max_element(vertexes.cbegin(), vertexes.cend());
-      double max_vertexes = *max;
-      return max_vertexes;
+      getMaxOrMinVertexes(data, 1);
     }
     throw std::invalid_argument("For max vertexes must be at least one polygon\n");
   }
@@ -85,11 +96,7 @@ namespace litvin
   {
     if (!data.empty())
     {
-      std::vector< double > areas(data.size());
-      std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
-      auto min = std::min_element(areas.cbegin(), areas.cend());
-      double min_area = *min;
-      return min_area;
+      return getMaxOrMinArea(data, 0);
     }
     throw std::invalid_argument("For min area must be at least one polygon\n");
   }
@@ -97,11 +104,7 @@ namespace litvin
   {
     if (!data.empty())
     {
-      std::vector< double > vertexes(data.size());
-      std::transform(data.cbegin(), data.cend(), std::back_inserter(vertexes), size);
-      auto min = std::min_element(vertexes.cbegin(), vertexes.cend());
-      double min_vertexes = *min;
-      return min_vertexes;
+      return getMaxOrMinVertexes(data, 0);
     }
     throw std::invalid_argument("For min vertexes must be at least one polygon\n");
   }
