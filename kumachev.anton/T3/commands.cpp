@@ -5,6 +5,7 @@
 #include <numeric>
 #include <iomanip>
 #include <functional>
+#include <list>
 #include "polygon.h"
 #include "stream_guard.h"
 
@@ -111,7 +112,7 @@ namespace kumachev {
 
   void maxVert(const std::vector< Polygon > &polygons, std::ostream &ostream)
   {
-    std::vector<size_t> vertexCount;
+    std::vector< size_t > vertexCount;
     auto inserter = std::back_inserter(vertexCount);
     std::transform(polygons.begin(), polygons.end(), inserter, vertex);
 
@@ -122,7 +123,7 @@ namespace kumachev {
 
   void minVert(const std::vector< Polygon > &polygons, std::ostream &ostream)
   {
-    std::vector<size_t> vertexCount;
+    std::vector< size_t > vertexCount;
     auto inserter = std::back_inserter(vertexCount);
     std::transform(polygons.begin(), polygons.end(), inserter, vertex);
 
@@ -148,25 +149,51 @@ namespace kumachev {
   void countVert(const std::vector< Polygon > &polygons, size_t vert,
       std::ostream &ostream)
   {
-    auto matchVert = std::bind(std::equal_to<> {}, std::bind(vertex, _1), vert);
+    auto matchVert = std::bind(std::equal_to<>{}, std::bind(vertex, _1), vert);
     size_t count = std::count_if(polygons.begin(), polygons.end(), matchVert);
     StreamGuard guard(ostream);
     ostream << std::fixed << count;
   }
 
-  void echo(const std::vector< Polygon > &polygons, const Polygon &polygon,
+  void echo(std::vector< Polygon > &polygons, const Polygon &polygon,
       std::ostream &ostream)
   {
-    polygons[0];
-    vertex(polygon);
-    ostream << '\n';
+    std::list< Polygon > polygonList(polygons.begin(), polygons.end());
+    auto equal = std::bind(PolygonComparator{}, _1, polygon);
+    auto search = std::find_if(polygonList.begin(), polygonList.end(), equal);
+    size_t echoed = 0;
+
+    while (search != polygonList.end()) {
+      ++echoed;
+      polygonList.insert(search, polygon);
+      ++search;
+      search = std::find_if(search, polygonList.end(), equal);
+    }
+
+    polygons.assign(polygonList.begin(), polygonList.end());
+    StreamGuard guard(ostream);
+    ostream << std::fixed << echoed;
   }
 
-  void rmEcho(const std::vector< Polygon > &polygons, const Polygon &polygon,
+  void rmEcho(std::vector< Polygon > &polygons, const Polygon &polygon,
       std::ostream &ostream)
   {
-    polygons[0];
-    vertex(polygon);
-    ostream << '\n';
+    auto firstEqual = std::bind(PolygonComparator{}, _1, polygon);
+    auto secondEqual = std::bind(PolygonComparator{}, _2, polygon);
+    auto equal = std::bind(std::logical_and<>{}, firstEqual, secondEqual);
+    std::list< Polygon > pList(polygons.begin(), polygons.end());
+
+    auto search = std::adjacent_find(pList.begin(), pList.end(), equal);
+    size_t removed = 0;
+
+    while (search != pList.end()) {
+      ++removed;
+      search = pList.erase(search);
+      search = std::adjacent_find(search, pList.end(), equal);
+    }
+
+    polygons.assign(pList.begin(), pList.end());
+    StreamGuard guard(ostream);
+    ostream << std::fixed << removed;
   }
 }

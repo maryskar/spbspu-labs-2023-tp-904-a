@@ -35,4 +35,23 @@ namespace kumachev {
 
     return area;
   }
+
+  bool PointComparator::operator()(const Point &lhs, const Point &rhs)
+  {
+    return lhs.x == rhs.x && lhs.y == rhs.y;
+  }
+
+  bool PolygonComparator::operator()(const Polygon &lhs, const Polygon &rhs)
+  {
+    if (lhs.points.size() != rhs.points.size()) {
+      return false;
+    }
+
+    auto leftBegin = lhs.points.begin();
+    auto leftEnd = lhs.points.begin();
+    auto rightBegin = lhs.points.begin();
+    PointComparator comp;
+
+    return std::equal(leftBegin, leftEnd, rightBegin, comp);
+  }
 }

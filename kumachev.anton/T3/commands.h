@@ -21,10 +21,10 @@ namespace kumachev {
   void countVert(const std::vector< Polygon > &polygons, size_t vertex,
       std::ostream &ostream);
 
-  void echo(const std::vector< Polygon > &polygons, const Polygon &polygon,
+  void echo(std::vector< Polygon > &polygons, const Polygon &polygon,
       std::ostream &ostream);
 
-  void rmEcho(const std::vector< Polygon > &polygons, const Polygon &polygon,
+  void rmEcho(std::vector< Polygon > &polygons, const Polygon &polygon,
       std::ostream &ostream);
 }
 

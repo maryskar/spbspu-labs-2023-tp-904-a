@@ -13,7 +13,7 @@ namespace kumachev {
   using command_handler_int = void (*)(const std::vector< Polygon > &polygons,
       size_t parameter, std::ostream &ostream);
 
-  using command_handler_poly = void (*)(const std::vector< Polygon > &polygons,
+  using command_handler_poly = void (*)(std::vector< Polygon > &polygons,
       const Polygon &parameter, std::ostream &ostream);
 
   struct CommandSystem {
