@@ -46,7 +46,7 @@ double litvin::calcArea(const Polygon & pol)
   std::abs(res);
   return res / 2;
 }
-double litvin::calcAreaIf(const Polygon & pol, bool (*predicate)(const Polygon & pol))
+double litvin::calcAreaIf(const Polygon & pol, bool (* predicate)(const Polygon & pol))
 {
   if (!predicate(pol))
   {

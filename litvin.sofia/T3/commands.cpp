@@ -13,7 +13,7 @@ namespace litvin
   }
   bool isOdd(const Polygon & polygon)
   {
-    return size(polygon) % 2 == 1;
+    return !isEven(polygon);
   }
   double getEvenArea(const v_pol & data)
   {
@@ -104,5 +104,28 @@ namespace litvin
       return min_vertexes;
     }
     throw std::invalid_argument("For min vertexes must be at least one polygon\n");
+  }
+  size_t countIf(bool (* predicate)(const Polygon & pol), const v_pol & data)
+  {
+    size_t count = std::count_if(data.cbegin(), data.cend(), predicate);
+    return count;
+  }
+  size_t countEven(const v_pol & data)
+  {
+    return countIf(isEven, data);
+  }
+  size_t countOdd(const v_pol & data)
+  {
+    return countIf(isOdd, data);
+  }
+  bool countIfNVertexes(const Polygon & pol, size_t num)
+  {
+    return hasQuantityOfVertexes(pol, num) ? true : false;
+  }
+  size_t countIfNOfVertexesIs(const v_pol & data, size_t number_of_vertexes)
+  {
+    using namespace std::placeholders;
+    auto hasNVertexes = std::bind(countIfNVertexes, _1, number_of_vertexes);
+    return std::count_if(data.cbegin(), data.cend(), hasNVertexes);
   }
 }
