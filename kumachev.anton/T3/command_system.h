@@ -11,7 +11,7 @@ namespace kumachev {
       std::ostream &ostream);
 
   using command_handler_int = void (*)(const std::vector< Polygon > &polygons,
-      int parameter, std::ostream &ostream);
+      size_t parameter, std::ostream &ostream);
 
   using command_handler_poly = void (*)(const std::vector< Polygon > &polygons,
       const Polygon &parameter, std::ostream &ostream);
@@ -28,9 +28,8 @@ namespace kumachev {
   void printInvalid(std::ostream &ostream);
 
   void handleCommand(const std::string &commandName,
-    std::vector< Polygon > &polygons,
-    std::istream &istream,
-    std::ostream &ostream);
+      const CommandSystem &commandSystem, std::vector< Polygon > &polygons,
+      std::istream &istream, std::ostream &ostream);
 }
 
 #endif

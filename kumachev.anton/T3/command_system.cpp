@@ -1,8 +1,20 @@
 #include "command_system.h"
 #include <iostream>
 #include "commands.h"
+#include "polygon_io.h"
 
 namespace kumachev {
+  static Polygon readPolygonParameter(std::istream &istream)
+  {
+    Polygon poly;
+    istream >> poly;
+
+    if (!istream) {
+      throw std::logic_error("Invalid polygon value");
+    }
+
+    return poly;
+  }
 
   CommandSystem createCommandSystem()
   {
@@ -56,9 +68,31 @@ namespace kumachev {
     return command;
   }
 
-  void handleCommand(const std::string &commandName,
+  void handleCommand(const std::string &commandName, const CommandSystem &cmds,
       std::vector< Polygon > &polygons, std::istream &istream,
       std::ostream &ostream)
   {
+    try {
+      auto &handler = cmds.dict1.at(commandName);
+      handler(polygons, ostream);
+      return;
+    }
+    catch (const std::out_of_range &e) {
+    }
+
+    try {
+      auto &handler = cmds.dict3.at(commandName);
+      Polygon param = readPolygonParameter(istream);
+      handler(polygons, param, ostream);
+      return;
+    }
+    catch (const std::out_of_range &e) {
+    }
+
+    size_t delim = commandName.find(' ');
+    std::string cmd = commandName.substr(0, delim);
+    size_t parameter = std::stoull(commandName.substr(delim));
+    auto &handler = cmds.dict2.at(cmd);
+    handler(polygons, parameter, ostream);
   }
 }

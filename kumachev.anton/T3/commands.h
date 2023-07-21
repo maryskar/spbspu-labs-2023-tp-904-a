@@ -9,7 +9,7 @@ namespace kumachev {
   void areaOdd(const std::vector< Polygon > &polygons, std::ostream &ostream);
   void areaMean(const std::vector< Polygon > &polygons, std::ostream &ostream);
 
-  void areaVertex(const std::vector< Polygon > &polygons, int vertex,
+  void areaVertex(const std::vector< Polygon > &polygons, size_t vertex,
       std::ostream &ostream);
 
   void maxArea(const std::vector< Polygon > &polygons, std::ostream &ostream);
@@ -18,7 +18,7 @@ namespace kumachev {
   void minVert(const std::vector< Polygon > &polygons, std::ostream &ostream);
   void countEven(const std::vector< Polygon > &polygons, std::ostream &ostream);
   void countOdd(const std::vector< Polygon > &polygons, std::ostream &ostream);
-  void countVert(const std::vector< Polygon > &polygons, int vertex,
+  void countVert(const std::vector< Polygon > &polygons, size_t vertex,
       std::ostream &ostream);
 
   void echo(const std::vector< Polygon > &polygons, const Polygon &polygon,

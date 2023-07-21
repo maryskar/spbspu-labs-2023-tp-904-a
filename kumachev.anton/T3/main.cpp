@@ -41,7 +41,7 @@ int main(int argc, char **argv)
   while (!in.eof()) {
     try {
       auto command = kumachev::inputCommand(in);
-      kumachev::handleCommand(command, shapes, in, out);
+      kumachev::handleCommand(command, commands, shapes, in, out);
       out << '\n';
     }
     catch (const std::logic_error &e) {
