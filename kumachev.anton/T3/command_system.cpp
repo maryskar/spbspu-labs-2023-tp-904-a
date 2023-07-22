@@ -92,6 +92,11 @@ namespace kumachev {
     size_t delim = commandName.find(' ');
     std::string cmd = commandName.substr(0, delim);
     size_t parameter = std::stoull(commandName.substr(delim));
+
+    if (parameter < 3) {
+      throw std::logic_error("Vertex count must more than 2");
+    }
+
     auto &handler = cmds.dict2.at(cmd);
     handler(polygons, parameter, ostream);
   }

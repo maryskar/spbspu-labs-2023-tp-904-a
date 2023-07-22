@@ -90,6 +90,10 @@ namespace kumachev {
 
   void maxArea(const std::vector< Polygon > &polygons, std::ostream &ostream)
   {
+    if (polygons.empty()) {
+      throw std::logic_error("Polygon list is empty");
+    }
+
     std::vector< double > areas;
     auto inserter = std::back_inserter(areas);
     std::transform(polygons.begin(), polygons.end(), inserter, getArea);
@@ -101,6 +105,10 @@ namespace kumachev {
 
   void minArea(const std::vector< Polygon > &polygons, std::ostream &ostream)
   {
+    if (polygons.empty()) {
+      throw std::logic_error("Polygon list is empty");
+    }
+
     std::vector< double > areas;
     auto inserter = std::back_inserter(areas);
     std::transform(polygons.begin(), polygons.end(), inserter, getArea);
@@ -112,6 +120,10 @@ namespace kumachev {
 
   void maxVert(const std::vector< Polygon > &polygons, std::ostream &ostream)
   {
+    if (polygons.empty()) {
+      throw std::logic_error("Polygon list is empty");
+    }
+
     std::vector< size_t > vertexCount;
     auto inserter = std::back_inserter(vertexCount);
     std::transform(polygons.begin(), polygons.end(), inserter, vertex);
@@ -123,6 +135,10 @@ namespace kumachev {
 
   void minVert(const std::vector< Polygon > &polygons, std::ostream &ostream)
   {
+    if (polygons.empty()) {
+      throw std::logic_error("Polygon list is empty");
+    }
+
     std::vector< size_t > vertexCount;
     auto inserter = std::back_inserter(vertexCount);
     std::transform(polygons.begin(), polygons.end(), inserter, vertex);
