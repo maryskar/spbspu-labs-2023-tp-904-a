@@ -61,6 +61,11 @@ namespace kumachev {
     Polygon value;
     auto backInserter = std::back_inserter(value.points);
     std::copy_n(istream_iterator(istream), vertexCount, backInserter);
+    int nextChar = istream.peek();
+
+    if (nextChar != '\n') {
+      istream.setstate(std::ios::failbit);
+    }
 
     if (istream) {
       std::swap(polygon, value);

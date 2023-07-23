@@ -48,8 +48,8 @@ namespace kumachev {
     }
 
     auto leftBegin = lhs.points.begin();
-    auto leftEnd = lhs.points.begin();
-    auto rightBegin = lhs.points.begin();
+    auto leftEnd = lhs.points.end();
+    auto rightBegin = rhs.points.begin();
     PointComparator comp;
 
     return std::equal(leftBegin, leftEnd, rightBegin, comp);

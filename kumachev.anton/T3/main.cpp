@@ -47,8 +47,8 @@ int main(int argc, char **argv)
     catch (const std::logic_error &e) {
       kumachev::printInvalid(out);
       out << '\n';
-      in.ignore(streamsize_limits::max(), '\n');
       in.clear();
+      in.ignore(streamsize_limits::max(), '\n');
     }
     catch (const std::runtime_error &e) {
       break;
