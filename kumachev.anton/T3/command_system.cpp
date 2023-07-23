@@ -2,12 +2,16 @@
 #include <iostream>
 #include "commands.h"
 #include "polygon_io.h"
+#include "stream_guard.h"
 
 namespace kumachev {
   static Polygon readPolygonParameter(std::istream &istream)
   {
+    std::istream::sentry sentry(istream);
+    StreamGuard guard(istream);
+    istream >> std::noskipws;
     Polygon poly;
-    istream >> poly;
+    istream >> poly >> CharIO{ '\n' };
 
     if (!istream) {
       throw std::logic_error("Invalid polygon value");

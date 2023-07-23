@@ -1,4 +1,5 @@
 #include "polygon_io.h"
+#include "stream_guard.h"
 #include <iostream>
 #include <algorithm>
 #include <iterator>
@@ -25,13 +26,15 @@ namespace kumachev {
   std::istream &operator>>(std::istream &istream, Point &point)
   {
     std::istream::sentry sentry(istream);
+    StreamGuard guard(istream);
+    istream >> std::noskipws;
 
     if (!sentry) {
       return istream;
     }
 
     Point value{ 0, 0 };
-    istream >> CharIO{ '(' } >> value.x >> CharIO{ ';' } >> value.y;
+    istream >> CharIO{ ' ' } >> CharIO{ '(' } >> value.x >> CharIO{ ';' } >> value.y;
     istream >> CharIO{ ')' };
 
     if (istream) {
@@ -45,6 +48,8 @@ namespace kumachev {
   {
     using istream_iterator = std::istream_iterator< Point >;
     std::istream::sentry sentry(istream);
+    StreamGuard guard(istream);
+    istream >> std::noskipws;
 
     if (!sentry) {
       return istream;
@@ -63,7 +68,7 @@ namespace kumachev {
     std::copy_n(istream_iterator(istream), vertexCount, backInserter);
     int nextChar = istream.peek();
 
-    if (nextChar != '\n') {
+    if (nextChar != '\n' && nextChar != -1) {
       istream.setstate(std::ios::failbit);
     }
 
