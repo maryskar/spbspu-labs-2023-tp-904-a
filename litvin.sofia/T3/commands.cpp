@@ -161,22 +161,37 @@ namespace litvin
   size_t getNumberOfIntersections(const v_pol & data, const Polygon & pol)
   {
     size_t count = 0;
-    if (data.empty())
+    if (!data.empty())
     {
       using namespace std::placeholders;
-      count = std::count_if(data.cbegin(), data.cend(), [&](const Polygon & pol2)
-      {
-        return arePolygonsIntersected(pol, pol2);
-      });
+      auto countIfIntersect = std::bind(arePolygonsIntersected, pol, _1);
+      count = std::count_if(data.cbegin(), data.cend(), countIfIntersect);
       return count;
     }
     return count;
   }
+  bool minmax_predicate(const Point & p1, const Point & p2)
+  {
+    return p1.x < p2.x || (p1.x == p2.x && p1.y < p2.y);
+  }
+  bool arePolygonsSame(const Polygon & polygon1, const Polygon & polygon2)
+  {
+    auto minmax_points1 = std::minmax_element(polygon1.points.begin(), polygon1.points.end(), minmax_predicate);
+    auto minmax_points2 = std::minmax_element(polygon2.points.begin(), polygon2.points.end(), minmax_predicate);
+    const auto & min1 = *(minmax_points1.first);
+    const auto & max1 = *(minmax_points1.second);
+    const auto & min2 = *(minmax_points2.first);
+    const auto & max2 = *(minmax_points2.second);
+    return min1.x <= max2.x && max1.x >= min2.x && min1.y <= max2.y && max1.y >= min2.y;
+  }
   size_t getNumberOfSameFigures(const v_pol & data, const Polygon & pol)
   {
     size_t count = 0;
-    if (data.empty())
+    if (!data.empty())
     {
+      using namespace std::placeholders;
+      auto countIfSame = std::bind(arePolygonsSame, pol, _1);
+      count = std::count_if(data.begin(), data.end(), countIfSame);
       return count;
     }
     return count;
