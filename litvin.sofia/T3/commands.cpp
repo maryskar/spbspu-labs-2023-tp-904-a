@@ -5,9 +5,9 @@
 #include <functional>
 #include <math.h>
 #include "polygon.hpp"
+#include "ScopeGuard.hpp"
 namespace litvin
 {
-  using v_pol = std::vector< litvin::Polygon >;
   bool isEven(const Polygon & polygon)
   {
     return size(polygon) % 2 == 0;
@@ -16,28 +16,31 @@ namespace litvin
   {
     return !isEven(polygon);
   }
-  double getEvenArea(const v_pol & data)
+  void printEvenArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
     std::vector< double > areas(data.size());
     using namespace std::placeholders;
     auto getAreaIfEven = std::bind(calcAreaIf, _1, isEven);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getAreaIfEven);
-    return std::accumulate(areas.cbegin(), areas.cend(), 0.0);
+    ScopeGuard guard(out);
+    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0);
   }
-  double getOddArea(const v_pol & data)
+  void printOddArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
     std::vector< double > areas(data.size());
     using namespace std::placeholders;
     auto getAreaIfOdd = std::bind(calcAreaIf, _1, isOdd);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getAreaIfOdd);
-    return std::accumulate(areas.cbegin(), areas.cend(), 0.0);
+    ScopeGuard guard(out);
+    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0);
   }
-  double getAverageArea(const v_pol & data)
+  void printAverageArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
     std::vector< double > areas(data.size());
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
     double sum = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
-    return sum / static_cast<double>(areas.size());
+    ScopeGuard guard(out);
+    out << sum / static_cast<double>(areas.size());
   }
   bool hasQuantityOfVertexes(const Polygon & pol, size_t num)
   {
@@ -47,15 +50,16 @@ namespace litvin
   {
     return hasQuantityOfVertexes(pol, number_of_vertexes) ? calcArea(pol) : 0.0;
   }
-  double getAreaIfNVertexes(const v_pol & data, size_t number_of_vertexes)
+  void printAreaIfNumberOfVertexesIs(const std::vector< litvin::Polygon > & data, size_t number_of_vertexes, std::ostream & out)
   {
     std::vector< double > areas(data.size());
     using namespace std::placeholders;
     auto calcAreaNVertexes = std::bind(calcAreaIfNVertexes, _1, number_of_vertexes);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcAreaNVertexes);
-    return std::accumulate(areas.cbegin(), areas.cend(), 0.0);
+    ScopeGuard guard(out);
+    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0);
   }
-  double getMaxOrMinAreaOrVertexes(const v_pol & data, bool isTheGreatest, bool isArea)
+  double getMaxOrMinAreaOrVertexes(const std::vector< litvin::Polygon > & data, bool isTheGreatest, bool isArea)
   {
     std::vector< double > areas_or_vertexes(data.size());
     if (isArea)
@@ -72,59 +76,66 @@ namespace litvin
     }
     return *(std::min_element(areas_or_vertexes.cbegin(), areas_or_vertexes.cend()));
   }
-  double getMaxArea(const v_pol & data)
+  void printIfMaxArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
     if (!data.empty())
     {
-      return getMaxOrMinAreaOrVertexes(data, true, true);
+      ScopeGuard guard(out);
+      out << getMaxOrMinAreaOrVertexes(data, true, true);
     }
     throw std::invalid_argument("For max area must be at least one polygon\n");
   }
-  double getMaxVertexes(const v_pol & data)
+  void printIfMaxVertexes(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
     if (!data.empty())
     {
-      getMaxOrMinAreaOrVertexes(data, true, false);
+      ScopeGuard guard(out);
+      out << getMaxOrMinAreaOrVertexes(data, true, false);
     }
     throw std::invalid_argument("For max vertexes must be at least one polygon\n");
   }
-  double getMinArea(const v_pol & data)
+  void printIfMinArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
     if (!data.empty())
     {
-      return getMaxOrMinAreaOrVertexes(data, false, true);
+      ScopeGuard guard(out);
+      out << getMaxOrMinAreaOrVertexes(data, false, true);
     }
     throw std::invalid_argument("For min area must be at least one polygon\n");
   }
-  double getMinVertexes(const v_pol & data)
+  void printIfMinVertexes(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
     if (!data.empty())
     {
-      return getMaxOrMinAreaOrVertexes(data, false, false);
+      ScopeGuard guard(out);
+      out << getMaxOrMinAreaOrVertexes(data, false, false);
     }
     throw std::invalid_argument("For min vertexes must be at least one polygon\n");
   }
-  size_t countIf(bool (* predicate)(const Polygon & pol), const v_pol & data)
+  size_t countIf(bool (* predicate)(const Polygon & pol), const std::vector< litvin::Polygon > & data)
   {
     return std::count_if(data.cbegin(), data.cend(), predicate);
   }
-  size_t countEven(const v_pol & data)
+  void printNumOfEven(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
-    return countIf(isEven, data);
+    ScopeGuard guard(out);
+    out << countIf(isEven, data);
   }
-  size_t countOdd(const v_pol & data)
+  void printNumOfOdd(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
-    return countIf(isOdd, data);
+    ScopeGuard guard(out);
+    out << countIf(isOdd, data);
   }
   bool countIfNVertexes(const Polygon & pol, size_t num)
   {
     return hasQuantityOfVertexes(pol, num);
   }
-  size_t countIfNOfVertexesIs(const v_pol & data, size_t number_of_vertexes)
+  void printNumOfPolygonsWithNumOfVertexes(const std::vector< litvin::Polygon > & data, size_t number_of_vertexes, std::ostream & out)
   {
     using namespace std::placeholders;
     auto hasNVertexes = std::bind(countIfNVertexes, _1, number_of_vertexes);
-    return std::count_if(data.cbegin(), data.cend(), hasNVertexes);
+    ScopeGuard guard(out);
+    out << std::count_if(data.cbegin(), data.cend(), hasNVertexes);
   }
   bool areLinesIntersected(const Point & l1_p1, const Point & l1_p2, const Point & l2_p1, const Point & l2_p2)
   {
@@ -158,17 +169,16 @@ namespace litvin
       });
     });
   }
-  size_t getNumberOfIntersections(const v_pol & data, const Polygon & pol)
+  void printNumberOfIntersections(const std::vector< litvin::Polygon > & data, const Polygon & pol, std::ostream & out)
   {
-    size_t count = 0;
+    ScopeGuard guard(out);
     if (!data.empty())
     {
       using namespace std::placeholders;
       auto countIfIntersect = std::bind(arePolygonsIntersected, pol, _1);
-      count = std::count_if(data.cbegin(), data.cend(), countIfIntersect);
-      return count;
+      out << std::count_if(data.cbegin(), data.cend(), countIfIntersect);
     }
-    return count;
+    out << "0";
   }
   bool minmax_predicate(const Point & p1, const Point & p2)
   {
@@ -184,16 +194,15 @@ namespace litvin
     const auto & max2 = *(minmax_points2.second);
     return min1.x <= max2.x && max1.x >= min2.x && min1.y <= max2.y && max1.y >= min2.y;
   }
-  size_t getNumberOfSameFigures(const v_pol & data, const Polygon & pol)
+  void printNumberOfSameFigures(const std::vector< litvin::Polygon > & data, const Polygon & pol, std::ostream & out)
   {
-    size_t count = 0;
+    ScopeGuard guard(out);
     if (!data.empty())
     {
       using namespace std::placeholders;
       auto countIfSame = std::bind(arePolygonsSame, pol, _1);
-      count = std::count_if(data.begin(), data.end(), countIfSame);
-      return count;
+      out << std::count_if(data.begin(), data.end(), countIfSame);
     }
-    return count;
+    out << "0";
   }
 }
