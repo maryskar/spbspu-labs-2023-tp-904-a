@@ -134,27 +134,40 @@ namespace litvin
     double y2 = l1_p2.y;
     double x3 = l2_p1.x;
     double y3 = l2_p1.y;
-    double y4 = l2_p2.y;
     double x4 = l2_p2.x;
+    double y4 = l2_p2.y;
     double denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-    if (denominator == 0) {
+    if (denominator == 0)
+    {
       return false;
     }
     double intersectX = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / denominator;
     double intersectY = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / denominator;
-    if (intersectX >= std::min(x1, x2) && intersectX <= std::max(x1, x2) &&
-        intersectY >= std::min(y1, y2) && intersectY <= std::max(y1, y2) &&
-        intersectX >= std::min(x3, x4) && intersectX <= std::max(x3, x4) &&
-        intersectY >= std::min(y3, y4) && intersectY <= std::max(y3, y4)) {
-      return true;
-    }
-    return false;
+    return (intersectX >= std::min(x1, x2) && intersectX <= std::max(x1, x2) &&
+            intersectY >= std::min(y1, y2) && intersectY <= std::max(y1, y2) &&
+            intersectX >= std::min(x3, x4) && intersectX <= std::max(x3, x4) &&
+            intersectY >= std::min(y3, y4) && intersectY <= std::max(y3, y4));
+  }
+  bool arePolygonsIntersected(const Polygon & pol1, const Polygon & pol2)
+  {
+    return std::any_of(pol1.points.cbegin(), pol1.points.cend() - 1, [&](const Point & p1)
+    {
+      return std::any_of(pol2.points.cbegin(), pol2.points.cend() - 1, [&](const Point & p2)
+      {
+        return areLinesIntersected(p1, *(pol1.points.cend() - 1), p2, *(pol2.points.cend() - 1));
+      });
+    });
   }
   size_t getNumberOfIntersections(const v_pol & data, const Polygon & pol)
   {
     size_t count = 0;
     if (data.empty())
     {
+      using namespace std::placeholders;
+      count = std::count_if(data.cbegin(), data.cend(), [&](const Polygon & pol2)
+      {
+        return arePolygonsIntersected(pol, pol2);
+      });
       return count;
     }
     return count;
