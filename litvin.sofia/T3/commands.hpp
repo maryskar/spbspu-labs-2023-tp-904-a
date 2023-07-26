@@ -6,7 +6,7 @@
 namespace litvin
 {
   using signature_type_1 = void (*)(const std::vector< Polygon > & data, std::ostream & out);
-  using signature_type_2 = void (*)(const std::vector<Polygon> & data, const Polygon & pol, std::ostream & out);
+  using signature_type_2 = void (*)(const std::vector< Polygon > & data, const Polygon & pol, std::ostream & out);
   using signature_type_3 = void (*)(const std::vector< Polygon > & data, size_t num, std::ostream & out);
   struct commandDict
   {

@@ -50,7 +50,8 @@ namespace litvin
   {
     return hasQuantityOfVertexes(pol, number_of_vertexes) ? calcArea(pol) : 0.0;
   }
-  void printAreaIfNumberOfVertexesIs(const std::vector< litvin::Polygon > & data, size_t number_of_vertexes, std::ostream & out)
+  void printAreaIfNumberOfVertexesIs(const std::vector< litvin::Polygon > & data, size_t number_of_vertexes,
+                                     std::ostream & out)
   {
     std::vector< double > areas(data.size());
     using namespace std::placeholders;
@@ -130,7 +131,8 @@ namespace litvin
   {
     return hasQuantityOfVertexes(pol, num);
   }
-  void printNumOfPolygonsWithNumOfVertexes(const std::vector< litvin::Polygon > & data, size_t number_of_vertexes, std::ostream & out)
+  void printNumOfPolygonsWithNumOfVertexes(const std::vector< litvin::Polygon > & data, size_t number_of_vertexes,
+                                           std::ostream & out)
   {
     using namespace std::placeholders;
     auto hasNVertexes = std::bind(countIfNVertexes, _1, number_of_vertexes);
