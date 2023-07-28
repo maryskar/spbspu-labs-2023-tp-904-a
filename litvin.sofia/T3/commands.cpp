@@ -207,4 +207,21 @@ namespace litvin
     }
     out << "0";
   }
+  command_dicts createCommandDicts(){
+    command_dicts dict;
+    dict.dict1.insert({"AREA EVEN", printEvenArea});
+    dict.dict1.insert({"AREA ODD", printOddArea});
+    dict.dict1.insert({"AREA MEAN", printAverageArea});
+    dict.dict1.insert({"MAX AREA", printIfMaxArea});
+    dict.dict1.insert({"MAX VERTEXES", printIfMaxVertexes});
+    dict.dict1.insert({"MIN VERTEXES", printIfMinVertexes});
+    dict.dict1.insert({"MIN AREA", printIfMinArea});
+    dict.dict1.insert({"COUNT EVEN", printNumOfEven});
+    dict.dict1.insert({"COUNT ODD", printNumOfOdd});
+    dict.dict2.insert({"INTERSECTIONS", printNumberOfIntersections});
+    dict.dict2.insert({"SAME", printNumberOfSameFigures});
+    dict.dict3.insert({"COUNT NUM", printNumOfPolygonsWithNumOfVertexes});
+    dict.dict3.insert({"AREA NUM", printAreaIfNumberOfVertexesIs});
+    return dict;
+  }
 }
