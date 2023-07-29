@@ -1,6 +1,6 @@
 #ifndef T3_POLYGON_HPP
 #define T3_POLYGON_HPP
-#include <iostream>
+#include <iosfwd>
 #include <vector>
 namespace litvin
 {

@@ -1,9 +1,8 @@
 #include "commands.hpp"
-#include <vector>
 #include <numeric>
+#include <iterator>
 #include <algorithm>
 #include <functional>
-#include <math.h>
 #include "polygon.hpp"
 #include "ScopeGuard.hpp"
 namespace litvin
@@ -207,7 +206,8 @@ namespace litvin
     }
     out << "0";
   }
-  command_dicts createCommandDicts(){
+  command_dicts initializeCommandDicts()
+  {
     command_dicts dict;
     dict.dict1.insert({"AREA EVEN", printEvenArea});
     dict.dict1.insert({"AREA ODD", printOddArea});
@@ -223,5 +223,29 @@ namespace litvin
     dict.dict3.insert({"COUNT NUM", printNumOfPolygonsWithNumOfVertexes});
     dict.dict3.insert({"AREA NUM", printAreaIfNumberOfVertexesIs});
     return dict;
+  }
+  std::string inputCommand(std::istream & in)
+  {
+    std::string command_name = " ";
+    in >> command_name;
+    if (!in)
+    {
+      throw std::runtime_error("Command file ending were reached");
+    }
+    if (command_name != "SAME" && command_name != "INTERSECTIONS")
+    {
+      std::string parameter = " ";
+      in >> parameter;
+      if (!in)
+      {
+        throw std::invalid_argument("Invalid command name");
+      }
+      command_name = command_name + " " + parameter;
+    }
+    return command_name;
+  }
+  void executeCommand(std::string & commandName)
+  {
+    ;
   }
 }

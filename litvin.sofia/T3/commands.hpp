@@ -1,6 +1,5 @@
 #ifndef T3_COMMANDS_HPP
 #define T3_COMMANDS_HPP
-#include <string>
 #include <map>
 #include "polygon.hpp"
 namespace litvin
@@ -14,6 +13,6 @@ namespace litvin
     std::map< std::string, signature_type_2 > dict2;
     std::map< std::string, signature_type_3 > dict3;
   };
-  command_dicts createCommandDicts();
+  //command_dicts initializeCommandDicts();
 }
 #endif
