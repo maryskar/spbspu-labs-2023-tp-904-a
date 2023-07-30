@@ -9,10 +9,15 @@ namespace litvin
   using signature_type_3 = void (*)(const std::vector< Polygon > & data, size_t num, std::ostream & out);
   struct command_dicts
   {
+    command_dicts();
     std::map< std::string, signature_type_1 > dict1;
     std::map< std::string, signature_type_2 > dict2;
     std::map< std::string, signature_type_3 > dict3;
+    void executeCommand(const std::string & cmd, const std::vector< Polygon > & data, std::ostream & out) const;
+    void executeCommand(const std::string & cmd, const std::vector< Polygon > & data, const Polygon & pol,
+                        std::ostream & out) const;
+    void executeCommand(const std::string & cmd, const std::vector< Polygon > & data, size_t num,
+                        std::ostream & out) const;
   };
-  //command_dicts initializeCommandDicts();
 }
 #endif

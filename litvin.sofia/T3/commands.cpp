@@ -206,23 +206,21 @@ namespace litvin
     }
     out << "0";
   }
-  command_dicts initializeCommandDicts()
+  command_dicts::command_dicts()
   {
-    command_dicts dict;
-    dict.dict1.insert({"AREA EVEN", printEvenArea});
-    dict.dict1.insert({"AREA ODD", printOddArea});
-    dict.dict1.insert({"AREA MEAN", printAverageArea});
-    dict.dict1.insert({"MAX AREA", printIfMaxArea});
-    dict.dict1.insert({"MAX VERTEXES", printIfMaxVertexes});
-    dict.dict1.insert({"MIN VERTEXES", printIfMinVertexes});
-    dict.dict1.insert({"MIN AREA", printIfMinArea});
-    dict.dict1.insert({"COUNT EVEN", printNumOfEven});
-    dict.dict1.insert({"COUNT ODD", printNumOfOdd});
-    dict.dict2.insert({"INTERSECTIONS", printNumberOfIntersections});
-    dict.dict2.insert({"SAME", printNumberOfSameFigures});
-    dict.dict3.insert({"COUNT NUM", printNumOfPolygonsWithNumOfVertexes});
-    dict.dict3.insert({"AREA NUM", printAreaIfNumberOfVertexesIs});
-    return dict;
+    dict1.insert({"AREA EVEN", printEvenArea});
+    dict1.insert({"AREA ODD", printOddArea});
+    dict1.insert({"AREA MEAN", printAverageArea});
+    dict1.insert({"MAX AREA", printIfMaxArea});
+    dict1.insert({"MAX VERTEXES", printIfMaxVertexes});
+    dict1.insert({"MIN VERTEXES", printIfMinVertexes});
+    dict1.insert({"MIN AREA", printIfMinArea});
+    dict1.insert({"COUNT EVEN", printNumOfEven});
+    dict1.insert({"COUNT ODD", printNumOfOdd});
+    dict2.insert({"INTERSECTIONS", printNumberOfIntersections});
+    dict2.insert({"SAME", printNumberOfSameFigures});
+    dict3.insert({"COUNT", printNumOfPolygonsWithNumOfVertexes});
+    dict3.insert({"AREA", printAreaIfNumberOfVertexesIs});
   }
   std::string inputCommand(std::istream & in)
   {
@@ -244,8 +242,49 @@ namespace litvin
     }
     return command_name;
   }
-  void executeCommand(std::string & commandName)
+  void command_dicts::executeCommand(const std::string & cmd, const std::vector< Polygon > & data,
+                                     std::ostream & out) const
   {
-    ;
+    signature_type_1 function = dict1.at(cmd);
+    function(data, out);
+  }
+  void command_dicts::executeCommand(const std::string & cmd, const std::vector< Polygon > & data,
+                                     const Polygon & pol, std::ostream & out) const
+  {
+    signature_type_2 function = dict2.at(cmd);
+    function(data, pol, out);
+  }
+  void command_dicts::executeCommand(const std::string & cmd, const std::vector< Polygon > & data, size_t num,
+                                     std::ostream & out) const
+  {
+    signature_type_3 function = dict3.at(cmd);
+    function(data, num, out);
+  }
+  using v_pol = std::vector< Polygon >;
+  using cmd_d = command_dicts;
+  void runCommand(const v_pol & data, const cmd_d & dicts, std::string & cmd, std::ostream & out, std::istream & in)
+  {
+    if (cmd == "INTERSECTIONS" || cmd == "SAME")
+    {
+      Polygon pol;
+      in >> pol;
+      try
+      {
+        dicts.executeCommand(cmd, data, pol, out);
+        return;
+      }
+      catch (const std::out_of_range & error)
+      {}
+    }
+    try
+    {
+      dicts.executeCommand(cmd, data, out);
+      return;
+    }
+    catch (std::out_of_range & error)
+    {}
+    size_t pos = cmd.find(' ');
+    size_t num = std::stoull(cmd.substr(pos));
+    dicts.executeCommand(cmd.substr(0, pos), data, num, out);
   }
 }
