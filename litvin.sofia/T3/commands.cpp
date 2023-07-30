@@ -3,8 +3,8 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
-#include "polygon.hpp"
 #include <ScopeGuard.hpp>
+#include "polygon.hpp"
 namespace litvin
 {
   bool isEven(const Polygon & polygon)
