@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <functional>
 #include "polygon.hpp"
-#include "ScopeGuard.hpp"
+#include <ScopeGuard.hpp>
 namespace litvin
 {
   bool isEven(const Polygon & polygon)

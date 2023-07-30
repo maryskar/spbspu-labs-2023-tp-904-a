@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <numeric>
 #include <cmath>
-#include "iostructures.hpp"
+#include <iostructures.hpp>
 std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
 {
   std::istream::sentry sentry(in);
