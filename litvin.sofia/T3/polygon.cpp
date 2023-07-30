@@ -1,7 +1,7 @@
 #include "polygon.hpp"
 #include <iostream>
-#include <iterator>
 #include <algorithm>
+#include <iterator>
 #include <numeric>
 #include <cmath>
 #include <iostructures.hpp>
