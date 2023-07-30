@@ -1,6 +1,6 @@
 #include "DataStruct.hpp"
-#include "ScopeGuard.hpp"
-#include "Structures.hpp"
+#include <ScopeGuard.hpp>
+#include <iostructures.hpp>
 std::istream & litvin::operator>>(std::istream & in, DataStruct & dest)
 {
   std::istream ::sentry sentry(in);
