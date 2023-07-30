@@ -260,8 +260,6 @@ namespace litvin
     signature_type_3 function = dict3.at(cmd);
     function(data, num, out);
   }
-  using v_pol = std::vector< Polygon >;
-  using cmd_d = command_dicts;
   void runCommand(const v_pol & data, const cmd_d & dicts, std::string & cmd, std::ostream & out, std::istream & in)
   {
     if (cmd == "INTERSECTIONS" || cmd == "SAME")
@@ -274,7 +272,8 @@ namespace litvin
         return;
       }
       catch (const std::out_of_range & error)
-      {}
+      {
+      }
     }
     try
     {
@@ -282,7 +281,8 @@ namespace litvin
       return;
     }
     catch (std::out_of_range & error)
-    {}
+    {
+    }
     size_t pos = cmd.find(' ');
     size_t num = std::stoull(cmd.substr(pos));
     dicts.executeCommand(cmd.substr(0, pos), data, num, out);

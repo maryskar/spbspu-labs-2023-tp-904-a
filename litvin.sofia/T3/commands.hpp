@@ -19,5 +19,9 @@ namespace litvin
     void executeCommand(const std::string & cmd, const std::vector< Polygon > & data, size_t num,
                         std::ostream & out) const;
   };
+  using v_pol = std::vector< Polygon >;
+  using cmd_d = command_dicts;
+  std::string inputCommand(std::istream & in);
+  void runCommand(const v_pol & data, const cmd_d & dicts, std::string & cmd, std::ostream & out, std::istream & in);
 }
 #endif

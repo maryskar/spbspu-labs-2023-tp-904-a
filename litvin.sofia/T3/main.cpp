@@ -31,5 +31,28 @@ int main(int argc, char * argv[])
     using is_it = std::istream_iterator< litvin::Polygon >;
     std::copy(is_it(fin), is_it(), std::back_inserter(data));
   }
+  litvin::command_dicts commands;
+  while (!std::cin.eof())
+  {
+    try
+    {
+      std::string command = " ";
+      command = litvin::inputCommand(std::cin);
+      litvin::runCommand(data, commands, command, std::cout, std::cin);
+    } catch (const std::runtime_error & error)
+    {
+      break;
+    }
+    catch (const std::logic_error & error)
+    {
+      std::cout << "<INVALID COMMAND>\n";
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
+    if (!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
+  }
   return 0;
 }
