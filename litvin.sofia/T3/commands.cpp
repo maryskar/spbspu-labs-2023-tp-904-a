@@ -40,7 +40,8 @@ namespace litvin
   }
   void printAverageArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
-    if(data.empty()){
+    if (data.empty())
+    {
       printInvalidCommand(out);
       return;
     }
@@ -48,7 +49,7 @@ namespace litvin
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
     double sum = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
     ScopeGuard guard(out);
-    out << std::fixed << std::setprecision(1) << sum << '\n';
+    out << std::fixed << std::setprecision(1) << sum / static_cast< double >(data.size()) << '\n';
   }
   bool hasQuantityOfVertexes(const Polygon & pol, size_t num)
   {
