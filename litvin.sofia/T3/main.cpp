@@ -37,7 +37,7 @@ int main(int argc, char * argv[])
     try
     {
       std::string command = " ";
-      command = litvin::inputCommand(std::cin);
+      command = litvin::inputCommand(std::cin, std::cout);
       litvin::runCommand(data, commands, command, std::cout, std::cin);
     } catch (const std::runtime_error & error)
     {
