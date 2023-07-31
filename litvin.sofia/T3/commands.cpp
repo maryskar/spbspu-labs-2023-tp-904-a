@@ -264,11 +264,11 @@ namespace litvin
   {
     if (cmd == "INTERSECTIONS" || cmd == "SAME")
     {
-      Polygon pol;
-      in >> pol;
+      Polygon poligon;
+      in >> poligon;
       try
       {
-        dicts.executeCommand(cmd, data, pol, out);
+        dicts.executeCommand(cmd, data, poligon, out);
         return;
       }
       catch (const std::out_of_range & error)
