@@ -40,6 +40,10 @@ namespace litvin
   }
   void printAverageArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
+    if(data.empty()){
+      printInvalidCommand(out);
+      return;
+    }
     std::vector< double > areas(data.size());
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
     double sum = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
@@ -93,6 +97,7 @@ namespace litvin
       ScopeGuard guard(out);
       out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, true, true) << '\n';
     }
+    printInvalidCommand(out);
     throw std::invalid_argument("For max area must be at least one polygon\n");
   }
   void printIfMaxVertexes(const std::vector< litvin::Polygon > & data, std::ostream & out)
@@ -100,8 +105,9 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, true, false) << '\n';
+      out << getMaxOrMinAreaOrVertexes(data, true, false) << '\n';
     }
+    printInvalidCommand(out);
     throw std::invalid_argument("For max vertexes must be at least one polygon\n");
   }
   void printIfMinArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
@@ -111,6 +117,7 @@ namespace litvin
       ScopeGuard guard(out);
       out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, false, true) << '\n';
     }
+    printInvalidCommand(out);
     throw std::invalid_argument("For min area must be at least one polygon\n");
   }
   void printIfMinVertexes(const std::vector< litvin::Polygon > & data, std::ostream & out)
@@ -118,8 +125,9 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, false, false) << '\n';
+      out << getMaxOrMinAreaOrVertexes(data, false, false) << '\n';
     }
+    printInvalidCommand(out);
     throw std::invalid_argument("For min vertexes must be at least one polygon\n");
   }
   size_t countIf(bool (* predicate)(const Polygon & pol), const std::vector< litvin::Polygon > & data)
