@@ -91,7 +91,7 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << getMaxOrMinAreaOrVertexes(data, true, true) << '\n';
+      out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, true, true) << '\n';
     }
     throw std::invalid_argument("For max area must be at least one polygon\n");
   }
@@ -100,7 +100,7 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << getMaxOrMinAreaOrVertexes(data, true, false) << '\n';
+      out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, true, false) << '\n';
     }
     throw std::invalid_argument("For max vertexes must be at least one polygon\n");
   }
@@ -109,7 +109,7 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << getMaxOrMinAreaOrVertexes(data, false, true) << '\n';
+      out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, false, true) << '\n';
     }
     throw std::invalid_argument("For min area must be at least one polygon\n");
   }
@@ -118,7 +118,7 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << getMaxOrMinAreaOrVertexes(data, false, false) << '\n';
+      out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, false, false) << '\n';
     }
     throw std::invalid_argument("For min vertexes must be at least one polygon\n");
   }
@@ -253,7 +253,6 @@ namespace litvin
       in >> parameter;
       if (!in)
       {
-        printInvalidCommand(out);
         throw std::invalid_argument("Invalid command name");
       }
       command_name = command_name + " " + parameter;
