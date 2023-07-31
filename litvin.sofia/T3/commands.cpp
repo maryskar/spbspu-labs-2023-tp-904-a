@@ -287,19 +287,19 @@ namespace litvin
   {
     if (cmd == "INTERSECTIONS" || cmd == "SAME")
     {
-      Polygon poligon;
-      in >> poligon;
+      Polygon polygon;
+      in >> polygon;
       if(!in){
         printInvalidCommand(out);
+        return;
       }
       try
       {
-        dicts.executeCommand(cmd, data, poligon, out);
+        dicts.executeCommand(cmd, data, polygon, out);
         return;
       }
       catch (const std::out_of_range & error)
-      {
-      }
+      {}
     }
     try
     {
@@ -307,8 +307,7 @@ namespace litvin
       return;
     }
     catch (const std::out_of_range & error)
-    {
-    }
+    {}
     size_t pos = cmd.find(' ');
     size_t num = std::stoull(cmd.substr(pos));
     try
@@ -319,6 +318,5 @@ namespace litvin
     catch (const std::out_of_range & error){
       printInvalidCommand(out);
     }
-    printInvalidCommand(out);
   }
 }
