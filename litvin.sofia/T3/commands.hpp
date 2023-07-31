@@ -21,7 +21,7 @@ namespace litvin
   };
   using v_pol = std::vector< Polygon >;
   using cmd_d = command_dicts;
-  std::string inputCommand(std::istream & in);
+  std::string inputCommand(std::istream & in, std::ostream & out);
   void runCommand(const v_pol & data, const cmd_d & dicts, std::string & cmd, std::ostream & out, std::istream & in);
 }
 #endif
