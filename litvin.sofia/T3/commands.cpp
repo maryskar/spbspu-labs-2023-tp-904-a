@@ -22,7 +22,7 @@ namespace litvin
     auto getAreaIfEven = std::bind(calcAreaIf, _1, isEven);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getAreaIfEven);
     ScopeGuard guard(out);
-    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0);
+    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
   }
   void printOddArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
@@ -31,7 +31,7 @@ namespace litvin
     auto getAreaIfOdd = std::bind(calcAreaIf, _1, isOdd);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getAreaIfOdd);
     ScopeGuard guard(out);
-    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0);
+    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
   }
   void printAverageArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
@@ -39,7 +39,7 @@ namespace litvin
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
     double sum = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
     ScopeGuard guard(out);
-    out << sum / static_cast<double>(areas.size());
+    out << sum / static_cast<double>(areas.size()) << '\n';
   }
   bool hasQuantityOfVertexes(const Polygon & pol, size_t num)
   {
@@ -57,7 +57,7 @@ namespace litvin
     auto calcAreaNVertexes = std::bind(calcAreaIfNVertexes, _1, number_of_vertexes);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcAreaNVertexes);
     ScopeGuard guard(out);
-    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0);
+    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
   }
   double getMaxOrMinAreaOrVertexes(const std::vector< litvin::Polygon > & data, bool isTheGreatest, bool isArea)
   {
@@ -81,7 +81,7 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << getMaxOrMinAreaOrVertexes(data, true, true);
+      out << getMaxOrMinAreaOrVertexes(data, true, true) << '\n';
     }
     throw std::invalid_argument("For max area must be at least one polygon\n");
   }
@@ -90,7 +90,7 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << getMaxOrMinAreaOrVertexes(data, true, false);
+      out << getMaxOrMinAreaOrVertexes(data, true, false) << '\n';
     }
     throw std::invalid_argument("For max vertexes must be at least one polygon\n");
   }
@@ -99,7 +99,7 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << getMaxOrMinAreaOrVertexes(data, false, true);
+      out << getMaxOrMinAreaOrVertexes(data, false, true) << '\n';
     }
     throw std::invalid_argument("For min area must be at least one polygon\n");
   }
@@ -108,7 +108,7 @@ namespace litvin
     if (!data.empty())
     {
       ScopeGuard guard(out);
-      out << getMaxOrMinAreaOrVertexes(data, false, false);
+      out << getMaxOrMinAreaOrVertexes(data, false, false) << '\n';
     }
     throw std::invalid_argument("For min vertexes must be at least one polygon\n");
   }
@@ -119,12 +119,12 @@ namespace litvin
   void printNumOfEven(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
     ScopeGuard guard(out);
-    out << countIf(isEven, data);
+    out << countIf(isEven, data) << '\n';
   }
   void printNumOfOdd(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
     ScopeGuard guard(out);
-    out << countIf(isOdd, data);
+    out << countIf(isOdd, data) << '\n';
   }
   bool countIfNVertexes(const Polygon & pol, size_t num)
   {
@@ -136,7 +136,7 @@ namespace litvin
     using namespace std::placeholders;
     auto hasNVertexes = std::bind(countIfNVertexes, _1, number_of_vertexes);
     ScopeGuard guard(out);
-    out << std::count_if(data.cbegin(), data.cend(), hasNVertexes);
+    out << std::count_if(data.cbegin(), data.cend(), hasNVertexes) << '\n';
   }
   bool areLinesIntersected(const Point & l1_p1, const Point & l1_p2, const Point & l2_p1, const Point & l2_p2)
   {
@@ -177,9 +177,10 @@ namespace litvin
     {
       using namespace std::placeholders;
       auto countIfIntersect = std::bind(arePolygonsIntersected, pol, _1);
-      out << std::count_if(data.cbegin(), data.cend(), countIfIntersect);
+      out << std::count_if(data.cbegin(), data.cend(), countIfIntersect) << '\n';
+      return;
     }
-    out << "0";
+    out << '0' << '\n';
   }
   bool minmax_predicate(const Point & p1, const Point & p2)
   {
@@ -202,9 +203,10 @@ namespace litvin
     {
       using namespace std::placeholders;
       auto countIfSame = std::bind(arePolygonsSame, pol, _1);
-      out << std::count_if(data.begin(), data.end(), countIfSame);
+      out << std::count_if(data.begin(), data.end(), countIfSame) << '\n';
+      return;
     }
-    out << "0";
+    out << '0' << '\n';
   }
   command_dicts::command_dicts()
   {
