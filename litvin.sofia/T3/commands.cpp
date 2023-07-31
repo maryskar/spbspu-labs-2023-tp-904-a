@@ -296,6 +296,9 @@ namespace litvin
     {
       Polygon poligon;
       in >> poligon;
+      if(!in){
+        printInvalidCommand(out);
+      }
       try
       {
         dicts.executeCommand(cmd, data, poligon, out);
