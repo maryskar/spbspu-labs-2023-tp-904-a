@@ -44,8 +44,7 @@ double litvin::calcArea(const Polygon & pol)
   Point last = pol.points.back();
   area.push_back(calculate(last, first));
   double res = std::accumulate(area.cbegin(), area.cend(), 0);
-  std::abs(res);
-  return res / 2;
+  return std::abs(res) / 2;
 }
 double litvin::calcAreaIf(const Polygon & pol, bool (* predicate)(const Polygon & pol))
 {

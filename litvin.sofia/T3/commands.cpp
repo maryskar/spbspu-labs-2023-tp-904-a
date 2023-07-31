@@ -1,5 +1,6 @@
 #include "commands.hpp"
 #include <numeric>
+#include <iomanip>
 #include <iterator>
 #include <algorithm>
 #include <functional>
@@ -7,6 +8,10 @@
 #include "polygon.hpp"
 namespace litvin
 {
+  void printInvalidCommand(std::ostream & out)
+  {
+    out << "<INVALID COMMAND>\n";
+  }
   bool isEven(const Polygon & polygon)
   {
     return size(polygon) % 2 == 0;
@@ -22,7 +27,7 @@ namespace litvin
     auto getAreaIfEven = std::bind(calcAreaIf, _1, isEven);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getAreaIfEven);
     ScopeGuard guard(out);
-    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
+    out << std::setprecision(2) << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
   }
   void printOddArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
@@ -31,7 +36,7 @@ namespace litvin
     auto getAreaIfOdd = std::bind(calcAreaIf, _1, isOdd);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), getAreaIfOdd);
     ScopeGuard guard(out);
-    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
+    out << std::setprecision(2) << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
   }
   void printAverageArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
@@ -39,7 +44,7 @@ namespace litvin
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
     double sum = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
     ScopeGuard guard(out);
-    out << sum / static_cast<double>(areas.size()) << '\n';
+    out << std::setprecision(2) << sum / static_cast<double>(areas.size()) << '\n';
   }
   bool hasQuantityOfVertexes(const Polygon & pol, size_t num)
   {
@@ -52,12 +57,17 @@ namespace litvin
   void printAreaIfNumberOfVertexesIs(const std::vector< litvin::Polygon > & data, size_t number_of_vertexes,
                                      std::ostream & out)
   {
+    if (number_of_vertexes < 3)
+    {
+      printInvalidCommand(out);
+      return;
+    }
     std::vector< double > areas(data.size());
     using namespace std::placeholders;
     auto calcAreaNVertexes = std::bind(calcAreaIfNVertexes, _1, number_of_vertexes);
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcAreaNVertexes);
     ScopeGuard guard(out);
-    out << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
+    out << std::setprecision(2) << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
   }
   double getMaxOrMinAreaOrVertexes(const std::vector< litvin::Polygon > & data, bool isTheGreatest, bool isArea)
   {
