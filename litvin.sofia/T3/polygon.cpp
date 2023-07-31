@@ -4,7 +4,6 @@
 #include <iterator>
 #include <numeric>
 #include <cmath>
-#include <unordered_set>
 #include <iostructures.hpp>
 std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
 {
@@ -18,12 +17,14 @@ std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
   }
   dest.points.clear();
   std::copy_n(std::istream_iterator< Point >(in), num_of_points, std::back_inserter(dest.points));
-  std::unordered_set< Point > set_points(dest.points.begin(), dest.points.end());
-  if (size(dest) != num_of_points)
+  Point check_point;
+  in >> check_point;
+  if (in)
   {
     in.setstate(std::ios::failbit);
   }
-  if(set_points.size() != size(dest)){
+  if (size(dest) != num_of_points)
+  {
     in.setstate(std::ios::failbit);
   }
   return in;
