@@ -315,6 +315,12 @@ namespace litvin
     }
     size_t pos = cmd.find(' ');
     size_t num = std::stoull(cmd.substr(pos));
-    dicts.executeCommand(cmd.substr(0, pos), data, num, out);
+    try
+    {
+      dicts.executeCommand(cmd.substr(0, pos), data, num, out);
+    }
+    catch (std::out_of_range & error){
+      litvin::printInvalidCommand(out);
+    }
   }
 }
