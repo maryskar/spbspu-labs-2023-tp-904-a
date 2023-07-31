@@ -313,7 +313,7 @@ namespace litvin
       dicts.executeCommand(cmd, data, out);
       return;
     }
-    catch (std::out_of_range & error)
+    catch (const std::out_of_range & error)
     {
     }
     size_t pos = cmd.find(' ');
@@ -322,8 +322,10 @@ namespace litvin
     {
       dicts.executeCommand(cmd.substr(0, pos), data, num, out);
     }
-    catch (std::out_of_range & error){
-      litvin::printInvalidCommand(out);
+    catch (const std::out_of_range & error){
+      printInvalidCommand(out);
+      return;
     }
+    printInvalidCommand(out);
   }
 }
