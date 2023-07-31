@@ -44,7 +44,7 @@ namespace litvin
     std::transform(data.cbegin(), data.cend(), std::back_inserter(areas), calcArea);
     double sum = std::accumulate(areas.cbegin(), areas.cend(), 0.0);
     ScopeGuard guard(out);
-    out << std::fixed << std::setprecision(1) << sum / static_cast<double>(areas.size()) << '\n';
+    out << std::fixed << std::setprecision(1) << sum << '\n';
   }
   bool hasQuantityOfVertexes(const Polygon & pol, size_t num)
   {
@@ -239,7 +239,7 @@ namespace litvin
     dict3.insert({"COUNT", printNumOfPolygonsWithNumOfVertexes});
     dict3.insert({"AREA", printAreaIfNumberOfVertexesIs});
   }
-  std::string inputCommand(std::istream & in, std::ostream & out)
+  std::string inputCommand(std::istream & in)
   {
     std::string command_name = " ";
     in >> command_name;
