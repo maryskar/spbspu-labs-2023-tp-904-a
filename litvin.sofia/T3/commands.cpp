@@ -106,7 +106,6 @@ namespace litvin
   {
     if (!data.empty())
     {
-      ScopeGuard guard(out);
       out << getMaxOrMinAreaOrVertexes(data, true, false) << '\n';
       return;
     }
@@ -128,7 +127,6 @@ namespace litvin
   {
     if (!data.empty())
     {
-      ScopeGuard guard(out);
       out << getMaxOrMinAreaOrVertexes(data, false, false) << '\n';
       return;
     }
@@ -141,12 +139,10 @@ namespace litvin
   }
   void printNumOfEven(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
-    ScopeGuard guard(out);
     out << countIf(isEven, data) << '\n';
   }
   void printNumOfOdd(const std::vector< litvin::Polygon > & data, std::ostream & out)
   {
-    ScopeGuard guard(out);
     out << countIf(isOdd, data) << '\n';
   }
   bool countIfNVertexes(const Polygon & pol, size_t num)
@@ -163,7 +159,6 @@ namespace litvin
     }
     using namespace std::placeholders;
     auto hasNVertexes = std::bind(countIfNVertexes, _1, number_of_vertexes);
-    ScopeGuard guard(out);
     out << std::count_if(data.cbegin(), data.cend(), hasNVertexes) << '\n';
   }
   bool areLinesIntersected(const Point & l1_p1, const Point & l1_p2, const Point & l2_p1, const Point & l2_p2)
@@ -200,7 +195,6 @@ namespace litvin
   }
   void printNumberOfIntersections(const std::vector< litvin::Polygon > & data, const Polygon & pol, std::ostream & out)
   {
-    ScopeGuard guard(out);
     if (!data.empty())
     {
       using namespace std::placeholders;
@@ -226,7 +220,6 @@ namespace litvin
   }
   void printNumberOfSameFigures(const std::vector< litvin::Polygon > & data, const Polygon & pol, std::ostream & out)
   {
-    ScopeGuard guard(out);
     if (!data.empty())
     {
       using namespace std::placeholders;
@@ -321,10 +314,10 @@ namespace litvin
     try
     {
       dicts.executeCommand(cmd.substr(0, pos), data, num, out);
+      return;
     }
     catch (const std::out_of_range & error){
       printInvalidCommand(out);
-      return;
     }
     printInvalidCommand(out);
   }
