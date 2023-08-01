@@ -16,7 +16,6 @@ std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
     return in;
   }
   dest.points.clear();
-  dest.points.resize(num_of_points);
   std::istream_iterator< Point > point_iter(in);
   std::istream_iterator< Point > end_point_iter;
   std::copy(point_iter, end_point_iter, dest.points.begin());
