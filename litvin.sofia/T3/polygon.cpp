@@ -23,7 +23,7 @@ std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
   dest.points.reserve(num_of_points);
   std::istream_iterator< Point > point_iter(in);
   std::istream_iterator< Point > end_point_iter;
-  std::copy(point_iter, end_point_iter, dest.points.begin());
+  std::copy(point_iter, end_point_iter, std::back_inserter(dest.points));
   if (dest.points.size() != num_of_points)
   {
     in.setstate(std::ios::failbit);
