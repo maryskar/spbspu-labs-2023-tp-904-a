@@ -8,10 +8,6 @@
 #include "polygon.hpp"
 namespace litvin
 {
-  void printInvalidCommand(std::ostream & out)
-  {
-    out << "<INVALID COMMAND>\n";
-  }
   bool isEven(const Polygon & polygon)
   {
     return size(polygon) % 2 == 0;
@@ -42,7 +38,7 @@ namespace litvin
   {
     if (data.empty())
     {
-      printInvalidCommand(out);
+      throw std::invalid_argument("Empty dataset");
       return;
     }
     std::vector< double > areas(data.size());
@@ -64,7 +60,7 @@ namespace litvin
   {
     if (number_of_vertexes < 3)
     {
-      printInvalidCommand(out);
+      throw std::invalid_argument("Invalid command parameter");
       return;
     }
     std::vector< double > areas(data.size());
@@ -99,7 +95,6 @@ namespace litvin
       out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, true, true) << '\n';
       return;
     }
-    printInvalidCommand(out);
     throw std::invalid_argument("For max area must be at least one polygon\n");
   }
   void printIfMaxVertexes(const std::vector< litvin::Polygon > & data, std::ostream & out)
@@ -109,7 +104,6 @@ namespace litvin
       out << getMaxOrMinAreaOrVertexes(data, true, false) << '\n';
       return;
     }
-    printInvalidCommand(out);
     throw std::invalid_argument("For max vertexes must be at least one polygon\n");
   }
   void printIfMinArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
@@ -120,7 +114,6 @@ namespace litvin
       out << std::fixed << std::setprecision(1) << getMaxOrMinAreaOrVertexes(data, false, true) << '\n';
       return;
     }
-    printInvalidCommand(out);
     throw std::invalid_argument("For min area must be at least one polygon\n");
   }
   void printIfMinVertexes(const std::vector< litvin::Polygon > & data, std::ostream & out)
@@ -130,7 +123,6 @@ namespace litvin
       out << getMaxOrMinAreaOrVertexes(data, false, false) << '\n';
       return;
     }
-    printInvalidCommand(out);
     throw std::invalid_argument("For min vertexes must be at least one polygon\n");
   }
   size_t countIf(bool (* predicate)(const Polygon & pol), const std::vector< litvin::Polygon > & data)
@@ -154,7 +146,7 @@ namespace litvin
   {
     if (number_of_vertexes < 3)
     {
-      printInvalidCommand(out);
+      throw std::invalid_argument("Invalid command parameter");
       return;
     }
     using namespace std::placeholders;
@@ -245,6 +237,10 @@ namespace litvin
     dict3.insert({"COUNT", printNumOfPolygonsWithNumOfVertexes});
     dict3.insert({"AREA", printAreaIfNumberOfVertexesIs});
   }
+  void printInvalidCommand(std::ostream & out)
+  {
+    out << "<INVALID COMMAND>\n";
+  }
   std::string inputCommand(std::istream & in)
   {
     std::string command_name = " ";
@@ -259,7 +255,7 @@ namespace litvin
       in >> parameter;
       if (!in)
       {
-        throw std::invalid_argument("Invalid command name");
+        throw std::invalid_argument("Invalid command parameter");
       }
       command_name = command_name + " " + parameter;
     }
@@ -289,9 +285,9 @@ namespace litvin
     {
       Polygon polygon;
       in >> polygon;
-      if(!in){
-        printInvalidCommand(out);
-        return;
+      if (!in)
+      {
+        throw std::invalid_argument("Invalid command parameter");
       }
       try
       {
@@ -299,7 +295,8 @@ namespace litvin
         return;
       }
       catch (const std::out_of_range & error)
-      {}
+      {
+      }
     }
     try
     {
@@ -307,16 +304,10 @@ namespace litvin
       return;
     }
     catch (const std::out_of_range & error)
-    {}
+    {
+    }
     size_t pos = cmd.find(' ');
     size_t num = std::stoull(cmd.substr(pos));
-    try
-    {
-      dicts.executeCommand(cmd.substr(0, pos), data, num, out);
-      return;
-    }
-    catch (const std::out_of_range & error){
-      printInvalidCommand(out);
-    }
+    dicts.executeCommand(cmd.substr(0, pos), data, num, out);
   }
 }

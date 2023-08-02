@@ -45,6 +45,7 @@ int main(int argc, char * argv[])
     }
     catch (const std::logic_error & error)
     {
+      litvin::printInvalidCommand(std::cout);
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
     if (!std::cin)
