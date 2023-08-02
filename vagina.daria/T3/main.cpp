@@ -22,6 +22,7 @@ int main(int argNum, char* argv[])
   }
   constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   std::vector< vagina::Polygon > polygon;
+  using istream_it = std::istream_iterator< vagina::Polygon >;
   while (!in.eof())
   {
     if (in.fail())
@@ -29,9 +30,7 @@ int main(int argNum, char* argv[])
       in.clear();
       in.ignore(max_size, '\n');
     }
-    std::copy(std::istream_iterator< vagina::Polygon >(in),
-      std::istream_iterator< vagina::Polygon >(),
-      std::back_inserter(polygon));
+    std::copy(istream_it(in), istream_it(), std::back_inserter(polygon));
   }
   in.close();
   auto dictionary = vagina::createDictionaryOfCommands();
