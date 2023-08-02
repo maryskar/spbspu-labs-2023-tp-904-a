@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <functional>
 #include <numeric>
+#include <IOFmtGuard.h>
 
 bool vagina::isEven(const Polygon& pol)
 {
@@ -23,7 +24,8 @@ void vagina::areaEven(const std::vector< Polygon >& dest, std::ostream& out)
   std::vector< double > tmpS(count);
   auto fin = tmp.begin() + count;
   std::transform(tmp.begin(), fin, std::back_inserter(tmpS), getArea);
-  out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
 {
@@ -33,7 +35,8 @@ void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
   std::vector< double > tmpS(count);
   auto fin = tmp.begin() + count;
   std::transform(tmp.begin(), fin, std::back_inserter(tmpS), getArea);
-  out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
 {
@@ -44,7 +47,8 @@ void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
   }
   std::vector< double > tmp(dest.size());
   std::transform(dest.begin(), dest.end(), tmp.begin(), getArea);
-  out << std::setprecision(1) << std::accumulate(tmp.begin(), tmp.end(), 0.0) / dest.size() << "\n";
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1) << std::accumulate(tmp.begin(), tmp.end(), 0.0) / dest.size() << "\n";
 }
 void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out, std::size_t param)
 {
@@ -61,7 +65,8 @@ void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out,
   std::vector< double > tmpS(count);
   auto fin = tmp.begin() + count;
   std::transform(tmp.begin(), fin, tmpS.begin(), getArea);
-  out << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
 }
 void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
@@ -73,7 +78,8 @@ void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
   std::sort(tmp.begin(), tmp.end(), comparatorArea);
-  out << std::setprecision(1) << getArea(tmp[0]) << "\n";
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1) << getArea(tmp[0]) << "\n";
 }
 void vagina::maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
@@ -85,7 +91,8 @@ void vagina::maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
   std::sort(tmp.begin(), tmp.end(), comparatorVertexes);
-  out << std::setprecision(1) << tmp[0].points.size() << "\n";
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1) << tmp[0].points.size() << "\n";
 }
 void vagina::minArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
@@ -97,7 +104,8 @@ void vagina::minArea(const std::vector < Polygon >& dest, std::ostream& out)
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
   std::sort(tmp.begin(), tmp.end(), comparatorArea);
-  out << std::setprecision(1) << getArea(tmp[tmp.size() - 1]) << "\n";
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1) << getArea(tmp[tmp.size() - 1]) << "\n";
 }
 void vagina::minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
@@ -109,14 +117,17 @@ void vagina::minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
   std::sort(tmp.begin(), tmp.end(), comparatorVertexes);
-  out << std::setprecision(1) << tmp[0].points.size() << "\n";
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1) << tmp[0].points.size() << "\n";
 }
 void vagina::countEven(const std::vector < Polygon >& dest, std::ostream& out)
 {
+  iofmtguard iofmtguard(out);
   out << std::count_if(dest.begin(), dest.end(), isEven) << "\n";
 }
 void vagina::countOdd(const std::vector < Polygon >& dest, std::ostream& out)
 {
+  iofmtguard iofmtguard(out);
   out << std::count_if(dest.begin(), dest.end(), isOdd) << "\n";
 }
 void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& out, std::size_t param)
@@ -128,10 +139,12 @@ void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& ou
   }
   using namespace std::placeholders;
   auto countVert = std::bind(isCountOfVertexes, _1, param);
+  iofmtguard iofmtguard(out);
   out << std::count_if(dest.begin(), dest.end(), countVert) << "\n";
 }
 void vagina::rects(const std::vector < Polygon >& dest, std::ostream& out)
 {
+  iofmtguard iofmtguard(out);
   out << std::count_if(dest.begin(), dest.end(), isRectangle) << "\n";
 }
 bool vagina::isPerm(const Polygon& lhs, const Polygon& rhs)
@@ -149,6 +162,7 @@ void vagina::perms(const std::vector < Polygon >& dest, std::ostream& out, std::
   }
   using namespace std::placeholders;
   auto perm = std::bind(isPerm, _1, pol);
+  iofmtguard iofmtguard(out);
   out << std::count_if(dest.begin(), dest.end(), perm) << '\n';
 }
 void vagina::messageInvalidCommand(std::ostream& out)
