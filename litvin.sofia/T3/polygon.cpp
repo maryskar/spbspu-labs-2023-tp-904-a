@@ -21,9 +21,15 @@ std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
   }
   dest.points.clear();
   std::vector< Point > temp_points;
+  std::istream_iterator< Point > point_iter(in);
+  std::istream_iterator< Point > end_point_iter;
   try
   {
-    std::copy_n(std::istream_iterator< Point >(in), num_of_points, std::back_inserter(temp_points));
+    std::copy_n(point_iter, num_of_points, std::back_inserter(temp_points));
+    if (std::distance(point_iter, end_point_iter) != num_of_points)
+    {
+      throw std::ios_base::failure("");
+    }
   }
   catch (const std::ios_base::failure &)
   {
