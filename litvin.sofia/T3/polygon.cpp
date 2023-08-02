@@ -20,13 +20,15 @@ std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
     return in;
   }
   dest.points.clear();
-  dest.points.reserve(num_of_points);
+  std::vector< Point > temp_points(num_of_points);
   std::istream_iterator< Point > point_iter(in);
-  std::copy_n(point_iter, num_of_points, dest.points.begin());
-  if (dest.points.size() != num_of_points)
+  std::copy_n(point_iter, num_of_points, temp_points.begin());
+  if (temp_points.size() != num_of_points)
   {
     in.setstate(std::ios::failbit);
+    return in;
   }
+  dest.points.swap(temp_points);
   return in;
 }
 std::istream & litvin::operator>>(std::istream & in, Point & dest)
