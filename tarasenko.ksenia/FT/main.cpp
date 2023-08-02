@@ -2,9 +2,9 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <compare.h>
 #include "read_dicts_in_dict.h"
 #include "commands.h"
-#include <compare.h>
 
 int main(int argc, char* argv[])
 {

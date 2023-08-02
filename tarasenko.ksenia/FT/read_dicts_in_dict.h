@@ -8,7 +8,7 @@
 
 namespace tarasenko
 {
-  using dict_t = std::map< size_t, std::string, tarasenko::Comp >;
+  using dict_t = std::map< size_t, std::string, Comp >;
   void readDictsInDict(std::istream& input, std::map< std::string, dict_t, std::greater<> >& dict_of_dict);
 }
 #endif

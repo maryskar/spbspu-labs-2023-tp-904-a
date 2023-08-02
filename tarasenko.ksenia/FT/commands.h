@@ -1,5 +1,6 @@
 #ifndef FT_COMMANDS_H
 #define FT_COMMANDS_H
+
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -76,7 +77,7 @@ namespace tarasenko
   private:
    std::map< std::string, std::function< dict_type(const dict_type&, const dict_type&) >, Compare > type_1;
    std::map< std::string,
-   std::function< std::ostream&(std::ostream&, const std::string&, const dict_of_dict_t&) >, Compare > type_2;
+      std::function< std::ostream&(std::ostream&, const std::string&, const dict_of_dict_t&) >, Compare > type_2;
    std::map< std::string, std::function< void(std::istream&, dict_of_dict_t&) >, Compare > type_3;
    std::map< std::string, std::function< void(dict_type&, dict_type&) >, Compare > type_4;
    std::map< std::string, std::function< bool(const dict_type&, const dict_type&) >, Compare > type_5;
@@ -147,7 +148,7 @@ namespace tarasenko
       return;
     }
     auto new_dict = type_1.at(name_of_command)(dict1, dict2);
-    dict_of_dict.insert({name_new_dict, new_dict});
+    dict_of_dict[name_new_dict] = new_dict;
   }
 
   template< typename Key, typename Value, typename Compare >
