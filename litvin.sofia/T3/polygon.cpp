@@ -26,7 +26,7 @@ std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
   try
   {
     std::copy_n(point_iter, num_of_points, std::back_inserter(temp_points));
-    if (std::distance(point_iter, end_point_iter) != num_of_points)
+    if (static_cast< size_t >(std::distance(point_iter, end_point_iter)) != num_of_points)
     {
       throw std::ios_base::failure("");
     }
