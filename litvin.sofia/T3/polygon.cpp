@@ -34,6 +34,13 @@ std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
     in.setstate(std::ios::failbit);
     return in;
   }
+  Point check_point;
+  in >> check_point;
+  if(!in.fail()){
+    in.setstate(std::ios::failbit);
+    return in;
+  }
+  in.clear();
   dest.points.swap(temp_points);
   return in;
 }
