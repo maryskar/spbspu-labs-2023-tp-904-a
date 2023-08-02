@@ -8,7 +8,8 @@
 std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
 {
   std::istream::sentry sentry(in);
-  if(!sentry){
+  if (!sentry)
+  {
     return in;
   }
   size_t num_of_points = 0;
@@ -19,11 +20,22 @@ std::istream & litvin::operator>>(std::istream & in, Polygon & dest)
     return in;
   }
   dest.points.clear();
-  std::copy_n(std::istream_iterator<Point>(in), num_of_points, std::back_inserter(dest.points));
-  if (size(dest) != num_of_points)
+  std::vector< Point > temp_points;
+  try
+  {
+    std::copy_n(std::istream_iterator< Point >(in), num_of_points, std::back_inserter(temp_points));
+  }
+  catch (const std::ios_base::failure &)
   {
     in.setstate(std::ios::failbit);
-  } 
+    return in;
+  }
+  if (temp_points.size() != num_of_points)
+  {
+    in.setstate(std::ios::failbit);
+    return in;
+  }
+  dest.points.swap(temp_points);
   return in;
 }
 std::istream & litvin::operator>>(std::istream & in, Point & dest)
