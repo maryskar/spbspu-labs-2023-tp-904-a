@@ -12,6 +12,9 @@ namespace azheganova
   {
     std::vector< Point > points;
   };
+
+  double getArea(const Polygon & polygon);
+  double getTriangleArea(const Point & point1, const Point & point2);
 }
 
 #endif

@@ -40,15 +40,50 @@ bool azheganova::isOdd(const Polygon & polygon)
 void azheganova::getAreaEven(const std::vector< Polygon > & polygon, std::ostream & out)
 {
   iofmtguard fmtguard(out);
-  std::vector< double > areas;
-  std::transform(polygon.begin(), polygon.end(), std::back_inserter(areas), isEven);
-  out << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0);
+  std::vector< double > rhs;
+  std::transform(polygon.begin(), polygon.end(), std::back_inserter(rhs), isEven);
+  out << std::fixed << std::setprecision(1) << std::accumulate(rhs.begin(), rhs.end(), 0.0);
 }
 
 void azheganova::getAreaOdd(const std::vector< Polygon > & polygon, std::ostream & out)
 {
   iofmtguard fmtguard(out);
-  std::vector< double > areas;
-  std::transform(polygon.begin(), polygon.end(), std::back_inserter(areas), isOdd);
-  out << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0);
+  std::vector< double > rhs;
+  std::transform(polygon.begin(), polygon.end(), std::back_inserter(rhs), isOdd);
+  out << std::fixed << std::setprecision(1) << std::accumulate(rhs.begin(), rhs.end(), 0.0);
 }
+
+void azheganova::getAreaMean(const std::vector< Polygon > & polygon, std::ostream & out)
+{
+  if (polygon.empty())
+  {
+    throw std::invalid_argument("error");
+  }
+  iofmtguard iofmtguard(out);
+  std::vector< double > rhs;
+  std::transform(polygon.begin(), polygon.end(), rhs.begin(), getArea);
+  out << std::fixed << std::setprecision(1) << std::accumulate(rhs.begin(), rhs.end(), 0.0) / polygon.size() << "\n";
+}
+
+double azheganova::countVertexArea(const Polygon & polygon, size_t vertexcount)
+{
+  if (polygon.points.size() == vertexcount)
+  {
+    return getArea(polygon);
+  }
+  else
+  {
+    return 0.0;
+  }
+}
+
+void azheganova::getAreaNumOfVertexes(const std::vector< Polygon > & polygon, size_t num, std::ostream & out)
+{
+  using namespace std::placeholders;
+  iofmtguard fmtguard(out);
+  std::vector< double > areas;
+  std::transform(polygon.begin(), polygon.end(), std::back_inserter(areas), std::bind(countVertexArea, _1, num));
+  double area = std::accumulate(areas.begin(), areas.end(), 0.0);
+  out << std::fixed << std::setprecision(1) << area;
+}
+
