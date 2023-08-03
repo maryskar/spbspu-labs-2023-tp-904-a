@@ -21,7 +21,7 @@ namespace azheganova
     void getAreaEven(const std::vector< Polygon > & polygon, std::ostream & out);
     void getAreaOdd(const std::vector< Polygon > & polygon, std::ostream & out);
     void getAreaMean(const std::vector< Polygon > & polygon, std::ostream & out);
-    double countVertexArea(const Polygon & polygon, size_t vertexcount);
+    double isCountVertex(const Polygon & polygon, size_t vertexcount);
     void getAreaNumOfVertexes(const std::vector< Polygon > & polygon, size_t num, std::ostream & out);
     void getMaxArea(const std::vector< Polygon > & polygon, std::ostream & out);
     void getMaxVertexes(const std::vector< Polygon > & polygon, std::ostream & out);

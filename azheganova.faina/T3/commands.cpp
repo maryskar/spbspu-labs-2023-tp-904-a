@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <functional>
 #include <list>
-#include "iofmtguard.h"
+#include <iofmtguard.h>
 
 azheganova::Commands createCommands()
 {
@@ -65,7 +65,7 @@ void azheganova::getAreaMean(const std::vector< Polygon > & polygon, std::ostrea
   out << std::fixed << std::setprecision(1) << std::accumulate(rhs.begin(), rhs.end(), 0.0) / polygon.size() << "\n";
 }
 
-double azheganova::countVertexArea(const Polygon & polygon, size_t vertexcount)
+double azheganova::isCountVertex(const Polygon & polygon, size_t vertexcount)
 {
   if (polygon.points.size() == vertexcount)
   {
@@ -82,8 +82,83 @@ void azheganova::getAreaNumOfVertexes(const std::vector< Polygon > & polygon, si
   using namespace std::placeholders;
   iofmtguard fmtguard(out);
   std::vector< double > areas;
-  std::transform(polygon.begin(), polygon.end(), std::back_inserter(areas), std::bind(countVertexArea, _1, num));
+  std::transform(polygon.begin(), polygon.end(), std::back_inserter(areas), std::bind(isCountVertex, _1, num));
   double area = std::accumulate(areas.begin(), areas.end(), 0.0);
   out << std::fixed << std::setprecision(1) << area;
 }
 
+void azheganova::getMaxArea(const std::vector< Polygon > & polygon, std::ostream & out)
+{
+  if (polygon.empty())
+  {
+    throw std::invalid_argument("error");
+  }
+  iofmtguard fmtguard(out);
+  std::vector< double > areas;
+  std::transform(polygon.begin(), polygon.end(), std::back_inserter(areas), getArea);
+  auto max = std::max_element(areas.begin(), areas.end());
+  out << std::fixed << std::setprecision(1) << * max;
+}
+
+size_t countVertex(const azheganova::Polygon & polygon)
+{
+  return polygon.points.size();
+}
+
+void azheganova::getMaxVertexes(const std::vector< Polygon > & polygon, std::ostream & out)
+{
+  if (polygon.empty())
+  {
+    throw std::invalid_argument("error");
+  }
+  iofmtguard fmtguard(out);
+  std::vector< size_t > vertexes;
+  std::transform(polygon.begin(), polygon.end(), std::back_inserter(vertexes), countVertex);
+  auto max = std::max_element(vertexes.begin(), vertexes.end());
+  out << std::fixed << * max;
+}
+
+void azheganova::getMinArea(const std::vector< Polygon > & polygon, std::ostream & out)
+{
+  if (polygon.empty())
+  {
+    throw std::invalid_argument("error");
+  }
+  iofmtguard fmtguard(out);
+  std::vector< double > areas;
+  std::transform(polygon.begin(), polygon.end(), std::back_inserter(areas), getArea);
+  auto min = std::min_element(areas.begin(), areas.end());
+  out << std::fixed << std::setprecision(1) << * min;
+}
+
+void azheganova::getMinVertexes(const std::vector< Polygon > & polygon, std::ostream & out)
+{
+  if (polygon.empty())
+  {
+    throw std::invalid_argument("error");
+  }
+  iofmtguard fmtguard(out);
+  std::vector< size_t > vertexes;
+  std::transform(polygon.begin(), polygon.end(), std::back_inserter(vertexes), countVertex);
+  auto min = std::min_element(vertexes.begin(), vertexes.end());
+  out << std::fixed << * min;
+}
+
+void azheganova::countEven(const std::vector< Polygon > & polygon, std::ostream & out)
+{
+  iofmtguard fmtguard(out);
+  out << std::fixed << std::count_if(polygon.begin(), polygon.end(), isEven);
+}
+
+void azheganova::countOdd(const std::vector< Polygon > & polygon, std::ostream & out)
+{
+  iofmtguard fmtguard(out);
+  out << std::fixed << std::count_if(polygon.begin(), polygon.end(), isOdd);
+}
+
+void azheganova::countNumOfVertexes(const std::vector< Polygon > & polygon, size_t num, std::ostream & out)
+{
+  using namespace std::placeholders;
+  iofmtguard iofmtguard(out);
+  out << std::count_if(polygon.begin(), polygon.end(), std::bind(isCountVertex, _1, num)) << "\n";
+}
