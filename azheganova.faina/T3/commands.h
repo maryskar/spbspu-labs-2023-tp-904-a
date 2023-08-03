@@ -8,7 +8,7 @@ namespace azheganova
 {
     using commands1 = void (*) (const std::vector< Polygon > & polygon, std::ostream & out);
     using commands2 = void (*) (const std::vector< Polygon > & polygon, size_t num, std::ostream & out);
-    using commands3 = void(*)(const std::vector< Polygon > & polygon, std::ostream & out);
+    using commands3 = void (*) (const std::vector< Polygon > & polygon, std::ostream & out);
     struct Commands
     {
       std::map< std::string, commands1 > dict_1;
@@ -16,6 +16,8 @@ namespace azheganova
       std::map< std::string, commands3 > dict_3;
     };
     Commands createCommands();
+    bool isEven(const Polygon & polygon);
+    bool isOdd(const Polygon & polygon);
     void getAreaEven(const std::vector< Polygon > & polygon, std::ostream & out);
     void getAreaOdd(const std::vector< Polygon > & polygon, std::ostream & out);
     void getAreaMean(const std::vector< Polygon > & polygon, std::ostream & out);
