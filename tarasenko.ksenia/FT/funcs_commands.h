@@ -6,8 +6,10 @@
 #include <string>
 #include <map>
 #include <forward_list>
+#include <functional>
 #include <compare.h>
 #include <take_random_elem.h>
+#include <algorithm>
 
 namespace tarasenko
 {
@@ -238,15 +240,15 @@ namespace tarasenko
     }
   }
 
-  template< typename Key, typename Value, typename Compare >
-  std::map< Key, Value, Compare > resortDict(std::map< Key, Value, Compare >& dict, Compare comp)
+  namespace details
   {
-    std::map< Key, Value, Compare > new_dict(comp);
-    for (auto it = dict.begin(); it != dict.end(); it++)
+    template< typename Key, typename Value, typename Compare >
+    std::map< Key, Value, Compare > resortDict(std::map< Key, Value, Compare >& dict, Compare comp)
     {
-      new_dict.insert(*it);
+      std::map< Key, Value, Compare > new_dict(comp);
+      std::copy(dict.begin(), dict.end(), std::inserter(new_dict, new_dict.begin()));
+      return new_dict;
     }
-    return new_dict;
   }
 
   template< class Key, class Value, class Compare >
@@ -270,11 +272,10 @@ namespace tarasenko
     {
       throw std::invalid_argument("Invalid command");
     }
-    auto it = dict_of_dict.begin();
-    for (; it != dict_of_dict.end(); it++)
+    std::for_each(dict_of_dict.begin(), dict_of_dict.end(), [&](auto& pair)
     {
-      dict_of_dict[it->first] = resortDict(it->second, comp);
-    }
+      dict_of_dict[pair.first] = details::resortDict(pair.second, comp);
+    });
   }
 
   template< class Key, class Value, class Compare >
