@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <functional>
 #include <ScopeGuard.hpp>
+#include <iostructures.hpp>
 #include "polygon.hpp"
 namespace litvin
 {
@@ -284,7 +285,7 @@ namespace litvin
     if (cmd == "INTERSECTIONS" || cmd == "SAME")
     {
       Polygon polygon;
-      in >> polygon;
+      in >> polygon >> DelimiterIO{'\n'};
       if (!in)
       {
         throw std::invalid_argument("Invalid command parameter");
