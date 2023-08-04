@@ -22,11 +22,12 @@ azheganova::Commands createCommands()
   res.dict_1.insert({ "COUNT ODD", azheganova::countOdd });
   res.dict_2.insert({ "AREA", azheganova::getAreaNumOfVertexes });
   res.dict_2.insert({ "COUNT", azheganova::countNumOfVertexes });
-  res.dict_3.insert({ "RMECHO", azheganova::getRmecho });
-  res.dict_3.insert({ "RIGHTSHAPES", azheganova::getRightshapes });
+  //res.dict_3.insert({ "RMECHO", azheganova::getRmecho });
+  //res.dict_3.insert({ "RIGHTSHAPES", azheganova::getRightshapes });
   return res;
 }
 
+using namespace std::placeholders;
 bool azheganova::isEven(const Polygon & polygon)
 {
   return (polygon.points.size() % 2 == 0);
@@ -79,7 +80,6 @@ double azheganova::isCountVertex(const Polygon & polygon, size_t vertexcount)
 
 void azheganova::getAreaNumOfVertexes(const std::vector< Polygon > & polygon, size_t num, std::ostream & out)
 {
-  using namespace std::placeholders;
   iofmtguard fmtguard(out);
   std::vector< double > areas;
   std::transform(polygon.begin(), polygon.end(), std::back_inserter(areas), std::bind(isCountVertex, _1, num));
@@ -158,7 +158,41 @@ void azheganova::countOdd(const std::vector< Polygon > & polygon, std::ostream &
 
 void azheganova::countNumOfVertexes(const std::vector< Polygon > & polygon, size_t num, std::ostream & out)
 {
-  using namespace std::placeholders;
   iofmtguard iofmtguard(out);
   out << std::count_if(polygon.begin(), polygon.end(), std::bind(isCountVertex, _1, num)) << "\n";
 }
+
+//void azheganova::getRmecho(const std::vector< Polygon > & polygon, std::ostream & out)
+//{
+
+//}
+
+//void azheganova::getRightshapes(const std::vector< Polygon > & polygon, std::ostream & out)
+//{
+
+//}
+
+std::string azheganova::inputCommand(std::istream & in)
+{
+  std::string command = " ";
+  in >> command;
+  if (!in)
+  {
+    throw std::invalid_argument("error");
+  }
+  if (command == "RMECHO" && command == "RIGHTSHAPES")
+  {
+    return command;
+  }
+  std::string parameter = " ";
+  in >> parameter;
+  if (!in)
+  {
+    throw std::invalid_argument("error");
+  }
+  command += " ";
+  command += parameter;
+  return command;
+}
+
+

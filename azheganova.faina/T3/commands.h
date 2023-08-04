@@ -30,8 +30,9 @@ namespace azheganova
     void countEven(const std::vector< Polygon > & polygon, std::ostream & out);
     void countOdd(const std::vector< Polygon > & polygon, std::ostream & out);
     void countNumOfVertexes(const std::vector< Polygon > & polygon, size_t num, std::ostream & out);
-    void getRmecho(const std::vector< Polygon > & polygon, std::ostream & out);
-    void getRightshapes(const std::vector< Polygon > & polygon, std::ostream & out);
+    //void getRmecho(const std::vector< Polygon > & polygon, std::ostream & out);
+    //void getRightshapes(const std::vector< Polygon > & polygon, std::ostream & out);
+    std::string inputCommand(std::istream & in);
 }
 
 #endif
