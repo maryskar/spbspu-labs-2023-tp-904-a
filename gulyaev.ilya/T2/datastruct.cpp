@@ -72,7 +72,7 @@ std::ostream &gulyaev::operator<<(std::ostream &out, const DataStruct &dest)
   }
   iofmtguard fmtguard(out);
   out << "(:key1 " << BinUnsignedLongLongO{dest.key1};
-  out << ":key2 " << ComplexO{dest.key2}; 
+  out << ":key2 " << ComplexO{dest.key2};
   out << ":key3 \"" << dest.key3 << "\":)";
   return out;
 }

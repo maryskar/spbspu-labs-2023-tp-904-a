@@ -63,7 +63,7 @@ std::istream &gulyaev::operator>>(std::istream &in, ComplexI &&dest)
         }
       }
     }
-  }                                
+  }
   return in >> DelimiterIO{':'};
 }
 std::istream &gulyaev::operator>>(std::istream &in, StringIO &&dest)

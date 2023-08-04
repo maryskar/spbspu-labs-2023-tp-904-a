@@ -16,7 +16,7 @@ namespace gulyaev
   struct BinUnsignedLongLongO
   {
     const unsigned long long ref;
-  }; 
+  };
   struct ComplexI
   {
     std::complex< double > &ref;
