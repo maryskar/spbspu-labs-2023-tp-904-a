@@ -292,14 +292,13 @@ namespace tarasenko
     {
       return;
     }
-    auto it = updated.begin();
-    for (; it != updated.end(); it++)
+    std::for_each(updated.begin(), updated.end(), [&](const auto& pair)
     {
-      if (dict.find(it->first) != dict.end())
+      if (dict.find(pair.first) != dict.end())
       {
-        updated[it->first] = dict[it->first];
+        updated[pair.first] = dict[pair.first];
       }
-    }
+    });
   }
 
   template< class Key, class Value, class Compare >
@@ -309,18 +308,10 @@ namespace tarasenko
     {
       return;
     }
-    auto it = merging.begin();
-    for (; it != merging.end(); it++)
+    std::for_each(merging.cbegin(), merging.cend(), [&](const auto& pair)
     {
-      if (dict.find(it->first) != dict.end())
-      {
-        dict[it->first] = merging[it->first];
-      }
-      else
-      {
-        dict.insert(*it);
-      }
-    }
+      dict[pair.first] = merging[pair.first];
+    });
   }
 
   template< class Key, class Value, class Compare >
