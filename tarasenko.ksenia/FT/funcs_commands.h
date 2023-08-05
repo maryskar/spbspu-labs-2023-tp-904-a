@@ -78,11 +78,10 @@ namespace tarasenko
       auto iter = dict.cbegin();
       output << iter->first << " " << iter->second;
       ++iter;
-      while (iter != dict.cend())
+      std::for_each(iter, dict.cend(), [&output](const std::pair< Key, Value >& p)
       {
-        output << " " << iter->first << " " << iter->second;
-        ++iter;
-      }
+        output << " " << p.first << " " << p.second;
+      });
     }
     return output;
   }
@@ -104,24 +103,23 @@ namespace tarasenko
   std::ostream& printIf(std::ostream& output, const std::string& key,
      const std::map< std::string, std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
   {
-    auto it = dict_of_dict.cbegin();
     auto key_dict = std::stoll(key);
     bool was_out = false;
-    for (; it != dict_of_dict.cend(); it++)
+    std::for_each(dict_of_dict.cbegin(), dict_of_dict.cend(), [&](const auto& pair)
     {
-      if (it->second.find(key_dict) != it->second.cend())
+      if (pair.second.find(key_dict) != pair.second.cend())
       {
         if (was_out)
         {
-          output << " " << it->first;
+          output << " ";
         }
         else
         {
-          output << it->first;
           was_out = true;
         }
+        output << pair.first;
       }
-    }
+    });
     return output << "\n";
   }
 
