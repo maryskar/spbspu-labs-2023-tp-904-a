@@ -10,6 +10,7 @@
 #include <forward_list>
 #include <compare.h>
 #include <take_random_elem.h>
+#include <sstream>
 
 namespace tarasenko
 {
@@ -172,28 +173,11 @@ namespace tarasenko
     std::forward_list< std::string > getKeys(std::istream& input)
     {
       std::forward_list< std::string > keys;
-      std::string line;
+      std::string line = " ";
       std::getline(input, line);
-      std::string key = "";
-      for (size_t i = 0; i < line.size(); i++)
-      {
-        if (line[i] == ' ')
-        {
-          if (key != "")
-          {
-            keys.push_front(key);
-            key = "";
-          }
-        }
-        else
-        {
-          key += line[i];
-        }
-      }
-      if (key != "")
-      {
-        keys.push_front(key);
-      }
+      std::stringstream ss(line);
+      using in_iter = std::istream_iterator< std::string >;
+      std::copy(in_iter(ss), in_iter(), std::front_inserter(keys));
       return keys;
     }
   }
