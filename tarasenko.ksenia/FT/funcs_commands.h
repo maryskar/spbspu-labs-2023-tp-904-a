@@ -187,10 +187,10 @@ namespace tarasenko
      std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
   {
     std::forward_list< std::string > keys = details::getKeys(input);
-    for (auto i: keys)
+    std::for_each(keys.cbegin(), keys.cend(), [&](const std::string& key)
     {
-      dict_of_dict.erase(i);
-    }
+      dict_of_dict.erase(key);
+    });
   }
 
   template< class Key, class Value, class Compare >
