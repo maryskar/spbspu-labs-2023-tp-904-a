@@ -206,10 +206,10 @@ namespace tarasenko
       throw std::invalid_argument("File not found");
     }
     std::forward_list< std::string > keys = details::getKeys(input);
-    for (auto i: keys)
+    std::for_each(keys.cbegin(), keys.cend(), [&](const std::string& key)
     {
-      printDict(out, i, dict_of_dict.at(i)) << "\n";
-    }
+      printDict(out, key, dict_of_dict.at(key)) << "\n";
+    });
   }
 
   namespace details
@@ -262,10 +262,10 @@ namespace tarasenko
       throw std::invalid_argument("Incorrect data");
     }
     std::forward_list< std::string > keys = details::getKeys(input);
-    for (auto i: keys)
+    std::for_each(keys.cbegin(), keys.cend(), [&](const std::string& key)
     {
-      dict_of_dict[i].insert({new_key, new_val});
-    }
+      dict_of_dict[key][new_key] = new_val;
+    });
   }
 
   template< class Key, class Value, class Compare >
@@ -282,7 +282,7 @@ namespace tarasenko
     std::string name_new_dict = " ";
     input >> name_dict >> name_new_dict;
     auto dict = dict_of_dict.at(name_dict);
-    dict_of_dict.insert({name_new_dict, dict});
+    dict_of_dict[name_new_dict] = dict;
   }
 
   template< class Key, class Value, class Compare >
