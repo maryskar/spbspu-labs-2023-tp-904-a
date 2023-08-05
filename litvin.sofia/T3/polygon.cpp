@@ -45,7 +45,7 @@ size_t litvin::size(const Polygon & dest)
 {
   return dest.points.size();
 }
-int calculate(const litvin::Point & p1, const litvin::Point & p2)
+int litvin::calculate(const Point & p1, const Point & p2)
 {
   return p1.x * p2.y - p1.y * p2.x;
 }
