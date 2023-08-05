@@ -13,15 +13,20 @@
 
 namespace tarasenko
 {
+  using namespace std::placeholders;
+
+  template< class Key, class Value, class Compare >
+  bool pair_comp(const std::pair< Key, Value >& pair1, const std::pair< Key, Value >& pair2, Compare comp)
+  {
+    return comp(pair1.first, pair2.first);
+  };
+
   template< class Key, class Value, class Compare >
   std::map< Key, Value, Compare > complement(const std::map< Key, Value, Compare >& lhs,
      const std::map< Key, Value, Compare >& rhs)
   {
+    auto comp = std::bind(pair_comp< Key, Value, Compare >, _1, _2, lhs.key_comp());
     std::map< Key, Value, Compare > result(lhs.key_comp());
-    auto comp = [&](auto& pair1, auto& pair2)
-      {
-        return lhs.key_comp()(pair1.first, pair2.first);
-      };
     std::set_difference(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(),
        std::inserter(result, result.begin()), comp);
     return result;
@@ -38,14 +43,9 @@ namespace tarasenko
     std::map< Key, Value, Compare > result(lhs.key_comp());
     if (!lhs.empty())
     {
-      auto iter_lhs = lhs.cbegin();
-      for (; iter_lhs != lhs.cend(); iter_lhs++)
-      {
-        if (rhs.find(iter_lhs->first) != rhs.cend())
-        {
-          result.insert({iter_lhs->first, iter_lhs->second});
-        }
-      }
+      auto comp = std::bind(pair_comp< Key, Value, Compare >, _1, _2, lhs.key_comp());
+      std::set_intersection(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(),
+         std::inserter(result, result.begin()), comp);
     }
     return result;
   }
