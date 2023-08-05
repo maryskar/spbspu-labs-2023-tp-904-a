@@ -61,14 +61,9 @@ namespace tarasenko
     auto result = lhs;
     if (!rhs.empty())
     {
-      auto iter_rhs = rhs.cbegin();
-      for (; iter_rhs != rhs.cend(); iter_rhs++)
-      {
-        if (lhs.find(iter_rhs->first) == lhs.cend())
-        {
-          result.insert({iter_rhs->first, iter_rhs->second});
-        }
-      }
+      auto comp = std::bind(pair_comp< Key, Value, Compare >, _1, _2, lhs.key_comp());
+      std::set_union(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(),
+         std::inserter(result, result.begin()), comp);
     }
     return result;
   }
