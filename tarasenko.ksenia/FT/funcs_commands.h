@@ -5,11 +5,11 @@
 #include <fstream>
 #include <string>
 #include <map>
-#include <forward_list>
 #include <functional>
+#include <algorithm>
+#include <forward_list>
 #include <compare.h>
 #include <take_random_elem.h>
-#include <algorithm>
 
 namespace tarasenko
 {
@@ -17,18 +17,13 @@ namespace tarasenko
   std::map< Key, Value, Compare > complement(const std::map< Key, Value, Compare >& lhs,
      const std::map< Key, Value, Compare >& rhs)
   {
-    auto result = lhs;
-    if (!lhs.empty() && !rhs.empty())
-    {
-      auto iter_lhs = lhs.cbegin();
-      for (; iter_lhs != lhs.cend(); iter_lhs++)
+    std::map< Key, Value, Compare > result(lhs.key_comp());
+    auto comp = [&](auto& pair1, auto& pair2)
       {
-        if (rhs.find(iter_lhs->first) != rhs.cend())
-        {
-          result.erase(iter_lhs->first);
-        }
-      }
-    }
+        return lhs.key_comp()(pair1.first, pair2.first);
+      };
+    std::set_difference(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(),
+       std::inserter(result, result.begin()), comp);
     return result;
   }
 
