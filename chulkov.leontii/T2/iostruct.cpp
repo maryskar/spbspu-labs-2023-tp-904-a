@@ -53,4 +53,3 @@ namespace chulkov {
     return std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
   }
 }
-///dsda
