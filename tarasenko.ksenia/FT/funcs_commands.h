@@ -354,19 +354,8 @@ namespace tarasenko
   template< class Key, class Value, class Compare >
   bool isSubset(const std::map< Key, Value, Compare >& lhs, const std::map< Key, Value, Compare >& rhs)
   {
-    if (lhs.empty() || rhs.empty())
-    {
-      return false;
-    }
-    auto it = lhs.cbegin();
-    for (; it != lhs.cend(); it++)
-    {
-      if (rhs.find(it->first) == rhs.cend())
-      {
-        return false;
-      }
-    }
-    return true;
+    auto comp = std::bind(pair_comp< Key, Value, Compare >, _1, _2, lhs.key_comp());
+    return std::includes(rhs.cbegin(), rhs.cend(), lhs.cbegin(), lhs.cend(), comp);
   }
 }
 #endif
