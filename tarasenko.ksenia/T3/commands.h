@@ -1,14 +1,26 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
 #include <map>
 #include <functional>
+#include <message.h>
 #include "data_struct.h"
 #include "funcs_for_commands.h"
 
 namespace tarasenko
 {
   using namespace std::placeholders;
+
+  std::istream& readTrash(std::istream& in)
+  {
+    std::string trash = " ";
+    std::getline(in, trash);
+    return in;
+  }
 
   class Commands
   {
@@ -44,6 +56,70 @@ namespace tarasenko
      type_4.insert(std::make_pair("RIGHTSHAPES", &getNumRightShapes));
 
      type_5.insert(std::make_pair("INFRAME", &isInFrame));
+   }
+
+   void call(const std::string& command1, std::vector< Polygon >& data, std::istream& in, std::ostream& out)
+   {
+     try
+     {
+       if (findIn(command1, 4))
+       {
+         std::function< size_t(const std::vector< Polygon >&) > command;
+         get(command1, command);
+         out << command(data) << "\n";
+       }
+       else if (findIn(command1, 5))
+       {
+         Polygon polygon;
+         getFrameRect(in, polygon);
+         std::function< bool(const std::vector< Polygon >&, const Polygon&) > command;
+         get(command1, command);
+         out << (command(data, polygon) ? "<TRUE>" : "<FALSE>") << "\n";
+       }
+       else
+       {
+         std::string command2 = " ";
+         in >> command2;
+
+         if (!isdigit(command2[0]))
+         {
+           if (findIn(command1 + " " + command2, 3))
+           {
+             std::function< double(const std::vector< Polygon >&) > command;
+             get(command1 + " " + command2, command);
+             out << std::fixed << std::setprecision(1) << command(data) << "\n";
+           }
+           else
+           {
+             std::function< size_t(const std::vector< Polygon >&) > command;
+             get(command1 + " " + command2, command);
+             out << command(data) << "\n";
+           }
+         }
+         else
+         {
+           if (findIn(command1, 1))
+           {
+             std::function< double(const std::vector< Polygon >&, const size_t&) > command;
+             get(command1, command);
+             auto n = std::stoull(command2);
+             out << std::fixed << std::setprecision(1) << command(data, n) << "\n";
+           }
+           else
+           {
+             std::function< size_t(const std::vector< Polygon >&, const size_t&) > command;
+             get(command1, command);
+             auto n = std::stoull(command2);
+             out << command(data, n) << "\n";
+           }
+         }
+       }
+     }
+     catch (const std::exception&)
+     {
+       out << outMessageInvalidCommand << "\n";
+       readTrash(in);
+     }
    }
 
    bool find(const std::string& name)

@@ -2,7 +2,7 @@
 #include <fstream>
 #include "data_struct.h"
 #include "read_polygons.h"
-#include "call.h"
+#include "commands.h"
 
 int main(int argc, char* argv[])
 {
@@ -18,13 +18,13 @@ int main(int argc, char* argv[])
     return 1;
   }
   std::vector< tarasenko::Polygon > polygons = tarasenko::readPolygons(input);
-
-  std::string name_of_command = "";
+  tarasenko::Commands commands;
+  std::string name_of_command = " ";
   while (std::cin >> name_of_command)
   {
     try
     {
-      call(name_of_command, polygons, std::cin, std::cout);
+      commands.call(name_of_command, polygons, std::cin, std::cout);
     }
     catch (const std::exception& e)
     {
