@@ -70,6 +70,16 @@ namespace tarasenko
   }
 
   template< class Key, class Value, class Compare >
+  std::map< Key, Value, Compare > merge(const std::map< Key, Value, Compare >& lhs,
+     const std::map< Key, Value, Compare >& rhs)
+  {
+    std::map< Key, Value, Compare > result(lhs.key_comp());
+    auto comp = std::bind(pair_comp< Key, Value, Compare >, _1, _2, lhs.key_comp());
+    std::merge(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend(), std::inserter(result, result.begin()), comp);
+    return result;
+  }
+
+  template< class Key, class Value, class Compare >
   std::ostream& printDict(std::ostream& output, const std::string& name_of_dict,
      const std::map< Key, Value, Compare >& dict)
   {
@@ -298,19 +308,6 @@ namespace tarasenko
       {
         updated[pair.first] = dict[pair.first];
       }
-    });
-  }
-
-  template< class Key, class Value, class Compare >
-  void merge(std::map< Key, Value, Compare > &merging, std::map< Key, Value, Compare > &dict)
-  {
-    if (merging.empty())
-    {
-      return;
-    }
-    std::for_each(merging.cbegin(), merging.cend(), [&](const auto& pair)
-    {
-      dict[pair.first] = merging[pair.first];
     });
   }
 

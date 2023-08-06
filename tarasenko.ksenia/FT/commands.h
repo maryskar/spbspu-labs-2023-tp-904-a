@@ -27,6 +27,7 @@ namespace tarasenko
      type_1.insert({"complement", &complement< Key, Value, Compare >});
      type_1.insert({"intersect", &intersect< Key, Value, Compare >});
      type_1.insert({"union", &unionWith< Key, Value, Compare >});
+     type_1.insert({"merge", &merge< Key, Value, Compare >});
 
      type_2.insert({"print", &print< Key, Value, Compare >});
      type_2.insert({"print_if", &printIf< Key, Value, Compare >});
@@ -41,7 +42,6 @@ namespace tarasenko
 
      type_4.insert({"swap", &swap< Key, Value, Compare >});
      type_4.insert({"update", &update< Key, Value, Compare >});
-     type_4.insert({"merge", &merge< Key, Value, Compare >});
 
      type_5.insert({"subset", &isSubset< Key, Value, Compare >});
    }
