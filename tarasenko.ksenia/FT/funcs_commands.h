@@ -225,10 +225,10 @@ namespace tarasenko
   namespace details
   {
     template< typename Key, typename Value, typename Compare >
-    std::map< Key, Value, Compare > resortDict(std::map< Key, Value, Compare >& dict, Compare comp)
+    std::map< Key, Value, Compare > resortDict(const std::map< Key, Value, Compare >& dict, Compare comp)
     {
       std::map< Key, Value, Compare > new_dict(comp);
-      std::copy(dict.begin(), dict.end(), std::inserter(new_dict, new_dict.begin()));
+      std::copy(dict.cbegin(), dict.cend(), std::inserter(new_dict, new_dict.begin()));
       return new_dict;
     }
   }
@@ -316,7 +316,7 @@ namespace tarasenko
     template< class Key, class Value, class Compare >
     std::map< Key, Value, Compare > createRandomDict(size_t size, const std::map< Key, Value, Compare >& range)
     {
-      std::map< Key, Value, Compare > random_dict;
+      std::map< Key, Value, Compare > random_dict(range.key_comp());
       while (random_dict.size() != size)
       {
         auto random_elem = *takeRandomElem(range.cbegin(), range.cend());
