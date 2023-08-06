@@ -56,7 +56,7 @@ namespace chulkov {
   }
 
   bool Comparator::operator()(const Data& frst, const Data& sec) {
-    if (frst.key1 == sec.key2) {
+    if (frst.key1 == sec.key1) {
       if (frst.key2 == sec.key2) {
         return frst.key3.length() < sec.key3.length();
       }
