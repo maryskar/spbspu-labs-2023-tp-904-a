@@ -311,6 +311,21 @@ namespace tarasenko
     });
   }
 
+  namespace details
+  {
+    template< class Key, class Value, class Compare >
+    std::map< Key, Value, Compare > createRandomDict(size_t size, const std::map< Key, Value, Compare >& range)
+    {
+      std::map< Key, Value, Compare > random_dict;
+      while (random_dict.size() != size)
+      {
+        auto random_elem = *takeRandomElem(range.cbegin(), range.cend());
+        random_dict.insert(random_elem);
+      }
+      return random_dict;
+    }
+  }
+
   template< class Key, class Value, class Compare >
   void addRandomDict(std::istream& input, std::map< std::string,
      std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
@@ -325,27 +340,20 @@ namespace tarasenko
     std::forward_list< std::string > names_of_dicts = details::getKeys(input);
 
     std::map< Key, Value, Compare > dict_of_elems;
-    auto i = names_of_dicts.begin();
-    for (; i != names_of_dicts.end(); i++)
+    std::for_each(names_of_dicts.begin(), names_of_dicts.end(), [&](const auto& name)
     {
-      auto dict = dict_of_dict.at(*i);
-      for (auto j = dict.begin(); j != dict.end(); j++)
+      auto dict = dict_of_dict.at(name);
+      std::for_each(dict.begin(), dict.end(), [&](const auto& elem)
       {
-        dict_of_elems.insert(*j);
-      }
-    }
+        dict_of_elems.insert(elem);
+      });
+    });
     if (dict_of_elems.size() < size)
     {
       throw std::invalid_argument("Not enough elements");
     }
 
-    std::map< Key, Value, Compare > random_dict;
-    while (random_dict.size() != size)
-    {
-      auto random_elem = *takeRandomElem(dict_of_elems.begin(), dict_of_elems.end());
-      random_dict.insert(random_elem);
-    }
-    dict_of_dict.insert({name_new_dict, random_dict});
+    dict_of_dict[name_new_dict] = details::createRandomDict(size, dict_of_elems);
   }
 
   template< class Key, class Value, class Compare >
