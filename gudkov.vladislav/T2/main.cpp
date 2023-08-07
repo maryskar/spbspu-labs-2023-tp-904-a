@@ -26,7 +26,6 @@ int main()
 
   std::sort(std::begin(data), std::end(data), gudkov::isLess);
 
-  std::cout << "Data:\n";
   std::copy(
     std::begin(data),
     std::end(data),
