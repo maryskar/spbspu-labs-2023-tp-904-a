@@ -9,6 +9,7 @@ int main()
   std::vector< DataStruct > vectornanor;
    while(!std::cin.eof())
    {
+
   std::copy(
           std::istream_iterator< skalisusov::DataStruct >(std::cin),
           std::istream_iterator< skalisusov::DataStruct >(),
