@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f2d9f96-0fbe-4695-a94e-8d9b40220443" name="Changes" comment="test">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/spbspu-labs-2023-tp-904-a.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skalisusov.konstantin/T2/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MakefileLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="spbspu-labs-2023-tp-904-a" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="spbspu-labs-2023-tp-904-a" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="1.2" />
+  </component>
+  <component name="ProjectId" id="2PEdGTIWXLtlosaSfYEIjOHPaHj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/konstantineskalisusov/CLionProjects/spbspu-labs-2023-tp-904-a&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="CMake Application.Unnamed">
+    <configuration name="Unnamed" type="CMakeRunConfiguration" factoryName="Application" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="spbspu-labs-2023-tp-904-a" TARGET_NAME="main.cpp" CONFIG_NAME="main.cpp">
+      <option name="sourceFile" value="skalisusov.konstantin/T2/main.cpp" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="C/C++ File.main.cpp" />
+      <item itemvalue="CMake Application.Unnamed" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f2d9f96-0fbe-4695-a94e-8d9b40220443" name="Changes" comment="" />
+      <created>1683026079120</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1683026079120</updated>
+      <workItem from="1683026081017" duration="837000" />
+      <workItem from="1683111428230" duration="96000" />
+      <workItem from="1683127256174" duration="1000" />
+      <workItem from="1683480482895" duration="2569000" />
+      <workItem from="1683497002829" duration="226000" />
+      <workItem from="1683498489887" duration="1016000" />
+      <workItem from="1683499946167" duration="926000" />
+      <workItem from="1683750233181" duration="833000" />
+      <workItem from="1684546087177" duration="1390000" />
+      <workItem from="1684587690438" duration="158000" />
+      <workItem from="1684587863957" duration="169000" />
+      <workItem from="1684588064409" duration="107000" />
+      <workItem from="1684588189241" duration="255000" />
+      <workItem from="1684588598735" duration="114000" />
+      <workItem from="1684594037678" duration="271000" />
+      <workItem from="1684594322105" duration="409000" />
+      <workItem from="1684595079110" duration="43000" />
+      <workItem from="1684595158731" duration="673000" />
+      <workItem from="1684597542941" duration="684000" />
+      <workItem from="1684598255792" duration="449000" />
+      <workItem from="1684598741755" duration="621000" />
+      <workItem from="1684599379441" duration="89000" />
+      <workItem from="1684599483742" duration="17349000" />
+      <workItem from="1684620815635" duration="297000" />
+      <workItem from="1684621221649" duration="7636000" />
+      <workItem from="1684695198295" duration="3006000" />
+      <workItem from="1685130539098" duration="1131000" />
+      <workItem from="1685175315646" duration="636000" />
+      <workItem from="1685249905732" duration="1612000" />
+      <workItem from="1685268669521" duration="385000" />
+      <workItem from="1685269872313" duration="59000" />
+      <workItem from="1685269947428" duration="4000" />
+      <workItem from="1685269980628" duration="4000" />
+      <workItem from="1685269998804" duration="7000" />
+      <workItem from="1685270034824" duration="18000" />
+      <workItem from="1685270087167" duration="21000" />
+      <workItem from="1685270122077" duration="8000" />
+      <workItem from="1685270205690" duration="10000" />
+      <workItem from="1685270394290" duration="92000" />
+      <workItem from="1685270520597" duration="83000" />
+      <workItem from="1685270725102" duration="224000" />
+      <workItem from="1685270959319" duration="15000" />
+      <workItem from="1685270992925" duration="31000" />
+      <workItem from="1685271061421" duration="10000" />
+      <workItem from="1685271094881" duration="18000" />
+      <workItem from="1685271125842" duration="42000" />
+      <workItem from="1685271181421" duration="13000" />
+      <workItem from="1685271208002" duration="860000" />
+      <workItem from="1686168835680" duration="774000" />
+      <workItem from="1686239348565" duration="771000" />
+      <workItem from="1686240460881" duration="977000" />
+      <workItem from="1686245180836" duration="78000" />
+      <workItem from="1686247708309" duration="918000" />
+      <workItem from="1686251716909" duration="626000" />
+      <workItem from="1686258844714" duration="150000" />
+      <workItem from="1686259093601" duration="4000" />
+      <workItem from="1686259178574" duration="308000" />
+      <workItem from="1686259524253" duration="185000" />
+      <workItem from="1686259759588" duration="202000" />
+      <workItem from="1686259971591" duration="675000" />
+      <workItem from="1686306544946" duration="646000" />
+      <workItem from="1686309462150" duration="1226000" />
+      <workItem from="1686313218392" duration="15000" />
+      <workItem from="1686315457769" duration="10000" />
+      <workItem from="1686315698644" duration="700000" />
+      <workItem from="1686316723568" duration="75000" />
+      <workItem from="1686317702902" duration="736000" />
+      <workItem from="1686318936909" duration="6000" />
+      <workItem from="1686318971445" duration="4000" />
+      <workItem from="1686318989009" duration="4000" />
+      <workItem from="1686319217901" duration="745000" />
+      <workItem from="1686322788736" duration="1031000" />
+      <workItem from="1686325858156" duration="1000" />
+      <workItem from="1686327211816" duration="823000" />
+      <workItem from="1686328586978" duration="134000" />
+      <workItem from="1686345226654" duration="78000" />
+      <workItem from="1686345347596" duration="138000" />
+      <workItem from="1686345503142" duration="18000" />
+      <workItem from="1686345537327" duration="25000" />
+      <workItem from="1686345578776" duration="39000" />
+      <workItem from="1686345632200" duration="8000" />
+      <workItem from="1686345660736" duration="663000" />
+      <workItem from="1686346393177" duration="941000" />
+      <workItem from="1686347350077" duration="518000" />
+      <workItem from="1686347890419" duration="610000" />
+      <workItem from="1686348542293" duration="1461000" />
+      <workItem from="1686502498692" duration="720000" />
+      <workItem from="1686593374720" duration="1558000" />
+      <workItem from="1686617934834" duration="1146000" />
+      <workItem from="1686624819071" duration="26000" />
+      <workItem from="1686624861493" duration="17000" />
+      <workItem from="1686624896570" duration="27000" />
+      <workItem from="1686624936628" duration="14000" />
+      <workItem from="1686624963492" duration="14000" />
+      <workItem from="1686624996623" duration="1090000" />
+      <workItem from="1686760795953" duration="72000" />
+      <workItem from="1686760872346" duration="1600000" />
+      <workItem from="1686770924826" duration="2111000" />
+      <workItem from="1686774685697" duration="2556000" />
+      <workItem from="1686935626727" duration="1470000" />
+      <workItem from="1686937103471" duration="1023000" />
+      <workItem from="1687697155776" duration="876000" />
+      <workItem from="1687698202836" duration="752000" />
+      <workItem from="1688024501392" duration="1129000" />
+      <workItem from="1688998711816" duration="2000" />
+      <workItem from="1691100454076" duration="12242000" />
+      <workItem from="1691356737302" duration="1079000" />
+      <workItem from="1691401392740" duration="660000" />
+      <workItem from="1691439409624" duration="3233000" />
+      <workItem from="1691485484994" duration="1900000" />
+      <workItem from="1691487392841" duration="5519000" />
+    </task>
+    <task id="LOCAL-00062" summary="test">
+      <created>1685250913966</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1685250913966</updated>
+    </task>
+    <task id="LOCAL-00063" summary="fix cg">
+      <created>1685268729565</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1685268729565</updated>
+    </task>
+    <task id="LOCAL-00064" summary="fix for build">
+      <created>1685270574213</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1685270574213</updated>
+    </task>
+    <task id="LOCAL-00065" summary="fix">
+      <created>1685270764222</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1685270764222</updated>
+    </task>
+    <task id="LOCAL-00066" summary="fix in DataStruct and main">
+      <created>1685271257397</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1685271257397</updated>
+    </task>
+    <task id="LOCAL-00067" summary="fix">
+      <created>1685271460946</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1685271460946</updated>
+    </task>
+    <task id="LOCAL-00068" summary="test Legitimize cycle for input">
+      <created>1686168977329</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1686168977330</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Creating an invalid input format handler">
+      <created>1686240563458</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1686240563458</updated>
+    </task>
+    <task id="LOCAL-00070" summary="fix build">
+      <created>1686240732368</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1686240732368</updated>
+    </task>
+    <task id="LOCAL-00071" summary="fix input">
+      <created>1686247761254</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1686247761254</updated>
+    </task>
+    <task id="LOCAL-00072" summary="include limits and sstream">
+      <created>1686251738246</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1686251738246</updated>
+    </task>
+    <task id="LOCAL-00073" summary="fix DoubleSciencificFormatO">
+      <created>1686258937401</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1686258937401</updated>
+    </task>
+    <task id="LOCAL-00074" summary="delete copy DoubleSciencificFormatI">
+      <created>1686259205953</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1686259205953</updated>
+    </task>
+    <task id="LOCAL-00075" summary="fix">
+      <created>1686259566601</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1686259566601</updated>
+    </task>
+    <task id="LOCAL-00076" summary="fix build">
+      <created>1686260042533</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1686260042533</updated>
+    </task>
+    <task id="LOCAL-00077" summary="fix test">
+      <created>1686306585642</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1686306585642</updated>
+    </task>
+    <task id="LOCAL-00078" summary="fix incorrect input and output">
+      <created>1686315736546</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1686315736546</updated>
+    </task>
+    <task id="LOCAL-00079" summary="fix test Echo">
+      <created>1686317753066</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1686317753066</updated>
+    </task>
+    <task id="LOCAL-00080" summary="fix test 1">
+      <created>1686319258487</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1686319258488</updated>
+    </task>
+    <task id="LOCAL-00081" summary="fix">
+      <created>1686323211611</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1686323211611</updated>
+    </task>
+    <task id="LOCAL-00082" summary="correct data struct">
+      <created>1686327363230</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1686327363230</updated>
+    </task>
+    <task id="LOCAL-00083" summary="fix scien format input">
+      <created>1686328618989</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1686328618989</updated>
+    </task>
+    <task id="LOCAL-00084" summary="fix CG">
+      <created>1686345679912</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1686345679912</updated>
+    </task>
+    <task id="LOCAL-00085" summary="fix CG">
+      <created>1686346106223</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1686346106223</updated>
+    </task>
+    <task id="LOCAL-00086" summary="include iostream">
+      <created>1686346432954</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1686346432954</updated>
+    </task>
+    <task id="LOCAL-00087" summary="include limits and sstream">
+      <created>1686346909976</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1686346909976</updated>
+    </task>
+    <task id="LOCAL-00088" summary="fix build">
+      <created>1686347367557</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1686347367557</updated>
+    </task>
+    <task id="LOCAL-00089" summary="fix build">
+      <created>1686347689261</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1686347689261</updated>
+    </task>
+    <task id="LOCAL-00090" summary="fix">
+      <created>1686348065953</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1686348065953</updated>
+    </task>
+    <task id="LOCAL-00091" summary="fix sort">
+      <created>1686348387179</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1686348387179</updated>
+    </task>
+    <task id="LOCAL-00092" summary="fix sort">
+      <created>1686348572729</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1686348572730</updated>
+    </task>
+    <task id="LOCAL-00093" summary="correct Struct types">
+      <created>1686357784546</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1686357784546</updated>
+    </task>
+    <task id="LOCAL-00094" summary="fix test">
+      <created>1686502605720</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1686502605721</updated>
+    </task>
+    <task id="LOCAL-00095" summary="fix test">
+      <created>1686593522174</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1686593522174</updated>
+    </task>
+    <task id="LOCAL-00096" summary="modificate main">
+      <created>1686618012395</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1686618012395</updated>
+    </task>
+    <task id="LOCAL-00097" summary="adding a comparator arises">
+      <created>1686625155812</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1686625155812</updated>
+    </task>
+    <task id="LOCAL-00098" summary="correction iofmtguard">
+      <created>1686625205043</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1686625205043</updated>
+    </task>
+    <task id="LOCAL-00099" summary="correction StructTypes">
+      <created>1686625221051</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1686625221051</updated>
+    </task>
+    <task id="LOCAL-00100" summary="correction StructTypes">
+      <created>1686625451028</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1686625451028</updated>
+    </task>
+    <task id="LOCAL-00101" summary="fix comparator">
+      <created>1686760947529</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1686760947530</updated>
+    </task>
+    <task id="LOCAL-00102" summary="fix ub 1">
+      <created>1686771005253</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1686771005253</updated>
+    </task>
+    <task id="LOCAL-00103" summary="fix ub 2">
+      <created>1686773264141</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1686773264141</updated>
+    </task>
+    <task id="LOCAL-00104" summary="fix ub 3">
+      <created>1686774281734</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1686774281734</updated>
+    </task>
+    <task id="LOCAL-00105" summary="fix ub 4">
+      <created>1686774725974</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1686774725974</updated>
+    </task>
+    <task id="LOCAL-00106" summary="fix ub 5">
+      <created>1686828778726</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1686828778726</updated>
+    </task>
+    <task id="LOCAL-00107" summary="commit">
+      <created>1686935786138</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1686935786138</updated>
+    </task>
+    <task id="LOCAL-00108" summary="commit">
+      <created>1686935791345</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1686935791346</updated>
+    </task>
+    <task id="LOCAL-00109" summary=".">
+      <created>1686936468728</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1686936468728</updated>
+    </task>
+    <task id="LOCAL-00110" summary=".">
+      <created>1686936587996</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1686936587996</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticEditVcpkgJson value="false" />
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticFoundErrors value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="correction StructTypes" />
+    <MESSAGE value="fix comparator" />
+    <MESSAGE value="fix ub 1" />
+    <MESSAGE value="fix ub 2" />
+    <MESSAGE value="fix ub 3" />
+    <MESSAGE value="fix ub 4" />
+    <MESSAGE value="fix ub 5" />
+    <MESSAGE value="." />
+    <MESSAGE value="commit" />
+    <MESSAGE value="commit 1" />
+    <MESSAGE value="test double sciencific format and rename CovelIO to LableIO" />
+    <MESSAGE value="test double sciencific format output" />
+    <MESSAGE value="fix double sciencofoc format output" />
+    <MESSAGE value="test scienO" />
+    <MESSAGE value="test 1" />
+    <MESSAGE value="rebild compaater" />
+    <MESSAGE value="test 2" />
+    <MESSAGE value="test 3" />
+    <MESSAGE value="test 4" />
+    <MESSAGE value="test 4 fix" />
+    <MESSAGE value="test 5" />
+    <MESSAGE value="test fix author" />
+    <MESSAGE value=" fix author" />
+    <MESSAGE value="I pull the master to my remote repository" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
+  </component>
+</project>
