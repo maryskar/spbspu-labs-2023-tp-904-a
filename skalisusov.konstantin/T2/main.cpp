@@ -21,5 +21,6 @@ int main()
           std::end(vectornanor),
           std::ostream_iterator< skalisusov::DataStruct >(std::cout, "\n")
   );
+
   return 0;
 }
