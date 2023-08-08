@@ -12,14 +12,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f2d9f96-0fbe-4695-a94e-8d9b40220443" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/spbspu-labs-2023-tp-904-a.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/skalisusov.konstantin/T2/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6f2d9f96-0fbe-4695-a94e-8d9b40220443" name="Changes" comment="test" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -228,7 +221,7 @@
       <workItem from="1691401392740" duration="660000" />
       <workItem from="1691439409624" duration="3233000" />
       <workItem from="1691485484994" duration="1900000" />
-      <workItem from="1691487392841" duration="5519000" />
+      <workItem from="1691487392841" duration="5838000" />
     </task>
     <task id="LOCAL-00062" summary="test">
       <created>1685250913966</created>
@@ -573,7 +566,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686936587996</updated>
     </task>
-    <option name="localTasksCounter" value="138" />
+    <option name="localTasksCounter" value="139" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
