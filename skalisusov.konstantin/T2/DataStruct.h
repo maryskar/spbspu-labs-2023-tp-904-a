@@ -16,7 +16,7 @@ namespace skalisusov
     std::string key3_;
   };
   std::istream &operator>>(std::istream &in, DataStruct &dest);
-  std::ostream &operator<<(std::ostream &out, DataStruct &src);
+  std::ostream &operator<<(std::ostream &out, const DataStruct &dest);
   bool comparate(DataStruct &firDs, DataStruct &secDs);
 }
 #endif //SPBSPU_LABS_2023_TP_904_A_DATASTRUCT_H
