@@ -60,11 +60,11 @@ namespace chulkov {
     }
     StreamGuard StreamGuard(out);
     std::string key1 = getUllBin(src.key1);
-    out << "( ";
-    out << "key1" << " " << key1 << "ull" << ":";
-    out << "key2" << " " << src.key2 << ":";
-    out << "key3" << " " << '"' << src.key3 << '"';
-    out << " )";
+    out << "(:";
+    out << "key1" << key1;
+    out << ":key2" << src.key2;
+    out << ":key3 \""<< src.key3;
+    out << "\":)";
     return out;
   }
 

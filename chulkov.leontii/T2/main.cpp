@@ -22,4 +22,3 @@ int main() {
   std::copy(std::begin(resl), std::end(resl), outIter(std::cout, "\n"));
   return 0;
 }
-///крч тут кал вводе, ull неправильно считает и с чаром надо что то тоже делать.
