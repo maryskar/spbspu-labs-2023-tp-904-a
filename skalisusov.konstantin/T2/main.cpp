@@ -1,25 +1,33 @@
-#include "DataStruct.h"
+#include <algorithm>
+#include <iostream>
 #include <iterator>
+#include <limits>
 #include <vector>
+#include "DataStruct.h"
+
 
 int main()
 {
   using skalisusov::DataStruct;
-  using skalisusov::comparate;
-  std::vector< DataStruct > vectornanor;
-   while(!std::cin.eof())
-   {
-  std::copy(
-          std::istream_iterator< skalisusov::DataStruct >(std::cin),
-          std::istream_iterator< skalisusov::DataStruct >(),
-          std::back_inserter(vectornanor)
-          );
-   }
-  std::sort(std::begin(vectornanor), std::end(vectornanor),comparate);
-  std::copy(
-          std::begin(vectornanor),
-          std::end(vectornanor),
-          std::ostream_iterator< skalisusov::DataStruct >(std::cout, "\n")
-  );
+  std::vector< DataStruct > vector;
+  constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
+  while(!std::cin.eof())
+  {
+    std::copy(std::istream_iterator< DataStruct >(std::cin),
+              std::istream_iterator< DataStruct >(),
+              std::back_inserter(vector));
+    if(!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(max_size, '\n');
+    }
+  }
+
+  std::sort(std::begin(vector), std::end(vector),skalisusov::comparate);
+  std::copy(std::begin(vector),
+            std::end(vector),
+            std::ostream_iterator< DataStruct >(std::cout, "\n"));
   return 0;
 }
+
+
