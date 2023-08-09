@@ -6,9 +6,11 @@
 namespace chulkov {
   std::string getUllBin(unsigned long long data) {
     unsigned long long var = data;
+    if (var == 0) {
+      return "0b0";
+    }
     std::string res = "";
-    while (var)
-    {
+    while (var > 0) {
       res = std::to_string(var % 2) + res;
       var /= 2;
     }
@@ -26,13 +28,23 @@ namespace chulkov {
       using label = LabelIO;
       using chr = CharIO;
       using str = StringIO;
-      in >> sep{ '{' };
-      in >> label{ "key1" } >> sep{ ':' } >> UllIO{ input.key1 };
-      in >> sep{ ',' };
-      in >> label{ "key2" } >> sep{ ':' } >> chr{ input.key2 };
-      in >> sep{ ',' };
-      in >> label{ "key3" } >> sep{ ':' } >> str{ input.key3 };
-      in >> sep{ '}' };
+      in >> sep{ '{' } >> sep { ':'};
+      for (int i = 1; i <= 3; i++) {
+        in >> label{ "key"};
+        size_t number = 0;
+        in >> number;
+        if (number == 1) {
+          in >> UllIO{input.key1};
+        }
+        else if (number == 2) {
+          in >> chr{ input.key2 };
+        }
+        else if (number == 3) {
+          in >> str{ input.key3 };
+        } if (!sentry) {
+          return in;
+        }
+      }
     }
     if (in) {
       dest = input;
