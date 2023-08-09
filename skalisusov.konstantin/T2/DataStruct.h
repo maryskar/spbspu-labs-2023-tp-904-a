@@ -9,15 +9,14 @@
 #include <iostream>
 namespace skalisusov
 {
-  struct DataStruct:
+  struct DataStruct
   {
-    double key1;
-    double key2;
-    std::string key3;
+    double key1_;
+    double key2_;
+    std::string key3_;
   };
   std::istream &operator>>(std::istream &in, DataStruct &dest);
   std::ostream &operator<<(std::ostream &out, DataStruct &src);
   bool comparate(DataStruct &firDs, DataStruct &secDs);
-
 }
 #endif //SPBSPU_LABS_2023_TP_904_A_DATASTRUCT_H
