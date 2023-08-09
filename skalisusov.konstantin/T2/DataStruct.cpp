@@ -11,7 +11,7 @@ namespace skalisusov
     DataStruct input;
     {
       using sep = DelimiterIO;
-      using cover = CoverIO;
+      //using cover = CoverIO;
       using dubsci = DoubleSciencificFormatI;
       using dublit = DoubleLiteralFormatIO;
       using str = StringIO;
