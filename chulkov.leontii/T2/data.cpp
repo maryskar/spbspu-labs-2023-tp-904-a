@@ -28,7 +28,7 @@ namespace chulkov {
       using label = LabelIO;
       using chr = CharIO;
       using str = StringIO;
-      in >> sep{ '{' } >> sep { ':'};
+      in >> sep{ '(' } >> sep { ':'};
       for (int i = 1; i <= 3; i++) {
         in >> label{ "key"};
         size_t number = 0;
@@ -45,6 +45,7 @@ namespace chulkov {
           return in;
         }
       }
+      in >> sep{')'};
     }
     if (in) {
       dest = input;
@@ -58,12 +59,12 @@ namespace chulkov {
       return out;
     }
     StreamGuard StreamGuard(out);
-    auto key1 = getUllBin(src.key1);
-    out << "{ ";
+    std::string key1 = getUllBin(src.key1);
+    out << "( ";
     out << "key1" << " " << key1 << "ull" << ":";
     out << "key2" << " " << src.key2 << ":";
     out << "key3" << " " << '"' << src.key3 << '"';
-    out << " }";
+    out << " )";
     return out;
   }
 
