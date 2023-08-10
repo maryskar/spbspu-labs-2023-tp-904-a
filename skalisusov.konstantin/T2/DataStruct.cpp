@@ -22,6 +22,7 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
     in >> sep{':'};
     for(std::size_t i = 1; i <= 3; i++)
     {
+      number = 0;
       in >> label{"key"};
       in >> number;
       if(number == 1)
@@ -36,7 +37,6 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
       {
         in >> str{input.key3_} >> sep{':'};
       }
-      number = 0;
     }
     in >> sep{')'};
   }
