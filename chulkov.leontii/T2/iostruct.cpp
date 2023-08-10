@@ -1,5 +1,4 @@
 #include "iostruct.h"
-
 #include <bitset>
 #include <iostream>
 
