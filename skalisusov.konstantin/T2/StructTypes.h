@@ -10,7 +10,7 @@ namespace skalisusov
   };
   struct DelimiterIO
   {
-    char exp;
+    char exp_;
   };
   struct StringIO
   {

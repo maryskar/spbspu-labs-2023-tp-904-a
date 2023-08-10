@@ -19,14 +19,14 @@ std::istream & skalisusov::operator>>(std::istream &in, LabelIO &&dest)
 }
 std::istream & skalisusov::operator>>(std::istream &in, DelimiterIO &&dest)
 {
-  std::istream::sentry sentry(in);
-  if (!sentry)
+  std::istream::sentry CheckSentry(in);
+  if (!CheckSentry)
   {
     return in;
   }
   char delim = '0';
   in >> delim;
-  if (in && (delim != dest.exp))
+  if (in && (delim != dest.exp_))
   {
     in.setstate(std::ios::failbit);
   }
@@ -73,34 +73,27 @@ std::ostream & skalisusov::operator<<(std::ostream &out, const DoubleSciencificF
   }
   double number = dest.dubscienO_;
   int tenDegree = 0;
-  if(number == 0)
+  if(number < 1)
   {
-    tenDegree = 0;
+    while(number < 1)
+    {
+      if(number >= 1)
+      {
+        break;
+      }
+      else
+      {
+        number *= 10;
+        tenDegree --;
+      }
+    }
   }
   else
   {
-    if(number < 1)
+    while(number >= 10)
     {
-      while(number < 1)
-      {
-        if(number >= 1)
-        {
-          break;
-        }
-        else
-        {
-          number *= 10;
-          tenDegree --;
-        }
-      }
-    }
-    else
-    {
-      while(number >= 10)
-      {
-        number /=10;
-        tenDegree ++;
-      }
+      number /=10;
+      tenDegree ++;
     }
   }
   return out << std::fixed << std::setprecision(1)  << number << (tenDegree > 0 ? "e+" : "e") << tenDegree;
