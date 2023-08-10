@@ -1,4 +1,6 @@
 #include "iostruct.h"
+
+#include <bitset>
 #include <iostream>
 
 namespace chulkov {
@@ -19,7 +21,24 @@ namespace chulkov {
     if (!sentry) {
       return in;
     }
-    in >> dest.ref;
+    std::string var;
+    std::getline(in, var, ':');
+    if (var.substr(0, 2) == "0b") {
+      bool validFormat = true;
+      for (char c : var.substr(2)) {
+        if (c != '0' && c != '1') {
+          validFormat = false;
+          break;
+        }
+      }
+      if (validFormat) {
+        dest.ref = std::bitset< 64 >(var.substr(2)).to_ullong();
+      } else {
+        in.setstate(std::ios::failbit);
+      }
+    } else {
+      in.setstate(std::ios::failbit);
+    }
     return in;
   }
 
@@ -32,17 +51,14 @@ namespace chulkov {
     return in;
   }
 
-  std::istream &operator>>(std::istream &in, LabelIO &&dest)
-  {
+  std::istream& operator>>(std::istream& in, LabelIO&& dest) {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
     }
-    std::string data = "";
-    if ((in >> StringIO{ data }) && (data != dest.exp)) {
-      in.setstate(std::ios::failbit);
+    for (size_t i = 0; i < dest.exp.length(); i++) {
+      in >> DelimiterIO{dest.exp[i]};
     }
-    return in;
   }
 
   std::istream& operator>>(std::istream& in, StringIO&& dest) {

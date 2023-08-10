@@ -1,7 +1,7 @@
 #include "data.h"
+#include <iostream>
 #include "iostruct.h"
 #include "streamsguard.h"
-#include <iostream>
 
 namespace chulkov {
   std::string getUllBin(unsigned long long data) {
@@ -28,20 +28,19 @@ namespace chulkov {
       using label = LabelIO;
       using chr = CharIO;
       using str = StringIO;
-      in >> sep{ '(' } >> sep { ':'};
+      in >> sep{'('} >> sep{':'};
       for (int i = 1; i <= 3; i++) {
-        in >> label{ "key" };
+        in >> label{"key"};
         size_t num = 0;
         in >> num;
         if (num == 1) {
-          in >> UllIO{ input.key1 };
+          in >> UllIO{input.key1};
+        } else if (num == 2) {
+          in >> chr{input.key2};
+        } else if (num == 3) {
+          in >> str{input.key3};
         }
-        else if (num == 2) {
-          in >> chr{ input.key2 };
-        }
-        else if (num == 3) {
-          in >> str{ input.key3 };
-        } if (!sentry) {
+        if (!sentry) {
           return in;
         }
       }
@@ -53,7 +52,7 @@ namespace chulkov {
     return in;
   }
 
-  std::ostream &operator<<(std::ostream &out, const Data &src) {
+  std::ostream& operator<<(std::ostream& out, const Data& src) {
     std::ostream::sentry sentry(out);
     if (!sentry) {
       return out;
@@ -63,7 +62,7 @@ namespace chulkov {
     out << "(:";
     out << "key1" << key1;
     out << ":key2" << src.key2;
-    out << ":key3 \""<< src.key3;
+    out << ":key3 \"" << src.key3;
     out << "\":)";
     return out;
   }
@@ -74,8 +73,7 @@ namespace chulkov {
         return frst.key3.length() < sec.key3.length();
       }
       return frst.key2 < sec.key2;
-    }
-    else {
+    } else {
       return frst.key1 < sec.key1;
     }
   }
