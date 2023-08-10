@@ -18,7 +18,7 @@ namespace chulkov {
     return res;
   }
 
-  std::istream &operator>>(std::istream &in, Data &dest) {
+  std::istream& operator>>(std::istream& in, Data& dest) {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
@@ -30,16 +30,16 @@ namespace chulkov {
       using str = StringIO;
       in >> sep{ '(' } >> sep { ':'};
       for (int i = 1; i <= 3; i++) {
-        in >> label{ "key"};
-        size_t number = 0;
-        in >> number;
-        if (number == 1) {
-          in >> UllIO{input.key1};
+        in >> label{ "key" };
+        size_t num = 0;
+        in >> num;
+        if (num == 1) {
+          in >> UllIO{ input.key1 };
         }
-        else if (number == 2) {
+        else if (num == 2) {
           in >> chr{ input.key2 };
         }
-        else if (number == 3) {
+        else if (num == 3) {
           in >> str{ input.key3 };
         } if (!sentry) {
           return in;

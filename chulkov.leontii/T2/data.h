@@ -10,8 +10,8 @@ namespace chulkov {
     std::string key3;
   };
 
-  std::istream &operator>>(std::istream &in, Data& dest);
-  std::ostream &operator<<(std::ostream &out, const Data& dest);
+  std::istream& operator>>(std::istream& in, Data& dest);
+  std::ostream& operator<<(std::ostream& out, const Data& dest);
 
   struct Comparator {
     bool operator()(const Data& frst, const Data& sec);
