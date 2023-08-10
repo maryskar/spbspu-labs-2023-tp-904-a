@@ -4,22 +4,13 @@
 
 bool gulyaev::isLess(const DataStruct &lhs, const DataStruct &rhs)
 {
-  if (lhs.key1 < rhs.key1) {
-    return true;
-  } else if (lhs.key1 > rhs.key1) {
-    return false;
+  if (lhs.key1 != rhs.key1) {
+    return (lhs.key1 < rhs.key1);
   }
-  if (std::abs(lhs.key2) < std::abs(rhs.key2)) {
-    return true;
-  } else if (std::abs(lhs.key2) > std::abs(rhs.key2)) {
-    return false;
+  if (std::abs(lhs.key2) != std::abs(rhs.key2)) {
+    return (std::abs(lhs.key2) < std::abs(rhs.key2));
   }
-  if (lhs.key3 < rhs.key3) {
-    return true;
-  } else if (lhs.key3 > rhs.key3) {
-    return false;
-  }
-  return false;
+  return lhs.key3 < rhs.key3;
 }
 std::istream &gulyaev::operator>>(std::istream &in, DataStruct &dest)
 {
