@@ -17,12 +17,11 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
     using dubsci = DoubleSciencificFormatI;
     using str = StringIO;
     using label = LabelIO;
-    std::size_t number = 0;
     in >> sep{'('};
     in >> sep{':'};
     for(std::size_t i = 1; i <= 3; i++)
     {
-      number = 0;
+      std::size_t number = 0;
       in >> label{"key"};
       in >> number;
       if(number == 1)
