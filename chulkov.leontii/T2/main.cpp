@@ -4,7 +4,6 @@
 #include <limits>
 #include <string>
 #include <vector>
-
 #include "data.h"
 
 int main() {
