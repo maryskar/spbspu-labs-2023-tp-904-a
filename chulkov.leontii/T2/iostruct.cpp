@@ -58,6 +58,7 @@ namespace chulkov {
     for (size_t i = 0; i < dest.exp.length(); i++) {
       in >> DelimiterIO{dest.exp[i]};
     }
+    return in;
   }
 
   std::istream& operator>>(std::istream& in, StringIO&& dest) {
