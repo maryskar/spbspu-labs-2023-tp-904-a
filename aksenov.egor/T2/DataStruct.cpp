@@ -136,6 +136,7 @@ namespace aksenov
     }
     iofmtguard fmtguard(out);
     out << "(:key1 " << "0x" << std::hex << std::uppercase << dest.key1 << ":";
+    out << std::fixed << std::setprecision(1);
     out << "key2 " << "#c(" << dest.key2.real() << " " << dest.key2.imag() << "):";
     out << "key3 \"" << dest.key3 << "\":)";
     return out;
