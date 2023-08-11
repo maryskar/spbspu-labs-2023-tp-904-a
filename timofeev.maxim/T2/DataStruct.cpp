@@ -22,5 +22,16 @@ namespace timofeev
       in.setstate(std::ios::failbit);
     }
       return in;
+  }
+
+  std::istream& operator>>(std::istream& in, StringIO&& dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
     }
+    return std::getline(in >> DelimiterIO {'"'}, dest.ref, '"');
+  }
+
 }
