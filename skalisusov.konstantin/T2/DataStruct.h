@@ -10,6 +10,7 @@ namespace skalisusov
     double key2_;
     std::string key3_;
   };
+
   std::istream & operator>>(std::istream &in, DataStruct &dest);
   std::ostream & operator<<(std::ostream &out, const DataStruct &src);
   bool comparate(const DataStruct &firstDS, const DataStruct &secondDS);
