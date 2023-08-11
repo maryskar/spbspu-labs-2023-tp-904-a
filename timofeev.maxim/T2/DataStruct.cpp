@@ -36,7 +36,20 @@ namespace timofeev
     return std::getline(in >> DelimiterIO {'"'}, dest.ref, '"');
   }
 
-
+    std::istream &operator>>(std::istream &in, LabelIO &&dest)
+    {
+        std::istream::sentry sentry(in);
+        if (!sentry)
+        {
+            return in;
+        }
+        std::string data = "";
+        if ((in >> StringIO{ data }) && (data != dest.exp))
+        {
+            in.setstate(std::ios::failbit);
+        }
+        return in;
+    }
 
 
 
