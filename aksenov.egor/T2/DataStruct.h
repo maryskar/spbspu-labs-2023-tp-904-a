@@ -16,6 +16,11 @@ namespace aksenov {
     char exp;
   };
 
+  struct LabelIO
+  {
+    std::string exp;
+  };
+
   struct DoubleIO
   {
     double &ref;
@@ -26,15 +31,15 @@ namespace aksenov {
     std::string &ref;
   };
 
-  struct LabelIO
+  struct ComplexIO
   {
-    std::string exp;
+    std::complex< double > &complex;
   };
 
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
   std::istream &operator>>(std::istream &in, DoubleIO &&dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
-  std::istream &operator>>(std::istream &in, LabelIO &&dest);
+  std::istream &operator>>(std::istream &in, ComplexIO &&dest);
   std::istream &operator>>(std::istream &in, DataStruct &dest);
   std::ostream &operator<<(std::ostream &out, const DataStruct &dest);
 }
