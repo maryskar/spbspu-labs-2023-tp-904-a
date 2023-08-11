@@ -67,7 +67,52 @@ namespace timofeev
     dest.cmp = complex(real, imag);
     return in;
   }
+    std::string getScientificDouble(double val)
+    {
+        // >1 - <=9  >0 <1   >9    <1 != 0  -237 --> -2,37*10^2 --> -2.37e+2    0.5 --> 5.0e-1
+        std::string res;
+        long long power = 0;
+        if (std::abs(val) > 9 )
+        {
+            while (std::abs(val) > 9)
+            {
+                val /= 10;
+                power++;
+            }
+        }
+        else if (val == 0)
+        {
+            res = "0.0";
+        }
+        else if (std::abs(val) < 1 )
+        {
+            while (std::abs(val) < 1 )
+            {
+                val *= 10;
+                --power;
+            }
+        }
+        val *= 10;
+        int temp = std::round(val);
+        res = std::to_string(temp);
+        res.insert(1, 1, '.');
+        res.append("e");
+        if (power > 0)
+        {
+            res.append("+");
+            res.append(std::to_string(power));
+        }
+        else if (power == 0)
+        {
+            return res;
+        }
+        else
+        {
+            res.append(std::to_string(power));
+        }
+        return res;
 
+    }
 
 
 
@@ -124,7 +169,7 @@ namespace timofeev
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "(:key1 " << dest.key1;
+    out << "(:key1 " << getScientificDouble(dest.key1);
     out << std::fixed;
     out << std::setprecision(1);
     out << ":key2 #c(" << dest.key2.real() << " " << dest.key2.imag() << ")";

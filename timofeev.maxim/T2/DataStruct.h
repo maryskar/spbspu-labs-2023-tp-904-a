@@ -35,7 +35,7 @@ namespace timofeev
   {
     std::string exp;
   };
-
+  std::string getScientificDouble(double val);
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
   std::istream &operator>>(std::istream &in, DoubleIO &&dest);
   std::istream &operator>>(std::istream &in, ComplexIO &&dest);
