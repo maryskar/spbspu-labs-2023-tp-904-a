@@ -51,6 +51,22 @@ namespace timofeev
     return in;
   }
 
+  std::istream& operator>>(std::istream& in, ComplexIO&& dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    using sep = DelimiterIO;
+    using lbl = LabelIO;
+    using complex = std::complex< double >;
+    double real = 0.0;
+    double imag = 0.0;
+    in >> lbl{"#c("} >> real >> imag >> sep{')'};
+    dest.cmp = complex(real, imag);
+    return in;
+  }
 
 
 

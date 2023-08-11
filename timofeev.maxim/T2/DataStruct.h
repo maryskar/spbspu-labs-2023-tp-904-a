@@ -24,7 +24,7 @@ namespace timofeev
   };
   struct ComplexIO
   {
-    complex &red;
+    complex &cmp;
   };
   struct StringIO
   {
