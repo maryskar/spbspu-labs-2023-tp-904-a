@@ -100,18 +100,19 @@ namespace timofeev
     return in;
   }
 
-    std::ostream &operator<<(std::ostream &out, const DataStruct &src)
+  std::ostream &operator<<(std::ostream &out, const DataStruct &dest)
+  {
+    std::ostream::sentry sentry(out);
+    if (!sentry)
     {
-        std::ostream::sentry sentry(out);
-        if (!sentry)
-        {
-            return out;
-        }
-        iofmtguard fmtguard(out);
-        out << "{ ";
-        out << "\"key1\": " << std::fixed << std::setprecision(1) << src.key1 << "d, ";
-        out << "\"key2\": " << src.key2;
-        out << " }";
-        return out;
+      return out;
     }
+    iofmtguard fmtguard(out);
+    out << "(:key1 " << dest.key1;
+    out << std::fixed;
+    out << std::setprecision(1);
+    out << ":key2 #c(" << dest.key2.real() << " " << dest.key2.imag() << ")";
+    out << ":key3 \"" << dest.key3 << "\":)";
+    return out;
+  }
 }
