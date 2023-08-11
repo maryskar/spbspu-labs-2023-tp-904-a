@@ -76,8 +76,8 @@ namespace aksenov
       return in;
     }
     std::string str = "";
-    in >> LabelIO{"0x"};
-    in >> dest.ref >> DelimiterIO{':'};
+    std::getline(in, str, ':');
+    dest.ref = std::strtoull(str.c_str(), 0, 16);
     return in;
   }
 
