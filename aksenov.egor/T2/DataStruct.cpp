@@ -1,4 +1,5 @@
 #include "DataStruct.h"
+#include "Iofmtguard.h"
 namespace aksenov
 {
   std::istream &operator>>(std::istream &in, StringIO &&dest)
@@ -63,6 +64,52 @@ namespace aksenov
       return in;
     }
     in >> dest.ref;
+    return in;
+  }
+
+  std::istream &operator>>(std::istream &in, DataStruct &dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    iofmtguard iofmtguard(in);
+
+    bool isKey3 = false;
+    bool isKey2 = false;
+    bool isKey1 = false;
+    unsigned long long key1 = 0.0;
+    std::complex< double > key2(0.0, 0.0);
+    std::string key3 = "";
+    in >> LabelIO{"(:"};
+    for (size_t i = 0; i < 3; ++i)
+    {
+      std::string key;
+      in >> key;
+      if (!isKey1 && key == "key1")
+      {
+        in >> UllIO{key1} >> DelimiterIO{':'};
+        isKey1 = true;
+      }
+      else if (!isKey2 && key == "key2")
+      {
+        in >> ComplexIO{key2} >> DelimiterIO{':'};
+        isKey2 = true;
+      }
+      else if (!isKey3 && key == "key3")
+      {
+        in >> StringIO{key3} >> DelimiterIO{':'};
+        isKey3 = true;
+      }
+      else
+      {
+        in.setstate(std::ios::failbit);
+        return in;
+      }
+    }
+    in >> DelimiterIO{')'};
+    dest = DataStruct{key1, key2, key3};\
     return in;
   }
 }
