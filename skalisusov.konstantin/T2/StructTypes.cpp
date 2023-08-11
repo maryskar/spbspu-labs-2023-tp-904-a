@@ -71,22 +71,15 @@ std::ostream & skalisusov::operator<<(std::ostream &out, const DoubleSciencificF
   int tenDegree = 0;
   if(number < 1)
   {
-    while(number < 1)
+    while(number <= 1)
     {
-      if(number >= 1)
-      {
-        break;
-      }
-      else
-      {
         number *= 10;
         tenDegree --;
-      }
     }
   }
   else
   {
-    while(number >= 10)
+    while(number >= 1)
     {
       number /=10;
       tenDegree ++;
