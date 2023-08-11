@@ -11,6 +11,6 @@ bool aksenov::comparator(const aksenov::DataStruct &lhs, const aksenov::DataStru
   }
   else
   {
-    return abs(lhs.key1) < abs(rhs.key2);
+    return lhs.key1 < rhs.key1;
   }
 }

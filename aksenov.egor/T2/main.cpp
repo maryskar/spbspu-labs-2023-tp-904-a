@@ -1,11 +1,25 @@
 #include <iostream>
 #include <vector>
 #include <iterator>
+#include <algorithm>
+#include <limits>
 #include "DataStruct.h"
+#include "Comparator.h"
 int main()
 {
+  auto Max = std::numeric_limits< std::streamsize >::max();
   std::vector< aksenov::DataStruct > data;
   using inputIter = std::istream_iterator< aksenov::DataStruct >;
   using outputIter = std::ostream_iterator< aksenov::DataStruct >;
-  std::cout << "Init commit";
+  while (!std::cin.eof())
+  {
+    std::copy(inputIter(std::cin), inputIter(), std::back_inserter(data));
+    if (!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(Max, '\n');
+    }
+  }
+  std::sort(data.begin(), data.end(), aksenov::comparator);
+  std::copy(data.begin(), data.end(), outputIter(std::cout, "\n"));
 }

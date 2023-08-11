@@ -28,7 +28,7 @@ namespace aksenov
     return in;
   }
 
-  std::istream &operator>>(std::istream &in, LabelIO &&dest)
+  /*std::istream &operator>>(std::istream &in, LabelIO &&dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -39,6 +39,17 @@ namespace aksenov
     if ((in >> StringIO{ data }) && (data != dest.exp))
     {
       in.setstate(std::ios::failbit);
+    }
+    return in;
+  }*/
+  std::istream& operator>>(std::istream& in, LabelIO&& dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry) {
+      return in;
+    }
+    for (size_t i = 0; i < dest.exp.size(); i++) {
+      in >> DelimiterIO {dest.exp[i]};
     }
     return in;
   }
@@ -53,6 +64,7 @@ namespace aksenov
     double real = 0.0;
     double imag = 0.0;
     in >> LabelIO{"#c("} >> real >> imag >> DelimiterIO{')'};
+    dest.complex = std::complex< double >(real, imag);
     return in;
   }
 
@@ -63,7 +75,9 @@ namespace aksenov
     {
       return in;
     }
-    in >> dest.ref;
+    std::string str = "";
+    in >> LabelIO{"0x"};
+    in >> dest.ref >> DelimiterIO{':'};
     return in;
   }
 
@@ -89,7 +103,7 @@ namespace aksenov
       in >> key;
       if (!isKey1 && key == "key1")
       {
-        in >> UllIO{key1} >> DelimiterIO{':'};
+        in >> UllIO{key1};
         isKey1 = true;
       }
       else if (!isKey2 && key == "key2")
@@ -109,7 +123,21 @@ namespace aksenov
       }
     }
     in >> DelimiterIO{')'};
-    dest = DataStruct{key1, key2, key3};\
+    dest = DataStruct{key1, key2, key3};
     return in;
+  }
+
+  std::ostream &operator<<(std::ostream &out, const DataStruct &dest)
+  {
+    std::ostream::sentry sentry(out);
+    if (!sentry)
+    {
+      return out;
+    }
+    iofmtguard fmtguard(out);
+    out << "(:key1 " << "0x" << std::hex << std::uppercase << dest.key1 << ":";
+    out << "key2 " << "#c(" << dest.key2.real() << " " << dest.key2.imag() << "):";
+    out << "key3 \"" << dest.key3 << "\":)";
+    return out;
   }
 }
