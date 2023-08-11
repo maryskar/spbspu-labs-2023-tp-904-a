@@ -3,8 +3,8 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include "io.h"
-#include "data_struct.h"
+#include <io.h>
+#include <data_struct.h>
 int main()
 {
   using data_struct = dimkashelk::DataStruct;
