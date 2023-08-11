@@ -1,10 +1,13 @@
 #include "data.h"
+
 #include <iostream>
+
 #include "iostruct.h"
 #include "streamsguard.h"
 
 namespace chulkov {
-  std::string getUllBin(unsigned long long data) {
+  std::string getUllBin(unsigned long long data)
+  {
     unsigned long long var = data;
     if (var == 0) {
       return "0b0";
@@ -18,19 +21,21 @@ namespace chulkov {
     return res;
   }
 
-  std::istream& operator>>(std::istream& in, Data& dest) {
+  std::istream& operator>>(std::istream& in, Data& dest)
+  {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
     }
-    Data input; {
+    Data input;
+    {
       using sep = DelimiterIO;
       using label = LabelIO;
       using chr = CharIO;
       using str = StringIO;
       in >> sep{'('} >> sep{':'};
       for (int i = 1; i <= 3; i++) {
-        in >> label{"key"};
+        in >> label{":key"};
         size_t num = 0;
         in >> num;
         if (num == 1) {
@@ -44,7 +49,7 @@ namespace chulkov {
           return in;
         }
       }
-      in >> sep{')'};
+      in >> sep{':'} >> sep{')'};
     }
     if (in) {
       dest = input;
@@ -52,7 +57,8 @@ namespace chulkov {
     return in;
   }
 
-  std::ostream& operator<<(std::ostream& out, const Data& src) {
+  std::ostream& operator<<(std::ostream& out, const Data& src)
+  {
     std::ostream::sentry sentry(out);
     if (!sentry) {
       return out;
@@ -67,7 +73,8 @@ namespace chulkov {
     return out;
   }
 
-  bool Comparator::operator()(const Data& frst, const Data& sec) {
+  bool Comparator::operator()(const Data& frst, const Data& sec)
+  {
     if (frst.key1 == sec.key1) {
       if (frst.key2 == sec.key2) {
         return frst.key3.length() < sec.key3.length();
