@@ -5,7 +5,7 @@ namespace timofeev
 {
   struct Comparator
   {
-    bool operator()(const timofeev::DataStruct &lhs, const timofeev::DataStruct &rhs) const;
+    bool operator()(const DataStruct &lhs, const DataStruct &rhs);
   };
 }
 #endif
