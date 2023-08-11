@@ -36,52 +36,71 @@ namespace timofeev
     return std::getline(in >> DelimiterIO {'"'}, dest.ref, '"');
   }
 
-    std::istream &operator>>(std::istream &in, LabelIO &&dest)
+  std::istream &operator>>(std::istream &in, LabelIO &&dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
     {
-        std::istream::sentry sentry(in);
-        if (!sentry)
-        {
-            return in;
-        }
-        std::string data = "";
-        if ((in >> StringIO{ data }) && (data != dest.exp))
-        {
-            in.setstate(std::ios::failbit);
-        }
-        return in;
+      return in;
     }
-
-
-
-
-
-    std::istream &operator>>(std::istream &in, Data &dest)
+    std::string data = "";
+    if ((in >> StringIO{ data }) && (data != dest.exp))
     {
-        std::istream::sentry sentry(in);
-        if (!sentry)
-        {
-            return in;
-        }
-        Data input;
-        {
-            using sep = DelimiterIO;
-            using label = LabelIO;
-            using dbl = DoubleIO;
-            using str = StringIO;
-            in >> sep{ '{' };
-            in >> label{ "key1" } >> sep{ ':' } >> dbl{ input.key1 };
-            in >> sep{ ',' };
-            in >> label{ "key2" } >> sep{ ':' } >> str{ input.key2 };
-            in >> sep{ '}' };
-        }
-        if (in)
-        {
-            dest = input;
-        }
-        return in;
+      in.setstate(std::ios::failbit);
     }
+    return in;
+  }
 
-    std::ostream &operator<<(std::ostream &out, const Data &src)
+
+
+
+
+  std::istream &operator>>(std::istream &in, DataStruct &dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    DataStruct input;
+    {
+      using sep = DelimiterIO;
+      using dbl = DoubleIO;
+      using str = StringIO;
+      using cmp = ComplexIO;
+      in >> sep{'('} >> sep{':'};
+      for (int i = 0; i < 3; i++)
+      {
+        std::string key;
+        in >> key;
+        if (key == "key1")
+        {
+          in >> dbl{input.key1} >> DelimiterIO{':'};
+        }
+        else if (key == "key2")
+        {
+          in >> cmp{input.key2} >> DelimiterIO{':'};
+        }
+        else if (key == "key3")
+        {
+          in >> str{input.key3} >> DelimiterIO{':'};
+        }
+        else
+        {
+          in.setstate(std::ios::failbit);
+          return in;
+        }
+      }
+    }
+    in >> DelimiterIO{')'};
+    if (in)
+    {
+      dest = input;
+    }
+    return in;
+  }
+
+    std::ostream &operator<<(std::ostream &out, const DataStruct &src)
     {
         std::ostream::sentry sentry(out);
         if (!sentry)
