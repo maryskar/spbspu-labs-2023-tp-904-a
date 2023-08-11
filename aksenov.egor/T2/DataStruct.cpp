@@ -54,4 +54,15 @@ namespace aksenov
     in >> LabelIO{"#c("} >> real >> imag >> DelimiterIO{')'};
     return in;
   }
+
+  std::istream &operator>>(std::istream &in, UllIO &&dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    in >> dest.ref;
+    return in;
+  }
 }
