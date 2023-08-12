@@ -174,7 +174,6 @@ namespace timofeev
     return in;
   }
 
-
   std::ostream &operator<<(std::ostream &out, const DataStruct &dest)
   {
     std::ostream::sentry sentry(out);
