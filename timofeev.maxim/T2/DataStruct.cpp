@@ -1,13 +1,10 @@
 #include "DataStruct.h"
 #include <iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
 #include "IofGuard.h"
-/*std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
-std::istream &operator>>(std::istream &in, DoubleIO &&dest);
-std::istream &operator>>(std::istream &in, ComplexIO &&dest);
-std::istream &operator>>(std::istream &in, StringIO &&dest);
-std::istream &operator>>(std::istream &in, LabelIO &&dest);
-std::istream &operator>>(std::istream &in, DataStruct &dest);
-std::ostream &operator<<(std::ostream &out, const DataStruct &dest);*/
+
 namespace timofeev
 {
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
@@ -35,7 +32,6 @@ namespace timofeev
     }
     return std::getline(in >> DelimiterIO {'"'}, dest.ref, '"');
   }
-
   std::istream &operator>>(std::istream &in, LabelIO &&dest)
   {
     std::istream::sentry sentry(in);
@@ -67,54 +63,71 @@ namespace timofeev
     dest.cmp = complex(real, imag);
     return in;
   }
-    std::string getScientificDouble(double val)
+
+  std::istream & operator>>(std::istream & in, DoubleIO && dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
     {
-        // >1 - <=9  >0 <1   >9    <1 != 0  -237 --> -2,37*10^2 --> -2.37e+2    0.5 --> 5.0e-1
-        std::string res;
-        long long power = 0;
-        if (std::abs(val) > 9 )
-        {
-            while (std::abs(val) > 9)
-            {
-                val /= 10;
-                power++;
-            }
-        }
-        else if (val == 0)
-        {
-            res = "0.0";
-        }
-        else if (std::abs(val) < 1 )
-        {
-            while (std::abs(val) < 1 )
-            {
-                val *= 10;
-                --power;
-            }
-        }
-        val *= 10;
-        int temp = std::round(val);
-        res = std::to_string(temp);
-        res.insert(1, 1, '.');
-        res.append("e");
-        if (power > 0)
-        {
-            res.append("+");
-            res.append(std::to_string(power));
-        }
-        else if (power == 0)
-        {
-            return res;
-        }
-        else
-        {
-            res.append(std::to_string(power));
-        }
-        return res;
-
+      return in;
     }
-
-
+    iofmtguard fmtguard(in);
+    int integer = 0;
+    int fractional = 0;
+    int power = 0;
+    in >> integer >> DelimiterIO{'.'};
+    in >> fractional >> DelimiterIO{'e'};
+    in >> power;
+    double temp = static_cast< double >(fractional) / 10;
+    double exp = integer + temp;
+    dest.ref = exp * std::pow(10, power);
+    return in;
+  }
+  std::string getScientificDouble(double val)
+  {
+  // >1 - <=9  >0 <1   >9    <1 != 0  -237 --> -2,37*10^2 --> -2.37e+2    0.5 --> 5.0e-1
+    std::string res;
+    int power = 0;
+    if (std::abs(val) > 9 )
+    {
+      while (std::abs(val) > 9)
+      {
+        val /= 10;
+        power++;
+      }
+    }
+    else if (val == 0)
+    {
+      res = "0.0";
+    }
+    else if (std::abs(val) < 1 )
+    {
+      while (std::abs(val) < 1 )
+      {
+        val *= 10;
+        --power;
+      }
+    }
+    val *= 10;
+    int temp = std::round(val);
+    res = std::to_string(temp);
+    res.insert(1, 1, '.');
+    res.append("e");
+    if (power > 0)
+    {
+      res.append("+");
+      res.append(std::to_string(power));
+    }
+    else if (power == 0)
+    {
+      return res;
+    }
+    else
+    {
+      res.append(std::to_string(power));
+    }
+    return res;
+  }
 
   std::istream &operator>>(std::istream &in, DataStruct &dest)
   {
@@ -160,6 +173,7 @@ namespace timofeev
     }
     return in;
   }
+
 
   std::ostream &operator<<(std::ostream &out, const DataStruct &dest)
   {
