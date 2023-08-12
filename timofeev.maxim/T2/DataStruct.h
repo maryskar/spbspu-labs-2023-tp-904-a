@@ -1,6 +1,5 @@
 #ifndef DATASTRUCT_H
 #define DATASTRUCT_H
-// [DBL SCI]	[CMP LSP]
 #include <iostream>
 #include <string>
 #include <complex>
@@ -17,7 +16,6 @@ namespace timofeev
   {
     char exp;
   };
-
   struct DoubleIO
   {
     double &ref;
@@ -30,7 +28,6 @@ namespace timofeev
   {
     std::string &ref;
   };
-
   struct LabelIO
   {
     std::string exp;
