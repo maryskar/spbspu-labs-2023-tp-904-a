@@ -60,7 +60,7 @@ std::istream & skalisusov::operator>>(std::istream &in, DoubleSciencificFormatI 
   in >> std::scientific >> dest.dubscienI_;
   return in;
 }
-std::ostream & skalisusov::operator<<(std::ostream &out, const DoubleSciencificFormatO &&dest)
+std::ostream & skalisusov::operator<<(std::ostream &out, const DoubleSciencificFormatO &dest)
 {
   std::ostream::sentry CheckSentry(out);
   if(!CheckSentry)

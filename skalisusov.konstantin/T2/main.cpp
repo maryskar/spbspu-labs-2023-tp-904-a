@@ -19,7 +19,6 @@ int main()
       std::cin.ignore(max_size, '\n');
     }
   }
-
   std::sort(std::begin(vector), std::end(vector),skalisusov::comparate);
   std::copy(std::begin(vector),
             std::end(vector),
