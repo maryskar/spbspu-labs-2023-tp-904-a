@@ -8,23 +8,22 @@
 
 int main()
 {
-    using tds = timofeev::DataStruct;
-    using out = std::ostream_iterator< tds >;
-    using iter = std::istream_iterator< tds>;
-    auto Max = std::numeric_limits< std::streamsize >::max();
-    std::vector< tds > data;
-    timofeev::Comparator comparator;
-    while(!std::cin.eof())
+  using tds = timofeev::DataStruct;
+  using out = std::ostream_iterator< tds >;
+  using iter = std::istream_iterator< tds>;
+  auto Max = std::numeric_limits< std::streamsize >::max();
+  std::vector< tds > data;
+  timofeev::Comparator comparator;
+  while(!std::cin.eof())
+  {
+    std::copy(iter(std::cin), iter(), std::back_inserter(data));
+    if (!std::cin)
     {
-        std::copy(iter(std::cin), iter(), std::back_inserter(data));
-        if (!std::cin)
-        {
-            std::cin.clear();
-            std::cin.ignore(Max, '\n');
-        }
-
+      std::cin.clear();
+      std::cin.ignore(Max, '\n');
     }
-    std::sort(data.begin(), data.end(), comparator);
-    std::copy(data.begin(), data.end(), out(std::cout, "\n"));
-    return 0;
+  }
+  std::sort(data.begin(), data.end(), comparator);
+  std::copy(data.begin(), data.end(), out(std::cout, "\n"));
+  return 0;
 }
