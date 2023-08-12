@@ -9,7 +9,7 @@ namespace chulkov {
       return in;
     }
     char c = '0';
-    if (!(in >> c) || (c != dest.exp)) {
+    if (in >> c && (c != dest.exp)) {
       in.setstate(std::ios::failbit);
     }
     return in;
@@ -23,18 +23,7 @@ namespace chulkov {
     std::string var;
     std::getline(in, var, ':');
     if (var.substr(0, 2) == "0b") {
-      bool validFormat = true;
-      for (char c : var.substr(2)) {
-        if (c != '0' && c != '1') {
-          validFormat = false;
-          break;
-        }
-      }
-      if (validFormat) {
-        dest.ref = std::bitset< 64 >(var.substr(2)).to_ullong();
-      } else {
-        in.setstate(std::ios::failbit);
-      }
+      dest.ref = std::bitset< 64 >(var.substr(2)).to_ullong();
     } else {
       in.setstate(std::ios::failbit);
     }
@@ -46,7 +35,7 @@ namespace chulkov {
     if (!sentry) {
       return in;
     }
-    in >> dest.ref;
+    in >> DelimiterIO{'\''} >> dest.ref >> DelimiterIO{'\''};
     return in;
   }
 

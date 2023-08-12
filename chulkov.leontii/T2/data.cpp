@@ -33,9 +33,9 @@ namespace chulkov {
       using label = LabelIO;
       using chr = CharIO;
       using str = StringIO;
-      in >> sep{'('} >> sep{':'};
+      in >> sep{'('};
       for (int i = 1; i <= 3; i++) {
-        in >> label{":key"};
+        in >> label{ ":key" };
         size_t num = 0;
         in >> num;
         if (num == 1) {
@@ -49,7 +49,7 @@ namespace chulkov {
           return in;
         }
       }
-      in >> sep{':'} >> sep{')'};
+      in >> sep{ ':' } >>  sep{ ')' };
     }
     if (in) {
       dest = input;
