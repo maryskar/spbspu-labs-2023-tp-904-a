@@ -24,7 +24,7 @@ namespace skalisusov
   {
     double &dubscienI_;
   };
-  const struct DoubleSciencificFormatO
+  struct DoubleSciencificFormatO
   {
     const double dubscienO_;
   };
