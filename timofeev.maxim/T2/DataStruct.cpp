@@ -32,17 +32,17 @@ namespace timofeev
     }
     return std::getline(in >> DelimiterIO {'"'}, dest.ref, '"');
   }
-  std::istream &operator>>(std::istream &in, LabelIO &&dest)
+
+  std::istream& operator>>(std::istream& in, LabelIO&& dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
       return in;
     }
-    std::string data = "";
-    if ((in >> StringIO{ data }) && (data != dest.exp))
+    for (size_t i = 0; i < dest.exp.size(); i++)
     {
-      in.setstate(std::ios::failbit);
+      in >> DelimiterIO {dest.exp[i]};
     }
     return in;
   }
