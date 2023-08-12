@@ -20,11 +20,11 @@ namespace skalisusov
   {
     double &dublit_;
   };
-  const struct DoubleSciencificFormatI
+  struct DoubleSciencificFormatI
   {
     double &dubscienI_;
   };
-  struct DoubleSciencificFormatO
+  const struct DoubleSciencificFormatO
   {
     const double dubscienO_;
   };
