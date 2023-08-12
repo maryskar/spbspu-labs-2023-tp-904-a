@@ -11,4 +11,3 @@ skalisusov::iofmtguard::~iofmtguard()
   s_.fill(fill_);
   s_.flags(fmt_);
 }
-

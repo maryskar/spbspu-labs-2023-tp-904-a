@@ -28,7 +28,6 @@ namespace skalisusov
   {
     const double dubscienO_;
   };
-
   std::istream & operator>>(std::istream &in, LabelIO &&dest);
   std::istream & operator>>(std::istream &in, DelimiterIO &&dest);
   std::istream & operator>>(std::istream &in, DoubleLiteralFormatIO &&dest);

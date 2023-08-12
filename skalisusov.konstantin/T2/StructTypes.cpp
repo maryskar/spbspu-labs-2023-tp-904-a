@@ -69,7 +69,6 @@ std::ostream & skalisusov::operator<<(std::ostream &out, const DoubleSciencificF
   }
   double number = dest.dubscienO_;
   int tenDegree = 0;
-
   while (number < 1 || number >= 10)
   {
     if (number <= 1)
