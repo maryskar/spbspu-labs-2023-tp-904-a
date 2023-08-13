@@ -5,9 +5,9 @@
 namespace skalisusov
 {
   class iofmtguard
-    {
+  {
   public:
-    explicit iofmtguard(std::basic_ios< char > &s);
+    iofmtguard(std::basic_ios< char > &s);
     ~iofmtguard();
   private:
     std::basic_ios< char > &s_;
