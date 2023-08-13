@@ -18,6 +18,7 @@ int main()
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
+
   std::sort(std::begin(vector), std::end(vector),skalisusov::comparate);
   std::copy(std::begin(vector),
             std::end(vector),
