@@ -57,7 +57,12 @@ std::istream & skalisusov::operator>>(std::istream &in, DoubleSciencificFormatI 
   {
     return in;
   }
-  return in >> std::scientific >> dest.dubscienI_;
+  in >> std::scientific >> dest.dubscienI_;
+  if(dest.dubscienI_ == 0)
+  {
+    in.setstate(std::ios::failbit);
+  }
+  return in;
 }
 std::ostream & skalisusov::operator<<(std::ostream &out, const DoubleSciencificFormatO &&dest)
 {
