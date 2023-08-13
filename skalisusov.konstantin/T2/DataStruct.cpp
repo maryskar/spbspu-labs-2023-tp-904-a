@@ -12,13 +12,13 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
   }
   DataStruct input;
   {
-    using sep = DelimiterIO;
+    using delim = DelimiterIO;
     using dublit = DoubleLiteralFormatIO;
     using dubsci = DoubleSciencificFormatI;
     using str = StringIO;
     using label = LabelIO;
-    in >> sep{'('};
-    in >> sep{':'};
+    in >> delim{'('};
+    in >> delim{':'};
     for(std::size_t i = 1; i <= 3; i++)
     {
       std::size_t number = 0;
@@ -26,18 +26,18 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
       in >> number;
       if(number == 1)
       {
-        in >> dublit{input.key1_} >> sep{':'};
+        in >> dublit{input.key1_} >> delim{':'};
       }
       else if(number == 2)
       {
-        in >> dubsci{input.key2_} >> sep{':'};
+        in >> dubsci{input.key2_} >> delim{':'};
       }
       else if(number == 3)
       {
-        in >> str{input.key3_} >> sep{':'};
+        in >> str{input.key3_} >> delim{':'};
       }
     }
-    in >> sep{')'};
+    in >> delim{')'};
   }
   if(in)
   {
@@ -56,7 +56,7 @@ std::ostream & skalisusov::operator<<(std::ostream &out, const DataStruct &dest)
   using scienO = DoubleSciencificFormatO;
   out << "(";
   out << ":key1 " << std::fixed << std::setprecision(1) << dest.key1_ << 'd';
-  out << ":key2 " << scienO {dest.key2_};
+  out << ":key2 " << scienO{dest.key2_};
   out << ":key3 " << '"' << dest.key3_ << '"';
   out << ":)";
   return out;

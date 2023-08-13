@@ -7,7 +7,6 @@ int main()
 {
   using skalisusov::DataStruct;
   std::vector< DataStruct > vector;
-  constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   while(!std::cin.eof())
   {
     std::copy(std::istream_iterator< DataStruct >(std::cin),
@@ -16,7 +15,7 @@ int main()
     if(!std::cin)
     {
       std::cin.clear();
-      std::cin.ignore(max_size, '\n');
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
   std::sort(std::begin(vector), std::end(vector),skalisusov::comparate);
