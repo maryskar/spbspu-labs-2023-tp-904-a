@@ -20,13 +20,18 @@ namespace chulkov {
     if (!sentry) {
       return in;
     }
-    std::string var;
-    std::getline(in, var, ':');
-    if (var.substr(0, 2) == "0b") {
-      dest.ref = std::bitset< 64 >(var.substr(2)).to_ullong();
-    } else {
+    char pref = '0';
+    in >> DelimiterIO{'0'} >> pref;
+    if (pref != 'b' && pref != 'B') {
       in.setstate(std::ios::failbit);
+      return in;
     }
+    std::bitset< 64 > bits = 0;
+    in >> bits;
+    if (in.fail()) {
+      return in;
+    }
+    dest.ref = bits.to_ullong();
     return in;
   }
 
