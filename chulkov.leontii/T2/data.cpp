@@ -23,8 +23,7 @@ namespace chulkov {
     if (!sentry) {
       return in;
     }
-    Data input;
-    {
+    Data input; {
       using sep = DelimiterIO;
       using label = LabelIO;
       using chr = CharIO;
@@ -40,8 +39,7 @@ namespace chulkov {
           in >> chr{input.key2};
         } else if (num == 3) {
           in >> str{input.key3};
-        }
-        if (!sentry) {
+        } if (!sentry) {
           return in;
         }
       }
@@ -61,10 +59,9 @@ namespace chulkov {
     StreamGuard StreamGuard(out);
     std::string key1 = getUllBin(src.key1);
     out << "(:";
-    out << "key1" << key1;
-    out << ":key2" << src.key2;
-    out << ":key3 \"" << src.key3;
-    out << "\":)";
+    out << "key1 " << key1 << ":";
+    out << "key2 " << src.key2 << ":";
+    out << "key3 \"" << src.key3 << "\":)";
     return out;
   }
 
