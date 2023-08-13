@@ -1,7 +1,7 @@
 #include "DataStruct.h"
 #include <iomanip>
-#include "StructTypes.h"
 #include "iofmtguard.h"
+#include "StructTypes.h"
 
 std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
 {
