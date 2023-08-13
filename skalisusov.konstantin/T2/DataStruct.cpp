@@ -61,7 +61,7 @@ std::ostream & skalisusov::operator<<(std::ostream &out, const DataStruct &dest)
   out << ":)";
   return out;
 }
-bool skalisusov::Comparator::operator()(const skalisusov::DataStruct &firDs, const skalisusov::DataStruct &secDs)
+bool skalisusov::comparator(const skalisusov::DataStruct &firDs, const skalisusov::DataStruct &secDs)
 {
   if(firDs.key1_ == secDs.key1_)
   {

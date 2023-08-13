@@ -8,7 +8,6 @@ int main()
   using skalisusov::DataStruct;
   using InpIter = std::istream_iterator< DataStruct >;
   using OutpIter = std::ostream_iterator< DataStruct >;
-  skalisusov::Comparator comparator;
   std::vector< DataStruct > vector;
   while(!std::cin.eof())
   {
@@ -22,7 +21,7 @@ int main()
     }
   }
 
-  std::sort(std::begin(vector), std::end(vector), comparator);
+  std::sort(std::begin(vector), std::end(vector), skalisusov::comparator);
   std::copy(std::begin(vector),
             std::end(vector),
             OutpIter(std::cout, "\n"));
