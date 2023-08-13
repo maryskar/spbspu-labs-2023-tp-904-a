@@ -8,7 +8,8 @@ std::istream & skalisusov::operator>>(std::istream &in, LabelIO &&dest)
   {
     return in;
   }
-  std::string str = "";
+  std::string str;
+  str = "";
   std::getline(in, str, 'y');
   str += 'y';
   if (in && (str != dest.label_))
