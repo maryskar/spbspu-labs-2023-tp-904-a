@@ -26,7 +26,7 @@ namespace skalisusov
   };
   struct DoubleSciencificFormatO
   {
-    const double &dubscienO_;
+    const double dubscienO_;
   };
   std::istream & operator>>(std::istream &in, LabelIO &&dest);
   std::istream & operator>>(std::istream &in, DelimiterIO &&dest);
