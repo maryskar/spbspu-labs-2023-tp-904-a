@@ -60,7 +60,7 @@ namespace chulkov {
     std::string key1 = getUllBin(src.key1);
     out << "(:";
     out << "key1 " << key1 << ":";
-    out << "key2 " << src.key2 << ":";
+    out << "key2 "<< " '" << src.key2 << "':";
     out << "key3 \"" << src.key3 << "\":)";
     return out;
   }
