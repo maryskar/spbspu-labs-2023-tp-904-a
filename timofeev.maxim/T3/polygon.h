@@ -12,5 +12,8 @@ namespace timofeev
   {
     std::vector< Point > points;
   };
+    std::istream &operator>>(std::istream &in, Polygon & dest);
+    std::istream &operator>>(std::istream &in, Point &dest);
 }
 #endif
+
