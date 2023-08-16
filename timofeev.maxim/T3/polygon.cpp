@@ -35,6 +35,9 @@ namespace timofeev
     in >> sep{'('} >> dest.x >> sep{';'} >> dest.y >> sep{')'};
     return in;
   }
-
+  size_t size(const Polygon &dest)
+  {
+    return dest.points.size();
+  }
 }
 
