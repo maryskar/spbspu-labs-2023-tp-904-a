@@ -32,4 +32,28 @@ namespace timofeev
     }
   }
 
+  void doMaxCommands(std::istream &in )
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return;
+    }
+    std::string secPart;
+    in >> secPart;
+    if (secPart == "AREA")
+    {
+      doMaxArea();
+    }
+    else if (secPart == "VERTEXES")
+    {
+      doMaxV();
+    }
+    else
+    {
+      throw std::logic_error("Error");
+    }
+  }
+
+
 }
