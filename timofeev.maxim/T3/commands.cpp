@@ -5,7 +5,7 @@
 #include "../common/IofGuard.h"
 namespace timofeev
 {
-  void doAreaCommands (std::istream &in, )
+  void doAreaCommands(std::istream &in, const std::vector< Polygon >& res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -32,7 +32,7 @@ namespace timofeev
     }
   }
 
-  void doMaxCommands(std::istream &in )
+  void doMaxCommands(std::istream &in, const std::vector< Polygon >& res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -55,7 +55,7 @@ namespace timofeev
     }
   }
 
-  void doMinCommands(std::istream &in )
+  void doMinCommands(std::istream &in, const std::vector< Polygon >& res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -77,4 +77,32 @@ namespace timofeev
       throw std::logic_error("Error");
     }
   }
+
+  void doCountCommands(std::istream &in, const std::vector< Polygon >& res)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return;
+    }
+    std::string secPart;
+    in >> secPart;
+    if (is_number(secPart))
+    {
+      //do smth with vertexes
+    }
+    else if (secPart == "EVEN")
+    {
+      doСountEven();
+    }
+    else if (secPart == "ODD")
+    {
+      doCountOdd();
+    }
+    else
+    {
+      throw std::logic_error("Error");
+    }
+  }
+
 }
