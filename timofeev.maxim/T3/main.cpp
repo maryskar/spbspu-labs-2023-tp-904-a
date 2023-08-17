@@ -1,5 +1,22 @@
 #include <iostream>
-int main()
+#include <fstream>
+int main(int argc, char **argv)
 {
-    std::cout << "Oh shit, here we go again";
+  if (argc != 2)
+  {
+    std::cerr << "Error\n";
+    return 1;
+  }
+  std::ifstream inFile;
+  if (argc == 2)
+  {
+    inFile.open(argv[1]);
+    if (!inFile.is_open())
+    {
+      std::cerr << "File error" << "\n";
+      return 1;
+    }
+  }
+
+
 }
