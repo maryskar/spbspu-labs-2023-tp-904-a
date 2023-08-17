@@ -55,5 +55,26 @@ namespace timofeev
     }
   }
 
-
+  void doMinCommands(std::istream &in )
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return;
+    }
+    std::string secPart;
+    in >> secPart;
+    if (secPart == "AREA")
+    {
+      doMinArea();
+    }
+    else if (secPart == "VERTEXES")
+    {
+      doMinV();
+    }
+    else
+    {
+      throw std::logic_error("Error");
+    }
+  }
 }
