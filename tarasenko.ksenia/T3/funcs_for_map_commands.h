@@ -28,62 +28,52 @@ namespace tarasenko
     return out << getNumWithEqualNumVerts(data, n);
   }
 
-  std::ostream& getAreaEvenCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getAreaEvenCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << std::fixed << std::setprecision(1) << getAreaEven(data);
   }
 
-  std::ostream& getAreaOddCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getAreaOddCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << std::fixed << std::setprecision(1) << getAreaOdd(data);
   }
 
-  std::ostream& getAreaMeanCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getAreaMeanCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << std::fixed << std::setprecision(1) << getAreaMean(data);
   }
 
-  std::ostream& getMaxAreaCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getMaxAreaCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << std::fixed << std::setprecision(1) << getMaxArea(data);
   }
 
-  std::ostream& getMinAreaCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getMinAreaCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << std::fixed << std::setprecision(1) << getMinArea(data);
   }
 
-  std::ostream& getMaxVertsCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getMaxVertsCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << getMaxVerts(data);
   }
 
-  std::ostream& getMinVertsCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getMinVertsCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << getMinVerts(data);
   }
 
-  std::ostream& getNumEvenCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getNumEvenCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << getNumEven(data);
   }
 
-  std::ostream& getNumOddCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getNumOddCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << getNumOdd(data);
   }
 
-  std::ostream& getNumRightShapesCommand(const std::vector< Polygon >& data,
-     std::istream& in, std::ostream& out)
+  std::ostream& getNumRightShapesCommand(const std::vector< Polygon >& data, std::ostream& out)
   {
     return out << getNumRightShapes(data);
   }
