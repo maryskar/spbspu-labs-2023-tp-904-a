@@ -1,10 +1,14 @@
 #include "helpFunctions.h"
+#include <iostream>
+#include <iterator>
 #include <ostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 #include "polygon.h"
 namespace timofeev
 {
+  using out =  std::ostream_iterator< double >;
   bool is_number(const std::string& s)
   {
     std::string::const_iterator it = s.begin();
@@ -58,9 +62,24 @@ namespace timofeev
 
   void doEven(const std::vector< Polygon >& res)
   {
-
+    std::vector< Polygon > tmp (res.size());
+    std::copy_if(res.begin(), res.end(), tmp.begin(), isEven);
+    double area = getArea(tmp);
+    std::vector< double > vec;
+    vec.push_back(area);
+    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
   }
-  void doOdd(const std::vector< Polygon >& res);
+
+  void doOdd(const std::vector< Polygon >& res)
+  {
+    std::vector< Polygon > tmp (res.size());
+    std::copy_if(res.begin(), res.end(), tmp.begin(), isOdd);
+    double area = getArea(tmp);
+    std::vector< double > vec;
+    vec.push_back(area);
+    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+  }
+
   void doMaxArea(const std::vector< Polygon >& res);
   void doMaxV(const std::vector< Polygon >& res);
   void doMinArea(const std::vector< Polygon >& res);
