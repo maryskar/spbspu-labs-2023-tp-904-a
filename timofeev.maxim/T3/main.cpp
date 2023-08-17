@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "helpFunctions.h"
 int main(int argc, char **argv)
 {
   if (argc != 2)
@@ -18,5 +19,13 @@ int main(int argc, char **argv)
     }
   }
 
+  try
+  {
+
+  }
+  catch (std::logic_error &e)
+  {
+    timofeev::printError(std::cout);
+  }
 
 }
