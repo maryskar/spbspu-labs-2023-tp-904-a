@@ -7,7 +7,7 @@
 namespace timofeev
 {
   bool is_number(const std::string& s);
-  void printError(std::ostream &out);
+  void printError(std::ostream& out);
 
   void doEven(const std::vector< Polygon >& res);
   void doOdd(const std::vector< Polygon >& res);
@@ -18,6 +18,8 @@ namespace timofeev
   void doСountEven(const std::vector< Polygon >& res);
   void doCountOdd(const std::vector< Polygon >& res);
 
+  bool isOdd(const Polygon &data);
+  bool isEven(const Polygon &data);
 
 }
 #endif //T3_HELPFUNCTIONS_H
