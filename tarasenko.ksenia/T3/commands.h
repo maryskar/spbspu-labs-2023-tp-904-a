@@ -50,29 +50,24 @@ namespace tarasenko
    {
      try
      {
-       try
+       char c1;
+       in.get(c1);
+       if (c1 != ' ')
        {
-         char c1;
-         in.get(c1);
-         if (c1 != ' ')
+         type_2.at(command1)(data, out) << "\n";
+         return;
+       }
+       else
+       {
+         char c2;
+         in.get(c2);
+         in.putback(c2);
+         if (isdigit(c2))
          {
-           type_2.at(command1)(data, out) << "\n";
+           type_1.at(command1)(data, in, out) << "\n";
            return;
          }
-         else
-         {
-           char c2;
-           in.get(c2);
-           in.putback(c2);
-           if (isdigit(c2))
-           {
-             type_1.at(command1)(data, in, out) << "\n";
-             return;
-           }
-         }
        }
-       catch (...)
-       {}
        std::string command2 = " ";
        in >> command2;
        type_2.at(command1 + " " + command2)(data, out) << "\n";
