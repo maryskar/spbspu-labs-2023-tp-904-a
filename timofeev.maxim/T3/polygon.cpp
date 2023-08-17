@@ -1,7 +1,9 @@
 #include "polygon.h"
 #include <iterator>
 #include <algorithm>
-//
+#include <iomanip>
+#include "../common/IofGuard.h"
+#include "../common/DataStruct.h"
 namespace timofeev
 {
   std::istream &operator>>(std::istream &in, Polygon & dest)
@@ -31,7 +33,7 @@ namespace timofeev
     {
       return in;
     }
-    using sep = DelimetrIO;
+    using sep = DelimiterIO;
     in >> sep{'('} >> dest.x >> sep{';'} >> dest.y >> sep{')'};
     return in;
   }
