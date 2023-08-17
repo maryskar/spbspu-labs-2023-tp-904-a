@@ -3,12 +3,10 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
-#include <iomanip>
 #include <map>
 #include <functional>
 #include <message.h>
-#include "funcs_for_commands.h"
+#include "funcs_for_map_commands.h"
 
 namespace tarasenko
 {
@@ -26,80 +24,56 @@ namespace tarasenko
   public:
    Commands():
      names(),
-     type_1(),
-     type_2(),
-     type_3(),
-     type_4()
+     cms()
    {
-     names = {
-       {"AREA"},
-       {"COUNT"},
-       {"AREA EVEN", "AREA ODD", "AREA MEAN", "MAX AREA", "MIN AREA"},
-       {"MAX VERTEXES", "MIN VERTEXES", "COUNT EVEN", "COUNT ODD", "RIGHTSHAPES"},
-       {"INFRAME"}
-     };
+     names = {"AREA", "COUNT", "INFRAME", "AREA EVEN", "AREA ODD", "AREA MEAN", "MAX AREA", "MIN AREA",
+        "MAX VERTEXES", "MIN VERTEXES", "COUNT EVEN", "COUNT ODD", "RIGHTSHAPES"};
 
-     type_1.insert(std::make_pair("AREA", &getAreaWithEqualNumVerts));
-     type_2.insert(std::make_pair("COUNT", &getNumWithEqualNumVerts));
-
-     type_3.insert(std::make_pair("AREA EVEN", &getAreaEven));
-     type_3.insert(std::make_pair("AREA ODD", &getAreaOdd));
-     type_3.insert(std::make_pair("AREA MEAN", &getAreaMean));
-     type_3.insert(std::make_pair("MAX AREA", &getMaxArea));
-     type_3.insert(std::make_pair("MIN AREA", &getMinArea));
-
-     type_4.insert(std::make_pair("MAX VERTEXES", &getMaxVerts));
-     type_4.insert(std::make_pair("MIN VERTEXES", &getMinVerts));
-     type_4.insert(std::make_pair("COUNT EVEN", &getNumEven));
-     type_4.insert(std::make_pair("COUNT ODD", &getNumOdd));
-     type_4.insert(std::make_pair("RIGHTSHAPES", &getNumRightShapes));
-
-     type_5.insert(std::make_pair("INFRAME", &isInFrame));
+     cms.insert(std::make_pair("AREA", &getAreaWithEqualNumVertsCommand));
+     cms.insert(std::make_pair("COUNT", &getNumWithEqualNumVertsCommand));
+     cms.insert(std::make_pair("AREA EVEN", &getAreaEvenCommand));
+     cms.insert(std::make_pair("AREA ODD", &getAreaOddCommand));
+     cms.insert(std::make_pair("AREA MEAN", &getAreaMeanCommand));
+     cms.insert(std::make_pair("MAX AREA", &getMaxAreaCommand));
+     cms.insert(std::make_pair("MIN AREA", &getMinAreaCommand));
+     cms.insert(std::make_pair("MAX VERTEXES", &getMaxVertsCommand));
+     cms.insert(std::make_pair("MIN VERTEXES", &getMinVertsCommand));
+     cms.insert(std::make_pair("COUNT EVEN", &getNumEvenCommand));
+     cms.insert(std::make_pair("COUNT ODD", &getNumOddCommand));
+     cms.insert(std::make_pair("RIGHTSHAPES", &getNumRightShapesCommand));
+     cms.insert(std::make_pair("INFRAME", &isInFrameCommand));
    }
 
    void call(const std::string& command1, std::vector< Polygon >& data, std::istream& in, std::ostream& out)
    {
      try
      {
-       if (findIn(command1, 4))
+       try
        {
-         out << type_4.at(command1)(data) << "\n";
-       }
-       else if (findIn(command1, 5))
-       {
-         Polygon polygon;
-         getFrameRect(in, polygon);
-         out << (type_5.at(command1)(data, polygon) ? "<TRUE>" : "<FALSE>") << "\n";
-       }
-       else
-       {
-         std::string command2 = " ";
-         in >> command2;
-
-         if (!isdigit(command2[0]))
+         char c1;
+         in.get(c1);
+         if (c1 != ' ')
          {
-           if (findIn(command1 + " " + command2, 3))
-           {
-             out << std::fixed << std::setprecision(1) << type_3.at(command1 + " " + command2)(data) << "\n";
-           }
-           else
-           {
-             out << type_4.at(command1 + " " + command2)(data) << "\n";
-           }
+           cms.at(command1)(data, in, out) << "\n";
+           return;
          }
          else
          {
-           auto n = std::stoull(command2);
-           if (findIn(command1, 1))
+           char c2;
+           in.get(c2);
+           in.putback(c2);
+           if (isdigit(c2))
            {
-             out << std::fixed << std::setprecision(1) << type_1.at(command1)(data, n) << "\n";
-           }
-           else
-           {
-             out << type_2.at(command1)(data, n) << "\n";
+             cms.at(command1)(data, in, out) << "\n";
+             return;
            }
          }
        }
+       catch (...)
+       {}
+       std::string command2 = " ";
+       in >> command2;
+       cms.at(command1 + " " + command2)(data, in, out) << "\n";
      }
      catch (const std::exception&)
      {
@@ -111,27 +85,13 @@ namespace tarasenko
    bool find(const std::string& name)
    {
      auto cond = std::bind(std::equal_to< std::string >{}, _1, name);
-     auto in_any_of = [&](const auto& in_vector)
-     {
-       return std::any_of(in_vector.begin(), in_vector.end(), cond);
-     };
-     return std::any_of(names.begin(), names.end(), in_any_of);
+     return std::any_of(names.begin(), names.end(), cond);
    }
 
   private:
-   std::vector< std::vector< std::string > > names;
-   std::map< std::string, std::function< double(const std::vector< Polygon >&, const size_t&) > > type_1;
-   std::map< std::string, std::function< size_t(const std::vector< Polygon >&, const size_t&) > > type_2;
-   std::map< std::string, std::function< double(const std::vector< Polygon >&) > > type_3;
-   std::map< std::string, std::function< size_t(const std::vector< Polygon >&) > > type_4;
-   std::map< std::string, std::function< bool(const std::vector< Polygon >&, const Polygon&) > > type_5;
-   bool findIn(const std::string& name, size_t type);
+   std::vector< std::string > names;
+   using command_t = std::function< std::ostream&(const std::vector< Polygon >&, std::istream&, std::ostream&) >;
+   std::map< std::string, command_t > cms;
   };
-
-  bool tarasenko::Commands::findIn(const std::string& name, size_t type)
-  {
-    size_t i = type - 1;
-    return std::find(names[i].begin(), names[i].end(), name) != names[i].end();
-  }
 }
 #endif
