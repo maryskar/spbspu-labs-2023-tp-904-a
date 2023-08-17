@@ -1,6 +1,7 @@
 #include "helpFunctions.h"
 #include <ostream>
 #include <vector>
+#include <cmath>
 #include "polygon.h"
 namespace timofeev
 {
@@ -24,6 +25,37 @@ namespace timofeev
   {
     return !(isOdd(polygon));
   }
+
+
+  double getArea(const std::vector<Polygon> &pol)
+  {
+    /*
+     * (0 0)
+     * (0 2)  0*2+0*2+2*0+0*0
+     * (2 2)  0*0+2*2+2*2+2*0
+     * (2 0)
+     */
+    double totalArea = 0.0;
+    for (auto it = pol.begin(); it != pol.end(); ++it)
+    {
+      const Polygon &p = *it;
+      const std::vector<Point> &points = p.points;
+      double area = 0.0;
+      double firstSum = 0.0;
+      double secondSum = 0.0;
+      for (size_t i = 0; i < points.size(); i++)
+      {
+        const Point &point1 = points[i];
+        const Point &point2 = points[(i + 1) % points.size()];
+        firstSum += (static_cast< double >(point1.x * point2.y));
+        secondSum += (static_cast< double >(point1.y * point2.x));
+      }
+      area += firstSum - secondSum;
+      totalArea += area;
+    }
+    return std::abs(totalArea) / 2.0;
+  }
+
   void doEven(const std::vector< Polygon >& res)
   {
 

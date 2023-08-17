@@ -21,5 +21,6 @@ namespace timofeev
   bool isOdd(const Polygon &data);
   bool isEven(const Polygon &data);
 
+  double getArea(const std::vector< Polygon > &pol);
 }
 #endif //T3_HELPFUNCTIONS_H
