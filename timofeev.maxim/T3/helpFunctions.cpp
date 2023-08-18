@@ -80,6 +80,10 @@ namespace timofeev
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
   }
 
+  void doMean(const std::vector< Polygon >& res)
+  {
+
+  }
   void doMaxArea(const std::vector< Polygon >& res);
   void doMaxV(const std::vector< Polygon >& res);
   void doMinArea(const std::vector< Polygon >& res);
