@@ -20,11 +20,15 @@ namespace timofeev
     }
     else if (secPart == "EVEN")
     {
-      doEven();
+      doEven(res);
     }
     else if (secPart == "ODD")
     {
-      doOdd();
+      doOdd(res);
+    }
+    else if (secPart == "MEAN")
+    {
+      doMean(res);
     }
     else
     {
@@ -43,11 +47,11 @@ namespace timofeev
     in >> secPart;
     if (secPart == "AREA")
     {
-      doMaxArea();
+      doMaxArea(res);
     }
     else if (secPart == "VERTEXES")
     {
-      doMaxV();
+      doMaxV(res);
     }
     else
     {
@@ -66,11 +70,11 @@ namespace timofeev
     in >> secPart;
     if (secPart == "AREA")
     {
-      doMinArea();
+      doMinArea(res);
     }
     else if (secPart == "VERTEXES")
     {
-      doMinV();
+      doMinV(res);
     }
     else
     {
@@ -93,11 +97,11 @@ namespace timofeev
     }
     else if (secPart == "EVEN")
     {
-      doСountEven();
+      doСountEven(res);
     }
     else if (secPart == "ODD")
     {
-      doCountOdd();
+      doCountOdd(res);
     }
     else
     {
