@@ -5,9 +5,11 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <functional>
 #include "polygon.h"
 namespace timofeev
 {
+  using namespace std::placeholders;
   using out =  std::ostream_iterator< double >;
   using outV =  std::ostream_iterator< size_t >;
   bool is_number(const std::string& s)
@@ -176,9 +178,17 @@ namespace timofeev
     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
   }
 
+  bool isEqual(const Polygon &pol, size_t val)
+  {
+    return pol.points.size() == val;
+  }
+
   void doCountV(const std::vector< Polygon >& res, size_t& val)
   {
-
+    size_t Vertexes = std::count_if(res.begin(), res.end(), std::bind(isEqual, _1, val));
+    std::vector< size_t > vec;
+    vec.push_back(Vertexes);
+    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
   }
 
 }

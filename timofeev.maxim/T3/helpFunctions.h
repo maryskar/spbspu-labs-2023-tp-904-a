@@ -22,6 +22,7 @@ namespace timofeev
   void doAreaV(const std::vector< Polygon >& res, size_t& val);
   void doCountV(const std::vector< Polygon >& res, size_t& val);
 
+  bool isEqual(const Polygon &pol, size_t val);
   bool comparePolygons(const Polygon& a, const Polygon& b);
   bool isOdd(const Polygon &data);
   bool isEven(const Polygon &data);
