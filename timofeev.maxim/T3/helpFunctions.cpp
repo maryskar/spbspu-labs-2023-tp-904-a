@@ -86,8 +86,9 @@ namespace timofeev
   void doMean(const std::vector< Polygon >& res)
   {
     size_t amount = res.size();
+    std::vector< Polygon > tmp (res.size());
     std::vector<double> individual;
-    double area = getArea(res, individual);
+    double area = getArea(tmp, individual);
     area /= amount;
     std::vector< double > vec;
     vec.push_back(area);
@@ -101,12 +102,30 @@ namespace timofeev
 
   void doMaxArea(const std::vector< Polygon >& res)
   {
+    std::vector< Polygon > tmp = res;
+    std::vector<double> individual;
+    double area = getArea(tmp, individual);
+    double maxA = *std::max_element(individual.begin(), individual.end());
+    std::vector< double > vec;
+    vec.push_back(maxA);
+    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+  }
+  void doMaxV(const std::vector< Polygon >& res)
+  {
 
   }
-  void doMaxV(const std::vector< Polygon >& res);
 
 
-  void doMinArea(const std::vector< Polygon >& res);
+  void doMinArea(const std::vector< Polygon >& res)
+  {
+    std::vector< Polygon > tmp = res;
+    std::vector<double> individual;
+    double area = getArea(tmp, individual);
+    double minA = *std::min_element(individual.begin(), individual.end());
+    std::vector< double > vec;
+    vec.push_back(minA);
+    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+  }
   void doMinV(const std::vector< Polygon >& res);
   void doСountEven(const std::vector< Polygon >& res);
   void doCountOdd(const std::vector< Polygon >& res);
