@@ -33,6 +33,15 @@ namespace timofeev
     return !(isOdd(polygon));
   }
 
+  bool isEqual(const Polygon &pol, size_t val)
+  {
+    return pol.points.size() == val;
+  }
+
+  bool isNotEqual(const Polygon &pol, size_t val)
+  {
+    return pol.points.size() != val;
+  }
 
   double getArea(const std::vector<Polygon> &pol, std::vector< double > &indivAreas)
   {
@@ -100,7 +109,13 @@ namespace timofeev
 
   void doAreaV(const std::vector< Polygon >& res, size_t& val)
   {
-
+    std::vector< Polygon > tmp = res;
+    std::remove_if(tmp.begin(), tmp.end(), std::bind(isNotEqual, _1, val));
+    std::vector<double> individual;
+    double area = getArea(tmp, individual);
+    std::vector< double > vec;
+    vec.push_back(area);
+    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
   }
 
   void doMaxArea(const std::vector< Polygon >& res)
@@ -176,11 +191,6 @@ namespace timofeev
     std::vector< size_t > vec;
     vec.push_back(count);
     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
-  }
-
-  bool isEqual(const Polygon &pol, size_t val)
-  {
-    return pol.points.size() == val;
   }
 
   void doCountV(const std::vector< Polygon >& res, size_t& val)
