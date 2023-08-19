@@ -31,7 +31,7 @@ namespace timofeev
   }
 
 
-  double getArea(const std::vector<Polygon> &pol)
+  double getArea(const std::vector<Polygon> &pol, std::vector< double > &indivAreas)
   {
     /*
      * (0 0)
@@ -56,6 +56,7 @@ namespace timofeev
       }
       area += firstSum - secondSum;
       totalArea += area;
+      indivAreas.push_back(std::abs(area / 2.0));
     }
     return std::abs(totalArea) / 2.0;
   }
@@ -63,8 +64,9 @@ namespace timofeev
   void doEven(const std::vector< Polygon >& res)
   {
     std::vector< Polygon > tmp (res.size());
+    std::vector<double> individual;
     std::copy_if(res.begin(), res.end(), tmp.begin(), isEven);
-    double area = getArea(tmp);
+    double area = getArea(tmp, individual);
     std::vector< double > vec;
     vec.push_back(area);
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
@@ -73,8 +75,9 @@ namespace timofeev
   void doOdd(const std::vector< Polygon >& res)
   {
     std::vector< Polygon > tmp (res.size());
+    std::vector<double> individual;
     std::copy_if(res.begin(), res.end(), tmp.begin(), isOdd);
-    double area = getArea(tmp);
+    double area = getArea(tmp, individual);
     std::vector< double > vec;
     vec.push_back(area);
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
@@ -83,14 +86,26 @@ namespace timofeev
   void doMean(const std::vector< Polygon >& res)
   {
     size_t amount = res.size();
-    double area = getArea(res);
+    std::vector<double> individual;
+    double area = getArea(res, individual);
     area /= amount;
     std::vector< double > vec;
     vec.push_back(area);
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
   }
-  void doMaxArea(const std::vector< Polygon >& res);
+
+  void doAreaV(const std::vector< Polygon >& res, size_t& val)
+  {
+
+  }
+
+  void doMaxArea(const std::vector< Polygon >& res)
+  {
+
+  }
   void doMaxV(const std::vector< Polygon >& res);
+
+
   void doMinArea(const std::vector< Polygon >& res);
   void doMinV(const std::vector< Polygon >& res);
   void doСountEven(const std::vector< Polygon >& res);
