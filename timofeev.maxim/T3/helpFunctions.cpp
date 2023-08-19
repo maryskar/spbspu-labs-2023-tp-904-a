@@ -143,6 +143,7 @@ namespace timofeev
     vec.push_back(minA);
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
   }
+
   void doMinV(const std::vector< Polygon >& res)
   {
     std::vector< Polygon > data = res;
@@ -158,8 +159,26 @@ namespace timofeev
     vec.push_back(Vertex);
     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
   }
-  void doСountEven(const std::vector< Polygon >& res);
-  void doCountOdd(const std::vector< Polygon >& res);
 
+  void doСountEven(const std::vector< Polygon >& res)
+  {
+    size_t count = std::count_if(res.begin(), res.end(), isEven);
+    std::vector< size_t > vec;
+    vec.push_back(count);
+    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+  }
+
+  void doCountOdd(const std::vector< Polygon >& res)
+  {
+    size_t count = std::count_if(res.begin(), res.end(), isOdd);
+    std::vector< size_t > vec;
+    vec.push_back(count);
+    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+  }
+
+  void doCountV(const std::vector< Polygon >& res, size_t& val)
+  {
+
+  }
 
 }
