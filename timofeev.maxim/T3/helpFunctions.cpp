@@ -9,6 +9,7 @@
 namespace timofeev
 {
   using out =  std::ostream_iterator< double >;
+  using outV =  std::ostream_iterator< size_t >;
   bool is_number(const std::string& s)
   {
     std::string::const_iterator it = s.begin();
@@ -110,11 +111,27 @@ namespace timofeev
     vec.push_back(maxA);
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
   }
-  void doMaxV(const std::vector< Polygon >& res)
-  {
 
+  bool comparePolygons(const Polygon& a, const Polygon& b)
+  {
+    return a.points.size() > b.points.size();
   }
 
+  void doMaxV(const std::vector< Polygon >& res)
+  {
+    std::vector< Polygon > data = res;
+    std::sort(data.begin(), data.end(), comparePolygons);
+
+    std::vector<size_t> vertexCounts;
+    for (const Polygon& polygon : data)
+    {
+      vertexCounts.push_back(polygon.points.size());
+    }
+    size_t Vertex = *std::max_element(vertexCounts.begin(), vertexCounts.end());
+    std::vector< size_t > vec;
+    vec.push_back(Vertex);
+    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+  }
 
   void doMinArea(const std::vector< Polygon >& res)
   {
@@ -126,7 +143,21 @@ namespace timofeev
     vec.push_back(minA);
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
   }
-  void doMinV(const std::vector< Polygon >& res);
+  void doMinV(const std::vector< Polygon >& res)
+  {
+    std::vector< Polygon > data = res;
+    std::sort(data.begin(), data.end(), comparePolygons);
+
+    std::vector<size_t> vertexCounts;
+    for (const Polygon& polygon : data)
+    {
+      vertexCounts.push_back(polygon.points.size());
+    }
+    size_t Vertex = *std::min_element(vertexCounts.begin(), vertexCounts.end());
+    std::vector< size_t > vec;
+    vec.push_back(Vertex);
+    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+  }
   void doСountEven(const std::vector< Polygon >& res);
   void doCountOdd(const std::vector< Polygon >& res);
 

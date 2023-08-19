@@ -19,6 +19,9 @@ namespace timofeev
   void doCountOdd(const std::vector< Polygon >& res);
   void doMean(const std::vector< Polygon >& res);
 
+  void doAreaV(const std::vector< Polygon >& res, size_t& val)
+
+  bool comparePolygons(const Polygon& a, const Polygon& b);
   bool isOdd(const Polygon &data);
   bool isEven(const Polygon &data);
 
