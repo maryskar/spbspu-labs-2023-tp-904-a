@@ -1,5 +1,10 @@
 #include <iostream>
 #include <fstream>
+#include <limits>
+#include <iterator>
+#include <map>
+#include "dictionary.h"
+#include "commands.h"
 #include "helpFunctions.h"
 int main(int argc, char **argv)
 {
@@ -18,14 +23,49 @@ int main(int argc, char **argv)
       return 1;
     }
   }
-
-  try
+  std::vector< timofeev::Polygon > polygon;
+  using inIter = std::istream_iterator< timofeev::Polygon >;
+  constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
+  while (!inFile.eof())
   {
-
+    std::copy(inIter(inFile), inIter(), std::back_inserter(polygon));
+    if (inFile.fail())
+    {
+      inFile.clear();
+      inFile.ignore(maxSize, '\n');
+    }
   }
-  catch (std::logic_error &e)
+  std::map< std::string, void (*)(std::istream&, const std::vector< timofeev::Polygon >&) > commands;
+  std::string firstPart;
+  timofeev::dictionary(commands);
+  while (!std::cin.eof())
   {
-    timofeev::printError(std::cout);
+    try
+    {
+      std::cin >> firstPart;
+      if (commands.count(firstPart) == 0)
+      {
+        timofeev::printError(std::cout);
+      }
+      else
+      {
+        commands[firstPart](std::cin, polygon);
+      }
+    }
+    catch (std::logic_error &e)
+    {
+      timofeev::printError(std::cout);
+      std::cin.ignore(maxSize, '\n');
+    }
+    catch (const std::runtime_error & e)
+    {
+      break;
+    }
   }
-
+  if (std::cin.fail())
+  {
+    std::cin.clear();
+    std::cin.ignore(maxSize, '\n');
+  }
+  return 0;
 }
