@@ -27,6 +27,10 @@ namespace timofeev
   bool isOdd(const Polygon &data);
   bool isEven(const Polygon &data);
 
-  double getArea(const std::vector< Polygon > &pol);
+  bool isRectangle(const Polygon& pol);
+  bool isSquareTriangle(const Point &p1, const Point &p2, const Point &p3);
+  int operator*(const Point &p1, const Point &p2);
+
+  double getArea(const std::vector<Polygon> &pol, std::vector< double > &indivAreas);
 }
 #endif //T3_HELPFUNCTIONS_H
