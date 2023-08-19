@@ -23,7 +23,7 @@ namespace timofeev
       }
       else
       {
-        doAreaV(res, tmp);
+        doAreaV(res, tmp);  // Дописать
       }
     }
     else if (secPart == "EVEN")
@@ -101,7 +101,15 @@ namespace timofeev
     in >> secPart;
     if (is_number(secPart))
     {
-      //do smth with vertexes
+      size_t tmp = std::stoull(secPart);
+      if (tmp < 3)
+      {
+        throw std::logic_error("Error");
+      }
+      else
+      {
+        doCountV(res, tmp);
+      }
     }
     else if (secPart == "EVEN")
     {
