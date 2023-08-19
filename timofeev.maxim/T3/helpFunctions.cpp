@@ -225,6 +225,9 @@ namespace timofeev
   }
   void doRSCommand(std::istream &in, const std::vector< Polygon >& res)
   {
-
+    size_t val = std::count_if(res.begin(), res.end(), isRectangle);
+    std::vector< size_t > vec;
+    vec.push_back(val);
+    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
   }
 }
