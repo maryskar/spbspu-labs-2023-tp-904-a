@@ -14,5 +14,7 @@ namespace zhuravlev
   {
     char expected;
   };
+  using data_t = DataStruct;
+  bool compareData(const data_t& lhs, const data_t& rhs);
 }
 #endif

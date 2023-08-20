@@ -2,7 +2,4 @@
 #include "IO.hpp"
 #include "iofmtguard.hpp"
 
-namespace zhuravlev
-{
 
-}
