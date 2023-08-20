@@ -10,5 +10,21 @@ namespace zhuravlev
   {
     char expected;
   };
+  struct HexIO
+  {
+    unsigned long long& ref;
+  };
+  struct BinIO
+  {
+    unsigned long long& ref;
+  };
+  struct StringIO
+  {
+    std::string& ref;
+  };
+  struct LabelIO
+  {
+    std::string exp;
+  };
 }
 #endif
