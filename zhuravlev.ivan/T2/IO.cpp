@@ -39,3 +39,13 @@ std::istream& operator>>(std::istream& in, zhuravlev::BinIO&& dest)
   std::bitset< sizeof(unsigned long long) > value(dest.ref);
   return in >> zhuravlev::DelimiterIO{ '0b' } >> value;
 }
+
+std::istream& operator>>(std::istream& in, zhuravlev::StringIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  return std::getline(in >> zhuravlev::DelimiterIO{ '"' }, dest.ref, '"');
+}
