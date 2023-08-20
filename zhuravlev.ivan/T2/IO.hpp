@@ -6,7 +6,7 @@
 
 namespace zhuravlev
 {
-  struct Delimiter
+  struct DelimiterIO
   {
     char expected;
   };
@@ -26,5 +26,10 @@ namespace zhuravlev
   {
     std::string exp;
   };
+  std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
+  std::istream& operator>>(std::istream& in, HexIO&& dest);
+  std::istream& operator>>(std::istream& in, BinIO&& dest);
+  std::istream& operator>>(std::istream& in, StringIO&& dest);
+  std::istream& operator>>(std::istream& in, LabelIO&& dest);
 }
 #endif
