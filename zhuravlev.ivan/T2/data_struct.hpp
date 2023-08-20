@@ -10,7 +10,9 @@ namespace zhuravlev
     unsigned long long key2;
     std::string key3;
   };
-  using data_t = DataStruct;
-  bool compareData(const data_t& lhs, const data_t& rhs);
+
+  bool compareData(const DataStruct& lhs, const DataStruct& rhs);
+  std::istream& operator>>(std::istream& in, DataStruct& dest);
+  std::ostream& operator<<(std::ostream& out, const DataStruct& data);
 }
 #endif
