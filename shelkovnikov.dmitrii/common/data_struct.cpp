@@ -1,7 +1,7 @@
 #include "data_struct.h"
 namespace dimkashelk
 {
-  bool Comparator::operator()(const dimkashelk::DataStruct &lhs, const dimkashelk::DataStruct &rhs) const
+  bool Comparator::operator()(const DataStruct &lhs, const DataStruct &rhs) const
   {
     if (std::abs(lhs.key1) == std::abs(rhs.key1))
     {

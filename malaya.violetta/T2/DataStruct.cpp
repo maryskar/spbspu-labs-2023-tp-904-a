@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include "IOStructs.hpp"
-#include "IOStreamsGuard.hpp"
+#include <IOStreamsGuard.hpp>
+#include <IOStructs.hpp>
 std::istream & malaya::operator>>(std::istream & in, DataStruct & dest)
 {
   std::istream::sentry istreamChecker(in);
