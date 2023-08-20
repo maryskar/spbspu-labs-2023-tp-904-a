@@ -6,5 +6,9 @@
 
 namespace zhuravlev
 {
+  struct Delimiter
+  {
+    char expected;
+  };
 }
 #endif

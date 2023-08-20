@@ -10,10 +10,6 @@ namespace zhuravlev
     unsigned long long key2;
     std::string key3;
   };
-  struct Delimiter
-  {
-    char expected;
-  };
   using data_t = DataStruct;
   bool compareData(const data_t& lhs, const data_t& rhs);
 }
