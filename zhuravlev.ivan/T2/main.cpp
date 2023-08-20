@@ -20,7 +20,7 @@ int main()
       std::cin.clear();
       std::cin.ignore(max_stream_size, '\n');
     }
-   std::copy(in_data_iter(std::cin), out_data_iter(), std::back_inserter(data));
+   std::copy(in_data_iter(std::cin), in_data_iter (), std::back_inserter(data));
   }
   while(!std::cin.eof());
   return 0;
