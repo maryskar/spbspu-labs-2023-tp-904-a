@@ -1,6 +1,7 @@
 #include "IO.hpp"
 #include "iofmtguard.hpp"
 #include <iomanip>
+#include <bitset>
 
 std::istream& operator>>(std::istream& in, zhuravlev::DelimiterIO&& dest)
 {
@@ -25,5 +26,16 @@ std::istream& operator>>(std::istream& in, zhuravlev::HexIO&& dest)
   {
     return in;
   }
-  return in >> zhuravlev::DelimiterIO{ '0x' } >> dest.ref;
+  return in >> std::hex >> dest.ref;
+}
+
+std::istream& operator>>(std::istream& in, zhuravlev::BinIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  std::bitset< sizeof(unsigned long long) > value(dest.ref);
+  return in >> zhuravlev::DelimiterIO{ '0b' } >> value;
 }
