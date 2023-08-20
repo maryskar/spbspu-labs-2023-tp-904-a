@@ -98,43 +98,6 @@ namespace tarasenko
   }
 
   template< class Key, class Value, class Compare >
-  std::ostream& print(std::ostream& output, const std::string& name_of_dict,
-     const std::map< std::string, std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
-  {
-    std::map< Key, Value, Compare > given_dict = dict_of_dict.at(name_of_dict);
-    if (given_dict.empty())
-    {
-      throw std::invalid_argument("Empty");
-    }
-    printDict(output, name_of_dict, given_dict) << "\n";
-    return output;
-  }
-
-  template< class Key, class Value, class Compare >
-  std::ostream& printIf(std::ostream& output, const std::string& key,
-     const std::map< std::string, std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
-  {
-    auto key_dict = std::stoll(key);
-    bool was_out = false;
-    std::for_each(dict_of_dict.cbegin(), dict_of_dict.cend(), [&](const auto& pair)
-    {
-      if (pair.second.find(key_dict) != pair.second.cend())
-      {
-        if (was_out)
-        {
-          output << " ";
-        }
-        else
-        {
-          was_out = true;
-        }
-        output << pair.first;
-      }
-    });
-    return output << "\n";
-  }
-
-  template< class Key, class Value, class Compare >
   std::istream& operator>>(std::istream& input, std::map< Key, Value, Compare >& dict)
   {
     Key key;
@@ -192,36 +155,6 @@ namespace tarasenko
     }
   }
 
-  template< class Key, class Value, class Compare >
-  void deleteDicts(std::istream& input, std::map< std::string,
-     std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
-  {
-    std::forward_list< std::string > keys = details::getKeys(input);
-    std::for_each(keys.cbegin(), keys.cend(), [&](const std::string& key)
-    {
-      dict_of_dict.erase(key);
-    });
-  }
-
-  template< class Key, class Value, class Compare >
-  void writeDicts(std::istream& input, std::map< std::string,
-     std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
-  {
-    std::string filename = " ";
-    input >> filename;
-    std::ofstream out;
-    out.open(filename);
-    if (!out.is_open())
-    {
-      throw std::invalid_argument("File not found");
-    }
-    std::forward_list< std::string > keys = details::getKeys(input);
-    std::for_each(keys.cbegin(), keys.cend(), [&](const std::string& key)
-    {
-      printDict(out, key, dict_of_dict.at(key)) << "\n";
-    });
-  }
-
   namespace details
   {
     template< typename Key, typename Value, typename Compare >
@@ -234,65 +167,9 @@ namespace tarasenko
   }
 
   template< class Key, class Value, class Compare >
-  void resort(std::istream& input, std::map< std::string,
-     std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
-  {
-    std::string sort = " ";
-    input >> sort;
-    Comp comp;
-    if (sort == "ascending")
-    {
-      Comp ascending(std::less<>{});
-      comp = ascending;
-    }
-    else if (sort == "descending")
-    {
-      Comp descending(std::greater<>{});
-      comp = descending;
-    }
-    else
-    {
-      throw std::invalid_argument("Invalid command");
-    }
-    std::for_each(dict_of_dict.begin(), dict_of_dict.end(), [&](auto& pair)
-    {
-      dict_of_dict[pair.first] = details::resortDict(pair.second, comp);
-    });
-  }
-
-  template< class Key, class Value, class Compare >
-  void put(std::istream& input, std::map< std::string,
-     std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
-  {
-    Key new_key;
-    Value new_val;
-    input >> new_key >> new_val;
-    if (!input)
-    {
-      throw std::invalid_argument("Incorrect data");
-    }
-    std::forward_list< std::string > keys = details::getKeys(input);
-    std::for_each(keys.cbegin(), keys.cend(), [&](const std::string& key)
-    {
-      dict_of_dict[key][new_key] = new_val;
-    });
-  }
-
-  template< class Key, class Value, class Compare >
   void swap(std::map< Key, Value, Compare >& lhs, std::map< Key, Value, Compare >& rhs)
   {
     lhs.swap(rhs);
-  }
-
-  template< class Key, class Value, class Compare >
-  void copy(std::istream& input, std::map< std::string,
-     std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
-  {
-    std::string name_dict = " ";
-    std::string name_new_dict = " ";
-    input >> name_dict >> name_new_dict;
-    auto dict = dict_of_dict.at(name_dict);
-    dict_of_dict[name_new_dict] = dict;
   }
 
   template< class Key, class Value, class Compare >
@@ -324,36 +201,6 @@ namespace tarasenko
       }
       return random_dict;
     }
-  }
-
-  template< class Key, class Value, class Compare >
-  void addRandomDict(std::istream& input, std::map< std::string,
-     std::map< Key, Value, Compare >, std::greater<> >& dict_of_dict)
-  {
-    std::string name_new_dict = " ";
-    size_t size = 0;
-    input >> name_new_dict >> size;
-    if (!input)
-    {
-      throw std::invalid_argument("Incorrect data");
-    }
-    std::forward_list< std::string > names_of_dicts = details::getKeys(input);
-
-    std::map< Key, Value, Compare > dict_of_elems;
-    std::for_each(names_of_dicts.begin(), names_of_dicts.end(), [&](const auto& name)
-    {
-      auto dict = dict_of_dict.at(name);
-      std::for_each(dict.begin(), dict.end(), [&](const auto& elem)
-      {
-        dict_of_elems.insert(elem);
-      });
-    });
-    if (dict_of_elems.size() < size)
-    {
-      throw std::invalid_argument("Not enough elements");
-    }
-
-    dict_of_dict[name_new_dict] = details::createRandomDict(size, dict_of_elems);
   }
 
   template< class Key, class Value, class Compare >
