@@ -100,6 +100,11 @@ namespace tarasenko
   template< class Key, class Value, class Compare >
   std::istream& operator>>(std::istream& input, std::map< Key, Value, Compare >& dict)
   {
+    std::istream::sentry sentry(input);
+    if (!sentry)
+    {
+      return input;
+    }
     Key key;
     Value value;
     while (input >> key >> value)
