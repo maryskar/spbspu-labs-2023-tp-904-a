@@ -49,3 +49,17 @@ std::istream& operator>>(std::istream& in, zhuravlev::StringIO&& dest)
   }
   return std::getline(in >> zhuravlev::DelimiterIO{ '"' }, dest.ref, '"');
 }
+
+std::istream& operator>>(std::istream& in, zhuravlev::LabelIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  for (size_t i = 0; i < dest.exp.length(); i++)
+  {
+    in >> zhuravlev::DelimiterIO{dest.exp[i]};
+  }
+  return in;
+}
