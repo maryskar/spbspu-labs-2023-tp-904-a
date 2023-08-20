@@ -10,5 +10,9 @@ namespace zhuravlev
     unsigned long long key2;
     std::string key3;
   };
+  struct Delimiter
+  {
+    char expected;
+  };
 }
 #endif
