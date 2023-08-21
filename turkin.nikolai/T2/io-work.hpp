@@ -11,11 +11,6 @@ namespace turkin
     char exp;
   };
 
-  struct LabelIO
-  {
-    std::string exp;
-  };
-
   struct StringIO
   {
     std::string & ref;
@@ -38,7 +33,6 @@ namespace turkin
 
   std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   std::istream & operator>>(std::istream & in, StringIO && dest);
-  std::istream & operator>>(std::istream & in, LabelIO && dest);
   std::istream & operator>>(std::istream & in, ULL8IO && dest);
   std::istream & operator>>(std::istream & in, ULL10IO && dest);
   std::istream & operator>>(std::istream & in, KeyIO && dest);

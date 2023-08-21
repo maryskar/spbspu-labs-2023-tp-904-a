@@ -2,8 +2,6 @@
 #include "iofmtguard.hpp"
 #include "io-work.hpp"
 
-#include <iostream>
-
 bool turkin::Comparator::operator()(const turkin::DataStruct & lhs, const turkin::DataStruct & rhs) const
 {
   if (lhs.key1 == rhs.key1)
@@ -27,7 +25,6 @@ std::istream & turkin::operator>>(std::istream & in, DataStruct & dest)
   DataStruct input;
   {
     using sep = DelimiterIO;
-    //using label = LabelIO;
     using ull10 = ULL10IO;
     using ull8 = ULL8IO;
     using str = StringIO;

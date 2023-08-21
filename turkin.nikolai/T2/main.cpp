@@ -1,11 +1,6 @@
 #include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <string>
-
 #include <algorithm>
 #include <iterator>
-#include <cassert>
 #include <vector>
 #include <limits>
 
@@ -30,6 +25,7 @@ int main()
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
+
   std::sort(data.begin(), data.end(), cmp);
   std::copy(data.begin(), data.end(), osit(std::cout, "\n"));
 

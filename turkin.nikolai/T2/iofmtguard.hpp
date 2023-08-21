@@ -1,4 +1,5 @@
 #ifndef IOFMTGUARD_HPP
+#define IOFMTGUARD_HPP
 
 #include <istream>
 

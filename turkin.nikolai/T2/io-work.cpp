@@ -1,7 +1,4 @@
 #include "io-work.hpp"
-#include <iomanip>
-#include "iofmtguard.hpp"
-#include "data-struct.hpp"
 
 std::istream & turkin::operator>>(std::istream & in, ULL10IO && dest)
 {
@@ -47,21 +44,6 @@ std::istream & turkin::operator>>(std::istream & in, StringIO && dest)
     return in;
   }
   return std::getline(in >> DelimiterIO{ '"' }, dest.ref, '"');
-}
-
-std::istream & turkin::operator>>(std::istream & in, LabelIO && dest)
-{
-  std::istream::sentry sentry(in);
-  if (!sentry)
-  {
-    return in;
-  }
-  std::string data = "";
-  if ((in >> StringIO{ data }) && (data != dest.exp))
-  {
-    in.setstate(std::ios::failbit);
-  }
-  return in;
 }
 
 std::istream & turkin::operator>>(std::istream & in, KeyIO && dest)
