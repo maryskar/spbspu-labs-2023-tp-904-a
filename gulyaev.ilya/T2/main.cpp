@@ -2,6 +2,7 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include <limits>
 #include "datastruct.hpp"
 #include "typesio.hpp"
 
@@ -9,7 +10,10 @@ int main()
 {
   std::vector< gulyaev::DataStruct > data;
   while (!std::cin.eof()) {
-    std::cin.clear();
+    if (std::cin.fail()) {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
     using i_iter = std::istream_iterator< gulyaev::DataStruct >;
     std::copy(i_iter(std::cin), i_iter(), std::back_inserter(data));
   }
