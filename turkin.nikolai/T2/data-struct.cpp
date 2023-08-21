@@ -1,7 +1,8 @@
 #include "data-struct.hpp"
-#include <iomanip>
 #include "iofmtguard.hpp"
 #include "io-work.hpp"
+
+#include <iostream>
 
 bool turkin::Comparator::operator()(const turkin::DataStruct & lhs, const turkin::DataStruct & rhs) const
 {
@@ -26,29 +27,32 @@ std::istream & turkin::operator>>(std::istream & in, DataStruct & dest)
   DataStruct input;
   {
     using sep = DelimiterIO;
-    using label = LabelIO;
+    //using label = LabelIO;
     using ull10 = ULL10IO;
     using ull8 = ULL8IO;
     using str = StringIO;
+    using key = KeyIO;
     in >> sep{ '(' };
-    for (unsigned int i = 0; i < 3; i++)
+    in >> sep{ ':' };
+    for (unsigned i = 0; i < 3; i++)
     {
-      unsigned int id = 0;
-      in >> label{ ":key" } >> id;
-      if (id == 1)
+      unsigned k = 0;
+      in >> key{ k };
+      if (k == 1)
       {
         in >> ull10{ input.key1 };
       }
-      else if (id == 2)
+      if (k == 2)
       {
         in >> ull8{ input.key2 };
       }
-      else if (id == 3)
+      if (k == 3)
       {
         in >> str{ input.key3 };
       }
+      in >> sep{ ':' };
     }
-    in >> sep{ ':' };
+    in >> sep{ ')' };
   }
   if (in)
   {
@@ -65,10 +69,10 @@ std::ostream & turkin::operator<<(std::ostream & out, const DataStruct & src)
     return out;
   }
   iofmtguard fmtguard(out);
-  out << "{ ";
-  out << "\"key1\": " << src.key1 << "ull, ";
-  out << "\"key2\": " << src.key2 << "ull, ";
-  out << "\"key3\": " << src.key3 << "str";
-  out << " }";
+  out << "(:";
+  out << "key1 " << src.key1 << "ull:";
+  out << "key2 0" << src.key2 << ":";
+  out << "key3 " << "\"" << src.key3 << "\"";
+  out << ":)";
   return out;
 }

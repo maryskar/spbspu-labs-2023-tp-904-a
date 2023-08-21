@@ -31,11 +31,17 @@ namespace turkin
     unsigned long long & ref;
   };
 
+  struct KeyIO
+  {
+    unsigned & ref;
+  };
+
   std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   std::istream & operator>>(std::istream & in, StringIO && dest);
   std::istream & operator>>(std::istream & in, LabelIO && dest);
   std::istream & operator>>(std::istream & in, ULL8IO && dest);
   std::istream & operator>>(std::istream & in, ULL10IO && dest);
+  std::istream & operator>>(std::istream & in, KeyIO && dest);
 }
 
 #endif
