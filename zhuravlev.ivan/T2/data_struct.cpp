@@ -5,47 +5,34 @@
 #include "iofmtguard.hpp"
 #include "IO.hpp"
 
-
-bool zhuravlev::compareData(const DataStruct& lhs, const DataStruct& rhs)
+using namespace zhuravlev;
+bool compareData(const DataStruct& lhs, const DataStruct& rhs)
 {
   return (lhs.key1 != rhs.key1) ? (lhs.key1 < rhs.key1): (lhs.key2 != rhs.key2) ? (lhs.key2 < rhs.key2): (lhs.key3.size() < rhs.key3.size());
 }
 
-std::istream& operator>>(std::istream& in, zhuravlev::DataStruct& dest);
+std::istream& operator>>(std::istream& in, DataStruct& dest)
 {
-  std::istream::sentry sentry(in);
-  if (!sentry)
   {
-    return in;
-  }
-  DataStruct input;
-  {
-    using sep = zhuravlev::DelimiterIO;
-    using label = zhuravlev::LabelIO;
-    using binll = zhuravlev::BinIO;
-    using hexll = zhuravlev::HexIO;
-    using str = zhuravlev::StringIO;
-    in >> sep{ '(' } >> sep{ ':' };
-    for (size_t i = 1; i <= 3; i++)
+    std::istream::sentry sentry(in);
+    if (!sentry)
     {
-      size_t num = 0;
-      in >> label{ "key" } >> num;
-      if (num == 1)
-      {
-        in >> dbl{ input.key1 } >> sep{ ':' };
-      }
-      else if (num == 2)
-      {
-        in >> ull{ input.key2 } >> sep{ ':' };
-      }
-      else if (num == 3)
-      {
-        in >> str{ input.key3 } >> sep{ ':' };
-      }
-      if (!sentry)
-      {
-        return in;
-      }
+      return in;
+    }
+    DataStruct input;
+    {
+      using sep = DelimiterIO;
+      using label = LabelIO;
+      using bin = BinIO;
+      using hex = HexIO;
+      using str = StringIO;
+      in >> sep{ '(' };
+      in >> label{ "key1" } >> sep{ ':' } >> BinIO{ input.key1 };
+      in >> sep{ ',' };
+      in >> label{ "key2" } >> sep{ ':' } >> HexIO{ input.key2 };
+      in >> sep{ ',' };
+      in >> label{ "key3" } >> sep{ ':' } >> StringIO{ input.key3 };
+      in >> sep{ ')' };
     }
     if (in)
     {
@@ -55,7 +42,7 @@ std::istream& operator>>(std::istream& in, zhuravlev::DataStruct& dest);
   }
 }
 
-std::ostream& operator<<(std::ostream& out, const zhuravlev::DataStruct& data)
+std::ostream& operator<<(std::ostream& out, const DataStruct& src)
 {
   std::ostream::sentry sentry(out);
   if (!sentry)
@@ -64,10 +51,9 @@ std::ostream& operator<<(std::ostream& out, const zhuravlev::DataStruct& data)
   }
   iofmtguard fmtguard(out);
   out << "(";
-  out << ":key1 " << std::fixed << std::setprecision(1) << data.key1;
-  out << ":key2 0x" << std::hex << std::uppercase << data.key2;
-  out << ":key3 \"" << data.key3;
+  out << ":key1 0b" << src.key1;
+  out << ":key2 0x" << std::hex << std::uppercase << src.key2;
+  out << ":key3 \"" << src.key3;
   out << "\":)";
   return out;
 }
-

@@ -1,9 +1,12 @@
 #include "IO.hpp"
 #include "iofmtguard.hpp"
 #include <iomanip>
+#include <string>
 #include <bitset>
 
-std::istream& operator>>(std::istream& in, zhuravlev::DelimiterIO&& dest)
+using namespace zhuravlev;
+
+std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -19,17 +22,17 @@ std::istream& operator>>(std::istream& in, zhuravlev::DelimiterIO&& dest)
   return in;
 }
 
-std::istream& operator>>(std::istream& in, zhuravlev::HexIO&& dest)
+std::istream& operator>>(std::istream& in, HexIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  return in >> std::hex >> dest.ref;
+  return in >> DelimiterIO{ '0' } >> DelimiterIO{ 'x' } >> std::hex >> dest.ref;
 }
 
-std::istream& operator>>(std::istream& in, zhuravlev::BinIO&& dest)
+std::istream& operator>>(std::istream& in, BinIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -37,20 +40,20 @@ std::istream& operator>>(std::istream& in, zhuravlev::BinIO&& dest)
     return in;
   }
   std::bitset< sizeof(unsigned long long) > value(dest.ref);
-  return in >> zhuravlev::DelimiterIO{ '0b' } >> value;
+  return in >> DelimiterIO{ '0' } >>  DelimiterIO{ 'b' } >>value;
 }
 
-std::istream& operator>>(std::istream& in, zhuravlev::StringIO&& dest)
+std::istream& operator>>(std::istream& in, StringIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  return std::getline(in >> zhuravlev::DelimiterIO{ '"' }, dest.ref, '"');
+  return std::getline(in >> DelimiterIO{ '"' }, dest.ref, '"');
 }
 
-std::istream& operator>>(std::istream& in, zhuravlev::LabelIO&& dest)
+std::istream& operator>>(std::istream& in, LabelIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -59,7 +62,7 @@ std::istream& operator>>(std::istream& in, zhuravlev::LabelIO&& dest)
   }
   for (size_t i = 0; i < dest.exp.length(); i++)
   {
-    in >> zhuravlev::DelimiterIO{dest.exp[i]};
+    in >> dest.exp[i];
   }
   return in;
 }
