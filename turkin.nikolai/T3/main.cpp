@@ -4,8 +4,7 @@
 #include <iostream>
 int main()//int argc, char * argv[])
 {
-  turkin::Point a;
-  std::istringstream iss("(1;2) (3;4)");
+  turkin::Polygon a;
+  std::istringstream iss("3 (1;2) (3;4) (5;6)");
   iss >> a;
-  std::cout << a.x << " " << a.y << "\n";
 }

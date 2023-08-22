@@ -3,7 +3,6 @@
 #include <iterator>
 #include <io-work.hpp>
 
-
 std::istream & turkin::operator>>(std::istream & in, Point & rhs)
 {
   std::istream::sentry sentry(in);
@@ -30,7 +29,6 @@ std::istream & turkin::operator>>(std::istream & in, Polygon & rhs)
     in.setstate(std::ios::failbit);
   }
   input.points.reserve(len);
-  
   std::copy_n(std::istream_iterator< Point >(in), len, std::back_inserter(input.points));
   if (in)
   {

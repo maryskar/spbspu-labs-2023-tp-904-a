@@ -17,10 +17,7 @@ namespace turkin
   };
   
   std::istream & operator>>(std::istream & in, Point & rhs);
-  std::ostream & operator<<(std::ostream & out, Point & rhs);
-  
   std::istream & operator>>(std::istream & in, Polygon & rhs);
-  std::ostream & operator<<(std::ostream & out, Polygon & rhs);
 }
 
 #endif
