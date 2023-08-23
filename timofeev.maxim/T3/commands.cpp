@@ -137,4 +137,12 @@ namespace timofeev
     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
   }
 
+  void doRectsCommand(std::istream &in, const std::vector< Polygon >& res)
+  {
+    size_t val = std::count_if(res.begin(), res.end(), isAngle);
+    std::vector< size_t > vec;
+    vec.push_back(val);
+    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+  }
+
 }
