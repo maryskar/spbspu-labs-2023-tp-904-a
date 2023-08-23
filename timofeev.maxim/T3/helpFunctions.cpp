@@ -226,6 +226,11 @@ namespace timofeev
 
   double getCos(const Point &p1, const Point &p2, const Point &p3)
   {
+    double side1x = p2.x - p1.x;
+    double side1y = p2.y - p1.y;
+    double side2x = p3.x - p2.x;
+    double side2y = p3.y - p2.y;
+
 
   }
   bool isAngle(const std::vector<Polygon>& pol)
