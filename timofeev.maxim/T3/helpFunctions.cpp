@@ -224,4 +224,8 @@ namespace timofeev
     return false;
   }
 
+  bool isAngle(const Polygon& pol)
+  {
+
+  }
 }
