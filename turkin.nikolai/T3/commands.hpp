@@ -4,6 +4,7 @@
 #include <istream>
 #include <ostream>
 #include <vector>
+
 #include "point-struct.hpp"
 
 namespace turkin

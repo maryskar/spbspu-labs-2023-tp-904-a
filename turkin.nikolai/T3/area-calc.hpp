@@ -2,13 +2,25 @@
 #define AREA_TYPE
 
 #include "point-struct.hpp"
-#include <vector>
+
 namespace turkin
 {
-  double calcArea(const Polygon & rhs);
-  double oddArea(double in, const Polygon & rhs);
-  double evenArea(double in, const Polygon & rhs);
-  double numArea(double in, const Polygon & rhs);
+  double calcArea(double in, const Polygon & rhs);
+  struct isOdd
+  {
+    bool operator()(const Polygon & rhs);
+  };
+  struct isEven
+  {
+    bool operator()(const Polygon & rhs);
+  };
+  struct isNum
+  {
+    explicit isNum(unsigned num);
+    bool operator()(const Polygon & rhs);
+    private:
+      unsigned num_;
+  };
 }
 
 #endif

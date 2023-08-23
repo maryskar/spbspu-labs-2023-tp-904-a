@@ -1,25 +1,31 @@
 #include "commands.hpp"
 
-#include <iostream>
-#include <functional>
+#include <algorithm>
 #include <numeric>
-#include <cmath>
+#include <string>
+#include <vector>
+
 #include "point-struct.hpp"
 #include "area-calc.hpp"
 
 std::ostream & turkin::area(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
 {
+  std::vector< Polygon > temp;
   std::string type;
   in >> type;
   if (type == "ODD")
   {
-    out << std::accumulate(data.cbegin(), data.cend(), 0.0, oddArea);
+    std::copy_if(data.begin(), data.end(), std::back_inserter(temp), isOdd());
   }
   else if (type == "EVEN")
   {
-    out << std::accumulate(data.cbegin(), data.cend(), 0.0, evenArea);
+    std::copy_if(data.begin(), data.end(), std::back_inserter(temp), isEven());
   }
-  return out;
+  else
+  {
+    std::copy_if(data.begin(), data.end(), std::back_inserter(temp), isNum(std::stoul(type)));
+  }
+  return out << std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea);
 }
 
 std::ostream & turkin::min(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
