@@ -1,45 +1,58 @@
 #include "commands.hpp"
 
 #include <iostream>
+#include <functional>
+#include <numeric>
+#include <cmath>
+#include "point-struct.hpp"
+#include "area-calc.hpp"
 
-double turkin::area(std::vector< Polygon > & data, std::istream & in)
+std::ostream & turkin::area(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
 {
-  std::cout << "area";
-  return 0.0;
-  in >> data.back();
+  std::string type;
+  in >> type;
+  if (type == "ODD")
+  {
+    out << std::accumulate(data.cbegin(), data.cend(), 0.0, oddArea);
+  }
+  else if (type == "EVEN")
+  {
+    out << std::accumulate(data.cbegin(), data.cend(), 0.0, evenArea);
+  }
+  return out;
 }
 
-double turkin::min(std::vector< Polygon > & data, std::istream & in)
+std::ostream & turkin::min(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
 {
-  std::cout << "min";
-  return 0.0;
+  out << "min";
   in >> data.back();
+  return out;
 }
 
-double turkin::max(std::vector< Polygon > & data, std::istream & in)
+std::ostream & turkin::max(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
 {
-  std::cout << "max";
-  return 0.0;
+  out << "max";
   in >> data.back();
+  return out;
 }
 
-double turkin::count(std::vector< Polygon > & data, std::istream & in)
+std::ostream & turkin::count(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
 {
-  std::cout << "count";
-  return 0.0;
+  out << "count";
   in >> data.back();
+  return out;
 }
 
-double turkin::maxseq(std::vector< Polygon > & data, std::istream & in)
+std::ostream & turkin::maxseq(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
 {
-  std::cout << "maxseq";
-  return 0.0;
+  out << "maxseq";
   in >> data.back();
+  return out;
 }
 
-double turkin::rightshapes(std::vector< Polygon > & data, std::istream & in)
+std::ostream & turkin::rightshapes(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
 {
-  std::cout << "rightshapes";
-  return 0.0;
+  out << "rightshapes";
   in >> data.back();
+  return out;
 }

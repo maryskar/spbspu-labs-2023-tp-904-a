@@ -22,7 +22,7 @@ int main(int argc, char * argv[])
     return 1;
   }
 
-  using cmd_t = double (*)(std::vector< turkin::Polygon > &, std::istream &);
+  using cmd_t = std::ostream & (*)(std::vector< turkin::Polygon > &, std::istream &, std::ostream & out);
   std::map< std::string, cmd_t > list
   {
     {"AREA", turkin::area},
@@ -35,6 +35,7 @@ int main(int argc, char * argv[])
 
   std::vector< turkin::Polygon > data;
   std::copy(std::istream_iterator< turkin::Polygon >(file), std::istream_iterator< turkin::Polygon >(), std::back_inserter(data));
+
   while (std::cin)
   {
     std::string cmd;
@@ -43,6 +44,6 @@ int main(int argc, char * argv[])
     {
       break;
     }
-    std::cout << list[cmd](data, std::cin) << "\n";
+    list[cmd](data, std::cin, std::cout) << "\n";
   }
 }
