@@ -1,64 +1,66 @@
 #include "commands.hpp"
 
 #include <algorithm>
+#include <cctype>
 #include <numeric>
 #include <string>
-#include <vector>
 
-#include "point-struct.hpp"
-#include "area-calc.hpp"
+#include "sub-commands-list.hpp"
 
-std::ostream & turkin::area(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
+namespace
 {
-  std::vector< Polygon > temp;
-  std::string type;
+  void put_string(const std::string & str, std::istream & in)
+  {
+    auto temp = str;
+    std::reverse(temp.begin(), temp.end());
+    for (auto it : temp) in.putback(it);
+  }
+}
+
+std::ostream & turkin::area(data_t & data, std::istream & in, std::ostream & out)
+{
+  std::string type = "";
   in >> type;
-  if (type == "ODD")
+  if (std::isdigit(type[0]))
   {
-    std::copy_if(data.begin(), data.end(), std::back_inserter(temp), isOdd());
+    put_string(type, in);
+    type = "VERTEXES";
   }
-  else if (type == "EVEN")
+  return out << sub_area_list[type](data, in);
+}
+
+std::ostream & turkin::min(data_t & data, std::istream & in, std::ostream & out)
+{
+  std::string type = "";
+  in >> type;
+  return out << sub_min_list[type](data, in);
+}
+
+std::ostream & turkin::max(data_t & data, std::istream & in, std::ostream & out)
+{
+  std::string type = "";
+  in >> type;
+  return out << sub_max_list[type](data, in);
+}
+
+std::ostream & turkin::count(data_t & data, std::istream & in, std::ostream & out)
+{
+  std::string type = "";
+  in >> type;
+  if (std::isdigit(type[0]))
   {
-    std::copy_if(data.begin(), data.end(), std::back_inserter(temp), isEven());
+    put_string(type, in);
+    type = "VERTEXES";
   }
-  else
-  {
-    std::copy_if(data.begin(), data.end(), std::back_inserter(temp), isNum(std::stoul(type)));
-  }
-  return out << std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea);
+  return out << sub_count_list[type](data, in);
 }
 
-std::ostream & turkin::min(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
+std::ostream & turkin::maxseq(data_t & data, std::istream & in, std::ostream & out)
 {
-  out << "min";
-  in >> data.back();
-  return out;
+  return out << sub_maxseq_list["DEFAULT"](data, in);
 }
 
-std::ostream & turkin::max(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
+std::ostream & turkin::rightshapes(data_t & data, std::istream & in, std::ostream & out)
 {
-  out << "max";
-  in >> data.back();
-  return out;
-}
-
-std::ostream & turkin::count(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
-{
-  out << "count";
-  in >> data.back();
-  return out;
-}
-
-std::ostream & turkin::maxseq(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
-{
-  out << "maxseq";
-  in >> data.back();
-  return out;
-}
-
-std::ostream & turkin::rightshapes(std::vector< Polygon > & data, std::istream & in, std::ostream & out)
-{
-  out << "rightshapes";
-  in >> data.back();
-  return out;
+  return out << sub_rightshapes_list["DEFAULT"](data, in);
 }

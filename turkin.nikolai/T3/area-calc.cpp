@@ -1,10 +1,7 @@
 #include "area-calc.hpp"
 
-#include <numeric>
 #include <algorithm>
-#include <vector>
-
-#include "point-struct.hpp"
+#include <numeric>
 
 namespace
 {
@@ -25,23 +22,4 @@ double turkin::calcArea(double in, const Polygon & rhs)
   int negative = std::accumulate(minusArea.cbegin(), minusArea.cend(), 0);
   int result = std::abs(positive - negative);
   return in + (static_cast< double >(result) * 0.5);
-}
-
-bool turkin::isOdd::operator()(const Polygon & rhs)
-{
-  return rhs.points.size() % 2 == 0;
-}
-
-bool turkin::isEven::operator()(const Polygon & rhs)
-{
-  return rhs.points.size() % 2 != 0;
-}
-
-turkin::isNum::isNum(unsigned num):
-  num_(num)
-{}
-
-bool turkin::isNum::operator()(const Polygon & rhs)
-{
-  return rhs.points.size() == num_;
 }

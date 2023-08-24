@@ -1,12 +1,8 @@
 #include <fstream>
 #include <iostream>
-#include <string>
-#include <map>
-#include <vector>
 #include <iterator>
 
-#include "commands.hpp"
-#include "point-struct.hpp"
+#include "commands-list.hpp"
 
 int main(int argc, char * argv[])
 {
@@ -22,17 +18,6 @@ int main(int argc, char * argv[])
     return 1;
   }
 
-  using cmd_t = std::ostream & (*)(std::vector< turkin::Polygon > &, std::istream &, std::ostream & out);
-  std::map< std::string, cmd_t > list
-  {
-    {"AREA", turkin::area},
-    {"MAX", turkin::max},
-    {"MIN", turkin::min},
-    {"COUNT", turkin::count},
-    {"MAXSEQ", turkin::maxseq},
-    {"RIGHTSHAPES", turkin::rightshapes}
-  };
-
   std::vector< turkin::Polygon > data;
   std::copy(std::istream_iterator< turkin::Polygon >(file), std::istream_iterator< turkin::Polygon >(), std::back_inserter(data));
 
@@ -44,6 +29,6 @@ int main(int argc, char * argv[])
     {
       break;
     }
-    list[cmd](data, std::cin, std::cout) << "\n";
+    turkin::main_list[cmd](data, std::cin, std::cout) << "\n";
   }
 }

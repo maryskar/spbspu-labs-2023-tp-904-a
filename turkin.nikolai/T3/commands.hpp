@@ -5,16 +5,17 @@
 #include <ostream>
 #include <vector>
 
-#include "point-struct.hpp"
+#include "data-structs.hpp"
 
 namespace turkin
 {
-  std::ostream & area(std::vector< Polygon > & data, std::istream & in, std::ostream & out);
-  std::ostream & min(std::vector< Polygon > & data, std::istream & in, std::ostream & out);
-  std::ostream & max(std::vector< Polygon > & data, std::istream & in, std::ostream & out);
-  std::ostream & count(std::vector< Polygon > & data, std::istream & in, std::ostream & out);
-  std::ostream & maxseq(std::vector< Polygon > & data, std::istream & in, std::ostream & out);
-  std::ostream & rightshapes(std::vector< Polygon > & data, std::istream & in, std::ostream & out);
+  using data_t = std::vector< Polygon >;
+  std::ostream & area(data_t & data, std::istream & in, std::ostream & out);
+  std::ostream & min(data_t & data, std::istream & in, std::ostream & out);
+  std::ostream & max(data_t & data, std::istream & in, std::ostream & out);
+  std::ostream & count(data_t & data, std::istream & in, std::ostream & out);
+  std::ostream & maxseq(data_t & data, std::istream & in, std::ostream & out);
+  std::ostream & rightshapes(data_t & data, std::istream & in, std::ostream & out);
 }
 
 #endif

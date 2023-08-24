@@ -1,7 +1,32 @@
-#include "point-struct.hpp"
+#include "data-structs.hpp"
+
 #include <algorithm>
 #include <iterator>
+#include <iomanip>
 #include <io-work.hpp>
+
+turkin::ReturnType::ReturnType(std::size_t num):
+  num_({ .uns=num }),
+  type_('u')
+{}
+
+turkin::ReturnType::ReturnType(double num):
+  num_({ .db=num }),
+  type_('d')
+{}
+
+std::ostream & turkin::operator<<(std::ostream & out, const ReturnType & rt)
+{
+  if (rt.type_ == 'u')
+  {
+    out << rt.num_.uns;
+  }
+  else if (rt.type_ == 'd')
+  {
+    out << std::fixed << std::setprecision(1) << rt.num_.db;
+  }
+  return out;
+}
 
 std::istream & turkin::operator>>(std::istream & in, Point & rhs)
 {
