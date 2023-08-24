@@ -9,6 +9,7 @@ namespace fesenko
     char key2;
     std::string key3;
   };
+  bool compare(const DataStruct &first, const DataStruct &second);
   std::istream &operator>>(std::istream &in, DataStruct &value);
   std::ostream &operator<<(std::ostream &out, const DataStruct &value);
 }
