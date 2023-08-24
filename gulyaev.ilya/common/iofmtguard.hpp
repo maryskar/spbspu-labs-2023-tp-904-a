@@ -1,5 +1,5 @@
 #ifndef T2_IOFMTGUARD_HPP
-#define T2_scopeguard_HPP
+#define T2_IOFMTGUARD_HPP
 #include <ios>
 
 namespace gulyaev

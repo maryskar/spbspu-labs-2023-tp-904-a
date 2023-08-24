@@ -1,10 +1,7 @@
 #include "typesio.hpp"
 #include <bitset>
 #include <limits>
-#include <sstream>
-#include <stdexcept>
 #include <iomanip>
-#include <string>
 
 std::istream &gulyaev::operator>>(std::istream &in, DelimiterIO &&dest)
 {
