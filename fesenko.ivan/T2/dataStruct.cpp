@@ -1,4 +1,5 @@
 #include "dataStruct.h"
+#include "iotypes.h"
 
 bool fesenko::compare(const DataStruct &first, const DataStruct &second)
 {
@@ -9,4 +10,37 @@ bool fesenko::compare(const DataStruct &first, const DataStruct &second)
   } else {
     return first.key3.length() < second.key3.length();
   }
+}
+
+std::istream &fesenko::operator>>(std::istream &in, DataStruct &dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry) {
+    return in;
+  }
+  DataStruct input;
+  using sep = DelimiterIO;
+  using lbl = LabelIO;
+  using dbl = DoubleIO;
+  using chr = CharIO;
+  using str = StringIO;
+  in >> sep{ '(' } >> sep{ ':' };
+  for (size_t i = 0; i < 3; i++) {
+    size_t num = 0;
+    in >> lbl{ "Key" } >> num;
+    if (num == 1) {
+      in >> dbl{ input.key1 } >> sep{ ':' };
+    } else if (num == 2) {
+      in >> chr{ input.key2 } >> sep{ ':' };
+    } else if (num == 3) {
+      in >> str{ input.key3 } >> sep{ ':' };
+    }
+    if (!sentry) {
+      return in;
+    }
+  }
+  if (in) {
+    dest = input;
+  }
+  return in;
 }
