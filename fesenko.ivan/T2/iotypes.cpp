@@ -33,3 +33,12 @@ std::istream &fesenko::operator>>(std::istream &in, CharIO &&dest)
   char c = '\'';
   return in >> DelimiterIO{ c } >> dest.ref >> DelimiterIO{ c };
 }
+
+std::istream &fesenko::operator>>(std::istream &in, StringIO &&dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry) {
+    return in;
+  }
+  return std::getline(in >> DelimiterIO{ '"' }, dest.ref, '"');
+}
