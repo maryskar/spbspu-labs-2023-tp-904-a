@@ -231,8 +231,16 @@ namespace timofeev
     double side2x = p3.x - p2.x;
     double side2y = p3.y - p2.y;
 
+    double scalar = side1x * side2x + side1y * side2y;
 
+    double lengthSide1 = std::sqrt(side1x * side1x + side1y * side1y);
+    double lengthSide2 = std::sqrt(side2x * side2x + side2y * side2y);
+
+    double cos = scalar / ( lengthSide1 * lengthSide2);
+
+    return cos;
   }
+
   bool isAngle(const std::vector<Polygon>& pol)
   {
     for (auto it = pol.begin(); it != pol.end(); ++it)
