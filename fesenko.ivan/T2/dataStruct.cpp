@@ -1,5 +1,7 @@
 #include "dataStruct.h"
+#include <iomanip>
 #include "iotypes.h"
+#include "iofmtguard.h"
 
 bool fesenko::compare(const DataStruct &first, const DataStruct &second)
 {
@@ -43,4 +45,20 @@ std::istream &fesenko::operator>>(std::istream &in, DataStruct &dest)
     dest = input;
   }
   return in;
+}
+
+std::ostream &fesenko::operator<<(std::ostream &out, const DataStruct &src)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  iofmtguard fmtguard(out);
+  out << "(";
+  out << ":key1 " << std::scientific << std::setprecision(2) << src.key1;
+  out << ":key2 \'" << src.key2 << "\'";
+  out << ":key3 \"" << src.key3;
+  out << "\":)";
+  return out;
 }
