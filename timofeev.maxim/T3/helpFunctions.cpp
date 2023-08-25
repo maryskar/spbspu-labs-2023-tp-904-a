@@ -241,27 +241,23 @@ namespace timofeev
     return cos;
   }
 
-  bool isAngle(const std::vector<Polygon>& pol)
+  bool isAngle(const Polygon& pol)
   {
-    for (auto it = pol.begin(); it != pol.end(); ++it)
+    const std::vector<Point>& points = pol.points;
+    for (size_t i = 0; i < points.size(); i++)
     {
-      const Polygon &p = *it;
-      const std::vector<Point> &points = p.points;
-      for (size_t i = 0; i < points.size(); i++)
+      const Point& p1 = points[i];
+      const Point& p2 = points[(i + 1) % points.size()];
+      const Point& p3 = points[(i + 2) % points.size()];
+
+      double cosine = getCos(p1, p2, p3);
+
+      if (std::abs(cosine) < 0.01)
       {
-
-        const Point& p1 = points[i];
-        const Point& p2 = points[(i + 1) % pol.size()];
-        const Point& p3 = points[(i + 2) % pol.size()];
-
-        double cosine = getCos(p1, p2, p3);
-
-        if (std::abs(cosine) < 0.01)
-        {
-          return true;
-        }
+        return true;
       }
     }
     return false;
   }
+
 }
