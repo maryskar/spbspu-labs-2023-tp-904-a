@@ -29,7 +29,7 @@ std::istream &fesenko::operator>>(std::istream &in, DataStruct &dest)
   in >> sep{ '(' } >> sep{ ':' };
   for (size_t i = 0; i < 3; i++) {
     size_t num = 0;
-    in >> lbl{ "Key" } >> num;
+    in >> lbl{ "key" } >> num;
     if (num == 1) {
       in >> dbl{ input.key1 } >> sep{ ':' };
     } else if (num == 2) {
