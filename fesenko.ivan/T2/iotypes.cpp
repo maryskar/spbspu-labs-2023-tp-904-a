@@ -40,7 +40,8 @@ std::istream &fesenko::operator>>(std::istream &in, StringIO &&dest)
   if (!sentry) {
     return in;
   }
-  return std::getline(in >> DelimiterIO{ '"' }, dest.ref, '"');
+  char c ='\"';
+  return std::getline(in >> DelimiterIO{ c }, dest.ref, c);
 }
 
 std::istream &fesenko::operator>>(std::istream &in, LabelIO &&dest)
