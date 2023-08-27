@@ -25,3 +25,19 @@ std::istream &fesenko::operator>>(std::istream &in, Polygon &rhs)
   }
   return in;
 }
+
+std::ostream &fesenko::operator<<(std::ostream &out, const Polygon &rhs)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry) {
+    return out;
+  }
+  iofmtguard fmtguard(out);
+  size_t points = rhs.points.size();
+  out << points;
+  std::copy_n(rhs.points.begin(),
+    points - 1,
+    std::ostream_iterator< Point >(out << ' ', " ")
+  );
+  return out << rhs.points.back();
+}
