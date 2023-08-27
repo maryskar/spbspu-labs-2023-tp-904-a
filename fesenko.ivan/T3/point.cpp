@@ -1,5 +1,6 @@
 #include "point.h"
 #include <iotypes.h>
+#include <iofmtguard.h>
 
 std::istream &fesenko::operator>>(std::istream &in, Point &rhs)
 {
@@ -14,4 +15,14 @@ std::istream &fesenko::operator>>(std::istream &in, Point &rhs)
     rhs = input;
   }
   return in;
+}
+
+std::ostream &fesenko::operator<<(std::ostream &out, const Point &rhs)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry) {
+    return out;
+  }
+  iofmtguard fmtguard(out);
+  return out << '(' << rhs.x << ';' << rhs.y << ')';
 }
