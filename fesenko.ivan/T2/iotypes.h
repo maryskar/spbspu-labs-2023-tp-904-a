@@ -8,9 +8,14 @@ namespace fesenko
     char exp;
   };
 
-  struct DoubleIO
+  struct DoubleI
   {
     double &ref;
+  };
+
+  struct DoubleO
+  {
+    const double val;
   };
 
   struct CharIO
@@ -29,9 +34,10 @@ namespace fesenko
   };
 
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
-  std::istream &operator>>(std::istream &in, DoubleIO &&dest);
+  std::istream &operator>>(std::istream &in, DoubleI &&dest);
   std::istream &operator>>(std::istream &in, CharIO &&dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, LabelIO &&dest);
+  std::ostream &operator<<(std::ostream &out, DoubleO &&dest);
 }
 #endif

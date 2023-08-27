@@ -23,7 +23,7 @@ std::istream &fesenko::operator>>(std::istream &in, DataStruct &dest)
   DataStruct input;
   using sep = DelimiterIO;
   using lbl = LabelIO;
-  using dbl = DoubleIO;
+  using dbl = DoubleI;
   using chr = CharIO;
   using str = StringIO;
   in >> sep{ '(' } >> sep{ ':' };
@@ -56,7 +56,7 @@ std::ostream &fesenko::operator<<(std::ostream &out, const DataStruct &src)
   }
   iofmtguard fmtguard(out);
   out << "(";
-  out << ":key1 " << std::scientific << std::setprecision(1) << src.key1;
+  out << ":key1 " << fesenko::DoubleO{ src.key1 };
   out << ":key2 \'" << src.key2 << "\'";
   out << ":key3 \"" << src.key3;
   out << "\":)";
