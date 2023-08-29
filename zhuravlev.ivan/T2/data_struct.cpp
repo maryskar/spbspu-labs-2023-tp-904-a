@@ -26,6 +26,7 @@ namespace zhuravlev
       using binll = BinIO;
       using hexll = HexIO;
       using str = StringIO;
+      in >> sep{'('} >> sep{':'};
       for (size_t i = 1; i <= 3; i++)
       {
         size_t num = 0;
@@ -40,11 +41,12 @@ namespace zhuravlev
             break;
           case '3':
             in >> str{input.key3} >> sep{ ':' };
-            break;  
+            break;
           default:
             in.setstate(std::ios::failbit);
         }
       }
+      in >> sep{')'};
       if (in)
       {
         dest = input;
