@@ -60,10 +60,9 @@ namespace zhuravlev
     {
       return in;
     }
-    std::string data = "";
-    if ((in >> StringIO{ data }) && (data != dest.exp))
+    for (size_t i = 0; i < dest.exp.length(); i++)
     {
-      in.setstate(std::ios::failbit);
+      in >> DelimiterIO{dest.exp[i]};
     }
     return in;
   }
