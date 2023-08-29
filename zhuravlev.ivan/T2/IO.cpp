@@ -29,7 +29,7 @@ namespace zhuravlev
     {
       return in;
     }
-    return in >> DelimiterIO{ '0' } >> DelimiterIO{ 'x' } >> std::hex >> dest.ref;
+    return in >> std::hex >> dest.ref;
   }
 
   std::istream& operator>>(std::istream& in, BinIO&& dest)
@@ -39,8 +39,10 @@ namespace zhuravlev
     {
       return in;
     }
-    std::bitset< sizeof(unsigned long long ) > value(dest.ref);
-    return in >> DelimiterIO{ '0' } >> DelimiterIO{ 'b' } >> value;
+    std::bitset< sizeof(unsigned long long ) > value;
+    in >> value;
+    dest.ref = value.to_ullong();
+    return in;
   }
   std::istream& operator>>(std::istream& in, StringIO&& dest)
   {
