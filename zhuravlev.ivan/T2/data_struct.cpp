@@ -26,33 +26,35 @@ namespace zhuravlev
       using binll = BinIO;
       using hexll = HexIO;
       using str = StringIO;
-      in >> sep{'('} >> sep{':'};
+      in >> sep{ '(' } >> sep{ ':' };
       for (size_t i = 1; i <= 3; i++)
       {
         size_t num = 0;
         in >> label{ "key" } >> num;
-        switch (num)
+        if (num == 1)
         {
-          case '1':
-            in >> binll{input.key1} >> sep{ ':' };
-            break;
-          case '2':
-            in >> hexll{input.key2} >> sep{ ':' };
-            break;
-          case '3':
-            in >> str{input.key3} >> sep{ ':' };
-            break;
-          default:
-            in.setstate(std::ios::failbit);
+          in >> binll{ input.key1 } >> sep{ ':' };
+        }
+        else if (num == 2)
+        {
+          in >> hexll{ input.key2 } >> sep{ ':' };
+        }
+        else if (num == 3)
+        {
+          in >> str{ input.key3 } >> sep{ ':' };
+        }
+        if (!sentry)
+        {
+          return in;
         }
       }
-      in >> sep{')'};
       if (in)
       {
         dest = input;
       }
       return in;
-    }
+  }
+
   }
   std::ostream & operator<<(std::ostream& out, const DataStruct& src)
   {
