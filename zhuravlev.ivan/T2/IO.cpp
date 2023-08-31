@@ -39,7 +39,11 @@ namespace zhuravlev
     {
       return in;
     }
-    return in >> DelimiterIO{ '0' } >> DelimiterIO{ 'b' } >> DelimiterIO{ '0' } >> dest.ref;
+    in >> DelimiterIO{ '0' } >> DelimiterIO{ 'b' };
+    std::bitset< 64 > value;
+    in >> value;
+    dest.ref = value.to_ullong();
+    return in;
   }
   std::istream& operator>>(std::istream& in, StringIO&& dest)
   {
