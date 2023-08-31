@@ -27,9 +27,9 @@ std::istream &gulyaev::operator>>(std::istream &in, BinUnsignedLongLongI &&dest)
     std::string bin = "";
     std::getline(in, bin, ':');
     try {
-    dest.ref = std::bitset< std::numeric_limits< unsigned long long >::digits >(bin).to_ullong();
+      dest.ref = std::bitset< std::numeric_limits< unsigned long long >::digits >(bin).to_ullong();
     } catch (const std::invalid_argument &e) {
-    in.setstate(std::ios::failbit);
+      in.setstate(std::ios::failbit);
     }
   }
   return in;
@@ -61,7 +61,8 @@ std::istream &gulyaev::operator>>(std::istream &in, ComplexI &&dest)
       }
     }
   }
-  return in >> DelimiterIO{':'};
+  in >> DelimiterIO{':'};
+  return in;
 }
 std::istream &gulyaev::operator>>(std::istream &in, StringIO &&dest)
 {
@@ -93,7 +94,7 @@ std::ostream &gulyaev::operator<<(std::ostream &out, const BinUnsignedLongLongO 
   if (!sentry) {
     return out;
   }
-  std::string bin = std::bitset<64>(dest.ref).to_string();
+  std::string bin = std::bitset< 64 >(dest.ref).to_string();
   bin.erase(0, bin.find('1'));
   out << "0b0" << bin;
   return out;
@@ -106,5 +107,5 @@ std::ostream &gulyaev::operator<<(std::ostream &out, const ComplexO &&dest)
   }
   out << "#c(" << std::fixed << std::setprecision(1) << dest.ref.real()
       << " " << dest.ref.imag() << ")";
-      return out;
+  return out;
 }

@@ -8,17 +8,22 @@
 
 int main()
 {
-  std::vector< gulyaev::DataStruct > data;
+  using namespace gulyaev;
+  std::vector< DataStruct > data;
   while (!std::cin.eof()) {
     if (std::cin.fail()) {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
-    using i_iter = std::istream_iterator< gulyaev::DataStruct >;
-    std::copy(i_iter(std::cin), i_iter(), std::back_inserter(data));
+    std::copy(std::istream_iterator< DataStruct >(std::cin),
+        std::istream_iterator< DataStruct >(),
+        std::back_inserter(data)
+    );
   }
   std::sort(std::begin(data), std::end(data), gulyaev::isLess);
-  std::copy(std::begin(data), std::end(data),
-    std::ostream_iterator< gulyaev::DataStruct >(std::cout, "\n"));
+  std::copy(std::begin(data),
+      std::end(data),
+      std::ostream_iterator< DataStruct >(std::cout, "\n")
+  );
   return 0;
 }
