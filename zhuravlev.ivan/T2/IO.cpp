@@ -29,7 +29,7 @@ namespace zhuravlev
     {
       return in;
     }
-    return in >> std::hex >> dest.ref;
+    return in >> DelimiterIO{ '0' } >> DelimiterIO{ 'x' } >> std::hex >> dest.ref;
   }
 
   std::istream& operator>>(std::istream& in, BinIO&& dest)
