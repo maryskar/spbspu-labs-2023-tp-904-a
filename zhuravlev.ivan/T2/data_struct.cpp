@@ -64,9 +64,8 @@ namespace zhuravlev
       return out;
     }
     iofmtguard fmtguard(out);
-    auto key1 = convertToBin(src.key1);
     out << "(";
-    out << ":key1 " << key1;
+    out << ":key1 0b" << src.key1;
     out << ":key2 0x" << std::hex << std::uppercase << src.key2;
     out << ":key3 \"" << src.key3;
     out << "\":)";

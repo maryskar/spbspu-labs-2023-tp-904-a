@@ -39,8 +39,7 @@ namespace zhuravlev
     {
       return in;
     }
-    in >> dest.ref;
-    return in;
+    return in >> DelimiterIO{ '0' } >> DelimiterIO{ 'b' } >> dest.ref;
   }
   std::istream& operator>>(std::istream& in, StringIO&& dest)
   {
