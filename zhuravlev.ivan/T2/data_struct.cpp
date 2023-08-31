@@ -56,7 +56,7 @@ namespace zhuravlev
   }
 
   }
-  std::ostream & operator<<(std::ostream& out, const DataStruct& src)
+  std::ostream& operator<<(std::ostream& out, const DataStruct& src)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
