@@ -1,3 +1,4 @@
+#include "data_struct.hpp"
 #include <iomanip>
 #include <vector>
 #include <iterator>
