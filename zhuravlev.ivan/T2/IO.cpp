@@ -15,7 +15,7 @@ namespace zhuravlev
     }
     char c = '0';
     in >> c;
-    if (in && dest.expected)
+    if (in && (c != dest.expected))
     {
       in.setstate(std::ios::failbit);
     }
