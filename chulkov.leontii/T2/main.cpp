@@ -2,12 +2,13 @@
 #include <iostream>
 #include <iterator>
 #include <limits>
+#include <list>
 #include <string>
-#include <vector>
 #include "data.h"
 
-int main() {
-  std::vector< chulkov::Data > resl;
+int main()
+{
+  std::list< chulkov::Data > resl;
   chulkov::Comparator comp;
   using istIter = std::istream_iterator< chulkov::Data >;
   while (!std::cin.eof()) {
@@ -18,7 +19,7 @@ int main() {
     }
   }
   using ostIter = std::ostream_iterator< chulkov::Data >;
-  std::sort(std::begin(resl), std::end(resl), comp);
+  resl.sort(comp);
   std::copy(std::begin(resl), std::end(resl), ostIter(std::cout, "\n"));
   return 0;
 }
