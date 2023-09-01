@@ -1,12 +1,12 @@
+#include "TypesIO.h"
+#include "iofmtguard.h"
 #include <iomanip>
 #include <vector>
 #include <iterator>
-#include "TypesIO.h"
 #include <cmath>
 
 namespace shestakov
 {
-
   bool compareValues(const DataStruct& lhs, const DataStruct& rhs)
   {
     if (lhs.key1 != rhs.key1)

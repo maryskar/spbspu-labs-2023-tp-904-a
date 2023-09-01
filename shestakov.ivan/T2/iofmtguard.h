@@ -1,6 +1,5 @@
 #ifndef SPBSPU_LABS_2023_TP_904_AM_IOFMTGUARD_H
 #define SPBSPU_LABS_2023_TP_904_AM_IOFMTGUARD_H
-
 #include <iostream>
 
 namespace shestakov
