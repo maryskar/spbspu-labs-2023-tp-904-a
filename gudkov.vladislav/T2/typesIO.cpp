@@ -18,7 +18,6 @@ std::istream &gudkov::operator>>(std::istream &in, DelimiterExpIO &&dest)
   {
     in.setstate(std::ios::failbit);
   }
-
   return in;
 }
 
