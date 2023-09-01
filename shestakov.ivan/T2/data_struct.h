@@ -17,4 +17,4 @@ namespace shestakov
   std::ostream& operator<<(std::ostream& out, const DataStruct& src);
 }
 
-#endif //SPBSPU_LABS_2023_TP_904_AM_DATA_STRUCT_H
+#endif

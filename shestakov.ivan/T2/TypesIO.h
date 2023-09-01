@@ -35,5 +35,4 @@ namespace shestakov
   std::istream& operator>>(std::istream& in, CmpLspIO&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
 }
-
 #endif
