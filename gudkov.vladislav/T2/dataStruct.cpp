@@ -12,51 +12,50 @@ std::istream &gudkov::operator>>(std::istream &in, Data &dest)
   Data input;
   {
     using sep = DelimiterExpIO;
+
     in >> sep{ '(' };
     if (in)
     {
       in >> sep{ ':' };
-      bool isRead1 = false;
-      bool isRead2 = false;
-      bool isRead3 = false;
+      bool isRead[3] = {};
       for (size_t i = 0; i < 3; ++i)
       {
         std::string str = "";
         in >> LabelIO{ str };
         if (str == "key1")
         {
-          if (isRead1)
+          if (isRead[0])
           {
             in.setstate(std::ios::failbit);
           }
           else
           {
             in >> LongLongIO{ input.key1 };
-            isRead1 = true;
+            isRead[0] = true;
           }
         }
         else if (str == "key2")
         {
-          if (isRead2)
+          if (isRead[1])
           {
             in.setstate(std::ios::failbit);
           }
           else
           {
             in >> UnsignedLongLongIO{ input.key2 };
-            isRead2 = true;
+            isRead[1] = true;
           }
         }
         else if (str == "key3")
         {
-          if (isRead3)
+          if (isRead[2])
           {
             in.setstate(std::ios::failbit);
           }
           else
           {
             in >> StringIO{ input.key3 };
-            isRead3 = true;
+            isRead[2] = true;
           }
         }
         else
@@ -65,6 +64,7 @@ std::istream &gudkov::operator>>(std::istream &in, Data &dest)
         }
         in >> sep{ ':' };
       }
+
       in >> sep{ ')' };
     }
   }
@@ -98,9 +98,11 @@ bool gudkov::isLess(const Data &lhs, const Data &rhs)
   {
     return lhs.key1 < rhs.key1;
   }
+
   if (lhs.key2 != rhs.key2)
   {
     return lhs.key2 < rhs.key2;
   }
+
   return lhs.key3.length() < rhs.key3.length();
 }

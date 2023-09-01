@@ -1,5 +1,6 @@
 #include "typesIO.h"
 #include "scopeGuard.h"
+#include <iomanip>
 
 std::istream &gudkov::operator>>(std::istream &in, DelimiterExpIO &&dest)
 {
@@ -9,11 +10,16 @@ std::istream &gudkov::operator>>(std::istream &in, DelimiterExpIO &&dest)
     return in;
   }
   char c = '0';
-  in >> c;
-  if (in && (c != dest.exp))
+
+  if (in.peek() == dest.exp)
+  {
+    in >> c;
+  }
+  else if (in)
   {
     in.setstate(std::ios::failbit);
   }
+
   return in;
 }
 
@@ -30,9 +36,7 @@ std::istream &gudkov::operator>>(std::istream &in, SuffixExpIO &&dest)
   in.unsetf(std::ios_base::skipws);
 
   char c = '0';
-  in >> c;
-  bool isLower = islower(c);
-  in.unget();
+  bool isLower = islower(in.peek());
 
   for (size_t i = 0; i < dest.exp.size(); ++i)
   {
@@ -43,7 +47,7 @@ std::istream &gudkov::operator>>(std::istream &in, SuffixExpIO &&dest)
     }
     else
     {
-      if (tolower(c) != tolower(dest.exp[i]) || isLower != static_cast< bool >(islower(c)))
+      if (tolower(c) != tolower(dest.exp[i]) || isLower != static_cast<bool>(islower(c)))
       {
         in.setstate(std::ios::failbit);
         break;
