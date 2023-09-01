@@ -40,28 +40,19 @@ std::istream &gulyaev::operator>>(std::istream &in, ComplexI &&dest)
   if (!sentry) {
     return in;
   }
-  in >> DelimiterIO{'#'} >> DelimiterIO{'c'};
-  in >> DelimiterIO{'('};
+  in >> DelimiterIO{'#'} >> DelimiterIO{'c'} >> DelimiterIO{'('};
   if (in) {
-    std::string complex = "(";
     double num = 0;
     in >> num;
+    std::complex< double > input;
+    input.real(num);
+    in >> num;
+    input.imag(num);
+    in >> DelimiterIO{')'} >> DelimiterIO{':'};
     if (in) {
-      std::string temp = std::to_string(num);
-      complex += temp + ",";
-      in >> num;
-      if (in) {
-        temp = std::to_string(num);
-        complex += temp;
-        in >> DelimiterIO{')'};
-        if (in) {
-          complex += ")";
-          std::istringstream{complex} >> dest.ref;
-        }
-      }
+      dest.ref = std::move(input);
     }
   }
-  in >> DelimiterIO{':'};
   return in;
 }
 std::istream &gulyaev::operator>>(std::istream &in, StringIO &&dest)
@@ -105,7 +96,7 @@ std::ostream &gulyaev::operator<<(std::ostream &out, const ComplexO &&dest)
   if(!sentry) {
     return out;
   }
-  out << "#c(" << std::fixed << std::setprecision(1) << dest.ref.real()
-      << " " << dest.ref.imag() << ")";
+  out << std::fixed << std::setprecision(1);
+  out << "#c(" << dest.ref.real() << " " << dest.ref.imag() << ")";
   return out;
 }

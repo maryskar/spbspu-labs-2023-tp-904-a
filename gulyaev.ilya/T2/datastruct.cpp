@@ -26,21 +26,19 @@ std::istream &gulyaev::operator>>(std::istream &in, DataStruct &dest)
     using str = StringIO;
     in >> sep{'('} >> sep{':'};
     if (in) {
-      bool key1 = false;
-      bool key2 = false;
-      bool key3 = false;
+      bool keys[] = {0, 0, 0};
       for (int i = 0; i < 3; ++i) {
         std::string temp = "";
         in >> temp;
-        if (temp == "key1" && !key1) {
+        if (temp == "key1" && !keys[0]) {
           in >> bin{input.key1};
-          key1 = true;
-        } else if (temp == "key2" && !key2) {
+          keys[0] = true;
+        } else if (temp == "key2" && !keys[1]) {
           in >> cmp{input.key2};
-          key2 = true;
-        } else if (temp == "key3" && !key3) {
+          keys[1] = true;
+        } else if (temp == "key3" && !keys[2]) {
           in >> str{input.key3};
-          key3 = true;
+          keys[2] = true;
         } else {
           in.setstate(std::ios::failbit);
           break;
