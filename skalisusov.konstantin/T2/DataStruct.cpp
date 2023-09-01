@@ -5,8 +5,8 @@
 
 std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
 {
-  std::istream::sentry CheckSentry(in);
-  if(!CheckSentry)
+  std::istream::sentry sentry(in);
+  if(!sentry)
   {
     return in;
   }
@@ -26,15 +26,15 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
       in >> number;
       if(number == 1)
       {
-        in >> dublit{input.key1_} >> delim{':'};
+        in >> dublit{input.key1} >> delim{':'};
       }
       else if(number == 2)
       {
-        in >> dubsci{input.key2_} >> delim{':'};
+        in >> dubsci{input.key2} >> delim{':'};
       }
       else if(number == 3)
       {
-        in >> str{input.key3_} >> delim{':'};
+        in >> str{input.key3} >> delim{':'};
       }
     }
     in >> delim{')'};
@@ -47,35 +47,35 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
 }
 std::ostream & skalisusov::operator<<(std::ostream &out, const DataStruct &dest)
 {
-  std::ostream::sentry CheckSentry(out);
-  if(!CheckSentry)
+  std::ostream::sentry sentry(out);
+  if(!sentry)
   {
     return out;
   }
   iofmtguard iofmtguard(out);
   using scien = DoubleSciencificFormatO;
   out << "(";
-  out << ":key1 " << std::fixed << std::setprecision(1) << dest.key1_ << 'd';
-  out << ":key2 " << scien{dest.key2_};
-  out << ":key3 " << '"' << dest.key3_ << '"';
+  out << ":key1 " << std::fixed << std::setprecision(1) << dest.key1 << 'd';
+  out << ":key2 " << scien{dest.key2};
+  out << ":key3 " << '"' << dest.key3 << '"';
   out << ":)";
   return out;
 }
 bool skalisusov::comparator(const skalisusov::DataStruct &firDs, const skalisusov::DataStruct &secDs)
 {
-  if(firDs.key1_ == secDs.key1_)
+  if(firDs.key1 == secDs.key1)
   {
-    if(firDs.key2_ == secDs.key2_)
+    if(firDs.key2 == secDs.key2)
     {
-      return firDs.key3_ < secDs.key3_;
+      return firDs.key3 < secDs.key3;
     }
     else
     {
-      return firDs.key2_ < secDs.key2_;
+      return firDs.key2 < secDs.key2;
     }
   }
   else
   {
-    return firDs.key1_ < secDs.key1_;
+    return firDs.key1 < secDs.key1;
   }
 }

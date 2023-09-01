@@ -7,27 +7,27 @@ namespace skalisusov
 {
   struct LabelIO
   {
-    std::string label_;
+    std::string label;
   };
   struct DelimiterIO
   {
-    char exp_;
+    char exp;
   };
   struct StringIO
   {
-    std::string &str_;
+    std::string &str;
   };
   struct DoubleLiteralFormatIO
   {
-    double &dublit_;
+    double &dublit;
   };
   struct DoubleSciencificFormatI
   {
-    double &dubscienI_;
+    double &dubscienI;
   };
   struct DoubleSciencificFormatO
   {
-    const double dubscienO_;
+    const double dubscienO;
   };
   std::istream & operator>>(std::istream &in, LabelIO &&dest);
   std::istream & operator>>(std::istream &in, DelimiterIO &&dest);

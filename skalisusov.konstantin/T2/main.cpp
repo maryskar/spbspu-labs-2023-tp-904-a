@@ -1,4 +1,4 @@
-#include <vector>
+﻿#include <vector>
 #include <iterator>
 #include <algorithm>
 #include "DataStruct.h"
@@ -12,18 +12,17 @@ int main()
   while(!std::cin.eof())
   {
     std::copy(InpIter(std::cin),
-              InpIter (),
-              std::back_inserter(vector));
+      InpIter (),
+      std::back_inserter(vector));
     if(!std::cin)
     {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
-
   std::sort(std::begin(vector), std::end(vector), skalisusov::comparator);
   std::copy(std::begin(vector),
-            std::end(vector),
-            OutpIter(std::cout, "\n"));
+    std::end(vector),
+    OutpIter(std::cout, "\n"));
   return 0;
 }

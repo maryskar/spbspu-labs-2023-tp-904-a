@@ -16,4 +16,4 @@ namespace skalisusov
     std::basic_ios< char >::fmtflags fmt_;
   };
 }
-#endif //SPBSPU_LABS_2023_TP_904_A_IOFMTGUARD_H
+#endif
