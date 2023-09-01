@@ -12,7 +12,6 @@ std::istream &gudkov::operator>>(std::istream &in, Data &dest)
   Data input;
   {
     using sep = DelimiterExpIO;
-
     in >> sep{ '(' };
     if (in)
     {
@@ -64,7 +63,6 @@ std::istream &gudkov::operator>>(std::istream &in, Data &dest)
         }
         in >> sep{ ':' };
       }
-
       in >> sep{ ')' };
     }
   }
@@ -98,11 +96,9 @@ bool gudkov::isLess(const Data &lhs, const Data &rhs)
   {
     return lhs.key1 < rhs.key1;
   }
-
   if (lhs.key2 != rhs.key2)
   {
     return lhs.key2 < rhs.key2;
   }
-
   return lhs.key3.length() < rhs.key3.length();
 }

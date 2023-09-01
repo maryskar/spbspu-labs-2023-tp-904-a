@@ -1,6 +1,5 @@
 #include "typesIO.h"
 #include "scopeGuard.h"
-#include <iomanip>
 
 std::istream &gudkov::operator>>(std::istream &in, DelimiterExpIO &&dest)
 {
@@ -47,7 +46,7 @@ std::istream &gudkov::operator>>(std::istream &in, SuffixExpIO &&dest)
     }
     else
     {
-      if (tolower(c) != tolower(dest.exp[i]) || isLower != static_cast<bool>(islower(c)))
+      if (tolower(c) != tolower(dest.exp[i]) || isLower != static_cast< bool >(islower(c)))
       {
         in.setstate(std::ios::failbit);
         break;
