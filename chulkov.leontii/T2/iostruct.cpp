@@ -3,7 +3,8 @@
 #include <iostream>
 
 namespace chulkov {
-  std::istream& operator>>(std::istream& in, DelimiterIO&& dest) {
+  std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
+  {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
@@ -15,7 +16,8 @@ namespace chulkov {
     return in;
   }
 
-  std::istream& operator>>(std::istream& in, UllIO&& dest) {
+  std::istream& operator>>(std::istream& in, UllIO&& dest)
+  {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
@@ -35,7 +37,8 @@ namespace chulkov {
     return in;
   }
 
-  std::istream& operator>>(std::istream& in, CharIO&& dest) {
+  std::istream& operator>>(std::istream& in, CharIO&& dest)
+  {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
@@ -44,7 +47,8 @@ namespace chulkov {
     return in;
   }
 
-  std::istream& operator>>(std::istream& in, LabelIO&& dest) {
+  std::istream& operator>>(std::istream& in, LabelIO&& dest)
+  {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
@@ -55,7 +59,8 @@ namespace chulkov {
     return in;
   }
 
-  std::istream& operator>>(std::istream& in, StringIO&& dest) {
+  std::istream& operator>>(std::istream& in, StringIO&& dest)
+  {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;

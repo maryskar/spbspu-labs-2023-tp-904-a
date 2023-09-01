@@ -8,7 +8,8 @@ namespace chulkov {
     fmt_(st.flags())
   {}
 
-  StreamGuard::~StreamGuard() {
+  StreamGuard::~StreamGuard()
+  {
     st_.fill(fill_);
     st_.precision(precision_);
     st_.flags(fmt_);
