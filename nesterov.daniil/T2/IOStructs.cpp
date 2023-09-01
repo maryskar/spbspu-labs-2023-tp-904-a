@@ -1,3 +1,4 @@
+#include "IOFmtGuard.h"
 #include "IOStructs.h"
 #include <iostream>
 #include <iomanip>
@@ -53,7 +54,8 @@ namespace nesterov
     {
       return in;
     }
-    return in >> std::hex >> dest.ref >> std::resetiosflags(std::ios_base::hex);
+    IOFmtGuard iofmtguard(in);
+    return in >> std::hex >> dest.ref;
   }
 
   std::istream &operator>>(std::istream &in, RationalIO &&dest)
@@ -63,8 +65,7 @@ namespace nesterov
     {
       return in;
     }
-    return in >> DelimiterIO{'('} >> DelimiterIO{':'} >> DelimiterIO{'N'} >> dest.ref.first
-              >> DelimiterIO{':'} >> DelimiterIO{'D'} >> dest.ref.second >> DelimiterIO{':'}
-              >> DelimiterIO{')'};
+    using sep = DelimiterIO;
+    return in >> sep{'('} >> sep{':'} >> sep{'N'} >> dest.ref.first >> sep{':'} >> sep{'D'} >> dest.ref.second >> sep{':'} >> sep{')'};
   }
 }

@@ -63,7 +63,10 @@ namespace nesterov
     }
     IOFmtGuard fmtguard(out);
     out << "(:";
-    out << "key1 " << "0x" << std::hex << std::uppercase << src.key1 << ":" << std::resetiosflags(std::ios_base::hex);
+    {
+      IOFmtGuard innerfmtguard(out);
+      out << "key1 " << "0x" << std::hex << std::uppercase << src.key1 << ":";
+    }
     out << "key2 " << "(:N " << src.key2.first << ":D " << src.key2.second << ":):";
     out << "key3 " << '"' << src.key3 << '"';
     out << ":)";
