@@ -1,8 +1,7 @@
-#include "IO.hpp"
-#include "iofmtguard.hpp"
+#include "IO-structs.hpp"
 #include <iomanip>
 #include <string>
-#include <bitset>
+#include "iofmtguard.hpp"
 
 namespace zhuravlev
 {
@@ -39,11 +38,7 @@ namespace zhuravlev
     {
       return in;
     }
-    in >> DelimiterIO{ '0' } >> DelimiterIO{ 'b' };
-    std::bitset< 64 > value;
-    in >> value;
-    dest.ref = value.to_ullong();
-    return in;
+    return in >> DelimiterIO{ '0' } >> DelimiterIO{ 'b' } >> dest.ref;
   }
   std::istream& operator>>(std::istream& in, StringIO&& dest)
   {

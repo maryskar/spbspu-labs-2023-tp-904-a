@@ -3,7 +3,7 @@
 #include <vector>
 #include <iterator>
 #include "iofmtguard.hpp"
-#include "IO.hpp"
+#include "IO-structs.hpp"
 #include "convert_to_bin.hpp"
 
 namespace zhuravlev
@@ -11,7 +11,18 @@ namespace zhuravlev
 
   bool compareData(const DataStruct& lhs, const DataStruct& rhs)
   {
-    return (lhs.key1 != rhs.key1) ? (lhs.key1 < rhs.key1): (lhs.key2 != rhs.key2) ? (lhs.key2 < rhs.key2): (lhs.key3.size() < rhs.key3.size());
+    if (lhs.key1 != rhs.key1)
+    {
+      return lhs.key1 < rhs.key1;
+    }
+    else if (lhs.key2 != rhs.key2)
+    {
+      return lhs.key2 < rhs.key2;
+    }
+    else
+    {
+    return lhs.key3.size() < rhs.key3.size();
+    }
   }
   std::istream& operator>>(std::istream& in, DataStruct& dest)
   {
@@ -43,10 +54,6 @@ namespace zhuravlev
         else if (num == 3)
         {
           in >> str{ input.key3 } >> sep{ ':' };
-        }
-        if (!sentry)
-        {
-          return in;
         }
       }
       if (in)

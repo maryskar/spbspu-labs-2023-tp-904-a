@@ -1,6 +1,6 @@
 #include "convert_to_bin.hpp"
 
-std::string convertToBin(unsigned long long value)
+std::string zhuravlev::convertToBin(unsigned long long value)
 {
   std::string result = "";
   while (value != 0)
