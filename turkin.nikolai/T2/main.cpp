@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <iterator>
-#include <vector>
+#include <deque>
 #include <limits>
 
 #include "data-struct.hpp"
@@ -13,7 +13,7 @@ int main()
   using isit = std::istream_iterator< DataStruct >;
   using osit = std::ostream_iterator< DataStruct >;
 
-  std::vector< DataStruct > data;
+  std::deque< DataStruct > data;
 
   while (!std::cin.eof())
   {
