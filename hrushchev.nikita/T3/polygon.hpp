@@ -9,8 +9,8 @@ namespace hrushchev
 {
   struct Point
   {
-    size_t x_;
-    size_t y_;
+    long long x_;
+    long long y_;
   };
   
   struct Polygon
