@@ -12,7 +12,7 @@ namespace hrushchev
     long long x_;
     long long y_;
   };
-  
+
   struct Polygon
   {
     std::vector< Point > points_;
