@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include <deque>
+#include <iterator>
 int main()
 {
   std::deque< zhukova::DataStruct > dataVector;
