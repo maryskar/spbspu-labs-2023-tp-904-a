@@ -47,4 +47,4 @@ namespace zhukova
   std::ostream & operator<<(std::ostream & out, const std::pair< long long, unsigned long long > & src);
   std::ostream & operator<<(std::ostream & out, const DataStruct & dest);
 }
-#endif //T2_DATAIO_H
+#endif

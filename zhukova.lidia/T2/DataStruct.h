@@ -14,4 +14,4 @@ namespace zhukova
     bool operator()(const DataStruct & lhs, const DataStruct & rhs) const;
   };
 }
-#endif //T2_DATASTRUCT_H
+#endif
