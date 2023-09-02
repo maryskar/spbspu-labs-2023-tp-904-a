@@ -1,5 +1,6 @@
 #include <iostream>
 #include "polygon.hpp"
+#include "command.hpp"
 
 void printPolygon(const hrushchev::Polygon& polygon)
 {
@@ -14,5 +15,7 @@ int main()
 {
   hrushchev::Polygon a;
   std::cin >> a;
+  auto b = getArea(a);
   printPolygon(a);
+  std::cout << b << "\n";
 }
