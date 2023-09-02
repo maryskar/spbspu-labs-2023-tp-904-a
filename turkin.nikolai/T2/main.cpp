@@ -14,7 +14,6 @@ int main()
   using osit = std::ostream_iterator< DataStruct >;
 
   std::vector< DataStruct > data;
-  Comparator cmp;
 
   while (!std::cin.eof())
   {
@@ -26,6 +25,7 @@ int main()
     }
   }
 
+  Comparator cmp;
   std::sort(data.begin(), data.end(), cmp);
   std::copy(data.begin(), data.end(), osit(std::cout, "\n"));
 
