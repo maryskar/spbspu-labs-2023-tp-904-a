@@ -12,13 +12,14 @@ namespace hrushchev
     size_t x_;
     size_t y_;
   };
-  std::istream & operator>>(std::istream & in, Point & dest);
-
+  
   struct Polygon
   {
     std::vector< Point > points_;
   };
-  std::istream & operator>>(std::istream & in, Polygon & dest);
+
+  std::istream& operator>>(std::istream& in, Point& dest);
+  std::istream& operator>>(std::istream& in, Polygon& dest);
 }
 
 #endif
