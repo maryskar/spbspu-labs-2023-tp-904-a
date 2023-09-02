@@ -1,15 +1,15 @@
 #ifndef SUB_COMMANDS_HPP
 #define SUB_COMMANDS_HPP
 
+#include <deque>
 #include <istream>
 #include <ostream>
-#include <vector>
 
 #include "data-structs.hpp"
 
 namespace turkin
 {
-  using data_t = std::vector< Polygon >;
+  using data_t = std::deque< Polygon >;
   ReturnType area_odd(data_t & data, std::istream &);
   ReturnType area_even(data_t & data, std::istream &);
   ReturnType area_mean(data_t & data, std::istream &);

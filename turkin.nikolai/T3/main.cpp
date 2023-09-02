@@ -1,3 +1,4 @@
+#include <deque>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -18,7 +19,7 @@ int main(int argc, char * argv[])
     return 1;
   }
 
-  std::vector< turkin::Polygon > data;
+  std::deque< turkin::Polygon > data;
   std::copy(std::istream_iterator< turkin::Polygon >(file), std::istream_iterator< turkin::Polygon >(), std::back_inserter(data));
 
   while (std::cin)
