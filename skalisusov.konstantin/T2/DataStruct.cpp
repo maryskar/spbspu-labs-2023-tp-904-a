@@ -6,7 +6,7 @@
 std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
 {
   std::istream::sentry sentry(in);
-  if(!sentry)
+  if (!sentry)
   {
     return in;
   }
@@ -24,22 +24,22 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
       std::size_t number = 0;
       in >> label{"key"};
       in >> number;
-      if(number == 1)
+      if (number == 1)
       {
         in >> dublit{input.key1} >> delim{':'};
       }
-      else if(number == 2)
+      else if (number == 2)
       {
         in >> dubsci{input.key2} >> delim{':'};
       }
-      else if(number == 3)
+      else if (number == 3)
       {
         in >> str{input.key3} >> delim{':'};
       }
     }
     in >> delim{')'};
   }
-  if(in)
+  if (in)
   {
     dest = input;
   }
@@ -48,7 +48,7 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
 std::ostream & skalisusov::operator<<(std::ostream &out, const DataStruct &dest)
 {
   std::ostream::sentry sentry(out);
-  if(!sentry)
+  if (!sentry)
   {
     return out;
   }
@@ -63,9 +63,9 @@ std::ostream & skalisusov::operator<<(std::ostream &out, const DataStruct &dest)
 }
 bool skalisusov::comparator(const skalisusov::DataStruct &firDs, const skalisusov::DataStruct &secDs)
 {
-  if(firDs.key1 == secDs.key1)
+  if (firDs.key1 == secDs.key1)
   {
-    if(firDs.key2 == secDs.key2)
+    if (firDs.key2 == secDs.key2)
     {
       return firDs.key3 < secDs.key3;
     }

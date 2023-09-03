@@ -9,12 +9,12 @@ int main()
   using InpIter = std::istream_iterator< DataStruct >;
   using OutpIter = std::ostream_iterator< DataStruct >;
   std::vector< DataStruct > vector;
-  while(!std::cin.eof())
+  while (!std::cin.eof())
   {
     std::copy(InpIter(std::cin),
       InpIter(),
       std::back_inserter(vector));
-    if(!std::cin)
+    if (!std::cin)
     {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
