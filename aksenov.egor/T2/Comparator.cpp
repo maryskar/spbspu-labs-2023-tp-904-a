@@ -5,9 +5,9 @@ bool aksenov::comparator(const aksenov::DataStruct &lhs, const aksenov::DataStru
   {
     if (lhs.key2 == rhs.key2)
     {
-      return lhs.key3.length() < rhs.key3.length();
+      return lhs.key3.size() < rhs.key3.size();
     }
-    return abs(lhs.key2) < abs(rhs.key2);
+    return (abs(lhs.key2) < abs(rhs.key2));
   }
   else
   {

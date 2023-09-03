@@ -3,7 +3,8 @@
 #include <string>
 #include <iostream>
 #include <complex>
-namespace aksenov {
+namespace aksenov
+{
   struct DataStruct
   {
     unsigned long long key1;

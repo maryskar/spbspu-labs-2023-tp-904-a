@@ -7,7 +7,6 @@
 #include "Comparator.h"
 int main()
 {
-  auto Max = std::numeric_limits< std::streamsize >::max();
   std::vector< aksenov::DataStruct > data;
   using inputIter = std::istream_iterator< aksenov::DataStruct >;
   using outputIter = std::ostream_iterator< aksenov::DataStruct >;
@@ -17,7 +16,7 @@ int main()
     if (!std::cin)
     {
       std::cin.clear();
-      std::cin.ignore(Max, '\n');
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
   std::sort(data.begin(), data.end(), aksenov::comparator);
