@@ -31,7 +31,7 @@ std::istream& vagina::operator>>(std::istream& in, Polygon& dest)
   }
   Polygon polygon;
   polygon.points.resize(count);
-  std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(polygon.points));
+  std::copy_n(std::istream_iterator< Point >(in), count, std::begin(polygon.points));
   if (in)
   {
     dest = polygon;
