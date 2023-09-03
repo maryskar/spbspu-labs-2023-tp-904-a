@@ -66,7 +66,10 @@ namespace nesterov
       return in;
     }
     using sep = DelimiterIO;
-    return in >> sep{'('} >> sep{':'} >> sep{'N'} >> dest.ref.first >> sep{':'} >> sep{'D'}
-              >> dest.ref.second >> sep{':'} >> sep{')'};
+    in >> sep{'('} >> sep{':'};
+    in >> sep{'N'} >> dest.ref.first >> sep{':'};
+    in >> sep{'D'} >> dest.ref.second;
+    in >> sep{':'} >> sep{')'};
+    return in;
   }
 }
