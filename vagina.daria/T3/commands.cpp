@@ -42,8 +42,7 @@ void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    messageInvalidCommand(out);
-    return;
+    throw std::invalid_argument("Invalid parameter");
   }
   std::vector< double > tmp(dest.size());
   std::transform(dest.begin(), dest.end(), tmp.begin(), getArea);
@@ -71,8 +70,7 @@ void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    messageInvalidCommand(out);
-    return;
+    throw std::invalid_argument("Invalid parameter");
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -84,8 +82,7 @@ void vagina::maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    messageInvalidCommand(out);
-    return;
+    throw std::invalid_argument("Invalid parameter");
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -97,8 +94,7 @@ void vagina::minArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    messageInvalidCommand(out);
-    return;
+    throw std::invalid_argument("Invalid parameter");
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -110,8 +106,7 @@ void vagina::minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    messageInvalidCommand(out);
-    return;
+    throw std::invalid_argument("Invalid parameter");
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
