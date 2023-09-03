@@ -1,9 +1,10 @@
+#include "data_struct.h"
 #include <iostream>
 #include <iterator>
 #include <algorithm>
 #include <limits>
 #include <deque>
-#include "data_struct.h"
+#include <sstream>
 
 int main()
 {
@@ -11,15 +12,14 @@ int main()
   using in_data_iter = std::istream_iterator< shestakov::DataStruct >;
   using out_data_iter = std::ostream_iterator< shestakov::DataStruct >;
   std::deque< shestakov::DataStruct > data;
-  while (!std::cin.eof())
+  std::istringstream iss { "(:key1 'a':key2 #c(0.5 -0.5):key3 \"Data\":)" };
+  while (!iss.eof())
   {
-    std::copy(in_data_iter(std::cin),
-              in_data_iter(),
-              std::back_inserter(data));
-    if (!std::cin)
+    std::copy(in_data_iter(iss), in_data_iter(), std::back_inserter(data));
+    if (!iss)
     {
-      std::cin.clear();
-      std::cin.ignore(max_stream_size, '\n');
+      iss.clear();
+      iss.ignore(max_stream_size, '\n');
     }
   }
   std::sort(data.begin(), data.end(), shestakov::compareValues);

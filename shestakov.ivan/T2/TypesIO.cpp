@@ -37,7 +37,7 @@ namespace shestakov
     {
       return in;
     }
-    return in >> DelIO{ '(' } >> dest.ref >> DelIO{ ':' };
+    return in >> DelIO{ '\'' } >> dest.ref >> DelIO{ '\'' };
   }
 
   std::istream& operator>>(std::istream& in, CmpLspIO&& dest) {

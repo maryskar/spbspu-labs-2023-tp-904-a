@@ -37,9 +37,10 @@ namespace shestakov
       using cl = CmpLspIO;
       using str = StringIO;
       in >> sep{ '(' } >> sep{ ':' };
-      for (size_t i = 1; i <= 3; i++)
+      size_t num = 0;
+      for (size_t i = 0; i < 3; i++)
       {
-        size_t num = 0;
+        ++num;
         in >> label{ "key" } >> num;
         if (num == 1)
         {
