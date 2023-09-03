@@ -20,7 +20,7 @@ namespace azheganova
     dict_1.insert({ "COUNT ODD", countOdd });
     dict_2.insert({ "AREA", getAreaNumOfVertexes });
     dict_2.insert({ "COUNT", countNumOfVertexes });
-//  dict_1.insert({ "RMECHO", getRmecho });
+//  dict_3.insert({ "RMECHO", getRmecho });
     dict_1.insert({ "RIGHTSHAPES", getRightshapes });
   }
 
@@ -225,7 +225,13 @@ namespace azheganova
     func(data, num, out);
   }
 
-  void doCommand(const str & command, const Commands & dicts, const std::vector< Polygon > & data, std::ostream & out)
+  void Commands::doComm(const str & comm, const std::vector< Polygon > & data, std::ostream & out, std::istream & in) const
+  {
+    auto func = dict_3.at(comm);
+    func(data, out, in);
+  }
+
+  void doCommand(const str & command, const Commands & dicts, const std::vector< Polygon > & data, std::istream & in, std::ostream & out)
   {
     try
     {
@@ -234,8 +240,21 @@ namespace azheganova
     }
     catch(const std::out_of_range & e)
     {}
+    try
+    {
+      dicts.doComm(command, data, out, in);
+      return;
+    }
+    catch(const std::out_of_range & e)
+    {}
     size_t pos = command.find(' ');
     size_t num = std::stoull(command.substr(pos));
     dicts.doComm(command.substr(0, pos), data, num, out);
+  }
+
+  std::ostream & printInvalidCommand(std::ostream & out)
+  {
+    out << "<INVALID COMMAND>";
+    return out;
   }
 }
