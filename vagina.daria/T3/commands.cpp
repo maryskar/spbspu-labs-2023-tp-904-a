@@ -198,17 +198,19 @@ std::string vagina::readCommand(std::istream& in)
   }
   return comm;
 }
-void vagina::DictionaryOfCommands::doCommPerms(const std::string& command, const std::vector< Polygon >& data, std::ostream& out, std::istream& in) const
+using Dict = vagina::DictionaryOfCommands;
+void Dict::doCommPerms(const std::string& command, const std::vector< Polygon >& data,
+  std::ostream& out, std::istream& in) const
 {
   auto func = permutation.at(command);
   func(data, out, in);
 }
-void vagina::DictionaryOfCommands::doCommVert(const std::string& command, const std::vector< Polygon >& data, std::ostream& out, size_t n) const
+void Dict::doCommVert(const std::string& command, const std::vector< Polygon >& data, std::ostream& out, size_t n) const
 {
   auto func = vertexes.at(command);
   func(data, out, n);
 }
-void vagina::DictionaryOfCommands::doCommPoly(const std::string& command, const std::vector< Polygon >& data, std::ostream& out) const
+void Dict::doCommPoly(const std::string& command, const std::vector< Polygon >& data, std::ostream& out) const
 {
   auto func = polygon.at(command);
   func(data, out);
