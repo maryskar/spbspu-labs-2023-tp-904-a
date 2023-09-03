@@ -23,16 +23,21 @@ namespace vagina
   bool isCountOfVertexes(const Polygon& pol, std::size_t param);
   bool isPerm(const Polygon& lhs, const Polygon& rhs);
   void messageInvalidCommand(std::ostream& out);
-  using commandPolygon = void(*)(const std::vector< Polygon >& data, std::ostream& out);
-  using commandVertexes = void(*)(const std::vector< Polygon >& data, std::ostream& out, size_t n);
-  using commandPerms = void(*)(const std::vector< Polygon >& data, std::ostream& out, std::istream& in);
-  struct DictionaryOfCommands
+  class DictionaryOfCommands
   {
-    std::map< std::string, commandPolygon > polygon;
-    std::map< std::string, commandVertexes > vertexes;
-    std::map< std::string, commandPerms > perms;
+    public:
+      DictionaryOfCommands();
+      void doCommPoly(const std::string& command, const std::vector< Polygon >& data, std::ostream& out) const;
+      void doCommVert(const std::string& command, const std::vector< Polygon >& data, std::ostream& out, size_t n) const;
+      void doCommPerms(const std::string& command, const std::vector< Polygon >& data, std::ostream& out, std::istream& in) const;
+    private:
+      using commandPolygon = void(*)(const std::vector< Polygon >& data, std::ostream& out);
+      using commandVertexes = void(*)(const std::vector< Polygon >& data, std::ostream& out, size_t n);
+      using commandPerms = void(*)(const std::vector< Polygon >& data, std::ostream& out, std::istream& in);
+      std::map< std::string, commandPolygon > polygon;
+      std::map< std::string, commandVertexes > vertexes;
+      std::map< std::string, commandPerms > permutation;
   };
-  DictionaryOfCommands createDictionaryOfCommands();
   std::string readCommand(std::istream& in);
   void doCommand(const std::string& command, const DictionaryOfCommands& commands, const std::vector< Polygon >& data,
     std::istream& in, std::ostream& out);

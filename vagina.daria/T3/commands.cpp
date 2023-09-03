@@ -161,23 +161,21 @@ void vagina::messageInvalidCommand(std::ostream& out)
 {
   out << "<INVALID COMMAND>\n";
 }
-vagina::DictionaryOfCommands vagina::createDictionaryOfCommands()
+vagina::DictionaryOfCommands::DictionaryOfCommands()
 {
-  DictionaryOfCommands result{};
-  result.polygon.insert({"AREA EVEN", areaEven});
-  result.polygon.insert({"AREA ODD", areaOdd});
-  result.polygon.insert({"AREA MEAN", areaMean});
-  result.polygon.insert({"MAX AREA", maxArea});
-  result.polygon.insert({"MAX VERTEXES", maxVertexes});
-  result.polygon.insert({"MIN AREA", minArea});
-  result.polygon.insert({"MIN VERTEXES", minVertexes});
-  result.polygon.insert({"COUNT EVEN", countEven});
-  result.polygon.insert({"COUNT ODD", countOdd});
-  result.polygon.insert({"RECTS", rects});
-  result.vertexes.insert({"AREA NUM", areaVertexes});
-  result.vertexes.insert({"COUNT NUM", countVertexes});
-  result.perms.insert({"PERMS", perms});
-  return result;
+  polygon.insert({"AREA EVEN", areaEven});
+  polygon.insert({"AREA ODD", areaOdd});
+  polygon.insert({"AREA MEAN", areaMean});
+  polygon.insert({"MAX AREA", maxArea});
+  polygon.insert({"MAX VERTEXES", maxVertexes});
+  polygon.insert({"MIN AREA", minArea});
+  polygon.insert({"MIN VERTEXES", minVertexes});
+  polygon.insert({"COUNT EVEN", countEven});
+  polygon.insert({"COUNT ODD", countOdd});
+  polygon.insert({"RECTS", rects});
+  vertexes.insert({"AREA NUM", areaVertexes});
+  vertexes.insert({"COUNT NUM", countVertexes});
+  permutation.insert({"PERMS", perms});
 }
 std::string vagina::readCommand(std::istream& in)
 {
@@ -200,29 +198,39 @@ std::string vagina::readCommand(std::istream& in)
   }
   return comm;
 }
+void vagina::DictionaryOfCommands::doCommPerms(const std::string& command, const std::vector< Polygon >& data, std::ostream& out, std::istream& in) const
+{
+  auto func = permutation.at(command);
+  func(data, out, in);
+}
+void vagina::DictionaryOfCommands::doCommVert(const std::string& command, const std::vector< Polygon >& data, std::ostream& out, size_t n) const
+{
+  auto func = vertexes.at(command);
+  func(data, out, n);
+}
+void vagina::DictionaryOfCommands::doCommPoly(const std::string& command, const std::vector< Polygon >& data, std::ostream& out) const
+{
+  auto func = polygon.at(command);
+  func(data, out);
+}
 void vagina::doCommand(const std::string& command, const DictionaryOfCommands& commands,
   const std::vector< Polygon >& dest, std::istream& in, std::ostream& out)
 {
-  using namespace std::placeholders;
   try
   {
-    auto perm = std::bind(commands.perms.at(command), _1, std::ref(out), std::ref(in));
-    perm(dest);
+    commands.doCommPerms(command, dest, out, in);
     return;
   }
   catch (const std::out_of_range & e)
   {}
   try
   {
-    auto polygon = std::bind(commands.polygon.at(command), _1, std::ref(out));
-    polygon(dest);
+    commands.doCommPoly(command, dest, out);
     return;
   }
   catch (const std::out_of_range & e)
   {}
   std::size_t space = command.find(' ');
   std::size_t num = std::stoull(command.substr(space));
-  auto vertexes = std::bind(commands.vertexes.at(command.substr(0, space) + " NUM"),
-    _1, std::ref(out), num);
-  vertexes(dest);
+  commands.doCommVert((command.substr(0, space) + " NUM"), dest, out, num);
 }

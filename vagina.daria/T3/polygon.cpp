@@ -29,11 +29,11 @@ std::istream& vagina::operator>>(std::istream& in, Polygon& dest)
     in.setstate(std::ios::failbit);
     return in;
   }
-  Polygon polygon;
-  std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(polygon.points));
+  std::vector< Point > polygon(count);
+  std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(polygon));
   if (in)
   {
-    dest = polygon;
+    dest.points = polygon;
   }
   return in;
 }
