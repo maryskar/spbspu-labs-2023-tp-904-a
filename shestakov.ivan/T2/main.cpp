@@ -12,14 +12,13 @@ int main()
   using in_data_iter = std::istream_iterator< shestakov::DataStruct >;
   using out_data_iter = std::ostream_iterator< shestakov::DataStruct >;
   std::deque< shestakov::DataStruct > data;
-  std::istringstream iss { "(:key1 'a':key2 #c(0.5 -0.5):key3 \"Data\":)" };
-  while (!iss.eof())
+  while (!std::cin.eof())
   {
-    std::copy(in_data_iter(iss), in_data_iter(), std::back_inserter(data));
-    if (!iss)
+    std::copy(in_data_iter(std::cin), in_data_iter(), std::back_inserter(data));
+    if (!std::cin)
     {
-      iss.clear();
-      iss.ignore(max_stream_size, '\n');
+      std::cin.clear();
+      std::cin.ignore(max_stream_size, '\n');
     }
   }
   std::sort(data.begin(), data.end(), shestakov::compareValues);
