@@ -234,5 +234,5 @@ void vagina::doCommand(const std::string& command, const DictionaryOfCommands& c
   {}
   std::size_t space = command.find(' ');
   std::size_t num = std::stoull(command.substr(space));
-  commands.doCommVert((command.substr(0, space)), dest, out, num);
+  commands.doCommVert((command.substr(0, space) + " NUM"), dest, out, num);
 }

@@ -50,6 +50,11 @@ int main(int argNum, char* argv[])
     {
       break;
     }
+    if(!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
   }
   return 0;
 }
