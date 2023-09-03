@@ -5,7 +5,7 @@
 
 namespace vagina
 {
-  /*void areaEven(const std::vector< Polygon >& dest, std::ostream& out);
+  void areaEven(const std::vector< Polygon >& dest, std::ostream& out);
   void areaOdd(const std::vector< Polygon >& dest, std::ostream& out);
   void areaMean(const std::vector< Polygon >& dest, std::ostream& out);
   void areaVertexes(const std::vector< Polygon >& dest, std::ostream& out, std::size_t param);
@@ -21,7 +21,7 @@ namespace vagina
   bool isEven(const Polygon& pol);
   bool isOdd(const Polygon& pol);
   bool isCountOfVertexes(const Polygon& pol, std::size_t param);
-  bool isPerm(const Polygon& lhs, const Polygon& rhs);*/
+  bool isPerm(const Polygon& lhs, const Polygon& rhs);
   void messageInvalidCommand(std::ostream& out);
   class DictionaryOfCommands
   {
