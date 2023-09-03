@@ -13,14 +13,20 @@ int main()
   std::deque< shestakov::DataStruct > data;
   while (!std::cin.eof())
   {
-    std::copy(in_data_iter(std::cin), in_data_iter(), std::back_inserter(data));
+    std::copy(in_data_iter(std::cin),
+              in_data_iter(),
+              std::back_inserter(data));
     if (!std::cin)
     {
       std::cin.clear();
       std::cin.ignore(max_stream_size, '\n');
     }
   }
-  std::sort(data.begin(), data.end(), shestakov::compareValues);
-  std::copy(std::begin(data), std::end(data), out_data_iter(std::cout, "\n"));
+  std::sort(data.begin(),
+            data.end(),
+            shestakov::compareValues);
+  std::copy(std::begin(data),
+            std::end(data),
+            out_data_iter(std::cout, "\n"));
   return 0;
 }
