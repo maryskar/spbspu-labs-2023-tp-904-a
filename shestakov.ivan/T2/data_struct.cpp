@@ -72,7 +72,7 @@ namespace shestakov
     iofmtguard fmtguard(out);
     out << "(";
     out << ":key1 " << src.key1;
-    out << ":key2 " << src.key2;
+    out << ":key2 #c" << std::fixed << std::setprecision(1) << src.key2;
     out << ":key3 \"" << src.key3 << "\":)";
     return out;
   }

@@ -22,11 +22,7 @@ int main()
       std::cin.ignore(max_stream_size, '\n');
     }
   }
-  std::sort(data.begin(),
-            data.end(),
-            shestakov::compareValues);
-  std::copy(std::begin(data),
-            std::end(data),
-            out_data_iter(std::cout, "\n"));
+  std::sort(data.begin(), data.end(), shestakov::compareValues);
+  std::copy(std::begin(data), std::end(data), out_data_iter(std::cout, "\n"));
   return 0;
 }
