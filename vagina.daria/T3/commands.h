@@ -34,9 +34,12 @@ namespace vagina
       using commandPolygon = void(*)(const std::vector< Polygon >& data, std::ostream& out);
       using commandVertexes = void(*)(const std::vector< Polygon >& data, std::ostream& out, size_t n);
       using commandPerms = void(*)(const std::vector< Polygon >& data, std::ostream& out, std::istream& in);
-      std::map< std::string, commandPolygon > polygon;
-      std::map< std::string, commandVertexes > vertexes;
-      std::map< std::string, commandPerms > permutation;
+      using poly = std::map< std::string, commandPolygon >;
+      using vert = std::map< std::string, commandVertexes > ;
+      using permut = std::map< std::string, commandPerms >;
+      poly polygon;
+      vert vertexes;
+      permut permutation;
   };
   std::string readCommand(std::istream& in);
   void doCommand(const std::string& command, const DictionaryOfCommands& commands, const std::vector< Polygon >& data,
