@@ -33,7 +33,7 @@ int main(int argNum, char* argv[])
     std::copy(istream_it(in), istream_it(), std::back_inserter(polygon));
   }
   in.close();
-  auto dictionary = vagina::createDictionaryOfCommands();
+  auto dictionary = vagina::DictionaryOfCommands();
   while (!std::cin.eof())
   {
     try
