@@ -4,41 +4,35 @@
 #include <iosfwd>
 #include <string>
 #include <limits>
+#include <unordered_map>
 #include "program_state.h"
-#include "english_russian_dictionary.h"
 
 namespace kumachev {
+  using string_vector = std::vector< std::string >;
+  using command_handler = void (*)(State &state, string_vector &args,
+      std::ostream &ostream);
+
+  struct CommandSystem {
+    std::unordered_map< std::string, command_handler > handlers;
+  };
+
   class CommandExecutor {
   public:
-    CommandExecutor(std::istream &istream, std::ostream &ostream, kumachev::State &state, bool interactive);
-    CommandExecutor(const CommandExecutor &rhs) = delete;
-    void execute();
+    CommandExecutor(std::istream &istream, std::ostream &ostream,
+        const CommandSystem& commandSystem, kumachev::State &state,
+        bool interactive);
+
+    void handleCommand();
 
   private:
-    using command = void (*)(CommandExecutor& executor);
-
-    void process(std::string &&cmd);
-    static void processHelp(CommandExecutor &executor);
-    static void processDicts(CommandExecutor &executor);
-    static void processCreate(CommandExecutor &executor);
-    static void processLoad(CommandExecutor &executor);
-    static void processSave(CommandExecutor &executor);
-    static void processSaveOverwrite(CommandExecutor &executor);
-    static void processAdd(CommandExecutor &executor);
-    static void processClear(CommandExecutor &executor);
-    static void processTranslate(CommandExecutor &executor);
-    static void processExecute(CommandExecutor &executor);
-    static void processMerge(CommandExecutor &executor);
-    static void processSubtract(CommandExecutor &executor);
-
+    const CommandSystem &commandSystem_;
     std::istream &istream_;
     std::ostream &ostream_;
-    kumachev::State &state_;
+    State &state_;
     const bool interactive_;
-    std::map<std::string, command> commands_;
-
-    static constexpr auto SKIP_MAX = std::numeric_limits< std::streamsize >::max();
   };
+
+  CommandSystem createCommandSystem();
 }
 
 #endif //FT_COMMAND_EXECUTOR_H

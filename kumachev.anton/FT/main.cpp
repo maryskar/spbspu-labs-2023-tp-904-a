@@ -4,7 +4,17 @@
 int main()
 {
   kumachev::State globalState;
-  kumachev::CommandExecutor globalExecutor(std::cin, std::cout, globalState, true);
-  globalExecutor.execute();
+  kumachev::CommandSystem cs = kumachev::createCommandSystem();
+  kumachev::CommandExecutor e(std::cin, std::cout, cs, globalState, true);
+
+  while (std::cin.good()) {
+    try {
+      e.handleCommand();
+    }
+    catch (const std::exception &e) {
+      std::cerr << e.what() << '\n';
+    }
+  }
+
   return 0;
 }
