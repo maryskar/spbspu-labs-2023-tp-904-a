@@ -3,7 +3,7 @@
 #include <vector>
 #include <iterator>
 #include "iofmtguard.hpp"
-#include "IO-structs.hpp"
+#include "IO-types.hpp"
 #include "convert_to_bin.hpp"
 
 namespace zhuravlev
@@ -21,7 +21,7 @@ namespace zhuravlev
     }
     else
     {
-    return lhs.key3.size() < rhs.key3.size();
+      return lhs.key3.size() < rhs.key3.size();
     }
   }
   std::istream& operator>>(std::istream& in, DataStruct& dest)

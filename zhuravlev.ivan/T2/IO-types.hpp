@@ -1,5 +1,5 @@
-#ifndef SPBSPU_LABS_2023_TP_904_A_IO_STRUCTS_HPP
-#define SPBSPU_LABS_2023_TP_904_A_IO_STRUCTS_HPP
+#ifndef SPBSPU_LABS_2023_TP_904_A_IO_TYPES_HPP
+#define SPBSPU_LABS_2023_TP_904_A_IO_TYPES_HPP
 #include "data_struct.hpp"
 
 namespace zhuravlev
