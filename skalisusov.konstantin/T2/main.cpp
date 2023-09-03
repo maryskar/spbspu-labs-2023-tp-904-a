@@ -12,7 +12,7 @@ int main()
   while(!std::cin.eof())
   {
     std::copy(InpIter(std::cin),
-      InpIter (),
+      InpIter(),
       std::back_inserter(vector));
     if(!std::cin)
     {
