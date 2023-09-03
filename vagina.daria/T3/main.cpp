@@ -83,7 +83,6 @@ int main(int argNum, char* argv[])
     catch (const std::logic_error &)
     {
       vagina::messageInvalidCommand(std::cout);
-      std::cout << '\n';
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
     if(!std::cin)
