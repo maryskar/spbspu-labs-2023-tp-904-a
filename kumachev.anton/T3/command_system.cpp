@@ -1,6 +1,7 @@
 #include "command_system.h"
 #include <iostream>
 #include "commands.h"
+#include "basic_io.h"
 #include "polygon_io.h"
 #include "stream_guard.h"
 
