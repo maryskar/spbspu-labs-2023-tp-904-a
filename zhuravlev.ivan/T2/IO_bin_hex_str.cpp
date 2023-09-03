@@ -1,7 +1,7 @@
 #include "IO_bin_hex_str.hpp"
-#include "IO_separators.hpp"
 #include <iomanip>
 #include <string>
+#include "IO_separators.hpp"
 #include "iofmtguard.hpp"
 
 namespace zhuravlev
