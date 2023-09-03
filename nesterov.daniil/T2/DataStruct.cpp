@@ -29,6 +29,7 @@ namespace nesterov
         in >> label{key};
         if (key.size() < 4)
         {
+          in.setstate(std::ios::failbit);
           return in;
         }
         if (key.substr(3) == "1")
