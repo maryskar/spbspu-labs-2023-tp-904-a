@@ -27,7 +27,15 @@ std::istream& operator>>(std::istream& in, delimiter_IO&& dest)
   {
     return in;
   }
+  char c = '0';
+  in >> c;
+  if (in && (c != dest.exp))
+  {
+    in.setstate(std::ios::failbit);
+  }
+  return in;
 }
+
 std::istream& operator>>(std::istream& in, string_IO&& dest)
 {
   std::istream::sentry sent(in);
@@ -35,7 +43,9 @@ std::istream& operator>>(std::istream& in, string_IO&& dest)
   {
     return in;
   }
+  return std::getline(in >> delimiter_IO{ '"' }, dest.ref, '"');
 }
+
 std::istream& operator>>(std::istream& in, DBL_sciIO&& dest)
 {
   std::istream::sentry sent(in);
@@ -53,4 +63,11 @@ std::istream& operator>>(std::istream& in, ULL_hexIO&& dest)
   }
 }
 
-std::ostream& operator<<(std::ostream& out, const DBL_sciIO& dest);
+std::ostream& operator<<(std::ostream& out, const DBL_sciIO& dest)
+{
+  std::ostream::sentry sent(out);
+  if (!sent)
+  {
+    return out;
+  }
+}
