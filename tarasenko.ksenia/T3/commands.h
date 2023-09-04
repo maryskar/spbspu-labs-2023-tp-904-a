@@ -6,30 +6,23 @@
 #include <map>
 #include <functional>
 #include <message.h>
+#include <read_trash.h>
 #include "funcs_for_map_commands.h"
 
 namespace tarasenko
 {
   using namespace std::placeholders;
-
-  std::istream& readTrash(std::istream& in)
-  {
-    std::string trash = " ";
-    std::getline(in, trash);
-    return in;
-  }
+  std::vector< std::string > name_of_cms = {"AREA", "COUNT", "INFRAME", "AREA EVEN", "AREA ODD", "AREA MEAN",
+     "MAX AREA", "MIN AREA", "MAX VERTEXES", "MIN VERTEXES", "COUNT EVEN", "COUNT ODD", "RIGHTSHAPES"};
 
   class Commands
   {
   public:
    Commands():
-     names(),
+     names(name_of_cms),
      type_1(),
      type_2()
    {
-     names = {"AREA", "COUNT", "INFRAME", "AREA EVEN", "AREA ODD", "AREA MEAN", "MAX AREA", "MIN AREA",
-        "MAX VERTEXES", "MIN VERTEXES", "COUNT EVEN", "COUNT ODD", "RIGHTSHAPES"};
-
      type_1.insert(std::make_pair("AREA", &getAreaWithEqualNumVertsCommand));
      type_1.insert(std::make_pair("COUNT", &getNumWithEqualNumVertsCommand));
      type_1.insert(std::make_pair("INFRAME", &isInFrameCommand));
