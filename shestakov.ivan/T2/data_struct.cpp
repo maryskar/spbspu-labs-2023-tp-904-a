@@ -1,7 +1,6 @@
 #include "TypesIO.h"
 #include "iofmtguard.h"
 #include <iomanip>
-#include <vector>
 #include <iterator>
 #include <cmath>
 

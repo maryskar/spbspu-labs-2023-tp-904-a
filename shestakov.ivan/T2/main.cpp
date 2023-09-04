@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <limits>
 #include <deque>
-#include <sstream>
 
 int main()
 {

@@ -1,11 +1,11 @@
 #ifndef SPBSPU_LABS_2023_TP_904_AM_TYPESIO_H
 #define SPBSPU_LABS_2023_TP_904_AM_TYPESIO_H
+#include "data_struct.h"
 #include <iostream>
 #include <algorithm>
 #include <vector>
 #include <iterator>
 #include <sstream>
-#include "data_struct.h"
 
 namespace shestakov
 {
