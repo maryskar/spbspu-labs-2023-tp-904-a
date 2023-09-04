@@ -25,7 +25,7 @@ turkin::ReturnType turkin::area_even(data_t & data, std::istream &)
 
 turkin::ReturnType turkin::area_mean(data_t & data, std::istream &)
 {
-  return ReturnType(std::accumulate(data.cbegin(), data.cend(), 0.0, calcArea) / 2.0);
+  return ReturnType(std::accumulate(data.cbegin(), data.cend(), 0.0, calcArea) / data.size());
 }
 
 turkin::ReturnType turkin::area_vertexes(data_t & data, std::istream & in)
