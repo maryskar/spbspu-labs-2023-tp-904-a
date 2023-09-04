@@ -28,6 +28,7 @@ std::istream& hrushchev::operator>>(std::istream& in, Polygon& dest)
   size_t count = 0;
   in >> count;
   using iter = std::istream_iterator< Point >;
+  dest.points_.clear();
   std::copy_n(iter(in), count, std::back_inserter(dest.points_));
   return in;
 }
