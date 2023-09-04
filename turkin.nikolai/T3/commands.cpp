@@ -19,6 +19,10 @@ namespace
 
 std::ostream & turkin::area(data_t & data, std::istream & in, std::ostream & out)
 {
+  if (data.empty())
+  {
+    throw std::runtime_error("empty source");
+  }
   std::string type = "";
   in >> type;
   if (std::isdigit(type[0]))
@@ -31,6 +35,10 @@ std::ostream & turkin::area(data_t & data, std::istream & in, std::ostream & out
 
 std::ostream & turkin::min(data_t & data, std::istream & in, std::ostream & out)
 {
+  if (data.empty())
+  {
+    throw std::runtime_error("empty source");
+  }
   std::string type = "";
   in >> type;
   return out << sub_min_list[type](data, in);
@@ -38,6 +46,10 @@ std::ostream & turkin::min(data_t & data, std::istream & in, std::ostream & out)
 
 std::ostream & turkin::max(data_t & data, std::istream & in, std::ostream & out)
 {
+  if (data.empty())
+  {
+    throw std::runtime_error("empty source");
+  }
   std::string type = "";
   in >> type;
   return out << sub_max_list[type](data, in);

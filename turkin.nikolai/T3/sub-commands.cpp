@@ -25,6 +25,10 @@ turkin::ReturnType turkin::area_even(data_t & data, std::istream &)
 
 turkin::ReturnType turkin::area_mean(data_t & data, std::istream &)
 {
+  if (data.empty())
+  {
+    throw std::runtime_error("empty source");
+  }
   return ReturnType(std::accumulate(data.cbegin(), data.cend(), 0.0, calcArea) / data.size());
 }
 
@@ -32,6 +36,10 @@ turkin::ReturnType turkin::area_vertexes(data_t & data, std::istream & in)
 {
   std::size_t amount = 0;
   in >> amount;
+  if (amount < 3)
+  {
+    throw std::runtime_error("bad input");
+  }
   std::vector< Polygon > temp;
   std::copy_if(data.begin(), data.end(), std::back_inserter(temp), isNum(amount));
   return ReturnType(std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea));
@@ -39,8 +47,8 @@ turkin::ReturnType turkin::area_vertexes(data_t & data, std::istream & in)
 
 turkin::ReturnType turkin::min_area(data_t & data, std::istream &)
 {
-   double result = calcArea(0.0, *std::min_element(data.cbegin(), data.cend(), isAreaLess()));
-   return ReturnType(result);
+  double result = calcArea(0.0, *std::min_element(data.cbegin(), data.cend(), isAreaLess()));
+  return ReturnType(result);
 }
 
 turkin::ReturnType turkin::min_vertexes(data_t & data, std::istream &)
@@ -79,7 +87,7 @@ turkin::ReturnType turkin::count_vertexes(data_t & data, std::istream & in)
   in >> amount;
   if (amount < 3)
   {
-    throw std::runtime_error("min 3");
+    throw std::runtime_error("bad input");
   }
   std::size_t result = std::count_if(data.cbegin(), data.cend(), isNum(amount));
   return ReturnType(result);
