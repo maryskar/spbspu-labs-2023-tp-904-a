@@ -16,6 +16,16 @@ std::istream& tarasenko::operator>>(std::istream& in, Point& dest)
   return in;
 }
 
+std::ostream& tarasenko::operator<<(std::ostream& out, const Point& src)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  return out << '(' << src.x << ";" << src.y << ')';
+}
+
 std::ostream& tarasenko::operator<<(std::ostream& out, const Polygon& src)
 {
   std::ostream::sentry sentry(out);
@@ -23,12 +33,10 @@ std::ostream& tarasenko::operator<<(std::ostream& out, const Polygon& src)
   {
     return out;
   }
-  out << '(' << src.points[0].x << ";" << src.points[0].y << ')';
-  for (size_t i = 1; i < src.points.size(); ++i)
-  {
-    out << " " << '(' << src.points[i].x << ";" << src.points[i].y << ')';
-  }
-  return out;
+  size_t n = src.points.size();
+  out << n << " ";
+  std::copy_n(src.points.begin(), n - 1, std::ostream_iterator< Point >(out, " "));
+  return out << src.points.back();
 }
 
 std::istream& tarasenko::operator>>(std::istream& in, Polygon& dest)
