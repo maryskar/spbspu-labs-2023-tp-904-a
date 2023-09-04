@@ -35,10 +35,12 @@ int main(int argc, char * argv[])
     }
     try
     {
-      turkin::main_list[cmd](data, std::cin, std::cout) << "\n";
+      turkin::main_list.at(cmd)(data, std::cin, std::cout) << "\n";
     }
     catch (...)
     {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       turkin::outInvalidCMD(std::cout);
     }
   }
