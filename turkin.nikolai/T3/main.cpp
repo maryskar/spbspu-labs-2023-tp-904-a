@@ -35,12 +35,6 @@ int main(int argc, char * argv[])
     }
     try
     {
-      if (data.empty())
-      {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-        throw std::runtime_error("empty source");
-      }
       turkin::main_list[cmd](data, std::cin, std::cout) << "\n";
     }
     catch (...)
