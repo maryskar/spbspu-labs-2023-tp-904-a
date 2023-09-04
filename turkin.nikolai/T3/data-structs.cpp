@@ -39,7 +39,7 @@ std::istream & turkin::operator>>(std::istream & in, Point & rhs)
   in >> DelimiterIO{ '(' } >> rhs.x >> DelimiterIO{ ';' } >> rhs.y >> DelimiterIO{ ')' };
   if (!in)
   {
-    throw std::runtime_error("bad point input");
+    in.setstate(std::ios::failbit);
   }
   return in;
 }
