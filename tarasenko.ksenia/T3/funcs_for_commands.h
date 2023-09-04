@@ -188,16 +188,23 @@ namespace tarasenko
     return (b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0;
   }
 
-  bool hasRightAngles(const Polygon& p)
+  namespace details
   {
-    auto n = p.points.size();
-    auto points = p.points;
-    auto cond = [&](size_t i) {
+    bool isFormRightAngles(const std::vector< Point >& points, size_t i)
+    {
+      auto n = points.size();
       Point a = points[i];
       Point b = points[(i + 1) % n];
       Point c = points[(i + 2) % n];
       return isRightAngle(a, b, c);
-    };
+    }
+  }
+
+  bool hasRightAngles(const Polygon& p)
+  {
+    auto n = p.points.size();
+    auto points = p.points;
+    auto cond = std::bind(details::isFormRightAngles, points, _1);
     std::vector< size_t > indexes(n);
     std::iota(indexes.begin(), indexes.end(), 0);
     return std::any_of(indexes.begin(), indexes.end(), cond);
@@ -263,8 +270,7 @@ namespace tarasenko
     int max_x = getMaxX(p);
     int max_y = getMaxY(p);
 
-    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y},
-       {max_x, max_y}, {max_x, min_y}};
+    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y}, {max_x, max_y}, {max_x, min_y}};
     return Polygon{points_rect};
   }
 
@@ -290,8 +296,7 @@ namespace tarasenko
     auto poly_with_maxy = std::max_element(data.begin(), data.end(), comp_maxy);
     auto max_y = getMaxY(*poly_with_maxy);
 
-    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y},
-       {max_x, max_y}, {max_x, min_y}};
+    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y}, {max_x, max_y}, {max_x, min_y}};
     return Polygon{points_rect};
   }
 
