@@ -9,7 +9,7 @@ namespace structure {
     std::string key3;
   };
   std::ostream& operator<<(std::ostream& os, const DataStruct& data);
-  std::istream& operator>>(std::istream& in, DataStruct& src);
+  std::istream& operator>>(std::istream& in, DataStruct& data);
   bool operator<(const DataStruct& left, const DataStruct& right);
 }
 
