@@ -14,3 +14,16 @@ std::istream& avdeeva::operator>>(std::istream& in, DelimiterIO&& dest)
   }
   return in;
 }
+std::istream& avdeeva::operator>>(std::istream& in, LabelIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  for (size_t i = 0; i < dest.exp.length(); ++i)
+  {
+    in >> DelimiterIO{dest.exp[i]};
+  }
+  return in;
+}
