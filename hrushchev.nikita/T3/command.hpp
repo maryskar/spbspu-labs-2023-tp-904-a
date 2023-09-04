@@ -14,6 +14,7 @@ namespace hrushchev
   double getAreaMean(const std::vector< Polygon >& polygons);
   double getAreaVertexes(const std::vector< Polygon >& polygons, size_t count);
   double getMaxArea(const std::vector< Polygon >& polygons);
+  size_t getMaxVertexes(const std::vector< Polygon >& polygons);
 }
 
 #endif

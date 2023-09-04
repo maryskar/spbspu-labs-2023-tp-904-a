@@ -22,6 +22,12 @@ double hrushchev::getArea(const Polygon & polygon)
   res += 0.5 * (x1 * y2 - y1 * x2);
   return std::abs(res);
 }
+
+double sumArea(double cur, const hrushchev::Polygon& polygon)
+{
+  return cur + hrushchev::getArea(polygon);
+}
+
 bool isEven(const hrushchev::Polygon& polygon)
 {
   return polygon.points_.size() % 2 == 0;
@@ -32,14 +38,21 @@ bool isOdd(const hrushchev::Polygon& polygon)
   return !isEven(polygon);
 }
 
-bool isVertexe(const hrushchev::Polygon& polygon, size_t count)
+bool isNecessaryVertex(const hrushchev::Polygon& polygon, size_t count)
 {
   return polygon.points_.size() == count;
 }
 
-double sumArea(double cur, const hrushchev::Polygon& polygon)
+double chooseBigerArea(double cur, const hrushchev::Polygon& polygon)
 {
-  return cur + hrushchev::getArea(polygon);
+  double area = hrushchev::getArea(polygon);
+  return (cur > area) ? cur : area;
+}
+
+double chooseBigerVertexes(double cur, const hrushchev::Polygon& polygon)
+{
+  size_t count = polygon.points_.size();
+  return (cur > count) ? cur : count;
 }
 
 double hrushchev::getAreaEven(const std::vector< Polygon >& polygons)
@@ -65,8 +78,18 @@ double hrushchev::getAreaVertexes(const std::vector< Polygon >& polygons, size_t
 {
   std::vector< Polygon > vertexes_polygons;
   using namespace std::placeholders;
-  auto pred = std::bind(isVertexe, _1, count);
+  auto pred = std::bind(isNecessaryVertex, _1, count);
   std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(vertexes_polygons), pred);
   return std::accumulate(vertexes_polygons.begin(), vertexes_polygons.end(), 0.0, sumArea);
+}
+
+double hrushchev::getMaxArea(const std::vector< Polygon >& polygons)
+{
+  return std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseBigerArea);
+}
+
+size_t hrushchev::getMaxVertexes(const std::vector< Polygon >& polygons)
+{
+  return std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseBigerVertexes);
 }
 

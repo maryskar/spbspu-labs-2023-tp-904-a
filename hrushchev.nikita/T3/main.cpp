@@ -49,5 +49,6 @@ int main(int argc, char* argv[])
   {
     std::cout << getArea(i) << "\n";
   }
-  std::cout << getAreaVertexes(data, 5) << "\n";
+  std::cout << "\n";
+  std::cout << getMaxVertexes(data) << "\n";
 }
