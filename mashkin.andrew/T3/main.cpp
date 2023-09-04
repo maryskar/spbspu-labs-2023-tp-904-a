@@ -8,6 +8,7 @@
 #include "commands.h"
 #include "mapWithCommands.h"
 #include "polygon.h"
+#include "cleanSteam.h"
 
 int main(int argc, char** argv)
 {
@@ -28,14 +29,12 @@ int main(int argc, char** argv)
   }
   std::vector< mashkin::Polygon > res;
   using inpIter = std::istream_iterator< mashkin::Polygon >;
-  constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
   while (!inpFile.eof())
   {
     std::copy(inpIter(inpFile), inpIter(), std::back_inserter(res));
     if (inpFile.fail())
     {
-      inpFile.clear();
-      inpFile.ignore(maxSize, '\n');
+      mashkin::cleanStream(inpFile);
     }
   }
   std::map< std::string, void (*)(std::istream&, const std::vector< mashkin::Polygon >&) > commands;
@@ -59,8 +58,7 @@ int main(int argc, char** argv)
     }
     if (std::cin.fail())
     {
-      std::cin.clear();
-      std::cin.ignore(maxSize, '\n');
+      mashkin::cleanStream(std::cin);
     }
   }
   return 0;
