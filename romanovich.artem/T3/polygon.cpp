@@ -20,7 +20,7 @@ namespace
     }
     return in;
   }
-  std::istream &romanovich::operator>>(std::istream &in, Point &dest)
+  std::istream &operator>>(std::istream &in, Point &dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
