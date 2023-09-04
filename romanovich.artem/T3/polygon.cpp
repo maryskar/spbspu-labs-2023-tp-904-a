@@ -1,4 +1,60 @@
 #include "polygonutils.h"
+namespace
+{
+  struct DelimiterIO
+  {
+    char symbol;
+  };
+  std::istream &operator>>(std::istream &in, DelimiterIO &&dest)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    char c = '0';
+    in >> c;
+    if (in && (c != dest.symbol))
+    {
+      in.setstate(std::ios::failbit);
+    }
+    return in;
+  }
+}
+std::istream &romanovich::operator>>(std::istream &in, romanovich::Polygon &&dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  size_t pointsCount;
+  input >> pointsCount;
+  romanovich::Polygon polygon;
+  for (size_t i = 0; i < pointsCount; i++)
+  {
+    romanovich::Point point{0, 0};
+    input >> point;
+    if (input.fail())
+    {
+      in.setstate(std::ios::failbit);
+    }
+    if (std::find(polygon.begin(), polygon.end(), point) == polygon.end())
+    {
+      in.setstate(std::ios::failbit);
+    }
+    polygon.push_back(point);
+  }
+  if (points.size() != pointsCount || points.size() <= 2)
+  {
+    in.setstate(std::ios::failbit);
+  }
+  if (in)
+  {
+    dest = polygon;
+  }
+  return in;
+}
 size_t romanovich::getPointsCount(const Polygon &p)
 {
   return p.points.size();

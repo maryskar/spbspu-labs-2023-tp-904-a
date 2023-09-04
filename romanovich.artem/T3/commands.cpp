@@ -5,11 +5,13 @@
 using namespace romanovich;
 namespace
 {
-  Polygon const &findMinMaxEl(const std::vector< Polygon > &polygons,
+  using compType = const std::function< bool(const Polygon &, const Polygon &) >&;
+  using iterPair = std::pair< std::vector< Point >::const_iterator, std::vector< Point >::const_iterator >;
+  const Polygon &findMinMaxEl(const std::vector< Polygon > &polygons,
       const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
-    auto result = std::minmax_element(polygons.begin(), polygons.end(), comp);
-    const auto &el = comp(*result.second, *result.first) ? *result.second : *result.first;
+    iterPair result = std::minmax_element(polygons.begin(), polygons.end(), comp);
+    const Polygon &el = comp(*result.second, *result.first) ? *result.second : *result.first;
     return el;
   }
   void findMinMaxElArea(const std::vector< Polygon > &polygons,
@@ -62,9 +64,10 @@ namespace
   }
   std::pair< double, double > partitionPolygonAreas(std::vector< Polygon > polygons)
   {
-    auto itp = std::partition(polygons.begin(), polygons.end(), romanovich::IsEvenPointsCount{});
+    std::vector< Point >::const_iterator itp = std::partition(polygons.begin(), polygons.end(),
+                                                                  romanovich::IsEvenPointsCount{});
     std::vector< double > areas = makeAreasVector(polygons);
-    auto ita = std::next(areas.begin(), std::distance(polygons.begin(), itp));
+    std::vector< Point >::const_iterator ita = std::next(areas.begin(), std::distance(polygons.begin(), itp));
     double sumEven = std::accumulate(ita, areas.end(), 0.0);
     double sumOdd = std::accumulate(areas.begin(), ita, 0.0);
     return {sumEven, sumOdd};
@@ -74,20 +77,18 @@ namespace romanovich
 {
   void CommandProcessor::calcAreaMin(const std::vector< Polygon > &polygons)
   {
-    const auto areaComp = static_cast<const std::function< bool(const Polygon &,
-        const Polygon &) > &>(romanovich::AreaComp{});
+    compType areaComp = static_cast< compType >(romanovich::AreaComp{});
     findMinMaxElArea(polygons, areaComp);
   }
   void CommandProcessor::calcAreaMax(const std::vector< Polygon > &polygons)
   {
-    const auto areaComp = static_cast<const std::function< bool(const Polygon &,
-        const Polygon &) > &>(romanovich::AreaComp{});
-    const auto areaCompNegate = std::bind(std::logical_not<>(), std::bind(areaComp, _1, _2));
+    compType areaComp = static_cast< compType >(romanovich::AreaComp{});
+    compType areaCompNegate = std::bind(std::logical_not<>(), std::bind(areaComp, _1, _2));
     findMinMaxElArea(polygons, areaCompNegate);
   }
   void CommandProcessor::calcPointsMax(const std::vector< Polygon > &polygons)
   {
-    const auto pointsCompNegate = std::bind(std::logical_not<>(), std::bind(romanovich::PointsCountComp{}, _1, _2));
+    compType pointsCompNegate = std::bind(std::logical_not<>(), std::bind(romanovich::PointsCountComp{}, _1, _2));
     findMinMaxElPointsCount(polygons, pointsCompNegate);
   }
   void CommandProcessor::calcPointsMin(const std::vector< Polygon > &polygons)
@@ -102,7 +103,7 @@ namespace romanovich
     }
     else
     {
-      auto sumOfAreas = partitionPolygonAreas(polygons).second + partitionPolygonAreas(polygons).first;
+      double sumOfAreas = partitionPolygonAreas(polygons).second + partitionPolygonAreas(polygons).first;
       std::cout << std::fixed << std::setprecision(1);
       std::cout  << sumOfAreas / static_cast< double >(polygons.size()) << '\n';
     }
@@ -140,9 +141,10 @@ namespace romanovich
     size_t targetNumber = getTargetNumber(command);
     if (targetNumber > 2)
     {
-      auto polygonsTmp = pols;
-      auto first = std::remove_if(polygonsTmp.begin(), polygonsTmp.end(), romanovich::HasNotPointsCount(targetNumber));
-      auto last = polygonsTmp.end();
+      std::vector< Polygon > polygonsTmp = pols;
+      std::vector< Point >::const_iterator first = std::remove_if(polygonsTmp.begin(), polygonsTmp.end(),
+                                                                      romanovich::HasNotPointsCount(targetNumber));
+      std::vector< Point >::const_iterator last = polygonsTmp.end();
       polygonsTmp.erase(first, last);
       std::vector< double > areas = makeAreasVector(polygonsTmp);
       std::cout << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
@@ -166,7 +168,7 @@ namespace romanovich
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
   {
-    auto it = commands.find(command);
+    std::vector< Point >::const_iterator it = commands.find(command);
     if (it != commands.end())
     {
       (it->second)(polygons, "");
@@ -191,12 +193,12 @@ namespace romanovich
       throw std::runtime_error("No polygons.");
     }
     size_t targetNumber = getTargetNumber(argString);
-    auto generatedPolygon = Polygon{getPointsFromString(std::to_string(targetNumber))};
-    auto comp = std::bind(romanovich::PolygonComparator(generatedPolygon), _1, _2);
+    Polygon generatedPolygon = Polygon{getPointsFromString(std::to_string(targetNumber))};
+    compType comp = std::bind(romanovich::PolygonComparator(generatedPolygon), _1, _2);
     size_t maxSeqCount = 0;
     size_t currSeqCount = 0;
     bool insideSeq = false;
-    for (const auto &polygon: polygons)
+    for (const Polygon &polygon: polygons)
     {
       if (comp(polygon, polygon))
       {

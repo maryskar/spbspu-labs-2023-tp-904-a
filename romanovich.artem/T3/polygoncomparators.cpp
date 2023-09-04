@@ -38,13 +38,13 @@ namespace romanovich
   bool IsRightAngle::operator()(const Point &point) const
   {
     size_t n = getPointsCount(polygon);
-    auto it = std::find(begin(polygon), end(polygon), point);
-    auto index = std::distance(begin(polygon), it);
-    const auto &pointA = point;
-    const auto &pointB = polygon.points[(index + 1) % n];
-    const auto &pointC = polygon.points[(index + 2) % n];
-    const auto v1 = pointB - pointA;
-    const auto v2 = pointC - pointB;
+    std::vector< Point >::const_iterator it = std::find(begin(polygon), end(polygon), point);
+    std::ptrdiff_t index = std::distance(begin(polygon), it);
+    const Point &pointA = point;
+    const Point &pointB = polygon.points[(index + 1) % n];
+    const Point &pointC = polygon.points[(index + 2) % n];
+    const Point v1 = pointB - pointA;
+    const Point v2 = pointC - pointB;
     return doScalarMultiplication(v1, v2) == 0;
   }
   bool HasRightAngle::operator()(const Polygon &polygon) const

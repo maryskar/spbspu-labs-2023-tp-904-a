@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
     return 1;
   }
   std::vector< romanovich::Polygon > polygons;
-  size_t pointsCount;
-  while (input >> pointsCount)
+  using itType = std::istream_iterator< romanovich::Polygon >;
+  while (!input.eof())
   {
     if (input.fail())
     {
@@ -29,28 +29,29 @@ int main(int argc, char *argv[])
       input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       continue;
     }
-    std::vector< romanovich::Point > points;
-    for (size_t i = 0; i < pointsCount; i++)
-    {
-      romanovich::Point point{0, 0};
-      input >> point;
-      if (input.fail())
-      {
-        input.clear();
-        input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-        break;
-      }
-      if (std::find(points.begin(), points.end(), point) != points.end())
-      {
-        continue;
-      }
-      points.push_back(point);
-    }
-    if (points.size() == pointsCount && points.size() > 2)
-    {
-      polygons.emplace_back(romanovich::Polygon{points});
-    }
+    std::copy(itType(in), itType(), std::back_inserter(polygons));
   }
+//    std::vector< romanovich::Point > points;
+//    for (size_t i = 0; i < pointsCount; i++)
+//    {
+//      romanovich::Point point{0, 0};
+//      input >> point;
+//      if (input.fail())
+//      {
+//        input.clear();
+//        input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+//        break;
+//      }
+//      if (std::find(points.begin(), points.end(), point) != points.end())
+//      {
+//        continue;
+//      }
+//      points.push_back(point);
+//    }
+//    if (points.size() == pointsCount && points.size() > 2)
+//    {
+//      polygons.emplace_back(romanovich::Polygon{points});
+//    }
   romanovich::CommandProcessor commandProcessor;
   std::string command;
   while (std::getline(std::cin, command))
