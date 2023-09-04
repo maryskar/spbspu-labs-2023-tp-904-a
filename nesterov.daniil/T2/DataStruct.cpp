@@ -1,8 +1,8 @@
 #include "DataStruct.h"
-#include "IOStructs.h"
-#include "IOFmtGuard.h"
 #include <iostream>
 #include <iomanip>
+#include "IOStructs.h"
+#include "IOFmtGuard.h"
 
 namespace nesterov
 {

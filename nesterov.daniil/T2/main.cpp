@@ -1,9 +1,9 @@
-#include "DataStruct.h"
 #include <iostream>
 #include <iterator>
 #include <vector>
 #include <limits>
 #include <algorithm>
+#include "DataStruct.h"
 
 int main()
 {

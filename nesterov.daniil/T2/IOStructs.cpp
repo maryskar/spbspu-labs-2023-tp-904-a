@@ -1,7 +1,7 @@
-#include "IOFmtGuard.h"
 #include "IOStructs.h"
 #include <iostream>
 #include <iomanip>
+#include "IOFmtGuard.h"
 
 namespace nesterov
 {
