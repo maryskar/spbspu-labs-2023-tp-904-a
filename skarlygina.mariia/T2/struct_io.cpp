@@ -53,6 +53,7 @@ std::istream& operator>>(std::istream& in, DBL_sciIO&& dest)
   {
     return in;
   }
+  return in >> dest.ref;
 }
 std::istream& operator>>(std::istream& in, ULL_hexIO&& dest)
 {
@@ -61,6 +62,8 @@ std::istream& operator>>(std::istream& in, ULL_hexIO&& dest)
   {
     return in;
   }
+  in >> delimiter_sep{ '0' } >> delimiter_sep{ 'x' } >> std::hex >> dest.ref;
+  return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const DBL_sciIO& dest)
