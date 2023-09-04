@@ -146,7 +146,6 @@ void litvin::printNumOfPolygonsWithNumOfVertexes(const std::vector< litvin::Poly
   if (number_of_vertexes < 3)
   {
     throw std::invalid_argument("Invalid command parameter");
-    return;
   }
   using namespace std::placeholders;
   auto hasNVertexes = std::bind(countIfNVertexes, _1, number_of_vertexes);
@@ -169,10 +168,11 @@ bool litvin::areLinesIntersected(const Point & l1_p1, const Point & l1_p2, const
   }
   double intersectX = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / denominator;
   double intersectY = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / denominator;
-  return (intersectX >= std::min(x1, x2) && intersectX <= std::max(x1, x2) &&
-          intersectY >= std::min(y1, y2) && intersectY <= std::max(y1, y2) &&
-          intersectX >= std::min(x3, x4) && intersectX <= std::max(x3, x4) &&
-          intersectY >= std::min(y3, y4) && intersectY <= std::max(y3, y4));
+  bool are_intersected_x1_x2 = intersectX >= std::min(x1, x2) && intersectX <= std::max(x1, x2);
+  bool are_intersected_y1_y2 = intersectY >= std::min(y1, y2) && intersectY <= std::max(y1, y2);
+  bool are_intersected_x3_x4 = intersectX >= std::min(x3, x4) && intersectX <= std::max(x3, x4);
+  bool are_intersected_y3_y4 = intersectY >= std::min(y3, y4) && intersectY <= std::max(y3, y4);
+  return are_intersected_x1_x2 && are_intersected_y1_y2 && are_intersected_x3_x4 && are_intersected_y3_y4;
 }
 bool litvin::arePolygonsIntersected(const Polygon & pol1, const Polygon & pol2)
 {
