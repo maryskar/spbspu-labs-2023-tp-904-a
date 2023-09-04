@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <limits>
 #include "commands.h"
 std::ostream &printError(std::ostream &out)

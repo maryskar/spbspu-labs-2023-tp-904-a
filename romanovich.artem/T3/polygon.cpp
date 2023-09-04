@@ -1,5 +1,5 @@
 #include "polygonutils.h"
-std::istream &romanovich::operator>>(std::istream &in, romanovich::Polygon &&dest)
+std::istream &romanovich::operator>>(std::istream &in, Polygon &&dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -25,7 +25,7 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::Polygon &&des
   }
   if (in)
   {
-    dest = romanovich::Polygon(polygon);
+    dest = Polygon{polygon};
   }
   return in;
 }
