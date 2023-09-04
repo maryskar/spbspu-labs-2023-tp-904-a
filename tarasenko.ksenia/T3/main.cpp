@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     std::cout << "File not found\n";
     return 1;
   }
-  std::vector< tarasenko::Polygon > polygons = tarasenko::readPolygons(input);
+  std::deque< tarasenko::Polygon > polygons = tarasenko::readPolygons(input);
   tarasenko::Commands commands;
   std::string name_of_command = " ";
   while (std::cin >> name_of_command)

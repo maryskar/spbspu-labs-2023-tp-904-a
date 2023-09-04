@@ -18,6 +18,7 @@ namespace tarasenko
   class Commands
   {
   public:
+   using data_t = std::deque< Polygon >;
    Commands():
      names(name_of_cms),
      type_1(),
@@ -39,7 +40,7 @@ namespace tarasenko
      type_2.insert(std::make_pair("RIGHTSHAPES", &getNumRightShapesCommand));
    }
 
-   void call(const std::string& command1, std::vector< Polygon >& data, std::istream& in, std::ostream& out)
+   void call(const std::string& command1, data_t& data, std::istream& in, std::ostream& out)
    {
      try
      {
@@ -80,8 +81,8 @@ namespace tarasenko
 
   private:
    std::vector< std::string > names;
-   using commands_1 = std::function< std::ostream&(const std::vector< Polygon >&, std::istream&, std::ostream&) >;
-   using commands_2 = std::function< std::ostream&(const std::vector< Polygon >&, std::ostream&) >;
+   using commands_1 = std::function< std::ostream&(const data_t&, std::istream&, std::ostream&) >;
+   using commands_2 = std::function< std::ostream&(const data_t&, std::ostream&) >;
    std::map< std::string, commands_1 > type_1;
    std::map< std::string, commands_2 > type_2;
   };
