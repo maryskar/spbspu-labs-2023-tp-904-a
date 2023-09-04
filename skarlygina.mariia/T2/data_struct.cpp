@@ -1,5 +1,5 @@
-#include "data_struct.h"
 #include <iostream>
+#include "data_struct.h"
 #include "iofmt_guard.h"
 #include "struct_io.h"
 
