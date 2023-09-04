@@ -7,18 +7,11 @@
 #include <functional>
 #include <map>
 #include <message.h>
+#include <read_trash.h>
 #include "funcs_map_commands.h"
 
 namespace tarasenko
 {
-  std::istream& readTrash(std::istream& input)
-  {
-    input.clear();
-    std::string trash = " ";
-    getline(input, trash);
-    return input;
-  }
-
   template< typename Key, typename Value, typename Compare >
   class Commands
   {
