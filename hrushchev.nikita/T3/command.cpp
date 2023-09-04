@@ -26,6 +26,11 @@ bool isEven(const hrushchev::Polygon& polygon)
   return polygon.points_.size() % 2 == 0;
 }
 
+bool isOdd(const hrushchev::Polygon& polygon)
+{
+  return !isEven(polygon);
+}
+
 double sumArea(double cur, const hrushchev::Polygon& polygon)
 {
   return cur + hrushchev::getArea(polygon);
@@ -36,4 +41,16 @@ double hrushchev::getAreaEven(const std::vector< Polygon >& polygons)
   std::vector< Polygon > even_polygons;
   std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(even_polygons), isEven);
   return std::accumulate(even_polygons.begin(), even_polygons.end(), 0.0, sumArea);
+}
+double hrushchev::getAreaOdd(const std::vector< Polygon >& polygons)
+{
+  std::vector< Polygon > odd_polygons;
+  std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(odd_polygons), isOdd);
+  return std::accumulate(odd_polygons.begin(), odd_polygons.end(), 0.0, sumArea);
+}
+
+double hrushchev::getAreaMean(const std::vector< Polygon >& polygons)
+{
+  size_t count = polygons.size();
+  return std::accumulate(polygons.begin(), polygons.end(), 0.0, sumArea) / count;
 }

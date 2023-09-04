@@ -10,6 +10,8 @@ namespace hrushchev
   double getArea(const Polygon& polygon);
 
   double getAreaEven(const std::vector< Polygon >& polygons);
+  double getAreaOdd(const std::vector< Polygon >& polygons);
+  double getAreaMean(const std::vector< Polygon >& polygons);
 }
 
 #endif
