@@ -45,7 +45,7 @@ turkin::ReturnType turkin::min_area(data_t & data, std::istream &)
 
 turkin::ReturnType turkin::min_vertexes(data_t & data, std::istream &)
 {
-  std::size_t result = std::min_element(data.cbegin(), data.cend(), isSizeLess())->points.size();
+  std::size_t result = std::min_element(data.cbegin(), data.cend(), isSizeGreater())->points.size();
   return ReturnType(result);
 }
 
@@ -57,7 +57,7 @@ turkin::ReturnType turkin::max_area(data_t & data, std::istream &)
 
 turkin::ReturnType turkin::max_vertexes(data_t & data, std::istream &)
 {
-  std::size_t result = std::max_element(data.cbegin(), data.cend(), isSizeGreater())->points.size();
+  std::size_t result = std::max_element(data.cbegin(), data.cend(), isSizeLess())->points.size();
   return ReturnType(result);
 }
 
