@@ -6,7 +6,7 @@ using namespace romanovich;
 namespace
 {
   using compType = const std::function< bool(const Polygon &, const Polygon &) >&;
-  using iterPair = std::pair< std::vector< Point >::const_iterator, std::vector< Point >::const_iterator >;
+  using iterPair = std::pair< std::vector< Polygon >::const_iterator, std::vector< Polygon >::const_iterator >;
   const Polygon &findMinMaxEl(const std::vector< Polygon > &polygons,
       const std::function< bool(const Polygon &, const Polygon &) > &comp)
   {
@@ -67,7 +67,7 @@ namespace
     std::vector< Polygon >::iterator itp = std::partition(polygons.begin(), polygons.end(),
                                                               romanovich::IsEvenPointsCount{});
     std::vector< double > areas = makeAreasVector(polygons);
-    std::vector< Polygon >::iterator ita = std::next(areas.begin(), std::distance(polygons.begin(), itp));
+    double* ita = std::next(areas.begin(), std::distance(polygons.begin(), itp));
     double sumEven = std::accumulate(ita, areas.end(), 0.0);
     double sumOdd = std::accumulate(areas.begin(), ita, 0.0);
     return {sumEven, sumOdd};
