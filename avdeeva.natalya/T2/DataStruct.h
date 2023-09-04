@@ -14,5 +14,6 @@ namespace avdeeva
   {
     bool operator()(const DataStruct & lhs, const DataStruct & rhs) const;
   };
+  std::istream & operator>>(std::istream & in, DataStruct & dest);
 }
 #endif
