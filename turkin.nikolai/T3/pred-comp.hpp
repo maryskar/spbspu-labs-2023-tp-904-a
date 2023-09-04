@@ -3,6 +3,7 @@
 
 #include "area-calc.hpp"
 #include "data-structs.hpp"
+#include <vector>
 
 namespace turkin
 {
@@ -42,6 +43,11 @@ namespace turkin
   struct isAreaGreater
   {
     bool operator()(const Polygon & lhs, const Polygon & rhs);
+  };
+
+  struct isRightAngle
+  {
+    bool operator()(const Polygon & rhs);
   };
 }
 

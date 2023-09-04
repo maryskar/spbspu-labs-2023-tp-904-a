@@ -22,7 +22,7 @@ namespace turkin
   ReturnType count_even(data_t & data, std::istream &);
   ReturnType count_vertexes(data_t & data, std::istream & in);
   ReturnType maxseq_sub(data_t & data, std::istream & in);
-  ReturnType rightshapes_sub(data_t & data, std::istream & in);
+  ReturnType rightshapes_sub(data_t & data, std::istream &);
 }
 
 #endif

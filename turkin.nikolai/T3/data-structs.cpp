@@ -61,3 +61,13 @@ std::istream & turkin::operator>>(std::istream & in, Polygon & rhs)
   }
   return in;
 }
+
+bool turkin::operator==(const Point & lhs, const Point & rhs)
+{
+  return lhs.x == rhs.x && lhs.y == rhs.y;
+}
+
+bool turkin::operator==(const Polygon & lhs, const Polygon & rhs)
+{
+  return lhs.points == rhs.points;
+}

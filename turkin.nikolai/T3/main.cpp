@@ -4,6 +4,7 @@
 #include <iterator>
 
 #include "commands-list.hpp"
+#include <out-msg.hpp>
 
 int main(int argc, char * argv[])
 {
@@ -30,6 +31,13 @@ int main(int argc, char * argv[])
     {
       break;
     }
-    turkin::main_list[cmd](data, std::cin, std::cout) << "\n";
+    try
+    {
+      turkin::main_list[cmd](data, std::cin, std::cout) << "\n";
+    }
+    catch (...)
+    {
+      turkin::outInvalidCMD(std::cout);
+    }
   }
 }

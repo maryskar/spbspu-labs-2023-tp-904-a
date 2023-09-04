@@ -1,4 +1,9 @@
 #include "pred-comp.hpp"
+#include "data-structs.hpp"
+
+#include <algorithm>
+#include <numeric>
+#include <vector>
 
 bool turkin::isOdd::operator()(const Polygon & rhs)
 {
@@ -38,3 +43,26 @@ bool turkin::isAreaGreater::operator()(const Polygon & lhs, const Polygon & rhs)
 {
   return calcArea(0.0, lhs) > calcArea(0.0, rhs);
 }
+
+namespace
+{
+  std::vector< turkin::Point > sub;
+  bool calcAngle(std::size_t it, std::size_t index)
+  {
+    auto a = sub[index];
+    auto b = sub[(index + 1) % sub.size()];
+    auto c = sub[(index + 2) % sub.size()];
+    return it + ((b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0);
+  }
+}
+
+bool turkin::isRightAngle::operator()(const Polygon & rhs)
+{
+  sub = rhs.points;
+  std::vector< std::size_t > indexes(sub.size());
+  std::iota(indexes.begin(), indexes.end(), 0);
+  bool result = std::accumulate(indexes.begin(), indexes.end(), 0, calcAngle);
+  return result;
+}
+
+

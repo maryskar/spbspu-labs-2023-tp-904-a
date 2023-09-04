@@ -1,6 +1,7 @@
 #include "sub-commands.hpp"
 
 #include <algorithm>
+#include <functional>
 #include <cstddef>
 #include <numeric>
 
@@ -81,18 +82,24 @@ turkin::ReturnType turkin::count_vertexes(data_t & data, std::istream & in)
 
 turkin::ReturnType turkin::maxseq_sub(data_t & data, std::istream & in)
 {
+  Polygon temp;
+  in >> temp;
   std::size_t amount = 0;
-  in >> amount;
-  std::vector< Polygon > temp;
-  std::copy_if(data.begin(), data.end(), std::back_inserter(temp), isNum(amount));
-  return ReturnType(std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea));
+  using namespace std::placeholders;
+  auto pred = std::bind(std::equal_to< Polygon >{}, _1, temp);
+  auto first = data.begin();
+  while (first != data.end())
+  {
+    first = std::find_if(first, data.end(), pred);
+    auto last = std::find_if_not(first, data.end(), pred);
+    amount = std::max(amount, static_cast< size_t >(std::abs(std::distance(first, last))));
+    first = last;
+  }
+  return ReturnType(amount);
 }
 
-turkin::ReturnType turkin::rightshapes_sub(data_t & data, std::istream & in)
+turkin::ReturnType turkin::rightshapes_sub(data_t & data, std::istream &)
 {
-  std::size_t amount = 0;
-  in >> amount;
-  std::vector< Polygon > temp;
-  std::copy_if(data.begin(), data.end(), std::back_inserter(temp), isNum(amount));
-  return ReturnType(std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea));
+  std::size_t result = std::count_if(data.begin(), data.end(), isRightAngle());
+  return ReturnType(result);
 }
