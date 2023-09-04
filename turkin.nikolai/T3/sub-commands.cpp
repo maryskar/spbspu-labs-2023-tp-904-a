@@ -89,6 +89,10 @@ turkin::ReturnType turkin::maxseq_sub(data_t & data, std::istream & in)
 {
   Polygon temp;
   in >> temp;
+  if (!in)
+  {
+    throw std::runtime_error("bad input");
+  }
   std::size_t amount = 0;
   using namespace std::placeholders;
   auto pred = std::bind(std::equal_to< Polygon >{}, _1, temp);

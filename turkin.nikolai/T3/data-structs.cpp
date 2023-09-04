@@ -1,6 +1,7 @@
 #include "data-structs.hpp"
 
 #include <algorithm>
+#include <stdexcept>
 #include <iterator>
 #include <iomanip>
 #include <io-work.hpp>
@@ -36,6 +37,10 @@ std::istream & turkin::operator>>(std::istream & in, Point & rhs)
     return in;
   }
   in >> DelimiterIO{ '(' } >> rhs.x >> DelimiterIO{ ';' } >> rhs.y >> DelimiterIO{ ')' };
+  if (!in)
+  {
+    throw std::runtime_error("bad point input");
+  }
   return in;
 }
 
@@ -47,7 +52,7 @@ std::istream & turkin::operator>>(std::istream & in, Polygon & rhs)
     return in;
   }
   Polygon input;
-  unsigned len = 0;
+  std::size_t len = 0;
   in >> len;
   if (len < 3)
   {
