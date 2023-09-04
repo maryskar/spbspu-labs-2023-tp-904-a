@@ -1,4 +1,5 @@
 #include "iostructs.h"
+#include <cmath>
 std::istream& avdeeva::operator>>(std::istream& in, DelimiterIO&& dest)
 {
   std::istream::sentry sentry(in);
@@ -44,4 +45,25 @@ std::istream& avdeeva::operator>>(std::istream& in, UnsignedLongLongIO&& dest)
     return in;
   }
   return in >> dest.num >> DelimiterIO{'u'} >> DelimiterIO{'l'} >> DelimiterIO{'l'};
+}
+std::string avdeeva::convertToScientific(double number)
+{
+  int degree = 0;
+  while (std::abs(number) < 1 && number != 0)
+  {
+    number *= 10;
+    degree--;
+  }
+  while (std::abs(number) >= 10)
+  {
+    number /= 10;
+    degree++;
+  }
+  std::string res = std::to_string(number);
+  while (res.size() < 4)
+  {
+    res += '0';
+  }
+  res = res.substr(0, 4);
+  return res + 'e' + std::to_string(degree);
 }

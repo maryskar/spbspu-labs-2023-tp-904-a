@@ -28,5 +28,6 @@ namespace avdeeva
   std::istream& operator>>(std::istream& in, LabelIO&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
   std::istream& operator>>(std::istream& in, UnsignedLongLongIO&& dest);
+  std::string convertToScientific(double number);
 }
 #endif
