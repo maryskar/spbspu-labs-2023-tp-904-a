@@ -1,7 +1,7 @@
 #include <iostream>
 #include "data_struct.h"
-#include "iofmt_guard.h"
 #include "struct_io.h"
+#include "iofmt_guard.h"
 
 bool structure::operator<(const DataStruct& left, const DataStruct& right)
 {
@@ -61,7 +61,7 @@ std::istream& structure::operator>>(std::istream& in, DataStruct& data)
     }
     in >> delimiter_sep{':'};
   }
-  in >> delimiter_sep{ ')' };
+  in >> delimiter_sep{')'};
   if (in)
   {
     data = in_data;
