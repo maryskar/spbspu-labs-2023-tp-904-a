@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <iterator>
+#include <algorithm>
 #include "data_struct.h"
 
 int main()
@@ -17,4 +18,6 @@ int main()
       std::cin.clear();
     }
   }
+  std::sort(data.begin(), data.end());
+  std::copy(data.begin(), data.end(), o_iter(std::cout, "\n"));
 }
