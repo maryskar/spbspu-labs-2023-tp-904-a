@@ -3,12 +3,12 @@
 #include <functional>
 #include <numeric>
 #include <iofmtguard.h>
+#include <set>
 
 namespace azheganova
 {
   Commands::Commands()
   {
-    Commands res{};
     dict_1.insert({ "AREA EVEN", getAreaEven });
     dict_1.insert({ "AREA ODD", getAreaOdd });
     dict_1.insert({ "AREA MEAN", getAreaMean });
@@ -20,7 +20,7 @@ namespace azheganova
     dict_1.insert({ "COUNT ODD", countOdd });
     dict_2.insert({ "AREA", getAreaNumOfVertexes });
     dict_2.insert({ "COUNT", countNumOfVertexes });
-//  dict_3.insert({ "RMECHO", getRmecho });
+    dict_3.insert({ "RMECHO", getRmecho });
     dict_1.insert({ "RIGHTSHAPES", getRightshapes });
   }
 
@@ -160,10 +160,26 @@ namespace azheganova
     out << std::count_if(polygon.begin(), polygon.end(), std::bind(isCountVertex, _1, num)) << "\n";
   }
 
-//void azheganova::getRmecho(const std::vector< Polygon > & polygon, std::ostream & out, std::istream & in)
-//{
+  bool isCompareRmecho(const Polygon & first, const Polygon & second, const Polygon & polygon)
+  {
+    return (first == polygon && second == polygon);
+  }
 
-//}
+  void getRmecho(const std::vector< Polygon > & polygon, std::ostream & out, std::istream & in)
+  {
+    Polygon newpolygon;
+    in >> newpolygon;
+    if (!in)
+    {
+      throw std::logic_error("error");
+    }
+    using namespace std::placeholders;
+    size_t sizeBefore = polygon.size();
+    auto func = std::bind(isCompareRmecho, _1, _2, newpolygon);
+    auto condition = std::unique(polygon.begin(), polygon.end(), func);
+    polygon.erase(condition, polygon.end());
+    out << sizeBefore - polygon.size() << '\n';
+  }
 
   bool isRightAngle(const Point & a, const Point & b, const Point & c)
   {
@@ -199,7 +215,7 @@ namespace azheganova
     {
       throw std::invalid_argument("error");
     }
-    if (command == "RMECHO" && command == "RIGHTSHAPES")
+    if (command == "RMECHO" || command == "RIGHTSHAPES")
     {
       return command;
     }

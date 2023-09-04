@@ -23,6 +23,8 @@ namespace azheganova
   std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   std::istream & operator>>(std::istream & in, Point & dest);
   std::istream & operator>>(std::istream & in, Polygon & dest);
+  bool operator==(const Point & first, const Point & second);
+  bool operator==(const Polygon & first, const Polygon & second);
 }
 
 #endif

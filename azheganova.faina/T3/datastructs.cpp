@@ -77,3 +77,17 @@ std::istream & azheganova::operator>>(std::istream & in, Polygon & dest)
   return in;
 }
 
+bool azheganova::operator==(const Point & first, const Point & second)
+{
+  return (first.x == second.x) && (first.y == second.y);
+}
+
+bool azheganova::operator==(const Polygon & first, const Polygon & second)
+{
+  auto firstBegin = first.points.begin();
+  auto firstEnd = first.points.end();
+  auto secondBegin = second.points.begin();
+  bool checkEqual = std::equal(firstBegin, firstEnd, secondBegin);
+  return first.points.size() == second.points.size() && checkEqual;
+}
+

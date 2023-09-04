@@ -9,7 +9,8 @@ int main(int argc, char * argv[])
 {
   if (argc != 2)
   {
-    std::cout << "error";
+    std::cout << "error1";
+    std::cout << "\n";
     return 1;
   }
   std::ifstream input(argv[1]);
@@ -27,8 +28,8 @@ int main(int argc, char * argv[])
     {
       input.clear();
       input.ignore(max, '\n');
+      std::copy(ist_iter(input), ist_iter(), std::back_inserter(polygon));
     }
-    std::copy(ist_iter(input), ist_iter(), std::back_inserter(polygon));
   }
   azheganova::Commands commands;
   while (!std::cin.eof())
