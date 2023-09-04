@@ -3,6 +3,7 @@
 #include <cmath>
 #include <numeric>
 #include <algorithm>
+#include <functional>
 
 double hrushchev::calcArea(const Point & left, const Point & right)
 {
@@ -31,6 +32,11 @@ bool isOdd(const hrushchev::Polygon& polygon)
   return !isEven(polygon);
 }
 
+bool isVertexe(const hrushchev::Polygon& polygon, size_t count)
+{
+  return polygon.points_.size() == count;
+}
+
 double sumArea(double cur, const hrushchev::Polygon& polygon)
 {
   return cur + hrushchev::getArea(polygon);
@@ -54,3 +60,13 @@ double hrushchev::getAreaMean(const std::vector< Polygon >& polygons)
   size_t count = polygons.size();
   return std::accumulate(polygons.begin(), polygons.end(), 0.0, sumArea) / count;
 }
+
+double hrushchev::getAreaVertexes(const std::vector< Polygon >& polygons, size_t count)
+{
+  std::vector< Polygon > vertexes_polygons;
+  using namespace std::placeholders;
+  auto pred = std::bind(isVertexe, _1, count);
+  std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(vertexes_polygons), pred);
+  return std::accumulate(vertexes_polygons.begin(), vertexes_polygons.end(), 0.0, sumArea);
+}
+

@@ -49,5 +49,5 @@ int main(int argc, char* argv[])
   {
     std::cout << getArea(i) << "\n";
   }
-  std::cout << getAreaMean(data) << "\n";
+  std::cout << getAreaVertexes(data, 5) << "\n";
 }
