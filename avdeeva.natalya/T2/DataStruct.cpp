@@ -1,5 +1,6 @@
 #include "DataStruct.h"
 #include "iostructs.h"
+#include "iofmtguard.h"
 #include <string>
 #include <iostream>
 bool avdeeva::Comparator::operator()(const DataStruct & lhs, const DataStruct & rhs) const
@@ -58,4 +59,18 @@ std::istream & avdeeva::operator>>(std::istream & in, DataStruct & dest)
     dest = DataStruct{key1, key2, key3};
   }
   return in;
+}
+std::ostream & avdeeva::operator<<(std::ostream & out, const DataStruct & data)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  iofmtguard guard(out);
+  out << "(:key1 ";
+  out << convertToScientific(data.key1);
+  out << ":key2 " << data.key2 << "ull";
+  out << ":key3 " << '"' << data.key3 << '"' << ":)";
+  return out;
 }
