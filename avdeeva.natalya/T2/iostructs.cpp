@@ -27,3 +27,12 @@ std::istream& avdeeva::operator>>(std::istream& in, LabelIO&& dest)
   }
   return in;
 }
+std::istream& avdeeva::operator>>(std::istream& in, StringIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  return std::getline(in >> DelimiterIO{'"'}, dest.exp, '"');
+}

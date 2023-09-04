@@ -26,5 +26,6 @@ namespace avdeeva
   };
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
   std::istream& operator>>(std::istream& in, LabelIO&& dest);
+  std::istream& operator>>(std::istream& in, StringIO&& dest);
 }
 #endif
