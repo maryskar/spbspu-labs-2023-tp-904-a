@@ -33,22 +33,40 @@ std::istream &gudkov::operator>>(std::istream &in, SuffixExpIO &&dest)
 
   in.unsetf(std::ios_base::skipws);
 
-  char c = '0';
-  bool isLower = islower(in.peek());
-
-  for (size_t i = 0; i < dest.exp.size(); ++i)
+  if (dest.exp.size() == 0)
   {
-    in >> c;
-    if (!in)
+    return in;
+  }
+
+  char c = '0';
+
+  in >> c;
+
+  if (in)
+  {
+    const bool isLower = islower(c);
+
+    if (tolower(c) != tolower(dest.exp[0]))
     {
-      break;
+      in.setstate(std::ios::failbit);
     }
     else
     {
-      if (tolower(c) != tolower(dest.exp[i]) || isLower != static_cast< bool >(islower(c)))
+      for (size_t i = 1; i < dest.exp.size(); ++i)
       {
-        in.setstate(std::ios::failbit);
-        break;
+        in >> c;
+        if (!in)
+        {
+          break;
+        }
+        else
+        {
+          if (tolower(c) != tolower(dest.exp[i]) || isLower != static_cast< bool >(islower(c)))
+          {
+            in.setstate(std::ios::failbit);
+            break;
+          }
+        }
       }
     }
   }
