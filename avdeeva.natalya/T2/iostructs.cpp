@@ -36,3 +36,12 @@ std::istream& avdeeva::operator>>(std::istream& in, StringIO&& dest)
   }
   return std::getline(in >> DelimiterIO{'"'}, dest.exp, '"');
 }
+std::istream& avdeeva::operator>>(std::istream& in, UnsignedLongLongIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  return in >> dest.num >> DelimiterIO{'u'} >> DelimiterIO{'l'} >> DelimiterIO{'l'};
+}
