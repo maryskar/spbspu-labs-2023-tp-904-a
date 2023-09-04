@@ -19,10 +19,6 @@ namespace
 
 std::ostream & turkin::area(data_t & data, std::istream & in, std::ostream & out)
 {
-  if (data.empty())
-  {
-    throw std::runtime_error("empty source");
-  }
   std::string type = "";
   in >> type;
   if (std::isdigit(type[0]))
