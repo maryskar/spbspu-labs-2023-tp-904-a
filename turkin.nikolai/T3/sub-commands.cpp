@@ -4,6 +4,7 @@
 #include <functional>
 #include <cstddef>
 #include <numeric>
+#include <stdexcept>
 
 #include "area-calc.hpp"
 #include "pred-comp.hpp"
@@ -76,6 +77,10 @@ turkin::ReturnType turkin::count_vertexes(data_t & data, std::istream & in)
 {
   std::size_t amount = 0;
   in >> amount;
+  if (amount < 3)
+  {
+    throw std::runtime_error("min 3");
+  }
   std::size_t result = std::count_if(data.cbegin(), data.cend(), isNum(amount));
   return ReturnType(result);
 }

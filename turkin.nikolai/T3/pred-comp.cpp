@@ -7,12 +7,12 @@
 
 bool turkin::isOdd::operator()(const Polygon & rhs)
 {
-  return rhs.points.size() % 2 == 0;
+  return rhs.points.size() % 2 != 0;
 }
 
 bool turkin::isEven::operator()(const Polygon & rhs)
 {
-  return rhs.points.size() % 2 != 0;
+  return rhs.points.size() % 2 == 0;
 }
 
 turkin::isNum::isNum(std::size_t num):
