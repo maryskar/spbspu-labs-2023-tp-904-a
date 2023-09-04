@@ -67,7 +67,7 @@ namespace
     std::vector< Polygon >::iterator itp = std::partition(polygons.begin(), polygons.end(),
                                                               romanovich::IsEvenPointsCount{});
     std::vector< double > areas = makeAreasVector(polygons);
-    double* ita = std::next(areas.begin(), std::distance(polygons.begin(), itp));
+    vector< double >::iterator ita = std::next(areas.begin(), std::distance(polygons.begin(), itp));
     double sumEven = std::accumulate(ita, areas.end(), 0.0);
     double sumOdd = std::accumulate(areas.begin(), ita, 0.0);
     return {sumEven, sumOdd};
@@ -142,9 +142,9 @@ namespace romanovich
     if (targetNumber > 2)
     {
       std::vector< Polygon > polygonsTmp = pols;
-      std::vector< Point >::const_iterator first = std::remove_if(polygonsTmp.begin(), polygonsTmp.end(),
+      std::vector< Polygon >::const_iterator first = std::remove_if(polygonsTmp.begin(), polygonsTmp.end(),
                                                                       romanovich::HasNotPointsCount(targetNumber));
-      std::vector< Point >::const_iterator last = polygonsTmp.end();
+      std::vector< Polygon >::const_iterator last = polygonsTmp.end();
       polygonsTmp.erase(first, last);
       std::vector< double > areas = makeAreasVector(polygonsTmp);
       std::cout << std::fixed << std::setprecision(1) << std::accumulate(areas.begin(), areas.end(), 0.0) << '\n';
@@ -168,7 +168,7 @@ namespace romanovich
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
   {
-    std::vector< Point >::const_iterator it = commands.find(command);
+    std::unordered_map< Point >::const_iterator it = commands.find(command);
     if (it != commands.end())
     {
       (it->second)(polygons, "");
