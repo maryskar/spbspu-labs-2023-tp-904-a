@@ -55,6 +55,7 @@ std::istream& operator>>(std::istream& in, DBL_sciIO&& dest)
   }
   return in >> dest.ref;
 }
+
 std::istream& operator>>(std::istream& in, ULL_hexIO&& dest)
 {
   std::istream::sentry sent(in);
@@ -73,4 +74,20 @@ std::ostream& operator<<(std::ostream& out, const DBL_sciIO& dest)
   {
     return out;
   }
+
+  double sci_dbl = dest.ref;
+  int degree = 0;
+  while (sci_dbl != 0 && sci_dbl < 1.0)
+  {
+    sci_dbl = sci_dbl * 10;
+    degree--;
+  }
+  while (sci_dbl != 0 && sci_dbl >= 10.0)
+  {
+    sci_dbl = sci_dbl / 10;
+    degree++;
+  }
+  Iofmtguard guard(out);
+  out << std::fixed << std::setprecision(1) << sci_dbl << "e" << std::showpos << degree;
+  return out;
 }
