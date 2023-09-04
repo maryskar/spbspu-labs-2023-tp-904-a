@@ -1,5 +1,4 @@
 #include "DataIO.h"
-#include "DataStruct.h"
 #include <string>
 #include <iostream>
 namespace zhukova
