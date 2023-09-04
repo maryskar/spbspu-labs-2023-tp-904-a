@@ -240,7 +240,7 @@ litvin::command_dicts_t::command_dicts_t()
 }
 void litvin::printInvalidCommand(std::ostream & out)
 {
-  out << "<INVALID COMMAND>\n";
+  out << "<INVALID COMMAND>";
 }
 std::string litvin::inputCommand(std::istream & in)
 {
