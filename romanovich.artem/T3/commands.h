@@ -44,7 +44,8 @@ namespace romanovich
     void countMaxSeq(const std::vector< Polygon > &, const std::string &);
     void countShapesWithRightAngle(const std::vector< Polygon > &);
   private:
-    std::unordered_map< std::string, std::function< void(const std::vector< Polygon > &, std::string)>> commands;
+    using CommandMap = std::unordered_map< std::string, std::function< void(const std::vector< Polygon >&, std::string) > >;
+    CommandMap commands;
     int getTargetNumber(const std::string &line);
   };
 }
