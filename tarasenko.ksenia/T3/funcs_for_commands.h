@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <numeric>
 #include <iterator>
+#include <deque>
 #include "data_struct.h"
 
 namespace tarasenko
