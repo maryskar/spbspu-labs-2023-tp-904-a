@@ -25,7 +25,7 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::Polygon &&des
   }
   if (in)
   {
-    dest = static_cast< romanovich::Polygon >(polygon);
+    dest = romanovich::Polygon(polygon);
   }
   return in;
 }

@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
       input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       continue;
     }
-    std::copy(itType(in), itType(), std::back_inserter(polygons));
+    std::copy(itType(input), itType(), std::back_inserter(polygons));
   }
 //    std::vector< romanovich::Point > points;
 //    for (size_t i = 0; i < pointsCount; i++)
