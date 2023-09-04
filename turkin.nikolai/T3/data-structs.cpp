@@ -60,7 +60,7 @@ std::istream & turkin::operator>>(std::istream & in, Polygon & rhs)
   }
   input.points.reserve(len);
   std::copy_n(std::istream_iterator< Point >(in), len, std::back_inserter(input.points));
-  if (in)
+  if (in && len > 2 && len == input.points.size())
   {
     rhs.points.swap(input.points);
   }
