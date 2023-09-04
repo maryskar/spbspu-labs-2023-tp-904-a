@@ -3,6 +3,33 @@
 #include "iofmt_guard.h"
 #include "struct_io.h"
 
+bool structure::operator<(const DataStruct& left, const DataStruct& right)
+{
+  if (left.key1 == right.key1)
+  {
+    if (left.key2 == right.key2)
+    {
+      return left.key3.length() < right.key3.length();
+    }
+    return left.key2 < right.key2;
+  }
+  return left.key1 < right.key1;
+}
+
+std::ostream& structure::operator<<(std::ostream& out, const DataStruct& data)
+{
+  std::ostream::sentry sent(out);
+  if (!sent)
+  {
+    return out;
+  }
+  Iofmtguard fmtguard(out);
+  out << "(:key1 " << DBL_sciIO{const_cast< double& >(data.key1)};
+  out << ":key2 0x" << std::hex << std::uppercase << data.key2;
+  out << ":key3 " << '"' << data.key3 << '"' << ":)";
+  return out;
+}
+
 std::istream& structure::operator>>(std::istream& in, DataStruct& data)
 {
   std::istream::sentry sent(in);
