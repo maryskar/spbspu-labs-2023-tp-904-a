@@ -28,5 +28,5 @@ Iofmtguard::~Iofmtguard()
   st_.flags(fmt_);
 }
 
-#endif // !IOFMT_GUARD_H
+#endif
 
