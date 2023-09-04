@@ -18,15 +18,15 @@ std::istream& structure::operator>>(std::istream& in, DataStruct& data)
     in >> keyX;
     if (keyX == "key1")
     {
-
+      in >> DBL_sciIO{in_data.key1};
     }
     else if (keyX == "key2")
     {
-
+      in >> ULL_hexIO{in_data.key2};
     }
     else if (keyX == "key3")
     {
-
+      in >> string_IO{in_data.key3};
     }
     else
     {
@@ -34,5 +34,10 @@ std::istream& structure::operator>>(std::istream& in, DataStruct& data)
     }
     in >> delimiter_sep{':'};
   }
-
+  in >> delimiter_sep{ ')' };
+  if (in)
+  {
+    data = in_data;
+  }
+  return in;
 }

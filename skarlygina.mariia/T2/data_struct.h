@@ -5,7 +5,7 @@
 namespace structure {
   struct DataStruct {
     double key1;
-    long long key2;
+    unsigned long long key2;
     std::string key3;
   };
   std::ostream& operator<<(std::ostream& os, const DataStruct& data);
