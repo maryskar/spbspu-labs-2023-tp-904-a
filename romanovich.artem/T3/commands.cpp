@@ -67,7 +67,7 @@ namespace
     std::vector< Point >::const_iterator itp = std::partition(polygons.begin(), polygons.end(),
                                                                   romanovich::IsEvenPointsCount{});
     std::vector< double > areas = makeAreasVector(polygons);
-    std::vector< Point >::const_iterator ita = std::next(areas.begin(), std::distance(polygons.begin(), itp));
+    std::vector< Point >::iterator ita = std::next(areas.begin(), std::distance(polygons.begin(), itp));
     double sumEven = std::accumulate(ita, areas.end(), 0.0);
     double sumOdd = std::accumulate(areas.begin(), ita, 0.0);
     return {sumEven, sumOdd};
