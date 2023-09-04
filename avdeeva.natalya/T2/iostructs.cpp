@@ -67,3 +67,15 @@ std::string avdeeva::convertToScientific(double number)
   res = res.substr(0, 4);
   return res + 'e' + std::to_string(degree);
 }
+std::istream& avdeeva::operator>>(std::istream& in, DoubleIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  double number = 0.0;
+  in >> std::scientific >> number;
+  dest.num = number;
+  return in;
+}
