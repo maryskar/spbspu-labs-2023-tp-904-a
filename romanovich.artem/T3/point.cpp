@@ -21,7 +21,7 @@ namespace
     return in;
   }
 }
-std::istream &romanovich::operator>>(std::istream &in, romanovich::Point &dest)
+std::istream &romanovich::operator>>(std::istream &in, Point &dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -32,7 +32,7 @@ std::istream &romanovich::operator>>(std::istream &in, romanovich::Point &dest)
   in >> dest.y >> DelimiterIO{')'};
   return in;
 }
-bool romanovich::operator==(const romanovich::Point &lhs, const romanovich::Point &rhs)
+bool romanovich::operator==(const Point &lhs, const Point &rhs)
 {
   return lhs.x == rhs.x && lhs.y == rhs.y;
 }
