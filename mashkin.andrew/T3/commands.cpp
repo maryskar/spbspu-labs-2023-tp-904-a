@@ -80,7 +80,7 @@ namespace mashkin
     {
       if (res.empty())
       {
-        throw;
+        throw std::logic_error("Logic error");
       }
       else
       {
@@ -91,7 +91,7 @@ namespace mashkin
     {
       if (command == "0" || command == "1" || command == "2")
       {
-        throw;
+        throw std::logic_error("Logic error");
       }
       else
       {
@@ -100,7 +100,7 @@ namespace mashkin
     }
     else
     {
-      throw;
+      throw std::logic_error("Logic error");
     }
   }
 
@@ -126,7 +126,7 @@ namespace mashkin
     inp >> command;
     if (data.empty())
     {
-      throw;
+      throw std::logic_error("Logic error");
     }
     else if (command == "AREA")
     {
@@ -138,7 +138,7 @@ namespace mashkin
     }
     else
     {
-      throw;
+      throw std::logic_error("Logic error");
     }
   }
 
@@ -164,7 +164,7 @@ namespace mashkin
     inp >> command;
     if (res.empty())
     {
-      throw;
+      throw std::logic_error("Logic error");
     }
     else if (command == "AREA")
     {
@@ -176,7 +176,7 @@ namespace mashkin
     }
     else
     {
-      throw;
+      throw std::logic_error("Logic error");
     }
   }
 
@@ -232,7 +232,7 @@ namespace mashkin
     {
       if (command == "0" || command == "1" || command == "2")
       {
-        throw;
+        throw std::logic_error("Logic error");
       }
       else
       {
@@ -241,7 +241,7 @@ namespace mashkin
     }
     else
     {
-      throw;
+      throw std::logic_error("Logic error");
     }
   }
 
@@ -253,7 +253,7 @@ namespace mashkin
     if (inp.fail())
     {
       inp.clear();
-      throw;
+      throw std::logic_error("Logic error");
     }
     std::sort(comp.points.begin(), comp.points.end());
     size_t quantity = 0;

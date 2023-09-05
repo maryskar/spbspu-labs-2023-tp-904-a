@@ -44,31 +44,30 @@ int main(int argc, char** argv)
   std::string command;
   while (!std::cin.eof())
   {
+    std::cin >> command;
+    if (std::cin.eof())
+    {
+      break;
+    }
     try
     {
-      std::cin >> command;
-      if (std::cin.eof())
-      {
-        break;
-      }
       if (commands.find(command) != commands.end())
       {
         commands[command](std::cin, res);
       }
       else
       {
-        std::cout << "<INVALID COMMAND>\n";
         std::cin.setstate(std::ios::failbit);
       }
-      if (std::cin.fail())
-      {
-        mashkin::cleanStream(std::cin);
-      }
     }
-    catch (const std::exception& ex)
+    catch (const std::logic_error& ex)
     {
-      std::cin.ignore(maxSize, '\n');
+      std::cin.setstate(std::ios::failbit);
+    }
+    if (std::cin.fail())
+    {
       std::cout << "<INVALID COMMAND>\n";
+      mashkin::cleanStream(std::cin);
     }
   }
   return 0;
