@@ -1,6 +1,6 @@
 #include "DataStruct.h"
-#include "iotypes.h"
-#include "iofmtguard.h"
+#include <iotypes.h>
+#include <iofmtguard.h>
 
 std::istream &mishanina::operator>>(std::istream &in, DataStruct &data)
 {
