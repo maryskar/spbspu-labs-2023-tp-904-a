@@ -15,6 +15,11 @@ namespace hrushchev
   double getAreaVertexes(const std::vector< Polygon >& polygons, size_t count);
   double getMaxArea(const std::vector< Polygon >& polygons);
   size_t getMaxVertexes(const std::vector< Polygon >& polygons);
+  double getMinArea(const std::vector< Polygon >& polygons);
+  size_t getMinVertexes(const std::vector< Polygon >& polygons);
+  size_t getCountEven(const std::vector< Polygon >& polygons);
+  size_t getCountOdd(const std::vector< Polygon >& polygons);
+  size_t getCountVertexes(const std::vector< Polygon >& polygons);
 }
 
 #endif

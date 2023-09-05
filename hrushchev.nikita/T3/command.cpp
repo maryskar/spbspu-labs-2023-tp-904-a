@@ -43,16 +43,28 @@ bool isNecessaryVertex(const hrushchev::Polygon& polygon, size_t count)
   return polygon.points_.size() == count;
 }
 
-double chooseBigerArea(double cur, const hrushchev::Polygon& polygon)
+double chooseGreatereArea(double cur, const hrushchev::Polygon& polygon)
 {
   double area = hrushchev::getArea(polygon);
   return (cur > area) ? cur : area;
 }
 
-double chooseBigerVertexes(double cur, const hrushchev::Polygon& polygon)
+double chooseGreatereVertexes(double cur, const hrushchev::Polygon& polygon)
 {
   size_t count = polygon.points_.size();
   return (cur > count) ? cur : count;
+}
+
+double chooseLessArea(double cur, const hrushchev::Polygon& polygon)
+{
+  double area = hrushchev::getArea(polygon);
+  return (cur < area) ? cur : area;
+}
+
+double chooseLessVertexes(double cur, const hrushchev::Polygon& polygon)
+{
+  size_t count = polygon.points_.size();
+  return (cur < count) ? cur : count;
 }
 
 double hrushchev::getAreaEven(const std::vector< Polygon >& polygons)
@@ -85,11 +97,27 @@ double hrushchev::getAreaVertexes(const std::vector< Polygon >& polygons, size_t
 
 double hrushchev::getMaxArea(const std::vector< Polygon >& polygons)
 {
-  return std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseBigerArea);
+  return std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereArea);
 }
 
 size_t hrushchev::getMaxVertexes(const std::vector< Polygon >& polygons)
 {
-  return std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseBigerVertexes);
+  return std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereVertexes);
 }
 
+double hrushchev::getMinArea(const std::vector< Polygon >& polygons)
+{
+  return std::accumulate(polygons.begin(), polygons.end(), getArea(polygons.front()), chooseLessArea);
+}
+
+size_t hrushchev::getMinVertexes(const std::vector< Polygon >& polygons)
+{
+  return std::accumulate(polygons.begin(), polygons.end(), polygons.front().points_.size(), chooseLessVertexes);
+}
+
+size_t hrushchev::getCountEven(const std::vector< Polygon >& polygons)
+{
+  return std::count_if(polygons.begin(), polygons.end(), isEven);
+}
+size_t hrushchev::getCountOdd(const std::vector< Polygon >& polygons);
+size_t hrushchev::getCountVertexes(const std::vector< Polygon >& polygons);
