@@ -25,13 +25,15 @@ namespace shestakov
     {
       return in;
     }
-    for (size_t i = 0; i < dest.str.length(); ++i) {
+    for (size_t i = 0; i < dest.str.length(); ++i)
+    {
       in >> DelIO{ dest.str[i] };
     }
     return in;
   }
 
-  std::istream& operator>>(std::istream& in, CharLitIO&& dest) {
+  std::istream& operator>>(std::istream& in, CharLitIO&& dest)
+  {
     std::istream::sentry sentry(in);
     if (!sentry)
     {

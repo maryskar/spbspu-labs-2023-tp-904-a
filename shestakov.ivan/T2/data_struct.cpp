@@ -62,6 +62,11 @@ namespace shestakov
     }
 
   }
+  std::ostream& operator<<(std::ostream& out, const std::complex< double >& dest)
+  {
+    out << "#c(" << dest.real() << ' ' << dest.imag() << ')';
+    return out;
+  }
   std::ostream& operator<<(std::ostream& out, const DataStruct& src)
   {
     std::ostream::sentry sentry(out);
@@ -70,9 +75,9 @@ namespace shestakov
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "(:key1 \'" << src.key1 << "\'";
-    out << ":key2 #c(" << std::fixed << std::setprecision(1) << src.key2.real() << ' ' << src.key2.imag() << ')';
-    out << ":key3 \"" << src.key3 << "\":)";
+    out << "(:key1 '" << src.key1 << "'";
+    out << ":key2 " << std::fixed << std::setprecision(1) << src.key2;
+    out << ":key3 " << std::quoted(src.key3, '"') << ":)";
     return out;
   }
 }
