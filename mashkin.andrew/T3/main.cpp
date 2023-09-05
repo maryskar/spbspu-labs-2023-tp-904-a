@@ -3,6 +3,7 @@
 #include <iterator>
 #include <limits>
 #include <map>
+#include <stdexcept>
 #include <string>
 #include <vector>
 #include "cleanStream.h"
@@ -37,28 +38,37 @@ int main(int argc, char** argv)
       mashkin::cleanStream(inpFile);
     }
   }
+  constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
   std::map< std::string, void (*)(std::istream&, const std::vector< mashkin::Polygon >&) > commands;
   mashkin::createMapWithCommands(commands);
   std::string command;
   while (!std::cin.eof())
   {
-    std::cin >> command;
-    if (std::cin.eof())
+    try
     {
-      break;
+      std::cin >> command;
+      if (std::cin.eof())
+      {
+        break;
+      }
+      if (commands.find(command) != commands.end())
+      {
+        commands[command](std::cin, res);
+      }
+      else
+      {
+        std::cout << "<INVALID COMMAND>\n";
+        std::cin.setstate(std::ios::failbit);
+      }
+      if (std::cin.fail())
+      {
+        mashkin::cleanStream(std::cin);
+      }
     }
-    if (commands.find(command) != commands.end())
+    catch (const std::exception& ex)
     {
-      commands[command](std::cin, res);
-    }
-    else
-    {
+      std::cin.ignore(maxSize, '\n');
       std::cout << "<INVALID COMMAND>\n";
-      std::cin.setstate(std::ios::failbit);
-    }
-    if (std::cin.fail())
-    {
-      mashkin::cleanStream(std::cin);
     }
   }
   return 0;

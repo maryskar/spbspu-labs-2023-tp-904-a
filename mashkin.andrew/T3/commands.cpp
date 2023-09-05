@@ -6,6 +6,7 @@
 #include <iterator>
 #include <limits>
 #include <numeric>
+#include <stdexcept>
 #include <vector>
 #include "polygon.h"
 #include "solvingCommands.h"
@@ -79,8 +80,7 @@ namespace mashkin
     {
       if (res.empty())
       {
-        inp.ignore(maxSize, '\n');
-        std::cout << "<INVALID COMMAND>\n";
+        throw;
       }
       else
       {
@@ -91,8 +91,7 @@ namespace mashkin
     {
       if (command == "0" || command == "1" || command == "2")
       {
-        inp.ignore(maxSize, '\n');
-        std::cout << "<INVALID COMMAND>\n";
+        throw;
       }
       else
       {
@@ -101,8 +100,7 @@ namespace mashkin
     }
     else
     {
-      inp.ignore(maxSize, '\n');
-      std::cout << "<INVALID COMMAND>\n";
+      throw;
     }
   }
 
@@ -128,8 +126,7 @@ namespace mashkin
     inp >> command;
     if (data.empty())
     {
-      inp.ignore(maxSize, '\n');
-      std::cout << "<INVALID COMMAND>\n";
+      throw;
     }
     else if (command == "AREA")
     {
@@ -141,8 +138,7 @@ namespace mashkin
     }
     else
     {
-      inp.ignore(maxSize, '\n');
-      std::cout << "<INVALID COMMAND>";
+      throw;
     }
   }
 
@@ -168,8 +164,7 @@ namespace mashkin
     inp >> command;
     if (res.empty())
     {
-      inp.ignore(maxSize, '\n');
-      std::cout << "<INVALID COMMAND>\n";
+      throw;
     }
     else if (command == "AREA")
     {
@@ -181,8 +176,7 @@ namespace mashkin
     }
     else
     {
-      inp.ignore(maxSize, '\n');
-      std::cout << "<INVALID COMMAND>";
+      throw;
     }
   }
 
@@ -238,8 +232,7 @@ namespace mashkin
     {
       if (command == "0" || command == "1" || command == "2")
       {
-        inp.ignore(maxSize, '\n');
-        std::cout << "<INVALID COMMAND>\n";
+        throw;
       }
       else
       {
@@ -248,8 +241,7 @@ namespace mashkin
     }
     else
     {
-      inp.ignore(maxSize, '\n');
-      std::cout << "<INVALID COMMAND>";
+      throw;
     }
   }
 
@@ -261,9 +253,7 @@ namespace mashkin
     if (inp.fail())
     {
       inp.clear();
-      inp.ignore(maxSize, '\n');
-      std::cout << "<INVALID COMMAND>\n";
-      return;
+      throw;
     }
     std::sort(comp.points.begin(), comp.points.end());
     size_t quantity = 0;
