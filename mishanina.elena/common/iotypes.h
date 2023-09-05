@@ -28,7 +28,7 @@ namespace mishanina
   std::istream &operator>>(std::istream &in, UnsignedLongLongIO &&dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
   std::istream &operator>>(std::istream &in, LabelIO &&dest);
-  std::ostream &operator<<(std::ostream &out, const LongLongIO &dest);
-  std::ostream &operator<<(std::ostream &out, const UnsignedLongLongIO &dest);
+//  std::ostream &operator<<(std::ostream &out, const LongLongIO &dest);
+//  std::ostream &operator<<(std::ostream &out, const UnsignedLongLongIO &dest);
 }
 #endif
