@@ -1,8 +1,7 @@
-#include <iostream>
 #include <iterator>
 #include <algorithm>
 #include <limits>
-#include <queue>
+#include <list>
 #include "DataStruct.h"
 
 int main()
@@ -10,17 +9,18 @@ int main()
   using ds_t = mishanina::DataStruct;
   using ist_iter = std::istream_iterator<ds_t>;
   using ost_iter = std::ostream_iterator<ds_t>;
-  std::queue<ds_t> data;
+  std::list<ds_t> data;
+  mishanina::Comporator comp;
   while (!std::cin.eof())
   {
-    std::copy(ist_iter(std::cin), ist_iter(), std::back_inserter(data));
     if (!std::cin)
     {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
+    std::copy(ist_iter(std::cin), ist_iter(), std::back_inserter(data));
   }
-  std::sort(data.begin(), data.end(), mishanina::comparator);
+  data.sort(comp);
   std::copy(std::begin(data), std::end(data), ost_iter(std::cout, "\n"));
   return 0;
 }

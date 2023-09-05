@@ -11,6 +11,8 @@ namespace mishanina
   };
   std::istream &operator>>(std::istream &in, DataStruct &data);
   std::ostream &operator<<(std::ostream &out, const DataStruct &data);
-  bool comparator(const DataStruct &left, const DataStruct &right);
+  struct Comporator{
+    bool operator()(const DataStruct &left, const DataStruct &right);
+  };
 }
 #endif
