@@ -10,7 +10,7 @@ int main()
   using ist_iter = std::istream_iterator<ds_t>;
   using ost_iter = std::ostream_iterator<ds_t>;
   std::list<ds_t> data;
-  mishanina::Comporator comp;
+  mishanina::Comparator comp;
   while (!std::cin.eof())
   {
     if (!std::cin)
