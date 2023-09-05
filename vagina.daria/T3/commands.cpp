@@ -42,7 +42,7 @@ void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::invalid_argument("Invalid parameter");
+    throw;
   }
   std::vector< double > tmp(dest.size());
   std::transform(dest.begin(), dest.end(), tmp.begin(), getArea);
@@ -53,7 +53,7 @@ void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out,
 {
   if (param < 3)
   {
-    throw std::invalid_argument("Invalid parameter");
+    throw;
   }
   using namespace std::placeholders;
   auto countVert = std::bind(isCountOfVertexes, _1, param);
@@ -70,7 +70,7 @@ void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::invalid_argument("Invalid parameter");
+    throw;
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -82,7 +82,7 @@ void vagina::maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::invalid_argument("Invalid parameter");
+    throw;
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -94,7 +94,7 @@ void vagina::minArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::invalid_argument("Invalid parameter");
+    throw;
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -106,7 +106,7 @@ void vagina::minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::invalid_argument("Invalid parameter");
+    throw;
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -128,7 +128,7 @@ void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& ou
 {
   if (param < 3)
   {
-    throw std::invalid_argument("Invalid parameter");
+    throw;
   }
   using namespace std::placeholders;
   auto countVert = std::bind(isCountOfVertexes, _1, param);
@@ -150,7 +150,7 @@ void vagina::perms(const std::vector < Polygon >& dest, std::ostream& out, std::
   in >> pol;
   if (pol.points.size() < 3)
   {
-    throw std::invalid_argument("Invalid parameter");
+    throw;
   }
   using namespace std::placeholders;
   auto perm = std::bind(isPerm, _1, pol);
