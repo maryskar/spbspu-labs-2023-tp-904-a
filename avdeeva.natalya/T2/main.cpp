@@ -3,7 +3,7 @@
 #include <iterator>
 #include <limits>
 #include <algorithm>
-#include "DataStruct.h"
+#include "datastruct.h"
 int main()
 {
   std::deque< avdeeva::DataStruct > data;

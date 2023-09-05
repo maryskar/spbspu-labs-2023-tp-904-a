@@ -1,4 +1,4 @@
-#include "DataStruct.h"
+#include "datastruct.h"
 #include "iostructs.h"
 #include "iofmtguard.h"
 #include <string>
@@ -68,9 +68,10 @@ std::ostream & avdeeva::operator<<(std::ostream & out, const DataStruct & data)
     return out;
   }
   iofmtguard guard(out);
-  out << "(:key1 ";
-  out << convertToScientific(data.key1);
-  out << ":key2 " << data.key2 << "ull";
-  out << ":key3 " << '"' << data.key3 << '"' << ":)";
+  out << "(";
+  out << ":key1" << " " << convertToScientific(data.key1);
+  out << ":key2" << " " << data.key2 << "ull";
+  out << ":key3" << " " << '"' << data.key3 << '"';
+  out << ":)";
   return out;
 }
