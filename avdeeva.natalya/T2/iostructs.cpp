@@ -49,16 +49,16 @@ std::istream & avdeeva::operator>>(std::istream & in, UnsignedLongLongIO && dest
 }
 std::string avdeeva::convertToScientific(double number)
 {
-  int degree = 0;
+  int power = 0;
   while (std::abs(number) < 1 && number != 0)
   {
     number *= 10;
-    degree--;
+    power--;
   }
   while (std::abs(number) >= 10)
   {
     number /= 10;
-    degree++;
+    power++;
   }
   std::string res = std::to_string(number);
   while (res.size() < 4)
@@ -66,7 +66,7 @@ std::string avdeeva::convertToScientific(double number)
     res += '0';
   }
   res = res.substr(0, 4);
-  return res + 'e' + std::to_string(degree);
+  return res + 'e' + std::to_string(power);
 }
 std::istream & avdeeva::operator>>(std::istream & in, DoubleIO && dest)
 {
