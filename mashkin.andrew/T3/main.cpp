@@ -38,7 +38,6 @@ int main(int argc, char** argv)
       mashkin::cleanStream(inpFile);
     }
   }
-  constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
   std::map< std::string, void (*)(std::istream&, const std::vector< mashkin::Polygon >&) > commands;
   mashkin::createMapWithCommands(commands);
   std::string command;
