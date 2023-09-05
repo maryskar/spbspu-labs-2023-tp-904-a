@@ -4,6 +4,7 @@
 #include <limits>
 #include <algorithm>
 #include "datastruct.h"
+
 int main()
 {
   std::deque< avdeeva::DataStruct > data;

@@ -2,6 +2,7 @@
 #define SPBSPU_LABS_2023_TP_904_A_DATASTRUCT_H
 #include <iostream>
 #include <string>
+
 namespace avdeeva
 {
   struct DataStruct

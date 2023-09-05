@@ -1,6 +1,7 @@
 #ifndef SPBSPU_LABS_2023_TP_904_A_IOFMTGUARD_H
 #define SPBSPU_LABS_2023_TP_904_A_IOFMTGUARD_H
 #include <iostream>
+
 namespace avdeeva
 {
   class iofmtguard

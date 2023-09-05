@@ -1,5 +1,6 @@
 #include "iostructs.h"
 #include <cmath>
+
 std::istream & avdeeva::operator>>(std::istream & in, DelimiterIO && dest)
 {
   std::istream::sentry sentry(in);
