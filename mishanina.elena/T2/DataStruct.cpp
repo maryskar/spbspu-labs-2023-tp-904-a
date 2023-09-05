@@ -19,26 +19,18 @@ std::istream &mishanina::operator>>(std::istream &in, DataStruct &data)
     if (number == 1)
     {
       in >> LongLongIO{dataStruct.key1} >> DelimiterIO{':'};
-      if (!in)
-      {
-        return in;
-      }
     }
     else if (number == 2)
     {
       in >> UnsignedLongLongIO{dataStruct.key2} >> DelimiterIO{':'};
-      if (!in)
-      {
-        return in;
-      }
     }
     else if (number == 3)
     {
       in >> StringIO{dataStruct.key3} >> DelimiterIO{':'};
-      if (!in)
-      {
-        return in;
-      }
+    }
+    if (!in)
+    {
+      return in;
     }
   }
   in >> DelimiterIO{')'};
