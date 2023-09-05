@@ -50,5 +50,5 @@ int main(int argc, char* argv[])
     std::cout << getArea(i) << "\n";
   }
   std::cout << "\n";
-  std::cout << getCountEven(data) << "\n";
+  std::cout << getCountVertexes(data, 3) << "\n";
 }

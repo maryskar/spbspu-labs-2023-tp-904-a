@@ -119,5 +119,14 @@ size_t hrushchev::getCountEven(const std::vector< Polygon >& polygons)
 {
   return std::count_if(polygons.begin(), polygons.end(), isEven);
 }
-size_t hrushchev::getCountOdd(const std::vector< Polygon >& polygons);
-size_t hrushchev::getCountVertexes(const std::vector< Polygon >& polygons);
+size_t hrushchev::getCountOdd(const std::vector< Polygon >& polygons)
+{
+  return std::count_if(polygons.begin(), polygons.end(), isOdd);
+}
+
+size_t hrushchev::getCountVertexes(const std::vector< Polygon >& polygons, size_t count)
+{
+  using namespace std::placeholders;
+  auto pred = std::bind(isNecessaryVertex, _1, count);
+  return count_if(polygons.begin(), polygons.end(), pred);
+}
