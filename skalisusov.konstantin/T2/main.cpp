@@ -14,7 +14,7 @@ int main()
     std::copy(InpIter(std::cin),
       InpIter(),
       std::back_inserter(vector));
-    if (!std::cin)
+    if (std::cin.fail())
     {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');

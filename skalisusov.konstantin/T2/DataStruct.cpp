@@ -10,10 +10,9 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
   {
     return in;
   }
-  DataStruct input;
-  input.key1 = 0;
-  input.key2 = 0;
-  input.key3 = "0";
+  double key1 = 0.0;
+  double key2 = 0.0;
+  std::string key3 = "";
   {
     using delim = DelimiterIO;
     using dublit = DoubleLiteralFormatIO;
@@ -29,22 +28,24 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
       in >> number;
       if (number == 1)
       {
-        in >> dublit{input.key1} >> delim{':'};
+        in >> dublit{key1} >> delim{':'};
       }
       else if (number == 2)
       {
-        in >> dubsci{input.key2} >> delim{':'};
+        in >> dubsci{key2} >> delim{':'};
       }
       else if (number == 3)
       {
-        in >> str{input.key3} >> delim{':'};
+        in >> str{key3} >> delim{':'};
       }
     }
     in >> delim{')'};
   }
   if (in)
   {
-    dest = input;
+    dest.key1 = key1;
+    dest.key2 = key2;
+    dest.key3 = key3;
   }
   return in;
 }
