@@ -61,13 +61,13 @@ std::istream &mishanina::operator>>(std::istream &in, LabelIO &&dest)
   return in;
 }
 
-std::ostream &mishanina::operator<<(std::ostream &out, const LongLongIO &&dest)
+std::ostream &mishanina::operator<<(std::ostream &out, const LongLongIO &dest)
 {
   out << dest << "ll";
   return out;
 }
 
-std::ostream &mishanina::operator<<(std::ostream &out, const UnsignedLongLongIO &&dest)
+std::ostream &mishanina::operator<<(std::ostream &out, const UnsignedLongLongIO &dest)
 {
   out << dest << "ull";
   return out;
