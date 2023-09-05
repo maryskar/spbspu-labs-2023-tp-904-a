@@ -15,13 +15,13 @@ namespace mishanina
     long long key1;
     unsigned long long key2;
     std::string key3;
-    void output(std::ostream &out) const{
-      out << '(';
-      out << ":key1 " << key1;
-      out << ":key2 " << key2;
-      out << ":key3 " << std::quoted(key3, '"');
-      out << ":)";
-    }
+//    void output(std::ostream &out) const{
+//      out << '(';
+//      out << ":key1 " << key1;
+//      out << ":key2 " << key2;
+//      out << ":key3 " << std::quoted(key3, '"');
+//      out << ":)";
+//    }
   };
 //  std::ostream &operator<<(std::ostream &out, const LongLongIO &dest);
 //  std::ostream &operator<<(std::ostream &out, const UnsignedLongLongIO &dest);

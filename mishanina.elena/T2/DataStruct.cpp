@@ -7,16 +7,16 @@
 
 namespace mishanina
 {
-//  inline std::ostream &operator<<(std::ostream &out,  const long long &data)
-//  {
-//    out << data << "ll";
-//    return out;
-//  }
-//  inline std::ostream &operator<<(std::ostream &out, const UnsignedLongLongIO &dest)
-//  {
-//    out << dest.ref << "ull";
-//    return out;
-//  }
+  std::ostream &printLL(std::ostream &out,  const long long &data)
+  {
+    out << ":key1 " << static_cast< long long >(data) << "ll";
+    return out;
+  }
+  std::ostream &printULL(std::ostream &out, const unsigned long long &data)
+  {
+    out << ":key2 " << static_cast< unsigned long long >(data) << "ull";
+    return out;
+  }
 }
 
 std::istream &mishanina::operator>>(std::istream &in, DataStruct &data)
@@ -65,15 +65,17 @@ std::ostream &mishanina::operator<<(std::ostream &out, const DataStruct &data)
   {
     return out;
   }
-  data.output(out);
-//  out << '(';
+//  data.output(out);
+  out << '(';
 //  out << ":key1 " << data.key1;
 //  mishanina::operator<<(out,data.key1);
 //  mishanina::operator<<(out, data.key1);
 //  out << ":key2 " << data.key2;
 //  mishanina::operator<<(out, data.key2);
-//  out << ":key3 " << std::quoted(data.key3, '"');
-//  out << ":)";
+  mishanina::printLL(out,data.key1);
+  mishanina::printULL(out,data.key2);
+  out << ":key3 " << std::quoted(data.key3, '"');
+  out << ":)";
   return out;
 }
 
