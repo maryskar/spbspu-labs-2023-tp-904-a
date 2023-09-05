@@ -3,6 +3,7 @@
 #include <iterator>
 #include <limits>
 #include "commands.h"
+#include "polygonutils.h"
 std::ostream &printError(std::ostream &out)
 {
   return out << "<INVALID COMMAND>";
