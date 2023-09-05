@@ -14,7 +14,11 @@ namespace shestakov
     }
     else if (lhs.key2 != rhs.key2)
     {
-      return pow(pow(lhs.key2.real(), 2) + pow(lhs.key2.imag(), 2), 0.5) < pow(pow(rhs.key2.real(), 2) + pow(rhs.key2.imag(), 2), 0.5);
+      double left = 0.0;
+      double right = 0.0;
+      left = pow(pow(lhs.key2.real(), 2) + pow(lhs.key2.imag(), 2), 0.5);
+      right = pow(pow(rhs.key2.real(), 2) + pow(rhs.key2.imag(), 2), 0.5);
+      return left < right;
     }
     else
     {
@@ -64,7 +68,7 @@ namespace shestakov
   }
   std::ostream& operator<<(std::ostream& out, const std::complex< double >& dest)
   {
-    out << "#c(" << dest.real() << ' ' << dest.imag() << ')';
+    out << std::fixed << std::setprecision(1) << "#c(" << dest.real() << ' ' << dest.imag() << ')';
     return out;
   }
   std::ostream& operator<<(std::ostream& out, const DataStruct& src)
@@ -76,7 +80,7 @@ namespace shestakov
     }
     iofmtguard fmtguard(out);
     out << "(:key1 '" << src.key1 << "'";
-    out << ":key2 " << std::fixed << std::setprecision(1) << src.key2;
+    out << ":key2 "  << src.key2;
     out << ":key3 " << std::quoted(src.key3, '"') << ":)";
     return out;
   }
