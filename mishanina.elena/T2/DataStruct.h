@@ -1,7 +1,7 @@
 #ifndef DATA_STRUCT_H
 #define DATA_STRUCT_H
 #include <iostream>
-#include <iotypes.h>
+
 namespace mishanina
 {
   struct DataStruct
@@ -15,8 +15,6 @@ namespace mishanina
     unsigned long long key2;
     std::string key3;
   };
-  std::ostream &operator<<(std::ostream &out, const LongLongIO &dest);
-  std::ostream &operator<<(std::ostream &out, const UnsignedLongLongIO &dest);
   std::istream &operator>>(std::istream &in, DataStruct &data);
   std::ostream &operator<<(std::ostream &out, const DataStruct &data);
   struct Comparator{

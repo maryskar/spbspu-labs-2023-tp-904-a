@@ -1,18 +1,7 @@
 #include "DataStruct.h"
 #include <iomanip>
+#include <iotypes.h>
 #include <iofmtguard.h>
-
-std::ostream &mishanina::operator<<(std::ostream &out, const LongLongIO &dest)
-{
-  out << dest.ref << "ll";
-  return out;
-}
-
-std::ostream &mishanina::operator<<(std::ostream &out, const UnsignedLongLongIO &dest)
-{
-  out << dest.ref  << "ull";
-  return out;
-}
 
 std::istream &mishanina::operator>>(std::istream &in, DataStruct &data)
 {
