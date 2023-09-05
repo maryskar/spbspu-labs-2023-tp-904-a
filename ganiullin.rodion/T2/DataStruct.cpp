@@ -86,7 +86,7 @@ std::ostream& ganiullin::operator<<(std::ostream& out, const DataStruct& src)
 
 bool ganiullin::Comparator::operator()(const DataStruct& lhs, const DataStruct rhs) const
 {
-  if (lhs.key1 == rhs.key1) {
+  if (lhs.key1 == rhs.key1){
     if (lhs.key2 == rhs.key2) {
       return lhs.key3.length() < rhs.key3.length();
     }

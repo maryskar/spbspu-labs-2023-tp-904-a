@@ -1,6 +1,6 @@
 #include "iostructs.h"
 #include <cmath>
-std::istream& avdeeva::operator>>(std::istream& in, DelimiterIO&& dest)
+std::istream & avdeeva::operator>>(std::istream & in, DelimiterIO && dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -15,7 +15,7 @@ std::istream& avdeeva::operator>>(std::istream& in, DelimiterIO&& dest)
   }
   return in;
 }
-std::istream& avdeeva::operator>>(std::istream& in, LabelIO&& dest)
+std::istream & avdeeva::operator>>(std::istream & in, LabelIO && dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -28,7 +28,7 @@ std::istream& avdeeva::operator>>(std::istream& in, LabelIO&& dest)
   }
   return in;
 }
-std::istream& avdeeva::operator>>(std::istream& in, StringIO&& dest)
+std::istream & avdeeva::operator>>(std::istream & in, StringIO && dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -37,7 +37,7 @@ std::istream& avdeeva::operator>>(std::istream& in, StringIO&& dest)
   }
   return std::getline(in >> DelimiterIO{'"'}, dest.exp, '"');
 }
-std::istream& avdeeva::operator>>(std::istream& in, UnsignedLongLongIO&& dest)
+std::istream & avdeeva::operator>>(std::istream & in, UnsignedLongLongIO && dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -67,7 +67,7 @@ std::string avdeeva::convertToScientific(double number)
   res = res.substr(0, 4);
   return res + 'e' + std::to_string(degree);
 }
-std::istream& avdeeva::operator>>(std::istream& in, DoubleIO&& dest)
+std::istream & avdeeva::operator>>(std::istream & in, DoubleIO && dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
