@@ -57,7 +57,7 @@ std::ostream &mishanina::operator<<(std::ostream &out, const DataStruct &data)
   return out;
 }
 
-bool mishanina::Comporator::operator()(const DataStruct &left, const DataStruct &right)
+bool mishanina::Comparator::operator()(const DataStruct &left, const DataStruct &right)
 {
   if (left.key1 != right.key1)
   {
