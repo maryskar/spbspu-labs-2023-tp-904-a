@@ -129,6 +129,7 @@ void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& ou
   if (param < 3)
   {
     throw std::invalid_argument("Invalid parameter");
+
   }
   using namespace std::placeholders;
   auto countVert = std::bind(isCountOfVertexes, _1, param);
