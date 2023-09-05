@@ -65,7 +65,7 @@ namespace
   std::pair< double, double > partitionPolygonAreas(std::vector< Polygon > polygons)
   {
     std::vector< Polygon >::iterator itp = std::partition(polygons.begin(), polygons.end(),
-                                                              romanovich::IsEvenPointsCount{});
+        romanovich::IsEvenPointsCount{});
     std::vector< double > areas = makeAreasVector(polygons);
     std::vector< double >::iterator ita = std::next(areas.begin(), std::distance(polygons.begin(), itp));
     double sumEven = std::accumulate(ita, areas.end(), 0.0);
@@ -144,7 +144,7 @@ namespace romanovich
     {
       std::vector< Polygon > polygonsTmp = pols;
       std::vector< Polygon >::const_iterator first = std::remove_if(polygonsTmp.begin(), polygonsTmp.end(),
-                                                                      romanovich::HasNotPointsCount(targetNumber));
+          romanovich::HasNotPointsCount(targetNumber));
       std::vector< Polygon >::const_iterator last = polygonsTmp.end();
       polygonsTmp.erase(first, last);
       std::vector< double > areas = makeAreasVector(polygonsTmp);
