@@ -36,4 +36,4 @@ namespace skalisusov
   std::ostream & operator<<(std::ostream &out, const DoubleSciencificFormatO &&dest);
   std::istream & operator>>(std::istream &in, StringIO &&dest);
 }
-#endif //SPBSPU_LABS_2023_TP_904_A_STRUCTTYPES_H
+#endif

@@ -11,6 +11,9 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
     return in;
   }
   DataStruct input;
+  input.key1 = 0;
+  input.key2 = 0;
+  input.key3 = "0";
   {
     using delim = DelimiterIO;
     using dublit = DoubleLiteralFormatIO;
@@ -19,7 +22,7 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
     using label = LabelIO;
     in >> delim{'('};
     in >> delim{':'};
-    for(std::size_t i = 1; i <= 3; i++)
+    for (std::size_t i = 1; i <= 3; i++)
     {
       std::size_t number = 0;
       in >> label{"key"};
