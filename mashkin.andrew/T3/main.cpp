@@ -5,10 +5,10 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "cleanStream.h"
 #include "commands.h"
 #include "mapWithCommands.h"
 #include "polygon.h"
-#include "cleanSteam.h"
 
 int main(int argc, char** argv)
 {

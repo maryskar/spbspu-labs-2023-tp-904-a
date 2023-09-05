@@ -1,5 +1,5 @@
-#ifndef T3_CLEANSTEAM_H
-#define T3_CLEANSTEAM_H
+#ifndef T3_CLEANSTREAM_H
+#define T3_CLEANSTREAM_H
 #include <iostream>
 
 namespace mashkin
