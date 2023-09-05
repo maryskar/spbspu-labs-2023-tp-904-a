@@ -75,6 +75,7 @@ namespace
 }
 namespace romanovich
 {
+  using namespace std::placeholders;
   void CommandProcessor::calcAreaMin(const std::vector< Polygon > &polygons)
   {
     compType areaComp = static_cast< compType >(romanovich::AreaComp{});
