@@ -30,7 +30,11 @@ int main(int argc, char **argv)
 
     if (file.fail()) {
       file.clear();
-      file.ignore(streamsize_limits::max(), '\n');
+      int nextChar = file.peek();
+
+      if (nextChar != '\n' && nextChar != -1) {
+        file.ignore(streamsize_limits::max(), '\n');
+      }
     }
   }
 
@@ -48,11 +52,11 @@ int main(int argc, char **argv)
       kumachev::printInvalid(out);
       out << '\n';
       in.clear();
+      int nextChar = in.peek();
 
-      // If stream is empty, in.ignore will delete next command.
-      // As a workaround, unget will put newline back, if it was just read
-      in.unget();
-      in.ignore(streamsize_limits::max(), '\n');
+      if (nextChar != '\n' && nextChar != -1) {
+        in.ignore(streamsize_limits::max(), '\n');
+      }
     }
     catch (const std::runtime_error &e) {
       break;
