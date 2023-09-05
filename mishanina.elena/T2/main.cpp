@@ -10,7 +10,7 @@ int main()
   using ds_t = mishanina::DataStruct;
   using ist_iter = std::istream_iterator<ds_t>;
   using ost_iter = std::ostream_iterator<ds_t>;
-  std::queue<ds_t> data;
+  std::list<ds_t> data;
   while (!std::cin.eof())
   {
     if (!std::cin)
