@@ -1,6 +1,6 @@
 #include "iofmtguard.h"
 
-mishanina::iofmtguard::iofmtguard(std::basic_ios<char> &s):
+mishanina::iofmtguard::iofmtguard(std::basic_ios< char > &s):
   s_(s),
   fill_(s.fill()),
   precision_(s.precision()),
