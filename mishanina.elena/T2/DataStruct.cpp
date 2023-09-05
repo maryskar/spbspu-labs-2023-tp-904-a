@@ -1,7 +1,23 @@
 #include "DataStruct.h"
-#include <iomanip>
-#include <iotypes.h>
-#include <iofmtguard.h>
+//#include <iomanip>
+//#include <iotypes.h>
+//#include <iofmtguard.h>
+//#include "../common/iofmtguard.h"
+#include "../common/iotypes.h"
+
+namespace mishanina
+{
+//  inline std::ostream &operator<<(std::ostream &out,  const long long &data)
+//  {
+//    out << data << "ll";
+//    return out;
+//  }
+//  inline std::ostream &operator<<(std::ostream &out, const UnsignedLongLongIO &dest)
+//  {
+//    out << dest.ref << "ull";
+//    return out;
+//  }
+}
 
 std::istream &mishanina::operator>>(std::istream &in, DataStruct &data)
 {
@@ -49,11 +65,15 @@ std::ostream &mishanina::operator<<(std::ostream &out, const DataStruct &data)
   {
     return out;
   }
-  out << '(';
-  out << ":key1 " << data.key1;
-  out << ":key2 " << data.key2;
-  out << ":key3 " << std::quoted(data.key3, '"');
-  out << ":)";
+  data.output(out);
+//  out << '(';
+//  out << ":key1 " << data.key1;
+//  mishanina::operator<<(out,data.key1);
+//  mishanina::operator<<(out, data.key1);
+//  out << ":key2 " << data.key2;
+//  mishanina::operator<<(out, data.key2);
+//  out << ":key3 " << std::quoted(data.key3, '"');
+//  out << ":)";
   return out;
 }
 
