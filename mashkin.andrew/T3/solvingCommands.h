@@ -17,7 +17,7 @@ namespace mashkin
 
   struct PositiveArea
   {
-    PositiveArea(const Polygon& lhs);
+    explicit PositiveArea(const Polygon& lhs);
     std::vector< XMultiY > halfArea;
   };
 
@@ -38,14 +38,13 @@ namespace mashkin
 
   struct Vector
   {
-    Vector(const Polygon& rhs);
-    Vector(const Point& first, const Point& second);
+    explicit Vector(const Polygon& rhs);
     std::vector< Point > vect;
   };
 
   struct Angle
   {
-    Angle(const Vector& rhs);
+    explicit Angle(const Vector& rhs);
     std::vector< int > ang;
   };
 
