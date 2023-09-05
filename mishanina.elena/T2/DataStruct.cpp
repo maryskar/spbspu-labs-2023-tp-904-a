@@ -48,7 +48,6 @@ std::ostream &mishanina::operator<<(std::ostream &out, const DataStruct &data)
   {
     return out;
   }
-  iofmtguard fmtguard(out);
   out << '(';
   out << ":key1 " << data.key1 << "ll";
   out << ":key2 " << data.key2 << "ull";
