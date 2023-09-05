@@ -1,9 +1,9 @@
-#include "DataStruct.h"
-#include "DataIO.h"
 #include <algorithm>
 #include <iostream>
 #include <deque>
 #include <iterator>
+#include "DataStruct.h"
+#include "DataIO.h"
 int main()
 {
   std::deque< zhukova::DataStruct > dataVector;

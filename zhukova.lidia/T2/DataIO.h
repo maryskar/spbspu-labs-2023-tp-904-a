@@ -1,9 +1,9 @@
 #ifndef T2_DATAIO_H
 #define T2_DATAIO_H
-#include "DataStruct.h"
 #include <string>
 #include <complex>
 #include <iomanip>
+#include "DataStruct.h"
 namespace zhukova
 {
   struct DelimiterIO
