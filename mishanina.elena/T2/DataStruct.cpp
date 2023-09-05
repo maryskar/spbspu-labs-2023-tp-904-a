@@ -50,8 +50,8 @@ std::ostream &mishanina::operator<<(std::ostream &out, const DataStruct &data)
     return out;
   }
   out << '(';
-  out << ":key1 " << data.key1 << "ll";
-  out << ":key2 " << data.key2 << "ull";
+  out << ":key1 " << data.key1;
+  out << ":key2 " << data.key2;
   out << ":key3" << std::quoted(data.key3, '"');
   out << ":)";
   return out;
