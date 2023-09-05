@@ -2,7 +2,7 @@
 #include <iterator>
 #include <algorithm>
 #include <limits>
-#include <queue>
+#include <list>
 #include "DataStruct.h"
 
 int main()
