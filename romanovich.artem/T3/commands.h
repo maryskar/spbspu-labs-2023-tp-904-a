@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <functional>
 #include "polygoncomparators.h"
-using namespace std::placeholders;
 namespace romanovich
 {
   class CommandProcessor
@@ -15,6 +14,7 @@ namespace romanovich
     const std::string maxSeqCommand = "MAXSEQ";
     CommandProcessor()
     {
+      using namespace std::placeholders;
       commands["MAX VERTEXES"] = std::bind(&CommandProcessor::calcPointsMax, this, _1);
       commands["MIN VERTEXES"] = std::bind(&CommandProcessor::calcPointsMin, this, _1);
       commands["AREA MEAN"] = std::bind(&CommandProcessor::calcAreaMean, this, _1);
@@ -44,8 +44,8 @@ namespace romanovich
     void countMaxSeq(const std::vector< Polygon > &, const std::string &);
     void countShapesWithRightAngle(const std::vector< Polygon > &);
   private:
-    using CommandMap = std::unordered_map< std::string, std::function< void(const std::vector< Polygon >&, std::string) > >;
-    CommandMap commands;
+    using mapType = std::unordered_map< std::string, std::function< void(const std::vector< Polygon >&, std::string) > >;
+    mapType commands;
     int getTargetNumber(const std::string &line);
   };
 }

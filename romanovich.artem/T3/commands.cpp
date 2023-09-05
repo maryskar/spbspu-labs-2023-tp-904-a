@@ -168,7 +168,7 @@ namespace romanovich
   }
   void CommandProcessor::operator()(const std::string &command, const std::vector< Polygon > &polygons)
   {
-    CommandMap::iterator it = commands.find(command);
+    mapType::iterator it = commands.find(command);
     if (it != commands.end())
     {
       (it->second)(polygons, "");
