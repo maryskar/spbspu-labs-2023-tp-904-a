@@ -5,6 +5,11 @@ namespace mishanina
 {
   struct DataStruct
   {
+    DataStruct():
+      key1(0),
+      key2(0),
+      key3("")
+    {}
     long long key1;
     unsigned long long key2;
     std::string key3;
