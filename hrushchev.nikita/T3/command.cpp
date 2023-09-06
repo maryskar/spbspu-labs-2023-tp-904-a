@@ -70,9 +70,9 @@ double chooseLessVertexes(double cur, const hrushchev::Polygon& polygon)
   return (cur < count) ? cur : count;
 }
 
-double isEqualPolygon(const hrushchev::Polygon& rhs, const hrushchev::Polygon& lhs)
+double isEqualPolygon(const hrushchev::Polygon& lhs, const hrushchev::Polygon& rhs, const hrushchev::Polygon& polygon)
 {
-  return rhs == lhs;
+  return (rhs == lhs) && (rhs == polygon);
 }
 
 double hrushchev::getAreaEven(const std::vector< Polygon >& polygons)
@@ -142,7 +142,7 @@ size_t hrushchev::getCountVertexes(const std::vector< Polygon >& polygons, size_
 size_t hrushchev::rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon)
 {
   using namespace std::placeholders;
-  auto pred = std::bind(isEqualPolygon, polygon, _2);
+  auto pred = std::bind(isEqualPolygon, _1, _2, polygon);
   auto new_end = std::unique(polygons.begin(), polygons.end(), pred);
   size_t res = std::distance(new_end, polygons.end());
   polygons.erase(new_end, polygons.end());
