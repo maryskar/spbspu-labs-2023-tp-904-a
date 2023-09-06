@@ -50,7 +50,7 @@ std::istream & avdeeva::operator>>(std::istream & in, UnsignedLongLongIO && dest
 std::string avdeeva::convertToScientific(double number)
 {
   int power = 0;
-  while (std::abs(number) < 1 && number != 0)
+  while (std::abs(number) < 1)
   {
     number *= 10;
     power--;
