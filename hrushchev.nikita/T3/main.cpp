@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
     std::cout << getArea(i) << "\n";
   }
   std::cout << "\n";
-  std::cout << rmEcho(data, *(data.begin())) << "\n";
+  std::cout << getSame(data, *(data.begin())) << "\n";
   for (auto i : data)
   {
     printPolygon(i);
