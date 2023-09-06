@@ -20,6 +20,7 @@ namespace hrushchev
   size_t getCountEven(const std::vector< Polygon >& polygons);
   size_t getCountOdd(const std::vector< Polygon >& polygons);
   size_t getCountVertexes(const std::vector< Polygon >& polygons, size_t count);
+  size_t rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon);
 }
 
 #endif

@@ -3,6 +3,16 @@
 #include <algorithm>
 #include <iotypes.hpp>
 
+bool hrushchev::operator==(const Point& lhs, const Point& rhs)
+{
+  return (lhs.x_ == rhs.x_) && (lhs.y_ == rhs.y_);
+}
+
+bool hrushchev::operator==(const Polygon& lhs, const Polygon& rhs)
+{
+  return lhs.points_ == rhs.points_;
+}
+
 std::istream& hrushchev::operator>>(std::istream& in, Point& dest)
 {
   std::istream::sentry sentry(in);

@@ -5,6 +5,9 @@
 #include <algorithm>
 #include <functional>
 
+
+#include <iostream>
+
 double hrushchev::calcArea(const Point & left, const Point & right)
 {
   return 0.5 * (left.x_ * right.y_ - right.x_ * left.y_);
@@ -65,6 +68,11 @@ double chooseLessVertexes(double cur, const hrushchev::Polygon& polygon)
 {
   size_t count = polygon.points_.size();
   return (cur < count) ? cur : count;
+}
+
+double isEqualPolygon(const hrushchev::Polygon& rhs, const hrushchev::Polygon& lhs)
+{
+  return rhs == lhs;
 }
 
 double hrushchev::getAreaEven(const std::vector< Polygon >& polygons)
@@ -130,3 +138,14 @@ size_t hrushchev::getCountVertexes(const std::vector< Polygon >& polygons, size_
   auto pred = std::bind(isNecessaryVertex, _1, count);
   return count_if(polygons.begin(), polygons.end(), pred);
 }
+
+size_t hrushchev::rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon)
+{
+  using namespace std::placeholders;
+  auto pred = std::bind(isEqualPolygon, polygon, _2);
+  auto new_end = std::unique(polygons.begin(), polygons.end(), pred);
+  size_t res = std::distance(new_end, polygons.end());
+  polygons.erase(new_end, polygons.end());
+  return res;
+}
+
