@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     }
   }
 
-  auto commands = kumachev::createCommandSystem();
+  kumachev::CommandSystem commands;
   std::istream &in = std::cin;
   std::ostream &out = std::cout;
 
