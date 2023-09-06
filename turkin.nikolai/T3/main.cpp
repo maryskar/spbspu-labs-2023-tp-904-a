@@ -23,7 +23,17 @@ int main(int argc, char * argv[])
   }
 
   std::deque< turkin::Polygon > data;
-  std::copy(std::istream_iterator< turkin::Polygon >(file), std::istream_iterator< turkin::Polygon >(), std::back_inserter(data));
+
+  while (!file.eof())
+  {
+    if (file.fail())
+    {
+      file.clear();
+      file.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      continue;
+    }
+    std::copy(std::istream_iterator< turkin::Polygon >(file), std::istream_iterator< turkin::Polygon >(), std::back_inserter(data));
+  }
 
   while (std::cin)
   {
