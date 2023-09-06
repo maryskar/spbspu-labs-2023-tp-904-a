@@ -3,12 +3,13 @@
 
 #include <iomanip>
 
-namespace kabanov {
-  class FormatGuardIO {
+namespace kabanov
+{
+  class FormatGuardIO
+  {
   public:
     explicit FormatGuardIO(std::basic_ios< char >& s);
     ~FormatGuardIO();
-
   private:
     std::basic_ios< char >& s_;
     char fill_;
