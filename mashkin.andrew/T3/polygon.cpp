@@ -35,6 +35,7 @@ namespace mashkin
       return inp;
     }
     using inpIter = std::istream_iterator< mashkin::Point >;
+    input.points.reserve(numOfPoints);
     std::copy_n(inpIter(inp), numOfPoints, std::back_inserter(input.points));
     if (inp)
     {
