@@ -1,8 +1,8 @@
 #include "datastruct.h"
-#include "iostructs.h"
-#include "iofmtguard.h"
 #include <string>
 #include <iostream>
+#include "iostructs.h"
+#include "iofmtguard.h"
 
 bool avdeeva::Comparator::operator()(const DataStruct & lhs, const DataStruct & rhs) const
 {
