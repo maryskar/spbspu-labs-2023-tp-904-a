@@ -30,11 +30,7 @@ int main(int argc, char **argv)
 
     if (file.fail()) {
       file.clear();
-      int nextChar = file.peek();
-
-      if (nextChar != '\n' && nextChar != -1) {
-        file.ignore(streamsize_limits::max(), '\n');
-      }
+      file.ignore(streamsize_limits::max(), '\n');
     }
   }
 
@@ -52,11 +48,7 @@ int main(int argc, char **argv)
       kumachev::printInvalid(out);
       out << '\n';
       in.clear();
-      int nextChar = in.peek();
-
-      if (nextChar != '\n' && nextChar != -1) {
-        in.ignore(streamsize_limits::max(), '\n');
-      }
+      in.ignore(streamsize_limits::max(), '\n');
     }
     catch (const std::runtime_error &e) {
       break;
