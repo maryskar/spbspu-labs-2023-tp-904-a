@@ -9,12 +9,9 @@ std::istream &gudkov::operator>>(std::istream &in, DelimiterExpIO &&dest)
     return in;
   }
   char c = '0';
+  in >> c;
 
-  if (in.peek() == dest.exp)
-  {
-    in >> c;
-  }
-  else if (in)
+  if (in && (c != dest.exp))
   {
     in.setstate(std::ios::failbit);
   }
