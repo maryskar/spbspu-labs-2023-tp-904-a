@@ -45,12 +45,9 @@ int main(int argc, char* argv[])
   {
     printPolygon(i);
   }
-  for (auto i : data)
-  {
-    std::cout << getArea(i) << "\n";
-  }
   std::cout << "\n";
-  std::cout << getSame(data, *(data.begin())) << "\n";
+  getSame(data, *(data.begin()), std::cout);
+  std::cout << "\n";
   for (auto i : data)
   {
     printPolygon(i);

@@ -1,18 +1,16 @@
 #include "command.hpp"
-#include "polygon.hpp"
 #include <cmath>
 #include <numeric>
 #include <algorithm>
 #include <functional>
+#include <scopeguard.hpp>
+#include "polygon.hpp"
 
-
-#include <iostream>
-
-double hrushchev::calcArea(const Point & left, const Point & right)
+double calcArea(const hrushchev::Point & left, const hrushchev::Point & right)
 {
   return 0.5 * (left.x_ * right.y_ - right.x_ * left.y_);
 }
-double hrushchev::getArea(const Polygon & polygon)
+double getArea(const hrushchev::Polygon & polygon)
 {
   double res = 0.0;
   std::vector< double > values(polygon.points_.size());
@@ -28,7 +26,7 @@ double hrushchev::getArea(const Polygon & polygon)
 
 double sumArea(double cur, const hrushchev::Polygon& polygon)
 {
-  return cur + hrushchev::getArea(polygon);
+  return cur + getArea(polygon);
 }
 
 bool isEven(const hrushchev::Polygon& polygon)
@@ -48,7 +46,7 @@ bool isNecessaryVertex(const hrushchev::Polygon& polygon, size_t count)
 
 double chooseGreatereArea(double cur, const hrushchev::Polygon& polygon)
 {
-  double area = hrushchev::getArea(polygon);
+  double area = getArea(polygon);
   return (cur > area) ? cur : area;
 }
 
@@ -60,7 +58,7 @@ double chooseGreatereVertexes(double cur, const hrushchev::Polygon& polygon)
 
 double chooseLessArea(double cur, const hrushchev::Polygon& polygon)
 {
-  double area = hrushchev::getArea(polygon);
+  double area = getArea(polygon);
   return (cur < area) ? cur : area;
 }
 
@@ -95,84 +93,80 @@ bool isCompatiblePolygons(const hrushchev::Polygon& lhs, const hrushchev::Polygo
   std::transform(lhs.points_.begin(), lhs.points_.end(), rhs.points_.begin(), result.begin(), binary_op);
   return size == result.size();
 }
-
-double hrushchev::getAreaEven(const std::vector< Polygon >& polygons)
+void hrushchev::getAreaEven(const std::vector< Polygon >& polygons, std::ostream& out)
 {
   std::vector< Polygon > even_polygons;
   std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(even_polygons), isEven);
-  return std::accumulate(even_polygons.begin(), even_polygons.end(), 0.0, sumArea);
+   out << std::fixed << std::accumulate(even_polygons.begin(), even_polygons.end(), 0.0, sumArea);
 }
-double hrushchev::getAreaOdd(const std::vector< Polygon >& polygons)
+
+void hrushchev::getAreaOdd(const std::vector< Polygon >& polygons, std::ostream& out)
 {
   std::vector< Polygon > odd_polygons;
   std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(odd_polygons), isOdd);
-  return std::accumulate(odd_polygons.begin(), odd_polygons.end(), 0.0, sumArea);
+  out << std::fixed << std::accumulate(odd_polygons.begin(), odd_polygons.end(), 0.0, sumArea);
 }
-
-double hrushchev::getAreaMean(const std::vector< Polygon >& polygons)
+void hrushchev::getAreaMean(const std::vector< Polygon >& polygons, std::ostream& out)
 {
   size_t count = polygons.size();
-  return std::accumulate(polygons.begin(), polygons.end(), 0.0, sumArea) / count;
+  out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), 0.0, sumArea) / count;
 }
-
-double hrushchev::getAreaVertexes(const std::vector< Polygon >& polygons, size_t count)
+void hrushchev::getAreaVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out)
 {
   std::vector< Polygon > vertexes_polygons;
   using namespace std::placeholders;
   auto pred = std::bind(isNecessaryVertex, _1, count);
   std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(vertexes_polygons), pred);
-  return std::accumulate(vertexes_polygons.begin(), vertexes_polygons.end(), 0.0, sumArea);
+  out << std::fixed << std::accumulate(vertexes_polygons.begin(), vertexes_polygons.end(), 0.0, sumArea);
+}
+void hrushchev::getMaxArea(const std::vector< Polygon >& polygons, std::ostream& out)
+{
+  out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereArea);
 }
 
-double hrushchev::getMaxArea(const std::vector< Polygon >& polygons)
+void hrushchev::getMaxVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
 {
-  return std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereArea);
+  out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereVertexes);
+}
+void hrushchev::getMinArea(const std::vector< Polygon >& polygons, std::ostream& out)
+{
+  out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), getArea(polygons.front()), chooseLessArea);
 }
 
-size_t hrushchev::getMaxVertexes(const std::vector< Polygon >& polygons)
+void hrushchev::getMinVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
 {
-  return std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereVertexes);
+  out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), polygons.front().points_.size(), chooseLessVertexes);
 }
 
-double hrushchev::getMinArea(const std::vector< Polygon >& polygons)
+void hrushchev::getCountEven(const std::vector< Polygon >& polygons, std::ostream& out)
 {
-  return std::accumulate(polygons.begin(), polygons.end(), getArea(polygons.front()), chooseLessArea);
+  out << std::fixed << std::count_if(polygons.begin(), polygons.end(), isEven);
+}
+void hrushchev::getCountOdd(const std::vector< Polygon >& polygons, std::ostream& out)
+{
+  out << std::fixed << std::count_if(polygons.begin(), polygons.end(), isOdd);
 }
 
-size_t hrushchev::getMinVertexes(const std::vector< Polygon >& polygons)
-{
-  return std::accumulate(polygons.begin(), polygons.end(), polygons.front().points_.size(), chooseLessVertexes);
-}
-
-size_t hrushchev::getCountEven(const std::vector< Polygon >& polygons)
-{
-  return std::count_if(polygons.begin(), polygons.end(), isEven);
-}
-size_t hrushchev::getCountOdd(const std::vector< Polygon >& polygons)
-{
-  return std::count_if(polygons.begin(), polygons.end(), isOdd);
-}
-
-size_t hrushchev::getCountVertexes(const std::vector< Polygon >& polygons, size_t count)
+void hrushchev::getCountVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out)
 {
   using namespace std::placeholders;
   auto pred = std::bind(isNecessaryVertex, _1, count);
-  return count_if(polygons.begin(), polygons.end(), pred);
+  out << std::fixed << count_if(polygons.begin(), polygons.end(), pred);
 }
 
-size_t hrushchev::rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon)
+void hrushchev::rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& out)
 {
   using namespace std::placeholders;
   auto pred = std::bind(isEqualPolygon, _1, _2, polygon);
   auto new_end = std::unique(polygons.begin(), polygons.end(), pred);
   size_t res = std::distance(new_end, polygons.end());
   polygons.erase(new_end, polygons.end());
-  return res;
+  out << std::fixed << res;
 }
 
-size_t hrushchev::getSame(std::vector< Polygon >& polygons, const Polygon& polygon)
+void hrushchev::getSame(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& out)
 {
   using namespace std::placeholders;
   auto pred = std::bind(isCompatiblePolygons, _1, polygon);
-  return count_if(polygons.begin(), polygons.end(), pred);
+  out << std::fixed << count_if(polygons.begin(), polygons.end(), pred);
 }

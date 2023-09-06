@@ -2,26 +2,24 @@
 #define COMMAND_HPP
 
 #include <vector>
+#include <ostream>
 #include "polygon.hpp"
 
 namespace hrushchev
 {
-  double calcArea(const Point & left, const Point & right);
-  double getArea(const Polygon& polygon);
-
-  double getAreaEven(const std::vector< Polygon >& polygons);
-  double getAreaOdd(const std::vector< Polygon >& polygons);
-  double getAreaMean(const std::vector< Polygon >& polygons);
-  double getAreaVertexes(const std::vector< Polygon >& polygons, size_t count);
-  double getMaxArea(const std::vector< Polygon >& polygons);
-  size_t getMaxVertexes(const std::vector< Polygon >& polygons);
-  double getMinArea(const std::vector< Polygon >& polygons);
-  size_t getMinVertexes(const std::vector< Polygon >& polygons);
-  size_t getCountEven(const std::vector< Polygon >& polygons);
-  size_t getCountOdd(const std::vector< Polygon >& polygons);
-  size_t getCountVertexes(const std::vector< Polygon >& polygons, size_t count);
-  size_t rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon);
-  size_t getSame(std::vector< Polygon >& polygons, const Polygon& polygon);
+  void getAreaEven(const std::vector< Polygon >& polygons, std::ostream& out);
+  void getAreaOdd(const std::vector< Polygon >& polygons, std::ostream& out);
+  void getAreaMean(const std::vector< Polygon >& polygons, std::ostream& out);
+  void getAreaVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out);
+  void getMaxArea(const std::vector< Polygon >& polygons, std::ostream& out);
+  void getMaxVertexes(const std::vector< Polygon >& polygons, std::ostream& out);
+  void getMinArea(const std::vector< Polygon >& polygons, std::ostream& out);
+  void getMinVertexes(const std::vector< Polygon >& polygons, std::ostream& out);
+  void getCountEven(const std::vector< Polygon >& polygons, std::ostream& out);
+  void getCountOdd(const std::vector< Polygon >& polygons, std::ostream& out);
+  void getCountVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out);
+  void rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& out);
+  void getSame(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& out);
 }
 
 #endif
