@@ -97,18 +97,21 @@ void hrushchev::getAreaEven(const std::vector< Polygon >& polygons, std::ostream
 {
   std::vector< Polygon > even_polygons;
   std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(even_polygons), isEven);
-   out << std::fixed << std::accumulate(even_polygons.begin(), even_polygons.end(), 0.0, sumArea);
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::accumulate(even_polygons.begin(), even_polygons.end(), 0.0, sumArea);
 }
 
 void hrushchev::getAreaOdd(const std::vector< Polygon >& polygons, std::ostream& out)
 {
   std::vector< Polygon > odd_polygons;
   std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(odd_polygons), isOdd);
+  iofmtguard iofmtguard(out);
   out << std::fixed << std::accumulate(odd_polygons.begin(), odd_polygons.end(), 0.0, sumArea);
 }
 void hrushchev::getAreaMean(const std::vector< Polygon >& polygons, std::ostream& out)
 {
   size_t count = polygons.size();
+  iofmtguard iofmtguard(out);
   out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), 0.0, sumArea) / count;
 }
 void hrushchev::getAreaVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out)
@@ -117,33 +120,40 @@ void hrushchev::getAreaVertexes(const std::vector< Polygon >& polygons, size_t c
   using namespace std::placeholders;
   auto pred = std::bind(isNecessaryVertex, _1, count);
   std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(vertexes_polygons), pred);
+  iofmtguard iofmtguard(out);
   out << std::fixed << std::accumulate(vertexes_polygons.begin(), vertexes_polygons.end(), 0.0, sumArea);
 }
 void hrushchev::getMaxArea(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  iofmtguard iofmtguard(out);
   out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereArea);
 }
 
 void hrushchev::getMaxVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  iofmtguard iofmtguard(out);
   out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereVertexes);
 }
 void hrushchev::getMinArea(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  iofmtguard iofmtguard(out);
   out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), getArea(polygons.front()), chooseLessArea);
 }
 
 void hrushchev::getMinVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  iofmtguard iofmtguard(out);
   out << std::fixed << std::accumulate(polygons.begin(), polygons.end(), polygons.front().points_.size(), chooseLessVertexes);
 }
 
 void hrushchev::getCountEven(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  iofmtguard iofmtguard(out);
   out << std::fixed << std::count_if(polygons.begin(), polygons.end(), isEven);
 }
 void hrushchev::getCountOdd(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  iofmtguard iofmtguard(out);
   out << std::fixed << std::count_if(polygons.begin(), polygons.end(), isOdd);
 }
 
@@ -151,6 +161,7 @@ void hrushchev::getCountVertexes(const std::vector< Polygon >& polygons, size_t 
 {
   using namespace std::placeholders;
   auto pred = std::bind(isNecessaryVertex, _1, count);
+  iofmtguard iofmtguard(out);
   out << std::fixed << count_if(polygons.begin(), polygons.end(), pred);
 }
 
@@ -161,6 +172,7 @@ void hrushchev::rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon,
   auto new_end = std::unique(polygons.begin(), polygons.end(), pred);
   size_t res = std::distance(new_end, polygons.end());
   polygons.erase(new_end, polygons.end());
+  iofmtguard iofmtguard(out);
   out << std::fixed << res;
 }
 
@@ -168,5 +180,6 @@ void hrushchev::getSame(std::vector< Polygon >& polygons, const Polygon& polygon
 {
   using namespace std::placeholders;
   auto pred = std::bind(isCompatiblePolygons, _1, polygon);
+  iofmtguard iofmtguard(out);
   out << std::fixed << count_if(polygons.begin(), polygons.end(), pred);
 }
