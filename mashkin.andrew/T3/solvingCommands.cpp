@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <functional>
+#include <iterator>
 #include <iomanip>
 #include <numeric>
 #include <outputStructs.h>
@@ -13,9 +14,13 @@ namespace mashkin
 
   std::vector< FullArea > getFullArea(const iter& begin, const iter& end)
   {
+    auto cap = std::distance(begin, end);
     std::vector< mashkin::PositiveArea > halfPA;
     std::vector< mashkin::NegativeArea > halfNA;
     std::vector< mashkin::FullArea > area;
+    halfPA.reserve(cap);
+    halfNA.reserve(cap);
+    area.reserve(cap);
     std::transform(begin, end, std::back_inserter(halfPA), calcPositiveArea);
     std::transform(begin, end, std::back_inserter(halfNA), calcNegativeArea);
     std::transform(halfPA.begin(), halfPA.end(), halfNA.begin(), std::back_inserter(area), solveArea);
@@ -145,7 +150,7 @@ namespace mashkin
     return {first.x - second.x, first.y - second.y};
   }
 
-  Vector::Vector(const mashkin::Polygon& rhs)
+    Vector::Vector(const mashkin::Polygon& rhs)
   {
     std::transform(rhs.points.begin(), --rhs.points.end(), ++rhs.points.begin(), std::back_inserter(vect), getVector);
     std::transform(--rhs.points.end(), rhs.points.end(), rhs.points.begin(), std::back_inserter(vect), getVector);
