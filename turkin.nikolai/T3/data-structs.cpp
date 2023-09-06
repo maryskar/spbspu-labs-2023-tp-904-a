@@ -37,10 +37,6 @@ std::istream & turkin::operator>>(std::istream & in, Point & rhs)
     return in;
   }
   in >> DelimiterIO{ '(' } >> rhs.x >> DelimiterIO{ ';' } >> rhs.y >> DelimiterIO{ ')' };
-  if (!in)
-  {
-    in.setstate(std::ios::failbit);
-  }
   return in;
 }
 
@@ -57,10 +53,11 @@ std::istream & turkin::operator>>(std::istream & in, Polygon & rhs)
   if (len < 3)
   {
     in.setstate(std::ios::failbit);
+    return in;
   }
   input.points.reserve(len);
   std::copy_n(std::istream_iterator< Point >(in), len, std::back_inserter(input.points));
-  if (in && len > 2 && len == input.points.size())
+  if (in)
   {
     rhs.points.swap(input.points);
   }
