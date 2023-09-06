@@ -66,6 +66,10 @@ std::string avdeeva::convertToScientific(double number)
     res += '0';
   }
   res = res.substr(0, 4);
+  if (res.substr(2, 4) == "00")
+  {
+    res = res.substr(0, 3);
+  }
   return res + 'e' + std::to_string(power);
 }
 std::istream & avdeeva::operator>>(std::istream & in, DoubleIO && dest)
