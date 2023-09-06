@@ -50,12 +50,10 @@ std::istream & turkin::operator>>(std::istream & in, Polygon & rhs)
   Polygon input;
   std::size_t len = 0;
   in >> len;
-  input.points.reserve(len);
-  std::copy(std::istream_iterator< Point >(in), std::istream_iterator< Point >(), std::back_inserter(input.points));
-  if (len < 3 || len != input.points.size())
+  std::copy_n(std::istream_iterator< Point >(in), len, std::back_inserter(input.points));
+  if (input.points.size() != len || input.points.size() < 3)
   {
     in.setstate(std::ios::failbit);
-    return in;
   }
   if (in)
   {
