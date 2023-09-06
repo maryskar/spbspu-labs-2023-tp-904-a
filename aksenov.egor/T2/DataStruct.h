@@ -41,7 +41,6 @@ namespace aksenov
   {
     const unsigned long long &hex;
   };
-  //out << "(:key1 " << "0x" << std::hex << std::uppercase << dest.key1 << ":";
   std::ostream &operator<<(std::ostream &out, HexFormat &&hex);
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
   std::istream &operator>>(std::istream &in, UllIO &&dest);
