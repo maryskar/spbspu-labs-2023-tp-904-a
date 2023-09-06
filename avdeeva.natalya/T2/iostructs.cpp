@@ -77,8 +77,8 @@ std::istream & avdeeva::operator>>(std::istream & in, DoubleIO && dest)
   }
   int mantisa = 0;
   int number = 0;
-  int degree = 0;
-  in >> mantisa >> DelimiterIO{'.'} >> number >> DelimiterIO{'E'} >> degree;
-  dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, degree);
+  int power = 0;
+  in >> mantisa >> DelimiterIO{'.'} >> number >> DelimiterIO{'E'} >> power;
+  dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
   return in;
 }
