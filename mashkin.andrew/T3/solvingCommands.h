@@ -36,21 +36,11 @@ namespace mashkin
     double res;
   };
 
-  struct Vector
-  {
-    explicit Vector(const Polygon& rhs);
-    std::vector< Point > vect;
-  };
-
   struct Angle
   {
-    explicit Angle(const Vector& rhs);
+    explicit Angle(const Polygon& rhs);
     std::vector< int > ang;
   };
-
-  int solveAngle(const Point& first, const Point& second);
-  Point getVector(const Point& first, const Point& second);
-  Angle getAngle(const Polygon& data);
 
   std::ostream& operator<<(std::ostream& out, const FullArea& data);
 
@@ -63,6 +53,8 @@ namespace mashkin
   bool isEven(const Polygon& data);
   bool isEqual(const Polygon& data, size_t count);
   bool isEqualPoints(Polygon& lhs, Polygon& rhs);
-  bool isRightshapes(const Angle& lhs);
+
+  int getAngles(const Point& firstPoint, const Polygon& polygon);
+  bool isRightShapes(const Polygon& lhs);
 }
 #endif

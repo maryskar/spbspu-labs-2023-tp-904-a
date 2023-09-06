@@ -263,10 +263,7 @@ namespace mashkin
 
   void runRightshapes(std::istream&, const vecPol& res)
   {
-    vecPol data = res;
-    std::vector< Angle > angles;
-    std::transform(data.begin(), data.end(), std::back_inserter(angles), getAngle);
-    size_t quatity = std::count_if(angles.begin(), angles.end(), isRightshapes);
-    std::cout << quatity << "\n";
+    size_t quantity = std::count_if(res.begin(), res.end(), isRightShapes);
+    std::cout << quantity << "\n";
   }
 }

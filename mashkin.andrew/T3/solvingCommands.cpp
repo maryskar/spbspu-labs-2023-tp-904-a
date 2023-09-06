@@ -133,9 +133,42 @@ namespace mashkin
     return lhs.points == rhs.points;
   }
 
-  bool isRightshapes(const Angle& lhs)
+  Angle::Angle(const Polygon& rhs)
   {
-    if (std::find(lhs.ang.begin(), lhs.ang.end(), 0) == lhs.ang.end())
+    std::transform(rhs.points.begin(), rhs.points.end(), std::back_inserter(ang), std::bind(getAngles, _1, rhs));
+  }
+
+  int getAngles(const Point& firstPoint, const Polygon& polygon)
+  {
+    auto firstIt = std::find(polygon.points.begin(), polygon.points.end(), firstPoint);
+    Point secondPoint;
+    Point thridPoint;
+    if (firstIt == --polygon.points.end())
+    {
+      secondPoint = *polygon.points.begin();
+      thridPoint = *(++polygon.points.begin());
+    }
+    else
+    {
+      secondPoint = *(++firstIt);
+      if (++firstIt == --polygon.points.end())
+      {
+        thridPoint = *polygon.points.begin();
+      }
+      else
+      {
+        secondPoint = *(++++firstIt);
+      }
+    }
+    int firstHalfOfAngle = (firstPoint.x - secondPoint.x) * (secondPoint.x - thridPoint.x);
+    int secondHalfOfAngle = (firstPoint.y - secondPoint.y) * (secondPoint.y - thridPoint.y);
+    return firstHalfOfAngle + secondHalfOfAngle;
+  }
+
+  bool isRightShapes(const Polygon& lhs)
+  {
+    Angle angles(lhs);
+    if (std::find(angles.ang.begin(), angles.ang.end(), 0) == angles.ang.end())
     {
       return false;
     }
@@ -143,33 +176,5 @@ namespace mashkin
     {
       return true;
     }
-  }
-
-  Point getVector(const Point& first, const Point& second)
-  {
-    return {first.x - second.x, first.y - second.y};
-  }
-
-    Vector::Vector(const mashkin::Polygon& rhs)
-  {
-    std::transform(rhs.points.begin(), --rhs.points.end(), ++rhs.points.begin(), std::back_inserter(vect), getVector);
-    std::transform(--rhs.points.end(), rhs.points.end(), rhs.points.begin(), std::back_inserter(vect), getVector);
-  }
-
-  int solveAngle(const Point& first, const Point& second)
-  {
-    return (first.x * second.x + first.y * second.y);
-  }
-
-  Angle::Angle(const mashkin::Vector& rhs)
-  {
-    std::transform(rhs.vect.begin(), --rhs.vect.end(), ++rhs.vect.begin(), std::back_inserter(ang), solveAngle);
-    std::transform(--rhs.vect.end(), rhs.vect.end(), rhs.vect.begin(), std::back_inserter(ang), solveAngle);
-  }
-
-  Angle getAngle(const Polygon& data)
-  {
-    Vector vector(data);
-    return Angle(vector);
   }
 }
