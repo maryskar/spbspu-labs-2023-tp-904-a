@@ -11,7 +11,6 @@ namespace kumachev {
   {
     std::istream::sentry sentry(istream);
     StreamGuard guard(istream);
-//    istream >> std::noskipws;
 
     if (!sentry) {
       return istream;
@@ -33,7 +32,6 @@ namespace kumachev {
     using istream_iterator = std::istream_iterator< Point >;
     std::istream::sentry sentry(istream);
     StreamGuard guard(istream);
-//    istream >> std::noskipws;
 
     if (!sentry) {
       return istream;
