@@ -65,10 +65,18 @@ std::ostream & turkin::count(data_t & data, std::istream & in, std::ostream & ou
 
 std::ostream & turkin::maxseq(data_t & data, std::istream & in, std::ostream & out)
 {
+  if (data.empty())
+  {
+    throw std::runtime_error("empty source");
+  }
   return out << sub_maxseq_list["DEFAULT"](data, in);
 }
 
 std::ostream & turkin::rightshapes(data_t & data, std::istream & in, std::ostream & out)
 {
+  if (data.empty())
+  {
+    throw std::runtime_error("empty source");
+  }
   return out << sub_rightshapes_list["DEFAULT"](data, in);
 }

@@ -112,6 +112,10 @@ turkin::ReturnType turkin::maxseq_sub(data_t & data, std::istream & in)
     amount = std::max(amount, static_cast< size_t >(std::abs(std::distance(first, last))));
     first = last;
   }
+  if (amount == 0)
+  {
+    throw std::runtime_error("bad input");
+  }
   return ReturnType(amount);
 }
 
