@@ -3,6 +3,6 @@
 #include "DataStruct.h"
 namespace aksenov
 {
-  bool comparator(const DataStruct& lhs, const DataStruct& rhs);
+  bool toCompare(const DataStruct& lhs, const DataStruct& rhs);
 }
 #endif

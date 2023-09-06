@@ -19,6 +19,6 @@ int main()
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
-  std::sort(data.begin(), data.end(), aksenov::comparator);
+  std::sort(data.begin(), data.end(), aksenov::toCompare);
   std::copy(data.begin(), data.end(), outputIter(std::cout, "\n"));
 }

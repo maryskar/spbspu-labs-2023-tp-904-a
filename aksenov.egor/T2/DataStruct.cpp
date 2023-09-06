@@ -113,6 +113,12 @@ namespace aksenov
     return in;
   }
 
+  std::ostream &operator<<(std::ostream &out, const HexFormat &hex)
+  {
+    out << "(:key1 " << "0x" << std::hex << std::uppercase << hex.hex << ":";
+    return out;
+  }
+
   std::ostream &operator<<(std::ostream &out, const DataStruct &dest)
   {
     std::ostream::sentry sentry(out);
@@ -121,7 +127,8 @@ namespace aksenov
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "(:key1 " << "0x" << std::hex << std::uppercase << dest.key1 << ":";
+    HexFormat hex{dest.key1};
+    out << hex;
     out << std::fixed << std::setprecision(1);
     out << "key2 " << "#c(" << dest.key2.real() << " " << dest.key2.imag() << "):";
     out << "key3 \"" << dest.key3 << "\":)";

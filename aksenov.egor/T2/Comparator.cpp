@@ -1,5 +1,5 @@
 #include "Comparator.h"
-bool aksenov::comparator(const aksenov::DataStruct &lhs, const aksenov::DataStruct &rhs)
+bool aksenov::toCompare(const aksenov::DataStruct &lhs, const aksenov::DataStruct &rhs)
 {
   if (lhs.key1 == rhs.key1)
   {
@@ -7,7 +7,7 @@ bool aksenov::comparator(const aksenov::DataStruct &lhs, const aksenov::DataStru
     {
       return lhs.key3.size() < rhs.key3.size();
     }
-    return (abs(lhs.key2) < abs(rhs.key2));
+    return std::abs(lhs.key2) < std::abs(rhs.key2);
   }
   else
   {
