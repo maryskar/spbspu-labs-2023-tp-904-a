@@ -54,8 +54,9 @@ double litvin::calcAreaIfNVertexes(const Polygon & pol, size_t number_of_vertexe
 {
   return hasQuantityOfVertexes(pol, number_of_vertexes) ? calcArea(pol) : 0.0;
 }
-void litvin::printAreaIfNumberOfVertexesIs(const std::vector< litvin::Polygon > & data, size_t number_of_vertexes,
-                                           std::ostream & out)
+void litvin::printAreaIfNumberOfVertexesIs(const std::vector< litvin::Polygon > & data,
+    size_t number_of_vertexes,
+    std::ostream & out)
 {
   if (number_of_vertexes < 3)
   {
@@ -140,8 +141,9 @@ bool litvin::countIfNVertexes(const Polygon & pol, size_t num)
 {
   return hasQuantityOfVertexes(pol, num);
 }
-void litvin::printNumOfPolygonsWithNumOfVertexes(const std::vector< litvin::Polygon > & data, size_t number_of_vertexes,
-                                                 std::ostream & out)
+void litvin::printNumOfPolygonsWithNumOfVertexes(const std::vector< litvin::Polygon > & data,
+    size_t number_of_vertexes,
+    std::ostream & out)
 {
   if (number_of_vertexes < 3)
   {
@@ -184,8 +186,9 @@ bool litvin::arePolygonsIntersected(const Polygon & pol1, const Polygon & pol2)
     });
   });
 }
-void litvin::printNumberOfIntersections(const std::vector< litvin::Polygon > & data, const Polygon & pol,
-                                        std::ostream & out)
+void litvin::printNumberOfIntersections(const std::vector< litvin::Polygon > & data,
+    const Polygon & pol,
+    std::ostream & out)
 {
   if (!data.empty())
   {
@@ -210,8 +213,9 @@ bool litvin::arePolygonsSame(const Polygon & polygon1, const Polygon & polygon2)
   const auto & max2 = *(minmax_points2.second);
   return min1.x <= max2.x && max1.x >= min2.x && min1.y <= max2.y && max1.y >= min2.y;
 }
-void litvin::printNumberOfSameFigures(const std::vector< litvin::Polygon > & data, const Polygon & pol,
-                                      std::ostream & out)
+void litvin::printNumberOfSameFigures(const std::vector< litvin::Polygon > & data,
+    const Polygon & pol,
+    std::ostream & out)
 {
   if (!data.empty())
   {
@@ -262,26 +266,33 @@ std::string litvin::inputCommand(std::istream & in)
   }
   return command_name;
 }
-void litvin::command_dicts_t::executeCommand(const std::string & cmd, const std::vector< Polygon > & data,
-                                             std::ostream & out) const
+void litvin::command_dicts_t::executeCommand(const std::string & cmd,
+    const std::vector< Polygon > & data,
+    std::ostream & out) const
 {
   signature_type_1 function = dict1.at(cmd);
   function(data, out);
 }
-void litvin::command_dicts_t::executeCommand(const std::string & cmd, const std::vector< Polygon > & data,
-                                             const Polygon & pol, std::ostream & out) const
+void litvin::command_dicts_t::executeCommand(const std::string & cmd,
+    const std::vector< Polygon > & data,
+    const Polygon & pol, std::ostream & out) const
 {
   signature_type_2 function = dict2.at(cmd);
   function(data, pol, out);
 }
-void litvin::command_dicts_t::executeCommand(const std::string & cmd, const std::vector< Polygon > & data, size_t num,
-                                             std::ostream & out) const
+void litvin::command_dicts_t::executeCommand(const std::string & cmd,
+    const std::vector< Polygon > & data,
+    size_t num,
+    std::ostream & out) const
 {
   signature_type_3 function = dict3.at(cmd);
   function(data, num, out);
 }
-void litvin::runCommand(const std::vector< Polygon > & data, const command_dicts_t & dicts, const std::string & cmd,
-                        std::ostream & out, std::istream & in)
+void litvin::runCommand(const std::vector< Polygon > & data,
+    const command_dicts_t & dicts,
+    const std::string & cmd,
+    std::ostream & out,
+    std::istream & in)
 {
   if (cmd == "INTERSECTIONS" || cmd == "SAME")
   {
