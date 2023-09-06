@@ -70,7 +70,15 @@ std::string avdeeva::convertToScientific(double number)
   {
     res = res.substr(0, 3);
   }
-  return res + 'e' + std::to_string(power);
+  if (power > 0)
+  {
+    res = res + 'e' + '+' + std::to_string(power);
+  }
+  else
+  {
+    res = res + 'e' + std::to_string(power);
+  }
+  return res;
 }
 std::istream & avdeeva::operator>>(std::istream & in, DoubleIO && dest)
 {
