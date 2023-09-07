@@ -24,7 +24,7 @@ std::ostream& skarlygina::operator<<(std::ostream& out, const DataStruct& data)
     return out;
   }
   Iofmtguard fmtguard(out);
-  out << "(:key1 " << DBL_sciIO{const_cast< double& >(data.key1)};
+  out << "(:key1 " << DBL_sciIO_t{data.key1};
   out << ":key2 0x" << std::hex << std::uppercase << data.key2;
   out << ":key3 " << '"' << data.key3 << '"' << ":)";
   return out;
@@ -38,30 +38,30 @@ std::istream& skarlygina::operator>>(std::istream& in, DataStruct& data)
     return in;
   }
   DataStruct in_data = {0.0, 0, ""};
-  in >> delimiter_sep{'('} >> delimiter_sep{':'};
+  in >> delimiter_sep_t{'('} >> delimiter_sep_t{':'};
   for (int i = 0; i < 3; ++i)
   {
     std::string keyX = "";
     in >> keyX;
     if (keyX == "key1")
     {
-      in >> DBL_sciIO{in_data.key1};
+      in >> DBL_sciIO_t{in_data.key1};
     }
     else if (keyX == "key2")
     {
-      in >> ULL_hexIO{in_data.key2};
+      in >> ULL_hexIO_t{in_data.key2};
     }
     else if (keyX == "key3")
     {
-      in >> string_IO{in_data.key3};
+      in >> string_IO_t{in_data.key3};
     }
     else
     {
       in.setstate(std::ios::failbit);
     }
-    in >> delimiter_sep{':'};
+    in >> delimiter_sep_t{':'};
   }
-  in >> delimiter_sep{')'};
+  in >> delimiter_sep_t{')'};
   if (in)
   {
     data = in_data;
