@@ -20,7 +20,7 @@ namespace timofeev
     {
       in.setstate(std::ios::failbit);
     }
-      return in;
+    return in;
   }
 
   std::istream& operator>>(std::istream& in, StringIO&& dest)
@@ -30,7 +30,7 @@ namespace timofeev
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO {'"'}, dest.ref, '"');
+    return std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
   }
 
   std::istream& operator>>(std::istream& in, LabelIO&& dest)
@@ -42,7 +42,7 @@ namespace timofeev
     }
     for (size_t i = 0; i < dest.exp.size(); i++)
     {
-      in >> DelimiterIO {dest.exp[i]};
+      in >> DelimiterIO{dest.exp[i]};
     }
     return in;
   }
@@ -71,7 +71,6 @@ namespace timofeev
     {
       return in;
     }
-    iofmtguard fmtguard(in);
     int integer = 0;
     int fractional = 0;
     int power = 0;
