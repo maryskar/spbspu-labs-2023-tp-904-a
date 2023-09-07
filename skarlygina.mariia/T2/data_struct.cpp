@@ -37,7 +37,7 @@ std::istream& structure::operator>>(std::istream& in, DataStruct& data)
   {
     return in;
   }
-  DataStruct in_data;
+  DataStruct in_data = {0.0, 0, ""};
   in >> delimiter_sep{'('} >> delimiter_sep{':'};
   for (int i = 0; i < 3; ++i)
   {
