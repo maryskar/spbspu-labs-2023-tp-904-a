@@ -176,7 +176,7 @@ void hrushchev::rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon,
   out << std::fixed << res;
 }
 
-void hrushchev::getSame(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& out)
+void hrushchev::getSame(const std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& out)
 {
   using namespace std::placeholders;
   auto pred = std::bind(isCompatiblePolygons, _1, polygon);
