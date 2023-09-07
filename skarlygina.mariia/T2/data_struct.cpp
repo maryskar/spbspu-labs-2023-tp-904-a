@@ -24,7 +24,7 @@ std::ostream& skarlygina::operator<<(std::ostream& out, const DataStruct& data)
     return out;
   }
   Iofmtguard fmtguard(out);
-  out << "(:key1 " << DBL_sciIO_t{data.key1, 2};
+  out << "(:key1 " << DBL_sciIO_t{data.key1, 2} << ")";
   out << ":key2 0x" << std::hex << std::uppercase << data.key2;
   out << ":key3 " << '"' << data.key3 << '"' << ":)";
   return out;
