@@ -14,7 +14,7 @@ bool litvin::isOdd(const Polygon & polygon)
 {
   return !isEven(polygon);
 }
-void litvin::printEvenArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
+void litvin::printEvenArea(const std::vector< Polygon > & data, std::ostream & out)
 {
   std::vector< double > areas(data.size());
   using namespace std::placeholders;
@@ -23,7 +23,7 @@ void litvin::printEvenArea(const std::vector< litvin::Polygon > & data, std::ost
   ScopeGuard guard(out);
   out << std::fixed << std::setprecision(1) << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
 }
-void litvin::printOddArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
+void litvin::printOddArea(const std::vector< Polygon > & data, std::ostream & out)
 {
   std::vector< double > areas(data.size());
   using namespace std::placeholders;
@@ -32,7 +32,7 @@ void litvin::printOddArea(const std::vector< litvin::Polygon > & data, std::ostr
   ScopeGuard guard(out);
   out << std::fixed << std::setprecision(1) << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
 }
-void litvin::printAverageArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
+void litvin::printAverageArea(const std::vector< Polygon > & data, std::ostream & out)
 {
   if (data.empty())
   {
@@ -53,7 +53,7 @@ double litvin::calcAreaIfNVertexes(const Polygon & pol, size_t number_of_vertexe
 {
   return hasQuantityOfVertexes(pol, number_of_vertexes) ? calcArea(pol) : 0.0;
 }
-void litvin::printAreaIfNumberOfVertexesIs(const std::vector< litvin::Polygon > & data,
+void litvin::printAreaIfNumberOfVertexesIs(const std::vector< Polygon > & data,
                                            size_t number_of_vertexes,
                                            std::ostream & out)
 {
@@ -69,7 +69,7 @@ void litvin::printAreaIfNumberOfVertexesIs(const std::vector< litvin::Polygon > 
   ScopeGuard guard(out);
   out << std::fixed << std::setprecision(1) << std::accumulate(areas.cbegin(), areas.cend(), 0.0) << '\n';
 }
-double litvin::getMaxOrMinAreaOrVertexes(const std::vector< litvin::Polygon > & data, bool isTheGreatest, bool isArea)
+double litvin::getMaxOrMinAreaOrVertexes(const std::vector< Polygon > & data, bool isTheGreatest, bool isArea)
 {
   std::vector< double > areas_or_vertexes(data.size());
   if (isArea)
@@ -86,7 +86,7 @@ double litvin::getMaxOrMinAreaOrVertexes(const std::vector< litvin::Polygon > & 
   }
   return *(std::min_element(areas_or_vertexes.cbegin(), areas_or_vertexes.cend()));
 }
-void litvin::printIfMaxArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
+void litvin::printIfMaxArea(const std::vector< Polygon > & data, std::ostream & out)
 {
   if (!data.empty())
   {
@@ -96,7 +96,7 @@ void litvin::printIfMaxArea(const std::vector< litvin::Polygon > & data, std::os
   }
   throw std::invalid_argument("For max area must be at least one polygon\n");
 }
-void litvin::printIfMaxVertexes(const std::vector< litvin::Polygon > & data, std::ostream & out)
+void litvin::printIfMaxVertexes(const std::vector< Polygon > & data, std::ostream & out)
 {
   if (!data.empty())
   {
@@ -105,7 +105,7 @@ void litvin::printIfMaxVertexes(const std::vector< litvin::Polygon > & data, std
   }
   throw std::invalid_argument("For max vertexes must be at least one polygon\n");
 }
-void litvin::printIfMinArea(const std::vector< litvin::Polygon > & data, std::ostream & out)
+void litvin::printIfMinArea(const std::vector< Polygon > & data, std::ostream & out)
 {
   if (!data.empty())
   {
@@ -115,7 +115,7 @@ void litvin::printIfMinArea(const std::vector< litvin::Polygon > & data, std::os
   }
   throw std::invalid_argument("For min area must be at least one polygon\n");
 }
-void litvin::printIfMinVertexes(const std::vector< litvin::Polygon > & data, std::ostream & out)
+void litvin::printIfMinVertexes(const std::vector< Polygon > & data, std::ostream & out)
 {
   if (!data.empty())
   {
@@ -124,15 +124,15 @@ void litvin::printIfMinVertexes(const std::vector< litvin::Polygon > & data, std
   }
   throw std::invalid_argument("For min vertexes must be at least one polygon\n");
 }
-size_t litvin::countIf(bool (* predicate)(const Polygon & pol), const std::vector< litvin::Polygon > & data)
+size_t litvin::countIf(bool (* predicate)(const Polygon & pol), const std::vector< Polygon > & data)
 {
   return std::count_if(data.cbegin(), data.cend(), predicate);
 }
-void litvin::printNumOfEven(const std::vector< litvin::Polygon > & data, std::ostream & out)
+void litvin::printNumOfEven(const std::vector< Polygon > & data, std::ostream & out)
 {
   out << countIf(isEven, data) << '\n';
 }
-void litvin::printNumOfOdd(const std::vector< litvin::Polygon > & data, std::ostream & out)
+void litvin::printNumOfOdd(const std::vector< Polygon > & data, std::ostream & out)
 {
   out << countIf(isOdd, data) << '\n';
 }
@@ -140,7 +140,7 @@ bool litvin::countIfNVertexes(const Polygon & pol, size_t num)
 {
   return hasQuantityOfVertexes(pol, num);
 }
-void litvin::printNumOfPolygonsWithNumOfVertexes(const std::vector< litvin::Polygon > & data,
+void litvin::printNumOfPolygonsWithNumOfVertexes(const std::vector< Polygon > & data,
                                                  size_t number_of_vertexes,
                                                  std::ostream & out)
 {
@@ -185,7 +185,7 @@ bool litvin::arePolygonsIntersected(const Polygon & pol1, const Polygon & pol2)
     });
   });
 }
-void litvin::printNumberOfIntersections(const std::vector< litvin::Polygon > & data,
+void litvin::printNumberOfIntersections(const std::vector< Polygon > & data,
                                         const Polygon & pol,
                                         std::ostream & out)
 {
@@ -212,7 +212,7 @@ bool litvin::arePolygonsSame(const Polygon & polygon1, const Polygon & polygon2)
   const auto & max2 = *(minmax_points2.second);
   return min1.x <= max2.x && max1.x >= min2.x && min1.y <= max2.y && max1.y >= min2.y;
 }
-void litvin::printNumberOfSameFigures(const std::vector< litvin::Polygon > & data,
+void litvin::printNumberOfSameFigures(const std::vector< Polygon > & data,
                                       const Polygon & pol,
                                       std::ostream & out)
 {
