@@ -2,7 +2,7 @@
 #define DATA_STRUCT_H
 #include <string>
 
-namespace structure {
+namespace skarlygina {
   struct DataStruct {
     double key1;
     unsigned long long key2;

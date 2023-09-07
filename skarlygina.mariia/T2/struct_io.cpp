@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iomanip>
 
-std::istream& operator>>(std::istream& in, delimiter_sep&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, delimiter_sep&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -20,7 +20,7 @@ std::istream& operator>>(std::istream& in, delimiter_sep&& dest)
   return in;
 }
 
-std::istream& operator>>(std::istream& in, delimiter_IO&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, delimiter_IO&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -36,7 +36,7 @@ std::istream& operator>>(std::istream& in, delimiter_IO&& dest)
   return in;
 }
 
-std::istream& operator>>(std::istream& in, string_IO&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, string_IO&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -46,7 +46,7 @@ std::istream& operator>>(std::istream& in, string_IO&& dest)
   return std::getline(in >> delimiter_IO{ '"' }, dest.ref, '"');
 }
 
-std::istream& operator>>(std::istream& in, DBL_sciIO&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, DBL_sciIO&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -56,7 +56,7 @@ std::istream& operator>>(std::istream& in, DBL_sciIO&& dest)
   return in >> dest.ref;
 }
 
-std::istream& operator>>(std::istream& in, ULL_hexIO&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, ULL_hexIO&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -67,7 +67,7 @@ std::istream& operator>>(std::istream& in, ULL_hexIO&& dest)
   return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const DBL_sciIO& dest)
+std::ostream& skarlygina::operator<<(std::ostream& out, const DBL_sciIO& dest)
 {
   std::ostream::sentry sent(out);
   if (!sent)

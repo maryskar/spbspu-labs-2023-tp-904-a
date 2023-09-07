@@ -3,7 +3,7 @@
 #include "struct_io.h"
 #include "iofmt_guard.h"
 
-bool structure::operator<(const DataStruct& left, const DataStruct& right)
+bool skarlygina::operator<(const DataStruct& left, const DataStruct& right)
 {
   if (left.key1 == right.key1)
   {
@@ -16,7 +16,7 @@ bool structure::operator<(const DataStruct& left, const DataStruct& right)
   return left.key1 < right.key1;
 }
 
-std::ostream& structure::operator<<(std::ostream& out, const DataStruct& data)
+std::ostream& skarlygina::operator<<(std::ostream& out, const DataStruct& data)
 {
   std::ostream::sentry sent(out);
   if (!sent)
@@ -30,7 +30,7 @@ std::ostream& structure::operator<<(std::ostream& out, const DataStruct& data)
   return out;
 }
 
-std::istream& structure::operator>>(std::istream& in, DataStruct& data)
+std::istream& skarlygina::operator>>(std::istream& in, DataStruct& data)
 {
   std::istream::sentry sent(in);
   if (!sent)
