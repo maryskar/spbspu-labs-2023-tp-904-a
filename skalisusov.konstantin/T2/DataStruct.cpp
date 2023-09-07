@@ -19,8 +19,8 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
     using dubsci = DoubleSciencificFormatI;
     using str = StringIO;
     using label = LabelIO;
-    in >> delim{'('};
-    in >> delim{':'};
+    in >> delim{ '(' };
+    in >> delim{ ':' };
     for (std::size_t i = 1; i <= 3; i++)
     {
       std::size_t number = 0;
@@ -28,15 +28,15 @@ std::istream & skalisusov::operator>>(std::istream &in, DataStruct &dest)
       in >> number;
       if (number == 1)
       {
-        in >> dublit{key1} >> delim{':'};
+        in >> dublit{ key1 } >> delim{ ':' };
       }
       else if (number == 2)
       {
-        in >> dubsci{key2} >> delim{':'};
+        in >> dubsci{ key2 } >> delim{ ':' };
       }
       else if (number == 3)
       {
-        in >> str{key3} >> delim{':'};
+        in >> str{ key3 } >> delim{ ':' };
       }
     }
     in >> delim{')'};
