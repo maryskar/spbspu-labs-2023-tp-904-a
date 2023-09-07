@@ -143,6 +143,10 @@ namespace mashkin
     auto firstIt = std::find(polygon.points.begin(), polygon.points.end(), firstPoint);
     Point secondPoint;
     Point thridPoint;
+    if (firstIt == polygon.points.end())
+    {
+      return 1;
+    }
     if (firstIt + 1 == polygon.points.end())
     {
       secondPoint = *polygon.points.begin();
