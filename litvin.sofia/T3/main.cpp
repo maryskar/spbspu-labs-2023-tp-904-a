@@ -31,7 +31,7 @@ int main(int argc, char * argv[])
     using is_it = std::istream_iterator< litvin::Polygon >;
     std::copy(is_it(fin), is_it(), std::back_inserter(data));
   }
-  litvin::Command_dicts commands;
+  litvin::CommandDicts commands;
   while (!std::cin.eof())
   {
     try

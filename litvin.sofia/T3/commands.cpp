@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <functional>
 #include <ScopeGuard.hpp>
-#include <iostructures.hpp>
 bool litvin::isEven(const Polygon & polygon)
 {
   return size(polygon) % 2 == 0;
@@ -54,8 +53,8 @@ double litvin::calcAreaIfNVertexes(const Polygon & pol, size_t number_of_vertexe
   return hasQuantityOfVertexes(pol, number_of_vertexes) ? calcArea(pol) : 0.0;
 }
 void litvin::printAreaIfNumberOfVertexesIs(const std::vector< Polygon > & data,
-                                           size_t number_of_vertexes,
-                                           std::ostream & out)
+    size_t number_of_vertexes,
+    std::ostream & out)
 {
   if (number_of_vertexes < 3)
   {
@@ -141,8 +140,8 @@ bool litvin::countIfNVertexes(const Polygon & pol, size_t num)
   return hasQuantityOfVertexes(pol, num);
 }
 void litvin::printNumOfPolygonsWithNumOfVertexes(const std::vector< Polygon > & data,
-                                                 size_t number_of_vertexes,
-                                                 std::ostream & out)
+    size_t number_of_vertexes,
+    std::ostream & out)
 {
   if (number_of_vertexes < 3)
   {
@@ -186,8 +185,8 @@ bool litvin::arePolygonsIntersected(const Polygon & pol1, const Polygon & pol2)
   });
 }
 void litvin::printNumberOfIntersections(const std::vector< Polygon > & data,
-                                        const Polygon & pol,
-                                        std::ostream & out)
+    const Polygon & pol,
+    std::ostream & out)
 {
   if (!data.empty())
   {
@@ -213,8 +212,8 @@ bool litvin::arePolygonsSame(const Polygon & polygon1, const Polygon & polygon2)
   return min1.x <= max2.x && max1.x >= min2.x && min1.y <= max2.y && max1.y >= min2.y;
 }
 void litvin::printNumberOfSameFigures(const std::vector< Polygon > & data,
-                                      const Polygon & pol,
-                                      std::ostream & out)
+    const Polygon & pol,
+    std::ostream & out)
 {
   if (!data.empty())
   {

@@ -52,7 +52,11 @@ int litvin::calculate(const Point & p1, const Point & p2)
 double litvin::calcArea(const Polygon & pol)
 {
   std::vector< int > area(size(pol));
-  std::transform(pol.points.cbegin(), --pol.points.cend(), ++pol.points.cbegin(), std::back_inserter(area), calculate);
+  std::transform(pol.points.cbegin(),
+      --pol.points.cend(),
+      ++pol.points.cbegin(),
+      std::back_inserter(area),
+      calculate);
   Point first = pol.points.front();
   Point last = pol.points.back();
   area.push_back(calculate(last, first));
@@ -61,5 +65,5 @@ double litvin::calcArea(const Polygon & pol)
 }
 double litvin::calcAreaIf(const Polygon & pol, bool (* predicate)(const Polygon & pol))
 {
-  return (predicate(pol)) ? calcArea(pol) : 0.0;
+  return predicate(pol) ? calcArea(pol) : 0.0;
 }

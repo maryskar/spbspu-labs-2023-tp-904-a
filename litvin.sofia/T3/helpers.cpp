@@ -2,7 +2,7 @@
 #include <iostream>
 #include <iostructures.hpp>
 #include "commands.hpp"
-litvin::Command_dicts::Command_dicts()
+litvin::CommandDicts::CommandDicts()
 {
   dict1.insert({"AREA EVEN", printEvenArea});
   dict1.insert({"AREA ODD", printOddArea});
@@ -18,9 +18,10 @@ litvin::Command_dicts::Command_dicts()
   dict3.insert({"COUNT", printNumOfPolygonsWithNumOfVertexes});
   dict3.insert({"AREA", printAreaIfNumberOfVertexesIs});
 }
-void litvin::printInvalidCommand(std::ostream & out)
+std::ostream & litvin::printInvalidCommand(std::ostream & out)
 {
   out << "<INVALID COMMAND>";
+  return out;
 }
 std::string litvin::inputCommand(std::istream & in)
 {
@@ -42,30 +43,31 @@ std::string litvin::inputCommand(std::istream & in)
   }
   return command_name;
 }
-void litvin::Command_dicts::executeCommand(const std::string & cmd,
-                                           const std::vector< Polygon > & data,
-                                           std::ostream & out) const
+void litvin::CommandDicts::executeCommand(const std::string & cmd,
+    const std::vector< Polygon > & data,
+    std::ostream & out) const
 {
   signature_type_1 function = dict1.at(cmd);
   function(data, out);
 }
-void litvin::Command_dicts::executeCommand(const std::string & cmd,
-                                           const std::vector< Polygon > & data,
-                                           const Polygon & pol, std::ostream & out) const
+void litvin::CommandDicts::executeCommand(const std::string & cmd,
+    const std::vector< Polygon > & data,
+    const Polygon & pol,
+    std::ostream & out) const
 {
   signature_type_2 function = dict2.at(cmd);
   function(data, pol, out);
 }
-void litvin::Command_dicts::executeCommand(const std::string & cmd,
-                                           const std::vector< Polygon > & data,
-                                           size_t num,
-                                           std::ostream & out) const
+void litvin::CommandDicts::executeCommand(const std::string & cmd,
+    const std::vector< Polygon > & data,
+    size_t num,
+    std::ostream & out) const
 {
   signature_type_3 function = dict3.at(cmd);
   function(data, num, out);
 }
 void litvin::runCommand(const std::vector< Polygon > & data,
-    const Command_dicts & dicts,
+    const CommandDicts & dicts,
     const std::string & cmd,
     std::ostream & out,
     std::istream & in)

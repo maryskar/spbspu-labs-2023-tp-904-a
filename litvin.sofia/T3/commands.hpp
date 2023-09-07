@@ -11,8 +11,8 @@ namespace litvin
   bool hasQuantityOfVertexes(const Polygon & pol, size_t num);
   double calcAreaIfNVertexes(const Polygon & pol, size_t number_of_vertexes);
   void printAreaIfNumberOfVertexesIs(const std::vector< Polygon > & data,
-                                     size_t number_of_vertexes,
-                                     std::ostream & out);
+      size_t number_of_vertexes,
+      std::ostream & out);
   double getMaxOrMinAreaOrVertexes(const std::vector< Polygon > & data, bool isTheGreatest, bool isArea);
   void printIfMaxArea(const std::vector< Polygon > & data, std::ostream & out);
   void printIfMaxVertexes(const std::vector< Polygon > & data, std::ostream & out);
@@ -23,8 +23,8 @@ namespace litvin
   void printNumOfOdd(const std::vector< Polygon > & data, std::ostream & out);
   bool countIfNVertexes(const Polygon & pol, size_t num);
   void printNumOfPolygonsWithNumOfVertexes(const std::vector< Polygon > & data,
-                                           size_t number_of_vertexes,
-                                           std::ostream & out);
+      size_t number_of_vertexes,
+      std::ostream & out);
   bool areLinesIntersected(const Point & l1_p1, const Point & l1_p2, const Point & l2_p1, const Point & l2_p2);
   bool arePolygonsIntersected(const Polygon & pol1, const Polygon & pol2);
   void printNumberOfIntersections(const std::vector< Polygon > & data, const Polygon & pol, std::ostream & out);
