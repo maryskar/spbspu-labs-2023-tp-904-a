@@ -24,10 +24,10 @@ namespace konchev
   {
     std::string &ref;
   };
-  std::ifstream &operator>>(std::ifstream &in, delimiter &&data);
-  std::ifstream &operator>>(std::ifstream &in, label &&data);
-  std::ifstream &operator>>(std::ifstream &in, LongLong &&data);
-  std::ifstream &operator>>(std::ifstream &in, uLongLong &&data);
-  std::ifstream &operator>>(std::ifstream &in, String &&data);
+  std::istream &operator>>(std::istream &in, delimiter &&data);
+  std::istream &operator>>(std::istream &in, label &&data);
+  std::istream &operator>>(std::istream &in, LongLong &&data);
+  std::istream &operator>>(std::istream &in, uLongLong &&data);
+  std::istream &operator>>(std::istream &in, String &&data);
 }
 #endif

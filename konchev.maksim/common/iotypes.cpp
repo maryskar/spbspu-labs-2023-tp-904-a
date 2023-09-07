@@ -1,59 +1,61 @@
 #include "iotypes.h"
-using namespace konchev;
-std::ifstream &operator>>(std::ifstream &in, delimiter &&data)
+namespace konchev
 {
-  std::ifstream::sentry sentry(in);
-  if (!sentry)
+  std::istream &operator>>(std::istream &in, delimiter &&data)
   {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    char s = '0';
+    in >> s;
+    if (in && s != data.exp)
+    {
+      in.setstate(std::ios::failbit);
+    }
     return in;
   }
-  char s = '0';
-  in >> s;
-  if (in && s != data.exp)
+  std::istream &operator>>(std::istream &in, label &&data)
   {
-    in.setstate(std::ios::failbit);
-  }
-  return in;
-}
-std::ifstream &operator>>(std::ifstream &in, label &&data)
-{
-  std::ifstream::sentry sentry(in);
-  if (!sentry)
-  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    for (std::size_t i = 0; i < data.str.length(); i++)
+    {
+      in >> delimiter{data.str[i]};
+    }
     return in;
   }
-  for (std::size_t i = 0; i < data.str.length(); i++)
+  std::istream &operator>>(std::istream &in, LongLong &&data)
   {
-    in >> delimiter{data.str[i]};
-  }
-  return in;
-}
-std::ifstream &operator>>(std::ifstream &in, LongLong &&data)
-{
-  std::ifstream::sentry sentry(in);
-  if (!sentry)
-  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    in >> data.ref >> delimiter{'l'} >> delimiter{'l'};
     return in;
   }
-  in >> data.ref >> delimiter{'l'} >> delimiter{'l'};
-  return in;
-}
-std::ifstream &operator>>(std::ifstream &in, uLongLong &&data)
-{
-  std::ifstream::sentry sentry(in);
-  if (!sentry)
+  std::istream &operator>>(std::istream &in, uLongLong &&data)
   {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    in >> std::hex >> data.ref;
     return in;
   }
-  in >> std::hex >> data.ref;
-  return in;
-}
-std::ifstream &operator>>(std::ifstream &in, String &&data)
-{
-  std::ifstream::sentry sentry(in);
-  if (!sentry)
+  std::istream &operator>>(std::istream &in, String &&data)
   {
-    return in;
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return in;
+    }
+    return std::getline(in >> delimiter{'"'}, data.ref, '"');
   }
-  return std::getline(in >> delimiter{'"'}, data.ref, '"');
 }

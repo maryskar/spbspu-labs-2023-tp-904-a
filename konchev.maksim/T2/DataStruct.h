@@ -10,7 +10,7 @@ namespace konchev
     unsigned long long key2;
     std::string key3;
   };
-  std::ifstream &operator>>(std::ifstream &in, DataStruct &&data);
-  std::ofstream &operator<<(std::ofstream &out, const DataStruct &data);
+  std::istream &operator>>(std::istream &in, DataStruct &&data);
+  std::ostream &operator<<(std::ostream &out, const DataStruct &data);
 };
 #endif
