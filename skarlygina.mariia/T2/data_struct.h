@@ -2,8 +2,10 @@
 #define DATA_STRUCT_H
 #include <string>
 
-namespace skarlygina {
-  struct DataStruct {
+namespace skarlygina
+{
+  struct DataStruct
+  {
     double key1;
     unsigned long long key2;
     std::string key3;
