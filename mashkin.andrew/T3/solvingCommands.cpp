@@ -158,7 +158,7 @@ namespace mashkin
       }
       else
       {
-        secondPoint = *(firstIt + 2);
+        thridPoint = *(firstIt + 2);
       }
     }
     int firstHalfOfAngle = (firstPoint.x - secondPoint.x) * (secondPoint.x - thridPoint.x);
