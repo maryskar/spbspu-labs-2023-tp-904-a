@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include "IofGuard.h"
-
 namespace timofeev
 {
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
