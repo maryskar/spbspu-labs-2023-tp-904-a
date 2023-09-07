@@ -169,13 +169,6 @@ namespace mashkin
   bool isRightShapes(const Polygon& lhs)
   {
     Angle angles(lhs);
-    if (std::find(angles.ang.begin(), angles.ang.end(), 0) == angles.ang.end())
-    {
-      return false;
-    }
-    else
-    {
-      return true;
-    }
+    return std::find(angles.ang.begin(), angles.ang.end(), 0) != angles.ang.end();
   }
 }
