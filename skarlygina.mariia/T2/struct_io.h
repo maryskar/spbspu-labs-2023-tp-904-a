@@ -21,8 +21,7 @@ namespace skarlygina
 
   struct DBL_sciIO_t
   {
-    double ref;
-    size_t precision;
+    double& ref;
   };
 
   struct ULL_hexIO_t
