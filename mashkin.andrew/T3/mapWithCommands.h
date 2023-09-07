@@ -9,6 +9,6 @@ namespace mashkin
 {
   using vec = std::vector< Polygon >;
   using commandMap = std::map< std::string, void (*)(std::istream&, const vec&) >;
-  void createMapWithCommands(commandMap& commands);
+  commandMap createMapWithCommands();
 }
 #endif

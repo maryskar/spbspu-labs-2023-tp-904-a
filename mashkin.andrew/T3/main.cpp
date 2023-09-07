@@ -39,7 +39,7 @@ int main(int argc, char** argv)
     }
   }
   std::map< std::string, void (*)(std::istream&, const std::vector< mashkin::Polygon >&) > commands;
-  mashkin::createMapWithCommands(commands);
+  commands = mashkin::createMapWithCommands();
   std::string command;
   while (!std::cin.eof())
   {
