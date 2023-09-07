@@ -11,7 +11,6 @@ int main()
   using tds = timofeev::DataStruct;
   using out = std::ostream_iterator< tds >;
   using iter = std::istream_iterator< tds>;
-  auto Max = std::numeric_limits< std::streamsize >::max();
   std::vector< tds > data;
   timofeev::Comparator comparator;
   while(!std::cin.eof())
@@ -20,7 +19,7 @@ int main()
     if (!std::cin)
     {
       std::cin.clear();
-      std::cin.ignore(Max, '\n');
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
   std::sort(data.begin(), data.end(), comparator);
