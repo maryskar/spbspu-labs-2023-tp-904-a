@@ -143,21 +143,21 @@ namespace mashkin
     auto firstIt = std::find(polygon.points.begin(), polygon.points.end(), firstPoint);
     Point secondPoint;
     Point thridPoint;
-    if (firstIt == --polygon.points.end())
+    if (firstIt == polygon.points.end() - 1)
     {
       secondPoint = *polygon.points.begin();
-      thridPoint = *(++polygon.points.begin());
+      thridPoint = *(polygon.points.begin() + 1);
     }
     else
     {
-      secondPoint = *(++firstIt);
-      if (++firstIt == --polygon.points.end())
+      secondPoint = *(firstIt + 1);
+      if (firstIt + 1 == polygon.points.end() - 1)
       {
         thridPoint = *polygon.points.begin();
       }
       else
       {
-        secondPoint = *(++++firstIt);
+        secondPoint = *(firstIt + 2);
       }
     }
     int firstHalfOfAngle = (firstPoint.x - secondPoint.x) * (secondPoint.x - thridPoint.x);
