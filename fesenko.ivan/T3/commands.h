@@ -1,10 +1,11 @@
 #ifndef COMMANDS_H
 #define COMMADNS_H
 #include <iostream>
+#include <deque>
 #include "polygon.h"
 namespace fesenko
 {
-  using data_t = std::vector< Polygon >;
+  using data_t = std::deque< Polygon >;
   std::ostream &area(data_t &data, std::istream &in, std::ostream &out);
   std::ostream &max(data_t &data, std::istream &in, std::ostream &out);
   std::ostream &min(data_t &data, std::istream &in, std::ostream &out);
