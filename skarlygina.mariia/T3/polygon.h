@@ -14,4 +14,5 @@ namespace skarlygina
     std::vector< Point > points;
   };
 }
+
 #endif
