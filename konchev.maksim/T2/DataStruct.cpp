@@ -1,5 +1,6 @@
 #include "DataStruct.h"
 #include "../common/iotypes.h"
+#include "../common/StreamGuard.h"
 namespace konchev
 {
   std::istream &operator>>(std::istream &in, DataStruct &&data)
@@ -42,6 +43,7 @@ namespace konchev
     {
       return out;
     }
+    StreamGuard streamGuard(out);
     out << "(:key1 " << data.key1;
     out << ":key2 0x" << std::hex << std::uppercase << data.key2;
     out << ":key3 \"" << data.key3 << "\":)";
