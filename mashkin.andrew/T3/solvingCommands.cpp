@@ -135,6 +135,7 @@ namespace mashkin
 
   Angle::Angle(const Polygon& rhs)
   {
+    ang.reserve(rhs.points.size());
     std::transform(rhs.points.begin(), rhs.points.end(), std::back_inserter(ang), std::bind(getAngles, _1, rhs));
   }
 
