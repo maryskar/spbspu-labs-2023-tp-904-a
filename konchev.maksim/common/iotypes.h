@@ -1,0 +1,4 @@
+#ifndef KONCHEV_MAKSIM_IOTYPES_H
+#define KONCHEV_MAKSIM_IOTYPES_H
+
+#endif
