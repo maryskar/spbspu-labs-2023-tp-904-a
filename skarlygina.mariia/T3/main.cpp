@@ -1,5 +1,10 @@
 #include <iostream>
-int main()
+#include "polygon.h"
+#include "commands.h"
+
+int main(int argc, char** argv)
 {
-  std::cout << "skarlygina.mariia";
+  std::vector< skarlygina::Polygon > poligons;
+  using vector_of_polygons = std::vector< skarlygina::Polygon >;
+
 }
