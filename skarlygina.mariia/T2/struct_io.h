@@ -21,13 +21,15 @@ namespace skarlygina
 
   struct DBL_sciIO_t
   {
-    const double& ref;
+    double ref;
+    size_t precision;
   };
 
   struct ULL_hexIO_t
   {
     unsigned long long& ref;
   };
+
 
   std::istream& operator>>(std::istream& in, delimiter_sep_t&& dest);
   std::istream& operator>>(std::istream& in, delimiter_IO_t&& dest);

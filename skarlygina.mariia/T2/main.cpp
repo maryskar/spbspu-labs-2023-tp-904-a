@@ -6,9 +6,9 @@
 
 int main()
 {
-  std::vector< structure::DataStruct > data;
-  using i_iter = std::istream_iterator< structure::DataStruct >;
-  using o_iter = std::ostream_iterator< structure::DataStruct >;
+  std::vector< skarlygina::DataStruct > data;
+  using i_iter = std::istream_iterator< skarlygina::DataStruct >;
+  using o_iter = std::ostream_iterator< skarlygina::DataStruct >;
   while (!std::cin.eof())
   {
     std::copy(i_iter(std::cin), i_iter(), std::back_inserter(data));

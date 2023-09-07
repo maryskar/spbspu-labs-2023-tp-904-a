@@ -88,6 +88,6 @@ std::ostream& skarlygina::operator<<(std::ostream& out, const DBL_sciIO_t& dest)
     degree++;
   }
   Iofmtguard guard(out);
-  out << std::fixed << std::setprecision(1) << sci_dbl << "e" << std::showpos << degree;
+  out << std::fixed << std::setprecision(dest.precision) << sci_dbl << "e" << std::showpos << degree;
   return out;
 }
