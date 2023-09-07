@@ -6,7 +6,6 @@
 #include <functional>
 #include <ScopeGuard.hpp>
 #include <iostructures.hpp>
-#include "polygon.hpp"
 bool litvin::isEven(const Polygon & polygon)
 {
   return size(polygon) % 2 == 0;
@@ -55,8 +54,8 @@ double litvin::calcAreaIfNVertexes(const Polygon & pol, size_t number_of_vertexe
   return hasQuantityOfVertexes(pol, number_of_vertexes) ? calcArea(pol) : 0.0;
 }
 void litvin::printAreaIfNumberOfVertexesIs(const std::vector< litvin::Polygon > & data,
-    size_t number_of_vertexes,
-    std::ostream & out)
+                                           size_t number_of_vertexes,
+                                           std::ostream & out)
 {
   if (number_of_vertexes < 3)
   {
@@ -142,8 +141,8 @@ bool litvin::countIfNVertexes(const Polygon & pol, size_t num)
   return hasQuantityOfVertexes(pol, num);
 }
 void litvin::printNumOfPolygonsWithNumOfVertexes(const std::vector< litvin::Polygon > & data,
-    size_t number_of_vertexes,
-    std::ostream & out)
+                                                 size_t number_of_vertexes,
+                                                 std::ostream & out)
 {
   if (number_of_vertexes < 3)
   {
@@ -187,8 +186,8 @@ bool litvin::arePolygonsIntersected(const Polygon & pol1, const Polygon & pol2)
   });
 }
 void litvin::printNumberOfIntersections(const std::vector< litvin::Polygon > & data,
-    const Polygon & pol,
-    std::ostream & out)
+                                        const Polygon & pol,
+                                        std::ostream & out)
 {
   if (!data.empty())
   {
@@ -214,8 +213,8 @@ bool litvin::arePolygonsSame(const Polygon & polygon1, const Polygon & polygon2)
   return min1.x <= max2.x && max1.x >= min2.x && min1.y <= max2.y && max1.y >= min2.y;
 }
 void litvin::printNumberOfSameFigures(const std::vector< litvin::Polygon > & data,
-    const Polygon & pol,
-    std::ostream & out)
+                                      const Polygon & pol,
+                                      std::ostream & out)
 {
   if (!data.empty())
   {
@@ -225,99 +224,4 @@ void litvin::printNumberOfSameFigures(const std::vector< litvin::Polygon > & dat
     return;
   }
   out << '0' << '\n';
-}
-litvin::command_dicts_t::command_dicts_t()
-{
-  dict1.insert({"AREA EVEN", printEvenArea});
-  dict1.insert({"AREA ODD", printOddArea});
-  dict1.insert({"AREA MEAN", printAverageArea});
-  dict1.insert({"MAX AREA", printIfMaxArea});
-  dict1.insert({"MAX VERTEXES", printIfMaxVertexes});
-  dict1.insert({"MIN VERTEXES", printIfMinVertexes});
-  dict1.insert({"MIN AREA", printIfMinArea});
-  dict1.insert({"COUNT EVEN", printNumOfEven});
-  dict1.insert({"COUNT ODD", printNumOfOdd});
-  dict2.insert({"INTERSECTIONS", printNumberOfIntersections});
-  dict2.insert({"SAME", printNumberOfSameFigures});
-  dict3.insert({"COUNT", printNumOfPolygonsWithNumOfVertexes});
-  dict3.insert({"AREA", printAreaIfNumberOfVertexesIs});
-}
-void litvin::printInvalidCommand(std::ostream & out)
-{
-  out << "<INVALID COMMAND>";
-}
-std::string litvin::inputCommand(std::istream & in)
-{
-  std::string command_name = " ";
-  in >> command_name;
-  if (!in)
-  {
-    throw std::runtime_error("Command file ending were reached");
-  }
-  if (command_name != "SAME" && command_name != "INTERSECTIONS")
-  {
-    std::string parameter = " ";
-    in >> parameter;
-    if (!in)
-    {
-      throw std::invalid_argument("Invalid command parameter");
-    }
-    command_name = command_name + " " + parameter;
-  }
-  return command_name;
-}
-void litvin::command_dicts_t::executeCommand(const std::string & cmd,
-    const std::vector< Polygon > & data,
-    std::ostream & out) const
-{
-  signature_type_1 function = dict1.at(cmd);
-  function(data, out);
-}
-void litvin::command_dicts_t::executeCommand(const std::string & cmd,
-    const std::vector< Polygon > & data,
-    const Polygon & pol, std::ostream & out) const
-{
-  signature_type_2 function = dict2.at(cmd);
-  function(data, pol, out);
-}
-void litvin::command_dicts_t::executeCommand(const std::string & cmd,
-    const std::vector< Polygon > & data,
-    size_t num,
-    std::ostream & out) const
-{
-  signature_type_3 function = dict3.at(cmd);
-  function(data, num, out);
-}
-void litvin::runCommand(const std::vector< Polygon > & data,
-    const command_dicts_t & dicts,
-    const std::string & cmd,
-    std::ostream & out,
-    std::istream & in)
-{
-  if (cmd == "INTERSECTIONS" || cmd == "SAME")
-  {
-    Polygon polygon;
-    in >> polygon >> DelimiterIO{'\n'};
-    if (!in)
-    {
-      throw std::invalid_argument("Invalid command parameter");
-    }
-    try
-    {
-      dicts.executeCommand(cmd, data, polygon, out);
-      return;
-    }
-    catch (const std::out_of_range & error)
-    {}
-  }
-  try
-  {
-    dicts.executeCommand(cmd, data, out);
-    return;
-  }
-  catch (const std::out_of_range & error)
-  {}
-  size_t pos = cmd.find(' ');
-  size_t num = std::stoull(cmd.substr(pos));
-  dicts.executeCommand(cmd.substr(0, pos), data, num, out);
 }

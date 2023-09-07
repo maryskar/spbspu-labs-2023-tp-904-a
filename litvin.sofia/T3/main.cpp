@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include "polygon.hpp"
-#include "commands.hpp"
+#include "helpers.hpp"
 int main(int argc, char * argv[])
 {
   if (argc != 2)
@@ -31,7 +31,7 @@ int main(int argc, char * argv[])
     using is_it = std::istream_iterator< litvin::Polygon >;
     std::copy(is_it(fin), is_it(), std::back_inserter(data));
   }
-  litvin::command_dicts_t commands;
+  litvin::Command_dicts commands;
   while (!std::cin.eof())
   {
     try
