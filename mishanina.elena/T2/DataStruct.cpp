@@ -1,9 +1,6 @@
 #include "DataStruct.h"
 #include <iomanip>
 #include <iotypes.h>
-#include <iofmtguard.h>
-//#include "../common/iotypes.h"
-//#include "../common/iofmtguard.h"
   std::ostream &mishanina::operator<<(std::ostream &out, const long long &data)
   {
     out << ":key1 ";
@@ -62,12 +59,8 @@
       return out;
     }
     out << '(';
-//    out << data.key1;
-//    out << data.key2;
     mishanina::operator<<(out, data.key1);
     mishanina::operator<<(out, data.key2);
-//    printLL(out, data.key1);
-//    printULL(out, data.key2);
     out << ":key3 " << std::quoted(data.key3, '"');
     out << ":)";
     return out;

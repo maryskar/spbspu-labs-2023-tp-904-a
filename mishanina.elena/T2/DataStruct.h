@@ -15,8 +15,6 @@ namespace mishanina
     unsigned long long key2;
     std::string key3;
   };
-//  std::ostream &printLL(std::ostream &out,  const long long &data);
-//  std::ostream &printULL(std::ostream &out, const unsigned long long &data);
   std::ostream &operator<<(std::ostream &out,  const long long &data);
   std::ostream &operator<<(std::ostream &out, const unsigned long long &data);
   std::istream &operator>>(std::istream &in, DataStruct &data);
