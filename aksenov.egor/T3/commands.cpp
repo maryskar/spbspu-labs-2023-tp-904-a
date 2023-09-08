@@ -154,4 +154,30 @@ namespace aksenov
       std::cout << "invalid command";
     }
   }
+
+  void doCount(std::istream &inp, const std::vector< Polygon >&pol)
+  {
+    std::string command = "";
+    inp >> command;
+    if (command == "EVEN")
+    {
+      doCountEven(pol);
+    }
+    else if (command == "ODD")
+    {
+      doCountOdd(pol);
+    }
+    else if (isInteger(command))
+    {
+      if (command == "1" || command == "2")
+      {
+        std::cout << "invalid command";
+      }
+      else
+      {
+        doCountVertexes(command, pol);
+      }
+    }
+  }
+
 }
