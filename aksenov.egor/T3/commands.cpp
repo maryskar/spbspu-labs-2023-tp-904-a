@@ -155,6 +155,13 @@ namespace aksenov
     }
   }
 
+  void doCountEven(const std::vector< Polygon > &pol)
+  {
+    std::vector< Polygon > pols = pol;
+    size_t res = std::count_if(pols.begin(), pols.end(), isEven);
+    std::cout << res << "\n";
+  }
+
   void doCount(std::istream &inp, const std::vector< Polygon >&pol)
   {
     std::string command = "";
