@@ -75,4 +75,22 @@ namespace aksenov
       }
     }
   }
+
+  void doMax(std::istream &inp, const std::vector< Polygon > &pol)
+  {
+    std::string command = "";
+    inp >> command;
+    if (command == "AREA")
+    {
+      doMaxArea(pol);
+    }
+    else if (command == "VERTEXES")
+    {
+      doMaxVertexes(pol);
+    }
+    else
+    {
+      std::cout << "invalid command";
+    }
+  }
 }
