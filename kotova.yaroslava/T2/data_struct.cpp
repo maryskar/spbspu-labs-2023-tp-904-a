@@ -1,5 +1,7 @@
 #include "data_struct.hpp"
 #include <iomanip>
+#include <vector>
+#include <iterator>
 #include "IO_structs.hpp"
 #include "iofmtguard.hpp"
 namespace kotova
@@ -54,7 +56,7 @@ namespace kotova
     iofmtguard fmtguard(out);
     out << "(: ";
     out << "key1 " << DoubleO{src.key1};
-    out << ":key2 0x" << src.key2;
+    out << ":key2 0x" << std::hex << std::uppercase << src.key2;
     out << ":key3 \"" << src.key3;
     out << "\":)";
     return out;
