@@ -41,14 +41,10 @@ int main(int argNum, char* argv[])
       auto read = vagina::readCommand(std::cin);
       vagina::doCommand(read, dictionary, polygon, std::cin, std::cout);
     }
-    catch (const std::logic_error & e)
+    catch (...)
     {
       vagina::messageInvalidCommand(std::cout);
       std::cin.ignore(max_size, '\n');
-    }
-    catch (const std::runtime_error & e)
-    {
-      break;
     }
     if(!std::cin)
     {
