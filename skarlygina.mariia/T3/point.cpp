@@ -30,3 +30,12 @@ std::ostream& skarlygina::operator<<(std::ostream& out, const Point& point)
   return out;
 }
 
+bool skarlygina::operator==(const Point& lhs, const Point& rhs)
+{
+  return (lhs.x == rhs.x) && (lhs.y == rhs.y);
+}
+
+bool skarlygina::operator!=(const Point& lhs, const Point& rhs)
+{
+  return !(lhs == rhs);
+}
