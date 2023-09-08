@@ -25,6 +25,15 @@ namespace aksenov
     double res = std::accumulate(areas.begin(), areas.end(), 0);
     std::cout << res << "\n";
   }
+
+  void doAreaMean(const std::vector< Polygon > &pol)
+  {
+    std::vector< double > areas = getArea(pol);
+    double area = std::accumulate(areas.begin(), areas.end(), 0);
+    area /= pol.size();
+    std::cout << area << "\n";
+  }
+
   void doArea(std::istream &inp, const std::vector< Polygon > &pol)
   {
     std::string command = "";
