@@ -17,6 +17,14 @@ namespace aksenov
     std::cout << res << "\n";
   }
 
+  void doAreaOdd(const std::vector< Polygon > &pol)
+  {
+    std::vector< Polygon > vecOfPolygons;
+    std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isOdd);
+    std::vector< double > areas = getArea(vecOfPolygons);
+    double res = std::accumulate(areas.begin(), areas.end(), 0);
+    std::cout << res << "\n";
+  }
   void doArea(std::istream &inp, const std::vector< Polygon > &pol)
   {
     std::string command = "";
