@@ -116,6 +116,14 @@ namespace aksenov
     }
   }
 
+  void doMinArea(const std::vector< Polygon > &pol)
+  {
+    std::vector< double > areas = getArea(pol);
+    auto minElementIter = std::min_element(areas.begin(), areas.end());
+    auto out = std::ostream_iterator< double > (std::cout, "\n");
+    std::copy(minElementIter, minElementIter + 1, out);
+  }
+
   void doMin(std::istream &inp, const std::vector< Polygon > &pol)
   {
     std::string command = "";
