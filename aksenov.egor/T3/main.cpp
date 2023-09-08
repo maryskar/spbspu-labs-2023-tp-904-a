@@ -1,5 +1,20 @@
 #include <iostream>
-int main()
+#include <fstream>
+int main(int argc, char **argv)
 {
-  std::cout << "Init commit" << "\n";
+  if (argc != 2)
+  {
+    std::cerr << "Error" << "\n";
+    return 1;
+  }
+  std::ifstream inF;
+  if (argc == 2)
+  {
+    inF.open(argv[1]);
+    if (!inF.is_open())
+    {
+      std::cerr << "Error" << "\n";
+      return 1;
+    }
+  }
 }
