@@ -53,7 +53,7 @@ std::istream& skarlygina::operator>>(std::istream& in, DBL_sciI_t&& dest)
   {
     return in;
   }
-  return in >> dest.ref;
+  return in >> std::scientific >> dest.ref;
 }
 
 std::istream& skarlygina::operator>>(std::istream& in, ULL_hexI_t&& dest)
