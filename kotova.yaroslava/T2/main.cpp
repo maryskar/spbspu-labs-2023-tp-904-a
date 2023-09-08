@@ -1,3 +1,4 @@
+#include <vector>
 #include <iterator>
 #include <algorithm>
 #include <limits>
@@ -10,7 +11,7 @@ int main()
   {
     std::cin.clear();
     using iter_d = std::istream_iterator< kotova::DataStruct >;
-    std::copy(iter_d(std::cin),iter_d(), std::back_inserter(data));
+    std::copy(iter_d(std::cin), iter_d(), std::back_inserter(data));
   }
   std::sort(data.begin(), data.end(), kotova::check);
 
