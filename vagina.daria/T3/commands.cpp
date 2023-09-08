@@ -42,7 +42,7 @@ void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::runtime_error("No polygon");
+    throw std::logic_error("No polygon");
   }
   std::vector< double > tmp(dest.size());
   std::transform(dest.begin(), dest.end(), tmp.begin(), getArea);
@@ -70,7 +70,7 @@ void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::runtime_error("No polygon");
+    throw std::logic_error("No polygon");
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -82,7 +82,7 @@ void vagina::maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::runtime_error("No polygon");
+    throw std::logic_error("No polygon");
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -94,7 +94,7 @@ void vagina::minArea(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::runtime_error("No polygon");
+    throw std::logic_error("No polygon");
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
@@ -106,7 +106,7 @@ void vagina::minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
 {
   if (dest.empty())
   {
-    throw std::runtime_error("No polygon");
+    throw std::logic_error("No polygon");
   }
   std::vector< Polygon > tmp(dest.size());
   std::copy(dest.begin(), dest.end(), tmp.begin());
