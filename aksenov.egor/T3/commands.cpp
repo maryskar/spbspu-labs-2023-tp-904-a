@@ -214,4 +214,26 @@ namespace aksenov
     auto counter = std::count_if(sorted.begin(), sorted.end(), func);
     std::cout << counter << "\n";
   }
+
+  void doRightshapes(std::istream &inp, const std::vector< Polygon > &pol)
+  {
+    int count = 0;
+    for (const Polygon& polygon : pol) {
+      for (int i = 0; i < polygon.points.size(); i++)
+      {
+        const Point& p1 = polygon.points[i];
+        const Point& p2 = polygon.points[(i + 1) % polygon.points.size()];
+        const Point& p3 = polygon.points[(i + 2) % polygon.points.size()];
+        int x1 = p2.x - p1.x;
+        int y1 = p2.y - p1.y;
+        int x2 = p3.x - p2.x;
+        int y2 = p3.y - p2.y;
+        if (x1 * x2 + y1 * y2 == 0) {
+          count++;
+          break;
+        }
+      }
+    }
+    std::cout << count << "\n";
+  }
 }
