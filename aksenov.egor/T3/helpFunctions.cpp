@@ -40,4 +40,9 @@ namespace aksenov
     strtol(s.c_str(), &p, 10);
     return (*p == 0);
   }
+
+  bool isNotEqual(const Polygon &pol, size_t num)
+  {
+    return pol.points.size() != num;
+  }
 }

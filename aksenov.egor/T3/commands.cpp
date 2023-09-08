@@ -4,6 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <numeric>
+#include <functional>
 #include "polygon.h"
 #include "helpFunctions.h"
 namespace aksenov
@@ -32,6 +33,17 @@ namespace aksenov
     double area = std::accumulate(areas.begin(), areas.end(), 0);
     area /= pol.size();
     std::cout << area << "\n";
+  }
+
+  void doAreaWithVertexes(const std::vector< Polygon > &pol, std::string command)
+  {
+    size_t num = std::stoul(command);
+    std::vector< Polygon > pols;
+    auto func = std::bind(isNotEqual, std::placeholders::_1, num);
+    std::copy_if(pol.begin(),pol.end(), std::back_inserter(pols), func);
+    std::vector< double > areas = getArea(pols);
+    double res = std::accumulate(areas.begin(), areas.end(), 0);
+    std::cout << res << "\n";
   }
 
   void doArea(std::istream &inp, const std::vector< Polygon > &pol)
