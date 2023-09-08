@@ -115,4 +115,22 @@ namespace aksenov
       std::cout << "invalid command";
     }
   }
+
+  void doMin(std::istream &inp, const std::vector< Polygon > &pol)
+  {
+    std::string command = "";
+    inp >> command;
+    if (command == "AREA")
+    {
+      doMinArea(pol);
+    }
+    else if (command == "VERTEXES")
+    {
+      doMinVertexes(pol);
+    }
+    else
+    {
+      std::cout << "invalid command";
+    }
+  }
 }
