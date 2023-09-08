@@ -50,4 +50,45 @@ namespace aksenov
   {
     return pol.points.size() == amount;
   }
+
+  bool comparePoints(const Point &lhs, const Point &rhs)
+  {
+    if (lhs.x == rhs.x) {
+      return lhs.y < rhs.y;
+    }
+    return lhs.x < rhs.x;
+  }
+
+  Point translatePoint(const Point& point, int diffX, int diffY)
+  {
+    Point translatedPoint;
+    translatedPoint.x = point.x + diffX;
+    translatedPoint.y = point.y + diffY;
+    return translatedPoint;
+  }
+
+  bool isSame(const Polygon& lhs, const Polygon& rhs)
+  {
+    if (lhs.points.size() != rhs.points.size()) {
+      return false;
+    }
+
+    std::vector<Point> lhsSorted(lhs.points);
+    std::vector<Point> rhsSorted(rhs.points);
+
+    std::sort(lhsSorted.begin(), lhsSorted.end(), comparePoints);
+    std::sort(rhsSorted.begin(), rhsSorted.end(), comparePoints);
+
+    int diffX = lhsSorted[0].x - rhsSorted[0].x;
+    int diffY = lhsSorted[0].y - rhsSorted[0].y;
+
+    for (size_t i = 0; i < lhsSorted.size(); i++) {
+      Point translatedPoint = translatePoint(rhsSorted[i], diffX, diffY);
+      if (!(lhsSorted[i] == translatedPoint)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
