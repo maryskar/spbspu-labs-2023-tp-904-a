@@ -23,6 +23,11 @@ namespace kryuchkova
   {
     std::string exp;
   };
+
+  std::istream & operator>>(std::istream & in, Delimiter && dest);
+  std::istream & operator>>(std::istream & in, Label && dest);
+  std::istream & operator>>(std::istream & in, DblSci && dest);
+  std::istream & operator>>(std::istream & in, UllOct && dest);
 }
 
 #endif
