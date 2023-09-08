@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <numeric>
 #include <functional>
+#include <iterator>
 #include "polygon.h"
 #include "helpFunctions.h"
 namespace aksenov
@@ -74,6 +75,14 @@ namespace aksenov
         doAreaWithVertexes(pol, command);
       }
     }
+  }
+
+  void doMaxArea(const std::vector< Polygon > &pol)
+  {
+    std::vector< double > areas = getArea(pol);
+    auto maxElementIter = std::max_element(areas.begin(), areas.end());
+    auto it = std::ostream_iterator< double > (std::cout, "\n");
+    std::copy(maxElementIter, maxElementIter + 1, it);
   }
 
   void doMax(std::istream &inp, const std::vector< Polygon > &pol)
