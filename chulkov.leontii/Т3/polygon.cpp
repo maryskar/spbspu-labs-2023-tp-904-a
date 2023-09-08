@@ -33,4 +33,40 @@ namespace chulkov {
     return in;
   }
 
+  std::ostream& operator<<(std::ostream& out, const Point& point)
+  {
+    std::ostream::sentry sentry(out);
+    if (!sentry) {
+      return out;
+    }
+    StreamGuard quard(out);
+    out << std::fixed << std::setprecision(1);
+    return out << '(' << point.x << ';' << point.y << ')';
+  }
+
+  std::ostream& operator<<(std::ostream& out, const Polygon& dest)
+  {
+    std::ostream::sentry sentry(out);
+    if (!sentry) {
+      return out;
+    }
+    using ostreamIter = std::ostream_iterator< Point >;
+    std::copy(dest.points.cbegin(), dest.points.cend(), ostreamIter(out));
+    return out;
+  }
+
+  bool operator==(const Point& frs, const Point& sec)
+  {
+    return (frs.x == sec.x) && (frs.y == sec.y);
+  }
+
+  bool operator!=(const Point& frs, const Point& sec)
+  {
+    return !(frs == sec);
+  }
+
+  bool operator==(const Polygon& frst, const Polygon& sec)
+  {
+    return frst.points.size() == sec.points.size() && std::equal(frst.points.begin(), frst.points.end(), sec.points.begin());
+  }
 }
