@@ -22,4 +22,22 @@ namespace aksenov
     }
     return areas;
   }
+
+  bool isOdd(const Polygon& data)
+  {
+    return data.points.size() % 2;
+  }
+
+  bool isEven(const Polygon& data)
+  {
+    return !(isOdd(data));
+  }
+
+  bool isInteger(const std::string & s)
+  {
+    if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
+    char * p = nullptr;
+    strtol(s.c_str(), &p, 10);
+    return (*p == 0);
+  }
 }
