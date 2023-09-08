@@ -12,38 +12,36 @@ namespace kotova
       return in;
     }
     DataStruct input;
-    using sep = DelimiterIO;
-    using label = LabelIO;
-    using dbl = DoubleI;
-    using str = StringIO;
-    using ullh = ULLHexIO;
-    in >> sep{ '(' } >> sep { ':' };
-    if (!in)
     {
+      using sep = DelimiterIO;
+      using label = LabelIO;
+      using dbl = DoubleI;
+      using str = StringIO;
+      using ullh = ULLHexIO;
+      in >> sep{ '(' } >> sep { ':' };
+      for (size_t i = 0; i <= 3; i++)
+      {
+        size_t num = 0;
+        in >> label{ "key" } >> num;
+        if (num == 1)
+        {
+          in >> dbl{ input.key1 } >> sep { ':' };
+        }
+        else if (num == 2)
+        {
+          in >> ullh{ input.key2 } >> sep { ':' };
+        }
+        else if (num == 3)
+        {
+          in >> str{ input.key3 } >> sep { ':' };
+        }
+      }
+      if (in)
+      {
+        dest = input;
+      }
       return in;
     }
-    for (size_t i = 0; i < 3; i++)
-    {
-      size_t num = 0;
-      in >> label{ "key" } >> num;
-      if (num == 1)
-      {
-        in >> dbl{ input.key1 } >> sep { ':' };
-      }
-      else if (num == 2)
-      {
-        in >> ullh{ input.key2 } >> sep { ':' };
-      }
-      else if (num == 3)
-      {
-        in >> str{ input.key3 } >> sep { ':' };
-      }
-    }
-    if (in)
-    {
-      dest = input;
-    }
-    return in;
   }
 
   std::ostream &operator<<(std::ostream &out, const DataStruct &src)
@@ -57,7 +55,8 @@ namespace kotova
     out << "(: ";
     out << "key1 " << DoubleO{src.key1};
     out << ":key2 0x" << src.key2;
-    out << ":key3 \"" << src.key3 << "\":)";
+    out << ":key3 \"" << src.key3;
+    out << "\":)";
     return out;
   }
 
