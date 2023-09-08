@@ -21,7 +21,7 @@ namespace skarlygina
 
   struct DBL_sciI_t
   {
-    double ref;
+    double& ref;
   };
 
   struct DBL_sciO_t
