@@ -9,5 +9,7 @@ namespace skarlygina
   };
   std::istream& operator>>(std::istream&, Point&);
   std::ostream& operator<<(std::ostream&, const Point&);
+  bool operator==(const Point& lhs, const Point& rhs);
+  bool operator!=(const Point& lhs, const Point& rhs);
 }
 #endif
