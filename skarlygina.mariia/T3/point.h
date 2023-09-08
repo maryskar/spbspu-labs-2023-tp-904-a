@@ -1,5 +1,6 @@
 #ifndef POINT_H
 #define POINT_H
+#include <ios>
 namespace skarlygina
 {
   struct Point
