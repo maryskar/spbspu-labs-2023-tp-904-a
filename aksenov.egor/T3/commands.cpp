@@ -203,4 +203,15 @@ namespace aksenov
     }
   }
 
+  void doSame(std::istream &inp, const std::vector< Polygon > &pol)
+  {
+    Polygon polygon;
+    inp >> polygon;
+    auto sort = std::bind(isEqual, std::placeholders::_1, polygon.points.size());
+    std::vector< Polygon > sorted;
+    std::copy_if(pol.begin(),pol.end(),sorted.begin(), sort);
+    auto func = std::bind(isSame, std::placeholders::_1, polygon);
+    auto counter = std::count_if(sorted.begin(), sorted.end(), func);
+    std::cout << counter << "\n";
+  }
 }
