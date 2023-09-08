@@ -2,9 +2,21 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
+#include <numeric>
 #include "polygon.h"
+#include "helpFunctions.h"
 namespace aksenov
 {
+  void doAreaEven(const std::vector< Polygon > &pol)
+  {
+    std::vector< Polygon > vecOfPolygons;
+    std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isEven);
+    std::vector< double > areas = getArea(vecOfPolygons);
+    double res = std::accumulate(areas.begin(), areas.end(), 0);
+    std::cout << res << "\n";
+  }
+
   void doArea(std::istream &inp, const std::vector< Polygon > &pol)
   {
     std::string command = "";
