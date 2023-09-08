@@ -45,4 +45,9 @@ namespace aksenov
   {
     return pol.points.size() != num;
   }
+
+  bool isEqual(const Polygon &pol, size_t amount)
+  {
+    return pol.points.size() == amount;
+  }
 }

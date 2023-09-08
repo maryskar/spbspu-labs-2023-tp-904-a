@@ -11,5 +11,6 @@ namespace aksenov
   bool isEven(const Polygon& data);
   bool isInteger(const std::string & s);
   bool isNotEqual(const Polygon &pol, size_t num);
+  bool isEqual(const Polygon &pol, size_t amount);
 }
 #endif

@@ -169,6 +169,15 @@ namespace aksenov
     std::cout << res << "\n";
   }
 
+  void doCountVertexes(std::string command, const std::vector< Polygon > &pol)
+  {
+    std::vector< Polygon > pols = pol;
+    size_t amount = std::stoull(command);
+    auto func = std::bind(isEqual, std::placeholders::_1, amount);
+    size_t res = std::count_if(pols.begin(), pols.end(), func);
+    std::cout << res << "\n";
+  }
+
   void doCount(std::istream &inp, const std::vector< Polygon >&pol)
   {
     std::string command = "";
