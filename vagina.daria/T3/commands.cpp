@@ -53,7 +53,7 @@ void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out,
 {
   if (param < 3)
   {
-    throw std::logic_error("Invalid parameter");
+    throw std::logic_error("Invalid parametr");
   }
   using namespace std::placeholders;
   auto countVert = std::bind(isCountOfVertexes, _1, param);
