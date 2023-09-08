@@ -54,8 +54,8 @@ namespace kotova
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "(: ";
-    out << "key1 " << DoubleO{src.key1};
+    out << "( ";
+    out << ":key1 " << DoubleO { src.key1 };
     out << ":key2 0x" << std::hex << std::uppercase << src.key2;
     out << ":key3 \"" << src.key3;
     out << "\":)";

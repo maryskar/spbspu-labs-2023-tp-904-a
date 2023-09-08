@@ -73,7 +73,11 @@ namespace kotova
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO{':'}, dest.exp, ' ');
+    for (size_t i = 0; i < dest.exp.length(); i++)
+    {
+      in >> DelimiterIO{dest.exp[i]};
+    }
+    return in;
   }
 
   std::istream & operator>>(std::istream &in, ULLHexIO &&dest)
