@@ -24,8 +24,8 @@ std::ostream& skarlygina::operator<<(std::ostream& out, const DataStruct& data)
     return out;
   }
   Iofmtguard fmtguard(out);
-  out << "(:key1 " << DBL_sciIO_t{const_cast< double& >(data.key1)};;
-  out << ":key2 0x" << std::hex << std::uppercase << data.key2;
+  out << "(:key1 " << DBL_sciO_t{data.key1};
+  out << ":key2 " << ULL_hexO_t{data.key2};
   out << ":key3 " << '"' << data.key3 << '"' << ":)";
   return out;
 }
@@ -45,11 +45,11 @@ std::istream& skarlygina::operator>>(std::istream& in, DataStruct& data)
     in >> keyX;
     if (keyX == "key1")
     {
-      in >> DBL_sciIO_t{in_data.key1};
+      in >> DBL_sciI_t{in_data.key1};
     }
     else if (keyX == "key2")
     {
-      in >> ULL_hexIO_t{in_data.key2};
+      in >> ULL_hexI_t{in_data.key2};
     }
     else if (keyX == "key3")
     {

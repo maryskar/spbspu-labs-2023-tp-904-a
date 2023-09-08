@@ -46,7 +46,7 @@ std::istream& skarlygina::operator>>(std::istream& in, string_IO_t&& dest)
   return std::getline(in >> delimiter_IO_t{ '"' }, dest.ref, '"');
 }
 
-std::istream& skarlygina::operator>>(std::istream& in, DBL_sciIO_t&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, DBL_sciI_t&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -56,7 +56,7 @@ std::istream& skarlygina::operator>>(std::istream& in, DBL_sciIO_t&& dest)
   return in >> dest.ref;
 }
 
-std::istream& skarlygina::operator>>(std::istream& in, ULL_hexIO_t&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, ULL_hexI_t&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -67,7 +67,17 @@ std::istream& skarlygina::operator>>(std::istream& in, ULL_hexIO_t&& dest)
   return in;
 }
 
-std::ostream& skarlygina::operator<<(std::ostream& out, const DBL_sciIO_t& dest)
+std::ostream& skarlygina::operator<<(std::ostream& out, ULL_hexO_t&& dest)
+{
+  std::ostream::sentry sent(out);
+  if (!sent)
+  {
+    return out;
+  }
+  return out << "0x" << std::hex << std::uppercase << dest.ref;
+}
+
+std::ostream& skarlygina::operator<<(std::ostream& out, const DBL_sciO_t& dest)
 {
   std::ostream::sentry sent(out);
   if (!sent)
@@ -90,4 +100,14 @@ std::ostream& skarlygina::operator<<(std::ostream& out, const DBL_sciIO_t& dest)
   Iofmtguard guard(out);
   out << std::fixed << std::setprecision(1) << sci_dbl << "e" << std::showpos << degree;
   return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const skarlygina::string_IO_t& dest)
+{
+  std::ostream::sentry sent(out);
+  if (!sent)
+  {
+    return out;
+  }
+  return out << dest.ref;
 }

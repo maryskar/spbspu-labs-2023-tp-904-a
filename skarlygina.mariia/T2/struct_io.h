@@ -19,22 +19,33 @@ namespace skarlygina
     std::string& ref;
   };
 
-  struct DBL_sciIO_t
+  struct DBL_sciI_t
   {
-    double& ref;
+    double ref;
   };
 
-  struct ULL_hexIO_t
+  struct DBL_sciO_t
+  {
+    double ref;
+  };
+
+  struct ULL_hexI_t
   {
     unsigned long long& ref;
   };
 
+  struct ULL_hexO_t
+  {
+    unsigned long long ref;
+  };
 
   std::istream& operator>>(std::istream& in, delimiter_sep_t&& dest);
   std::istream& operator>>(std::istream& in, delimiter_IO_t&& dest);
   std::istream& operator>>(std::istream& in, string_IO_t&& dest);
-  std::istream& operator>>(std::istream& in, DBL_sciIO_t&& dest);
-  std::istream& operator>>(std::istream& in, ULL_hexIO_t&& dest);
-  std::ostream& operator<<(std::ostream& out, const DBL_sciIO_t& dest);
+  std::istream& operator>>(std::istream& in, DBL_sciI_t&& dest);
+  std::istream& operator>>(std::istream& in, ULL_hexI_t&& dest);
+  std::ostream& operator<<(std::ostream& out, ULL_hexO_t&& dest);
+  std::ostream& operator<<(std::ostream& out, const DBL_sciO_t& dest);
+  std::ostream& operator<<(std::ostream& out, const string_IO_t& dest);
 }
 #endif
