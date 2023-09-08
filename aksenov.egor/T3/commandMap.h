@@ -4,6 +4,9 @@
 #include <iostream>
 #include <vector>
 #include "polygon.h"
-using commandMap = std::map< std::string, void (*)(std::istream&, const std::vector< Polygon >&) >;
-void makeDict(commandMap &commands);
+namespace aksenov
+{
+  using commandMap = std::map< std::string, void (*)(std::istream&, const std::vector< Polygon >&) >;
+  void makeDict(commandMap &commands);
+}
 #endif
