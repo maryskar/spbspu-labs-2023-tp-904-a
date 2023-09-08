@@ -1,4 +1,3 @@
-#include <deque>
 #include <iterator>
 #include <algorithm>
 #include <limits>
@@ -6,19 +5,15 @@
 
 int main()
 {
-  using ist_iter = std::istream_iterator< kotova::DataStruct >;
-  using ost_iter = std::ostream_iterator< kotova::DataStruct >;
-  std::deque< kotova::DataStruct > data;
+  std::vector< kotova::DataStruct > data;
   while (!std::cin.eof())
   {
-    if (std::cin.fail())
-    {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-    }
-    std::copy(ist_iter(std::cin), ist_iter(), std::back_inserter(data));
+    std::cin.clear();
+    using iter_d = std::istream_iterator< kotova::DataStruct >;
+    std::copy(iter_d(std::cin),iter_d(), std::back_inserter(data));
   }
   std::sort(data.begin(), data.end(), kotova::check);
-  std::copy(std::begin(data), std::end(data), ost_iter(std::cout, "\n"));
-  return 0;
+
+  std::copy(data.begin(), data.end(), std::ostream_iterator< kotova::DataStruct >(std::cout, "\n"));
+
 }
