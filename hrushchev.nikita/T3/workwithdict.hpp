@@ -2,12 +2,15 @@
 #define WORKWITHDICT_HPP
 
 #include <map>
+#include <string>
 #include "polygon.hpp"
 
 namespace hrushchev
 {
   class Commands
   {
+    public:
+      Commands();
     private:
       using com1 = void (*)(const std::vector< Polygon >& polygons, std::ostream& out);
       using com2 = void (*)(const std::vector< Polygon >& polygons, size_t count, std::ostream& out);
@@ -16,5 +19,11 @@ namespace hrushchev
       std::map< std::string, com2 > dict2_;
       std::map< std::string, com3 > dict3_;
   };
+
+  std::ostream& printError(std::ostream& out);
+  std::string inputCommand(std::istream& in);
+  void runCommand(std::vector< Polygon >& polygons, const Commands& dict, const std::string& cmd, std::ostream& out,
+      std::istream& in);
 }
+
 #endif
