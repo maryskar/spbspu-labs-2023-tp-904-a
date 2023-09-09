@@ -105,3 +105,4 @@ void hrushchev::doCommand(std::vector< Polygon >& polygons,
   size_t count = std::stoull(cmd.substr(pos));
   dict.doCommand(polygons, cmd, count, out);
 }
+

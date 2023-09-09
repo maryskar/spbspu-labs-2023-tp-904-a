@@ -24,7 +24,7 @@ namespace hrushchev
           const std::string& cmd,
           const Polygon& polygon,
           std::ostream& out) const;
-      
+
     private:
       using com1 = void (*)(const std::vector< Polygon >& polygons, std::ostream& out);
       using com2 = void (*)(const std::vector< Polygon >& polygons, size_t count, std::ostream& out);
