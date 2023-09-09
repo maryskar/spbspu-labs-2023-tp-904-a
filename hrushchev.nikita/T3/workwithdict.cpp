@@ -1,6 +1,7 @@
 #include "workwithdict.hpp"
 #include <map>
 #include <iostream>
+#include <string>
 #include "command.hpp"
 #include "polygon.hpp"
 
@@ -19,4 +20,26 @@ hrushchev::Commands::Commands()
   dict2_.insert({"COUNT", getCountVertexes});
   dict3_.insert({"RMECHO", rmEcho});
   dict3_.insert({"SAME", getSame});
+}
+
+std::string hrushchev::inputCommand(std::istream& in)
+{
+
+  std::string command = " ";
+  in >> command;
+  if (!in)
+  {
+    throw std::runtime_error("Error input");
+  }
+  if ((command != "RMECHO") && (command != "SAME"))
+  {
+    std::string arg = " ";
+    in >> arg;
+    if (!in)
+    {
+      throw std::runtime_error("Error input");
+    }
+    command = command + " " + arg;
+  }
+  return command;
 }
