@@ -1,5 +1,5 @@
 #include "commandMap.h"
-
+#include <commands.h>
 namespace aksenov
 {
   void makeDict(commandMap &commands)

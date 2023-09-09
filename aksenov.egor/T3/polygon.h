@@ -3,6 +3,7 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include <istream>
 
 namespace aksenov
 {
@@ -11,51 +12,22 @@ namespace aksenov
     char exp;
   };
 
-  std::istream &operator>>(std::istream &in, DelimiterIO &&dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    char c = '0';
-    in >> c;
-    if (in && (c != dest.exp))
-    {
-      in.setstate(std::ios::failbit);
-    }
-    return in;
-  }
+  std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
 
   struct Point
   {
     int x, y;
   };
 
-  bool operator==(const Point& lhs, const Point& rhs)
-  {
-    return (lhs.x == rhs.x) && (lhs.y == rhs.y);
-  }
+  bool operator==(const Point& lhs, const Point& rhs);
 
   struct Polygon
   {
     std::vector< Point > points;
   };
 
-  std::istream &operator>>(std::istream &input, Point &point)
-  {
-    input >> DelimiterIO{'('} >> point.x >> DelimiterIO{';'};
-    input >> point.y >> DelimiterIO{')'};
-    return input;
-  }
+  std::istream & operator>>(std::istream & in, Point & rhs);
 
-  std::istream &operator>>(std::istream &input, Polygon &polygon)
-  {
-    using inputIter = std::istream_iterator< Point >;
-    size_t pointNum = 0;
-    input >> pointNum;
-    std::copy_n(inputIter(input),pointNum, std::back_inserter(polygon.points));
-    return input;
-  }
+  std::istream & operator>>(std::istream & in, Polygon & rhs);
 }
 #endif

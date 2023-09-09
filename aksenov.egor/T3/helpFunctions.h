@@ -6,7 +6,7 @@
 
 namespace aksenov
 {
-  std::vector< double > getArea(const std::vector<Polygon> &pol);
+  std::vector< double > getArea(const std::vector< Polygon > &pol);
   bool isOdd(const Polygon& data);
   bool isEven(const Polygon& data);
   bool isInteger(const std::string & s);

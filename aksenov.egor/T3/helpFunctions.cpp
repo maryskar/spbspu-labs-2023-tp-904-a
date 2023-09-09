@@ -1,6 +1,5 @@
 #include "helpFunctions.h"
 #include <vector>
-#include <cstddef>
 #include <cmath>
 #include "polygon.h"
 namespace aksenov
