@@ -7,15 +7,6 @@
 #include "command.hpp"
 #include "workwithdict.hpp"
 
-void printPolygon(const hrushchev::Polygon& polygon)
-{
-  std::cout << "Polygon with " << polygon.points_.size() << " points:\n";
-  for (const hrushchev::Point& point : polygon.points_)
-  {
-    std::cout << "(" << point.x_ << ", " << point.y_ << ")\n";
-  }
-}
-
 int main(int argc, char* argv[])
 {
   if (argc != 2)
@@ -31,8 +22,7 @@ int main(int argc, char* argv[])
   }
 
   std::vector< hrushchev::Polygon > data;
-
-/*  while (!input.eof())
+  while (!input.eof())
   {
     if (!input)
     {
@@ -42,6 +32,21 @@ int main(int argc, char* argv[])
     using iter = std::istream_iterator< hrushchev::Polygon >;
     std::copy(iter(input), iter(), std::back_inserter(data));
   }
-*/
-  std::cout << hrushchev::inputCommand(std::cin);
+
+  hrushchev::Commands dict_wiht_cmd;
+
+  while (!std::cin.eof())
+  {
+    try
+    {
+      std::string command;
+      command = hrushchev::inputCommand(std::cin);
+      hrushchev::doCommand(data, dict_wiht_cmd, command, std::cout, std::cin);
+    }
+    catch (const std::exception& e)
+    {
+      std::cout << e.what() << "\n";
+      return 1;
+    }
+  }
 }

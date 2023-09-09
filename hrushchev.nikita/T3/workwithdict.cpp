@@ -23,6 +23,32 @@ hrushchev::Commands::Commands()
   dict3_.insert({"SAME", getSame});
 }
 
+void hrushchev::Commands::doCommand(const std::vector< Polygon >& polygons,
+  const std::string& cmd,
+  std::ostream& out) const
+{
+  auto func = dict1_.at(cmd);
+  func(polygons, out);
+}
+
+void hrushchev::Commands::doCommand(const std::vector< Polygon >& polygons,
+    const std::string& cmd,
+    size_t count,
+    std::ostream& out) const
+{
+  auto func = dict2_.at(cmd);
+  func(polygons, count, out);
+}
+
+void hrushchev::Commands::doCommand(std::vector< Polygon >& polygons,
+    const std::string& cmd,
+    const Polygon& polygon,
+    std::ostream& out) const
+{
+  auto func = dict3_.at(cmd);
+  func(polygons, polygon, out);
+}
+
 std::string hrushchev::inputCommand(std::istream& in)
 {
   std::string command = " ";
@@ -60,8 +86,7 @@ void hrushchev::doCommand(std::vector< Polygon >& polygons,
     }
     try
     {
-      auto func = dict.dict3_.at(cmd);
-      func(polygons, polygon, out);
+      dict.doCommand(polygons, cmd, polygon, out);
       return;
     }
     catch (const std::out_of_range& error)
@@ -70,8 +95,7 @@ void hrushchev::doCommand(std::vector< Polygon >& polygons,
   }
   try
   {
-    auto func = dict.dict1_.at(cmd);
-    func(polygons, out);
+    dict.doCommand(polygons, cmd, out);
     return;
   }
   catch (const std::out_of_range& error)
@@ -79,6 +103,5 @@ void hrushchev::doCommand(std::vector< Polygon >& polygons,
   }
   size_t pos = cmd.find(' ');
   size_t count = std::stoull(cmd.substr(pos));
-  auto func = dict.dict2_.at(cmd.substr(0, pos));
-  func(polygons, count, out);
+  dict.doCommand(polygons, cmd, count, out);
 }
