@@ -81,13 +81,14 @@ namespace aksenov
     int diffX = lhsSorted[0].x - rhsSorted[0].x;
     int diffY = lhsSorted[0].y - rhsSorted[0].y;
 
-    for (size_t i = 0; i < lhsSorted.size(); i++) {
+    for (size_t i = 0; i < lhsSorted.size(); i++)
+    {
       Point translatedPoint = translatePoint(rhsSorted[i], diffX, diffY);
-      if (!(lhsSorted[i] == translatedPoint)) {
+      if (!(lhsSorted[i] == translatedPoint))
+      {
         return false;
       }
     }
-
     return true;
   }
 }
