@@ -71,6 +71,6 @@ acceptance:
     - build
   artifacts:
     paths:
-      - out
+      - out/*/*/acceptance.*
     expire_in: 1 year
     when: always
