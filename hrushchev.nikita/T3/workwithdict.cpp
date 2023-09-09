@@ -76,7 +76,7 @@ void hrushchev::doCommand(std::vector< Polygon >& polygons,
     std::ostream& out,
     std::istream& in)
 {
-  if (cmd == "INTERSECTIONS" || cmd == "SAME")
+  if (cmd == "RMECHO" || cmd == "SAME")
   {
     Polygon polygon;
     in >> polygon >> DelimiterIO{'\n'};
