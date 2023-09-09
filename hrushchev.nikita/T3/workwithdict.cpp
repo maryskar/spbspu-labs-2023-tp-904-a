@@ -2,6 +2,7 @@
 #include <map>
 #include <iostream>
 #include <string>
+#include <iotypes.hpp>
 #include "command.hpp"
 #include "polygon.hpp"
 
@@ -24,7 +25,6 @@ hrushchev::Commands::Commands()
 
 std::string hrushchev::inputCommand(std::istream& in)
 {
-
   std::string command = " ";
   in >> command;
   if (!in)
@@ -42,4 +42,43 @@ std::string hrushchev::inputCommand(std::istream& in)
     command = command + " " + arg;
   }
   return command;
+}
+
+void hrushchev::doCommand(std::vector< Polygon >& polygons,
+    const Commands& dict,
+    const std::string& cmd,
+    std::ostream& out,
+    std::istream& in)
+{
+  if (cmd == "INTERSECTIONS" || cmd == "SAME")
+  {
+    Polygon polygon;
+    in >> polygon >> DelimiterIO{'\n'};
+    if (!in)
+    {
+      throw std::invalid_argument("Error polygon");
+    }
+    try
+    {
+      auto func = dict.dict3_.at(cmd);
+      func(polygons, polygon, out);
+      return;
+    }
+    catch (const std::out_of_range& error)
+    {
+    }
+  }
+  try
+  {
+    auto func = dict.dict1_.at(cmd);
+    func(polygons, out);
+    return;
+  }
+  catch (const std::out_of_range& error)
+  {
+  }
+  size_t pos = cmd.find(' ');
+  size_t count = std::stoull(cmd.substr(pos));
+  auto func = dict.dict2_.at(cmd.substr(0, pos));
+  func(polygons, count, out);
 }

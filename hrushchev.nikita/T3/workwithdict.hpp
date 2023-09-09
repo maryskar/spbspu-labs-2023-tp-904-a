@@ -11,7 +11,6 @@ namespace hrushchev
   {
     public:
       Commands();
-    private:
       using com1 = void (*)(const std::vector< Polygon >& polygons, std::ostream& out);
       using com2 = void (*)(const std::vector< Polygon >& polygons, size_t count, std::ostream& out);
       using com3 = void (*)(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& out);
@@ -22,7 +21,7 @@ namespace hrushchev
 
   std::ostream& printError(std::ostream& out);
   std::string inputCommand(std::istream& in);
-  void runCommand(std::vector< Polygon >& polygons, const Commands& dict, const std::string& cmd, std::ostream& out,
+  void doCommand(std::vector< Polygon >& polygons, const Commands& dict, const std::string& cmd, std::ostream& out,
       std::istream& in);
 }
 

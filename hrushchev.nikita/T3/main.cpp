@@ -5,6 +5,7 @@
 #include <deque>
 #include "polygon.hpp"
 #include "command.hpp"
+#include "workwithdict.hpp"
 
 void printPolygon(const hrushchev::Polygon& polygon)
 {
@@ -31,7 +32,7 @@ int main(int argc, char* argv[])
 
   std::vector< hrushchev::Polygon > data;
 
-  while (!input.eof())
+/*  while (!input.eof())
   {
     if (!input)
     {
@@ -41,15 +42,6 @@ int main(int argc, char* argv[])
     using iter = std::istream_iterator< hrushchev::Polygon >;
     std::copy(iter(input), iter(), std::back_inserter(data));
   }
-  for (auto i : data)
-  {
-    printPolygon(i);
-  }
-  std::cout << "\n";
-  getSame(data, *(data.begin()), std::cout);
-  std::cout << "\n";
-  for (auto i : data)
-  {
-    printPolygon(i);
-  }
+*/
+  std::cout << hrushchev::inputCommand(std::cin);
 }
