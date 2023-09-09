@@ -217,9 +217,9 @@ namespace aksenov
 
   void doRightshapes(std::istream &inp, const std::vector< Polygon > &pol)
   {
-    int count = 0;
+    size_t count = 0;
     for (const Polygon& polygon : pol) {
-      for (int i = 0; i < polygon.points.size(); i++)
+      for (size_t i = 0; i < polygon.points.size(); i++)
       {
         const Point& p1 = polygon.points[i];
         const Point& p2 = polygon.points[(i + 1) % polygon.points.size()];
@@ -234,6 +234,8 @@ namespace aksenov
         }
       }
     }
+    std::string a = "";
+    inp >> a;
     std::cout << count << "\n";
   }
 }
