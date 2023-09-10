@@ -14,7 +14,7 @@ namespace kotova
     }
     char c = '0';
     in >> c;
-    if (in && (c == std::isdigit(dest.exp)))
+    if (in && (c != dest.exp))
     {
       in.setstate(std::ios::failbit);
     }
