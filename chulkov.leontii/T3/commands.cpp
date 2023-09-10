@@ -29,7 +29,7 @@ namespace chulkov {
 
   double getPartArea(double sum, const Point& frst, Point& sec)
   {
-    sum += (frst.x * sec.y - frst.x * sec.y);
+    sum += (frst.x * sec.y - frst.y * sec.x);
     sec = frst;
     return sum;
   }
@@ -37,8 +37,8 @@ namespace chulkov {
   double isArea(const Polygon& polygon)
   {
     Point prev = polygon.points[polygon.points.size() - 1];
-    double area = 0;
-    area = std::accumulate(polygon.points.cbegin(), polygon.points.cend(), 0, std::bind(getPartArea, _1, _2, prev));
+    double area = 0.0;
+    area = std::accumulate(polygon.points.cbegin(), polygon.points.cend(), 0.0, std::bind(getPartArea, _1, _2, prev));
     return std::abs(area / 2);
   }
 
