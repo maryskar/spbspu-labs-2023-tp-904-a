@@ -8,7 +8,7 @@ namespace chulkov {
   void getMin(const std::vector< Polygon >& polygons, std::istream& in, std::ostream& out);
   void getCount(const std::vector< Polygon >& polygons, std::istream& in, std::ostream& out);
   void getPerms(const std::vector< Polygon >& polygons, std::istream& in, std::ostream& out);
-  void getRmecho(const std::vector< Polygon >& polygons, std::istream& in, std::ostream& out);
+  void getRmecho(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out);
 }
 
 #endif

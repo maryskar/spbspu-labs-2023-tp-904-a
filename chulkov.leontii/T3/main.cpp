@@ -32,11 +32,12 @@ int main(int argc, char** argv)
     }
   }
 
-  using command_t = std::function< void(const vectorOfPoligons&, std::istream&, std::ostream&) >;
-  std::map< std::string, command_t > commands{
-      {"AREA", chulkov::getArea},   {"MAX", chulkov::getMax},     {"MIN", chulkov::getMin},
-      {"COUNT", chulkov::getCount}, {"PERMS", chulkov::getPerms}, {"RMECHO", chulkov::getRmecho},
-  };
+  using command_t = std::function< void(vectorOfPoligons&, std::istream&, std::ostream&) >;
+  std::map< std::string, command_t > commands = {
+      {"AREA", chulkov::getArea}, {"MAX", chulkov::getMax},
+      {"MIN", chulkov::getMin}, {"COUNT", chulkov::getCount},
+      {"PERMS", chulkov::getPerms}, {"RMECHO", chulkov::getRmecho}};
+
   while (!std::cin.eof()) {
     std::string command = "";
     std::cin >> command;
@@ -44,8 +45,7 @@ int main(int argc, char** argv)
       try {
         commands.at(command)(poligons, std::cin, std::cout);
       } catch (const std::exception& e) {
-        std::cout << "<INVALID COMMAND>"
-                  << "\n";
+        std::cout << "<INVALID COMMAND>" << "\n";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       }

@@ -1,4 +1,5 @@
 #include "commands.h"
+
 #include <algorithm>
 #include <functional>
 #include <iomanip>
@@ -7,6 +8,7 @@
 #include <map>
 #include <numeric>
 #include <string>
+
 #include <streamsguard.h>
 
 namespace chulkov {
@@ -110,8 +112,7 @@ namespace chulkov {
     return !isLessVertexes(frst, sec);
   }
 
-  template < typename T >
-  double maxOrMinArea(const std::vector< Polygon >& polygons, T pred)
+  template < typename T > double maxOrMinArea(const std::vector< Polygon >& polygons, T pred)
   {
     std::vector< Polygon >::const_iterator temp = std::max_element(polygons.cbegin(), polygons.cend(), pred);
     return getArea(*temp);
@@ -278,7 +279,8 @@ namespace chulkov {
       throw std::logic_error("<INVALID COMMAND>");
     }
     size_t beforeSize = polygons.size();
-    polygons.erase(std::unique(begin(polygons), end(polygons), std::bind(rmEchoCompare, _1, _2, polygon)), end(polygons));
+    polygons.erase(std::unique(begin(polygons), end(polygons), std::bind(rmEchoCompare, _1, _2, polygon)),
+                   end(polygons));
     out << beforeSize - polygons.size() << "\n";
   }
 }
