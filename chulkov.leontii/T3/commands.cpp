@@ -70,18 +70,18 @@ namespace chulkov {
     if (!polygons.size()) {
       throw std::logic_error("<INVALID COMMAND>");
     }
-    double area = 0;
+    double area = 0.0;
     area = std::accumulate(polygons.cbegin(), polygons.cend(), 0.0, getSumArea);
     return area / polygons.size();
   }
 
   double isAreaVertexes(const std::vector< Polygon >& polygons, size_t countVert)
   {
-    double area = 0;
+    double area = 0.0;
     std::vector< Polygon > vertPol;
     std::copy_if(polygons.cbegin(), polygons.cend(), std::back_inserter(vertPol),
                  std::bind(isEqualVertexes, _1, countVert));
-    area = std::accumulate(vertPol.cbegin(), vertPol.cend(), 0, getSumArea);
+    area = std::accumulate(vertPol.cbegin(), vertPol.cend(), 0.0, getSumArea);
     return area;
   }
 
@@ -113,7 +113,7 @@ namespace chulkov {
   template < typename T > double maxOrMinArea(const std::vector< Polygon >& polygons, T pred)
   {
     std::vector< Polygon >::const_iterator temp = std::max_element(polygons.cbegin(), polygons.cend(), pred);
-    return getArea(*temp);
+    return isArea(*temp);
   }
 
   template < typename T > size_t maxOrMinVertexes(const std::vector< Polygon >& polygons, T pred)
