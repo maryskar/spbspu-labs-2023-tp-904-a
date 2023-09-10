@@ -1,5 +1,4 @@
 #include "commands.h"
-
 #include <algorithm>
 #include <functional>
 #include <iomanip>
@@ -8,7 +7,6 @@
 #include <map>
 #include <numeric>
 #include <string>
-
 #include <streamsguard.h>
 
 namespace chulkov {
@@ -31,12 +29,12 @@ namespace chulkov {
 
   double getPartArea(double sum, const Point& frst, Point& sec)
   {
-    sum += (frst.x * frst.y - frst.x * sec.y);
+    sum += (frst.x * sec.y - frst.x * sec.y);
     sec = frst;
     return sum;
   }
 
-  double getArea(const Polygon& polygon)
+  double isArea(const Polygon& polygon)
   {
     Point prev = polygon.points[polygon.points.size() - 1];
     double area = 0;
@@ -46,38 +44,38 @@ namespace chulkov {
 
   double getSumArea(double area, const Polygon& polygon)
   {
-    return area + getArea(polygon);
+    return area + isArea(polygon);
   }
 
-  double areaEven(const std::vector< Polygon >& polygons)
+  double isAreaEven(const std::vector< Polygon >& polygons)
   {
-    double area = 0;
+    double area = 0.0;
     std::vector< Polygon > evenPol;
     std::copy_if(polygons.cbegin(), polygons.cend(), std::back_inserter(evenPol), std::bind(isEven, _1));
-    area = std::accumulate(evenPol.cbegin(), evenPol.cend(), 0, getSumArea);
+    area = std::accumulate(evenPol.cbegin(), evenPol.cend(), 0.0, getSumArea);
     return area;
   }
 
-  double areaOdd(const std::vector< Polygon >& polygons)
+  double isAreaOdd(const std::vector< Polygon >& polygons)
   {
-    double area = 0;
+    double area = 0.0;
     std::vector< Polygon > oddPol;
     std::copy_if(polygons.cbegin(), polygons.cend(), std::back_inserter(oddPol), std::bind(isOdd, _1));
-    area = std::accumulate(oddPol.cbegin(), oddPol.cend(), 0, getSumArea);
+    area = std::accumulate(oddPol.cbegin(), oddPol.cend(), 0.0, getSumArea);
     return area;
   }
 
-  double areaMean(const std::vector< Polygon >& polygons)
+  double isAreaMean(const std::vector< Polygon >& polygons)
   {
     if (!polygons.size()) {
       throw std::logic_error("<INVALID COMMAND>");
     }
     double area = 0;
-    area = std::accumulate(polygons.cbegin(), polygons.cend(), 0, getSumArea);
+    area = std::accumulate(polygons.cbegin(), polygons.cend(), 0.0, getSumArea);
     return area / polygons.size();
   }
 
-  double areaVertexes(const std::vector< Polygon >& polygons, size_t countVert)
+  double isAreaVertexes(const std::vector< Polygon >& polygons, size_t countVert)
   {
     double area = 0;
     std::vector< Polygon > vertPol;
@@ -94,7 +92,7 @@ namespace chulkov {
 
   bool isLessArea(const Polygon& frst, const Polygon& sec)
   {
-    return getArea(frst) < getArea(sec);
+    return isArea(frst) < isArea(sec);
   }
 
   bool isGreaterArea(const Polygon& frst, const Polygon& sec)
@@ -174,14 +172,14 @@ namespace chulkov {
       if (size < 3) {
         throw std::logic_error("<INVALID COMMAND>");
       }
-      out << areaVertexes(polygons, size) << "\n";
+      out << isAreaVertexes(polygons, size) << "\n";
       return;
     }
     using command_t = std::function< double(const std::vector< Polygon >&) >;
     std::map< std::string, command_t > commands{
-        {"EVEN", areaEven},
-        {"ODD", areaOdd},
-        {"MEAN", areaMean},
+        {"EVEN", isAreaEven},
+        {"ODD", isAreaOdd},
+        {"MEAN", isAreaMean},
     };
     out << commands.at(secondArg)(polygons) << "\n";
   }
@@ -279,8 +277,7 @@ namespace chulkov {
       throw std::logic_error("<INVALID COMMAND>");
     }
     size_t beforeSize = polygons.size();
-    polygons.erase(std::unique(begin(polygons), end(polygons), std::bind(rmEchoCompare, _1, _2, polygon)),
-                   end(polygons));
+    polygons.erase(std::unique(begin(polygons), end(polygons), std::bind(rmEchoCompare, _1, _2, polygon)),end(polygons));
     out << beforeSize - polygons.size() << "\n";
   }
 }
