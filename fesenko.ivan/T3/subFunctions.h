@@ -5,5 +5,6 @@ namespace fesenko
 {
   double calcArea(double in, const Polygon &rhs);
   bool isOdd(const Polygon &rhs);
+  bool isEven(const Polygon &rhs);
 }
 #endif

@@ -24,3 +24,8 @@ bool fesenko::isOdd(const Polygon &rhs)
 {
   return rhs.points.size() % 2 != 0;
 }
+
+bool fesenko::isEven(const Polygon &rhs)
+{
+  return !isOdd(rhs);
+}
