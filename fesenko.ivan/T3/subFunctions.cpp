@@ -1,4 +1,4 @@
-#include "calcArea.h"
+#include "subFunctions.h"
 #include <algorithm>
 #include <numeric>
 
@@ -18,4 +18,9 @@ double fesenko::calcArea(double in, const Polygon &rhs)
   int negative = std::accumulate(minusArea.cbegin(), minusArea.cend(), 0);
   int result = std::abs(positive - negative);
   return in + (static_cast< double >(result) * 0.5);
+}
+
+bool fesenko::isOdd(const Polygon &rhs)
+{
+  return rhs.points.size() % 2 != 0;
 }
