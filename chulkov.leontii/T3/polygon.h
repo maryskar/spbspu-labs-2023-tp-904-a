@@ -1,7 +1,7 @@
 #ifndef POLYGON_H
 #define POLYGON_H
-#include <vector>
 #include <iosfwd>
+#include <vector>
 
 namespace chulkov {
   struct Point {
@@ -10,7 +10,7 @@ namespace chulkov {
   };
 
   struct Polygon {
-    std::vector < Point > points;
+    std::vector< Point > points;
   };
 
   std::istream& operator>>(std::istream& in, Point& point);

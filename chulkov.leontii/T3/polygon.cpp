@@ -1,10 +1,11 @@
 #include "polygon.h"
+
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
-#include <streamsguard.h>
 #include <iostruct.h>
+#include <streamsguard.h>
 
 namespace chulkov {
   std::istream& operator>>(std::istream& in, Point& point)
@@ -65,8 +66,9 @@ namespace chulkov {
     return !(frs == sec);
   }
 
-  bool operator==(const Polygon& frst, const Polygon& sec)
+  bool operator==(const Polygon& frs, const Polygon& sec)
   {
-    return frst.points.size() == sec.points.size() && std::equal(frst.points.begin(), frst.points.end(), sec.points.begin());
+    return frs.points.size() == sec.points.size() &&
+           std::equal(frs.points.begin(), frs.points.end(), sec.points.begin());
   }
 }

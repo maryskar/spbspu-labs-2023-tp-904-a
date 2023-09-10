@@ -33,10 +33,9 @@ int main(int argc, char** argv)
   }
 
   using command_t = std::function< void(vectorOfPoligons&, std::istream&, std::ostream&) >;
-  std::map< std::string, command_t > commands = {
-      {"AREA", chulkov::getArea}, {"MAX", chulkov::getMax},
-      {"MIN", chulkov::getMin}, {"COUNT", chulkov::getCount},
-      {"PERMS", chulkov::getPerms}, {"RMECHO", chulkov::getRmecho}};
+  std::map< std::string, command_t > commands = {{"AREA", chulkov::getArea},   {"MAX", chulkov::getMax},
+                                                 {"MIN", chulkov::getMin},     {"COUNT", chulkov::getCount},
+                                                 {"PERMS", chulkov::getPerms}, {"RMECHO", chulkov::getRmecho}};
 
   while (!std::cin.eof()) {
     std::string command = "";
