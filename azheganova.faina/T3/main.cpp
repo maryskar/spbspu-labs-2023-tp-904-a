@@ -14,7 +14,7 @@ int main(int argc, char * argv[])
     return 1;
   }
   std::ifstream input(argv[1]);
-  if (!input.is_open())
+  if (!input)
   {
     std::cout << "error";
     return 1;
@@ -24,11 +24,11 @@ int main(int argc, char * argv[])
   using ist_iter = std::istream_iterator< azheganova::Polygon >;
   while (!input.eof())
   {
+    std::copy(ist_iter(input), ist_iter(), std::back_inserter(polygon));
     if (!input)
     {
       input.clear();
       input.ignore(max, '\n');
-      std::copy(ist_iter(input), ist_iter(), std::back_inserter(polygon));
     }
   }
   azheganova::Commands commands;
@@ -49,6 +49,12 @@ int main(int argc, char * argv[])
       std::cout << '\n';
       std::cin.ignore(max, '\n');
     }
+    if(!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(max, '\n');
+    }
   }
   return 0;
 }
+
