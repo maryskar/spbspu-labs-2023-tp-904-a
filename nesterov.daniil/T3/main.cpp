@@ -11,9 +11,9 @@ void skipUntilNewLine(std::istream &in);
 
 int main(int argc, char **argv)
 {
-  if (argc < 2)
+  if (argc != 2)
   {
-    std::cerr << "Not enough arguments!" << '\n';
+    std::cerr << "Arguments are not correct!" << '\n';
     return 1;
   }
   std::ifstream input(argv[1]);
