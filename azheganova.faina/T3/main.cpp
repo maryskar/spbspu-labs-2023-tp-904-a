@@ -21,6 +21,7 @@ int main(int argc, char ** argv)
     std::cout << "error";
     return 1;
   }
+  constexpr auto max = std::numeric_limits< std::streamsize >::max();
   std::vector< azheganova::Polygon > polygon;
   using ist_iter = std::istream_iterator< azheganova::Polygon >;
   while (!input.eof())
@@ -29,7 +30,7 @@ int main(int argc, char ** argv)
     if (!input)
     {
       input.clear();
-      input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      input.ignore(max, '\n');
     }
   }
   azheganova::Commands commands;
@@ -48,9 +49,15 @@ int main(int argc, char ** argv)
     {
       azheganova::printInvalidCommand(std::cout);
       std::cout << '\n';
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-      std::cin.clear();
+      std::cin.ignore(max, '\n');
     }
+    if (!std::cin)
+    {
+      azheganova::printInvalidCommand(std::cout);
+      std::cin.clear();
+      std::cin.ignore(max, '\n');
+    }
+    std::cout << '\n';
   }
   return 0;
 }
