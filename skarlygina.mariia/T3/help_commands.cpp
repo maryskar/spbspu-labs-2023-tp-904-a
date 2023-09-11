@@ -79,6 +79,20 @@ skarlygina::Point doOffset(skarlygina::Point point, skarlygina::Point offset)
   return point + offset;
 }
 
+bool isVert(const skarlygina::Polygon& poly, size_t number_vert)
+{
+  return poly.points.size() == number_vert;
+}
+
+size_t countNumOfVertexes(const std::vector< skarlygina::Polygon >& polys, size_t number_vert)
+{
+  if (number_vert < 3)
+  {
+    throw std::invalid_argument("Entered command is incorrect");
+  }
+  auto hasNumOfVert = std::bind(isVert, std::placeholders::_1, number_vert);
+  return std::count_if(polys.begin(), polys.end(), hasNumOfVert);
+}
 
 bool skarlygina::isSame(const skarlygina::Polygon& first_poly, const skarlygina::Polygon& second_poly)
 {
