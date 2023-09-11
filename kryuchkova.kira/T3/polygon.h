@@ -1,0 +1,15 @@
+#ifndef POLYGON_H
+#define POLYGON_H
+#include <vector>
+#include "point.h"
+
+namespace kryuchkova
+{
+  struct Polygon
+  {
+    std::vector< Point > points;
+  };
+
+}
+
+#endif
