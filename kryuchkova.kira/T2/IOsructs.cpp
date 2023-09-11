@@ -1,6 +1,7 @@
 #include "IOstructs.h"
 #include <iomanip>
 #include <string>
+#include <cmath>
 
 namespace kryuchkova
 {
