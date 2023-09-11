@@ -24,7 +24,7 @@ namespace skarlygina
   };
 }
 
-double findAreaPoly(const skarlygina::Polygon& polys, double area = 0.0)
+double skarlygina::findAreaPoly(const skarlygina::Polygon& polys, double area = 0.0)
 {
   std::vector< skarlygina::Point > poly = polys.points;
   skarlygina::PolygonsArea area_polygon_count(*poly.rbegin());
@@ -58,4 +58,16 @@ size_t skarlygina::maxVertexes(const std::vector< Polygon >& polys)
 {
   auto element_max_vert = std::max_element(polys.begin(), polys.end(), compareVert);
   return getSize(*element_max_vert);
+}
+
+double skarlygina::minArea(const std::vector< Polygon >& polys)
+{
+  auto element_min_area = std::min_element(polys.begin(), polys.end(), compareArea);
+  return findAreaPoly(*element_min_area);
+}
+
+size_t skarlygina::minVertexes(const std::vector< Polygon >& polys)
+{
+  auto element_min_vert = std::max_element(polys.begin(), polys.end(), compareVert);
+  return getSize(*element_min_vert);
 }

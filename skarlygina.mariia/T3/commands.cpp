@@ -32,7 +32,27 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
     throw std::invalid_argument("False command");
   }
 }
-void skarlygina::getMin(const std::vector< Polygon >&, std::istream&, std::ostream&);
+void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
+{
+  std::string command = "";
+  in >> command;
+
+  iofmtguard guard(out);
+  out << std::fixed << std::setprecision(1);
+  if (command == "AREA")
+  {
+    out << minArea(polys) << '\n';
+  }
+  else if (command == "VERTEXES")
+  {
+    out << minVertexes(polys) << '\n';
+  }
+  else
+  {
+    throw std::invalid_argument("Unknown command");
+  }
+
+}
 void skarlygina::countFigures(const std::vector< Polygon >&, std::istream&, std::ostream&);
 void skarlygina::findPerms(const std::vector< Polygon >&, std::istream&, std::ostream&);
 void skarlygina::findSame(const std::vector< Polygon >&, std::istream&, std::ostream&);
