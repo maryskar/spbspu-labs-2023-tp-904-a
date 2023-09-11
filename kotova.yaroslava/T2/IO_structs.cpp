@@ -42,12 +42,12 @@ namespace kotova
     int exp = 0;
     while (std::abs(data) >= 10 || std::abs(data) < 1)
     {
-      if (std::abs(data) >= 10)
+      if (std::abs(data) >= 1)
       {
         data /= 10;
         exp++;
       }
-      else if (std::abs(data) < 1)
+      else if (std::abs(data) <= 1)
       {
         data *= 10;
         exp--;
