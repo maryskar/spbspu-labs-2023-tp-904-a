@@ -38,6 +38,10 @@ namespace kotova
           in >> str{ input.key3 } >> sep { ':' };
         }
       }
+    if (input.key1 == 0)
+    {
+      in.setstate(std::ios::failbit);
+    }
       if (in)
       {
         dest = input;
@@ -57,7 +61,7 @@ namespace kotova
     out << "(";
     out << ":key1 " << DoubleO { src.key1 };
     out << ":key2 0x" << std::hex << std::uppercase << src.key2;
-    out << ":key3 " << src.key3;
+    out << ":key3 " << std::quoted(src.key3);
     out << ":)";
     return out;
   }
