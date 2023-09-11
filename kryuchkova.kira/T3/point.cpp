@@ -1,4 +1,5 @@
 #include "point.h"
+#include "../common/IOstructs.h"
 
 namespace kryuchkova
 {
@@ -9,7 +10,7 @@ namespace kryuchkova
     {
       return in;
     }
-    in >> "(" >> pos.x >> ";" >> pos.y >> ")";
-    return in; 
+    in >> Delimiter{'('} >> pos.x >> Delimiter{';'} >> pos.y >> Delimiter{')'};
+    return in;
   }
 }

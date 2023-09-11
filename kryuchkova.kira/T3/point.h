@@ -10,7 +10,6 @@ namespace kryuchkova
   };
 
   std::istream & operator>>( std::istream & in, Point & pos);
-
 }
 
 #endif
