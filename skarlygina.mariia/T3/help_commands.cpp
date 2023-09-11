@@ -24,13 +24,18 @@ namespace skarlygina
   };
 }
 
-double skarlygina::findAreaPoly(const skarlygina::Polygon& polys, double area = 0.0)
+double skarlygina::findAreaPoly(const Polygon& polys, double area = 0.0)
 {
   std::vector< skarlygina::Point > poly = polys.points;
   skarlygina::PolygonsArea area_polygon_count(*poly.rbegin());
   area += std::abs(std::accumulate(poly.begin(), poly.end(), 0.0, area_polygon_count)) / 2.0;
   return area;
 }
+
+double skarlygina::findAreaOdd(const std::vector< Polygon >&);
+double skarlygina::findAreaEven(const std::vector< Polygon >&);
+double skarlygina::findAreaMean(const std::vector< Polygon >&);
+double skarlygina::findAreaNumOfVertexes(const std::vector< Polygon >&, size_t);
 
 bool compareArea(const skarlygina::Polygon& left, const skarlygina::Polygon& right)
 {
