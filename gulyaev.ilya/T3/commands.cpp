@@ -149,6 +149,7 @@ namespace gulyaev
       using namespace std::placeholders;
       out << getCountOfPolygonsIf(data, std::bind(checkPermutation, _1, polygon)) << "\n";
     } else {
+      in.clear();
       throw std::invalid_argument("INVALID COMMAND");
     }
   }

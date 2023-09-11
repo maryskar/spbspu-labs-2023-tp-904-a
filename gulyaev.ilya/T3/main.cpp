@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <iterator>
 #include <vector>
 #include <limits>
 #include <map>
