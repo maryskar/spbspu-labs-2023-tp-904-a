@@ -52,6 +52,7 @@ namespace nesterov
       points,
       std::back_inserter(input.points)
     );
+    in >> DelimiterIO{'\n'};
     if (in)
     {
       rhs.points.swap(input.points);
