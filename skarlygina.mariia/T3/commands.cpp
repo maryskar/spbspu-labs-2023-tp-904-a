@@ -67,4 +67,8 @@ void skarlygina::findPerms(const std::vector< Polygon >& polys, std::istream& in
 }
 
 void skarlygina::findSame(const std::vector< Polygon >&, std::istream&, std::ostream&);
-std::ostream& skarlygina::printInvalidCommand(std::ostream&);
+
+std::ostream& skarlygina::printInvalidCommand(std::ostream& out)
+{
+  return out << "<INVALID COMMAND>\n";
+}
