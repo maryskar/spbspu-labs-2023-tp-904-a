@@ -13,7 +13,9 @@ namespace kotova
     {
       return in;
     }
-    DataStruct input;
+    double input_key1 = 0;
+    unsigned long long input_key2 = 0;
+    std::string input_key3 = "";
     {
       using sep = DelimiterIO;
       using label = LabelIO;
@@ -27,24 +29,24 @@ namespace kotova
         in >> label{ "key" } >> num;
         if (num == 1)
         {
-          in >> dbl{ input.key1 } >> sep { ':' };
+          in >> dbl{ input_key1 } >> sep { ':' };
         }
         else if (num == 2)
         {
-          in >> ullh{ input.key2 } >> sep { ':' };
+          in >> ullh{ input_key2 } >> sep { ':' };
         }
         else if (num == 3)
         {
-          in >> str{ input.key3 } >> sep { ':' };
+          in >> str{ input_key3 } >> sep { ':' };
         }
       }
-    if (input.key1 == 0)
-    {
-      in.setstate(std::ios::failbit);
-    }
+      if (input_key1 == 0)
+      {
+        in.setstate(std::ios::failbit);
+      }
       if (in)
       {
-        dest = input;
+        dest = DataStruct{input_key1, input_key2, input_key3};
       }
       return in;
     }
@@ -61,8 +63,8 @@ namespace kotova
     out << "(";
     out << ":key1 " << DoubleO { src.key1 };
     out << ":key2 0x" << std::hex << std::uppercase << src.key2;
-    out << ":key3 " << std::quoted(src.key3);
-    out << ":)";
+    out << ":key3 \"" << src.key3;
+    out << "\":)";
     return out;
   }
 
