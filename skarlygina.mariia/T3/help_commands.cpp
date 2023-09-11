@@ -47,9 +47,14 @@ size_t getSize(const skarlygina::Polygon poly)
   return poly.points.size();
 }
 
-bool isPerm(const skarlygina::Polygon& first, const skarlygina::Polygon& poly)
+bool skarlygina::isPerm(const skarlygina::Polygon& first, const skarlygina::Polygon& poly)
 {
   return std::is_permutation(poly.points.begin(), poly.points.end(), first.points.begin(), first.points.end());
+}
+
+bool isSame(const skarlygina::Polygon&, const skarlygina::Polygon&)
+{
+
 }
 
 double skarlygina::maxArea(const std::vector< Polygon >& polys)

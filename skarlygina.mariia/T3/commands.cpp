@@ -66,7 +66,17 @@ void skarlygina::findPerms(const std::vector< Polygon >& polys, std::istream& in
   out << std::count_if(polys.begin(), polys.end(), std::bind(&skarlygina::findPerms, base, std::placeholders::_1)) << '\n';
 }
 
-void skarlygina::findSame(const std::vector< Polygon >&, std::istream&, std::ostream&);
+void skarlygina::findSame(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
+{
+  skarlygina::Polygon polygon_first;
+  in >> polygon_first;
+  if (in.rdstate() == std::ios::failbit)
+  {
+    throw std::invalid_argument("Incorrect enter shape");
+  }
+  auto check_same = std::bind(isSame, std::placeholders::_1, polygon_first);
+  out << std::count_if(polys.begin(), polys.end(), check_same) << '\n';
+}
 
 std::ostream& skarlygina::printInvalidCommand(std::ostream& out)
 {
