@@ -19,7 +19,7 @@ namespace gulyaev
   {
     return (getSize(pol) % 2 == 1);
   }
-  bool numOfVertices(const Polygon &pol, int num)
+  bool numOfVertices(const Polygon &pol, std::size_t num)
   {
     return (getSize(pol) == num);
   }
