@@ -51,7 +51,7 @@ namespace nesterov
   {
     if (pls.empty())
     {
-        throw std::logic_error("");
+      throw std::logic_error("");
     }
 
     double area = std::accumulate(
@@ -197,18 +197,30 @@ namespace nesterov
 
   void countEven(const std::deque< Polygon > &pls, std::ostream &out)
   {
+    if (pls.empty())
+    {
+      throw std::logic_error("");
+    }
     size_t even = std::count_if(pls.cbegin(), pls.cend(), hasEvenVertexes);
     out << even << '\n';
   }
 
   void countOdd(const std::deque< Polygon > &pls, std::ostream &out)
   {
+    if (pls.empty())
+    {
+      throw std::logic_error("");
+    }
     size_t odd = std::count_if(pls.cbegin(), pls.cend(), hasOddVertexes);
     out << odd << '\n';
   }
 
   void countWithNVertexes(const std::deque< Polygon > &pls, std::ostream &out, size_t vertexes)
   {
+    if (pls.empty())
+    {
+      throw std::logic_error("");
+    }
     auto predicate = std::bind(hasNVertexes, std::placeholders::_1, vertexes);
     auto n = std::count_if(pls.begin(), pls.end(), predicate);
     out << n << '\n';
@@ -308,18 +320,17 @@ namespace nesterov
 
   double getArea(const Polygon &polygon)
   {
-    double area = 0.0;
+    double leftSum = 0.0;
+    double rightSum = 0.0;
 
     for (size_t i = 0; i < polygon.points.size(); ++i)
     {
       size_t j = (i + 1) % polygon.points.size();
-      area += 0.5 * std::abs(
-        polygon.points[i].x * polygon.points[j].y -
-        polygon.points[j].x * polygon.points[i].y
-      );
+      leftSum += polygon.points[i].x * polygon.points[j].y;
+      rightSum += polygon.points[j].x * polygon.points[i].y;
     }
 
-    return area;
+    return 0.5 * std::abs(leftSum - rightSum);
   }
 
   bool hasNVertexes(const Polygon &polygon, size_t vertexes)
