@@ -20,14 +20,14 @@ double fesenko::calcArea(double in, const Polygon &rhs)
   return in + (static_cast< double >(result) * 0.5);
 }
 
-bool fesenko::isOdd(const Polygon &rhs)
+bool fesenko::isOdd::operator()(const Polygon &rhs)
 {
   return rhs.points.size() % 2 != 0;
 }
 
-bool fesenko::isEven(const Polygon &rhs)
+bool fesenko::isEven::operator()(const Polygon &rhs)
 {
-  return !isOdd(rhs);
+  return rhs.points.size() % 2 == 0;
 }
 
 fesenko::isNumber::isNumber(size_t number):
@@ -39,7 +39,12 @@ bool fesenko::isNumber::operator()(const Polygon &rhs)
   return rhs.points.size() == number_;
 }
 
-bool fesenko::isAreaLess(const Polygon &lhs, const Polygon &rhs)
+bool fesenko::isAreaLess::operator()(const Polygon &lhs, const Polygon &rhs)
 {
   return calcArea(0.0, lhs) < calcArea(0.0, rhs);
+}
+
+bool fesenko::isSizeLess::operator()(const Polygon &lhs, const Polygon &rhs)
+{
+  return lhs.points.size() < rhs.points.size();
 }
