@@ -4,14 +4,13 @@
 
 namespace skarlygina
 {
-  void findEvenOddArea(const std::vector< Polygon >&, std::istream&, std::ostream&);
-  void findMeanArea(const std::vector< Polygon >&, std::istream&, std::ostream&);
-  void findAreaPoints(const std::vector< Polygon >&, std::istream&, std::ostream&);
-  void findMax(const std::vector< Polygon >&, std::istream&, std::ostream&);
-  void findMin(const std::vector< Polygon >&, std::istream&, std::ostream&);
+  void getArea(const std::vector< Polygon >&, std::istream&, std::ostream&);
+  void getMax(const std::vector< Polygon >&, std::istream&, std::ostream&);
+  void getMin(const std::vector< Polygon >&, std::istream&, std::ostream&);
   void countFigures(const std::vector< Polygon >&, std::istream&, std::ostream&);
   void findPerms(const std::vector< Polygon >&, std::istream&, std::ostream&);
   void findSame(const std::vector< Polygon >&, std::istream&, std::ostream&);
+  std::ostream& printInvalidCommand(std::ostream&);
 }
 
 #endif
