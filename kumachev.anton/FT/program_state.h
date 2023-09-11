@@ -7,9 +7,10 @@
 
 namespace kumachev {
   using er_dictionary = std::map< std::string, std::vector< std::string > >;
+  using dict_map = std::map< std::string, er_dictionary >;
 
   struct State {
-    std::map< std::string, er_dictionary > dicts;
+     dict_map dicts;
   };
 }
 

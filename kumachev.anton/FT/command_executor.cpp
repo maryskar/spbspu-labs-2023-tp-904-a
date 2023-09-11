@@ -1,7 +1,16 @@
 #include "command_executor.h"
 #include <iostream>
+#include <functional>
+#include <algorithm>
+#include <iterator>
 
 namespace kumachev {
+  using dict_map_pair = std::pair< const std::string, er_dictionary >;
+
+  static std::string getDictName(const dict_map_pair &pair)
+  {
+    return pair.first;
+  }
 
   static void handleHelp(State &state, string_vector &args,
       std::ostream &ostream);
@@ -132,12 +141,37 @@ namespace kumachev {
 
   void handleDicts(State &state, string_vector &args, std::ostream &ostream)
   {
+    if (!args.empty()) {
+      throw std::logic_error("Команда не принимает аргументы");
+    }
 
+    if (state.dicts.empty()) {
+      ostream << "<пусто>\n";
+    }
+
+    std::vector< std::string > names;
+    names.reserve(state.dicts.size());
+    auto inserter = std::back_inserter(names);
+    const auto& dicts = state.dicts;
+    std::transform(dicts.cbegin(), dicts.cend(), inserter, getDictName);
+
+    auto output = std::ostream_iterator<std::string>(ostream, "\n");
+    std::copy(names.cbegin(), names.cend(), output);
   }
 
   void handleCreate(State &state, string_vector &args, std::ostream &ostream)
   {
+    if (args.size() != 1) {
+      throw std::logic_error("Команда принимает 1 аргумент");
+    }
 
+    std::string dictName = args[0];
+
+    if (state.dicts.find(dictName) == state.dicts.end()) {
+      state.dicts[dictName] = er_dictionary();
+    } else {
+      throw std::logic_error("ОШИБКА: Словарь с таким именем уже существует");
+    }
   }
 
   void handleLoad(State &state, string_vector &args, std::ostream &ostream)
