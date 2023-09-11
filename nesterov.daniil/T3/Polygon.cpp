@@ -52,7 +52,10 @@ namespace nesterov
       points,
       std::back_inserter(input.points)
     );
-    in >> DelimiterIO{'\n'};
+    if (in.peek() != '\n' && !in.eof())
+    {
+      in.setstate(std::ios::failbit);
+    }
     if (in)
     {
       rhs.points.swap(input.points);
