@@ -79,7 +79,7 @@ void hrushchev::doCommand(std::vector< Polygon >& polygons,
   if (cmd == "RMECHO" || cmd == "SAME")
   {
     Polygon polygon;
-    in >> polygon >> DelimiterIO{'\n'};
+    in >> polygon;
     if (!in)
     {
       throw std::invalid_argument("Error polygon");
