@@ -29,3 +29,12 @@ bool fesenko::isEven(const Polygon &rhs)
 {
   return !isOdd(rhs);
 }
+
+fesenko::isNumber::isNumber(size_t number):
+  number_(number)
+{}
+
+bool fesenko::isNumber::operator()(const Polygon &rhs)
+{
+  return rhs.points.size() == number_;
+}

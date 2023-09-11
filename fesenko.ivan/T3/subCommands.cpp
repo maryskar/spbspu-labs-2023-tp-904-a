@@ -25,3 +25,15 @@ fesenko::ReturnType fesenko::area_mean(data_t &data)
   }
   return ReturnType(std::accumulate(data.cbegin(), data.cend(), 0.0, calcArea) / data.size());
 }
+
+fesenko::ReturnType fesenko::area_vertexes(data_t &data, std::istream &in)
+{
+  size_t number = 0;
+  in >> number;
+  if (number < 3) {
+    throw std::logic_error("Invalid number");
+  }
+  std::vector< Polygon > temp;
+  std::copy_if(data.cbegin(), data.cend(), std::back_inserter(temp), isNumber(number));
+  return ReturnType(std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea));
+}
