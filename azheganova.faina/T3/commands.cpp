@@ -56,7 +56,7 @@ namespace azheganova
       throw std::invalid_argument("error");
     }
     iofmtguard iofmtguard(out);
-    std::vector< double > rhs;
+    std::vector< double > rhs(polygon.size());
     std::transform(polygon.begin(), polygon.end(), rhs.begin(), getArea);
     out << std::fixed << std::setprecision(1) << std::accumulate(rhs.begin(), rhs.end(), 0.0) / polygon.size() << "\n";
   }
@@ -203,7 +203,7 @@ namespace azheganova
 
   void getRightshapes(const std::vector< Polygon > & polygon, std::ostream & out)
   {
-    out << std::count_if(polygon.begin(), polygon.end(), hasRightAngles) << '\n');
+    out << std::count_if(polygon.begin(), polygon.end(), hasRightAngles) << '\n';
   }
 
   std::string inputCommand(std::istream & in)
