@@ -57,3 +57,26 @@ fesenko::ReturnType fesenko::min_vertexes(data_t &data)
 {
   return ReturnType(std::min_element(data.cbegin(), data.cend(), isSizeLess())->points.size());
 }
+
+fesenko::ReturnType fesenko::count_odd(data_t &data)
+{
+  size_t result = std::count_if(data.cbegin(), data.cend(), isOdd());
+  return ReturnType(result);
+}
+
+fesenko::ReturnType fesenko::count_even(data_t &data)
+{
+  size_t result = std::count_if(data.cbegin(), data.cend(), isEven());
+  return ReturnType(result);
+}
+
+fesenko::ReturnType fesenko::count_vertexes(data_t &data, std::istream &in)
+{
+  size_t number = 0;
+  in >> number;
+  if (number < 3) {
+    throw std::runtime_error("Invalid number");
+  }
+  size_t result = std::count_if(data.cbegin(), data.cend(), isNumber(number));
+  return ReturnType(result);
+}
