@@ -49,11 +49,6 @@ int main(int argc, char * argv[])
       std::cout << '\n';
       std::cin.ignore(max, '\n');
     }
-    if(!std::cin)
-    {
-      std::cin.clear();
-      std::cin.ignore(max, '\n');
-    }
   }
   return 0;
 }
