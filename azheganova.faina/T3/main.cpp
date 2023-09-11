@@ -40,16 +40,16 @@ int main(int argc, char ** argv)
       std::string input = azheganova::inputCommand(std::cin);
       azheganova::doCommand(input, commands, polygon, std::cin, std::cout);
     }
+    catch (const std::runtime_error & e)
+    {
+      break;
+    }
     catch (const std::logic_error & e)
     {
       azheganova::printInvalidCommand(std::cout);
       std::cout << '\n';
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       std::cin.clear();
-    }
-    catch (const std::runtime_error & e)
-    {
-      break;
     }
   }
   return 0;
