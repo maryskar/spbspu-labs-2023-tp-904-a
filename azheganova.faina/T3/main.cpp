@@ -50,7 +50,6 @@ int main(int argc, char ** argv)
       azheganova::printInvalidCommand(std::cout);
       std::cout << '\n';
       std::cin.ignore(max, '\n');
-      std::cin.clear();
     }
     std::cout << '\n';
   }
