@@ -52,8 +52,49 @@ bool skarlygina::isPerm(const skarlygina::Polygon& first, const skarlygina::Poly
   return std::is_permutation(poly.points.begin(), poly.points.end(), first.points.begin(), first.points.end());
 }
 
-bool isSame(const skarlygina::Polygon&, const skarlygina::Polygon&)
+bool isOdd(const skarlygina::Polygon& poly)
 {
+  return poly.points.size() % 2;
+}
+
+bool isEven(const skarlygina::Polygon& poly)
+{
+  return poly.points.size() % 2 - 1;
+}
+
+size_t skarlygina::countOdd(const std::vector< Polygon >& polys)
+{
+  return std::count_if(polys.begin(), polys.end(), isOdd);
+}
+
+size_t skarlygina::countEven(const std::vector< Polygon >& polys)
+{
+  auto odd = std::bind(isOdd, std::placeholders::_1);
+  auto even_vert = std::bind(std::logical_not< bool >{}, odd);
+  return std::count_if(polys.begin(), polys.end(), even_vert);
+}
+
+skarlygina::Point doOffset(skarlygina::Point point, skarlygina::Point offset)
+{
+  return point + offset;
+}
+
+
+bool skarlygina::isSame(const skarlygina::Polygon& first_poly, const skarlygina::Polygon& second_poly)
+{
+  std::vector< skarlygina::Point > first = first_poly.points;
+  std::vector< skarlygina::Point > second = second_poly.points;
+  if (first.size() != second.size())
+  {
+    return false;
+  }
+  skarlygina::Point offset{ first[0].x - second[0].x, first[0].y - second[0].y };
+  std::vector< skarlygina::Point > second_new;
+
+  auto off = std::bind(doOffset, std::placeholders::_1, offset);
+  std::transform(second.begin(), second.end(), std::back_inserter(second_new), off);
+
+  return first == second_new;
 
 }
 
