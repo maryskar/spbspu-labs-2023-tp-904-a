@@ -21,7 +21,7 @@ namespace kotova
       using str = StringIO;
       using ullh = ULLHexIO;
       in >> sep{ '(' } >> sep { ':' };
-      for (size_t i = 0; i <= 3; i++)
+      for (size_t i = 1; i <= 3; i++)
       {
         size_t num = 0;
         in >> label{ "key" } >> num;
@@ -54,11 +54,11 @@ namespace kotova
       return out;
     }
     iofmtguard fmtguard(out);
-    out << "( ";
+    out << "(";
     out << ":key1 " << DoubleO { src.key1 };
     out << ":key2 0x" << std::hex << std::uppercase << src.key2;
-    out << ":key3 \"" << src.key3;
-    out << "\":)";
+    out << ":key3 " << src.key3;
+    out << ":)";
     return out;
   }
 
