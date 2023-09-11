@@ -1,0 +1,22 @@
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
+#include <ostream>
+#include "polygon.h"
+
+namespace kryuchkova
+{
+  void printAreaEven(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printAreaOdd(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printAreaMean(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printAreaNumOfVer(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printMaxArea(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printMaxVer(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printMinArea(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printMinVer(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printCountEven(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printCountOdd(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printCountNumOfVer(const std::vector< Polygon > & polygon, std::ostream & out, size_t num);
+
+}
+
+#endif
