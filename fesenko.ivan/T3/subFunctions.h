@@ -4,10 +4,16 @@
 namespace fesenko
 {
   double calcArea(double in, const Polygon &rhs);
-  bool isOdd(const Polygon &rhs);
-  bool isEven(const Polygon &rhs);
-  bool isAreaLess(const Polygon &lhs, const Polygon &rhs);
-  bool isAreaGreater(const Polygon &lhs, const Polygon &rhs);
+
+  struct isOdd
+  {
+    bool operator()(const Polygon &rhs);
+  };
+
+  struct isEven
+  {
+    bool operator()(const Polygon &rhs);
+  };
 
   struct isNumber
   {
@@ -15,6 +21,16 @@ namespace fesenko
     bool operator()(const Polygon &rhs);
    private:
     size_t number_;
+  };
+
+  struct isAreaLess
+  {
+    bool operator()(const Polygon &lhs, const Polygon &rhs);
+  };
+
+  struct isSizeLess
+  {
+    bool operator()(const Polygon &lhs, const Polygon &rhs);
   };
 }
 #endif
