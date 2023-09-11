@@ -70,6 +70,7 @@ int main(int argc, char **argv)
       }
     } catch (...)
     {
+      cmdinput.clear();
       skipUntilNewLine(cmdinput);
       std::cout << "<INVALID COMMAND>\n";
     }

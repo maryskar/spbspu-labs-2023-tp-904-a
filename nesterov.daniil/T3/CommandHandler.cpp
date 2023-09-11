@@ -69,6 +69,10 @@ namespace nesterov
 
   void printAreaWithVertexes(const std::deque< Polygon > &pls, std::ostream &out, size_t vertexes)
   {
+    if (vertexes < 3)
+    {
+      throw std::logic_error("");
+    }
     auto fun = std::bind(
       getAreaWithVertexesFun,
       std::placeholders::_1,
@@ -197,27 +201,19 @@ namespace nesterov
 
   void countEven(const std::deque< Polygon > &pls, std::ostream &out)
   {
-    if (pls.empty())
-    {
-      throw std::logic_error("");
-    }
     size_t even = std::count_if(pls.cbegin(), pls.cend(), hasEvenVertexes);
     out << even << '\n';
   }
 
   void countOdd(const std::deque< Polygon > &pls, std::ostream &out)
   {
-    if (pls.empty())
-    {
-      throw std::logic_error("");
-    }
     size_t odd = std::count_if(pls.cbegin(), pls.cend(), hasOddVertexes);
     out << odd << '\n';
   }
 
   void countWithNVertexes(const std::deque< Polygon > &pls, std::ostream &out, size_t vertexes)
   {
-    if (pls.empty())
+    if (vertexes < 3)
     {
       throw std::logic_error("");
     }
