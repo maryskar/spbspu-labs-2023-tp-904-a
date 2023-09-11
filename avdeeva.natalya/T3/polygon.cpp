@@ -38,3 +38,7 @@ std::istream & avdeeva::operator>>(std::istream & in, const Polygon & rhs)
   }
   return in;
 }
+double avdeeva::areaCounter(const Point & lhs, const Point & rhs)
+{
+  return 0.5 * (lhs.x * rhs.y - rhs.x * lhs.y);
+}
