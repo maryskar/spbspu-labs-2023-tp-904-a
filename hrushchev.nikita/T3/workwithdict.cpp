@@ -51,7 +51,7 @@ void hrushchev::Commands::doCommand(std::vector< Polygon >& polygons,
 
 std::string hrushchev::inputCommand(std::istream& in)
 {
-  std::string command = " ";
+  std::string command = "";
   in >> command;
   if (!in)
   {
