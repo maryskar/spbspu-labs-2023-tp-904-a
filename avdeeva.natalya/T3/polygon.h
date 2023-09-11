@@ -13,5 +13,6 @@ namespace avdeeva
     std::vector< Point > points;
   };
   std::istream & operator>>(std::istream & in, const Point & rhs);
+  std::istream & operator>>(std::istream & in, const Polygon & rhs);
 }
 #endif
