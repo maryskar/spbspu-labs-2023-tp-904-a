@@ -37,3 +37,13 @@ fesenko::ReturnType fesenko::area_vertexes(data_t &data, std::istream &in)
   std::copy_if(data.cbegin(), data.cend(), std::back_inserter(temp), isNumber(number));
   return ReturnType(std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea));
 }
+
+fesenko::ReturnType fesenko::max_area(data_t &data)
+{
+  return ReturnType(calcArea(0.0, *std::max_element(data.cbegin(), data.cend(), isAreaLess())));
+}
+
+fesenko::ReturnType fesenko::min_area(data_t &data)
+{
+  return ReturnType(calcArea(0.0, *std::min_element(data.cbegin(), data.cend(), isAreaLess())));
+}

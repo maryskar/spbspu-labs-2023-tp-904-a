@@ -6,6 +6,8 @@ namespace fesenko
   double calcArea(double in, const Polygon &rhs);
   bool isOdd(const Polygon &rhs);
   bool isEven(const Polygon &rhs);
+  bool isAreaLess(const Polygon &lhs, const Polygon &rhs);
+  bool isAreaGreater(const Polygon &lhs, const Polygon &rhs);
 
   struct isNumber
   {

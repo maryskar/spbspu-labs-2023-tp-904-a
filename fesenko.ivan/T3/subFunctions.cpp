@@ -38,3 +38,8 @@ bool fesenko::isNumber::operator()(const Polygon &rhs)
 {
   return rhs.points.size() == number_;
 }
+
+bool fesenko::isAreaLess(const Polygon &lhs, const Polygon &rhs)
+{
+  return calcArea(0.0, lhs) < calcArea(0.0, rhs);
+}
