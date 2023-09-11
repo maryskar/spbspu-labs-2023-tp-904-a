@@ -45,10 +45,16 @@ int main(int argc, char * argv[])
     }
     catch (const std::logic_error & e)
     {
-      azheganova::printInvalidCommand(std::cout);
       std::cout << '\n';
       std::cin.ignore(max, '\n');
     }
+    if (!std::cin)
+    {
+      azheganova::printInvalidCommand(std::cout);
+      std::cin.clear();
+      std::cin.ignore(max, '\n');
+    }
+    std::cout << '\n';
   }
   return 0;
 }
