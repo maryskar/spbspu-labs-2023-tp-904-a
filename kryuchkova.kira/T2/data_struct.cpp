@@ -4,7 +4,7 @@
 #include <string>
 #include <iomanip>
 #include "iofmtguard.h"
-#include "IOstructs.h"
+#include "../common/IOstructs.h"
 
 namespace kryuchkova
 {
