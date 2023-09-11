@@ -2,6 +2,7 @@
 #define GEOMFIGURES_HPP
 #include <iomanip>
 #include <vector>
+#include <iostream>
 namespace kotova
 {
   struct Point
@@ -12,5 +13,7 @@ namespace kotova
   {
     std::vector< Point > points;
   };
+  std::istream &operator>>(std::istream &in, const Polygon &rhs);
+
 }
 #endif
