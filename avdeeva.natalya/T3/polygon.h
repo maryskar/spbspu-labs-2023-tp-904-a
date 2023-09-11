@@ -1,6 +1,7 @@
 #ifndef SPBSPU_LABS_2023_TP_904_A_POLYGON_H
 #define SPBSPU_LABS_2023_TP_904_A_POLYGON_H
 #include <vector>
+#include <iostream>
 namespace avdeeva
 {
   struct Point
@@ -11,5 +12,6 @@ namespace avdeeva
   {
     std::vector< Point > points;
   };
+  std::istream & operator>>(std::istream & in, const Point & rhs);
 }
 #endif
