@@ -186,7 +186,23 @@ namespace kumachev {
 
   void handleAdd(State &state, string_vector &args, std::ostream &ostream)
   {
+    if (args.size() < 3) {
+      throw std::logic_error("Команда принимает минимум 3 аргумента");
+    }
 
+    std::string dictName = args[0];
+    std::string english = args[1];
+    auto russianBegin = args.cbegin();
+    std::advance(russianBegin, 2);
+
+    std::vector< std::string > russianWords(russianBegin, args.cend());
+    const auto &searchResult = state.dicts.find(dictName);
+
+    if (searchResult == state.dicts.end()) {
+      throw std::logic_error("ОШИБКА: Словарь не найден");
+    }
+
+    searchResult->second[english] = russianWords;
   }
 
   void handleClear(State &state, string_vector &args, std::ostream &ostream)
