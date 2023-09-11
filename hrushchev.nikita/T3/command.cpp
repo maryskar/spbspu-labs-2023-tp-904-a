@@ -138,7 +138,7 @@ void hrushchev::getMaxArea(const std::vector< Polygon >& polygons, std::ostream&
 void hrushchev::getMaxVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
 {
   iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1);
+  out << std::fixed;
   out << std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereVertexes) << "\n";
 }
 void hrushchev::getMinArea(const std::vector< Polygon >& polygons, std::ostream& out)
@@ -151,7 +151,7 @@ void hrushchev::getMinArea(const std::vector< Polygon >& polygons, std::ostream&
 void hrushchev::getMinVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
 {
   iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1);
+  out << std::fixed;
   out << std::accumulate(polygons.begin(), polygons.end(), polygons.front().points_.size(), chooseLessVertexes) << "\n";
 }
 
@@ -170,10 +170,14 @@ void hrushchev::getCountOdd(const std::vector< Polygon >& polygons, std::ostream
 
 void hrushchev::getCountVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out)
 {
+  if (count < 3)
+  {
+    throw std::logic_error("invalid arg");
+  }
   using namespace std::placeholders;
   auto pred = std::bind(isNecessaryVertex, _1, count);
   iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1);
+  out << std::fixed;
   out << count_if(polygons.begin(), polygons.end(), pred) << "\n";
 }
 
