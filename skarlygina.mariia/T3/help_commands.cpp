@@ -3,7 +3,7 @@
 #include <numeric>
 #include <algorithm>
 #include <functional>
-#include "iofmt_guard.h"
+#include <iofmt_guard.h>
 
 namespace skarlygina
 {
@@ -47,6 +47,10 @@ size_t getSize(const skarlygina::Polygon poly)
   return poly.points.size();
 }
 
+bool isPerm(const skarlygina::Polygon& first, const skarlygina::Polygon& poly)
+{
+  return std::is_permutation(poly.points.begin(), poly.points.end(), first.points.begin(), first.points.end());
+}
 
 double skarlygina::maxArea(const std::vector< Polygon >& polys)
 {

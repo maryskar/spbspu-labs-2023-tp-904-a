@@ -8,6 +8,7 @@
 #include "help_commands.h"
 
 void skarlygina::getArea(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out);
+void skarlygina::countFigures(const std::vector< Polygon >&, std::istream&, std::ostream&);
 void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
   if (polys.empty()) {
@@ -32,6 +33,7 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
     throw std::invalid_argument("False command");
   }
 }
+
 void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
   std::string command = "";
@@ -51,9 +53,18 @@ void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, s
   {
     throw std::invalid_argument("Unknown command");
   }
-
 }
-void skarlygina::countFigures(const std::vector< Polygon >&, std::istream&, std::ostream&);
-void skarlygina::findPerms(const std::vector< Polygon >&, std::istream&, std::ostream&);
+
+void skarlygina::findPerms(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
+{
+  skarlygina::Polygon base;
+  in >> base;
+  if (!in)
+  {
+    throw std::invalid_argument("");
+  }
+  out << std::count_if(polys.begin(), polys.end(), std::bind(&skarlygina::findPerms, base, std::placeholders::_1)) << '\n';
+}
+
 void skarlygina::findSame(const std::vector< Polygon >&, std::istream&, std::ostream&);
 std::ostream& skarlygina::printInvalidCommand(std::ostream&);
