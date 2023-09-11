@@ -91,3 +91,4 @@ bool azheganova::operator==(const Polygon & first, const Polygon & second)
   return first.points.size() == second.points.size() && checkEqual;
 }
 
+

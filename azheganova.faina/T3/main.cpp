@@ -3,9 +3,12 @@
 #include <fstream>
 #include <functional>
 #include <limits>
+#include <numeric>
+#include <string>
+#include <map>
 #include "commands.h"
 
-int main(int argc, char * argv[])
+int main(int argc, char ** argv)
 {
   if (argc != 2)
   {

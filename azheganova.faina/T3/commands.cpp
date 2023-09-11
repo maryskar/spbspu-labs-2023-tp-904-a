@@ -19,7 +19,7 @@ namespace azheganova
     dict_1.insert({ "COUNT ODD", countOdd });
     dict_2.insert({ "AREA", getAreaNumOfVertexes });
     dict_2.insert({ "COUNT", countNumOfVertexes });
-//    dict_3.insert({ "RMECHO", getRmecho });
+    dict_3.insert({ "RMECHO", getRmecho });
     dict_1.insert({ "RIGHTSHAPES", getRightshapes });
   }
 
@@ -33,7 +33,7 @@ namespace azheganova
     return (polygon.points.size() % 2 != 0);
   }
 
-  void getAreaEven(const std::vector< Polygon > & polygon, std::ostream & out)
+  void getAreaEven(std::vector< Polygon > & polygon, std::ostream & out)
   {
     iofmtguard fmtguard(out);
     std::vector< double > rhs;
@@ -41,7 +41,7 @@ namespace azheganova
     out << std::fixed << std::setprecision(1) << std::accumulate(rhs.begin(), rhs.end(), 0.0) << '\n';
   }
 
-  void getAreaOdd(const std::vector< Polygon > & polygon, std::ostream & out)
+  void getAreaOdd(std::vector< Polygon > & polygon, std::ostream & out)
   {
     iofmtguard fmtguard(out);
     std::vector< double > rhs;
@@ -49,7 +49,7 @@ namespace azheganova
     out << std::fixed << std::setprecision(1) << std::accumulate(rhs.begin(), rhs.end(), 0.0) << '\n';
   }
 
-  void getAreaMean(const std::vector< Polygon > & polygon, std::ostream & out)
+  void getAreaMean(std::vector< Polygon > & polygon, std::ostream & out)
   {
     if (polygon.empty())
     {
@@ -73,7 +73,7 @@ namespace azheganova
     }
   }
 
-  void getAreaNumOfVertexes(const std::vector< Polygon > & polygon, size_t num, std::ostream & out)
+  void getAreaNumOfVertexes(std::vector< Polygon > & polygon, size_t num, std::ostream & out)
   {
     using namespace std::placeholders;
     iofmtguard fmtguard(out);
@@ -83,7 +83,7 @@ namespace azheganova
     out << std::fixed << std::setprecision(1) << area << '\n';
   }
 
-  void getMaxArea(const std::vector< Polygon > & polygon, std::ostream & out)
+  void getMaxArea(std::vector< Polygon > & polygon, std::ostream & out)
   {
     if (polygon.empty())
     {
@@ -101,7 +101,7 @@ namespace azheganova
     return polygon.points.size();
   }
 
-  void getMaxVertexes(const std::vector< Polygon > & polygon, std::ostream & out)
+  void getMaxVertexes(std::vector< Polygon > & polygon, std::ostream & out)
   {
     if (polygon.empty())
     {
@@ -114,7 +114,7 @@ namespace azheganova
     out << std::fixed << * max << '\n';
   }
 
-  void getMinArea(const std::vector< Polygon > & polygon, std::ostream & out)
+  void getMinArea(std::vector< Polygon > & polygon, std::ostream & out)
   {
     if (polygon.empty())
     {
@@ -127,7 +127,7 @@ namespace azheganova
     out << std::fixed << std::setprecision(1) << * min << '\n';
   }
 
-  void getMinVertexes(const std::vector< Polygon > & polygon, std::ostream & out)
+  void getMinVertexes(std::vector< Polygon > & polygon, std::ostream & out)
   {
     if (polygon.empty())
     {
@@ -140,19 +140,19 @@ namespace azheganova
     out << std::fixed << * min << '\n';
   }
 
-  void countEven(const std::vector< Polygon > & polygon, std::ostream & out)
+  void countEven(std::vector< Polygon > & polygon, std::ostream & out)
   {
     iofmtguard fmtguard(out);
     out << std::fixed << std::count_if(polygon.begin(), polygon.end(), isEven) << '\n';
   }
 
-  void countOdd(const std::vector< Polygon > & polygon, std::ostream & out)
+  void countOdd(std::vector< Polygon > & polygon, std::ostream & out)
   {
     iofmtguard fmtguard(out);
     out << std::fixed << std::count_if(polygon.begin(), polygon.end(), isOdd) << '\n';
   }
 
-  void countNumOfVertexes(const std::vector< Polygon > & polygon, size_t num, std::ostream & out)
+  void countNumOfVertexes(std::vector< Polygon > & polygon, size_t num, std::ostream & out)
   {
     using namespace std::placeholders;
     iofmtguard iofmtguard(out);
@@ -164,21 +164,21 @@ namespace azheganova
     return (first == polygon && second == polygon);
   }
 
-//  void getRmecho(const std::vector< Polygon > & polygon, std::ostream & out, std::istream & in)
-//  {
-//    Polygon newpolygon;
-//    in >> newpolygon;
-//    if (!in)
-//    {
-//      throw std::logic_error("error");
-//    }
-//    using namespace std::placeholders;
-//    size_t sizeBefore = polygon.size();
-//    auto func = std::bind(isCompareRmecho, _1, _2, newpolygon);
-//    auto condition = std::unique(polygon.begin(), polygon.end(), func);
-//    polygon.erase(condition, polygon.end());
-//    out << sizeBefore - polygon.size() << '\n';
-//  }
+  void getRmecho(std::vector< Polygon > & polygon, std::ostream & out, std::istream & in)
+  {
+    Polygon newpolygon;
+    in >> newpolygon;
+    if (!in)
+    {
+      throw std::logic_error("error");
+    }
+    using namespace std::placeholders;
+    size_t sizeBefore = polygon.size();
+    auto func = std::bind(isCompareRmecho, _1, _2, newpolygon);
+    auto condition = std::unique(polygon.begin(), polygon.end(), func);
+    polygon.erase(condition, polygon.end());
+    out << sizeBefore - polygon.size() << '\n';
+  }
 
   bool isRightAngle(const Point & a, const Point & b, const Point & c)
   {
@@ -201,7 +201,7 @@ namespace azheganova
     return std::any_of(ind.begin(), ind.end(), state);
   }
 
-  void getRightshapes(const std::vector< Polygon > & polygon, std::ostream & out)
+  void getRightshapes(std::vector< Polygon > & polygon, std::ostream & out)
   {
     out << std::count_if(polygon.begin(), polygon.end(), hasRightAngles) << '\n';
   }
@@ -229,24 +229,24 @@ namespace azheganova
     return command;
   }
 
-  void Commands::doComm(const str & comm, const std::vector< Polygon > & data, std::ostream & out) const
+  void Commands::doComm(const str & comm, std::vector< Polygon > & data, std::ostream & out) const
   {
     auto func = dict_1.at(comm);
     func(data, out);
   }
-  void Commands::doComm(const str & comm, const std::vector< Polygon > & data, size_t num, std::ostream & out) const
+  void Commands::doComm(const str & comm, std::vector< Polygon > & data, size_t num, std::ostream & out) const
   {
     auto func = dict_2.at(comm);
     func(data, num, out);
   }
 
-  void Commands::doComm(const str & comm, const std::vector< Polygon > & data, std::ostream & out, std::istream & in) const
+  void Commands::doComm(const str & comm, std::vector< Polygon > & data, std::ostream & out, std::istream & in) const
   {
     auto func = dict_3.at(comm);
     func(data, out, in);
   }
 
-  void doCommand(const str & command, const Commands & dicts, const std::vector< Polygon > & data, std::istream & in, std::ostream & out)
+  void doCommand(const str & command, const Commands & dicts, std::vector< Polygon > & data, std::istream & in, std::ostream & out)
   {
     try
     {
