@@ -39,7 +39,6 @@ int main(int argc, char ** argv)
       input.ignore(max, '\n');
     }
   }
-
   using namespace std::placeholders;
   using com_t = std::function< void(std::vector< azheganova::Polygon > &) >;
   const std::map< std::string, com_t > commands =
@@ -72,7 +71,7 @@ int main(int argc, char ** argv)
         input.ignore(max, '\n');
       }
     }
-  return 0;
   }
+  return 0;
 }
 
