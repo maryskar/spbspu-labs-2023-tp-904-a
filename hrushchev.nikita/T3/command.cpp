@@ -113,6 +113,10 @@ void hrushchev::getAreaOdd(const std::vector< Polygon >& polygons, std::ostream&
 }
 void hrushchev::getAreaMean(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  if (polygons.empty())
+  {
+    throw std::logic_error("invalid arg");
+  }
   size_t count = polygons.size();
   iofmtguard iofmtguard(out);
   out << std::fixed << std::setprecision(1);
@@ -130,6 +134,10 @@ void hrushchev::getAreaVertexes(const std::vector< Polygon >& polygons, size_t c
 }
 void hrushchev::getMaxArea(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  if (polygons.empty())
+  {
+    throw std::logic_error("invalid arg");
+  }
   iofmtguard iofmtguard(out);
   out << std::fixed << std::setprecision(1);
   out << std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereArea) << "\n";
@@ -137,11 +145,19 @@ void hrushchev::getMaxArea(const std::vector< Polygon >& polygons, std::ostream&
 
 void hrushchev::getMaxVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  if (polygons.empty())
+  {
+    throw std::logic_error("invalid arg");
+  }
   iofmtguard iofmtguard(out);
   out << std::accumulate(polygons.begin(), polygons.end(), 0.0, chooseGreatereVertexes) << "\n";
 }
 void hrushchev::getMinArea(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  if (polygons.empty())
+  {
+    throw std::logic_error("invalid arg");
+  }
   iofmtguard iofmtguard(out);
   out << std::fixed << std::setprecision(1);
   out << std::accumulate(polygons.begin(), polygons.end(), getArea(polygons.front()), chooseLessArea) << "\n";
@@ -149,6 +165,10 @@ void hrushchev::getMinArea(const std::vector< Polygon >& polygons, std::ostream&
 
 void hrushchev::getMinVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
 {
+  if (polygons.empty())
+  {
+    throw std::logic_error("invalid arg");
+  }
   iofmtguard iofmtguard(out);
   out << std::accumulate(polygons.begin(), polygons.end(), polygons.front().points_.size(), chooseLessVertexes) << "\n";
 }
