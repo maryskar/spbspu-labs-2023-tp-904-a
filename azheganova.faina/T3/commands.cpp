@@ -79,14 +79,25 @@ namespace azheganova
     area = std::accumulate(areas.cbegin(), areas.cend(), 0, getSumArea);
     return area;
   }
-  bool isGreaterArea(const Polygon & polygon1, const Polygon & polygon2)
+  
+  bool isLessArea(const Polygon& pol1, const Polygon& pol2)
   {
-    return getArea(polygon1) >= getArea(polygon2);
+    return getArea(pol1) < getArea(pol2);
   }
 
-  bool isGreaterVertexes(const Polygon & polygon1, const Polygon & polygon2)
+  bool isGreaterArea(const Polygon& pol1, const Polygon& pol2)
   {
-    return polygon1.points.size() > polygon2.points.size();
+    return !isLessArea(pol1, pol2);
+  }
+
+  bool isLessVertexes(const Polygon& pol1, const Polygon& pol2)
+  {
+    return pol1.points_.size() <= pol2.points_.size();
+  }
+
+  bool isGreaterVertexes(const Polygon& pol1, const Polygon& pol2)
+  {
+    return !isLessVertexes(pol1, pol2);
   }
 
   template< typename Pred >
