@@ -79,14 +79,14 @@ namespace azheganova
     area = std::accumulate(areas.cbegin(), areas.cend(), 0, getSumArea);
     return area;
   }
-  bool isLessArea(const Polygon & polygon1, const Polygon & polygon2)
+  bool isGreaterArea(const Polygon & polygon1, const Polygon & polygon2)
   {
-    return getArea(polygon1) < getArea(polygon2);
+    return getArea(polygon1) >= getArea(polygon2);
   }
-  
-  bool isLessVertexes(const Polygon & polygon1, const Polygon & polygon2)
+
+  bool isGreaterVertexes(const Polygon & polygon1, const Polygon & polygon2)
   {
-    return polygon1.points.size() <= polygon2.points.size();
+    return polygon1.points.size() > polygon2.points.size();
   }
 
   template< typename Pred >
@@ -160,19 +160,13 @@ namespace azheganova
 
 void azheganova::area(std::vector< Polygon > & polygon, std::istream & in, std::ostream & out)
 {
-  std::istream::sentry sentryIn(in);
-  std::ostream::sentry sentryOut(out);
-  if (!sentryIn || !sentryOut)
-  {
-    return;
-  }
-  std::string secondArg = "";
-  in >> secondArg;
+  std::string second = "";
+  in >> second;
   iofmtguard iofmtguard(out);
   std::cout << std::fixed << std::setprecision(1);
-  if (isNumber(secondArg))
+  if (isNumber(second))
   {
-    size_t size = std::stoul(secondArg);
+    size_t size = std::stoul(second);
     if (size < 3)
     {
       throw std::logic_error("<INVALID COMMAND>");
@@ -187,32 +181,26 @@ void azheganova::area(std::vector< Polygon > & polygon, std::istream & in, std::
     {"ODD", getAreaOdd},
     {"MEAN", getAreaMean},
   };
-  out << commands.at(secondArg)(polygon) << "\n";
+  out << commands.at(second)(polygon) << "\n";
 }
 
 void azheganova::max(std::vector< Polygon > & polygon, std::istream & in, std::ostream & out)
 {
-  std::istream::sentry sentryIn(in);
-  std::ostream::sentry sentryOut(out);
-  if (!sentryIn || !sentryOut)
-  {
-    return;
-  }
-  std::string secondArg = "";
-  in >> secondArg;
+  std::string second = "";
+  in >> second;
   if (!polygon.size())
   {
     throw std::logic_error("<INVALID COMMAND>");
   }
-  if (secondArg == "AREA")
+  if (second == "AREA")
   {
     iofmtguard iofmtguard(out);
     std::cout << std::fixed << std::setprecision(1);
-    out << getMaxOrMinArea(polygon, isLessArea) << "\n";
+    out << getMaxOrMinArea(polygon, isGreaterArea) << "\n";
   }
-  else if (secondArg == "VERTEXES")
+  else if (second == "VERTEXES")
   {
-    out << getMaxOrMinVertexes(polygon, isLessVertexes) << "\n";
+    out << getMaxOrMinVertexes(polygon, isGreaterVertexes) << "\n";
   }
   else
   {
@@ -222,21 +210,15 @@ void azheganova::max(std::vector< Polygon > & polygon, std::istream & in, std::o
 
 void azheganova::min(std::vector< Polygon > & polygon, std::istream & in, std::ostream & out)
 {
-  std::istream::sentry sentryIn(in);
-  std::ostream::sentry sentryOut(out);
-  if (!sentryIn || !sentryOut)
-  {
-    return;
-  }
-  std::string secondArg = "";
-  in >> secondArg;
-  if (secondArg == "AREA")
+  std::string second = "";
+  in >> second;
+  if (second == "AREA")
   {
     iofmtguard iofmtguard(out);
     std::cout << std::fixed << std::setprecision(1);
     out << getMaxOrMinArea(polygon, isGreaterArea) << "\n";
   }
-  else if (secondArg == "VERTEXES")
+  else if (second == "VERTEXES")
   {
     out << getMaxOrMinVertexes(polygon, isGreaterVertexes) << "\n";
   }
@@ -248,17 +230,11 @@ void azheganova::min(std::vector< Polygon > & polygon, std::istream & in, std::o
 
 void azheganova::count(std::vector< Polygon > & polygon, std::istream & in, std::ostream & out)
 {
-  std::istream::sentry sentryIn(in);
-  std::ostream::sentry sentryOut(out);
-  if (!sentryIn || !sentryOut)
+  std::string second = "";
+  in >> second;
+  if (isNumber(second))
   {
-    return;
-  }
-  std::string secondArg = "";
-  in >> secondArg;
-  if (isNumber(secondArg))
-  {
-    size_t size = std::stoul(secondArg);
+    size_t size = std::stoul(second);
     if (size < 3)
     {
       throw std::logic_error("<INVALID COMMAND>");
@@ -272,17 +248,11 @@ void azheganova::count(std::vector< Polygon > & polygon, std::istream & in, std:
     {"EVEN", getCountEven},
     {"ODD", getCountOdd}
   };
-  out << commands.at(secondArg)(polygon) << "\n";
+  out << commands.at(second)(polygon) << "\n";
 }
 
 void azheganova::rmecho(std::vector< Polygon > & polygon, std::istream & in, std::ostream & out)
 {
-  std::istream::sentry sentryIn(in);
-  std::ostream::sentry sentryOut(out);
-  if (!sentryIn || !sentryOut)
-  {
-    return;
-  }
   Polygon newpolygon;
   in >> newpolygon;
   if (!in)
@@ -298,6 +268,6 @@ void azheganova::rmecho(std::vector< Polygon > & polygon, std::istream & in, std
 
 void azheganova::rightshapes(std::vector< Polygon > & polygon, std::ostream & out)
 {
-  out << std::count_if(polygon.begin(), polygon.end(), azheganova::hasRightAngles) << '\n';
+  out << std::count_if(polygon.begin(), polygon.end(), hasRightAngles) << '\n';
 }
 
