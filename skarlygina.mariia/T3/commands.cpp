@@ -30,6 +30,7 @@ void skarlygina::getArea(const std::vector< Polygon >& polys, std::istream& in, 
     out << findAreaNumOfVertexes(polys, number_vert) << '\n';
   }
 }
+
 void skarlygina::countFigures(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
   std::map< std::string, std::function< size_t() > > command_count = {

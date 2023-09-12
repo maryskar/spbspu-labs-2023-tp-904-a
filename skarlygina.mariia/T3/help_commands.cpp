@@ -27,8 +27,26 @@ double skarlygina::findAreaEven(const std::vector< Polygon >& polys)
   AreaCondition< std::function< bool(const skarlygina::Polygon&) > > even_area(isEven);
   return std::accumulate(polys.begin(), polys.end(), 0.0, even_area);
 }
-double skarlygina::findAreaMean(const std::vector< Polygon >&);
-double skarlygina::findAreaNumOfVertexes(const std::vector< Polygon >&, size_t);
+
+double skarlygina::findAreaMean(const std::vector< Polygon >& polys)
+{
+  if (polys.empty()) {
+    throw std::invalid_argument("Not enough figures");
+  }
+  auto getArea = std::bind(findAreaPoly, std::placeholders::_2, std::placeholders::_1);
+  return std::accumulate(polys.begin(), polys.end(), 0.0, getArea) / polys.size();
+}
+
+double skarlygina::findAreaNumOfVertexes(const std::vector< Polygon >& polys, size_t count)
+{
+  if (count < 3)
+  {
+    throw std::invalid_argument("Entered command is incorrect");
+  }
+  auto number_vert = std::bind(isVert, std::placeholders::_1, count);
+  AreaCondition< std::function< bool(const skarlygina::Polygon&) > > getArea(number_vert);
+  return std::accumulate(polys.begin(), polys.end(), 0.0, getArea);
+}
 
 bool compareArea(const skarlygina::Polygon& left, const skarlygina::Polygon& right)
 {
