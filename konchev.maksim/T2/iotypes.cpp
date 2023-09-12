@@ -36,7 +36,7 @@ namespace konchev
     {
       return in;
     }
-    in >> data.ref >> delimiter{'l'} >> delimiter{'l'};
+    in >> std::dec >> data.ref >> delimiter{'l'} >> delimiter{'l'};
     return in;
   }
   std::istream &operator>>(std::istream &in, uLongLong &&data)

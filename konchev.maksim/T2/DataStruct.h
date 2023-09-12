@@ -6,7 +6,7 @@ namespace konchev
 {
   struct DataStruct
   {
-    int key1;
+    long long key1;
     unsigned long long key2;
     std::string key3;
   };

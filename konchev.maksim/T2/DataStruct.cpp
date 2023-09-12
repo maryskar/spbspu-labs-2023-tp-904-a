@@ -59,7 +59,7 @@ namespace konchev
       return out;
     }
     StreamGuard streamGuard(out);
-    out << "(:key1 " << data.key1 << "ll";
+    out << "(:key1 " << std::dec << data.key1 << "ll";
     out << ":key2 0x" << std::hex << std::uppercase << data.key2;
     out << ":key3 \"" << data.key3 << "\":)";
     return out;
