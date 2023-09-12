@@ -11,7 +11,7 @@ namespace konchev
     std::string key3;
   };
   bool compareData(const DataStruct& lhs, const DataStruct& rhs);
-  std::istream &operator>>(std::istream &in, DataStruct &&data);
+  std::istream &operator>>(std::istream &in, DataStruct &data);
   std::ostream &operator<<(std::ostream &out, const DataStruct &data);
 
 };
