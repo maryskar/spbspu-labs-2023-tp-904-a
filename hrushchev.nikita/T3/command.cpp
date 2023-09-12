@@ -51,7 +51,7 @@ double chooseGreatereArea(double cur, const hrushchev::Polygon& polygon)
   return (cur > area) ? cur : area;
 }
 
-double chooseGreatereVertexes(double cur, const hrushchev::Polygon& polygon)
+size_t chooseGreatereVertexes(double cur, const hrushchev::Polygon& polygon)
 {
   size_t count = polygon.points_.size();
   return (cur > count) ? cur : count;
@@ -63,7 +63,7 @@ double chooseLessArea(double cur, const hrushchev::Polygon& polygon)
   return (cur < area) ? cur : area;
 }
 
-double chooseLessVertexes(double cur, const hrushchev::Polygon& polygon)
+size_t chooseLessVertexes(double cur, const hrushchev::Polygon& polygon)
 {
   size_t count = polygon.points_.size();
   return (cur < count) ? cur : count;
