@@ -10,7 +10,7 @@
 
 std::ostream & printInvalidCommand(std::ostream & out)
 {
-  out << "<INVALID COMMAND>";
+  out << "<INVALID COMMAND>" << '\n';
   return out;
 }
 
