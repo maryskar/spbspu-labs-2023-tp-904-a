@@ -18,7 +18,7 @@ namespace fesenko
   ReturnType count_odd(data_t &data);
   ReturnType count_even(data_t &data);
   ReturnType count_vertexes(data_t &data, std::istream &in);
-  ReturnType rects_sub(data_t &data, std::istream &in);
+  ReturnType rects_sub(data_t &data);
   ReturnType inframe_sub(data_t &data, std::istream &in);
 }
 #endif

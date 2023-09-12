@@ -7,6 +7,13 @@ int mulPoint(const fesenko::Point &lhs, const fesenko::Point &rhs)
   return lhs.x * rhs.y;
 }
 
+bool isRightAngle(const fesenko::Point &one, const fesenko::Point &two, const fesenko::Point &three)
+{
+  fesenko::Point vector1 = {two.x - one.x, two.y - one.y};
+  fesenko::Point vector2 = {three.x - two.x, three.y - two.y};
+  return vector1.x * vector2.x + vector1.y * vector2.y == 0;
+}
+
 double fesenko::calcArea(double in, const Polygon &rhs)
 {
   std::vector< int > plusArea, minusArea;
@@ -47,4 +54,17 @@ bool fesenko::isAreaLess::operator()(const Polygon &lhs, const Polygon &rhs)
 bool fesenko::isSizeLess::operator()(const Polygon &lhs, const Polygon &rhs)
 {
   return lhs.points.size() < rhs.points.size();
+}
+
+bool fesenko::isRect::operator()(const Polygon &rhs)
+{
+  if (rhs.points.size() != 4) {
+    return false;
+  }
+  fesenko::Point one = rhs.points[0];
+  fesenko::Point two = rhs.points[1];
+  fesenko::Point three = rhs.points[2];
+  fesenko::Point four = rhs.points[3];
+  return isRightAngle(one, two, three) && isRightAngle(two, three, four)
+      && isRightAngle(three, four, one) && isRightAngle(four, one, two);
 }

@@ -80,3 +80,9 @@ fesenko::ReturnType fesenko::count_vertexes(data_t &data, std::istream &in)
   size_t result = std::count_if(data.cbegin(), data.cend(), isNumber(number));
   return ReturnType(result);
 }
+
+fesenko::ReturnType fesenko::rects_sub(data_t &data)
+{
+  size_t result = std::count_if(data.cbegin(), data.cend(), isRect());
+  return ReturnType(result);
+}

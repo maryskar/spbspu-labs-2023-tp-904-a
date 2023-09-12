@@ -32,5 +32,10 @@ namespace fesenko
   {
     bool operator()(const Polygon &lhs, const Polygon &rhs);
   };
+
+  struct isRect
+  {
+    bool operator()(const Polygon &rhs);
+  };
 }
 #endif
