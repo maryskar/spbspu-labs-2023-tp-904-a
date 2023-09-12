@@ -207,11 +207,11 @@ void azheganova::max(std::vector< Polygon > & polygon, std::istream & in, std::o
   {
     iofmtguard iofmtguard(out);
     std::cout << std::fixed << std::setprecision(1);
-    out << getMaxOrMinArea(polygon, isGreaterArea) << "\n";
+    out << getMaxOrMinArea(polygon, isLessArea) << "\n";
   }
   else if (second == "VERTEXES")
   {
-    out << getMaxOrMinVertexes(polygon, isGreaterVertexes) << "\n";
+    out << getMaxOrMinVertexes(polygon, isLessVertexes) << "\n";
   }
   else
   {
