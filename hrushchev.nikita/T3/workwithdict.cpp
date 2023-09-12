@@ -59,7 +59,7 @@ std::string hrushchev::inputCommand(std::istream& in)
   }
   if ((command != "RMECHO") && (command != "SAME"))
   {
-    std::string arg = " ";
+    std::string arg = "";
     in >> arg;
     if (!in)
     {

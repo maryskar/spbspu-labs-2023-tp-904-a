@@ -39,25 +39,24 @@ int main(int argc, char* argv[])
   {
     try
     {
-      std::string command;
-      command = hrushchev::inputCommand(std::cin);
+      std::string command = hrushchev::inputCommand(std::cin);
       hrushchev::doCommand(data, dict_wiht_cmd, command, std::cout, std::cin);
     }
-    catch (const std::runtime_error&)
+    catch (const std::logic_error& e)
     {
-      std::cout << "<INVALID COMMAND>";
+      std::cin.setstate(std::ios::failbit);
+    }
+    catch (const std::runtime_error& e)
+    {
       break;
     }
-    catch (const std::logic_error&)
+    if (!std::cin)
     {
       std::cout << "<INVALID COMMAND>";
-      std::cout << '\n';
-      if (!std::cin)
-      {
-        std::cin.clear();
-      }
+      std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
+    std::cout << '\n';
   }
   return 0;
 }
