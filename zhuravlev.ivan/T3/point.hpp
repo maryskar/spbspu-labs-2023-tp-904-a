@@ -1,6 +1,9 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 #include <vector>
+#include <iostream>
+#include "common/IO_separators.hpp"
+#include "common/iofmtguard.hpp"
 
 namespace zhuravlev
 {
