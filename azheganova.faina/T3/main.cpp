@@ -43,7 +43,6 @@ int main(int argc, char ** argv)
     }
     catch (const std::exception & e)
     {
-      azheganova::printInvalidCommand(std::cout);
       std::cout << '\n';
       std::cin.ignore(max, '\n');
     }
