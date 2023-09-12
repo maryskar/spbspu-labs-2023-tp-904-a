@@ -17,9 +17,9 @@ namespace azheganova
     return !isEven(polygon);
   }
 
-  bool isEqualVertexes(const Polygon & polygon, size_t vert)
+  bool isCountVertex(const Polygon & polygon, size_t vertexcount)
   {
-    return polygon.points.size() == vert;
+    return polygon.points.size() == vertexcount;
   }
 
   double getPartArea(double sum, const Point & p1, Point & p2)
@@ -28,6 +28,7 @@ namespace azheganova
     p2 = p1;
     return sum;
   }
+
   double getArea(const Polygon & polygon)
   {
     Point prev = polygon.points[polygon.points.size() - 1];
@@ -74,7 +75,7 @@ namespace azheganova
   {
     double area = 0;
     std::vector< Polygon > areas;
-    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isEqualVertexes, _1, countVert));
+    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isCountVertex, _1, countVert));
     area = std::accumulate(areas.cbegin(), areas.cend(), 0, getSumArea);
     return area;
   }
@@ -82,20 +83,10 @@ namespace azheganova
   {
     return getArea(polygon1) < getArea(polygon2);
   }
-
-  bool isGreaterArea(const Polygon & polygon1, const Polygon & polygon2)
-  {
-    return !isLessArea(polygon1, polygon2);
-  }
-
+  
   bool isLessVertexes(const Polygon & polygon1, const Polygon & polygon2)
   {
     return polygon1.points.size() <= polygon2.points.size();
-  }
-
-  bool isGreaterVertexes(const Polygon & polygon1, const Polygon & polygon2)
-  {
-    return !isLessVertexes(polygon1, polygon2);
   }
 
   template< typename Pred >
@@ -124,7 +115,7 @@ namespace azheganova
 
   size_t getCountVertexes(const std::vector< Polygon > & polygon, size_t countVert)
   {
-    return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(isEqualVertexes, _1, countVert));
+    return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(isCountVertex, _1, countVert));
   }
 
   bool isCompareRmecho(const Polygon & first, const Polygon & second, const Polygon & polygon)
