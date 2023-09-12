@@ -6,23 +6,6 @@
 
 namespace azheganova
 {
-  Commands::Commands()
-  {
-    dict_1.insert({ "AREA EVEN", getAreaEven });
-    dict_1.insert({ "AREA ODD", getAreaOdd });
-    dict_1.insert({ "AREA MEAN", getAreaMean });
-    dict_1.insert({ "MAX AREA", getMaxArea });
-    dict_1.insert({ "MAX VERTEXES", getMaxVertexes });
-    dict_1.insert({ "MIN AREA", getMinArea });
-    dict_1.insert({ "MIN VERTEXES", getMinVertexes });
-    dict_1.insert({ "COUNT EVEN", countEven });
-    dict_1.insert({ "COUNT ODD", countOdd });
-    dict_2.insert({ "AREA", getAreaNumOfVertexes });
-    dict_2.insert({ "COUNT", countNumOfVertexes });
-    dict_3.insert({ "RMECHO", getRmecho });
-    dict_1.insert({ "RIGHTSHAPES", getRightshapes });
-  }
-
   bool isEven(const Polygon & polygon)
   {
     return (polygon.points.size() % 2 == 0);
@@ -227,44 +210,6 @@ namespace azheganova
     command += " ";
     command += parameter;
     return command;
-  }
-
-  void Commands::doComm(const str & comm, std::vector< Polygon > & data, std::ostream & out) const
-  {
-    auto func = dict_1.at(comm);
-    func(data, out);
-  }
-  void Commands::doComm(const str & comm, std::vector< Polygon > & data, size_t num, std::ostream & out) const
-  {
-    auto func = dict_2.at(comm);
-    func(data, num, out);
-  }
-
-  void Commands::doComm(const str & comm, std::vector< Polygon > & data, std::ostream & out, std::istream & in) const
-  {
-    auto func = dict_3.at(comm);
-    func(data, out, in);
-  }
-
-  void doCommand(const str & command, const Commands & dicts, std::vector< Polygon > & data, std::istream & in, std::ostream & out)
-  {
-    try
-    {
-      dicts.doComm(command, data, out);
-      return;
-    }
-    catch(const std::out_of_range & e)
-    {}
-    try
-    {
-      dicts.doComm(command, data, out, in);
-      return;
-    }
-    catch(const std::out_of_range & e)
-    {}
-    size_t pos = command.find(' ');
-    size_t num = std::stoull(command.substr(pos));
-    dicts.doComm(command.substr(0, pos), data, num, out);
   }
 
   std::ostream & printInvalidCommand(std::ostream & out)

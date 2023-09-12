@@ -7,6 +7,7 @@
 #include <string>
 #include <map>
 #include "commands.h"
+#include "commanddict.h"
 
 int main(int argc, char ** argv)
 {
@@ -39,7 +40,7 @@ int main(int argc, char ** argv)
     try
     {
       std::string input = azheganova::inputCommand(std::cin);
-      azheganova::doCommand(input, commands, polygon, std::cin, std::cout);
+      commands.doCommand(input, polygon, std::cout, std::cin);
     }
     catch (const std::runtime_error & e)
     {
