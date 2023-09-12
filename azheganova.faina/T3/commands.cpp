@@ -80,24 +80,24 @@ namespace azheganova
     return area;
   }
 
-  bool isLessArea(const Polygon& pol1, const Polygon& pol2)
+  bool isLessArea(const Polygon & polygon1, const Polygon & polygon2)
   {
-    return getArea(pol1) < getArea(pol2);
+    return getArea(polygon1) < getArea(polygon2);
   }
 
-  bool isGreaterArea(const Polygon& pol1, const Polygon& pol2)
+  bool isGreaterArea(const Polygon & polygon1, const Polygon & polygon2)
   {
-    return !isLessArea(pol1, pol2);
+    return !isLessArea(polygon1, polygon2);
   }
 
-  bool isLessVertexes(const Polygon& pol1, const Polygon& pol2)
+  bool isLessVertexes(const Polygon & polygon1, const Polygon & polygon2)
   {
-    return pol1.points_.size() <= pol2.points_.size();
+    return polygon1.points.size() <= polygon2.points.size();
   }
 
-  bool isGreaterVertexes(const Polygon& pol1, const Polygon& pol2)
+  bool isGreaterVertexes(const Polygon & polygon1, const Polygon & polygon2)
   {
-    return !isLessVertexes(pol1, pol2);
+    return !isLessVertexes(polygon1, polygon2);
   }
 
   template< typename Pred >
