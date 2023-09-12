@@ -53,10 +53,10 @@ int main(int argc, char* argv[])
     if (!std::cin)
     {
       std::cout << "<INVALID COMMAND>";
+      std::cout << '\n';
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
-    std::cout << '\n';
   }
   return 0;
 }
