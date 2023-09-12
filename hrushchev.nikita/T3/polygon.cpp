@@ -35,22 +35,20 @@ std::istream& hrushchev::operator>>(std::istream& in, Polygon& dest)
   {
     return in;
   }
-  size_t num_of_points = 0;
-  in >> num_of_points;
-  if (num_of_points < 3)
+  size_t count = 0;
+  in >> count;
+  if (count < 3)
   {
     in.setstate(std::ios::failbit);
     return in;
   }
+  using iter = std::istream_iterator< Point >;
   dest.points_.clear();
-  std::vector< Point > temp_points(num_of_points);
-  std::istream_iterator< Point > point_iter(in);
-  std::copy_n(point_iter, num_of_points, temp_points.begin());
-  if (temp_points.size() != num_of_points)
+  std::copy_n(iter(in), count, std::back_inserter(dest.points_));
+  if (dest.points_.size() != count)
   {
     in.setstate(std::ios::failbit);
     return in;
   }
-  dest.points_.swap(temp_points);
   return in;
 }

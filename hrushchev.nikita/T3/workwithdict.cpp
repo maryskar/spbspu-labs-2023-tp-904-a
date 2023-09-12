@@ -52,7 +52,7 @@ void hrushchev::Commands::doCommand(std::vector< Polygon >& polygons,
 std::string hrushchev::inputCommand(std::istream& in)
 {
   std::string command = "";
-  in >> command >> DelimiterIO{'\n'};
+  in >> command;
   if (!in)
   {
     throw std::runtime_error("Error input");
@@ -79,7 +79,7 @@ void hrushchev::doCommand(std::vector< Polygon >& polygons,
   if (cmd == "RMECHO" || cmd == "SAME")
   {
     Polygon polygon;
-    in >> polygon;
+    in >> polygon >> DelimiterIO{'\n'};
     if (!in)
     {
       throw std::invalid_argument("Error polygon");
