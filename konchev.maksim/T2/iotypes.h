@@ -15,7 +15,7 @@ namespace konchev
   };
   struct LongLong
   {
-    char &ref;
+    long long &ref;
   };
   struct uLongLong
   {
