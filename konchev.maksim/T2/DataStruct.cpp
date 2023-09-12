@@ -3,7 +3,7 @@
 #include "StreamGuard.h"
 namespace konchev
 {
-  std::istream &operator>>(std::istream &in, DataStruct &&data)
+  std::istream &operator>>(std::istream &in, DataStruct &data)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
