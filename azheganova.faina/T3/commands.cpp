@@ -44,18 +44,18 @@ namespace azheganova
   double getAreaEven(const std::vector< Polygon > & polygon)
   {
     double area = 0;
-    std::vector< Polygon > evenPol;
-    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(evenPol), std::bind(isEven, _1));
-    area = std::accumulate(evenPol.cbegin(), evenPol.cend(), 0, getSumArea);
+    std::vector< Polygon > areas;
+    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isEven, _1));
+    area = std::accumulate(areas.cbegin(), areas.cend(), 0, getSumArea);
     return area;
   }
 
   double getAreaOdd(const std::vector< Polygon > & polygon)
   {
     double area = 0;
-    std::vector< Polygon > oddPol;
-    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(oddPol), std::bind(isOdd, _1));
-    area = std::accumulate(oddPol.cbegin(), oddPol.cend(), 0, getSumArea);
+    std::vector< Polygon > areas;
+    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isOdd, _1));
+    area = std::accumulate(areas.cbegin(), areas.cend(), 0, getSumArea);
     return area;
   }
 
@@ -73,9 +73,9 @@ namespace azheganova
   double getAreaVertexes(const std::vector< Polygon > & polygon, size_t countVert)
   {
     double area = 0;
-    std::vector< Polygon > vertPol;
-    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(vertPol), std::bind(isEqualVertexes, _1, countVert));
-    area = std::accumulate(vertPol.cbegin(), vertPol.cend(), 0, getSumArea);
+    std::vector< Polygon > areas;
+    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isEqualVertexes, _1, countVert));
+    area = std::accumulate(areas.cbegin(), areas.cend(), 0, getSumArea);
     return area;
   }
   bool isLessArea(const Polygon & polygon1, const Polygon & polygon2)
@@ -101,15 +101,15 @@ namespace azheganova
   template< typename Pred >
   double getMaxOrMinArea(const std::vector< Polygon > & polygon, Pred pred)
   {
-    std::vector< Polygon >::const_iterator temp = std::max_element(polygon.cbegin(), polygon.cend(), pred);
-    return getArea(*temp);
+    std::vector< Polygon >::const_iterator tmp = std::max_element(polygon.cbegin(), polygon.cend(), pred);
+    return getArea(*tmp);
   }
 
   template< typename Pred >
   size_t getMaxOrMinVertexes(const std::vector< Polygon > & polygon, Pred pred)
   {
-    std::vector< Polygon >::const_iterator temp = std::max_element(polygon.cbegin(), polygon.cend(), pred);
-    return temp->points.size();
+    std::vector< Polygon >::const_iterator tmp = std::max_element(polygon.cbegin(), polygon.cend(), pred);
+    return tmp->points.size();
   }
 
   size_t getCountEven(const std::vector< Polygon > & polygon)

@@ -14,7 +14,7 @@ std::ostream & printInvalidCommand(std::ostream & out)
   return out;
 }
 
-int main(int argc, char ** argv)
+int main(int argc, char * argv[])
 {
   if (argc != 2)
   {
@@ -39,7 +39,6 @@ int main(int argc, char ** argv)
       input.ignore(max, '\n');
     }
   }
-  using namespace std::placeholders;
   using com_t = std::function< void(std::vector< azheganova::Polygon > &) >;
   const std::map< std::string, com_t > commands =
   {
@@ -64,11 +63,8 @@ int main(int argc, char ** argv)
       catch (const std::logic_error & e)
       {
         printInvalidCommand(std::cout);
-      }
-      if ((std::cin.fail() && !std::cin.eof()) || commands.find(command) == commands.end())
-      {
-        input.clear();
-        input.ignore(max, '\n');
+        std::cin.clear();
+        std::cin.ignore(max, '\n');
       }
     }
   }
