@@ -28,6 +28,11 @@ double azheganova::getArea(const Polygon & polygon)
   return area;
 }
 
+double azheganova::getSumArea(double area, const Polygon & polygon)
+{
+  return area + getArea(polygon);
+}
+
 std::istream & azheganova::operator>>(std::istream & in, DelimiterIO && dest)
 {
   std::istream::sentry sentry(in);
