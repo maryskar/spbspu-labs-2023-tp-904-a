@@ -76,10 +76,6 @@ void hrushchev::doCommand(std::vector< Polygon >& polygons,
     std::ostream& out,
     std::istream& in)
 {
-  if (polygons.size() == 0)
-  {
-    throw std::logic_error("empty");
-  }
   if (cmd == "RMECHO" || cmd == "SAME")
   {
     Polygon polygon;
