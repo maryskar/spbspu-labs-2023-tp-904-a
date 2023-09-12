@@ -2,6 +2,10 @@
 #include <vector>
 #include <exception>
 #include <fstream>
+#include <functional>
+#include <map>
+#include <limits>
+#include <iterator>
 #include "polygon.h"
 #include "commands.h"
 
@@ -21,6 +25,7 @@ int main(int argc, char** argv)
   std::vector< skarlygina::Polygon > polygons;
   using vector_of_polygons = std::vector< skarlygina::Polygon >;
   using iterator_istream = std::istream_iterator< skarlygina::Polygon >;
+
   while (!fin.eof())
   {
     std::copy(iterator_istream(fin), iterator_istream(), std::back_inserter(polygons));
@@ -31,4 +36,31 @@ int main(int argc, char** argv)
     }
   }
 
+  std::map< std::string, std::function< void() > > commands =
+  {
+    {"AREA", std::bind(skarlygina::getArea, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))},
+    {"MAX", std::bind(skarlygina::getMax, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))},
+    {"MIN", std::bind(skarlygina::getMin, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))},
+    {"COUNT", std::bind(skarlygina::countFigures, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))},
+    {"PERMS", std::bind(skarlygina::findPerms, std::ref(std::cin), std::ref(polygons), std::ref(std::cout)),
+    {"SAME", std::bind(skarlygina::findSame, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))}
+  };
+
+  while (!std::cin.eof())
+  {
+    try
+    {
+      std::string command = "";
+      if (std::cin >> command)
+      {
+        commands.at(command)();
+      }
+    }
+    catch (const std::exception&)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      skarlygina::printInvalidCommand(std::cout);
+    }
+  }
 }

@@ -7,17 +7,55 @@
 #include <iofmt_guard.h>
 #include "help_commands.h"
 
-void skarlygina::getArea(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out);
-void skarlygina::countFigures(const std::vector< Polygon >&, std::istream&, std::ostream&);
+void skarlygina::getArea(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
+{
+  std::map< std::string, std::function< double() > > commandArea = {
+    {"EVEN", std::bind(findAreaEven, std::ref(polys))},
+    {"ODD", std::bind(findAreaOdd, std::ref(polys))},
+    {"MEAN", std::bind(findAreaMean, std::ref(polys))}
+  };
+
+  std::string command = "";
+  in >> command;
+
+  iofmtguard guard(out);
+  out << std::fixed << std::setprecision(1);
+  try
+  {
+    out << commandArea.at(command)() << '\n';
+  }
+  catch (const std::out_of_range&)
+  {
+    size_t number_vert = std::stoul(command);
+    out << findAreaNumOfVertexes(polys, number_vert) << '\n';
+  }
+}
+void skarlygina::countFigures(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
+{
+  std::map< std::string, std::function< size_t() > > command_count = {
+    {"ODD", std::bind(countOdd, std::ref(polys))},
+    {"EVEN", std::bind(countEven, std::ref(polys))}
+  };
+  std::string command = "";
+  in >> command;
+  try
+  {
+    out << command_count.at(command)() << '\n';
+  }
+  catch (const std::out_of_range&)
+  {
+    size_t num_vert = std::stoul(command);
+    out << countNumOfVertexes(polys, num_vert) << '\n';
+  }
+}
+
 void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
   if (polys.empty()) {
     throw std::invalid_argument("There are no polygons");
   }
-
   std::string command = "";
   in >> command;
-
   iofmtguard guard(out);
   out << std::fixed << std::setprecision(1);
   if (command == "AREA")
@@ -38,7 +76,6 @@ void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, s
 {
   std::string command = "";
   in >> command;
-
   iofmtguard guard(out);
   out << std::fixed << std::setprecision(1);
   if (command == "AREA")

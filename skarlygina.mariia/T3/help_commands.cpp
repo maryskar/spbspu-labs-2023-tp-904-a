@@ -4,25 +4,7 @@
 #include <algorithm>
 #include <functional>
 #include <iofmt_guard.h>
-
-namespace skarlygina
-{
-  struct PolygonsArea
-  {
-    PolygonsArea(skarlygina::Point point):
-      prev(point)
-    {}
-    double operator()(double area, const skarlygina::Point& current)
-    {
-      area += static_cast< double >(prev.x) * current.y;
-      area -= static_cast< double >(prev.y) * current.x;
-      prev = current;
-      return area;
-    }
-  private:
-    skarlygina::Point prev;
-  };
-}
+#include "help_structures.h"
 
 double skarlygina::findAreaPoly(const Polygon& polys, double area = 0.0)
 {
@@ -32,8 +14,8 @@ double skarlygina::findAreaPoly(const Polygon& polys, double area = 0.0)
   return area;
 }
 
-double skarlygina::findAreaOdd(const std::vector< Polygon >&);
-double skarlygina::findAreaEven(const std::vector< Polygon >&);
+double skarlygina::findAreaOdd(const std::vector< Polygon >& polys);
+double skarlygina::findAreaEven(const std::vector< Polygon >& polys);
 double skarlygina::findAreaMean(const std::vector< Polygon >&);
 double skarlygina::findAreaNumOfVertexes(const std::vector< Polygon >&, size_t);
 
