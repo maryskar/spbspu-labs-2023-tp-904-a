@@ -2,8 +2,8 @@
 #define POINT_HPP
 #include <vector>
 #include <iostream>
-#include "common/IO_separators.hpp"
-#include "common/iofmtguard.hpp"
+#include "IO_separators.hpp"
+#include "iofmtguard.hpp"
 
 namespace zhuravlev
 {
