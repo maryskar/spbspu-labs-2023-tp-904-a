@@ -40,7 +40,6 @@ int main(int argc, char* argv[])
     try
     {
       std::string command = hrushchev::inputCommand(std::cin);
-      std::cout << command;
       hrushchev::doCommand(data, dict_wiht_cmd, command, std::cout, std::cin);
     }
     catch (const std::logic_error& e)
