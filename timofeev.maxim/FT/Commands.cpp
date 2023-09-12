@@ -1,17 +1,19 @@
 #include "Commands.h"
 #include <map>
-namespace setCommands
+#include "cmdRealisation.h"
+namespace timofeev
 {
   void command(input& command)
   {
     command["Help"] = printHelp;
-    command["RusAddWord"] = RusAddWord;
-    command["EngAddWord"] = EngAddWord;
+    command["AddWord"] = AddWord;
     command["Exist"] = Exist;
-    command["EngDelWord"] = Eng;
-    command["DeleteAll"] = DeleteAll;
-    command["RuPrint"] = RuPrint;
-    command["EngPrint"] = EngPrint;
-    command["AllPrint"] = AllPrint;
+    command["DeleteW"] = DeleteW;
+    command["Delete"] = Delete;
+    command["Print"] = Print;
+    command["Translate"] = Translate;
+    //command["Common"] = ?
   }
+
+
 }
