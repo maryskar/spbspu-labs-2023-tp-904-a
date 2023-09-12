@@ -1,6 +1,6 @@
 #include "DataStruct.h"
-#include "../common/iotypes.h"
-#include "../common/StreamGuard.h"
+#include "iotypes.h"
+#include "StreamGuard.h"
 namespace konchev
 {
   std::istream &operator>>(std::istream &in, DataStruct &&data)

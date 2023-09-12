@@ -2,6 +2,7 @@
 #define KONCHEV_MAKSIM_IOTYPES_H
 #include <string>
 #include <fstream>
+#include "DataStruct.h"
 namespace konchev
 {
   struct delimiter
