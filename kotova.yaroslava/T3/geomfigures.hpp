@@ -13,7 +13,7 @@ namespace kotova
   {
     std::vector< Point > points;
   };
-  std::istream &operator>>(std::istream &in, const Polygon &rhs);
-
+  std::istream &operator>>(std::istream &in, Polygon &rhs);
+  std::istream &operator>>(std::istream &in, const Point &rhs);
 }
 #endif
