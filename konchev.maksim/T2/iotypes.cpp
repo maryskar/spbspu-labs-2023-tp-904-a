@@ -10,7 +10,7 @@ namespace konchev
     }
     char s = '0';
     in >> s;
-    if (in && s != data.exp)
+    if (in && (s != data.exp))
     {
       in.setstate(std::ios::failbit);
     }
