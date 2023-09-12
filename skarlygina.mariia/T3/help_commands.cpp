@@ -14,8 +14,19 @@ double skarlygina::findAreaPoly(const Polygon& polys, double area = 0.0)
   return area;
 }
 
-double skarlygina::findAreaOdd(const std::vector< Polygon >& polys);
-double skarlygina::findAreaEven(const std::vector< Polygon >& polys);
+double skarlygina::findAreaOdd(const std::vector< Polygon >& polys)
+{
+  using namespace std::placeholders;
+  skarlygina::AreaCondition< std::function< bool(const skarlygina::Polygon&) > > odd_area(isOdd);
+  return std::accumulate(polys.begin(), polys.end(), 0.0, odd_area);
+}
+
+double skarlygina::findAreaEven(const std::vector< Polygon >& polys)
+{
+  auto even_vert = std::bind(std::logical_not< bool >{}, std::bind(isOdd, std::placeholders::_1));
+  AreaCondition< std::function< bool(const skarlygina::Polygon&) > > even_area(isEven);
+  return std::accumulate(polys.begin(), polys.end(), 0.0, even_area);
+}
 double skarlygina::findAreaMean(const std::vector< Polygon >&);
 double skarlygina::findAreaNumOfVertexes(const std::vector< Polygon >&, size_t);
 
@@ -46,7 +57,7 @@ bool isOdd(const skarlygina::Polygon& poly)
 
 bool isEven(const skarlygina::Polygon& poly)
 {
-  return poly.points.size() % 2 - 1;
+  return !(isOdd(poly));
 }
 
 size_t skarlygina::countOdd(const std::vector< Polygon >& polys)

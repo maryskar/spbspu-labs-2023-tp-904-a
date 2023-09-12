@@ -1,6 +1,7 @@
 #ifndef HELP_STRUCTURES_H
 #define HELP_STRUCTURES_H
 #include "polygon.h"
+#include "help_commands.h"
 namespace skarlygina
 {
   struct PolygonsArea
@@ -22,14 +23,15 @@ namespace skarlygina
   template< class Condition >
   struct AreaCondition
   {
-    AreaCondition(Condition cond) :
+    AreaCondition(Condition cond):
       condition(cond)
     {}
 
     double operator()(double area, const skarlygina::Polygon& poly)
     {
-      if (condition(poly)) {
-        return area + skarlygina::getAreaPolygon(poly);
+      if (condition(poly))
+      {
+        return area + skarlygina::findAreaPoly(poly);
       }
       return area;
     }
