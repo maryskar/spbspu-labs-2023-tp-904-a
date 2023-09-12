@@ -5,30 +5,30 @@
 #include "DataStruct.h"
 namespace konchev
 {
-  struct delimiter
+  struct DelimiterIO
   {
     char exp;
   };
-  struct label
+  struct LabelIO
   {
     std::string str;
   };
-  struct LongLong
+  struct LongLongIO
   {
     long long &ref;
   };
-  struct uLongLong
+  struct uLongLongIO
   {
     unsigned long long &ref;
   };
-  struct String
+  struct StringIO
   {
     std::string &ref;
   };
-  std::istream &operator>>(std::istream &in, delimiter &&data);
-  std::istream &operator>>(std::istream &in, label &&data);
-  std::istream &operator>>(std::istream &in, LongLong &&data);
-  std::istream &operator>>(std::istream &in, uLongLong &&data);
-  std::istream &operator>>(std::istream &in, String &&data);
+  std::istream &operator>>(std::istream &in, DelimiterIO &&data);
+  std::istream &operator>>(std::istream &in, LabelIO &&data);
+  std::istream &operator>>(std::istream &in, LongLongIO &&data);
+  std::istream &operator>>(std::istream &in, uLongLongIO &&data);
+  std::istream &operator>>(std::istream &in, StringIO &&data);
 }
 #endif

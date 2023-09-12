@@ -3,7 +3,7 @@
 #include "StreamGuard.h"
 namespace konchev
 {
-  bool compareData(const DataStruct& lhs, const DataStruct& rhs)
+  bool compareData(const DataStruct &lhs, const DataStruct &rhs)
   {
     if (lhs.key1 != rhs.key1)
     {
@@ -26,25 +26,25 @@ namespace konchev
       return in;
     }
     DataStruct input_data;
-    in >> delimiter{'('} >> delimiter{':'};
+    in >> DelimiterIO{'('} >> DelimiterIO{':'};
     for (std::size_t i = 0; i < 3; i++)
     {
       std::size_t num = 0;
-      in >> label{"key"} >> num;
+      in >> LabelIO{"key"} >> num;
       if (num == 1)
       {
-        in >> LongLong{input_data.key1} >> delimiter{':'};
+        in >> LongLongIO{input_data.key1} >> DelimiterIO{':'};
       }
       else if (num == 2)
       {
-        in >> uLongLong{input_data.key2} >> delimiter{':'};
+        in >> uLongLongIO{input_data.key2} >> DelimiterIO{':'};
       }
       else if (num == 3)
       {
-        in >> String{input_data.key3} >> delimiter{':'};
+        in >> StringIO{input_data.key3} >> DelimiterIO{':'};
       }
     }
-    in >> delimiter{')'};
+    in >> DelimiterIO{')'};
     if (in)
     {
       data = input_data;

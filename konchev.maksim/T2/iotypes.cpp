@@ -1,7 +1,7 @@
 #include "iotypes.h"
 namespace konchev
 {
-  std::istream &operator>>(std::istream &in, delimiter &&data)
+  std::istream &operator>>(std::istream &in, DelimiterIO &&data)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -16,7 +16,7 @@ namespace konchev
     }
     return in;
   }
-  std::istream &operator>>(std::istream &in, label &&data)
+  std::istream &operator>>(std::istream &in, LabelIO &&data)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -25,21 +25,21 @@ namespace konchev
     }
     for (std::size_t i = 0; i < data.str.length(); i++)
     {
-      in >> delimiter{data.str[i]};
+      in >> DelimiterIO{data.str[i]};
     }
     return in;
   }
-  std::istream &operator>>(std::istream &in, LongLong &&data)
+  std::istream &operator>>(std::istream &in, LongLongIO &&data)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
       return in;
     }
-    in >> std::dec >> data.ref >> delimiter{'l'} >> delimiter{'l'};
+    in >> std::dec >> data.ref >> DelimiterIO{'l'} >> DelimiterIO{'l'};
     return in;
   }
-  std::istream &operator>>(std::istream &in, uLongLong &&data)
+  std::istream &operator>>(std::istream &in, uLongLongIO &&data)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -49,13 +49,13 @@ namespace konchev
     in >> std::hex >> data.ref;
     return in;
   }
-  std::istream &operator>>(std::istream &in, String &&data)
+  std::istream &operator>>(std::istream &in, StringIO &&data)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
       return in;
     }
-    return std::getline(in >> delimiter{'"'}, data.ref, '"');
+    return std::getline(in >> DelimiterIO{'"'}, data.ref, '"');
   }
 }

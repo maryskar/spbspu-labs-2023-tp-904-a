@@ -9,10 +9,11 @@ int main()
 {
   const std::streamsize max_stream_size = std::numeric_limits< std::streamsize >::max();
   using out_data_iter = std::ostream_iterator< konchev::DataStruct >;
+  using in_data_iter = std::istream_iterator< konchev::DataStruct >;
   std::deque< konchev::DataStruct > data;
   while (!std::cin.eof())
   {
-    std::copy(std::istream_iterator< konchev::DataStruct >(std::cin), std::istream_iterator< konchev::DataStruct >(), std::back_inserter(data));
+    std::copy(in_data_iter (std::cin), in_data_iter(), std::back_inserter(data));
     if (!std::cin)
     {
       std::cin.clear();
