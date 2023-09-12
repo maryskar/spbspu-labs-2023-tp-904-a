@@ -40,6 +40,7 @@ int main(int argc, char * argv[])
     }
   }
   using com_t = std::function< void(std::vector< azheganova::Polygon > &) >;
+  using namespace std::placeholders;
   const std::map< std::string, com_t > commands =
   {
     {"AREA", std::bind(azheganova::area, _1, std::ref(std::cin), std::ref(std::cout))},
