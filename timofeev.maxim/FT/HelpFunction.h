@@ -1,0 +1,4 @@
+#ifndef FT_HELPFUNCTION_H
+#define FT_HELPFUNCTION_H
+
+#endif //FT_HELPFUNCTION_H
