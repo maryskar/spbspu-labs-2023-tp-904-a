@@ -30,12 +30,11 @@ namespace zhuravlev
     in >> points;
     input.points.reserve(points);
     using in_point_iter = std::istream_iterator< Point >;
-    std::copy_n(in_point_iter(in), points, std::back_inserter(input));
-    if (!in)
+    std::copy_n(in_point_iter(in), points, std::back_inserter(input.points));
+    if (in)
     {
-      return in;
+      rhs.points.swap(input.points);
     }
-    rhs.points.swap(input.points);
     return in;
   }
 }

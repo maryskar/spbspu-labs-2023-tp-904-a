@@ -1,5 +1,5 @@
-#ifndef SPBSPU_LABS_2023_TP_904_A_IO_BIN_HEX_STR_TYPES_HPP
-#define SPBSPU_LABS_2023_TP_904_A_IO_BIN_HEX_STR_TYPES_HP
+#ifndef IO_SEPARATORS_HPP
+#define IO_SEPARATORS_HPP
 #include <string>
 
 namespace zhuravlev
