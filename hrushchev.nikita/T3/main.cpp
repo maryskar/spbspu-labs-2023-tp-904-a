@@ -45,6 +45,7 @@ int main(int argc, char* argv[])
     }
     catch (const std::runtime_error&)
     {
+      std::cout << "<INVALID COMMAND>";
       break;
     }
     catch (const std::logic_error&)

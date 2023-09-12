@@ -124,6 +124,10 @@ void hrushchev::getAreaMean(const std::vector< Polygon >& polygons, std::ostream
 }
 void hrushchev::getAreaVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out)
 {
+  if (count < 3)
+  {
+    throw std::logic_error("invalid arg");
+  }
   std::vector< Polygon > vertexes_polygons;
   using namespace std::placeholders;
   auto pred = std::bind(isNecessaryVertex, _1, count);
