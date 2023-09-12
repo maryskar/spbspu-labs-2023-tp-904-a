@@ -63,7 +63,7 @@ std::string hrushchev::inputCommand(std::istream& in)
     in >> arg;
     if (!in)
     {
-      throw std::runtime_error("Error input");
+      throw std::invalid_argument("Error input");
     }
     command = command + " " + arg;
   }
