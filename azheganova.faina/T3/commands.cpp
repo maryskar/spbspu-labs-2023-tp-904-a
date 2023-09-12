@@ -79,7 +79,7 @@ namespace azheganova
     area = std::accumulate(areas.cbegin(), areas.cend(), 0, getSumArea);
     return area;
   }
-  
+
   bool isLessArea(const Polygon& pol1, const Polygon& pol2)
   {
     return getArea(pol1) < getArea(pol2);
