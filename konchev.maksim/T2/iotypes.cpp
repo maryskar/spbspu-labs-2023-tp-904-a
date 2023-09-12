@@ -36,7 +36,7 @@ namespace konchev
     {
       return in;
     }
-    in >> std::dec >> data.ref >> DelimiterIO{'l'} >> DelimiterIO{'l'};
+    in >> std::dec >> data.ref >> DelimiterIO{ 'l' } >> DelimiterIO{ 'l' };
     return in;
   }
   std::istream &operator>>(std::istream &in, uLongLongIO &&data)
@@ -56,6 +56,6 @@ namespace konchev
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO{'"'}, data.ref, '"');
+    return std::getline(in >> DelimiterIO{ '"' }, data.ref,  '"' );
   }
 }

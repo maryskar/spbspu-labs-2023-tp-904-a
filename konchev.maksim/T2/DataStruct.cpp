@@ -26,25 +26,25 @@ namespace konchev
       return in;
     }
     DataStruct input_data;
-    in >> DelimiterIO{'('} >> DelimiterIO{':'};
+    in >> DelimiterIO{ '(' } >> DelimiterIO{ ':' };
     for (std::size_t i = 0; i < 3; i++)
     {
       std::size_t num = 0;
-      in >> LabelIO{"key"} >> num;
+      in >> LabelIO{ "key" } >> num;
       if (num == 1)
       {
-        in >> LongLongIO{input_data.key1} >> DelimiterIO{':'};
+        in >> LongLongIO{input_data.key1} >> DelimiterIO{ ':' };
       }
       else if (num == 2)
       {
-        in >> uLongLongIO{input_data.key2} >> DelimiterIO{':'};
+        in >> uLongLongIO{input_data.key2} >> DelimiterIO{ ':' };
       }
       else if (num == 3)
       {
-        in >> StringIO{input_data.key3} >> DelimiterIO{':'};
+        in >> StringIO{input_data.key3} >> DelimiterIO{ ':' };
       }
     }
-    in >> DelimiterIO{')'};
+    in >> DelimiterIO{ ')' };
     if (in)
     {
       data = input_data;
