@@ -74,7 +74,7 @@ bool isEqualPolygon(const hrushchev::Polygon& lhs, const hrushchev::Polygon& rhs
   return (rhs == lhs) && (rhs == polygon);
 }
 
-bool isCompatiblePoints(const hrushchev::Point& lhs, const hrushchev::Point& rhs, long long dif_x, long long dif_y)
+bool isCompatiblePoints(const hrushchev::Point& lhs, const hrushchev::Point& rhs, const long long dif_x, const long long dif_y)
 {
   return ((lhs.x_ - rhs.x_) == dif_x) && ((lhs.y_ - rhs.y_) == dif_y);
 }
@@ -86,13 +86,13 @@ bool isCompatiblePolygons(const hrushchev::Polygon& lhs, const hrushchev::Polygo
   {
     return false;
   }
-  long long dif_x = lhs.points_.front().x_ - rhs.points_.front().x_;
-  long long dif_y = lhs.points_.front().y_ - rhs.points_.front().y_;
+  const long long dif_x = lhs.points_.front().x_ - rhs.points_.front().x_;
+  const long long dif_y = lhs.points_.front().y_ - rhs.points_.front().y_;
   std::vector< bool > result(size);
   using namespace std::placeholders;
   auto binary_op = std::bind(isCompatiblePoints, _1, _2, dif_x, dif_y);
   std::transform(lhs.points_.begin(), lhs.points_.end(), rhs.points_.begin(), result.begin(), binary_op);
-  return size == result.size();
+  return result.size() == std::accumulate(result.begin(), result.end(), 0ull);
 }
 void hrushchev::getAreaEven(const std::vector< Polygon >& polygons, std::ostream& out)
 {
@@ -217,7 +217,7 @@ void hrushchev::rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon,
 void hrushchev::getSame(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& out)
 {
   using namespace std::placeholders;
-  auto pred = std::bind(isCompatiblePolygons, _1, polygon);
+  auto pred = std::bind(isCompatiblePolygons, polygon, _1);
   iofmtguard iofmtguard(out);
   out << std::fixed << std::setprecision(1);
   out << count_if(polygons.begin(), polygons.end(), pred) << "\n";
