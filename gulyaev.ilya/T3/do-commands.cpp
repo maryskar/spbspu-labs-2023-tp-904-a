@@ -26,14 +26,15 @@ namespace gulyaev
       try {
         if (data.empty()) {
           out << "<INVALID COMMAND>" << "\n";
+          in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
         } else {
           auto toexecute = cmds.at(cmd);
           iofmtguard ofmtguard(out);
           toexecute(data, in, out);
         }
       } catch (const std::out_of_range &e) {
-        in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
         out << "<INVALID COMMAND>\n";
+        in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       } catch (const std::invalid_argument &e) {
         out << e.what() << "\n";
       } catch (const std::bad_alloc &e) {
