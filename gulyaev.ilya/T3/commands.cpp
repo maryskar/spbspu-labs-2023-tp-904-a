@@ -6,8 +6,8 @@
 #include <stdexcept>
 #include <iomanip>
 #include <vector>
+#include <limits>
 #include "polygon.hpp"
-#include "typesio.hpp"
 
 namespace gulyaev
 {
@@ -88,10 +88,10 @@ namespace gulyaev
           std::function< bool (Polygon) > predict = std::bind(numOfVertices, _1, num);
           out << getAreasIf(data, std::bind(getAreaIf, _1, predict)) << "\n";
         } else {
-          throw std::invalid_argument("INVALID COMMAND");
+          throw std::invalid_argument("<INVALID COMMAND>");
         }
       } catch (const std::invalid_argument &e) {
-        throw std::invalid_argument("INVALID COMMAND");
+        throw std::invalid_argument("<INVALID COMMAND>");
       }
     }
   }
@@ -104,7 +104,7 @@ namespace gulyaev
     } else if (cmd == " VERTEXES") {
       out << getMax< std::size_t >(data, getSize) << "\n";
     } else {
-      throw std::invalid_argument("INVALID COMMAND");
+      throw std::invalid_argument("<INVALID COMMAND>");
     }
   }
   void printMin(const std::vector< Polygon > &data, std::istream &in, std::ostream &out)
@@ -116,7 +116,7 @@ namespace gulyaev
     } else if (cmd == " VERTEXES") {
       out << getMin< std::size_t >(data, getSize) << "\n";
     } else {
-      throw std::invalid_argument("INVALID COMMAND");
+      throw std::invalid_argument("<INVALID COMMAND>");
     }
   }
   void printCount(const std::vector< Polygon > &data, std::istream &in, std::ostream &out)
@@ -134,23 +134,24 @@ namespace gulyaev
           using namespace std::placeholders;
           out << getCountOfPolygonsIf(data, std::bind(numOfVertices, _1, num)) << "\n";
         } else {
-          throw std::invalid_argument("INVALID COMMAND");
+          throw std::invalid_argument("<INVALID COMMAND>");
         }
       } catch (const std::invalid_argument &e) {
-        throw std::invalid_argument("INVALID COMMAND");
+        throw std::invalid_argument("<INVALID COMMAND>");
       }
     }
   }
   void printPerms(const std::vector< Polygon > &data, std::istream &in, std::ostream &out)
   {
     Polygon polygon;
-    in >> DelimiterIO{' '} >> polygon;
+    in >> polygon;
     if (in) {
       using namespace std::placeholders;
       out << getCountOfPolygonsIf(data, std::bind(checkPermutation, _1, polygon)) << "\n";
     } else {
       in.clear();
-      throw std::invalid_argument("INVALID COMMAND");
+      in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      throw std::invalid_argument("<INVALID COMMAND>");
     }
   }
   void printRightShapes(const std::vector< Polygon > &data, std::istream &in, std::ostream &out)
@@ -158,7 +159,7 @@ namespace gulyaev
     std::string cmd;
     std::getline(in, cmd, '\n');
     if (!cmd.empty()) {
-      throw std::invalid_argument("INVALID COMMAND");
+      throw std::invalid_argument("<INVALID COMMAND>");
     }
     out << getCountOfPolygonsIf(data, checkRightShape) << "\n";
   }

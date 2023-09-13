@@ -14,22 +14,21 @@ namespace gulyaev
       return in;
     }
     using sep = DelimiterIO;
-    in >> sep{' '} >> sep{'('} >> dest.x >> sep{';'} >> dest.y >> sep{')'};
+    in >> sep{'('} >> dest.x >> sep{';'} >> dest.y >> sep{')'};
     return in;
   }
+
   std::istream &operator>>(std::istream &in, Polygon &dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
     }
-    iofmtguard fmtguard{in};
-    in.unsetf(std::ios::skipws);
     Polygon input;
     {
       int number_of_vertices = 0;
       in >> number_of_vertices;
-      if (in && (number_of_vertices >= 3)) {
+      if (in && (number_of_vertices > 2)) {
         input.points.reserve(number_of_vertices);
         std::copy_n(std::istream_iterator< Point >(in),
             number_of_vertices,
@@ -44,6 +43,7 @@ namespace gulyaev
     }
     return in;
   }
+
   bool operator==(const Point &lhs,const Point &rhs)
   {
     return ((lhs.x == rhs.x && lhs.y == rhs.y) || (lhs.x == rhs.y && lhs.y == rhs.x));

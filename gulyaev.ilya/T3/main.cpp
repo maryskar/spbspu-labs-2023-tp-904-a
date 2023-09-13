@@ -4,11 +4,8 @@
 #include <iterator>
 #include <vector>
 #include <limits>
-#include <map>
-#include <functional>
-#include "commands.hpp"
+#include "do-commands.hpp"
 #include "polygon.hpp"
-#include "iofmtguard.hpp"
 
 int main(int argc, char **argv)
 {
@@ -33,36 +30,6 @@ int main(int argc, char **argv)
         std::back_inserter(data)
     );
   }
-  using cmd_t = std::function< void (const std::vector< Polygon > &, std::istream &, std::ostream &) >;
-  std::map< std::string, cmd_t > cmds {
-      {"AREA", printArea},
-      {"MAX", printMax},
-      {"MIN", printMin},
-      {"COUNT", printCount},
-      {"PERMS", printPerms},
-      {"RIGHTSHAPES", printRightShapes}
-  };
-  while (!std::cin.eof()) {
-    std::string cmd;
-    std::cin >> cmd;
-    if (std::cin.eof()) {
-      continue;
-    }
-    try {
-      auto toexecute = cmds.at(cmd);
-      iofmtguard ofmtguard(std::cout);
-      iofmtguard ifmtguard(std::cin);
-      std::cin.unsetf(std::ios::skipws);
-      toexecute(data, std::cin, std::cout);
-    } catch (const std::out_of_range &e) {
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-      std::cerr << "INVALID COMMAND\n";
-    } catch (const std::invalid_argument &e) {
-      std::cerr << e.what() << "\n";
-    } catch (const std::bad_alloc &e) {
-      std::cerr << e.what() << "\n";
-      return 1;
-    }
-  }
+  doCommands(std::cin, std::cout, data);
   return 0;
 }
