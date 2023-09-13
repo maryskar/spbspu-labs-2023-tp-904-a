@@ -37,7 +37,6 @@ int main(int argc, char **argv)
   std::map< std::string, void (*)(std::istream&, const std::vector< timofeev::Polygon >&) > commands;
   std::string firstPart;
   timofeev::dictionary(commands);
-
   while (!std::cin.eof())
   {
     try
@@ -49,7 +48,7 @@ int main(int argc, char **argv)
       }
       else
       {
-        throw std::logic_error("std::logic_error");
+        std::cin.setstate(std::ios::failbit);
       }
     }
     catch (const std::logic_error &e)
@@ -64,6 +63,7 @@ int main(int argc, char **argv)
   }
   if (std::cin.fail())
   {
+    timofeev::printError(std::cout);
     std::cin.clear();
     std::cin.ignore(maxSize, '\n');
   }

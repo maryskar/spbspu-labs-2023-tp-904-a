@@ -70,12 +70,10 @@ namespace timofeev
   void doEven(const std::vector< Polygon >& res)
   {
     std::vector< Polygon > tmp (res.size());
-    std::vector<double> individual;
+    std::vector< double > individual;
     std::copy_if(res.begin(), res.end(), tmp.begin(), isEven);
     double area = getArea(tmp, individual);
-    std::vector< double > vec;
-    vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::cout << area;
   }
 
   void doOdd(const std::vector< Polygon >& res)
@@ -84,9 +82,10 @@ namespace timofeev
     std::vector<double> individual;
     std::copy_if(res.begin(), res.end(), tmp.begin(), isOdd);
     double area = getArea(tmp, individual);
-    std::vector< double > vec;
+    std::cout << area;
+   /* std::vector< double > vec;
     vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));*/
   }
 
   void doMean(const std::vector< Polygon >& res)
@@ -96,9 +95,10 @@ namespace timofeev
     std::vector<double> individual;
     double area = getArea(tmp, individual);
     area /= amount;
-    std::vector< double > vec;
+    std::cout << area;
+  /*  std::vector< double > vec;
     vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));*/
   }
 
   void doAreaV(const std::vector< Polygon >& res, size_t& val)
@@ -141,6 +141,10 @@ namespace timofeev
     for (const Polygon& polygon : data)
     {
       vertexCounts.push_back(polygon.points.size());
+    }
+    if (vertexCounts.empty())
+    {
+      throw std::invalid_argument("error");
     }
     size_t Vertex = *std::max_element(vertexCounts.begin(), vertexCounts.end());
     std::vector< size_t > vec;
@@ -254,12 +258,12 @@ namespace timofeev
 
       double cosine = getCos(p1, p2, p3);
 
-      if (std::abs(cosine) < 0.01)
+      if (std::abs(cosine) >= 0.01)
       {
-        return true;
+        return false;
       }
     }
-    return false;
+    return true;
   }
 
 }
