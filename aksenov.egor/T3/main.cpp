@@ -9,7 +9,7 @@
 
 int main(int argc, char **argv)
 {
-  /*if (argc != 2)
+  if (argc != 2)
   {
     std::cerr << "Error" << "\n";
     return 1;
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
       std::cerr << "Error" << "\n";
       return 1;
     }
-  }*/
+  }
   std::vector< aksenov::Polygon > data;
   aksenov::Polygon polygon;
   /*while (inF >> polygon)
