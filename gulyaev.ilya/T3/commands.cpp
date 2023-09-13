@@ -80,6 +80,9 @@ namespace gulyaev
     } else if (cmd == " ODD") {
       out << getAreasIf(data, std::bind(getAreaIf, _1, isOdd)) << "\n";
     } else if (cmd == " MEAN") {
+      if (data.empty()) {
+      throw std::invalid_argument("<INVALID COMMAND>");
+      }
       out << getAreasIf(data, std::bind(getArea, _1)) / data.size() << "\n";
     } else {
       try {
