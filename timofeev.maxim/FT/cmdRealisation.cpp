@@ -25,13 +25,14 @@ namespace timofeev
       out << "Print Rus - print Russian dictionary\n";
       out << "Translate Eng - show you translation of English word in Russian\n";
       out << "Translate Rus - show you translation of Russian word in English\n";
+      out << "Common - show you common words in dictionaries\n";
     }
     else if (tmp == "List")
     {
       out << "[AddWord Rus, " << "AddWord Eng, " << "Exist, " << "Delete All, " << "\n";
       out << "Delete Eng, " << "Delete Rus, " << "DeleteT Rus, " << "DeleteT Eng, " << "\n";
       out << "Print All, " << "Print Eng, " << "Print Rus, " << "\n";
-      out << "Translate Rus, " << "Translate Eng]" << "\n";
+      out << "Translate Rus, " << "Translate Eng, " << "Common]" << "\n";
     }
     else
     {
@@ -174,5 +175,10 @@ namespace timofeev
     {
       out << "No matches";
     }
+  }
+
+  void Common(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
+  {
+
   }
 }
