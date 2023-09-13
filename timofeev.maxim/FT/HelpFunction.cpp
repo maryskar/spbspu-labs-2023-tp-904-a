@@ -154,4 +154,22 @@ namespace timofeev
       out << "no word matches";
     }
   }
+  bool findWord(const std::string& word, dict_t& dict)
+  {
+    for (const auto &i: dict)
+    {
+      for (const std::string &translation: i.second)
+      {
+        if (i.first == word)
+        {
+          return true;
+        }
+        else if (translation == word)
+        {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
