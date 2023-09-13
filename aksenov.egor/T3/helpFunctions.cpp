@@ -2,6 +2,7 @@
 #include <vector>
 #include <cmath>
 #include "polygon.h"
+
 namespace aksenov
 {
   std::vector< double > getArea(const std::vector<Polygon> &pol)
