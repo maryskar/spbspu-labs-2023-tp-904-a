@@ -10,7 +10,7 @@
 namespace timofeev
 {
   using namespace std::placeholders;
-  using out =  std::ostream_iterator< double >;
+  //using out =  std::ostream_iterator< double >;
   using outV =  std::ostream_iterator< size_t >;
   bool is_number(const std::string& s)
   {
@@ -73,7 +73,7 @@ namespace timofeev
     std::vector< double > individual;
     std::copy_if(res.begin(), res.end(), tmp.begin(), isEven);
     double area = getArea(tmp, individual);
-    std::cout << std::fixed << std::setprecision(1) << area;
+    std::cout << std::fixed << std::setprecision(1) << area << "\n";
   }
 
   void doOdd(const std::vector< Polygon >& res)
@@ -95,7 +95,7 @@ namespace timofeev
     std::vector<double> individual;
     double area = getArea(tmp, individual);
     area /= amount;
-    std::cout << std::fixed << std::setprecision(1) << area;
+    std::cout << std::fixed << std::setprecision(1) << area << "\n";
   /*  std::vector< double > vec;
     vec.push_back(area);
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));*/
@@ -107,9 +107,7 @@ namespace timofeev
     std::remove_if(tmp.begin(), tmp.end(), std::bind(isNotEqual, _1, val));
     std::vector<double> individual;
     double area = getArea(tmp, individual);
-    std::vector< double > vec;
-    vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << area << "\n";
   }
 
   void doMaxArea(const std::vector< Polygon >& res)
@@ -122,9 +120,7 @@ namespace timofeev
       throw std::invalid_argument("invalid_argument");
     }
     double maxA = *std::max_element(individual.begin(), individual.end());
-    std::vector< double > vec;
-    vec.push_back(maxA);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << maxA << "\n";
   }
 
   bool comparePolygons(const Polygon& a, const Polygon& b)
@@ -147,9 +143,7 @@ namespace timofeev
       throw std::invalid_argument("error");
     }
     size_t Vertex = *std::max_element(vertexCounts.begin(), vertexCounts.end());
-    std::vector< size_t > vec;
-    vec.push_back(Vertex);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << Vertex << "\n";
   }
 
   void doMinArea(const std::vector< Polygon >& res)
@@ -162,9 +156,7 @@ namespace timofeev
       throw std::invalid_argument("invalid_argument");
     }
     double minA = *std::min_element(individual.begin(), individual.end());
-    std::vector< double > vec;
-    vec.push_back(minA);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << minA << "\n";
   }
 
   void doMinV(const std::vector< Polygon >& res)
@@ -178,33 +170,31 @@ namespace timofeev
       vertexCounts.push_back(polygon.points.size());
     }
     size_t Vertex = *std::min_element(vertexCounts.begin(), vertexCounts.end());
-    std::vector< size_t > vec;
-    vec.push_back(Vertex);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << Vertex << "\n";
   }
 
   void doСountEven(const std::vector< Polygon >& res)
   {
     size_t count = std::count_if(res.begin(), res.end(), isEven);
-    std::vector< size_t > vec;
+    std::cout << std::fixed << std::setprecision(1) << count << "\n";
+   /* std::vector< size_t > vec;
     vec.push_back(count);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));*/
   }
 
   void doCountOdd(const std::vector< Polygon >& res)
   {
     size_t count = std::count_if(res.begin(), res.end(), isOdd);
-    std::vector< size_t > vec;
+    std::cout << std::fixed << std::setprecision(1) << count << "\n";
+   /* std::vector< size_t > vec;
     vec.push_back(count);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));*/
   }
 
   void doCountV(const std::vector< Polygon >& res, size_t& val)
   {
     size_t Vertexes = std::count_if(res.begin(), res.end(), std::bind(isEqual, _1, val));
-    std::vector< size_t > vec;
-    vec.push_back(Vertexes);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << Vertexes << "\n";
   }
 
   int operator*(const Point &p1, const Point &p2)
