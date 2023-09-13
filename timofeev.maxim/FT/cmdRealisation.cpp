@@ -177,8 +177,31 @@ namespace timofeev
     }
   }
 
-  void Common(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
+  void Common(std::istream&, std::ostream& out, dictsOfDicts& dicts)
   {
-
+    dict& rusDict = dicts["Ru"];
+    dict& engDict = dicts["Eng"];
+    size_t count = 0;
+    for (const auto &i: rusDict)
+    {
+      for (const auto &y: engDict)
+      {
+        for (const std::string &word: i.second)
+        {
+          for (const std::string &tmp: y.second)
+          {
+            if (i.first == tmp && y.first == word)
+            {
+              out << i.first << " " << y.first << "\n";
+              count++;
+            }
+          }
+        }
+      }
+    }
+    if (count == 0)
+    {
+      out << "No matching";
+    }
   }
 }

@@ -11,6 +11,6 @@ namespace timofeev
   void Delete(std::istream& in, std::ostream& out, dictsOfDicts& dicts);
   void Translate(std::istream& in, std::ostream& out, dictsOfDicts& dicts);
   void Exist(std::istream& in, std::ostream& out, dictsOfDicts& dicts);
-  void Common(std::istream& in, std::ostream& out, dictsOfDicts& dicts);
+  void Common(std::istream&, std::ostream& out, dictsOfDicts& dicts);
 }
 #endif
