@@ -40,6 +40,10 @@ namespace timofeev
     {
       doMean(res);
     }
+    else if (res.empty())
+    {
+      throw std::logic_error("Error");
+    }
     else
     {
       throw std::logic_error("Error");

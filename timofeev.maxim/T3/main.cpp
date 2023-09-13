@@ -42,9 +42,17 @@ int main(int argc, char **argv)
     try
     {
       std::cin >> firstPart;
+      if (std::cin.eof())
+      {
+        break;
+      }
       if (commands.count(firstPart) != 0)
       {
         commands[firstPart](std::cin, polygon);
+      }
+      else
+      {
+        throw std::logic_error("Invalid");
       }
     }
     catch (const std::logic_error &e)
