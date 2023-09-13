@@ -24,10 +24,10 @@ int main(int argc, char **argv)
     }
   }
   std::vector< aksenov::Polygon > data;
-  using inputIterator = std::istream_iterator< aksenov::Polygon >;
-  while (!inF.eof())
+  aksenov::Polygon polygon;
+  while (inF >> polygon)
   {
-    std::copy(inputIterator(inF), inputIterator(), std::back_inserter(data));
+    data.push_back(polygon);
   }
   std::map< std::string, void (*)(std::istream&, const std::vector< aksenov::Polygon >&) > commands;
   aksenov::makeDict(commands);
