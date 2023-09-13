@@ -64,7 +64,7 @@ std::istream& dmitriev::operator>>(std::istream& inp, DoubleI&& data)
     return inp;
   }
 
-  return inp >> data.value;
+  return inp >> data.value >> SeparatorIO{'d'};
 }
 
 std::ostream& dmitriev::operator<<(std::ostream& out, const DoubleO& data)
@@ -75,17 +75,29 @@ std::ostream& dmitriev::operator<<(std::ostream& out, const DoubleO& data)
     return out;
   }
 
-  return out << data.value;
+  return out << data.value << SeparatorIO{'d'};
 }
 
 std::istream& dmitriev::operator>>(std::istream& inp, LongLongI&& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::istream::sentry sentry(inp);
+  if (!sentry)
+  {
+    return inp;
+  }
+
+  return inp >> data.value >> SeparatorIO{'l'} >> SeparatorIO{'l'};
 }
 
 std::ostream& dmitriev::operator<<(std::ostream& out, const LongLongO& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+
+  return out << data.value << SeparatorIO{'l'} << SeparatorIO{'l'};
 }
 
 std::istream& dmitriev::operator>>(std::istream& inp, StringI&& data)
