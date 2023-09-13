@@ -17,3 +17,12 @@ std::ostream &fesenko::area(data_t &data, std::istream &in, std::ostream &out)
   return out << sub_area_list[type](data, in);
 }
 
+std::ostream &fesenko::min(data_t &data, std::istream &in, std::ostream &out)
+{
+  if (data.empty()) {
+    throw std::logic_error("Data is empty");
+  }
+  std::string type = "";
+  in >> type;
+  return out << sub_min_list[type](data, in);
+}
