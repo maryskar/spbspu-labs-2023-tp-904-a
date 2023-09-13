@@ -1,4 +1,4 @@
-#include "point.hpp"
+#include "polygon.hpp"
 
 namespace zhuravlev
 {
@@ -18,7 +18,16 @@ namespace zhuravlev
     }
     return in;
   }
-  std::istream& operator>>(std::istream& in, Polygon rhs)
+  std::ostream& operator<<(std::ostream& out, const Point& rhs)
+  {
+    std::ostream::sentry sentry(out);
+    if (!sentry)
+    {
+      return out;
+    }
+    return out << '(' << rhs.x << ';' << rhs.y << ')';
+  }
+  std::istream& operator>>(std::istream& in, Polygon& rhs)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -36,5 +45,17 @@ namespace zhuravlev
       rhs.points.swap(input.points);
     }
     return in;
+  }
+  std::ostream& operator<<(std::ostream& out, const Polygon& rhs)
+  {
+    std::ostream::sentry sentry(out);
+    if (!sentry)
+    {
+      return out;
+    }
+    size_t points = rhs.points.size();
+    out << points;
+    std::copy_n(rhs.points.begin(), points - 1, std::ostream_iterator< Point >(out << ' ', " "));
+    return out << rhs.points.back();
   }
 }

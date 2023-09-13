@@ -2,11 +2,12 @@
 #include <string>
 #include <fstream>
 #include <deque>
-#include "point.hpp"
+#include <sstream>
+#include "polygon.hpp"
 
 int main(int argc, char* argv[])
 {
-  if (argc != 2)
+  /*if (argc != 2)
   {
     std::cerr << "Wrong input\n";
     return -1;
@@ -16,19 +17,34 @@ int main(int argc, char* argv[])
   {
     std::cerr << "Something wrong with file\n";
     return 2;
-  }
+  }*/
   std::deque< zhuravlev::Polygon > polygons;
+  std::istringstream input{
+    "3 (0;0) (1;1) (1;0)\n"
+    "4 (0;0) (1;1) (1;0) (3;1)\n"
+    };
   while (!input.eof())
   {
+    using in_pol_iter = std::istream_iterator< zhuravlev::Polygon >;
+    std::copy(in_pol_iter(input), in_pol_iter(), std::back_inserter(polygons));
+    std::cout << polygons.size() << "\n";
+    std::copy(polygons.cbegin(), polygons.cend(), std::ostream_iterator< zhuravlev::Polygon >(std::cout, "\n"));
+  }
+  std::istream& input_cmd;
+  while (!std::cin.eof())
+  {
+    std::string cmd;
+    std::cin >> cmd;
+    if (cmd.empty())
+    {
+      continue;
+    }
     try
     {
-      using in_pol_iter = std::istream_iterator< zhuravlev::Polygon >;
-      std::copy(in_pol_iter(input), in_pol_iter(), std::back_inserter(polygons));
-    }
-    catch (const std::exception& e)
-    {
-      std::cerr << e.what();
-      return -1;
+      try
+      {
+        auto toexecute = const_cmds.at(cmd);
+      }
     }
   }
   return 0;
