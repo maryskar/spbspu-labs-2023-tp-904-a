@@ -31,12 +31,29 @@ std::ostream& dmitriev::operator<<(std::ostream& out, const SeparatorIO& data)
 
 std::istream& dmitriev::operator>>(std::istream& inp, LableIO&& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::istream::sentry sentry(inp);
+  if (!sentry)
+  {
+    return inp;
+  }
+
+  for (size_t i = 0; i < data.expected.length(); i++)
+  {
+    inp >> SeparatorIO{data.expected[i]};
+  }
+
+  return inp;
 }
 
 std::ostream& dmitriev::operator<<(std::ostream& out, const LableIO& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+
+  return out << data.expected;
 }
 
 std::istream& dmitriev::operator>>(std::istream& inp, DoubleI&& data)
