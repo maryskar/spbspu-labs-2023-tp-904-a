@@ -10,7 +10,6 @@
 namespace timofeev
 {
   using namespace std::placeholders;
-  //using out =  std::ostream_iterator< double >;
   using outV =  std::ostream_iterator< size_t >;
   bool is_number(const std::string& s)
   {
@@ -36,11 +35,6 @@ namespace timofeev
   bool isEqual(const Polygon &pol, size_t val)
   {
     return pol.points.size() == val;
-  }
-
-  bool isNotEqual(const Polygon &pol, size_t val)
-  {
-    return pol.points.size() != val;
   }
 
   double getArea(const std::vector<Polygon> &pol, std::vector< double > &indivAreas)
@@ -83,28 +77,21 @@ namespace timofeev
     std::copy_if(res.begin(), res.end(), tmp.begin(), isOdd);
     double area = getArea(tmp, individual);
     std::cout << std::fixed << std::setprecision(1) << area;
-   /* std::vector< double > vec;
-    vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));*/
   }
 
   void doMean(const std::vector< Polygon >& res)
   {
     size_t amount = res.size();
-    std::vector< Polygon > tmp (res.size());
     std::vector<double> individual;
-    double area = getArea(tmp, individual);
+    double area = getArea(res, individual);
     area /= amount;
     std::cout << std::fixed << std::setprecision(1) << area << "\n";
-  /*  std::vector< double > vec;
-    vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));*/
   }
 
   void doAreaV(const std::vector< Polygon >& res, size_t& val)
   {
-    std::vector< Polygon > tmp = res;
-    std::remove_if(tmp.begin(), tmp.end(), std::bind(isNotEqual, _1, val));
+    std::vector< Polygon > tmp (res.size());
+    std::copy_if(res.begin(), res.end(), tmp.begin(), std::bind(isEqual, _1, val));
     std::vector<double> individual;
     double area = getArea(tmp, individual);
     std::cout << std::fixed << std::setprecision(1) << area << "\n";
@@ -177,18 +164,12 @@ namespace timofeev
   {
     size_t count = std::count_if(res.begin(), res.end(), isEven);
     std::cout << std::fixed << std::setprecision(1) << count << "\n";
-   /* std::vector< size_t > vec;
-    vec.push_back(count);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));*/
   }
 
   void doCountOdd(const std::vector< Polygon >& res)
   {
     size_t count = std::count_if(res.begin(), res.end(), isOdd);
     std::cout << std::fixed << std::setprecision(1) << count << "\n";
-   /* std::vector< size_t > vec;
-    vec.push_back(count);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));*/
   }
 
   void doCountV(const std::vector< Polygon >& res, size_t& val)
