@@ -24,14 +24,9 @@ namespace gulyaev
         continue;
       }
       try {
-        if (data.empty()) {
-          out << "<INVALID COMMAND>" << "\n";
-          in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-        } else {
-          auto toexecute = cmds.at(cmd);
-          iofmtguard ofmtguard(out);
-          toexecute(data, in, out);
-        }
+        auto toexecute = cmds.at(cmd);
+        iofmtguard ofmtguard(out);
+        toexecute(data, in, out);
       } catch (const std::out_of_range &e) {
         out << "<INVALID COMMAND>\n";
         in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');

@@ -99,6 +99,9 @@ namespace gulyaev
   {
     std::string cmd;
     std::getline(in, cmd, '\n');
+    if (data.empty()) {
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
     if (cmd == " AREA") {
       out << std::fixed << std::setprecision(1) << getMax< double >(data, getArea) << "\n";
     } else if (cmd == " VERTEXES") {
@@ -111,6 +114,9 @@ namespace gulyaev
   {
     std::string cmd;
     std::getline(in, cmd, '\n');
+    if (data.empty()) {
+      throw std::invalid_argument("<INVALID COMMAND>");
+    }
     if (cmd == " AREA") {
       out << std::fixed << std::setprecision(1) << getMin< double >(data, getArea) << "\n";
     } else if (cmd == " VERTEXES") {
