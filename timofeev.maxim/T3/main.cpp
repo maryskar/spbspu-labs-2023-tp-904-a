@@ -4,7 +4,6 @@
 #include <iterator>
 #include <map>
 #include "dictionary.h"
-#include "commands.h"
 #include "helpFunctions.h"
 int main(int argc, char **argv)
 {

@@ -1,6 +1,5 @@
 #include "commands.h"
 #include <istream>
-#include <exception>
 #include <iostream>
 #include <algorithm>
 #include <iterator>
@@ -9,7 +8,6 @@
 namespace timofeev
 {
   using outV = std::ostream_iterator<size_t>;
-
   void doAreaCommands(std::istream &in, const std::vector<Polygon> &res)
   {
     std::istream::sentry sentry(in);
@@ -27,7 +25,7 @@ namespace timofeev
         throw std::logic_error("Error");
       } else
       {
-        doAreaV(res, tmp);  // Дописать
+        doAreaV(res, tmp);
       }
     } else if (secPart == "EVEN")
     {
@@ -125,14 +123,6 @@ namespace timofeev
     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
   }
 
-  /* void doRectsCommand(std::istream &in, const std::vector< Polygon >& res)
-   {
-     size_t val = std::count_if(res.begin(), res.end(), isAngle);
-     std::vector< size_t > vec;
-     vec.push_back(val);
-     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
-   }*/
-
   void doRectsCommand(std::istream& in, const std::vector<Polygon>& res)
   {
     size_t val = 0;
@@ -147,6 +137,5 @@ namespace timofeev
     std::vector< size_t > vec;
     vec.push_back(val);
     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
-}
-
+  }
 }

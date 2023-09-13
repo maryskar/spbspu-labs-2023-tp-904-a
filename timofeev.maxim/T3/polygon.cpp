@@ -42,4 +42,3 @@ namespace timofeev
     return dest.points.size();
   }
 }
-

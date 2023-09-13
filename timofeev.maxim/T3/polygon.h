@@ -17,4 +17,3 @@ namespace timofeev
   size_t size(const Polygon &dest);
 }
 #endif
-

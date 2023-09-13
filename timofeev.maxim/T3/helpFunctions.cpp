@@ -45,12 +45,6 @@ namespace timofeev
 
   double getArea(const std::vector<Polygon> &pol, std::vector< double > &indivAreas)
   {
-    /*
-     * (0 0)
-     * (0 2)  0*2+0*2+2*0+0*0
-     * (2 2)  0*0+2*2+2*2+2*0
-     * (2 0)
-     */
     double totalArea = 0.0;
     for (auto it = pol.begin(); it != pol.end(); ++it)
     {
