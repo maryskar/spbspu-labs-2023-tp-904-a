@@ -6,6 +6,7 @@
 #include <numeric>
 #include <functional>
 #include <iterator>
+#include <iomanip>
 #include "polygon.h"
 #include "helpFunctions.h"
 namespace aksenov
@@ -16,7 +17,7 @@ namespace aksenov
     std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isEven);
     std::vector< double > areas = getArea(vecOfPolygons);
     double res = std::accumulate(areas.begin(), areas.end(), 0);
-    std::cout << res << "\n";
+    std::cout << std::fixed << std::setprecision(2) << res << "\n";
   }
 
   void doAreaOdd(const std::vector< Polygon > &pol)
@@ -25,7 +26,7 @@ namespace aksenov
     std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isOdd);
     std::vector< double > areas = getArea(vecOfPolygons);
     double res = std::accumulate(areas.begin(), areas.end(), 0);
-    std::cout << res << "\n";
+    std::cout << std::fixed << std::setprecision(2) << res << "\n";
   }
 
   void doAreaMean(const std::vector< Polygon > &pol)
