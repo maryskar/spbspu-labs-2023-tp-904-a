@@ -48,6 +48,20 @@ namespace kryuchkova
   }
 
   template< typename P >
+  double getMaxOrMinArea(const std::vector< Polygon > & polygon, P p)
+  {
+    std::vector< Polygon >::const_iterator temp = std::max_element(polygon.cbegin(), polygon.cend(), p);
+    return getArea(*temp);
+  }
+
+  template< typename P >
+  double getMaxOrMinVer(const std::vector< Polygon > & polygon, P p)
+  {
+    std::vector< Polygon >::const_iterator temp = std::max_element(polygon.cbegin(), polygon.cend(), p);
+    return (*temp).points.size();
+  }
+
+  template< typename P >
   void printAreaIf(const std::vector< Polygon > & temp, std::ostream & out, P p)
   {
     std::vector< double > areas;
@@ -89,10 +103,32 @@ namespace kryuchkova
     auto tr = std::bind(transIntoAreaNumOfVer, _1, num);
     printAreaIf(polygon, out, tr);
   }
-  void printMaxArea(const std::vector< Polygon > & polygon, std::ostream & out);
-  void printMaxVer(const std::vector< Polygon > & polygon, std::ostream & out);
-  void printMinArea(const std::vector< Polygon > & polygon, std::ostream & out);
-  void printMinVer(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printMaxArea(const std::vector< Polygon > & polygon, std::ostream & out)
+  {
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(polygon, isLessArea) << '\n';
+  }
+
+  void printMaxVer(const std::vector< Polygon > & polygon, std::ostream & out)
+  {
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << getMaxOrMinVer(polygon, isLessVer) << '\n';
+  }
+
+  void printMinArea(const std::vector< Polygon > & polygon, std::ostream & out)
+  {
+    iofmtguard iofmtguard(out);
+    using namespace std::placeholders;
+    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(polygon, std::bind(isLessArea, _2, _1)) << '\n';
+  }
+
+  void printMinVer(const std::vector< Polygon > & polygon, std::ostream & out)
+  {
+    iofmtguard iofmtguard(out);
+    using namespace std::placeholders;
+    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(polygon, std::bind(isLessVer, _2, _1)) << '\n';
+  }
+
   void printCountEven(const std::vector< Polygon > & polygon, std::ostream & out);
   void printCountOdd(const std::vector< Polygon > & polygon, std::ostream & out);
   void printCountNumOfVer(const std::vector< Polygon > & polygon, std::ostream & out, size_t num);
