@@ -37,18 +37,20 @@ int main(int argc, char **argv)
   std::map< std::string, void (*)(std::istream&, const std::vector< timofeev::Polygon >&) > commands;
   std::string firstPart;
   timofeev::dictionary(commands);
+
   while (!std::cin.eof())
   {
     try
     {
       std::cin >> firstPart;
-      if (commands.count(firstPart) == 0)
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      if (commands.count(firstPart) != 0)
       {
-        timofeev::printError(std::cout);
+        commands[firstPart](std::cin, polygon);
       }
       else
       {
-        commands[firstPart](std::cin, polygon);
+        throw std::logic_error("logic_error");
       }
     }
     catch (std::logic_error &e)
