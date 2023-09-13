@@ -30,22 +30,6 @@ int main(int argc, char* argv[])
     std::cout << polygons.size() << "\n";
     std::copy(polygons.cbegin(), polygons.cend(), std::ostream_iterator< zhuravlev::Polygon >(std::cout, "\n"));
   }
-  std::istream& input_cmd;
-  while (!std::cin.eof())
-  {
-    std::string cmd;
-    std::cin >> cmd;
-    if (cmd.empty())
-    {
-      continue;
-    }
-    try
-    {
-      try
-      {
-        auto toexecute = const_cmds.at(cmd);
-      }
-    }
-  }
+  //std::istream& input_cmd;
   return 0;
 }
