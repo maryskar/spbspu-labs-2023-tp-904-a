@@ -49,7 +49,9 @@ int main(int argc, char **argv)
     }
     catch (const std::logic_error &e)
     {
-      std::cin.setstate(std::ios::failbit);
+      timofeev::printError(std::cout);
+      std::cin.clear();
+      std::cin.ignore(maxSize, '\n');
     }
     catch (const std::runtime_error& e)
     {
@@ -58,12 +60,6 @@ int main(int argc, char **argv)
     catch (...)
     {
       break;
-    }
-    if (std::cin.fail())
-    {
-      timofeev::printError(std::cout);
-      std::cin.clear();
-      std::cin.ignore(maxSize, '\n');
     }
   }
   return 0;
