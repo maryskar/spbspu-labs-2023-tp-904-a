@@ -78,4 +78,33 @@ namespace timofeev
       throw std::logic_error("Wrong Command");
     }
   }
+
+  void Print(std::istream& in, std::ostream& out, dictsOfDicts & dicts)
+  {
+    std::string secPart = "";
+    in >> secPart;
+    if (secPart == "Rus")
+    {
+      dict& rusDict = dicts["Ru"];
+      printDict(out, rusDict);
+    }
+    else if (secPart == "Eng")
+    {
+      dict& engDict = dicts["Eng"];
+      printDict(out, engDict);
+    }
+    else if (secPart == "All")
+    {
+      dict& rusDict = dicts["Ru"];
+      dict& engDict = dicts["Eng"];
+      out << "Russian dictionary:" << "\n";
+      printDict(out, rusDict);
+      out << "English dictionary:" << "\n";
+      printDict(out, engDict);
+    }
+    else
+    {
+      throw std::logic_error("Wrong Command");
+    }
+  }
 }
