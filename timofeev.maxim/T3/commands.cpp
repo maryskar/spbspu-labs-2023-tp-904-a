@@ -136,8 +136,7 @@ namespace timofeev
   void doRectsCommand(std::istream&, const std::vector<Polygon>& res)
   {
     size_t val = 0;
-
-    for (const Polygon& p : res)
+    for (const Polygon& p: res)
     {
       if (isAngle(p))
       {
