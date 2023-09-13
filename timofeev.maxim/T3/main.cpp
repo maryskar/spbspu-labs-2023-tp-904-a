@@ -46,10 +46,6 @@ int main(int argc, char **argv)
       {
         commands[firstPart](std::cin, polygon);
       }
-      else
-      {
-        std::cin.setstate(std::ios::failbit);
-      }
     }
     catch (const std::logic_error &e)
     {
