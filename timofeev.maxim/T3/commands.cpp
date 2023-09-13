@@ -14,6 +14,10 @@ namespace timofeev
     {
       return;
     }
+    if (res.empty())
+    {
+      throw std::logic_error("empty");
+    }
     std::string secPart;
     in >> secPart;
     if (is_number(secPart))
@@ -39,10 +43,6 @@ namespace timofeev
     else if (secPart == "MEAN")
     {
       doMean(res);
-    }
-    else if (res.empty())
-    {
-      throw std::logic_error("Error");
     }
     else
     {
@@ -133,8 +133,28 @@ namespace timofeev
 
   void doRSCommand(std::istream&, const std::vector<Polygon> &res)
   {
-    size_t val = std::count_if(res.begin(), res.end(), isRectangle);
-    std::cout << std::fixed << std::setprecision(1) << val << "\n";
+    size_t count = 0;
+    for (const Polygon& polygon : res)
+    {
+      for (size_t i = 0; i < polygon.points.size(); i++)
+      {
+        const Point& p1 = polygon.points[i];
+        const Point& p2 = polygon.points[(i + 1) % polygon.points.size()];
+        const Point& p3 = polygon.points[(i + 2) % polygon.points.size()];
+
+        int vector1_x = p2.x - p1.x;
+        int vector1_y = p2.y - p1.y;
+        int vector2_x = p3.x - p2.x;
+        int vector2_y = p3.y - p2.y;
+
+        if (vector1_x * vector2_x + vector1_y * vector2_y == 0)
+        {
+          count++;
+          break;
+        }
+      }
+    }
+    std::cout << count << "\n";
   }
 
   void doRectsCommand(std::istream&, const std::vector<Polygon>& res)
@@ -148,8 +168,5 @@ namespace timofeev
       }
     }
     std::cout << std::fixed << std::setprecision(1) << val << "\n";
-    /*std::vector< size_t > vec;
-    vec.push_back(val);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));*/
   }
 }

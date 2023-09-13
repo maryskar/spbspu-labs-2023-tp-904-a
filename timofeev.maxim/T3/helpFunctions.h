@@ -28,8 +28,6 @@ namespace timofeev
   bool isEven(const Polygon &data);
 
   bool isAngle(const Polygon& pol);
-  bool isRectangle(const Polygon& pol);
-  bool isSquareTriangle(const Point &p1, const Point &p2, const Point &p3);
   int operator*(const Point &p1, const Point &p2);
 
   double getCos(const Point &p1, const Point &p2, const Point &p3);

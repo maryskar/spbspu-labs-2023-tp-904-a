@@ -183,24 +183,6 @@ namespace timofeev
     return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
   }
 
-  bool isSquareTriangle(const Point &p1, const Point &p2, const Point &p3)
-  {
-    return (p1 * p2 + p1 * p3) == p2 * p3;
-  }
-
-  bool isRectangle(const Polygon& pol)
-  {
-    if (pol.points.size() == 4)
-    {
-      Point p1 = pol.points[0];
-      Point p2 = pol.points[1];
-      Point p3 = pol.points[2];
-      Point p4 = pol.points[3];
-      return isSquareTriangle(p1, p2, p3) && isSquareTriangle(p4, p2, p3);
-    }
-    return false;
-  }
-
   double getCos(const Point &p1, const Point &p2, const Point &p3)
   {
     double side1x = p2.x - p1.x;
