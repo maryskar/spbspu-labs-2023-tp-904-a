@@ -3,6 +3,7 @@
 #include <vector>
 #include <iterator>
 #include <map>
+#include <limits>
 #include "polygon.h"
 #include "commandMap.h"
 
@@ -46,6 +47,12 @@ int main(int argc, char **argv)
     else
     {
       std::cin.setstate(std::ios::failbit);
+    }
+    if(std::cin.fail())
+    {
+        std::cout << "<INVALID COMMAND>" << "\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
   return 0;
