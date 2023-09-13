@@ -3,41 +3,65 @@
 
 #include <iostream>//возможно слищком жирно
 
-struct SeparatorIO
+namespace dmitriev
 {
-  char expected;
-};
+  struct SeparatorIO
+  {
+    char expected;
+  };
 
-std::istream& operator>>(std::istream& inp, SeparatorIO&& data);
-std::ostream& operator<<(std::ostream& inp, const SeparatorIO& data);
+  std::istream& operator>>(std::istream& inp, SeparatorIO&& data);
+  std::ostream& operator<<(std::ostream& inp, const SeparatorIO& data);
 
-struct DoubleI
-{
-  double& value;
-};
+  struct LableIO
+  {
+    std::string expected;
+  };
 
-std::istream& operator>>(std::istream& inp, DoubleI&& data);
+  std::istream& operator>>(std::istream& inp, LableIO&& data);
+  std::ostream& operator<<(std::ostream& inp, const LableIO& data);
 
-struct DoubleO
-{
-  const double& value;
-};
+  struct DoubleI
+  {
+    double& value;
+  };
 
-std::ostream& operator<<(std::ostream& inp, const DoubleO& data);
+  std::istream& operator>>(std::istream& inp, DoubleI&& data);
 
-struct LongLongI
-{
-  long long& value;
-};
+  struct DoubleO
+  {
+    const double& value;
+  };
 
-std::istream& operator>>(std::istream& inp, LongLongI&& data);
+  std::ostream& operator<<(std::ostream& inp, const DoubleO& data);
 
-struct LongLongO
-{
-  const long long& value;
-};
+  struct LongLongI
+  {
+    long long& value;
+  };
 
-std::ostream& operator<<(std::ostream& inp, const LongLongO& data);
+  std::istream& operator>>(std::istream& inp, LongLongI&& data);
 
+  struct LongLongO
+  {
+    const long long& value;
+  };
+
+  std::ostream& operator<<(std::ostream& inp, const LongLongO& data);
+
+  struct StringI
+  {
+    std::string& value;
+  };
+
+  std::istream& operator>>(std::istream& inp, StringI&& data);
+
+  struct StringO
+  {
+    const std::string& value;
+  };
+
+  std::ostream& operator<<(std::ostream& inp, const StringO& data);
+}
 
 #endif
