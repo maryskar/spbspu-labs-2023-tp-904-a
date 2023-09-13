@@ -1,4 +1,5 @@
 #include "customtypes.h"
+#include <string>
 
 std::istream& dmitriev::operator>>(std::istream& inp, SeparatorIO&& data)
 {
@@ -102,10 +103,22 @@ std::ostream& dmitriev::operator<<(std::ostream& out, const LongLongO& data)
 
 std::istream& dmitriev::operator>>(std::istream& inp, StringI&& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::istream::sentry sentry(inp);
+  if (!sentry)
+  {
+    return inp;
+  }
+
+  return std::getline(inp >> SeparatorIO{'"'}, data.value, '"');
 }
 
 std::ostream& dmitriev::operator<<(std::ostream& out, const StringO& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+
+  return out << SeparatorIO{'"'} << data.value << SeparatorIO{'"'};
 }

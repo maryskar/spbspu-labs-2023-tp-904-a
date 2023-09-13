@@ -11,7 +11,7 @@ namespace dmitriev
   };
 
   std::istream& operator>>(std::istream& inp, SeparatorIO&& data);
-  std::ostream& operator<<(std::ostream& inp, const SeparatorIO& data);
+  std::ostream& operator<<(std::ostream& out, const SeparatorIO& data);
 
   struct LableIO
   {
@@ -19,7 +19,7 @@ namespace dmitriev
   };
 
   std::istream& operator>>(std::istream& inp, LableIO&& data);
-  std::ostream& operator<<(std::ostream& inp, const LableIO& data);
+  std::ostream& operator<<(std::ostream& out, const LableIO& data);
 
   struct DoubleI
   {
@@ -33,7 +33,7 @@ namespace dmitriev
     const double& value;
   };
 
-  std::ostream& operator<<(std::ostream& inp, const DoubleO& data);
+  std::ostream& operator<<(std::ostream& out, const DoubleO& data);
 
   struct LongLongI
   {
@@ -47,7 +47,7 @@ namespace dmitriev
     const long long& value;
   };
 
-  std::ostream& operator<<(std::ostream& inp, const LongLongO& data);
+  std::ostream& operator<<(std::ostream& out, const LongLongO& data);
 
   struct StringI
   {
@@ -61,7 +61,7 @@ namespace dmitriev
     const std::string& value;
   };
 
-  std::ostream& operator<<(std::ostream& inp, const StringO& data);
+  std::ostream& operator<<(std::ostream& out, const StringO& data);
 }
 
 #endif
