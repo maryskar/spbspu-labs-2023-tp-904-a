@@ -147,6 +147,5 @@ namespace timofeev
     std::vector< size_t > vec;
     vec.push_back(val);
     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
-}
-
+  }
 }
