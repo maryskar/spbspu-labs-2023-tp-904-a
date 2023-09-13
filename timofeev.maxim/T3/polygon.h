@@ -12,7 +12,7 @@ namespace timofeev
   {
     std::vector< Point > points;
   };
-/*  struct DelimiterIO
+ /* struct DelimiterIO
   {
     char exp;
   };

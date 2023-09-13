@@ -43,7 +43,6 @@ int main(int argc, char **argv)
     try
     {
       std::cin >> firstPart;
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       if (commands.count(firstPart) != 0)
       {
         commands[firstPart](std::cin, polygon);

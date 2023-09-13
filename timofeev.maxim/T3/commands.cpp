@@ -22,20 +22,25 @@ namespace timofeev
       if (tmp < 3)
       {
         throw std::logic_error("Error");
-      } else
+      }
+      else
       {
         doAreaV(res, tmp);
       }
-    } else if (secPart == "EVEN")
+    }
+    else if (secPart == "EVEN")
     {
       doEven(res);
-    } else if (secPart == "ODD")
+    }
+    else if (secPart == "ODD")
     {
       doOdd(res);
-    } else if (secPart == "MEAN")
+    }
+    else if (secPart == "MEAN")
     {
       doMean(res);
-    } else
+    }
+    else
     {
       throw std::logic_error("Error");
     }
@@ -53,10 +58,12 @@ namespace timofeev
     if (secPart == "AREA")
     {
       doMaxArea(res);
-    } else if (secPart == "VERTEXES")
+    }
+    else if (secPart == "VERTEXES")
     {
       doMaxV(res);
-    } else
+    }
+    else
     {
       throw std::logic_error("Error");
     }
@@ -74,10 +81,12 @@ namespace timofeev
     if (secPart == "AREA")
     {
       doMinArea(res);
-    } else if (secPart == "VERTEXES")
+    }
+    else if (secPart == "VERTEXES")
     {
       doMinV(res);
-    } else
+    }
+    else
     {
       throw std::logic_error("Error");
     }
@@ -98,17 +107,21 @@ namespace timofeev
       if (tmp < 3)
       {
         throw std::logic_error("Error");
-      } else
+      }
+      else
       {
         doCountV(res, tmp);
       }
-    } else if (secPart == "EVEN")
+    }
+    else if (secPart == "EVEN")
     {
       doСountEven(res);
-    } else if (secPart == "ODD")
+    }
+    else if (secPart == "ODD")
     {
       doCountOdd(res);
-    } else
+    }
+    else
     {
       throw std::logic_error("Error");
     }
