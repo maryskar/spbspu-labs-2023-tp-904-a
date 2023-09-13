@@ -12,5 +12,6 @@ namespace timofeev
   void printDict(std::ostream &out, dict_t& dict);
   void printList(const std::vector < std::string >& list, std::ostream& out);
   void delDict(dict_t& dict);
+  void delList(std::vector < std::string >& list);
 }
 #endif //FT_HELPFUNCTION_H

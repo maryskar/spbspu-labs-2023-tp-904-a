@@ -5,10 +5,10 @@ namespace timofeev
   void readDict(std::istream &in, dict_t &dict)
   {
 
-    while(true)
+    while (true)
     {
       std::string word = "";
-      std::vector< std::string > line;
+      std::vector <std::string> line;
       std::string translation;
       std::cout << "Write a word (or 'exit'): ";
       in >> word;
@@ -25,8 +25,7 @@ namespace timofeev
         if (answ == "No")
         {
           continue;
-        }
-        else if (answ == "Yes")
+        } else if (answ == "Yes")
         {
           std::cout << "new translation (or 'done' to finish): ";
         }
@@ -47,15 +46,15 @@ namespace timofeev
       }
     }
   }
-  std::ostream& printInvalid(std::ostream &out)
+
+  std::ostream &printInvalid(std::ostream &out)
   {
     out << "<INVALID COMMAND>" << "\n";
   }
 
-  void delTrans(std::istream& in, dict_t& dict)
+  void delTrans(std::istream &in, dict_t &dict)
   {
-
-    while(true)
+    while (true)
     {
       std::string word = "";
       std::string rTrans;
@@ -70,7 +69,7 @@ namespace timofeev
       auto it = dict.find(word);
       if (it != dict.end())
       {
-        std::vector< std::string >& lTrans = it->second;
+        std::vector <std::string> &lTrans = it->second;
         lTrans.erase(std::remove(lTrans.begin(), lTrans.end(), rTrans), lTrans.end());
         if (lTrans.empty())
         {
@@ -79,15 +78,17 @@ namespace timofeev
       }
     }
   }
-  void printList(const std::vector < std::string >& list, std::ostream& out)
+
+  void printList(const std::vector <std::string> &list, std::ostream &out)
   {
     out << '-';
-    for (const std::string& translation: list)
+    for (const std::string &translation: list)
     {
       out << " " << translation;
     }
   }
-  void printDict(std::ostream &out, dict_t& dict)
+
+  void printDict(std::ostream &out, dict_t &dict)
   {
     for (const auto &word: dict)
     {
@@ -97,8 +98,39 @@ namespace timofeev
     }
   }
 
-  void delDict(dict_t& dict)
+  void delList(std::vector < std::string > &list)
   {
-
+    std::vector < std::string > tmp;
+    for (size_t i = 0; i != list.size(); i++)
+    {
+      std::string word = list[i];
+      tmp.push_back(word);
+    }
+    for (const std::string &word: tmp)
+    {
+      list.erase(std::remove(list.begin(), list.end(), word), list.end());
+    }
   }
+
+  void delDict(dict_t &dict)
+  {
+    if (dict.empty())
+    {
+      throw std::out_of_range("Dictionary empty");
+    }
+    std::vector < std::string > words;
+    for (auto it = dict.begin(); it != dict.end(); it++)
+    {
+      delList(it->second);
+      if (it->second.empty())
+      {
+        words.push_back(it->first);
+      }
+    }
+    for (const std::string &wordToRemove: words)
+    {
+      dict.erase(wordToRemove);
+    }
+  }
+
 }
