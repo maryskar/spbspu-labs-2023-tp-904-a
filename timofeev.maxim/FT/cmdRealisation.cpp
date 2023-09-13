@@ -58,4 +58,24 @@ namespace timofeev
       throw std::logic_error("Wrong Command");
     }
   }
+
+  void DeleteW(std::istream& in, std::ostream&, dictsOfDicts & dicts)
+  {
+    std::string secPart = "";
+    in >> secPart;
+    if (secPart == "Rus")
+    {
+      dict& rusDict = dicts["Ru"];
+      delWord(in, rusDict);
+    }
+    else if (secPart == "Eng")
+    {
+      dict& engDict = dicts["Eng"];
+      delWord(in, engDict);
+    }
+    else
+    {
+      throw std::logic_error("Wrong Command");
+    }
+  }
 }
