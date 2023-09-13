@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <functional>
 #include <numeric>
+#include <iterator>
 #include "subFunctions.h"
 
 fesenko::ReturnType fesenko::area_odd(data_t &data, std::istream &)
@@ -91,6 +92,10 @@ fesenko::ReturnType fesenko::inframe_sub(data_t &data, std::istream &in)
 {
   Polygon polygon;
   in >> polygon;
+  if (in.fail()) {
+    in.clear();
+    throw std::logic_error("Invalid input");
+  }
   Polygon polygonRect = createBoundingRect(polygon);
   Point polyBL = polygonRect.points[0];
   Point polyTR = polygonRect.points[2];

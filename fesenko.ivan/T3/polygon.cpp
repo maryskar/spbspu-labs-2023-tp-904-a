@@ -15,6 +15,7 @@ std::istream &fesenko::operator>>(std::istream &in, Polygon &rhs)
   in >> points;
   if (points < 3) {
     in.setstate(std::ios::failbit);
+    return in;
   }
   input.points.reserve(points);
   std::copy_n(std::istream_iterator< Point >(in),
