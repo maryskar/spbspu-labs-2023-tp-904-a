@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include "Commands.h"
+#include "HelpFunction.h"
 int main()
 {
   setlocale(LC_ALL, "Russian");
@@ -25,11 +26,18 @@ int main()
     {
       std::string firstPart;
       std::cin >> firstPart;
-      commands[firstPart](std::cin, std::cout, dictOfDict);
+      if (commands.count(firstPart) > 0)
+      {
+        commands[firstPart](std::cin, std::cout, dictOfDict);
+      }
+      else
+      {
+        throw std::logic_error("Error");
+      }
     }
-    catch (std::logic_error &e)
+    catch (const std::logic_error &e)
     {
-      //printError(std::cout);
+      timofeev::printInvalid(std::cout);
     }
     catch (const std::runtime_error & e)
     {
