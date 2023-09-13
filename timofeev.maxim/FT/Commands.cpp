@@ -7,11 +7,11 @@ namespace timofeev
   {
     command["Help"] = printHelp;
     command["AddWord"] = AddWord;
-    command["Exist"] = Exist;
+   // command["Exist"] = Exist;
     command["DeleteT"] = DeleteT;
     command["Delete"] = Delete;
     command["Print"] = Print;
-    command["Translate"] = Translate;
+  //  command["Translate"] = Translate;
     //command["Common"] = ?
   }
 

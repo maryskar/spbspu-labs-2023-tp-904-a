@@ -107,4 +107,34 @@ namespace timofeev
       throw std::logic_error("Wrong Command");
     }
   }
+
+  void Delete(std::istream& in, std::ostream& out, dictsOfDicts & dicts)
+  {
+    std::string secPart = "";
+    in >> secPart;
+    if (secPart == "Rus")
+    {
+      dict& rusDict = dicts["Ru"];
+      delDict(rusDict);
+      out << "Done!" << "\n";
+    }
+    else if (secPart == "Eng")
+    {
+      dict& engDict = dicts["Eng"];
+      delDict(engDict);
+      out << "Done!" << "\n";
+    }
+    else if (secPart == "All")
+    {
+      dict& rusDict = dicts["Ru"];
+      dict& engDict = dicts["Eng"];
+      delDict(rusDict);
+      delDict(engDict);
+      out << "Done!" << "\n";
+    }
+    else
+    {
+      throw std::logic_error("Wrong Command");
+    }
+  }
 }

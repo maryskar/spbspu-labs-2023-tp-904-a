@@ -96,4 +96,9 @@ namespace timofeev
       out << '\n';
     }
   }
+
+  void delDict(dict_t& dict)
+  {
+
+  }
 }
