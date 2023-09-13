@@ -6,5 +6,6 @@ namespace timofeev
 {
   void printHelp(std::istream& in, std::ostream& out, dictsOfDicts &);
   void AddWord(std::istream& in, std::ostream&, dictsOfDicts & dicts);
+
 }
 #endif

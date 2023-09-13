@@ -1,4 +1,5 @@
 #include "cmdRealisation.h"
+#include "HelpFunction.h"
 namespace timofeev
 {
   void printHelp(std::istream& in, std::ostream& out, dictsOfDicts &)
@@ -27,10 +28,10 @@ namespace timofeev
     }
     else if (tmp == "List")
     {
-      out << "AddWord Rus " << "AddWord Eng " << "Exist " << "Delete All " << "\n";
-      out << "Delete Eng " << "Delete Rus " << "DeleteW Rus " << "DeleteW Eng " << "\n";
-      out << "Print All " << "Print Eng " << "Print Rus " << "\n";
-      out << "Translate Rus " << "Translate Eng" << "\n";
+      out << "[AddWord Rus, " << "AddWord Eng, " << "Exist, " << "Delete All, " << "\n";
+      out << "Delete Eng, " << "Delete Rus, " << "DeleteW Rus, " << "DeleteW Eng, " << "\n";
+      out << "Print All, " << "Print Eng, " << "Print Rus, " << "\n";
+      out << "Translate Rus, " << "Translate Eng]" << "\n";
     }
     else
     {
@@ -44,11 +45,13 @@ namespace timofeev
     in >> secPart;
     if (secPart == "Rus")
     {
-
+      dict& rusDict = dicts["Ru"];
+      readDict(in, rusDict);
     }
     else if (secPart == "Eng")
     {
-
+      dict& engDict = dicts["Eng"];
+      readDict(in, engDict);
     }
     else
     {

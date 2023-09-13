@@ -18,14 +18,13 @@ int main()
   dictOfDict["Ru"] = rusDict;
   dictOfDict["Eng"] = engDict;
   std::map< std::string, void(*)(std::istream&, std::ostream&, std::map<std::string, Dictionary>& ) > commands;
-  std::string firstPart;
   timofeev::command(commands);
   while (!std::cin.eof())
   {
     try
     {
+      std::string firstPart;
       std::cin >> firstPart;
-
       commands[firstPart](std::cin, std::cout, dictOfDict);
     }
     catch (std::logic_error &e)
