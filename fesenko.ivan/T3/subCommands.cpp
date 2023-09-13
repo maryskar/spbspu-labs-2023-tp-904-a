@@ -86,3 +86,17 @@ fesenko::ReturnType fesenko::rects_sub(data_t &data)
   size_t result = std::count_if(data.cbegin(), data.cend(), isRect());
   return ReturnType(result);
 }
+
+fesenko::ReturnType fesenko::inframe_sub(data_t &data, std::istream &in)
+{
+  Polygon polygon;
+  in >> polygon;
+  Polygon polygonRect = createBoundingRect(polygon);
+  Point polyBL = polygonRect.points[0];
+  Point polyTR = polygonRect.points[2];
+  Polygon dataRect = createBoundingRect(data);
+  Point dataBL = dataRect.points[0];
+  Point dataTR = dataRect.points[2];
+  bool result = dataBL.x <= polyBL.x && dataBL.y <= polyBL.y && dataTR.x >= polyTR.x && dataTR.y >= polyTR.y;
+  return ReturnType(result);
+}

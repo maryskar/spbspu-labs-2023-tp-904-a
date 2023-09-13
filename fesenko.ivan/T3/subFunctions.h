@@ -1,9 +1,13 @@
 #ifndef CALCAREA_H
 #define CALCAREA_H
+#include <deque>
 #include "polygon.h"
 namespace fesenko
 {
+  using data_t = std::deque< Polygon >;
   double calcArea(double in, const Polygon &rhs);
+  Polygon createBoundingRect(const data_t &data);
+  Polygon createBoundingRect(const Polygon &rhs);
 
   struct isOdd
   {

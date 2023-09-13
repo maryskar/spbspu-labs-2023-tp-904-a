@@ -1,6 +1,7 @@
 #include "subFunctions.h"
 #include <algorithm>
 #include <numeric>
+#include <functional>
 
 int mulPoint(const fesenko::Point &lhs, const fesenko::Point &rhs)
 {
@@ -14,6 +15,54 @@ bool isRightAngle(const fesenko::Point &one, const fesenko::Point &two, const fe
   return vector1.x * vector2.x + vector1.y * vector2.y == 0;
 }
 
+int getX(const fesenko::Point &point)
+{
+  return point.x;
+}
+
+int getY(const fesenko::Point &point)
+{
+  return point.y;
+}
+
+std::vector< int > getXVector(const fesenko::Polygon &rhs)
+{
+  std::vector< int > xVector = {};
+  std::transform(rhs.points.cbegin(), rhs.points.cend(), std::back_inserter(xVector), getX);
+  return xVector;
+}
+
+std::vector< int > getYVector(const fesenko::Polygon &rhs)
+{
+  std::vector< int > yVector = {};
+  std::transform(rhs.points.cbegin(), rhs.points.cend(), std::back_inserter(yVector), getY);
+  return yVector;
+}
+
+int getMinX(const fesenko::Polygon &rhs)
+{
+  std::vector< int > vector = getXVector(rhs);
+  return *std::min_element(vector.begin(), vector.end());
+}
+
+int getMaxX(const fesenko::Polygon &rhs)
+{
+  std::vector< int > vector = getXVector(rhs);
+  return *std::max_element(vector.begin(), vector.end());
+}
+
+int getMinY(const fesenko::Polygon &rhs)
+{
+  std::vector< int > vector = getYVector(rhs);
+  return *std::min_element(vector.begin(), vector.end());
+}
+
+int getMaxY(const fesenko::Polygon &rhs)
+{
+  std::vector< int > vector = getYVector(rhs);
+  return *std::max_element(vector.begin(), vector.end());
+}
+
 double fesenko::calcArea(double in, const Polygon &rhs)
 {
   std::vector< int > plusArea, minusArea;
@@ -25,6 +74,42 @@ double fesenko::calcArea(double in, const Polygon &rhs)
   int negative = std::accumulate(minusArea.cbegin(), minusArea.cend(), 0);
   int result = std::abs(positive - negative);
   return in + (static_cast< double >(result) * 0.5);
+}
+
+fesenko::Polygon fesenko::createBoundingRect(const data_t &data)
+{
+  using namespace std::placeholders;
+  if (data.empty()) {
+    throw std::logic_error("Data is empty");
+  }
+  auto polygonMinX = std::bind(std::less<>{}, std::bind(getMinX, _1), std::bind(getMinX, _2));
+  auto dataMinX = std::min_element(data.cbegin(), data.cend(), polygonMinX);
+  auto minX = getMinX(*dataMinX);
+
+  auto polygonMinY = std::bind(std::less<>{}, std::bind(getMinY, _1), std::bind(getMinY, _2));
+  auto dataMinY = std::min_element(data.cbegin(), data.cend(), polygonMinY);
+  auto minY = getMinY(*dataMinY);
+
+  auto polygonMaxX = std::bind(std::less<>{}, std::bind(getMaxX, _1), std::bind(getMaxX, _2));
+  auto dataMaxX = std::max_element(data.cbegin(), data.cend(), polygonMaxX);
+  auto maxX = getMaxX(*dataMaxX);
+
+  auto polygonMaxY = std::bind(std::less<>{}, std::bind(getMaxY, _1), std::bind(getMaxY, _2));
+  auto dataMaxY = std::max_element(data.cbegin(), data.cend(), polygonMaxY);
+  auto maxY = getMaxY(*dataMaxY);
+
+  std::vector< Point > points{{minX, minY}, {minX, maxY}, {maxX, maxY}, {maxX, minY}};
+  return Polygon{points};
+}
+
+fesenko::Polygon fesenko::createBoundingRect(const Polygon &rhs)
+{
+  int minX = getMinX(rhs);
+  int maxX = getMaxX(rhs);
+  int minY = getMinY(rhs);
+  int maxY = getMaxY(rhs);
+  std::vector< Point > points{{minX, minY}, {minX, maxY}, {maxX, maxY}, {maxX, minY}};
+  return Polygon{points};
 }
 
 bool fesenko::isOdd::operator()(const Polygon &rhs)
@@ -68,3 +153,4 @@ bool fesenko::isRect::operator()(const Polygon &rhs)
   return isRightAngle(one, two, three) && isRightAngle(two, three, four)
       && isRightAngle(three, four, one) && isRightAngle(four, one, two);
 }
+
