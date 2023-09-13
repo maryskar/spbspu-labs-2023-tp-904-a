@@ -34,9 +34,13 @@ namespace timofeev
       else
       {
         std::cout << "translation (or 'done' to finish): ";
-        while (translation != "done")
+        while (true)
         {
           in >> translation;
+          if (translation == "done")
+          {
+            break;
+          }
           line.push_back(translation);
         }
         dict[word] = line;
@@ -47,6 +51,7 @@ namespace timofeev
   {
     out << "<INVALID COMMAND>" << "\n";
   }
+
   void delTrans(std::istream& in, dict_t& dict)
   {
 
@@ -72,6 +77,23 @@ namespace timofeev
           dict.erase(it);
         }
       }
+    }
+  }
+  void printList(const std::vector < std::string >& list, std::ostream& out)
+  {
+    out << '-';
+    for (const std::string& translation: list)
+    {
+      out << " " << translation;
+    }
+  }
+  void printDict(std::ostream &out, dict_t& dict)
+  {
+    for (const auto &word: dict)
+    {
+      out << word.first << ' ';
+      printList(word.second, out);
+      out << '\n';
     }
   }
 }

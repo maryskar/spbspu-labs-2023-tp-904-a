@@ -9,5 +9,7 @@ namespace timofeev
   void readDict(std::istream& in, dict_t& dict);
   void delTrans(std::istream& in, dict_t& dict);
   std::ostream& printInvalid(std::ostream &out);
+  void printDict(std::ostream &out, dict_t& dict);
+  void printList(const std::vector < std::string >& list, std::ostream& out);
 }
 #endif //FT_HELPFUNCTION_H
