@@ -3,6 +3,12 @@
 
 #include <iostream>//возможно слищком жирно
 
+struct SeparatorIO
+{
+  char expected;
+};
 
+std::istream& operator>>(std::istream& inp, SeparatorIO&& data);
+std::ostream& operator<<(std::ostream& inp, const SeparatorIO& data);
 
 #endif
