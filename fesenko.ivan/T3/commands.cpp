@@ -3,17 +3,12 @@
 #include <cctype>
 #include "subCommandsList.h"
 
-void putStringToIstream(const std:string &str, std::istream &in)
-{
-  std::istringstream in(str);
-}
-
 std::ostream &fesenko::area(data_t &data, std::istream &in, std::ostream &out)
 {
   std::string type = "";
   in >> type;
   if (std::isdigit(type[0])) {
-    putStringToIstream(type, in);
+    std::istringstream in(type);
     type = "VERTEXES";
   }
   return out << sub_area_list[type](data, in);
@@ -43,8 +38,8 @@ std::ostream &fesenko::count(data_t &data, std::istream &in, std::ostream &out)
 {
   std::string type = "";
   in >> type;
-  if (std::isdignt(type[0])) {
-    putStringToInstream(type, in);
+  if (std::isdigit(type[0])) {
+    std::istringstream in(type);
     type = "VERTEXES";
   }
   return out << sub_count_list[type](data, in);
