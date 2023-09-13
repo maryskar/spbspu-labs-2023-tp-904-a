@@ -117,6 +117,10 @@ namespace timofeev
     std::vector< Polygon > tmp = res;
     std::vector<double> individual;
     static_cast< void >(getArea(tmp, individual));
+    if (individual.empty())
+    {
+      throw std::invalid_argument("invalid_argument");
+    }
     double maxA = *std::max_element(individual.begin(), individual.end());
     std::vector< double > vec;
     vec.push_back(maxA);
@@ -149,6 +153,10 @@ namespace timofeev
     std::vector< Polygon > tmp = res;
     std::vector<double> individual;
     static_cast< void >(getArea(tmp, individual));
+    if (individual.empty())
+    {
+      throw std::invalid_argument("invalid_argument");
+    }
     double minA = *std::min_element(individual.begin(), individual.end());
     std::vector< double > vec;
     vec.push_back(minA);

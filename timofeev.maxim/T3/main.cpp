@@ -53,12 +53,12 @@ int main(int argc, char **argv)
         throw std::logic_error("logic_error");
       }
     }
-    catch (std::logic_error &e)
+    catch (const std::logic_error &e)
     {
       timofeev::printError(std::cout);
       std::cin.ignore(maxSize, '\n');
     }
-    catch (const std::runtime_error & e)
+    catch (const std::runtime_error& e)
     {
       break;
     }
