@@ -12,7 +12,6 @@ int main()
   using Dictionary = std::map< std::string, std::vector<std::string> >;
   Dictionary engDict;
   Dictionary rusDict;
-
   std::map<std::string, Dictionary> dictOfDict;
   std::string Ru = "";
   std::string Eng = "";
