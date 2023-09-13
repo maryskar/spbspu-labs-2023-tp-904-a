@@ -25,6 +25,19 @@ struct DoubleO
 
 std::ostream& operator<<(std::ostream& inp, const DoubleO& data);
 
+struct LongLongI
+{
+  long long& value;
+};
+
+std::istream& operator>>(std::istream& inp, LongLongI&& data);
+
+struct LongLongO
+{
+  const long long& value;
+};
+
+std::ostream& operator<<(std::ostream& inp, const LongLongO& data);
 
 
 #endif
