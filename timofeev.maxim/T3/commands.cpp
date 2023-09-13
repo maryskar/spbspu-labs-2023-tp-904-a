@@ -14,10 +14,6 @@ namespace timofeev
     {
       return;
     }
-    if (res.empty())
-    {
-      throw std::logic_error("empty");
-    }
     std::string secPart;
     in >> secPart;
     if (is_number(secPart))
@@ -42,6 +38,10 @@ namespace timofeev
     }
     else if (secPart == "MEAN")
     {
+      if (res.empty())
+      {
+        throw std::logic_error("Error");
+      }
       doMean(res);
     }
     else
