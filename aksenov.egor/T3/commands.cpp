@@ -17,7 +17,7 @@ namespace aksenov
     std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isEven);
     std::vector< double > areas = getArea(vecOfPolygons);
     double res = std::accumulate(areas.begin(), areas.end(), 0);
-    std::cout << std::fixed << std::setprecision(2) << res << "\n";
+    std::cout << std::fixed << std::setprecision(1) << res << "\n";
   }
 
   void doAreaOdd(const std::vector< Polygon > &pol)
@@ -26,7 +26,7 @@ namespace aksenov
     std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isOdd);
     std::vector< double > areas = getArea(vecOfPolygons);
     double res = std::accumulate(areas.begin(), areas.end(), 0);
-    std::cout << std::fixed << std::setprecision(2) << res << "\n";
+    std::cout << std::fixed << std::setprecision(1) << res << "\n";
   }
 
   void doAreaMean(const std::vector< Polygon > &pol)
@@ -34,7 +34,7 @@ namespace aksenov
     std::vector< double > areas = getArea(pol);
     double area = std::accumulate(areas.begin(), areas.end(), 0);
     area /= pol.size();
-    std::cout << area << "\n";
+    std::cout << std::fixed << std::setprecision(1) << area << "\n";
   }
 
   void doAreaWithVertexes(const std::vector< Polygon > &pol, std::string command)
@@ -81,9 +81,8 @@ namespace aksenov
   void doMaxArea(const std::vector< Polygon > &pol)
   {
     std::vector< double > areas = getArea(pol);
-    auto maxElementIter = std::max_element(areas.begin(), areas.end());
-    auto out = std::ostream_iterator< double > (std::cout, "\n");
-    std::copy(maxElementIter, maxElementIter + 1, out);
+    double maxElemen = *std::max_element(areas.begin(), areas.end());
+    std::cout << std::fixed << std::setprecision(1) << maxElemen << "\n";
   }
 
   void doMaxVertexes(const std::vector< Polygon > &pol)
