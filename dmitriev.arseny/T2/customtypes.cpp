@@ -18,9 +18,15 @@ std::istream& dmitriev::operator>>(std::istream& inp, SeparatorIO&& data)
   return inp;
 }
 
-std::ostream& dmitriev::operator<<(std::ostream& inp, const SeparatorIO& data)
+std::ostream& dmitriev::operator<<(std::ostream& out, const SeparatorIO& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+
+  return out << data.expected;
 }
 
 std::istream& dmitriev::operator>>(std::istream& inp, LableIO&& data)
@@ -28,7 +34,7 @@ std::istream& dmitriev::operator>>(std::istream& inp, LableIO&& data)
   // TODO: вставьте здесь оператор return
 }
 
-std::ostream& dmitriev::operator<<(std::ostream& inp, const LableIO& data)
+std::ostream& dmitriev::operator<<(std::ostream& out, const LableIO& data)
 {
   // TODO: вставьте здесь оператор return
 }
@@ -38,7 +44,7 @@ std::istream& dmitriev::operator>>(std::istream& inp, DoubleI&& data)
   // TODO: вставьте здесь оператор return
 }
 
-std::ostream& dmitriev::operator<<(std::ostream& inp, const DoubleO& data)
+std::ostream& dmitriev::operator<<(std::ostream& out, const DoubleO& data)
 {
   // TODO: вставьте здесь оператор return
 }
@@ -48,7 +54,7 @@ std::istream& dmitriev::operator>>(std::istream& inp, LongLongI&& data)
   // TODO: вставьте здесь оператор return
 }
 
-std::ostream& dmitriev::operator<<(std::ostream& inp, const LongLongO& data)
+std::ostream& dmitriev::operator<<(std::ostream& out, const LongLongO& data)
 {
   // TODO: вставьте здесь оператор return
 }
@@ -58,7 +64,7 @@ std::istream& dmitriev::operator>>(std::istream& inp, StringI&& data)
   // TODO: вставьте здесь оператор return
 }
 
-std::ostream& dmitriev::operator<<(std::ostream& inp, const StringO& data)
+std::ostream& dmitriev::operator<<(std::ostream& out, const StringO& data)
 {
   // TODO: вставьте здесь оператор return
 }
