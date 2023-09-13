@@ -58,12 +58,24 @@ std::ostream& dmitriev::operator<<(std::ostream& out, const LableIO& data)
 
 std::istream& dmitriev::operator>>(std::istream& inp, DoubleI&& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::istream::sentry sentry(inp);
+  if (!sentry)
+  {
+    return inp;
+  }
+
+  return inp >> data.value;
 }
 
 std::ostream& dmitriev::operator<<(std::ostream& out, const DoubleO& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+
+  return out << data.value;
 }
 
 std::istream& dmitriev::operator>>(std::istream& inp, LongLongI&& data)
