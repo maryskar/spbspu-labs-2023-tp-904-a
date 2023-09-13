@@ -2,7 +2,7 @@
 #include <algorithm>
 namespace timofeev
 {
-  void readDict(std::istream &in, dict_t &dict)
+  void readDict(std::istream& in, std::ostream& out, dict_t& dict)
   {
 
     while (true)
@@ -10,7 +10,7 @@ namespace timofeev
       std::string word = "";
       std::vector <std::string> line;
       std::string translation;
-      std::cout << "Write a word (or 'exit'): ";
+      out << "Write a word (or 'exit'): ";
       in >> word;
       if (word == "exit")
       {
@@ -18,8 +18,8 @@ namespace timofeev
       }
       if (dict.count(word) > 0)
       {
-        std::cout << "Word already in dictionary!! Want to rewrite it?\n";
-        std::cout << "Yes or No?";
+        out << "Word already in dictionary!! Want to rewrite it?\n";
+        out << "Yes or No?";
         std::string answ = "";
         in >> answ;
         if (answ == "No")
@@ -27,12 +27,12 @@ namespace timofeev
           continue;
         } else if (answ == "Yes")
         {
-          std::cout << "new translation (or 'done' to finish): ";
+          out << "new translation (or 'done' to finish): ";
         }
       }
       else
       {
-        std::cout << "translation (or 'done' to finish): ";
+        out << "translation (or 'done' to finish): ";
         while (true)
         {
           in >> translation;
@@ -46,25 +46,28 @@ namespace timofeev
       }
     }
   }
-
-  std::ostream &printInvalid(std::ostream &out)
+  std::ostream& printEmpty(std::ostream& out)
+  {
+    out << "<EMPTY>" << "\n";
+  }
+  std::ostream &printInvalid(std::ostream& out)
   {
     out << "<INVALID COMMAND>" << "\n";
   }
 
-  void delTrans(std::istream &in, dict_t &dict)
+  void delTrans(std::istream& in, std::ostream& out, dict_t& dict)
   {
     while (true)
     {
       std::string word = "";
       std::string rTrans;
-      std::cout << "Write a word (or 'exit'): ";
+      out << "Write a word (or 'exit'): ";
       in >> word;
       if (word == "exit")
       {
         break;
       }
-      std::cout << "Write translation to remove: ";
+      out << "Write translation to remove: ";
       in >> rTrans;
       auto it = dict.find(word);
       if (it != dict.end())
@@ -133,4 +136,22 @@ namespace timofeev
     }
   }
 
+  void findTrans(std::ostream& out, const std::string& word, dict_t& dict)
+  {
+    bool flag = false;
+    for (const auto &i: dict)
+    {
+      if (i.first == word)
+      {
+        out << i.first << " ";
+        printList(i.second, out);
+        out << '\n';
+        flag = true;
+      }
+    }
+    if (!flag)
+    {
+      out << "no word matches";
+    }
+  }
 }
