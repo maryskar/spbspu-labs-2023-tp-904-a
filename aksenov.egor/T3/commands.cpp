@@ -246,7 +246,7 @@
     {
       if (pol.size() == 0 || pol.size() == 1)
       {
-        return;
+        std::cout << "<INVALID COMMAND>" << "\n";
       }
       Polygon polygon;
       inp >> polygon;
