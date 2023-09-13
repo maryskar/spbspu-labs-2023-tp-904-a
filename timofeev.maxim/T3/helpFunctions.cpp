@@ -6,11 +6,11 @@
 #include <cmath>
 #include <algorithm>
 #include <functional>
+#include <numeric>
 #include "polygon.h"
 namespace timofeev
 {
   using namespace std::placeholders;
-  using outV =  std::ostream_iterator< size_t >;
   bool is_number(const std::string& s)
   {
     std::string::const_iterator it = s.begin();
@@ -66,7 +66,8 @@ namespace timofeev
     std::vector< Polygon > tmp (res.size());
     std::vector< double > individual;
     std::copy_if(res.begin(), res.end(), tmp.begin(), isEven);
-    double area = getArea(tmp, individual);
+    static_cast< void >(getArea(tmp, individual));
+    double area = std::accumulate(individual.begin(), individual.end(), 0);
     std::cout << std::fixed << std::setprecision(1) << area << "\n";
   }
 
@@ -75,8 +76,9 @@ namespace timofeev
     std::vector< Polygon > tmp (res.size());
     std::vector<double> individual;
     std::copy_if(res.begin(), res.end(), tmp.begin(), isOdd);
-    double area = getArea(tmp, individual);
-    std::cout << std::fixed << std::setprecision(1) << area;
+    static_cast< void >(getArea(tmp, individual));
+    double area = std::accumulate(individual.begin(), individual.end(), 0);
+    std::cout << std::fixed << std::setprecision(1) << area << "\n";
   }
 
   void doMean(const std::vector< Polygon >& res)
