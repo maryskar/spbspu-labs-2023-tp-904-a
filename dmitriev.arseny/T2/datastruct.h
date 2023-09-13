@@ -14,7 +14,7 @@ namespace dmitriev
 		std::string key3;
 	};
 
-	bool compareDataStruct(const DataStruct& lhs, const DataStruct& rhs);
+	bool compareDataStructures(const DataStruct& lhs, const DataStruct& rhs);
 	std::istream& operator>>(std::istream& inp, DataStruct& data);
 	std::ostream& operator<<(std::ostream& inp, const DataStruct& data);
 
