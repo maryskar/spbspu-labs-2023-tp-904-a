@@ -38,12 +38,12 @@ int main()
     catch (const std::logic_error &e)
     {
       timofeev::printInvalid(std::cout);
-      break;
+      return 1;
     }
     catch (const std::out_of_range &e)
     {
       timofeev::printEmpty(std::cout);
-      break;
+      return 1;
     }
     catch (const std::runtime_error & e)
     {
