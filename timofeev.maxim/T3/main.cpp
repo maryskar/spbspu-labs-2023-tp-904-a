@@ -50,7 +50,7 @@ int main(int argc, char **argv)
       }
       else
       {
-        throw std::logic_error("logic_error");
+        continue;
       }
     }
     catch (const std::logic_error &e)
