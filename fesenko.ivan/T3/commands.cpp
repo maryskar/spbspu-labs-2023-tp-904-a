@@ -47,3 +47,11 @@ std::ostream &fesenko::count(data_t &data, std::istream &in, std::ostream &out)
   }
   return out << sub_count_list[type](data, in);
 }
+
+std::ostream &fesenko::rects(data_t &data, std::istream &in, std::ostream &out)
+{
+  if (data.empty()) {
+    throw std::logic_error("Data is empty");
+  }
+  return out << sub_rects_list["DEFAULT"](data, in);
+}
