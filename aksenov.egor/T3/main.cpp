@@ -5,6 +5,7 @@
 #include <map>
 #include "polygon.h"
 #include "commandMap.h"
+
 int main(int argc, char **argv)
 {
   if (argc != 2)
