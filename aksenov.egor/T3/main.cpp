@@ -9,7 +9,7 @@
 
 int main(int argc, char **argv)
 {
-  if (argc != 2)
+  /*if (argc != 2)
   {
     std::cerr << "Error" << "\n";
     return 1;
@@ -23,13 +23,13 @@ int main(int argc, char **argv)
       std::cerr << "Error" << "\n";
       return 1;
     }
-  }
+  }*/
   std::vector< aksenov::Polygon > data;
   aksenov::Polygon polygon;
-  while (inF >> polygon)
+  /*while (inF >> polygon)
   {
     data.push_back(polygon);
-  }
+  }*/
   std::map< std::string, void (*)(std::istream&, const std::vector< aksenov::Polygon >&) > commands;
   aksenov::makeDict(commands);
   std::string command = "";
