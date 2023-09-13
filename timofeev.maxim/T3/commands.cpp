@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <iterator>
 #include "helpFunctions.h"
-#include "../common/IofGuard.h"
 namespace timofeev
 {
   using outV = std::ostream_iterator<size_t>;
@@ -115,7 +114,7 @@ namespace timofeev
     }
   }
 
-  void doRSCommand(std::istream &in, const std::vector<Polygon> &res)
+  void doRSCommand(std::istream&, const std::vector<Polygon> &res)
   {
     size_t val = std::count_if(res.begin(), res.end(), isRectangle);
     std::vector<size_t> vec;
@@ -123,7 +122,7 @@ namespace timofeev
     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
   }
 
-  void doRectsCommand(std::istream& in, const std::vector<Polygon>& res)
+  void doRectsCommand(std::istream&, const std::vector<Polygon>& res)
   {
     size_t val = 0;
 

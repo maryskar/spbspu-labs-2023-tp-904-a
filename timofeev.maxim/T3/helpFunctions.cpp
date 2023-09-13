@@ -116,7 +116,7 @@ namespace timofeev
   {
     std::vector< Polygon > tmp = res;
     std::vector<double> individual;
-    double area = getArea(tmp, individual);
+    static_cast< void >(getArea(tmp, individual));
     double maxA = *std::max_element(individual.begin(), individual.end());
     std::vector< double > vec;
     vec.push_back(maxA);
@@ -148,7 +148,7 @@ namespace timofeev
   {
     std::vector< Polygon > tmp = res;
     std::vector<double> individual;
-    double area = getArea(tmp, individual);
+    static_cast< void >(getArea(tmp, individual));
     double minA = *std::min_element(individual.begin(), individual.end());
     std::vector< double > vec;
     vec.push_back(minA);
