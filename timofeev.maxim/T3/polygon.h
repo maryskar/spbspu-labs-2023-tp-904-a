@@ -12,11 +12,11 @@ namespace timofeev
   {
     std::vector< Point > points;
   };
-  struct DelimiterIO
+/*  struct DelimiterIO
   {
     char exp;
   };
-  std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
+  std::istream &operator>>(std::istream &in, DelimiterIO &&dest);*/
   std::istream &operator>>(std::istream &in, Polygon & dest);
   std::istream &operator>>(std::istream &in, Point &dest);
   size_t size(const Polygon &dest);

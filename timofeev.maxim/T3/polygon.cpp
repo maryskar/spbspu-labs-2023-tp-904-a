@@ -2,9 +2,10 @@
 #include <iterator>
 #include <algorithm>
 #include "../common/IofGuard.h"
+#include "../common/DataStruct.h"
 namespace timofeev
 {
-  std::istream &operator>>(std::istream &in, DelimiterIO &&dest)
+ /* std::istream &operator>>(std::istream &in, DelimiterIO &&dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -19,7 +20,7 @@ namespace timofeev
     }
     return in;
   }
-
+*/
   std::istream &operator>>(std::istream &in, Polygon & dest)
   {
     std::istream::sentry sentry(in);
