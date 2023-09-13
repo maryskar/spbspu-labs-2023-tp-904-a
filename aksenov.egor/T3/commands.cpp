@@ -45,7 +45,7 @@ namespace aksenov
     std::copy_if(pol.begin(),pol.end(), std::back_inserter(pols), func);
     std::vector< double > areas = getArea(pols);
     double res = std::accumulate(areas.begin(), areas.end(), 0);
-    std::cout << res << "\n";
+    std::cout << std::fixed << std::setprecision(1) << res << "\n";
   }
 
   void doArea(std::istream &inp, const std::vector< Polygon > &pol)
@@ -69,12 +69,16 @@ namespace aksenov
     {
       if (command == "1" || command == "2")
       {
-        std::cout << "error";
+        std::cout << "<INVALID COMMAND>" << "\n";
       }
       else
       {
         doAreaWithVertexes(pol, command);
       }
+    }
+    else
+    {
+      std::cout << "<INVALID COMMAND>" << "\n";
     }
   }
 
@@ -151,7 +155,7 @@ namespace aksenov
     }
     else
     {
-      std::cout << "invalid command";
+      std::cout << "<INVALID COMMAND>" << "\n";
     }
   }
 
@@ -192,14 +196,18 @@ namespace aksenov
     }
     else if (isInteger(command))
     {
-      if (command == "1" || command == "2")
+      if (command == "1" || command == "2" || command == "0")
       {
-        std::cout << "invalid command";
+        std::cout << "<INVALID COMMAND>" << "\n";
       }
       else
       {
         doCountVertexes(command, pol);
       }
+    }
+    else
+    {
+      std::cout << "<INVALID COMMAND>" << "\n";
     }
   }
 
