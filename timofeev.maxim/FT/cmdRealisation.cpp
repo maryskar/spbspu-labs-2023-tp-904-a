@@ -83,20 +83,18 @@ namespace timofeev
   {
     std::string secPart = "";
     in >> secPart;
+    dict& rusDict = dicts["Ru"];
+    dict& engDict = dicts["Eng"];
     if (secPart == "Rus")
     {
-      dict& rusDict = dicts["Ru"];
       printDict(out, rusDict);
     }
     else if (secPart == "Eng")
     {
-      dict& engDict = dicts["Eng"];
       printDict(out, engDict);
     }
     else if (secPart == "All")
     {
-      dict& rusDict = dicts["Ru"];
-      dict& engDict = dicts["Eng"];
       out << "Russian dictionary:" << "\n";
       printDict(out, rusDict);
       out << "English dictionary:" << "\n";
@@ -112,26 +110,23 @@ namespace timofeev
   {
     std::string secPart = "";
     in >> secPart;
+    dict& rusDict = dicts["Ru"];
+    dict& engDict = dicts["Eng"];
     if (secPart == "Rus")
     {
-      dict& rusDict = dicts["Ru"];
       delDict(rusDict);
       out << "Done!" << "\n";
     }
     else if (secPart == "Eng")
     {
-      dict& engDict = dicts["Eng"];
       delDict(engDict);
       out << "Done!" << "\n";
     }
     else if (secPart == "All")
     {
-      dict &rusDict = dicts["Ru"];
-      dict &engDict = dicts["Eng"];
       delDict(rusDict);
       delDict(engDict);
       out << "Done!" << "\n";
-
     }
     else
     {
@@ -155,6 +150,29 @@ namespace timofeev
       in >> word;
       dict& engDict = dicts["Eng"];
       findTrans(out, word, engDict);
+    }
+  }
+  void Exist(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
+  {
+    std::string word;
+    in >> word;
+    dict& rusDict = dicts["Ru"];
+    dict& engDict = dicts["Eng"];
+    if (findWord(word, rusDict) && findWord(word, engDict))
+    {
+      out << word << " In both Dicts";
+    }
+    else if (findWord(word, engDict))
+    {
+      out << word << " In English Dict";
+    }
+    else if (findWord(word, rusDict))
+    {
+      out << word << " In Russian Dict";
+    }
+    else
+    {
+      out << "No matches";
     }
   }
 }
