@@ -37,12 +37,16 @@ std::istream& dmitriev::operator>>(std::istream& inp, DataStruct& data)
     {
     case 1:
       inp >> DoubleI{input.key1} >> SeparatorIO{':'};
+      break;
     case 2:
       inp >> LongLongI{input.key2} >> SeparatorIO{':'};
+      break;
     case 3:
       inp >> StringI{input.key3} >> SeparatorIO{':'};
+      break;
     default:
       inp.setstate(std::ios::failbit);
+      break;
     }
     if (!sentry)
     {
