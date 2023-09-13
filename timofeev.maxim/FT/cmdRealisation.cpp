@@ -126,11 +126,12 @@ namespace timofeev
     }
     else if (secPart == "All")
     {
-      dict& rusDict = dicts["Ru"];
-      dict& engDict = dicts["Eng"];
+      dict &rusDict = dicts["Ru"];
+      dict &engDict = dicts["Eng"];
       delDict(rusDict);
       delDict(engDict);
       out << "Done!" << "\n";
+
     }
     else
     {
