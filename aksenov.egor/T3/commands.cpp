@@ -13,11 +13,6 @@
   {
     void doAreaEven(const std::vector< Polygon > &pol)
     {
-      if (pol.empty())
-      {
-        std::cout << "<INVALID ARGUMENT>" << "\n";
-        return;
-      }
       std::vector< Polygon > vecOfPolygons;
       std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isEven);
       std::vector< double > areas = getArea(vecOfPolygons);
@@ -27,11 +22,6 @@
 
     void doAreaOdd(const std::vector< Polygon > &pol)
     {
-      if (pol.empty())
-      {
-        std::cout << "<INVALID ARGUMENT>" << "\n";
-        return;
-      }
       std::vector< Polygon > vecOfPolygons;
       std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isOdd);
       std::vector< double > areas = getArea(vecOfPolygons);
@@ -43,7 +33,7 @@
     {
       if (pol.empty())
       {
-        std::cout << "<INVALID ARGUMENT>" << "\n";
+        std::cout << "<INVALID COMMAND>" << "\n";
         return;
       }
       std::vector< double > areas = getArea(pol);
@@ -54,11 +44,6 @@
 
     void doAreaWithVertexes(const std::vector< Polygon > &pol, std::string command)
     {
-      if (pol.empty())
-      {
-        std::cout << "<INVALID ARGUMENT>" << "\n";
-        return;
-      }
       size_t num = std::stoul(command);
       std::vector< Polygon > pols;
       auto func = std::bind(isNotEqual, std::placeholders::_1, num);
@@ -87,7 +72,7 @@
       }
       else if (isInteger(command))
       {
-        if (command == "1" || command == "2")
+        if (command == "1" || command == "2" || command == "0")
         {
           std::cout << "<INVALID COMMAND>" << "\n";
         }
@@ -104,6 +89,11 @@
 
     void doMaxArea(const std::vector< Polygon > &pol)
     {
+      if (pol.empty())
+      {
+        std::cout << "<INVALID COMMAND>" << "\n";
+        return;
+      }
       std::vector< double > areas = getArea(pol);
       double maxElemen = *std::max_element(areas.begin(), areas.end());
       std::cout << std::fixed << std::setprecision(1) << maxElemen << "\n";
@@ -111,6 +101,11 @@
 
     void doMaxVertexes(const std::vector< Polygon > &pol)
     {
+      if (pol.empty())
+      {
+        std::cout << "<INVALID COMMAND>" << "\n";
+        return;
+      }
       std::vector< Polygon > pols = pol;
       std::vector< size_t > amountsOfVertexes;
       for (const Polygon &polygon : pols)
@@ -136,7 +131,7 @@
       }
       else
       {
-        std::cout << "invalid command";
+        std::cout << "<INVALID COMMAND>";
       }
     }
 
@@ -233,6 +228,10 @@
 
     void doSame(std::istream &inp, const std::vector< Polygon > &pol)
     {
+      if (pol.size() == 0 || pol.size() == 1)
+      {
+        std::cout << "<INVALID COMMAND>" << "\n";
+      }
       Polygon polygon;
       inp >> polygon;
       auto sort = std::bind(isEqual, std::placeholders::_1, polygon.points.size());
@@ -243,10 +242,11 @@
       std::cout << counter << "\n";
     }
 
-    void doRightshapes(std::istream &inp, const std::vector< Polygon > &pol)
+    void doRightshapes(std::istream &, const std::vector< Polygon > &pol)
     {
       size_t count = 0;
-      for (const Polygon& polygon : pol) {
+      for (const Polygon& polygon : pol)
+      {
         for (size_t i = 0; i < polygon.points.size(); i++)
         {
           const Point& p1 = polygon.points[i];
@@ -256,14 +256,13 @@
           int y1 = p2.y - p1.y;
           int x2 = p3.x - p2.x;
           int y2 = p3.y - p2.y;
-          if (x1 * x2 + y1 * y2 == 0) {
+          if (x1 * x2 + y1 * y2 == 0)
+          {
             count++;
             break;
           }
         }
       }
-      std::string a = "";
-      inp >> a;
       std::cout << count << "\n";
     }
   }

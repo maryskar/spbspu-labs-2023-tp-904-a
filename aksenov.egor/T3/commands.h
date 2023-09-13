@@ -10,6 +10,6 @@ namespace aksenov
   void doMin(std::istream &inp, const std::vector< Polygon > &pol);
   void doCount(std::istream &inp, const std::vector< Polygon >&pol);
   void doSame(std::istream &inp, const std::vector< Polygon > &pol);
-  void doRightshapes(std::istream &inp, const std::vector< Polygon > &pol);
+  void doRightshapes(std::istream &, const std::vector< Polygon > &pol);
 }
 #endif
