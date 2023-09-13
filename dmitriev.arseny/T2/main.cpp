@@ -8,13 +8,21 @@
 int main()
 {
   using data_t = dmitriev::DataStruct;
+  using iIter = std::istream_iterator< data_t >;
+  using oIter = std::ostream_iterator< data_t >;
+
   std::vector< data_t > vec;
-
-  std::copy(std::istream_iterator< data_t >(std::cin), std::istream_iterator< data_t >(), std::back_inserter(vec));
-
-
-
-  std::copy(vec.cbegin(), vec.cend(), std::ostream_iterator< data_t >(std::cout, "\n"));
+  while (!std::cin.eof())
+  {
+    if (std::cin.fail())
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
+    std::copy(iIter(std::cin), iIter(), std::back_inserter(vec));
+  }
+  std::sort(vec.begin(), vec.end(), dmitriev::compareDataStructures);
+  std::copy(std::begin(vec), std::end(vec), oIter(std::cout, "\n"));
 
   return 0;
 }
