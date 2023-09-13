@@ -16,7 +16,7 @@ namespace dmitriev
 
 	bool compareDataStructures(const DataStruct& lhs, const DataStruct& rhs);
 	std::istream& operator>>(std::istream& inp, DataStruct& data);
-	std::ostream& operator<<(std::ostream& inp, const DataStruct& data);
+	std::ostream& operator<<(std::ostream& out, const DataStruct& data);
 
 }
 

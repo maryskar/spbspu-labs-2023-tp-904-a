@@ -1,5 +1,6 @@
 #include "customtypes.h"
 #include <string>
+#include <iomanip>
 
 std::istream& dmitriev::operator>>(std::istream& inp, SeparatorIO&& data)
 {
@@ -76,7 +77,7 @@ std::ostream& dmitriev::operator<<(std::ostream& out, const DoubleO& data)
     return out;
   }
 
-  return out << data.value << SeparatorIO{'d'};
+  return out << std::fixed << std::setprecision(1) << data.value << SeparatorIO{'d'};
 }
 
 std::istream& dmitriev::operator>>(std::istream& inp, LongLongI&& data)

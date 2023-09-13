@@ -57,7 +57,17 @@ std::istream& dmitriev::operator>>(std::istream& inp, DataStruct& data)
   return inp;
 }
 
-std::ostream& dmitriev::operator<<(std::ostream& inp, const DataStruct& data)
+std::ostream& dmitriev::operator<<(std::ostream& out, const DataStruct& data)
 {
-  // TODO: вставьте здесь оператор return
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+
+  out << LableIO{"(:key1 "} << DoubleO{data.key1};
+  out << LableIO{":key2 "} << LongLongO{data.key2};
+  out << LableIO{":key3 "} << StringO{data.key3} << LableIO{":)"};
+
+  return out;
 }
