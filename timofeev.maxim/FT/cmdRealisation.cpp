@@ -39,19 +39,19 @@ namespace timofeev
     }
   }
 
-  void AddWord(std::istream& in, std::ostream&, dictsOfDicts & dicts)
+  void AddWord(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
   {
     std::string secPart = "";
     in >> secPart;
     if (secPart == "Rus")
     {
       dict& rusDict = dicts["Ru"];
-      readDict(in, rusDict);
+      readDict(in, out, rusDict);
     }
     else if (secPart == "Eng")
     {
       dict& engDict = dicts["Eng"];
-      readDict(in, engDict);
+      readDict(in, out, engDict);
     }
     else
     {
@@ -59,19 +59,19 @@ namespace timofeev
     }
   }
 
-  void DeleteT(std::istream& in, std::ostream&, dictsOfDicts & dicts)
+  void DeleteT(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
   {
     std::string secPart = "";
     in >> secPart;
     if (secPart == "Rus")
     {
       dict& rusDict = dicts["Ru"];
-      delTrans(in, rusDict);
+      delTrans(in, out, rusDict);
     }
     else if (secPart == "Eng")
     {
       dict& engDict = dicts["Eng"];
-      delTrans(in, engDict);
+      delTrans(in, out, engDict);
     }
     else
     {
@@ -79,7 +79,7 @@ namespace timofeev
     }
   }
 
-  void Print(std::istream& in, std::ostream& out, dictsOfDicts & dicts)
+  void Print(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
   {
     std::string secPart = "";
     in >> secPart;
@@ -108,7 +108,7 @@ namespace timofeev
     }
   }
 
-  void Delete(std::istream& in, std::ostream& out, dictsOfDicts & dicts)
+  void Delete(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
   {
     std::string secPart = "";
     in >> secPart;
@@ -136,6 +136,25 @@ namespace timofeev
     else
     {
       throw std::logic_error("Wrong Command");
+    }
+  }
+
+  void Translate(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
+  {
+    std::string secPart = "";
+    std::string word = "";
+    in >> secPart;
+    if (secPart == "Rus")
+    {
+      in >> word;
+      dict& rusDict = dicts["Ru"];
+      findTrans(out, word, rusDict);
+    }
+    else if (secPart == "Eng")
+    {
+      in >> word;
+      dict& engDict = dicts["Eng"];
+      findTrans(out, word, engDict);
     }
   }
 }

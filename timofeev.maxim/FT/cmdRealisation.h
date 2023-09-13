@@ -4,10 +4,11 @@
 #include "Commands.h"
 namespace timofeev
 {
-  void printHelp(std::istream& in, std::ostream& out, dictsOfDicts &);
-  void AddWord(std::istream& in, std::ostream&, dictsOfDicts & dicts);
-  void DeleteT(std::istream& in, std::ostream&, dictsOfDicts & dicts);
-  void Print(std::istream& in, std::ostream& out, dictsOfDicts & dicts);
-  void Delete(std::istream& in, std::ostream& out, dictsOfDicts & dicts);
+  void printHelp(std::istream& in, std::ostream& out, dictsOfDicts&);
+  void AddWord(std::istream& in, std::ostream& out, dictsOfDicts& dicts);
+  void DeleteT(std::istream& in, std::ostream& out, dictsOfDicts& dicts);
+  void Print(std::istream& in, std::ostream& out, dictsOfDicts& dicts);
+  void Delete(std::istream& in, std::ostream& out, dictsOfDicts& dicts);
+  void Translate(std::istream& in, std::ostream& out, dictsOfDicts& dicts);
 }
 #endif
