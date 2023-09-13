@@ -4,7 +4,6 @@ namespace timofeev
 {
   void readDict(std::istream& in, std::ostream& out, dict_t& dict)
   {
-
     while (true)
     {
       std::string word = "";
