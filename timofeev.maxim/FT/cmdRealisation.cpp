@@ -18,8 +18,8 @@ namespace timofeev
       out << "Delete All - delete all dictionaries\n";
       out << "Delete Eng - delete English dictionary\n";
       out << "Delete Rus - delete Russian dictionary\n";
-      out << "DeleteW Rus - delete word in Russian dictionary and it English translation\n";
-      out << "DeleteW Eng - delete word in English dictionary and it Russian translation\n";
+      out << "DeleteT Rus - delete English translation in Russian dictionary\n";
+      out << "DeleteT Eng - delete Russian translation in English dictionary\n";
       out << "Print All - print all dictionaries\n";
       out << "Print Eng - print English dictionary\n";
       out << "Print Rus - print Russian dictionary\n";
@@ -29,7 +29,7 @@ namespace timofeev
     else if (tmp == "List")
     {
       out << "[AddWord Rus, " << "AddWord Eng, " << "Exist, " << "Delete All, " << "\n";
-      out << "Delete Eng, " << "Delete Rus, " << "DeleteW Rus, " << "DeleteW Eng, " << "\n";
+      out << "Delete Eng, " << "Delete Rus, " << "DeleteT Rus, " << "DeleteT Eng, " << "\n";
       out << "Print All, " << "Print Eng, " << "Print Rus, " << "\n";
       out << "Translate Rus, " << "Translate Eng]" << "\n";
     }
@@ -59,19 +59,19 @@ namespace timofeev
     }
   }
 
-  void DeleteW(std::istream& in, std::ostream&, dictsOfDicts & dicts)
+  void DeleteT(std::istream& in, std::ostream&, dictsOfDicts & dicts)
   {
     std::string secPart = "";
     in >> secPart;
     if (secPart == "Rus")
     {
       dict& rusDict = dicts["Ru"];
-      delWord(in, rusDict);
+      delTrans(in, rusDict);
     }
     else if (secPart == "Eng")
     {
       dict& engDict = dicts["Eng"];
-      delWord(in, engDict);
+      delTrans(in, engDict);
     }
     else
     {

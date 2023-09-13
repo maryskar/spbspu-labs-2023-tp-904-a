@@ -8,7 +8,7 @@ namespace timofeev
     command["Help"] = printHelp;
     command["AddWord"] = AddWord;
     command["Exist"] = Exist;
-    command["DeleteW"] = DeleteW;
+    command["DeleteT"] = DeleteT;
     command["Delete"] = Delete;
     command["Print"] = Print;
     command["Translate"] = Translate;
