@@ -1,7 +1,7 @@
 #include "helpFunctions.h"
 #include <iostream>
 #include <iterator>
-#include <ostream>
+#include <iomanip>
 #include <vector>
 #include <cmath>
 #include <algorithm>
@@ -61,10 +61,10 @@ namespace timofeev
         secondSum += (static_cast< double >(point1.y * point2.x));
       }
       area += firstSum - secondSum;
-      totalArea += area;
+      totalArea += std::abs(area / 2.0);
       indivAreas.push_back(std::abs(area / 2.0));
     }
-    return std::abs(totalArea) / 2.0;
+    return totalArea;
   }
 
   void doEven(const std::vector< Polygon >& res)
@@ -73,7 +73,7 @@ namespace timofeev
     std::vector< double > individual;
     std::copy_if(res.begin(), res.end(), tmp.begin(), isEven);
     double area = getArea(tmp, individual);
-    std::cout << area;
+    std::cout << std::fixed << std::setprecision(1) << area;
   }
 
   void doOdd(const std::vector< Polygon >& res)
@@ -82,7 +82,7 @@ namespace timofeev
     std::vector<double> individual;
     std::copy_if(res.begin(), res.end(), tmp.begin(), isOdd);
     double area = getArea(tmp, individual);
-    std::cout << area;
+    std::cout << std::fixed << std::setprecision(1) << area;
    /* std::vector< double > vec;
     vec.push_back(area);
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));*/
@@ -95,7 +95,7 @@ namespace timofeev
     std::vector<double> individual;
     double area = getArea(tmp, individual);
     area /= amount;
-    std::cout << area;
+    std::cout << std::fixed << std::setprecision(1) << area;
   /*  std::vector< double > vec;
     vec.push_back(area);
     std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));*/
