@@ -49,7 +49,7 @@ int main(int argc, char **argv)
       }
       else
       {
-        continue;
+        throw std::logic_error("std::logic_error");
       }
     }
     catch (const std::logic_error &e)
