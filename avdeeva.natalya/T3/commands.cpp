@@ -29,7 +29,8 @@ double avdeeva::calcAreaMean(const std::deque< Polygon > & polygons)
   }
   std::deque< double > values(polygons.size());
   std::transform(polygons.begin(), polygons.end(), values.begin(), getArea);
-  double res = std::accumulate(values.begin(), values.end(), 0.0) / polygons.size();
+  double value = std::accumulate(values.begin(), values.end(), 0.0);
+  double res = value / polygons.size();
   return res;
 }
 double avdeeva::calcAreaVerts(const std::deque< Polygon > & polygons, size_t num)
