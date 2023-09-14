@@ -96,3 +96,8 @@ size_t avdeeva::countRightShapes(const std::deque< Polygon > & polygons)
   int res = std::count_if(polygons.begin(), polygons.end(), isRightshape);
   return res;
 }
+bool avdeeva::isInFrame(const std::deque< Polygon > & polygons, const Polygon & polygon)
+{
+  Polygon frame = createFrame(polygons);
+  return isInFrame(polygon, frame);
+}

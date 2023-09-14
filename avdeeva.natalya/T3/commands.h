@@ -16,5 +16,6 @@ namespace avdeeva
   double findMinArea(const std::deque< Polygon > & polygons);
   size_t findMinVerts(const std::deque< Polygon > & polygons);
   size_t countRightShapes(const std::deque< Polygon > & polygons);
+  bool isInFrame(const std::deque< Polygon > & polygons, const Polygon & polygon);
 }
 #endif
