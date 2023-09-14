@@ -27,7 +27,7 @@ namespace mashkin
       return inp;
     }
     Polygon input;
-    size_t numOfPoints;
+    size_t numOfPoints = 0;
     inp >> numOfPoints;
     if (numOfPoints < 3)
     {
@@ -39,7 +39,7 @@ namespace mashkin
     std::copy_n(inpIter(inp), numOfPoints, std::back_inserter(input.points));
     if (inp)
     {
-      dest = input;
+      dest.points.swap(input.points);
     }
     return inp;
   }
