@@ -12,8 +12,7 @@ namespace mashkin
   using namespace std::placeholders;
 
   std::vector< FullArea > getFullArea(const std::deque< Polygon >::iterator& begin,
-      const std::deque< Polygon >::iterator& end
-  )
+      const std::deque< Polygon >::iterator& end)
   {
     auto cap = std::distance(begin, end);
     std::vector< mashkin::PositiveArea > halfPA;

@@ -49,8 +49,7 @@ namespace mashkin
   NegativeArea calcNegativeArea(const Polygon& lhs);
   FullArea solveArea(const PositiveArea& first, const NegativeArea& second);
   std::vector< FullArea > getFullArea(const std::deque< Polygon >::iterator& begin,
-      const std::deque< Polygon >::iterator& end
-  );
+      const std::deque< Polygon >::iterator& end);
   bool isOdd(const Polygon& data);
   bool isEven(const Polygon& data);
   bool isEqual(const Polygon& data, size_t count);
