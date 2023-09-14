@@ -16,4 +16,12 @@ std::istream& operator>>(std::istream& in, DelimiterIO&& ref)
   return in;
 }
 
-
+std::ostream& operator<<(std::ostream& out, const DelimiterIO& data)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  return out << data.exp;
+}
