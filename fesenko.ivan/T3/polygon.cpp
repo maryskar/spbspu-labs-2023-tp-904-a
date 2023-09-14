@@ -14,7 +14,6 @@ std::istream &fesenko::operator>>(std::istream &in, Polygon &rhs)
   size_t points = 0;
   in >> points;
   if (points < 3) {
-    in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     in.setstate(std::ios::failbit);
     return in;
   }

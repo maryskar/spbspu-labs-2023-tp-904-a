@@ -38,7 +38,6 @@ int main(int argc, char *argv[])
       fesenko::main_list.at(cmd)(polygons, std::cin, std::cout) << "\n";
     } catch (...) {
       std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       fesenko::outInvalidCommandMessage(std::cout);
       std::cout << "\n";
     }
