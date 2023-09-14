@@ -5,7 +5,6 @@
 #include <iterator>
 #include "DataStruct.hpp"
 #include "InpOutTypes.hpp"
-#include "comp.hpp"
 
 int main()
 {
