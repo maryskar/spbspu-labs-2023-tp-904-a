@@ -8,6 +8,8 @@
 
 namespace mashkin
 {
-  std::map< std::string, void (*)(std::istream&, const std::deque< Polygon>&) > createMapWithCommands();
+  std::map< std::string, void (*)(std::istream&,
+      std::ostream&,
+      const std::deque< Polygon>&) > createMapWithCommands();
 }
 #endif
