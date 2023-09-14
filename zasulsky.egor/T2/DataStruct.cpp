@@ -53,3 +53,23 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     return in;
   }
 }
+
+bool compare(dataStruct& lhs, dataStruct& rhs)
+{
+  if (rhs.key1 > rhs.key1)
+  {
+    return 1;
+  }
+  else if (rhs.key1 == rhs.key1)
+  {
+    if (rhs.key2 == rhs.key2)
+    {
+      return rhs.key3 > rhs.key3;
+    }
+    return rhs.key2 > lhs.key2;
+  }
+  else
+  {
+    return 0;
+  }
+}
