@@ -55,15 +55,15 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
 
 bool compare(dataStruct& lhs, dataStruct& rhs)
 {
-  if (rhs.key1 > rhs.key1)
+  if (rhs.key1 > lhs.key1)
   {
     return 1;
   }
   else if (lhs.key1 == rhs.key1)
   {
-    if (s.key2 == rhs.key2)
+    if (lhs.key2 == rhs.key2)
     {
-      return lhs.key3 > rhs.key3;
+      return rhs.key3 > lhs.key3;
     }
     return rhs.key2 > lhs.key2;
   }
