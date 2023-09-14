@@ -7,5 +7,6 @@ namespace avdeeva
   double calcAreaOdd(const std::deque< Polygon > & polygons);
   double calcAreaEven(const std::deque< Polygon > & polygons);
   double calcAreaMean(const std::deque< Polygon > & polygons);
+  double calcAreaVerts(const std::deque< Polygon > & polygons, size_t num);
 }
 #endif

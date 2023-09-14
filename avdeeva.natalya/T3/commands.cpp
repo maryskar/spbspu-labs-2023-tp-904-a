@@ -1,6 +1,7 @@
 #include "commands.h"
 #include <algorithm>
 #include <numeric>
+#include <functional>
 #include "processFunctions.h"
 
 template< typename Pred >
@@ -27,4 +28,12 @@ double avdeeva::calcAreaMean(const std::deque< Polygon > & polygons) {
   std::transform(polygons.begin(), polygons.end(), values.begin(), getArea);
   double res = std::accumulate(values.begin(), values.end(), 0.0) / polygons.size();
   return res;
+}
+double avdeeva::calcAreaVerts(const std::deque< Polygon > & polygons, size_t num) {
+  if (verts < 3) {
+    throw std::invalid_argument("No polygons with this number of vertexes");
+  }
+  using namespace std::placeholders;
+  auto pred = std::bind(isNumOfVerts, _1, verts);
+  return calcArea(polygons, pred);
 }
