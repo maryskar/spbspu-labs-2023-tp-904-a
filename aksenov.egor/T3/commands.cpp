@@ -46,7 +46,7 @@
     {
       size_t num = std::stoul(command);
       std::vector< Polygon > pols;
-      auto func = std::bind(isNotEqual, std::placeholders::_1, num);
+      auto func = std::bind(isEqual, std::placeholders::_1, num);
       std::copy_if(pol.begin(),pol.end(), std::back_inserter(pols), func);
       std::vector< double > areas = getArea(pols);
       double res = std::accumulate(areas.begin(), areas.end(), 0);
@@ -246,7 +246,6 @@
     {
       if (pol.size() == 0 || pol.size() == 1)
       {
-        std::cout << "<INVALID COMMAND>" << "\n";
         return;
       }
       Polygon polygon;
