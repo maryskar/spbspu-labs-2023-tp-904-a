@@ -11,6 +11,7 @@ namespace azheganova
   void count(std::vector< Polygon > & polygon, std::istream & in, std::ostream & out);
   void rmecho(std::vector< Polygon > & polygon, std::istream & in, std::ostream & out);
   void rightshapes(std::vector< Polygon > & polygon, std::ostream & out);
+  std::ostream & printInvalidCommand(std::ostream & out);
 }
 
 

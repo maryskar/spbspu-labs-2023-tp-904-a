@@ -282,3 +282,8 @@ void azheganova::rightshapes(std::vector< Polygon > & polygon, std::ostream & ou
   out << std::count_if(polygon.begin(), polygon.end(), hasRightAngles) << '\n';
 }
 
+std::ostream & azheganova::printInvalidCommand(std::ostream & out)
+{
+  out << "<INVALID COMMAND>" << '\n';
+  return out;
+}
