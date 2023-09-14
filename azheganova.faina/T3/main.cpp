@@ -8,12 +8,6 @@
 #include <map>
 #include "commands.h"
 
-std::ostream & printInvalidCommand(std::ostream & out)
-{
-  out << "<INVALID COMMAND>" << '\n';
-  return out;
-}
-
 int main(int argc, char * argv[])
 {
   if (argc != 2)
@@ -63,7 +57,7 @@ int main(int argc, char * argv[])
       }
       catch (const std::logic_error & e)
       {
-        printInvalidCommand(std::cout);
+        azheganova::printInvalidCommand(std::cout);
         std::cin.clear();
         std::cin.ignore(max, '\n');
       }
