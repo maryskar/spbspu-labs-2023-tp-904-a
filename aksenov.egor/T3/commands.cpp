@@ -52,7 +52,7 @@
       std::cout << std::fixed << std::setprecision(1) << res << "\n";
     }
 
-    void doArea(std::istream &inp, const std::vector< Polygon > &pol, std::ostream &out)
+    void doArea(std::istream &inp, const std::vector< Polygon > &pol)
     {
       std::string command = "";
       inp >> command;
@@ -73,7 +73,7 @@
       {
         if (command == "1" || command == "2" || command == "0")
         {
-          outInvalidCommand(out);
+          throw;
         }
         else
         {
@@ -82,7 +82,7 @@
       }
       else
       {
-        outInvalidCommand(out);
+        throw;
       }
     }
 
@@ -114,7 +114,7 @@
       std::copy(maxVertIter, maxVertIter + 1, out);
     }
 
-    void doMax(std::istream &inp, const std::vector< Polygon > &pol, std::ostream &out)
+    void doMax(std::istream &inp, const std::vector< Polygon > &pol)
     {
       std::string command = "";
       inp >> command;
@@ -128,7 +128,7 @@
       }
       else
       {
-        outInvalidCommand(out);
+        throw;
       }
     }
 
@@ -153,7 +153,7 @@
       std::copy(minVertIter, minVertIter + 1, out);
     }
 
-    void doMin(std::istream &inp, const std::vector< Polygon > &pol, std::ostream &out)
+    void doMin(std::istream &inp, const std::vector< Polygon > &pol)
     {
       std::string command = "";
       inp >> command;
@@ -167,7 +167,7 @@
       }
       else
       {
-        outInvalidCommand(out);
+        throw;
       }
     }
 
@@ -194,7 +194,7 @@
       std::cout << res << "\n";
     }
 
-    void doCount(std::istream &inp, const std::vector< Polygon >&pol, std::ostream &out)
+    void doCount(std::istream &inp, const std::vector< Polygon >&pol)
     {
       std::string command = "";
       inp >> command;
@@ -210,7 +210,7 @@
       {
         if (command == "1" || command == "2" || command == "0")
         {
-          outInvalidCommand(out);
+          throw;
         }
         else
         {
@@ -219,15 +219,15 @@
       }
       else
       {
-        outInvalidCommand(out);
+        throw;
       }
     }
 
-    void doSame(std::istream &inp, const std::vector< Polygon > &pol, std::ostream &)
+    void doSame(std::istream &inp, const std::vector< Polygon > &pol)
     {
       if (pol.size() == 0 || pol.size() == 1)
       {
-        return;
+        throw std::invalid_argument("empty pol");
       }
       Polygon polygon;
       inp >> polygon;
@@ -239,7 +239,7 @@
       std::cout << counter << "\n";
     }
 
-    void doRightshapes(std::istream &, const std::vector< Polygon > &pol, std::ostream &)
+    void doRightshapes(std::istream &, const std::vector< Polygon > &pol)
     {
       size_t count = 0;
       for (const Polygon& polygon : pol)

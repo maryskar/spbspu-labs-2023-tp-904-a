@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     return 1;
   }
   aksenov::Polygon polygon;
-  std::map< std::string, void (*)(std::istream&, const std::vector< aksenov::Polygon >&, std::ostream &) > commands;
+  std::map< std::string, void (*)(std::istream&, const std::vector< aksenov::Polygon >&) > commands;
   aksenov::makeDict(commands);
   std::string command = "";
 
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     {
       if (commands.find(command) != commands.end())
       {
-        commands[command](std::cin, data, std::cout);
+        commands[command](std::cin, data);
       }
     }
     catch (const std::exception &e)
