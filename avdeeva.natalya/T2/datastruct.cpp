@@ -54,7 +54,7 @@ std::istream & avdeeva::operator>>(std::istream & in, DataStruct & dest)
       in.setstate(std::ios::failbit);
     }
   }
-  in >> DelimiterIO{':'} >> DelimiterIO{')'};
+  in >> LabelIO{":)"};
   if (in)
   {
     dest = DataStruct{key1, key2, key3};

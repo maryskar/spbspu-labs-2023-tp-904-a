@@ -45,7 +45,7 @@ std::istream & avdeeva::operator>>(std::istream & in, UnsignedLongLongIO && dest
   {
     return in;
   }
-  return in >> dest.num >> DelimiterIO{'u'} >> DelimiterIO{'l'} >> DelimiterIO{'l'};
+  return in >> dest.num >> LabelIO{"ull"};
 }
 std::string avdeeva::convertToScientific(double number)
 {
