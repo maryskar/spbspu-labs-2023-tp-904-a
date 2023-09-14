@@ -73,7 +73,7 @@
       {
         if (command == "1" || command == "2" || command == "0")
         {
-          throw;
+          throw std::invalid_argument("invalid input");
         }
         else
         {
