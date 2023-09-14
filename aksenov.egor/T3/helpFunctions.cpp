@@ -1,10 +1,38 @@
 #include "helpFunctions.h"
 #include <vector>
 #include <cmath>
+#include <iostream>
+#include <fstream>
+#include <limits>
 #include "polygon.h"
 
 namespace aksenov
 {
+  void outInvalidCommand(std::ostream &out)
+  {
+    out << "<INVALID COMMAND>" << "\n";
+  }
+
+  bool getShapes(std::vector< aksenov::Polygon > &shapesArray, std::string fileName)
+  {
+    std::ifstream in(fileName);
+    if (!in.is_open())
+    {
+      std::cout << "cant open file" << "\n";
+      return false;
+    }
+    while (!in.eof())
+    {
+      std::copy(std::istream_iterator< aksenov::Polygon >(in), std::istream_iterator< aksenov::Polygon >(), std::back_inserter(shapesArray));
+      if (in.fail() && !in.eof())
+      {
+        in.clear();
+        in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      }
+    }
+    return true;
+  }
+
   std::vector< double > getArea(const std::vector<Polygon> &pol)
   {
     std::vector< double > areas;
@@ -41,11 +69,6 @@ namespace aksenov
     return (*p == 0);
   }
 
-  bool isNotEqual(const Polygon &pol, size_t num)
-  {
-    return pol.points.size() != num;
-  }
-
   bool isEqual(const Polygon &pol, size_t amount)
   {
     return pol.points.size() == amount;
@@ -69,7 +92,8 @@ namespace aksenov
 
   bool isSame(const Polygon& lhs, const Polygon& rhs)
   {
-    if (lhs.points.size() != rhs.points.size()) {
+    if (lhs.points.size() != rhs.points.size())
+    {
       return false;
     }
 

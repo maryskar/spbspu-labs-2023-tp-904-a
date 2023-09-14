@@ -33,8 +33,7 @@
     {
       if (pol.empty())
       {
-        std::cout << "<INVALID COMMAND>" << "\n";
-        return;
+        throw std::invalid_argument("invalid argument");
       }
       std::vector< double > areas = getArea(pol);
       double area = std::accumulate(areas.begin(), areas.end(), 0);
@@ -53,7 +52,7 @@
       std::cout << std::fixed << std::setprecision(1) << res << "\n";
     }
 
-    void doArea(std::istream &inp, const std::vector< Polygon > &pol)
+    void doArea(std::istream &inp, const std::vector< Polygon > &pol, std::ostream &out)
     {
       std::string command = "";
       inp >> command;
@@ -74,7 +73,7 @@
       {
         if (command == "1" || command == "2" || command == "0")
         {
-          std::cout << "<INVALID COMMAND>" << "\n";
+          outInvalidCommand(out);
         }
         else
         {
@@ -83,7 +82,7 @@
       }
       else
       {
-        std::cout << "<INVALID COMMAND>" << "\n";
+        outInvalidCommand(out);
       }
     }
 
@@ -91,8 +90,7 @@
     {
       if (pol.empty())
       {
-        std::cout << "<INVALID COMMAND>" << "\n";
-        return;
+        throw std::invalid_argument("empty polygon");
       }
       std::vector< double > areas = getArea(pol);
       double maxElemen = *std::max_element(areas.begin(), areas.end());
@@ -103,8 +101,7 @@
     {
       if (pol.empty())
       {
-        std::cout << "<INVALID COMMAND>" << "\n";
-        return;
+        throw std::invalid_argument("empty polygon");
       }
       std::vector< Polygon > pols = pol;
       std::vector< size_t > amountsOfVertexes;
@@ -117,7 +114,7 @@
       std::copy(maxVertIter, maxVertIter + 1, out);
     }
 
-    void doMax(std::istream &inp, const std::vector< Polygon > &pol)
+    void doMax(std::istream &inp, const std::vector< Polygon > &pol, std::ostream &out)
     {
       std::string command = "";
       inp >> command;
@@ -131,7 +128,7 @@
       }
       else
       {
-        std::cout << "<INVALID COMMAND>";
+        outInvalidCommand(out);
       }
     }
 
@@ -156,7 +153,7 @@
       std::copy(minVertIter, minVertIter + 1, out);
     }
 
-    void doMin(std::istream &inp, const std::vector< Polygon > &pol)
+    void doMin(std::istream &inp, const std::vector< Polygon > &pol, std::ostream &out)
     {
       std::string command = "";
       inp >> command;
@@ -170,7 +167,7 @@
       }
       else
       {
-        std::cout << "<INVALID COMMAND>" << "\n";
+        outInvalidCommand(out);
       }
     }
 
@@ -188,22 +185,6 @@
       std::cout << res << "\n";
     }
 
-    /*void doCountVertexes(std::string command, const std::vector< Polygon > &pol)
-    {
-      std::vector< Polygon > pols = pol;
-      size_t amount = std::stoull(command);
-      size_t count = 0;
-
-      for (const Polygon& polygon : pols)
-      {
-        if (polygon.points.size() == amount)
-        {
-          count++;
-        }
-      }
-
-      std::cout << count << "\n";
-    }*/
     void doCountVertexes(std::string command, const std::vector< Polygon > &pol)
     {
       std::vector< Polygon > pols = pol;
@@ -213,7 +194,7 @@
       std::cout << res << "\n";
     }
 
-    void doCount(std::istream &inp, const std::vector< Polygon >&pol)
+    void doCount(std::istream &inp, const std::vector< Polygon >&pol, std::ostream &out)
     {
       std::string command = "";
       inp >> command;
@@ -229,7 +210,7 @@
       {
         if (command == "1" || command == "2" || command == "0")
         {
-          std::cout << "<INVALID COMMAND>" << "\n";
+          outInvalidCommand(out);
         }
         else
         {
@@ -238,11 +219,11 @@
       }
       else
       {
-        std::cout << "<INVALID COMMAND>" << "\n";
+        outInvalidCommand(out);
       }
     }
 
-    void doSame(std::istream &inp, const std::vector< Polygon > &pol)
+    void doSame(std::istream &inp, const std::vector< Polygon > &pol, std::ostream &)
     {
       if (pol.size() == 0 || pol.size() == 1)
       {
@@ -258,7 +239,7 @@
       std::cout << counter << "\n";
     }
 
-    void doRightshapes(std::istream &, const std::vector< Polygon > &pol)
+    void doRightshapes(std::istream &, const std::vector< Polygon > &pol, std::ostream &)
     {
       size_t count = 0;
       for (const Polygon& polygon : pol)
