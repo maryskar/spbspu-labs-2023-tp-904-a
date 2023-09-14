@@ -2,6 +2,7 @@
 #include <iterator>
 #include <algorithm>
 #include "IOStructs.h"
+#include "IOFmtGuard.h"
 
 namespace nesterov
 {
@@ -52,6 +53,12 @@ namespace nesterov
       points,
       std::back_inserter(input.points)
     );
+    IOFmtGuard iofmtguard(in);
+    in >> std::noskipws >> DelimiterIO{'\n'};
+    if (in.eof())
+    {
+      in.clear();
+    }
     if (in)
     {
       rhs.points.swap(input.points);
