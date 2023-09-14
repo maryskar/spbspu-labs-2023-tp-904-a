@@ -2,13 +2,10 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
-#include <limits>
 #include <map>
 #include <stdexcept>
 #include <string>
-#include <vector>
 #include "cleanStream.h"
-#include "commands.h"
 #include "mapWithCommands.h"
 #include "polygon.h"
 
