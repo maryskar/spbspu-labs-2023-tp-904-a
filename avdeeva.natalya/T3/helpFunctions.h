@@ -8,5 +8,6 @@ namespace avdeeva
   bool isNumOfVerts(const Polygon & pol, size_t num);
   bool compArea(const Polygon & lhs, const Polygon & rhs);
   bool compSize(const Polygon & lhs, const Polygon & rhs);
+  double getDist(const Point & lhs, const Point & rhs);
 }
 #endif

@@ -19,3 +19,7 @@ bool avdeeva::compSize(const Polygon & lhs, const Polygon & rhs)
 {
   return (lhs.points.size() < rhs.points.size());
 }
+double avdeeva::getDist(const Point & lhs, const Point & rhs)
+{
+  return std::sqrt(std::pow(std::abs(lhs.x - rhs.x), 2) + std::pow(std::abs(lhs.y - rhs.y), 2));
+}
