@@ -50,3 +50,14 @@ std::istream& operator>>(std::istream& in, SllIO&& ref)
   return in;
 }
 
+std::istream& operator>>(std::istream& in, StringIO&& ref)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  getline(in >> DelimiterIO{ '"' }, ref.ref, '"');
+  return in;
+
+}
