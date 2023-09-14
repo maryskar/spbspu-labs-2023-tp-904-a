@@ -8,17 +8,18 @@ namespace mashkin
   struct Point
   {
     int x, y;
-    bool operator==(const Point& rhs) const;
-    bool operator<(const Point& rhs);
   };
 
   struct Polygon
   {
     std::vector< Point > points;
-    bool operator<(const Polygon& rhs);
   };
 
   std::istream& operator>>(std::istream& inp, Point& point);
   std::istream& operator>>(std::istream& inp, Polygon& dest);
+
+  bool operator<(const Polygon& lhs, const Polygon& rhs);
+  bool operator==(const Point& lhs, const Point& rhs);
+  bool operator<(const Point& lhs, const Point& rhs);
 }
 #endif

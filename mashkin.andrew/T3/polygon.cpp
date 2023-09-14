@@ -44,22 +44,22 @@ namespace mashkin
     return inp;
   }
 
-  bool Polygon::operator<(const Polygon& rhs)
+  bool operator<(const Polygon& lhs, const Polygon& rhs)
   {
-    return points.size() < rhs.points.size();
+    return lhs.points.size() < rhs.points.size();
   }
 
-  bool Point::operator<(const Point& rhs)
+  bool operator<(const Point& lhs, const Point& rhs)
   {
-    if (x == rhs.x)
+    if (lhs.x == rhs.x)
     {
-      return y < rhs.y;
+      return lhs.y < rhs.y;
     }
-    return x < rhs.x;
+    return lhs.x < rhs.x;
   }
 
-  bool Point::operator==(const Point& rhs) const
+  bool operator==(const Point& lhs, const Point& rhs)
   {
-    return (x == rhs.x && y == rhs.y);
+    return (lhs.x == rhs.x && lhs.y == rhs.y);
   }
 }
