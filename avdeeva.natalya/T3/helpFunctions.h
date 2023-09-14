@@ -9,5 +9,6 @@ namespace avdeeva
   bool compArea(const Polygon & lhs, const Polygon & rhs);
   bool compSize(const Polygon & lhs, const Polygon & rhs);
   double getDist(const Point & lhs, const Point & rhs);
+  bool isRightTriangle(const Point & lhs, const Point & rhs, const Point & third);
 }
 #endif

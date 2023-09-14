@@ -23,3 +23,11 @@ double avdeeva::getDist(const Point & lhs, const Point & rhs)
 {
   return std::sqrt(std::pow(std::abs(lhs.x - rhs.x), 2) + std::pow(std::abs(lhs.y - rhs.y), 2));
 }
+bool avdeeva::isRightTriangle(const Point & first, const Point & second, const Point & third)
+{
+  double side12 = getDist(first, second);
+  double side23 = getDist(second, third);
+  double side13 = getDist(first, third);
+  double checkSide = std::sqrt(std::pow(side12, 2) + std::pow(side23, 2));
+  return checkSide == side13;
+}
