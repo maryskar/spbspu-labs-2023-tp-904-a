@@ -39,17 +39,24 @@ int main(int argc, char **argv)
       {
         commands[command](std::cin, data);
       }
+      else
+      {
+        throw std::logic_error("error");
+      }
     }
-    catch (const std::exception &e)
+    catch (const std::logic_error &e)
     {
-      std::cin.setstate(std::istream::failbit);
       aksenov::outInvalidCommand(std::cout);
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
-    if(std::cin.fail())
+    catch (const std::runtime_error &e)
     {
-        aksenov::outInvalidCommand(std::cout);
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      break;
+    }
+    catch (...)
+    {
+      break;
     }
   }
   return 0;
