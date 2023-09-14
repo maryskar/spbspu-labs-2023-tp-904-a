@@ -38,3 +38,15 @@ std::istream& operator>>(std::istream& in, DblIO&& ref)
   ref.ref = c;
   return in;
 }
+
+std::istream& operator>>(std::istream& in, SllIO&& ref)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  in >> ref.ref >> DelimiterIO{ 'l' } >> DelimiterIO{ 'l' };
+  return in;
+}
+
