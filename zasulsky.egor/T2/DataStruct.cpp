@@ -10,7 +10,7 @@ std::ostream& operator<<(std::ostream& out, const dataStruct& ref)
   }
   for (int i = 1; i < 4; i++)
   {
-    out << DelimiterIO{ '(' } << DelimiterIO{ ':' } << "key" << i << DelimiterIO{ ' ' } << ref.key1;
+    out << DelimiterIO{ '(' } << DelimiterIO{ ':' } << "key" << i << DelimiterIO{ ' ' } << ref.keyi;
   }
   return out << DelimiterIO{ ':' } << DelimiterIO{ ')' };
 }
@@ -60,11 +60,11 @@ bool compare(dataStruct& lhs, dataStruct& rhs)
   {
     return 1;
   }
-  else if (rhs.key1 == rhs.key1)
+  else if (lhs.key1 == rhs.key1)
   {
-    if (rhs.key2 == rhs.key2)
+    if (lhs.key2 == rhs.key2)
     {
-      return rhs.key3 > rhs.key3;
+      return lhs.key3 > rhs.key3;
     }
     return rhs.key2 > lhs.key2;
   }
