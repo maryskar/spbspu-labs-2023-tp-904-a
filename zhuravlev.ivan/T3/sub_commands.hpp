@@ -4,6 +4,8 @@
 
 namespace zhuravlev
 {
+  size_t getNumberOfVertexes(const Polygon& polygon);
+  bool isCountOfVertexes(const Polygon& polygon, const size_t num_of_vertexes);
   double getSide(const Point& lhs, const Point& rhs);
   double getArea(const Polygon& polygons);
   bool isEven(const Polygon& polygons);

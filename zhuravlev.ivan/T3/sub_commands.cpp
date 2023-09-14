@@ -2,23 +2,28 @@
 #include <algorithm>
 #include <numeric>
 #include <iomanip>
+#include <functional>
 #include "iofmtguard.hpp"
 
 namespace zhuravlev
 {
+  size_t getNumberOfVertexes(const Polygon& polygon)
+  {
+    return polygon.points.size();
+  }
   bool isCountOfVertexes(const Polygon& polygon, const size_t num_of_vertexes)
   {
     return polygon.points.size() == num_of_vertexes;
   }
   double getSide(const Point& lhs, const Point& rhs)
   {
-    return lhs.x * rhs.y - lhs.y * rhs.x;
+    return ((lhs.x * rhs.y) - (lhs.y * rhs.x));
   }
   double getArea(const Polygon& polygon)
   {
     double area = 0.0;
     std::vector< int > sides(polygon.points.size());
-    std::transform(polygon.points.begin(), polygon.points.end() - 1, polygon.points.begin()++, std::back_inserter(sides), getSide);
+    std::transform(polygon.points.begin(), --polygon.points.end(), ++polygon.points.begin(), std::back_inserter(sides), getSide);
     area = std::accumulate(sides.begin(), sides.end(), 0.0);
     area += getSide(polygon.points.back(), polygon.points.front());
     return std::abs(area * 0.5);
@@ -34,7 +39,7 @@ namespace zhuravlev
   void countOdd(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     iofmtguard iofmtguard(out);
-    out << std::count_if(polygons.begin(), polygons.end(), isOdd);
+    out << std::count_if(polygons.begin(), polygons.end(), isOdd) << "\n";
   }
   void countEven(const std::vector< Polygon >& polygons, std::ostream& out)
   {
@@ -68,7 +73,7 @@ namespace zhuravlev
     std::vector< double > areas(polygons.size());
     std::transform(polygons.begin(), polygons.end(), areas.begin(), getArea);
     iofmtguard iofmtguard(out);
-    out << ((std::accumulate(areas.begin(), areas.end(), 0.0)) / (areas.size()));
+    out << ((std::accumulate(areas.begin(), areas.end(), 0.0)) / (areas.size())) << "\n";
   }
   void AreaVertexes(const std::vector< Polygon >& polygons, size_t num_of_vertexes, std::ostream& out)
   {
@@ -76,7 +81,7 @@ namespace zhuravlev
     std::vector< Polygon > needed_values(polygons.size());
     std::copy_if(polygons.begin(), polygons.end(), needed_values.begin(), std::bind(isCountOfVertexes, _1, num_of_vertexes));
     std::vector< double > needed_area(needed_area.size());
-    std::transform(needed_area.begin(), needed_area.end(), needed_values.begin(), getArea);
+    std::transform(needed_values.begin(), needed_values.end(), needed_area.begin(), getArea);
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(needed_area.begin(), needed_area.end(), 0.0);
   }
@@ -90,12 +95,12 @@ namespace zhuravlev
     std::transform(polygons.begin(), polygons.end(), std::back_inserter(all_areas), getArea);
     std::sort(all_areas.begin(), all_areas.end());
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << all_areas.back();
+    out << std::fixed << std::setprecision(1) << all_areas[-1] << "\n";
   }
   void MaxVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     std::vector< size_t > vertexes(polygons.size());
-    std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), polygons.size());
+    std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), getNumberOfVertexes);
     std::sort(vertexes.begin(), vertexes.end());
     iofmtguard iofmtguard(out);
     out << vertexes.back();
@@ -110,12 +115,12 @@ namespace zhuravlev
     std::transform(polygons.begin(), polygons.end(), std::back_inserter(all_areas), getArea);
     std::sort(all_areas.begin(), all_areas.end());
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << all_areas.front();
+    out << std::fixed << std::setprecision(1) << all_areas.front() << "\n";
   }
   void MinVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     std::vector< size_t > vertexes(polygons.size());
-    std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), polygons.size());
+    std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), getNumberOfVertexes);
     std::sort(vertexes.begin(), vertexes.end());
     iofmtguard iofmtguard(out);
     out << vertexes.front();
@@ -123,6 +128,6 @@ namespace zhuravlev
   void countVertexes(const std::vector< Polygon >& polygons, const size_t num_of_vertexes, std::ostream& out)
   {
     iofmtguard iofmtguard(out);
-    out << std::count_if(polygons.begin(), polygons.end(), num_of_vertexes);
+    out << std::count_if(polygons.begin(), polygons.end(), getNumberOfVertexes);
   }
 }
