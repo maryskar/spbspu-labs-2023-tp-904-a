@@ -15,5 +15,6 @@ namespace avdeeva
   size_t findMaxVerts(const std::deque< Polygon > & polygons);
   double findMinArea(const std::deque< Polygon > & polygons);
   size_t findMinVerts(const std::deque< Polygon > & polygons);
+  size_t countRightShapes(const std::deque< Polygon > & polygons);
 }
 #endif

@@ -90,3 +90,8 @@ size_t avdeeva::findMinVerts(const std::deque< Polygon > & polygons)
 {
   return findMin< size_t >(polygons, compSize, size);
 }
+size_t avdeeva::countRightShapes(const std::deque< Polygon > & polygons)
+{
+  int res = std::count_if(polygons.begin(), polygons.end(), isRightshape);
+  return res;
+}
