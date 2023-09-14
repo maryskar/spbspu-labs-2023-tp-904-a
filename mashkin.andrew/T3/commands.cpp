@@ -257,7 +257,6 @@ namespace mashkin
     inp >> comp;
     if (inp.fail())
     {
-      inp.clear();
       throw std::logic_error("Logic error");
     }
     std::sort(comp.points.begin(), comp.points.end());
