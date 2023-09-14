@@ -48,6 +48,12 @@ namespace kryuchkova
   }
 
   template< typename P >
+  void countIf(const std::vector< Polygon > & polygon, std::ostream & out, P p)
+  {
+    out << std::count_if(polygon.begin(), polygon.end(), p) << '\n';
+  }
+
+  template< typename P >
   double getMaxOrMinArea(const std::vector< Polygon > & polygon, P p)
   {
     std::vector< Polygon >::const_iterator temp = std::max_element(polygon.cbegin(), polygon.cend(), p);
@@ -129,7 +135,23 @@ namespace kryuchkova
     out << std::fixed << std::setprecision(1) << getMaxOrMinArea(polygon, std::bind(isLessVer, _2, _1)) << '\n';
   }
 
-  void printCountEven(const std::vector< Polygon > & polygon, std::ostream & out);
-  void printCountOdd(const std::vector< Polygon > & polygon, std::ostream & out);
-  void printCountNumOfVer(const std::vector< Polygon > & polygon, std::ostream & out, size_t num);
+  void printCountEven(const std::vector< Polygon > & polygon, std::ostream & out)
+  {
+    countIf(polygon, out, isEven);
+  }
+
+  void printCountOdd(const std::vector< Polygon > & polygon, std::ostream & out)
+  {
+    countIf(polygon, out, isOdd);
+  }
+
+  void printCountNumOfVer(const std::vector< Polygon > & polygon, std::ostream & out, size_t num)
+  {
+    if (num < 3)
+    {
+      throw std::invalid_argument("INVALID COMMAND");
+    }
+    using namespace std::placeholders;
+    countIf(polygon, out, std::bind(isEqualNum, _1, num));
+  }
 }
