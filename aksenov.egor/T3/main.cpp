@@ -40,14 +40,9 @@ int main(int argc, char **argv)
         commands[command](std::cin, data, std::cout);
       }
     }
-    catch (const std::logic_error &e)
+    catch (const std::exception &e)
     {
-      std::cin.setstate(std::ios::failbit);
-      break;
-    }
-    catch (const std::invalid_argument &e)
-    {
-      break;
+      std::cin.setstate(std::istream::failbit);
     }
     if(std::cin.fail())
     {
