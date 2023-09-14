@@ -28,11 +28,11 @@ int main(int argc, char** argv)
       return 1;
     }
   }
-  std::vector< mashkin::Polygon > res;
+  std::vector< mashkin::Polygon > polygons;
   using inpIter = std::istream_iterator< mashkin::Polygon >;
   while (!inpFile.eof())
   {
-    std::copy(inpIter(inpFile), inpIter(), std::back_inserter(res));
+    std::copy(inpIter(inpFile), inpIter(), std::back_inserter(polygons));
     if (inpFile.fail())
     {
       mashkin::cleanStream(inpFile);
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
     {
       if (commands.find(command) != commands.end())
       {
-        commands[command](std::cin, res);
+        commands[command](std::cin, polygons);
       }
       else
       {
