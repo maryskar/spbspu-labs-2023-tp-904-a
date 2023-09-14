@@ -81,16 +81,15 @@ namespace mashkin
     return PositiveArea(lhs);
   }
 
-  NegativeArea::NegativeArea(const Polygon& lhs, const Polygon& rhs)
+  NegativeArea::NegativeArea(const Polygon& lhs)
   {
-    std::transform(++lhs.points.begin(), lhs.points.end(), rhs.points.begin(), std::back_inserter(halfArea), solveXY);
-    std::transform(lhs.points.begin(), ++lhs.points.begin(), --rhs.points.end(), std::back_inserter(halfArea), solveXY);
+    std::transform(++lhs.points.begin(), lhs.points.end(), lhs.points.begin(), std::back_inserter(halfArea), solveXY);
+    std::transform(lhs.points.begin(), ++lhs.points.begin(), --lhs.points.end(), std::back_inserter(halfArea), solveXY);
   }
 
   NegativeArea calcNegativeArea(const Polygon& lhs)
   {
-    auto rhs = lhs;
-    return NegativeArea(lhs, rhs);
+    return NegativeArea(lhs);
   }
 
   FullArea::FullArea(const PositiveArea& first, const NegativeArea& second)

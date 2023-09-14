@@ -23,7 +23,7 @@ namespace mashkin
 
   struct NegativeArea
   {
-    NegativeArea(const Polygon& lhs, const Polygon& rhs);
+    NegativeArea(const Polygon& lhs);
     std::vector< XMultiY > halfArea;
   };
 
