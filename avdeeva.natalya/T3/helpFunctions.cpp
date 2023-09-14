@@ -1,4 +1,7 @@
 #include "helpFunctions.h"
+#include <algorithm>
+#include <functional>
+#include <cmath>
 bool avdeeva::isOdd(const Polygon & pol)
 {
   return (size(pol) % 2);
@@ -30,4 +33,22 @@ bool avdeeva::isRightTriangle(const Point & first, const Point & second, const P
   double side13 = getDist(first, third);
   double checkSide = std::sqrt(std::pow(side12, 2) + std::pow(side23, 2));
   return checkSide == side13;
+}
+bool avdeeva::checkTriangle(Point & first, Point & second, const Point & third)
+{
+  bool isRight = isRightTriangle(first, second, third);
+  first = second;
+  second = third;
+  return isRight;
+}
+bool avdeeva::isRightshape(const Polygon & polygon)
+{
+  Point first = polygon.points.at(polygon.points.size() - 2);
+  Point second = polygon.points.at(polygon.points.size() - 1);
+  auto begin = polygon.points.begin();
+  auto end = polygon.points.end();
+  using namespace std::placeholders;
+  auto checkPoint = std::bind(checkTriangle, first, second, _1);
+  size_t countRightTriangles = std::count_if(begin, end, checkPoint);
+  return (counterRight > 0);
 }
