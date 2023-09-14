@@ -33,7 +33,7 @@ std::istream & avdeeva::operator>>(std::istream & in, DataStruct & dest)
   in >> DelimiterIO{'('};
   while (!(inKey1 && inKey2 && inKey3) && in.good())
   {
-    in >> DelimiterIO{':'} >> LabelIO{"key"} >> number;
+    in >> LabelIO{":key"} >> number;
     if (number == 1 && !inKey1)
     {
       in >> DoubleIO{key1};
