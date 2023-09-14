@@ -15,4 +15,6 @@ struct dataStruct
 std::istream& operator>>(std::istream& in, dataStruct& ref);
 std::ostream& operator<<(std::ostream& out, const dataStruct& ref);
 
+bool compare(dataStruct& lhs, dataStruct& rhs);
+
 #endif
