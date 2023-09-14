@@ -17,12 +17,10 @@ double avdeeva::calcAreaOdd(const std::deque< Polygon > & polygons)
 {
   return calcArea(polygons, isOdd);
 }
-
 double avdeeva::calcAreaEven(const std::deque< Polygon > & polygons)
 {
   return calcArea(polygons, isEven);
 }
-
 double avdeeva::calcAreaMean(const std::deque< Polygon > & polygons)
 {
   if (polygons.empty())
@@ -48,7 +46,6 @@ size_t counter(const std::deque< Polygon > & polygons, Pred p)
 {
   return std::count_if(polygons.begin(), polygons.end(), p);
 }
-
 size_t avdeeva::counterEven(const std::deque< Polygon > & polygons)
 {
   return counter(polygons, isEven);
@@ -62,4 +59,21 @@ size_t avdeeva::counterVertexes(const std::deque< Polygon > & polygons, size_t n
   using namespace std::placeholders;
   auto pred = std::bind(isNumOfVerts, _1, num);
   return counter(polygons, pred);
+}
+template<typename T, typename Func, typename Comp>
+T findMax(const std::deque< avdeeva::Polygon > & polygons, Comp comp, Func func)
+{
+  if (polygons.empty())
+  {
+    throw std::logic_error("Empty vector of polygons");
+  }
+  return func(*std::max_element(polygons.begin(), polygons.end(), comp));
+}
+double avdeeva::findMaxArea(const std::deque< Polygon> & polygons)
+{
+  return findMax< double >(polygons, compArea, getArea);
+}
+size_t avdeeva::findMaxVerts(const std::deque< Polygon > & polygons)
+{
+  return findMax< size_t >(polygons, compSize, size);
 }
