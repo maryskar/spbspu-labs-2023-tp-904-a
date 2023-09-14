@@ -59,5 +59,18 @@ std::istream& operator>>(std::istream& in, StringIO&& ref)
   }
   getline(in >> DelimiterIO{ '"' }, ref.ref, '"');
   return in;
+}
 
+std::istream& operator>>(std::istream& in, LabelIO&& ref)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  for (size_t i = 0; i < ref.exp.size(); i++)
+  {
+    in >> DelimiterIO{ ref.exp[i] };
+  }
+  return in;
 }
