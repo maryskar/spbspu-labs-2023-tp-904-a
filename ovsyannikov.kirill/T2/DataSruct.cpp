@@ -1,7 +1,8 @@
+#include "DataStruct.h"
+
 #include <iomanip>
 #include <limits>
 
-#include "DataStruct.h"
 #include "FormatGuard.h"
 #include "TypesIO.h"
 
@@ -85,8 +86,7 @@ std::ostream& ovsyannikov::operator<<(std::ostream& out, const DataStruct& src)
 
   out << "(:";
   out << "key1" << ' ' << "0x" << std::hex << std::uppercase << src.key1 << ':';
-  out << "key2"
-      << " '" << src.key2 << "':";
+  out << "key2" << " '" << src.key2 << "':";
   out << "key3" << ' ' << '"' << src.key3 << '"' << ':';
   out << ')';
   return out;

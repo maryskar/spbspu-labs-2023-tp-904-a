@@ -36,6 +36,5 @@ namespace ovsyannikov
   std::istream& operator>>(std::istream& in, ULongLongIO&& dest);
   std::istream& operator>>(std::istream& in, CharIO&& dest);
 
-  // std::ostream& operator<<(std::ostream& out, const DoubleO&& dest);
 }
 #endif
