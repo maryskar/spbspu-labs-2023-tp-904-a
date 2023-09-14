@@ -25,3 +25,16 @@ std::ostream& operator<<(std::ostream& out, const DelimiterIO& data)
   }
   return out << data.exp;
 }
+
+std::istream& operator>>(std::istream& in, DblIO&& ref)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  double c = 0;
+  in >> std::scientific >> c;
+  ref.ref = c;
+  return in;
+}
