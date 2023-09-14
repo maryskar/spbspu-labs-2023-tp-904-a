@@ -43,6 +43,7 @@ int main(int argc, char **argv)
     catch (const std::exception &e)
     {
       std::cin.setstate(std::istream::failbit);
+      aksenov::outInvalidCommand(std::cout);
     }
     if(std::cin.fail())
     {
