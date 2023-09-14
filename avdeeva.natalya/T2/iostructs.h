@@ -25,11 +25,11 @@ namespace avdeeva
   {
     std::string exp;
   };
-  std::istream & operator>>(std::istream& in, DelimiterIO&& dest);
-  std::istream & operator>>(std::istream& in, LabelIO&& dest);
-  std::istream & operator>>(std::istream& in, StringIO&& dest);
-  std::istream & operator>>(std::istream& in, UnsignedLongLongIO&& dest);
+  std::istream & operator>>(std::istream& in, DelimiterIO && dest);
+  std::istream & operator>>(std::istream& in, LabelIO && dest);
+  std::istream & operator>>(std::istream& in, StringIO && dest);
+  std::istream & operator>>(std::istream& in, UnsignedLongLongIO && dest);
   std::string convertToScientific(double number);
-  std::istream & operator>>(std::istream& in, DoubleIO&& dest);
+  std::istream & operator>>(std::istream& in, DoubleIO && dest);
 }
 #endif
