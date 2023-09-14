@@ -1,3 +1,4 @@
+#include <deque>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -28,7 +29,7 @@ int main(int argc, char** argv)
       return 1;
     }
   }
-  std::vector< mashkin::Polygon > polygons;
+  std::deque< mashkin::Polygon > polygons;
   using inpIter = std::istream_iterator< mashkin::Polygon >;
   while (!inpFile.eof())
   {
@@ -38,7 +39,7 @@ int main(int argc, char** argv)
       mashkin::cleanStream(inpFile);
     }
   }
-  std::map< std::string, void (*)(std::istream&, const std::vector< mashkin::Polygon >&) > commands;
+  std::map< std::string, void (*)(std::istream&, const std::deque< mashkin::Polygon >&) > commands;
   commands = mashkin::createMapWithCommands();
   std::string command;
   while (!std::cin.eof())

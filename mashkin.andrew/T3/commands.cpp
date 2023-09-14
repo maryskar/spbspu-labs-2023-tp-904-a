@@ -15,36 +15,36 @@ namespace mashkin
 {
   using namespace std::placeholders;
   using pol = Polygon;
-  using vecPol = std::vector< pol >;
+  using dequeWithPolygon = std::deque< pol >;
   using farea = FullArea;
   using vecFArea = std::vector< farea >;
   using outIter = std::ostream_iterator< farea >;
 
   constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
 
-  void runEven(const vecPol& res)
+  void runEven(const dequeWithPolygon& res)
   {
-    vecPol data = res;
-    vecPol::iterator it = std::partition(data.begin(), data.end(), isEven);
+    dequeWithPolygon data = res;
+    dequeWithPolygon::iterator it = std::partition(data.begin(), data.end(), isEven);
     vecFArea areas = getFullArea(data.begin(), it);
     vecFArea sumArea;
     sumArea.push_back(std::accumulate(areas.begin(), areas.end(), farea()));
     std::copy(sumArea.begin(), sumArea.end(), outIter(std::cout, "\n"));
   }
 
-  void runOdd(const vecPol& res)
+  void runOdd(const dequeWithPolygon& res)
   {
-    vecPol data = res;
-    vecPol::iterator it = std::partition(data.begin(), data.end(), isOdd);
+    dequeWithPolygon data = res;
+    dequeWithPolygon::iterator it = std::partition(data.begin(), data.end(), isOdd);
     vecFArea areas = getFullArea(data.begin(), it);
     vecFArea sumArea;
     sumArea.push_back(std::accumulate(areas.begin(), areas.end(), farea()));
     std::copy(sumArea.begin(), sumArea.end(), outIter(std::cout, "\n"));
   }
 
-  void runMean(const vecPol& res)
+  void runMean(const dequeWithPolygon& res)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     size_t quntity = res.size();
     vecFArea areas = getFullArea(data.begin(), data.end());
     vecFArea sumArea;
@@ -53,18 +53,18 @@ namespace mashkin
     std::copy(sumArea.begin(), sumArea.end(), outIter(std::cout, "\n"));
   }
 
-  void runAreaNumOfVertexes(const vecPol& res, const std::string& num)
+  void runAreaNumOfVertexes(const dequeWithPolygon& res, const std::string& num)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     size_t count = std::stoull(num);
-    vecPol::iterator it = std::partition(data.begin(), data.end(), std::bind(isEqual, _1, count));
+    dequeWithPolygon::iterator it = std::partition(data.begin(), data.end(), std::bind(isEqual, _1, count));
     vecFArea areas = getFullArea(data.begin(), it);
     vecFArea sumArea;
     sumArea.push_back(std::accumulate(areas.begin(), areas.end(), farea()));
     std::copy(sumArea.begin(), sumArea.end(), outIter(std::cout, "\n"));
   }
 
-  void runArea(std::istream& inp, const vecPol& res)
+  void runArea(std::istream& inp, const dequeWithPolygon& res)
   {
     std::string command;
     inp >> command;
@@ -104,23 +104,23 @@ namespace mashkin
     }
   }
 
-  void runMaxArea(const vecPol& res)
+  void runMaxArea(const dequeWithPolygon& res)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     vecFArea areas = getFullArea(data.begin(), data.end());
     std::sort(areas.begin(), areas.end());
     std::copy(--areas.end(), areas.end(), outIter(std::cout, "\n"));
   }
 
-  void runMaxVertexes(const vecPol& res)
+  void runMaxVertexes(const dequeWithPolygon& res)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     std::sort(data.begin(), data.end());
-    vecPol::iterator it = --data.end();
+    dequeWithPolygon::iterator it = --data.end();
     std::cout << it->points.size() << "\n";
   }
 
-  void runMax(std::istream& inp, const std::vector< mashkin::Polygon >& data)
+  void runMax(std::istream& inp, const dequeWithPolygon& data)
   {
     std::string command;
     inp >> command;
@@ -142,23 +142,23 @@ namespace mashkin
     }
   }
 
-  void runMinArea(const vecPol& res)
+  void runMinArea(const dequeWithPolygon& res)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     vecFArea areas = getFullArea(data.begin(), data.end());
     std::sort(areas.begin(), areas.end());
     std::copy(areas.begin(), ++areas.begin(), outIter(std::cout, "\n"));
   }
 
-  void runMinVertexes(const vecPol& res)
+  void runMinVertexes(const dequeWithPolygon& res)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     std::sort(data.begin(), data.end());
-    vecPol::iterator it = data.begin();
+    dequeWithPolygon::iterator it = data.begin();
     std::cout << it->points.size() << "\n";
   }
 
-  void runMin(std::istream& inp, const vecPol& res)
+  void runMin(std::istream& inp, const dequeWithPolygon& res)
   {
     std::string command;
     inp >> command;
@@ -180,29 +180,29 @@ namespace mashkin
     }
   }
 
-  void runCountEven(const vecPol& res)
+  void runCountEven(const dequeWithPolygon& res)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     size_t quantity = std::count_if(data.begin(), data.end(), isEven);
     std::cout << quantity << "\n";
   }
 
-  void runCountOdd(const vecPol& res)
+  void runCountOdd(const dequeWithPolygon& res)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     size_t quantity = std::count_if(data.begin(), data.end(), isOdd);
     std::cout << quantity << "\n";
   }
 
-  void runCountNumOfVertexes(const vecPol& res, const std::string& command)
+  void runCountNumOfVertexes(const dequeWithPolygon& res, const std::string& command)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     size_t count = std::stoull(command);
     size_t quantity = std::count_if(data.begin(), data.end(), std::bind(isEqual, _1, count));
     std::cout << quantity << "\n";
   }
 
-  void runCount(std::istream& inp, const vecPol& res)
+  void runCount(std::istream& inp, const dequeWithPolygon& res)
   {
     std::string command;
     inp >> command;
@@ -245,9 +245,9 @@ namespace mashkin
     }
   }
 
-  void runPerms(std::istream& inp, const vecPol& res)
+  void runPerms(std::istream& inp, const dequeWithPolygon& res)
   {
-    vecPol data = res;
+    dequeWithPolygon data = res;
     Polygon comp;
     inp >> comp;
     if (inp.fail())
@@ -261,7 +261,7 @@ namespace mashkin
     std::cout << quantity << "\n";
   }
 
-  void runRightshapes(std::istream&, const vecPol& res)
+  void runRightshapes(std::istream&, const dequeWithPolygon& res)
   {
     size_t quantity = std::count_if(res.begin(), res.end(), isRightShapes);
     std::cout << quantity << "\n";

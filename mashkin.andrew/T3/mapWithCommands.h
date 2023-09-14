@@ -1,5 +1,6 @@
 #ifndef T3_MAPWITHCOMMANDS_H
 #define T3_MAPWITHCOMMANDS_H
+#include <deque>
 #include <map>
 #include <string>
 #include <vector>
@@ -7,8 +8,6 @@
 
 namespace mashkin
 {
-  using vec = std::vector< Polygon >;
-  using commandMap = std::map< std::string, void (*)(std::istream&, const vec&) >;
-  commandMap createMapWithCommands();
+  std::map< std::string, void (*)(std::istream&, const std::deque< Polygon>&) > createMapWithCommands();
 }
 #endif
