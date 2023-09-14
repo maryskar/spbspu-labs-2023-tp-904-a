@@ -61,6 +61,7 @@ int main(int argc, char **argv)
   std::map< std::string, void (*)(std::istream&, const std::vector< aksenov::Polygon >&) > commands;
   aksenov::makeDict(commands);
   std::string command = "";
+
   while(!std::cin.eof())
   {
     std::cin >> command;
