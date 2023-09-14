@@ -8,7 +8,7 @@ std::istream & avdeeva::operator>>(std::istream & in, DelimiterIO && dest)
   {
     return in;
   }
-  char exp = '\0';
+  char exp = '0';
   in >> exp;
   if (in && exp != std::tolower(dest.exp))
   {
