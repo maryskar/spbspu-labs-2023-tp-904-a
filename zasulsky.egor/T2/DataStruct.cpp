@@ -49,8 +49,8 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     }
     in >> DelimiterIO{ ':' };
     in >> DelimiterIO{ ')' };
-    return in;
   }
+  return in;
 }
 
 bool compare(dataStruct& lhs, dataStruct& rhs)
