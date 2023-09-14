@@ -2,9 +2,4 @@
 #define SPBSPU_LABS_2023_TP_904_A_HELPFUNCTIONS_H
 
 
-class helpFunctions {
-
-};
-
-
 #endif
