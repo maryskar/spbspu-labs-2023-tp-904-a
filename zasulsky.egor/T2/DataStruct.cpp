@@ -8,7 +8,7 @@ std::ostream& operator<<(std::ostream& out, const dataStruct& ref)
   {
     return out;
   }
-  out << "(:key1 " << ref.key1;
+  out << "(:key1 " << std::scientific << std::setprecision(1) << ref.key1;
   out << ":key2 " << ref.key2 << "ll";
   out << ":key3 " << ref.key3 << ":" << ")";
   return out;
@@ -29,7 +29,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
   {
     in >> DelimiterIO{ ':' } >> LabelIO{ "key" };
     in >> d;
- 
+
     switch (d)
     {
     case 1:
@@ -37,11 +37,11 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
       break;
 
     case 2:
-      in >>  res.key2 ;
+      in >> res.key2 >> DelimiterIO{ 'l' } >> DelimiterIO{'l'};
       break;
 
     case 3:
-      in >>  res.key3;
+      in >> StringIO{ res.key3 };
       break;
 
     default:
