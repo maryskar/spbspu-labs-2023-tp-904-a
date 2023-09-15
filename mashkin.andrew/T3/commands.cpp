@@ -99,12 +99,13 @@ namespace mashkin
     }
   }
 
-  void runMaxArea(const std::deque< Polygon >& res, std::ostream& out)
+  std::ostream& runMaxArea(const std::deque< Polygon >& res, std::ostream& out)
   {
     std::deque< Polygon > data = res;
     std::vector< FullArea > areas = getFullArea(data.begin(), data.end());
     std::sort(areas.begin(), areas.end());
-    std::copy(--areas.end(), areas.end(), std::ostream_iterator< FullArea >(out, "\n"));
+    out << *(--areas.end());
+    return out;
   }
 
   std::ostream& runMaxVertexes(const std::deque< Polygon >& res, std::ostream& out)
@@ -126,7 +127,7 @@ namespace mashkin
     }
     else if (command == "AREA")
     {
-      runMaxArea(data, out);
+      runMaxArea(data, out) << "\n";
     }
     else if (command == "VERTEXES")
     {
