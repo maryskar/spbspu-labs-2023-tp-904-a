@@ -28,7 +28,7 @@ namespace mashkin
     dequeWithPolygon data = res;
     dequeWithPolygon::iterator it = std::partition(data.begin(), data.end(), p);
     vecFArea areas = getFullArea(data.begin(), it);
-    out << std::accumulate(areas.begin(), areas.end(), farea()).res;
+    out << std::accumulate(areas.begin(), areas.end(), farea());
     return out;
   }
 
