@@ -107,6 +107,11 @@ namespace mashkin
     return out << *(--runMaxOrMinArea(res).end());
   }
 
+  std::ostream& runMinArea(const std::deque< Polygon >& res, std::ostream& out)
+  {
+    return out << *runMaxOrMinArea(res).begin();
+  }
+
   std::deque< Polygon > runMaxOrMinVertexes(const std::deque< Polygon >& res)
   {
     std::deque< Polygon > data = res;
@@ -117,6 +122,11 @@ namespace mashkin
   std::ostream& runMaxVertexes(const std::deque< Polygon >& res, std::ostream& out)
   {
     return out << (--runMaxOrMinVertexes(res).end())->points.size();
+  }
+
+  std::ostream& runMinVertexes(const std::deque< Polygon >& res, std::ostream& out)
+  {
+    return out << runMaxOrMinVertexes(res).begin()->points.size();
   }
 
   void runMax(std::istream& inp, std::ostream& out, const std::deque< Polygon >& data)
@@ -139,16 +149,6 @@ namespace mashkin
     {
       throw std::logic_error("Logic error");
     }
-  }
-
-  std::ostream& runMinArea(const std::deque< Polygon >& res, std::ostream& out)
-  {
-    return out << *runMaxOrMinArea(res).begin();
-  }
-
-  std::ostream& runMinVertexes(const std::deque< Polygon >& res, std::ostream& out)
-  {
-    return out << runMaxOrMinVertexes(res).begin()->points.size();
   }
 
   void runMin(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res)
@@ -256,9 +256,8 @@ namespace mashkin
     out << quantity << "\n";
   }
 
-  void runRightshapes(std::istream&, std::ostream& out, const std::deque< Polygon >& res)
+  void runRightShapes(std::istream&, std::ostream& out, const std::deque< Polygon >& res)
   {
-    size_t quantity = std::count_if(res.begin(), res.end(), isRightShapes);
-    out << quantity << "\n";
+    out << std::count_if(res.begin(), res.end(), isRightShapes) << "\n";
   }
 }
