@@ -49,15 +49,14 @@ namespace mashkin
     return out;
   }
 
-  void runAreaNumOfVertexes(const std::deque< Polygon >& res, std::ostream& out, const std::string& num)
+  std::ostream& runAreaNumOfVertexes(const std::deque< Polygon >& res, std::ostream& out, const std::string& num)
   {
     std::deque< Polygon > data = res;
     size_t count = std::stoull(num);
     std::deque< Polygon >::iterator it = std::partition(data.begin(), data.end(), std::bind(isEqual, _1, count));
     std::vector< FullArea > areas = getFullArea(data.begin(), it);
-    std::vector< FullArea > sumArea;
-    sumArea.push_back(std::accumulate(areas.begin(), areas.end(), FullArea()));
-    std::copy(sumArea.begin(), sumArea.end(), std::ostream_iterator< FullArea >(out, "\n"));
+    out << std::accumulate(areas.begin(), areas.end(), FullArea());
+    return out;
   }
 
   void runArea(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res)
@@ -91,7 +90,7 @@ namespace mashkin
       }
       else
       {
-        runAreaNumOfVertexes(res, out, command);
+        runAreaNumOfVertexes(res, out, command) << "\n";
       }
     }
     else
