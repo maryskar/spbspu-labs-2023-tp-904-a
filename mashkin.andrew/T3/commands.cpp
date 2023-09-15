@@ -23,24 +23,25 @@ namespace mashkin
   constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
 
   template< class P >
-  void runEvenOrOdd(const std::deque< Polygon > res, std::ostream& out, P p)
+  std::ostream& runEvenOrOdd(const std::deque< Polygon > res, std::ostream& out, P p)
   {
     dequeWithPolygon data = res;
     dequeWithPolygon::iterator it = std::partition(data.begin(), data.end(), p);
     vecFArea areas = getFullArea(data.begin(), it);
-    vecFArea sumArea;
-    sumArea.push_back(std::accumulate(areas.begin(), areas.end(), farea()));
-    std::copy(sumArea.begin(), sumArea.end(), outIter(out, "\n"));
+    out << std::accumulate(areas.begin(), areas.end(), farea()).res;
+    return out;
   }
 
-  void runEven(const dequeWithPolygon& res, std::ostream& out)
+  std::ostream& runEven(const dequeWithPolygon& res, std::ostream& out)
   {
     runEvenOrOdd(res, out, isEven);
+    return out;
   }
 
-  void runOdd(const dequeWithPolygon& res, std::ostream& out)
+  std::ostream& runOdd(const dequeWithPolygon& res, std::ostream& out)
   {
     runEvenOrOdd(res, out, isOdd);
+    return out;
   }
 
   void runMean(const dequeWithPolygon& res, std::ostream& out)
@@ -71,11 +72,11 @@ namespace mashkin
     inp >> command;
     if (command == "EVEN")
     {
-      runEven(res, out);
+      runEven(res, out) << "\n";
     }
     else if (command == "ODD")
     {
-      runOdd(res, out);
+      runOdd(res, out) << "\n";
     }
     else if (command == "MEAN")
     {
