@@ -52,7 +52,6 @@ int main(int argc, char* argv[])
   };
   std::map< std::string, cmd_t > cmds
   {
-    
   };
 
   while (!std::cin.eof())
