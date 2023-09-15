@@ -30,7 +30,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
   for (size_t i = 0; i < 3; i++)
   {
     in >> DelimiterIO{ ':' } >> LabelIO{ "key" };
-    in >> c;
+    in >> d;
     in >> DelimiterIO{ ' ' };
 
     switch (d)
