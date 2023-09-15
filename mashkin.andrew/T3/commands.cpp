@@ -22,34 +22,35 @@ namespace mashkin
 
   constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
 
-  void runEven(const dequeWithPolygon& res, std::ostream& out)
+  template< class P >
+  void runEvenOrOdd(const std::deque< Polygon > res, std::ostream& out, P p)
   {
     dequeWithPolygon data = res;
-    dequeWithPolygon::iterator it = std::partition(data.begin(), data.end(), isEven);
+    dequeWithPolygon::iterator it = std::partition(data.begin(), data.end(), p);
     vecFArea areas = getFullArea(data.begin(), it);
     vecFArea sumArea;
     sumArea.push_back(std::accumulate(areas.begin(), areas.end(), farea()));
     std::copy(sumArea.begin(), sumArea.end(), outIter(out, "\n"));
   }
 
+  void runEven(const dequeWithPolygon& res, std::ostream& out)
+  {
+    runEvenOrOdd(res, out, isEven);
+  }
+
   void runOdd(const dequeWithPolygon& res, std::ostream& out)
   {
-    dequeWithPolygon data = res;
-    dequeWithPolygon::iterator it = std::partition(data.begin(), data.end(), isOdd);
-    vecFArea areas = getFullArea(data.begin(), it);
-    vecFArea sumArea;
-    sumArea.push_back(std::accumulate(areas.begin(), areas.end(), farea()));
-    std::copy(sumArea.begin(), sumArea.end(), outIter(out, "\n"));
+    runEvenOrOdd(res, out, isOdd);
   }
 
   void runMean(const dequeWithPolygon& res, std::ostream& out)
   {
     dequeWithPolygon data = res;
-    size_t quntity = res.size();
+    size_t quantity = res.size();
     vecFArea areas = getFullArea(data.begin(), data.end());
     vecFArea sumArea;
     sumArea.push_back(std::accumulate(areas.begin(), areas.end(), farea()));
-    sumArea.begin()->res /= quntity;
+    sumArea.begin()->res /= quantity;
     std::copy(sumArea.begin(), sumArea.end(), outIter(out, "\n"));
   }
 
