@@ -80,7 +80,7 @@ namespace mashkin
     }
     else if (command.find_first_not_of("0123456789") == std::string::npos)
     {
-      runAreaNumOfVertexes(res, out, command) << "\n";
+      runAreaNumOfVertexes(res, out, command);
     }
     else
     {
@@ -136,11 +136,11 @@ namespace mashkin
     }
     else if (command == "AREA")
     {
-      areaFunc(data, out) << "\n";
+      areaFunc(data, out);
     }
     else if (command == "VERTEXES")
     {
-      vertexesFunc(data, out) << "\n";
+      vertexesFunc(data, out);
     }
     else
     {
