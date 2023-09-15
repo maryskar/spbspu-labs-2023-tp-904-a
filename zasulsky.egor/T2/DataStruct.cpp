@@ -36,7 +36,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     switch (d)
     {
     case 1:
-      in >> key1;
+      in >> std::scientific >> key1;
       break;
 
     case 2:
