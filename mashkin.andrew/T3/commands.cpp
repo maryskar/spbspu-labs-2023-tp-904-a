@@ -37,6 +37,10 @@ namespace mashkin
 
   std::ostream& runMean(const std::deque< Polygon >& res, std::ostream& out)
   {
+    if (res.empty())
+    {
+      throw std::logic_error("Logic error");
+    }
     std::deque< Polygon > data = res;
     size_t quantity = res.size();
     std::vector< FullArea > areas = getFullArea(data.begin(), data.end());
@@ -47,6 +51,10 @@ namespace mashkin
 
   std::ostream& runAreaNumOfVertexes(const std::deque< Polygon >& res, std::ostream& out, const std::string& num)
   {
+    if (num == "0" || num == "1" || num == "2")
+    {
+      throw std::logic_error("Logic error");
+    }
     std::deque< Polygon > data = res;
     size_t count = std::stoull(num);
     std::deque< Polygon >::iterator it = std::partition(data.begin(), data.end(), std::bind(isEqual, _1, count));
@@ -68,25 +76,11 @@ namespace mashkin
     }
     else if (command == "MEAN")
     {
-      if (res.empty())
-      {
-        throw std::logic_error("Logic error");
-      }
-      else
-      {
-        runMean(res, out) << "\n";
-      }
+      runMean(res, out) << "\n";
     }
     else if (command.find_first_not_of("0123456789") == std::string::npos)
     {
-      if (command == "0" || command == "1" || command == "2")
-      {
-        throw std::logic_error("Logic error");
-      }
-      else
-      {
-        runAreaNumOfVertexes(res, out, command) << "\n";
-      }
+      runAreaNumOfVertexes(res, out, command) << "\n";
     }
     else
     {
@@ -163,18 +157,32 @@ namespace mashkin
     runMinOrMax(runMinArea, runMinVertexes, inp, out, res);
   }
 
+  template< class P >
+  std::ostream& runCountEvenOrOdd(const std::deque< Polygon >& res, std::ostream& out, P p)
+  {
+    if (res.empty())
+    {
+      return out << 0;
+    }
+    return out << std::count_if(res.begin(), res.end(), p);
+  }
+
   std::ostream& runCountEven(const std::deque< Polygon >& res, std::ostream& out)
   {
-    return out << std::count_if(res.begin(), res.end(), isEven);
+    return runCountEvenOrOdd(res, out, isEven);
   }
 
   std::ostream& runCountOdd(const std::deque< Polygon >& res, std::ostream& out)
   {
-    return out << std::count_if(res.begin(), res.end(), isOdd);
+    return runCountEvenOrOdd(res, out, isOdd);
   }
 
   std::ostream& runCountNumOfVertexes(const std::deque< Polygon >& res, std::ostream& out, const std::string& command)
   {
+    if (command == "0" || command == "1" || command == "2")
+    {
+      throw std::logic_error("Logic error");
+    }
     return out << std::count_if(res.begin(), res.end(), std::bind(isEqual, _1, std::stoull(command)));
   }
 
@@ -184,36 +192,15 @@ namespace mashkin
     inp >> command;
     if (command == "EVEN")
     {
-      if (res.empty())
-      {
-        out << 0 << "\n";
-      }
-      else
-      {
-        runCountEven(res, out) << "\n";
-      }
+      runCountEven(res, out) << "\n";
     }
     else if (command == "ODD")
     {
-      if (res.empty())
-      {
-        out << 0 << "\n";
-      }
-      else
-      {
-        runCountOdd(res, out) << "\n";
-      }
+      runCountOdd(res, out) << "\n";
     }
     else if (command.find_first_not_of("0123456789") == std::string::npos)
     {
-      if (command == "0" || command == "1" || command == "2")
-      {
-        throw std::logic_error("Logic error");
-      }
-      else
-      {
-        runCountNumOfVertexes(res, out, command) << "\n";
-      }
+       runCountNumOfVertexes(res, out, command) << "\n";
     }
     else
     {
@@ -231,9 +218,7 @@ namespace mashkin
       throw std::logic_error("Logic error");
     }
     std::sort(comp.points.begin(), comp.points.end());
-    size_t quantity = 0;
-    quantity = std::count_if(data.begin(), data.end(), std::bind(isEqualPoints, _1, comp));
-    out << quantity << "\n";
+    out << std::count_if(data.begin(), data.end(), std::bind(isEqualPoints, _1, comp)) << "\n";
   }
 
   void runRightShapes(std::istream&, std::ostream& out, const std::deque< Polygon >& res)
