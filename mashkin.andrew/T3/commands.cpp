@@ -107,12 +107,16 @@ namespace mashkin
     return out << *(--runMaxOrMinArea(res).end());
   }
 
-  std::ostream& runMaxVertexes(const std::deque< Polygon >& res, std::ostream& out)
+  std::deque< Polygon > runMaxOrMinVertexes(const std::deque< Polygon >& res)
   {
     std::deque< Polygon > data = res;
     std::sort(data.begin(), data.end());
-    out << (--data.end())->points.size();
-    return out;
+    return data;
+  }
+
+  std::ostream& runMaxVertexes(const std::deque< Polygon >& res, std::ostream& out)
+  {
+    return out << (--runMaxOrMinVertexes(res).end())->points.size();
   }
 
   void runMax(std::istream& inp, std::ostream& out, const std::deque< Polygon >& data)
@@ -144,11 +148,7 @@ namespace mashkin
 
   std::ostream& runMinVertexes(const std::deque< Polygon >& res, std::ostream& out)
   {
-    std::deque< Polygon > data = res;
-    std::sort(data.begin(), data.end());
-    std::deque< Polygon >::iterator it = data.begin();
-    out << it->points.size();
-    return out;
+    return out << runMaxOrMinVertexes(res).begin()->points.size();
   }
 
   void runMin(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res)
