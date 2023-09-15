@@ -41,8 +41,11 @@ namespace mashkin
   std::ostream& runMean(const std::deque< Polygon >& res, std::ostream& out)
   {
     std::deque< Polygon > data = res;
+    size_t quantity = res.size();
     std::vector< FullArea > areas = getFullArea(data.begin(), data.end());
-    out << std::accumulate(areas.begin(), areas.end(), FullArea()).res / res.size();
+    FullArea sumArea;
+    sumArea.res = std::accumulate(areas.begin(), areas.end(), FullArea()).res / quantity;
+    out << sumArea;
     return out;
   }
 
@@ -77,7 +80,7 @@ namespace mashkin
       }
       else
       {
-        runMean(res, out);
+        runMean(res, out) << "\n";
       }
     }
     else if (command.find_first_not_of("0123456789") == std::string::npos)
