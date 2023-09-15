@@ -129,7 +129,9 @@ namespace mashkin
     return out << runMaxOrMinVertexes(res).begin()->points.size();
   }
 
-  void runMax(std::istream& inp, std::ostream& out, const std::deque< Polygon >& data)
+  template< class AreaFunc, class VertexesFunc >
+  void runMinOrMax(AreaFunc areaFunc, VertexesFunc vertexesFunc, std::istream& inp,
+      std::ostream& out, const std::deque< Polygon >& data )
   {
     std::string command;
     inp >> command;
@@ -139,11 +141,11 @@ namespace mashkin
     }
     else if (command == "AREA")
     {
-      runMaxArea(data, out) << "\n";
+      areaFunc(data, out) << "\n";
     }
     else if (command == "VERTEXES")
     {
-      runMaxVertexes(data, out) << "\n";
+      vertexesFunc(data, out) << "\n";
     }
     else
     {
@@ -151,26 +153,14 @@ namespace mashkin
     }
   }
 
+  void runMax(std::istream& inp, std::ostream& out, const std::deque< Polygon >& data)
+  {
+    runMinOrMax(runMaxArea, runMaxVertexes, inp, out, data);
+  }
+
   void runMin(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res)
   {
-    std::string command;
-    inp >> command;
-    if (res.empty())
-    {
-      throw std::logic_error("Logic error");
-    }
-    else if (command == "AREA")
-    {
-      runMinArea(res, out) << "\n";
-    }
-    else if (command == "VERTEXES")
-    {
-      runMinVertexes(res, out) << "\n";
-    }
-    else
-    {
-      throw std::logic_error("Logic error");
-    }
+    runMinOrMax(runMinArea, runMinVertexes, inp, out, res);
   }
 
   std::ostream& runCountEven(const std::deque< Polygon >& res, std::ostream& out)
