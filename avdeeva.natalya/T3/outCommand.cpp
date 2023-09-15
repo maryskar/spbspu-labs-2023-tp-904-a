@@ -1,6 +1,7 @@
 #include "outCommand.h"
+#include <exception>
 #include "commands.h"
-void avdeeva::rightshapesCommand(const std::deque< avdeeva::Polygon >& polygons, std::istream& in, std::ostream& out)
+void avdeeva::rightshapesCommand(const std::deque< avdeeva::Polygon > & polygons, std::istream & in, std::ostream & out)
 {
   if (!in)
   {
