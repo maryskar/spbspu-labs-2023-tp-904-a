@@ -12,6 +12,8 @@ namespace avdeeva
   bool isRightTriangle(const Point & lhs, const Point & rhs, const Point & third);
   bool checkTriangle(Point & first, Point & second, const Point & third);
   bool isRightshape(const Polygon & polygon);
+  Point minPoint(const Polygon& polygon);
+  Point maxPoint(const Polygon& polygon);
   Polygon createFrame(const std::deque< Polygon > & polygons);
 }
 #endif

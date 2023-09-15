@@ -52,3 +52,26 @@ bool avdeeva::isRightshape(const Polygon & polygon)
   size_t countRightTriangles = std::count_if(begin, end, checkPoint);
   return (counterRight > 0);
 }
+avdeeva::Point avdeeva::minPoint(const Polygon & polygon)
+{
+  auto begin = polygon.points.begin();
+  auto end = polygon.points.end();
+  int minX = std::min_element(begin, end, compX)->x;
+  int minY = std::min_element(begin, end, compY)->y;
+  Point minPoint{minX, minY};
+  return minPoint;
+}
+avdeeva::Point avdeeva::maxPoint(const Polygon & polygon)
+{
+  auto begin = polygon.points.begin();
+  auto end = polygon.points.end();
+  int maxX = std::max_element(begin, end, compX)->x;
+  int maxY = std::max_element(begin, end, compY)->y;
+  Point maxPoint{maxX, maxY};
+  return maxPoint;
+}
+avdeeva::Polygon avdeeva::createFrame(const std::deque< Polygon > & polygons)
+{
+  Polygon frame;
+
+}
