@@ -1,19 +1,6 @@
 #include "DataStruct.h"
 #include <iomanip>
-#include "../common/iotypes.h"
-//#include <iotypes.h>
-//std::ostream &mishanina::operator<<(std::ostream &out, const long long &data)
-//{
-//  out << ":key1 ";
-//  out.operator<<(data) << "ll";
-//  return out;
-//}
-//std::ostream &mishanina::operator<<(std::ostream &out, const unsigned long long &data)
-//{
-//  out << ":key2 ";
-//  out.operator<<(data) << "ull";
-//  return out;
-//}
+#include <iotypes.h>
 std::istream &mishanina::operator>>(std::istream &in, DataStruct &data)
 {
   std::istream::sentry sentry(in);
@@ -59,11 +46,9 @@ std::ostream &mishanina::operator<<(std::ostream &out, const DataStruct &data)
   {
     return out;
   }
-  out << '(';
-//  mishanina::operator<<(out, data.key1);
-//  mishanina::operator<<(out, data.key2);
   long long llk = data.key1;
   unsigned long long ullk = data.key2;
+  out << '(';
   out << LongLongIO{llk};
   out << UnsignedLongLongIO{ullk};
   out << ":key3 " << std::quoted(data.key3, '"');
