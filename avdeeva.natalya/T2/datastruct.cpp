@@ -8,7 +8,7 @@ bool avdeeva::Comparator::operator()(const DataStruct & lhs, const DataStruct & 
 {
   if (lhs.key1 == rhs.key1)
   {
-    if(lhs.key2 == rhs.key2)
+    if (lhs.key2 == rhs.key2)
     {
       return lhs.key3.size() < rhs.key3.size();
     }
@@ -36,7 +36,7 @@ std::istream & avdeeva::operator>>(std::istream & in, DataStruct & dest)
     in >> LabelIO{":key"} >> number;
     if (number == 1 && !inKey1)
     {
-      in >> DoubleIO{key1};
+      in >> DoubleI{key1};
       inKey1 = true;
     }
     else if (number == 2 && !inKey2)
@@ -70,7 +70,7 @@ std::ostream & avdeeva::operator<<(std::ostream & out, const DataStruct & data)
   }
   iofmtguard guard(out);
   out << "(";
-  out << ":key1" << " " << convertToScientific(data.key1);
+  out << ":key1" << " " << DoubleO(data.key1);
   out << ":key2" << " " << data.key2 << "ull";
   out << ":key3" << " " << '"' << data.key3 << '"';
   out << ":)";

@@ -1,5 +1,8 @@
 #include "iostructs.h"
 #include <cmath>
+#include <iostream>
+#include <iomanip>
+#include "iofmtguard.h"
 
 std::istream & avdeeva::operator>>(std::istream & in, DelimiterIO && dest)
 {
@@ -47,7 +50,7 @@ std::istream & avdeeva::operator>>(std::istream & in, UnsignedLongLongIO && dest
   }
   return in >> dest.num >> LabelIO{"ull"};
 }
-std::istream & avdeeva::operator>>(std::istream & in, DoubleIO && dest)
+std::istream & avdeeva::operator>>(std::istream & in, DoubleI && dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -61,8 +64,15 @@ std::istream & avdeeva::operator>>(std::istream & in, DoubleIO && dest)
   dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
   return in;
 }
-std::string avdeeva::convertToScientific(double number)
+std::ostream & avdeeva::operator<<(std::ostream & out, const DoubleO && dest)
 {
+  std::ostream::sentry sentry(out);
+  iofmtguard guard(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  double number = dest.num;
   int power = 0;
   while (std::abs(number) < 1)
   {
@@ -74,23 +84,6 @@ std::string avdeeva::convertToScientific(double number)
     number /= 10;
     power++;
   }
-  std::string res = std::to_string(number);
-  while (res.size() < 4)
-  {
-    res += '0';
-  }
-  res = res.substr(0, 4);
-  if (res.substr(2, 4) == "00")
-  {
-    res = res.substr(0, 3);
-  }
-  if (power > 0)
-  {
-    res = res + 'e' + '+' + std::to_string(power);
-  }
-  else
-  {
-    res = res + 'e' + std::to_string(power);
-  }
-  return res;
+  return out << std::fixed << std::setprecision(1) << number << std::showpos << power;
 }
+

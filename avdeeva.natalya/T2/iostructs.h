@@ -9,9 +9,13 @@ namespace avdeeva
   {
     char exp;
   };
-  struct DoubleIO
+  struct DoubleI
   {
     double & num;
+  };
+  struct DoubleO
+  {
+    const double num;
   };
   struct UnsignedLongLongIO
   {
@@ -29,7 +33,7 @@ namespace avdeeva
   std::istream & operator>>(std::istream & in, LabelIO && dest);
   std::istream & operator>>(std::istream & in, StringIO && dest);
   std::istream & operator>>(std::istream & in, UnsignedLongLongIO && dest);
-  std::istream & operator>>(std::istream & in, DoubleIO && dest);
-  std::string convertToScientific(double number);
+  std::istream & operator>>(std::istream & in, DoubleI && dest);
+  std::ostream & operator<<(std::ostream & out, const DoubleO && dest);
 }
 #endif
