@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
   using const_cmd_t = std::function< void (const std::vector< zhuravlev::Polygon >&, std::ostream&) >;
   using cmd_t = std::function< void (std::vector< zhuravlev::Polygon >&, std::istream&, std::ostream&, std::ostream&) >;
   std::map< std::string, const_cmd_t > const_cmds
-  { 
+  {
     {"COUNT ODD", zhuravlev::countOdd},
     {"COUNT EVEN", zhuravlev::countEven},
     {"MAX AREA", zhuravlev::MaxArea},
