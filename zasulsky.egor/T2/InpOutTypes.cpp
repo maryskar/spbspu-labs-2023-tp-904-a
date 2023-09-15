@@ -1,4 +1,5 @@
 #include "InpOutTypes.hpp"
+#include <string>
 
 std::istream& operator>>(std::istream& in, DelimiterIO&& ref)
 {
