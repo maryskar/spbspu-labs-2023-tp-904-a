@@ -165,18 +165,12 @@ namespace mashkin
 
   std::ostream& runCountEven(const std::deque< Polygon >& res, std::ostream& out)
   {
-    std::deque< Polygon > data = res;
-    size_t quantity = std::count_if(data.begin(), data.end(), isEven);
-    out << quantity;
-    return out;
+    return out << std::count_if(res.begin(), res.end(), isEven);
   }
 
   std::ostream& runCountOdd(const std::deque< Polygon >& res, std::ostream& out)
   {
-    std::deque< Polygon > data = res;
-    size_t quantity = std::count_if(data.begin(), data.end(), isOdd);
-    out << quantity;
-    return out;
+    return out << std::count_if(res.begin(), res.end(), isOdd);
   }
 
   std::ostream& runCountNumOfVertexes(const std::deque< Polygon >& res, std::ostream& out, const std::string& command)
