@@ -47,6 +47,20 @@ std::istream & avdeeva::operator>>(std::istream & in, UnsignedLongLongIO && dest
   }
   return in >> dest.num >> LabelIO{"ull"};
 }
+std::istream & avdeeva::operator>>(std::istream & in, DoubleIO && dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  int mantisa = 0;
+  int number = 0;
+  int power = 0;
+  in >> mantisa >> DelimiterIO{'.'} >> number >> DelimiterIO{'E'} >> power;
+  dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
+  return in;
+}
 std::string avdeeva::convertToScientific(double number)
 {
   int power = 0;
@@ -79,18 +93,4 @@ std::string avdeeva::convertToScientific(double number)
     res = res + 'e' + std::to_string(power);
   }
   return res;
-}
-std::istream & avdeeva::operator>>(std::istream & in, DoubleIO && dest)
-{
-  std::istream::sentry sentry(in);
-  if (!sentry)
-  {
-    return in;
-  }
-  int mantisa = 0;
-  int number = 0;
-  int power = 0;
-  in >> mantisa >> DelimiterIO{'.'} >> number >> DelimiterIO{'E'} >> power;
-  dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
-  return in;
 }
