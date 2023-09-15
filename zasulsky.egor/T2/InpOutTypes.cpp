@@ -95,7 +95,7 @@ std::string convertToSci(double dbl)
     }
   }
   dbl *= 10;
-  int val = std::round(dbl);
+  double val = std::round(dbl);
   std::string str = std::to_string(val);
   str.insert(1, 1, '.');
   str += 'e';
