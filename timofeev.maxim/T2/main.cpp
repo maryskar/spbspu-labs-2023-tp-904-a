@@ -20,7 +20,7 @@ int main()
     {
       std::cin.clear();
       auto max = std::numeric_limits< std::streamsize >::max();
-      std::cin.ignore(max '\n');
+      std::cin.ignore(max, '\n');
     }
   }
   std::sort(data.begin(), data.end(), comparator);
