@@ -2,7 +2,11 @@
 #include <iterator>
 #include <fstream>
 #include <deque>
+#include <limits>
+#include <map>
+#include <functional>
 #include "polygon.h"
+#include "outCommand.h"
 int main(int argc, char ** argv)
 {
   if (argc != 2)
@@ -29,4 +33,36 @@ int main(int argc, char ** argv)
       input.ignore(maxstream, '\n');
     }
   }
+  using cmd = std::function< void (const std::deque< avdeeva::Polygon > &,
+    std::istream &, std::ostream &) >;
+  std::map< std::string, cmd > commands(
+    {
+      {"AREA", avdeeva::areaCommand},
+      {"MAX", avdeeva::maxCommand},
+      {"MIN", avdeeva::minCommand},
+      {"COUNT", avdeeva::countCommand},
+      {"RIGHTSHAPES", avdeeva::rightshapesCommand},
+      {"INFRAME", avdeeva::inframeCommand}
+    });
+  while (!std::cin.eof())
+  {
+    std::cin.clear();
+    std::string command;
+    std::cin >> command;
+    if (command.empty())
+    {
+      continue;
+    }
+    try
+    {
+      commands.at(command)(polygons, std::cin, std::cout);
+    }
+    catch (const std::exception & e)
+    {
+      std::cout << "<INVALID COMMAND>" << "\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
+  }
+  return 0;
 }
