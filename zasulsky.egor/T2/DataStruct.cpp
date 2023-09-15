@@ -42,11 +42,11 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     case 2:
       in >> key2;
       break;
-    
+
     case 3:
       in >> key3;
       break;
-    
+
     default:
       in.setstate(std::ios::failbit);
       break;
