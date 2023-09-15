@@ -1,5 +1,6 @@
 #include "polygon.h"
 #include <algorithm>
+#include <cmath>
 #include "iostructs.h"
 std::istream & avdeeva::operator>>(std::istream & in, const Point & rhs)
 {
@@ -38,10 +39,6 @@ std::istream & avdeeva::operator>>(std::istream & in, const Polygon & rhs)
     rhs.points.swap(input.points);
   }
   return in;
-}
-size_t avdeeva::size(const Polygon &pol)
-{
-  return pol.points.size();
 }
 double avdeeva::areaCounter(const Point & lhs, const Point & rhs)
 {

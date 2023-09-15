@@ -7,7 +7,7 @@ namespace
 {
   bool isOdd(const avdeeva::Polygon & pol)
   {
-    return (size(pol) % 2);
+    return (pol.points.size() % 2);
   }
   bool isEven(const avdeeva::Polygon & pol)
   {
@@ -15,7 +15,7 @@ namespace
   }
   bool isNumOfVerts(const avdeeva::Polygon & pol, size_t num)
   {
-    return size(pol) == num;
+    return pol.points.size() == num;
   }
   template< typename Pred >
   double calcArea(const std::deque< avdeeva::Polygon > & polygons, Pred p)
@@ -84,6 +84,10 @@ namespace
   bool compSize(const avdeeva::Polygon & lhs, const avdeeva::Polygon & rhs)
   {
     return (lhs.points.size() < rhs.points.size());
+  }
+  size_t size(const avdeeva::Polygon & pol)
+  {
+    return pol.points.size();
   }
   template< typename T, typename Func, typename Comp >
   T findMax(const std::deque< avdeeva::Polygon > & polygons, Comp comp, Func func)
