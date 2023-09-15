@@ -175,11 +175,7 @@ namespace mashkin
 
   std::ostream& runCountNumOfVertexes(const std::deque< Polygon >& res, std::ostream& out, const std::string& command)
   {
-    std::deque< Polygon > data = res;
-    size_t count = std::stoull(command);
-    size_t quantity = std::count_if(data.begin(), data.end(), std::bind(isEqual, _1, count));
-    std::cout << quantity;
-    return out;
+    return out << std::count_if(res.begin(), res.end(), std::bind(isEqual, _1, std::stoull(command)));
   }
 
   void runCount(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res)
