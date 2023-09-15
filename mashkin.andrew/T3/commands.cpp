@@ -112,8 +112,7 @@ namespace mashkin
   {
     std::deque< Polygon > data = res;
     std::sort(data.begin(), data.end());
-    std::deque< Polygon >::iterator it = --data.end();
-    out << it->points.size();
+    out << (--data.end())->points.size();
     return out;
   }
 
