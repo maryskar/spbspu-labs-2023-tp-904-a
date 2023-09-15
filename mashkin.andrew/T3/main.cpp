@@ -36,7 +36,7 @@ int main(int argc, char** argv)
       mashkin::cleanStream(inpFile);
     }
   }
-  std::map< std::string, void (*)(std::istream&,
+  std::map< std::string, std::ostream& (*)(std::istream&,
       std::ostream&,
       const std::deque< mashkin::Polygon >&) > commands;
   commands = mashkin::createMapWithCommands();
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
     {
       if (commands.find(command) != commands.end())
       {
-        commands[command](std::cin, std::cout, polygons);
+        commands[command](std::cin, std::cout, polygons) << "\n";
       }
       else
       {

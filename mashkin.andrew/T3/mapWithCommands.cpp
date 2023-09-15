@@ -6,7 +6,8 @@
 
 namespace mashkin
 {
-  using commandMap = std::map< std::string, void (*)(std::istream&, std::ostream&, const std::deque< Polygon>&) >;
+  using commandMap = std::map< std::string, std::ostream& (*)(std::istream&,
+      std::ostream&, const std::deque< Polygon>&) >;
   commandMap createMapWithCommands()
   {
     commandMap commands;
