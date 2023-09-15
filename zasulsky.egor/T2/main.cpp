@@ -15,7 +15,6 @@ int main()
 
   while (!std::cin.eof())
   {
-
     if (!std::cin)
     {
       std::cin.clear();

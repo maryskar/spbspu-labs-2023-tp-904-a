@@ -1,5 +1,4 @@
 #include "InpOutTypes.hpp"
-#include <string>
 
 std::istream& operator>>(std::istream& in, DelimiterIO&& ref)
 {
@@ -87,9 +86,9 @@ std::string convertToSci(double dbl)
       ++num;
     }
   }
-  else if (std::abs(a) < 1)
+  else if (std::abs(dbl) < 1)
   {
-    while (std::abs(a) < 1)
+    while (std::abs(dbl) < 1)
     {
       dbl *= 10;
       --num;
