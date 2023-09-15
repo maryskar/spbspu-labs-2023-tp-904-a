@@ -10,6 +10,10 @@ void avdeeva::areaCommand(const std::deque< avdeeva::Polygon > & polygons, std::
 {
   std::string argument;
   in >> argument;
+  if (!in)
+  {
+    throw std::invalid_argument("Invalid command");
+  }
   std::map< std::string, std::function< double(const std::deque< Polygon >) > > areaCommands(
     {
       {"EVEN", calcAreaEven},
@@ -50,7 +54,7 @@ void avdeeva::maxCommand(const std::deque< Polygon > & polygons, std::istream & 
   }
   else
   {
-    throw std::invalid_argument("Invalid argument");
+    throw std::invalid_argument("Invalid command");
   }
 }
 void avdeeva::minCommand(const std::deque< avdeeva::Polygon > & polygons, std::istream & in, std::ostream & out)
@@ -75,6 +79,10 @@ void avdeeva::countCommand(const std::deque< avdeeva::Polygon > & polygons, std:
 {
   std::string argument;
   in >> argument;
+  if (!in)
+  {
+    throw std::runtime_error("Input error");
+  }
   std::map< std::string, std::function< size_t(const std::deque< avdeeva:: Polygon >) > > countCommands(
     {
       {"EVEN", counterEven},
@@ -106,6 +114,10 @@ void avdeeva::inframeCommand(const std::deque< avdeeva::Polygon > & polygons, st
 {
   avdeeva::Polygon input;
   in >> input;
+  if (!in)
+  {
+    throw std::runtime_error("Input error");
+  }
   bool isInFrame = avdeeva::isInFrame(polygons, input);
   if (isInFrame)
   {

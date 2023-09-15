@@ -3,6 +3,7 @@
 #include <fstream>
 #include <deque>
 #include <limits>
+#include <exception>
 #include <map>
 #include <functional>
 #include "polygon.h"
