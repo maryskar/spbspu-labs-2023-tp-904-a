@@ -25,7 +25,7 @@ double avdeeva::calcAreaMean(const std::deque< Polygon > & polygons)
 {
   if (polygons.empty())
   {
-    throw std::invalid_argument("Empty vector of polygons");
+    throw std::invalid_argument("Empty deque of polygons");
   }
   std::deque< double > values(polygons.size());
   std::transform(polygons.begin(), polygons.end(), values.begin(), getArea);
@@ -35,7 +35,8 @@ double avdeeva::calcAreaMean(const std::deque< Polygon > & polygons)
 }
 double avdeeva::calcAreaVerts(const std::deque< Polygon > & polygons, size_t num)
 {
-  if (verts < 3) {
+  if (num < 3)
+  {
     throw std::invalid_argument("No polygons with this number of vertexes");
   }
   using namespace std::placeholders;
@@ -57,6 +58,10 @@ size_t avdeeva::counterOdd(const std::deque< Polygon > & polygons)
 }
 size_t avdeeva::counterVertexes(const std::deque< Polygon > & polygons, size_t num)
 {
+  if (num < 3)
+  {
+    throw std::invalid_argument("No polygons with this number of vertexes");
+  }
   using namespace std::placeholders;
   auto pred = std::bind(isNumOfVerts, _1, num);
   return counter(polygons, pred);
@@ -66,7 +71,7 @@ T findMax(const std::deque< avdeeva::Polygon > & polygons, Comp comp, Func func)
 {
   if (polygons.empty())
   {
-    throw std::logic_error("Empty vector of polygons");
+    throw std::logic_error("Empty deque of polygons");
   }
   return func(*std::max_element(polygons.begin(), polygons.end(), comp));
 }
@@ -81,6 +86,10 @@ size_t avdeeva::findMaxVerts(const std::deque< Polygon > & polygons)
 template< typename T, typename Func, typename Comp >
 T findMin(const std::deque< avdeeva::Polygon > & polygons, Comp comp, Func func)
 {
+  if (polygons.empty())
+  {
+    throw std::logic_error("Empty deque of polygons");
+  }
   return func(*std::min_element(polygons.begin(), polygons.end(), comp));
 }
 double avdeeva::findMinArea(const std::deque< Polygon > & polygons)
