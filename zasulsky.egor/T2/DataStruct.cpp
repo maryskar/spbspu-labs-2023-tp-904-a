@@ -10,7 +10,7 @@ std::ostream& operator<<(std::ostream& out, const dataStruct& ref)
   }
   out << "(:key1 "  << convertToSci(ref.key1);
   out << ":key2 " << ref.key2 << "ll";
-  out << ":key3 " << '"' << ref.key3 << '"' << ":" << ")"; 
+  out << ":key3 " << '"' << ref.key3 << '"' << ":" << ")";
   return out;
 }
 
