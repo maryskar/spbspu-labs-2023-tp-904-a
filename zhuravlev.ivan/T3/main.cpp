@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     std::copy(polygons.cbegin(), polygons.cend(), std::ostream_iterator< zhuravlev::Polygon >(std::cout, "\n"));
   }
   using const_cmd_t = std::function< void (const std::vector< zhuravlev::Polygon >&, std::ostream&) >;
-  using cmd_t = std::function< void (std::vector< zhuravlev::Polygon >&, std::istream&, std::ostream&, std::ostream&) >;
+  //using cmd_t = std::function< void (std::vector< zhuravlev::Polygon >&, std::istream&, std::ostream&, std::ostream&) >;
   std::map< std::string, const_cmd_t > const_cmds
   {
     {"COUNT ODD", zhuravlev::countOdd},
