@@ -84,6 +84,6 @@ std::ostream & avdeeva::operator<<(std::ostream & out, const DoubleO && dest)
     number /= 10;
     power++;
   }
-  return out << std::fixed << std::setprecision(1) << number << std::showpos << power;
+  return out << std::fixed << std::setprecision(1) << number << 'e' << std::showpos << power;
 }
 
