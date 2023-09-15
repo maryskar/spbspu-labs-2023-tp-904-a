@@ -70,7 +70,7 @@ std::ostream & avdeeva::operator<<(std::ostream & out, const DataStruct & data)
   }
   iofmtguard guard(out);
   out << "(";
-  out << ":key1" << " " << DoubleO(data.key1);
+  out << ":key1" << " " << DoubleO{data.key1};
   out << ":key2" << " " << data.key2 << "ull";
   out << ":key3" << " " << '"' << data.key3 << '"';
   out << ":)";
