@@ -3,14 +3,16 @@
 #include <numeric>
 #include <functional>
 #include "helpFunctions.h"
-template< typename Pred >
-double calcArea(const std::deque< avdeeva::Polygon > & polygons, Pred p)
+namespace
 {
-  std::deque< avdeeva::Polygon > filtPolygons;
-  std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(filtPolygons), p);
-  std::deque< double > values(filtPolygons.size());
-  std::transform(filtPolygons.begin(), filtPolygons.end(), values.begin(), avdeeva::getArea);
-  return std::accumulate(values.begin(), values.end(), 0.0);
+  template<typename Pred>
+  double calcArea(const std::deque <avdeeva::Polygon> &polygons, Pred p) {
+    std::deque <avdeeva::Polygon> filtPolygons;
+    std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(filtPolygons), p);
+    std::deque<double> values(filtPolygons.size());
+    std::transform(filtPolygons.begin(), filtPolygons.end(), values.begin(), avdeeva::getArea);
+    return std::accumulate(values.begin(), values.end(), 0.0);
+  }
 }
 double avdeeva::calcAreaOdd(const std::deque< Polygon > & polygons)
 {
@@ -38,10 +40,13 @@ double avdeeva::calcAreaVerts(const std::deque< Polygon > & polygons, size_t num
   auto pred = std::bind(isNumOfVerts, _1, num);
   return calcArea(polygons, pred);
 }
-template< typename Pred >
-size_t counter(const std::deque< avdeeva::Polygon > & polygons, Pred p)
+namespace
 {
-  return std::count_if(polygons.begin(), polygons.end(), p);
+  template<typename Pred>
+  size_t counter(const std::deque <avdeeva::Polygon> &polygons, Pred p)
+  {
+    return std::count_if(polygons.begin(), polygons.end(), p);
+  }
 }
 size_t avdeeva::counterEven(const std::deque< Polygon > & polygons)
 {
@@ -57,14 +62,17 @@ size_t avdeeva::counterVertexes(const std::deque< Polygon > & polygons, size_t n
   auto pred = std::bind(isNumOfVerts, _1, num);
   return counter(polygons, pred);
 }
-template< typename T, typename Func, typename Comp >
-T findMax(const std::deque< avdeeva::Polygon > & polygons, Comp comp, Func func)
+namespace
 {
-  if (polygons.empty())
+  template<typename T, typename Func, typename Comp>
+  T findMax(const std::deque <avdeeva::Polygon> &polygons, Comp comp, Func func)
   {
-    throw std::logic_error("Empty deque of polygons");
+    if (polygons.empty())
+    {
+      throw std::logic_error("Empty deque of polygons");
+    }
+    return func(*std::max_element(polygons.begin(), polygons.end(), comp));
   }
-  return func(*std::max_element(polygons.begin(), polygons.end(), comp));
 }
 double avdeeva::findMaxArea(const std::deque< Polygon > & polygons)
 {
@@ -74,14 +82,17 @@ size_t avdeeva::findMaxVerts(const std::deque< Polygon > & polygons)
 {
   return findMax< size_t >(polygons, compSize, size);
 }
-template< typename T, typename Func, typename Comp >
-T findMin(const std::deque< avdeeva::Polygon > & polygons, Comp comp, Func func)
+namespace
 {
-  if (polygons.empty())
+  template< typename T, typename Func, typename Comp >
+  T findMin(const std::deque< avdeeva::Polygon > & polygons, Comp comp, Func func)
   {
-    throw std::logic_error("Empty deque of polygons");
+    if (polygons.empty())
+    {
+      throw std::logic_error("Empty deque of polygons");
+    }
+    return func(*std::min_element(polygons.begin(), polygons.end(), comp));
   }
-  return func(*std::min_element(polygons.begin(), polygons.end(), comp));
 }
 double avdeeva::findMinArea(const std::deque< Polygon > & polygons)
 {
