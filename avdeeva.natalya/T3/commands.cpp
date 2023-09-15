@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <numeric>
 #include <functional>
-#include "processFunctions.h"
+#include "helpFunctions.h"
 
 template< typename Pred >
 double calcArea(const std::deque< avdeeva::Polygon > & polygons, Pred p)
