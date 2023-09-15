@@ -68,7 +68,7 @@ std::istream& operator>>(std::istream& in, LabelIO&& ref)
   {
     return in;
   }
-  for (size_t i = 0; i < ref.exp.size(); i++)
+  for (size_t i = 0; i < ref.exp.length(); i++)
   {
     in >> DelimiterIO{ ref.exp[i] };
   }

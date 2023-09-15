@@ -21,7 +21,10 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
   {
     return in;
   }
-  char c;
+  int d;
+  double key1 0.0;
+  long long key2 = 0;
+  std::string key3 = "";
   in >> DelimiterIO{ '(' };
 
   for (size_t i = 0; i < 3; i++)
@@ -29,27 +32,28 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     in >> DelimiterIO{ ':' } >> LabelIO{ "key" };
     in >> c;
     in >> DelimiterIO{ ' ' };
-    switch (c)
+
+    switch (d)
     {
-    case '1':
-    {
-      in >> ref.key1;
+    case 1:
+      in >> key1;
+      break;
+
+    case 2:
+      in >> key2;
+      break;
+    
+    case 3:
+      in >> key3;
+      break;
+    
+    default:
+      in.setstate(std::ios::failbit);
       break;
     }
-    case '2':
-    {
-      in >> ref.key2;
-      break;
-    }
-    case '3':
-    {
-      in >> ref.key3;
-      break;
-    }
-    }
-    in >> DelimiterIO{ ':' };
-    in >> DelimiterIO{ ')' };
+    in >> LabelIO{ ":)"};
   }
+  ref = dataStruct{ key1, key2, key3 };
   return in;
 }
 
