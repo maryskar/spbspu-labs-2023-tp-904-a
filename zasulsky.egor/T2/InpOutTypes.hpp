@@ -38,4 +38,3 @@ std::istream& operator>>(std::istream& in, SllIO&& ref);
 std::istream& operator>>(std::istream& in, LabelIO&& ref);
 std::string convertToSci(double a);
 #endif
-

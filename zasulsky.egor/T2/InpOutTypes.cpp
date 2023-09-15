@@ -39,6 +39,38 @@ std::istream& operator>>(std::istream& in, DblIO&& ref)
   return in;
 }
 
+std::string convertToSci(double dbl)
+{
+  int num = 0;
+  if (std::abs(dbl) >= 10)
+  {
+    while (std::abs(dbl) >= 10)
+    {
+      dbl /= 10;
+      ++num;
+    }
+  }
+  else if (std::abs(dbl) < 1)
+  {
+    while (std::abs(dbl) < 1)
+    {
+      dbl *= 10;
+      --num;
+    }
+  }
+  dbl *= 10;
+  double val = std::round(dbl);
+  std::string str = std::to_string(val);
+  str.insert(1, 1, '.');
+  str += 'e';
+  if (num >= 0)
+  {
+    str += '+';
+  }
+  str += std::to_string(num);
+  return str;
+}
+
 std::istream& operator>>(std::istream& in, SllIO&& ref)
 {
   std::istream::sentry sentry(in);
@@ -73,36 +105,4 @@ std::istream& operator>>(std::istream& in, LabelIO&& ref)
     in >> DelimiterIO{ ref.exp[i] };
   }
   return in;
-}
-
-std::string convertToSci(double dbl)
-{
-  int num = 0;
-  if (std::abs(dbl) >= 10)
-  {
-    while (std::abs(dbl) >= 10)
-    {
-      dbl /= 10;
-      ++num;
-    }
-  }
-  else if (std::abs(dbl) < 1)
-  {
-    while (std::abs(dbl) < 1)
-    {
-      dbl *= 10;
-      --num;
-    }
-  }
-  dbl *= 10;
-  double val = std::round(dbl);
-  std::string str = std::to_string(val);
-  str.insert(1, 1, '.');
-  str += 'e';
-  if (num >= 0)
-  {
-    str += '+';
-  }
-  str += std::to_string(num);
-  return str;
 }
