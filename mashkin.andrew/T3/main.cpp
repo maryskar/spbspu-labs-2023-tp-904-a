@@ -56,7 +56,7 @@ int main(int argc, char** argv)
       }
       else
       {
-        std::cin.setstate(std::ios::failbit);
+        throw std::logic_error("Command isn't found");
       }
     }
     catch (const std::logic_error& ex)
