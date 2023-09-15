@@ -15,7 +15,7 @@ namespace mashkin
     commands["MIN"] = runMin;
     commands["COUNT"] = runCount;
     commands["PERMS"] = runPerms;
-    commands["RIGHTSHAPES"] = runRightshapes;
+    commands["RIGHTSHAPES"] = runRightShapes;
     return commands;
   }
 }
