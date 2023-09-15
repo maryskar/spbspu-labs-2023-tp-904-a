@@ -1,4 +1,4 @@
-#include "StreamGuard.h"
+#include "streamGuard.h"
 
 aristarkhov::StreamGuard::StreamGuard(std::basic_ios< char >& stream):
   stream_(stream),
