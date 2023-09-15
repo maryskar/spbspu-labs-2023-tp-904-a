@@ -39,14 +39,6 @@ std::istream & avdeeva::operator>>(std::istream & in, const Polygon & rhs)
   }
   return in;
 }
-bool avdeeva::compX(const Point & lhs, const Point & rhs)
-{
-  return (lhs.x < rhs.x);
-}
-bool avdeeva::compY(const Point & lhs, const Point & rhs)
-{
-  return (lhs.y < rhs.y);
-}
 size_t avdeeva::size(const Polygon &pol)
 {
   return pol.points.size();
