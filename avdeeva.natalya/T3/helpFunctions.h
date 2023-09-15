@@ -1,5 +1,6 @@
 #ifndef SPBSPU_LABS_2023_TP_904_A_HELPFUNCTIONS_H
 #define SPBSPU_LABS_2023_TP_904_A_HELPFUNCTIONS_H
+#include "deque"
 #include "polygon.h"
 namespace avdeeva
 {
