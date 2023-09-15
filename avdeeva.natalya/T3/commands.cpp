@@ -17,8 +17,8 @@ namespace
   {
     return size(pol) == num;
   }
-  template<typename Pred>
-  double calcArea(const std::deque < avdeeva::Polygon > & polygons, Pred p)
+  template< typename Pred >
+  double calcArea(const std::deque< avdeeva::Polygon > & polygons, Pred p)
   {
     std::deque < avdeeva::Polygon > filtPolygons;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(filtPolygons), p);
@@ -85,8 +85,8 @@ namespace
   {
     return (lhs.points.size() < rhs.points.size());
   }
-  template<typename T, typename Func, typename Comp>
-  T findMax(const std::deque < avdeeva::Polygon > & polygons, Comp comp, Func func)
+  template< typename T, typename Func, typename Comp >
+  T findMax(const std::deque< avdeeva::Polygon > & polygons, Comp comp, Func func)
   {
     if (polygons.empty())
     {
