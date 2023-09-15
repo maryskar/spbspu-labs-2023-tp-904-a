@@ -10,7 +10,7 @@ namespace mashkin
 {
   void runArea(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res);
   void runMax(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res);
-  void runRightshapes(std::istream&, std::ostream& out, const std::deque< Polygon >& res);
+  void runRightShapes(std::istream&, std::ostream& out, const std::deque< Polygon >& res);
   void runPerms(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res);
   void runCount(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res);
   void runMin(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res);
