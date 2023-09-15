@@ -74,3 +74,14 @@ std::istream& operator>>(std::istream& in, LabelIO&& ref)
   }
   return in;
 }
+
+double convertDblSci(double &value)
+{ 
+  std::string str = std::to_string(value);
+  size_t numb = value.length() - 1 - value.find('e');
+  if (numb > 1)
+  {
+    value.erase(lenght() - 1, )
+  }
+  return stod(value);
+}

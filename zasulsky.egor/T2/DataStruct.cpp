@@ -3,6 +3,7 @@
 
 std::ostream& operator<<(std::ostream& out, const dataStruct& ref)
 {
+  ref.key1 = convertDblSci(ref.key1);
   std::ostream::sentry sentry(out);
   if (!sentry)
   {

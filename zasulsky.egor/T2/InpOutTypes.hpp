@@ -35,6 +35,7 @@ std::istream& operator>>(std::istream& in, DblIO&& ref);
 std::istream& operator>>(std::istream& in, StringIO&& ref);
 std::istream& operator>>(std::istream& in, SllIO&& ref);
 std::istream& operator>>(std::istream& in, LabelIO&& ref);
+double convertDblSci(std::string& str);
 
 #endif
 
