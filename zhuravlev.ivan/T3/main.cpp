@@ -50,10 +50,6 @@ int main(int argc, char* argv[])
     {"MIN VERTEXES", zhuravlev::MinVertexes},
     {"COUNT", zhuravlev::countVertexes}
   };
-  std::map< std::string, cmd_t > cmds
-  {
-  };
-
   while (!std::cin.eof())
   {
     std::string cmd;
