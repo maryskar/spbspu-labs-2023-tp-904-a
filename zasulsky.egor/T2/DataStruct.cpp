@@ -22,7 +22,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     return in;
   }
   int d;
-  double key1 0.0;
+  double key1 = 0.0;
   long long key2 = 0;
   std::string key3 = "";
   in >> DelimiterIO{ '(' };
