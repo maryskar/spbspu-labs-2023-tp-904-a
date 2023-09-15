@@ -20,5 +20,7 @@ namespace avdeeva
   bool compMaxX(const Polygon& lhs, const Polygon & rhs);
   bool compMaxY(const Polygon& lhs, const Polygon & rhs);
   Polygon createFrame(const std::deque< Polygon > & polygons);
+  bool isLessPoint(const Point & lhs, const Point & rhs);
+  bool isInFrame(const Polygon & polygon, const Polygon & frameRect);
 }
 #endif

@@ -100,5 +100,18 @@ avdeeva::Polygon avdeeva::createFrame(const std::deque< Polygon > & polygons)
   frame.points.push_back(Point{maxX, minY});
   frame.points.push_back(Point{minX, maxY});
   return frame;
-
+}
+bool avdeeva::isLessPoint(const Point & lhs, const Point & rhs)
+{
+  return (lhs.x <= rhs.x) && (lhs.y <= rhs.y);
+}
+bool avdeeva::isInFrame(const Polygon & polygon, const Polygon & frame)
+{
+  Point minPol = minPoint(polygon);
+  Point maxPol = maxPoint(polygon);
+  Point minFrame = minPoint(frame);
+  Point maxFrame = maxPoint(frame);
+  bool minPoints = isLessPoint(minFrame, minPol);
+  bool maxPoints = isLessPoint(maxPol, maxFrame);
+  return minPoints && maxPoints;
 }
