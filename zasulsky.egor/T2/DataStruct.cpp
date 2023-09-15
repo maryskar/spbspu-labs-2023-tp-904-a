@@ -3,15 +3,14 @@
 
 std::ostream& operator<<(std::ostream& out, const dataStruct& ref)
 {
-  ref.key1 = convertDblSci(ref.key1);
   std::ostream::sentry sentry(out);
   if (!sentry)
   {
     return out;
   }
-  out << "(:key1 " << std::scientific << std::setprecision(1) << ref.key1;
+  out << "(:key1 "  << convertToSci(ref.key1);
   out << ":key2 " << ref.key2 << "ll";
-  out << ":key3 " << ref.key3 << ":" << ")";
+  out << ":key3 " << '"' << ref.key3 << '"' << ":" << ")"; 
   return out;
 }
 

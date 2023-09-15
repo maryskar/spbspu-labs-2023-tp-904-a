@@ -75,13 +75,34 @@ std::istream& operator>>(std::istream& in, LabelIO&& ref)
   return in;
 }
 
-double convertDblSci(double &value)
-{ 
-  std::string str = std::to_string(value);
-  size_t numb = value.length() - 1 - value.find('e');
-  if (numb > 1)
+std::string convertToSci(double dbl)
+{
+  int num = 0;
+  if (std::abs(dbl) >= 10)
   {
-    value.erase(lenght() - 1, )
+    while (std::abs(dbl) >= 10)
+    {
+      dbl /= 10;
+      ++num;
+    }
   }
-  return stod(value);
+  else if (std::abs(a) < 1)
+  {
+    while (std::abs(a) < 1)
+    {
+      dbl *= 10;
+      --num;
+    }
+  }
+  dbl *= 10;
+  int ñ = std::round(dbl);
+  std::string str = std::to_string(ñ);
+  str.insert(1, 1, '.');
+  str += 'e';
+  if (num >= 0)
+  {
+    str += '+';
+  }
+  str += std::to_string(num);
+  return str;
 }
