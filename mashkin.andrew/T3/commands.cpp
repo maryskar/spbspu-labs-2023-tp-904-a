@@ -22,20 +22,17 @@ namespace mashkin
     std::deque< Polygon > data = res;
     std::deque< Polygon >::iterator it = std::partition(data.begin(), data.end(), p);
     std::vector< FullArea > areas = getFullArea(data.begin(), it);
-    out << std::accumulate(areas.begin(), areas.end(), FullArea());
-    return out;
+    return out << std::accumulate(areas.begin(), areas.end(), FullArea());
   }
 
   std::ostream& runEven(const std::deque< Polygon >& res, std::ostream& out)
   {
-    runEvenOrOdd(res, out, isEven);
-    return out;
+    return runEvenOrOdd(res, out, isEven);
   }
 
   std::ostream& runOdd(const std::deque< Polygon >& res, std::ostream& out)
   {
-    runEvenOrOdd(res, out, isOdd);
-    return out;
+    return runEvenOrOdd(res, out, isOdd);
   }
 
   std::ostream& runMean(const std::deque< Polygon >& res, std::ostream& out)
@@ -45,8 +42,7 @@ namespace mashkin
     std::vector< FullArea > areas = getFullArea(data.begin(), data.end());
     FullArea sumArea;
     sumArea.res = std::accumulate(areas.begin(), areas.end(), FullArea()).res / quantity;
-    out << sumArea;
-    return out;
+    return out << sumArea;
   }
 
   std::ostream& runAreaNumOfVertexes(const std::deque< Polygon >& res, std::ostream& out, const std::string& num)
@@ -55,8 +51,7 @@ namespace mashkin
     size_t count = std::stoull(num);
     std::deque< Polygon >::iterator it = std::partition(data.begin(), data.end(), std::bind(isEqual, _1, count));
     std::vector< FullArea > areas = getFullArea(data.begin(), it);
-    out << std::accumulate(areas.begin(), areas.end(), FullArea());
-    return out;
+    return out << std::accumulate(areas.begin(), areas.end(), FullArea());
   }
 
   void runArea(std::istream& inp, std::ostream& out, const std::deque< Polygon >& res)
@@ -99,13 +94,17 @@ namespace mashkin
     }
   }
 
-  std::ostream& runMaxArea(const std::deque< Polygon >& res, std::ostream& out)
+  std::vector< FullArea > runMaxOrMinArea(const std::deque< Polygon >& res)
   {
     std::deque< Polygon > data = res;
     std::vector< FullArea > areas = getFullArea(data.begin(), data.end());
     std::sort(areas.begin(), areas.end());
-    out << *(--areas.end());
-    return out;
+    return areas;
+  }
+
+  std::ostream& runMaxArea(const std::deque< Polygon >& res, std::ostream& out)
+  {
+    return out << *(--runMaxOrMinArea(res).end());
   }
 
   std::ostream& runMaxVertexes(const std::deque< Polygon >& res, std::ostream& out)
@@ -138,12 +137,9 @@ namespace mashkin
     }
   }
 
-  void runMinArea(const std::deque< Polygon >& res, std::ostream& out)
+  std::ostream& runMinArea(const std::deque< Polygon >& res, std::ostream& out)
   {
-    std::deque< Polygon > data = res;
-    std::vector< FullArea > areas = getFullArea(data.begin(), data.end());
-    std::sort(areas.begin(), areas.end());
-    std::copy(areas.begin(), ++areas.begin(), std::ostream_iterator< FullArea >(out, "\n"));
+    return out << *runMaxOrMinArea(res).begin();
   }
 
   std::ostream& runMinVertexes(const std::deque< Polygon >& res, std::ostream& out)
@@ -165,7 +161,7 @@ namespace mashkin
     }
     else if (command == "AREA")
     {
-      runMinArea(res, out);
+      runMinArea(res, out) << "\n";
     }
     else if (command == "VERTEXES")
     {
