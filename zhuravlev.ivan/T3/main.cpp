@@ -23,8 +23,9 @@ int main(int argc, char* argv[])
   std::vector< zhuravlev::Polygon > polygons;
   std::istringstream input{
     "3 (0;0) (1;1) (1;0)\n"
-    "4 (0;0) (1;1) (1;0) (3;1)\n"
+    "4 (0;0) (1;0) (1;1) (0;1)\n"
     "3 (0;0) (1;1) (1;0)\n"
+    "4 (0;0) (2;0) (2;2) (0;2)\n"
     };
   while (!input.eof())
   {
@@ -38,18 +39,22 @@ int main(int argc, char* argv[])
   std::map< std::string, const_cmd_t > const_cmds
   { 
     {"COUNT ODD", zhuravlev::countOdd},
-    {"COUNT EVEN", zhuravlev::countEven}, 
+    {"COUNT EVEN", zhuravlev::countEven},
     {"MAX AREA", zhuravlev::MaxArea},
     {"MAX VERTEXES", zhuravlev::MaxVertexes},
     {"AREA MEAN", zhuravlev::AreaMean},
     {"AREA EVEN", zhuravlev::AreaEven},
-    {"AREA ODD", zhuravlev::AreaOdd}
-
-
-
-
-
+    {"AREA ODD", zhuravlev::AreaOdd},
+    //{"AREA", zhuravlev::AreaVertexes},
+    {"MIN AREA", zhuravlev::MinArea},
+    {"MIN VERTEXES", zhuravlev::MinVertexes},
+    {"COUNT", zhuravlev::countVertexes}
   };
+  std::map< std::string, cmd_t > cmds
+  {
+    
+  };
+
   while (!std::cin.eof())
   {
     std::string cmd;

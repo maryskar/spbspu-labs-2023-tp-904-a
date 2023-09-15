@@ -3,7 +3,7 @@
 #include <numeric>
 #include <iomanip>
 #include <functional>
-#include "iofmtguard.hpp"
+#include <iofmtguard.hpp>
 
 namespace zhuravlev
 {
@@ -39,30 +39,32 @@ namespace zhuravlev
   void countOdd(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     iofmtguard iofmtguard(out);
-    out << std::count_if(polygons.begin(), polygons.end(), isOdd) << "\n";
+    out << std::count_if(polygons.begin(), polygons.end(), isOdd) << '\n';
   }
   void countEven(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     iofmtguard iofmtguard(out);
-    out << std::count_if(polygons.begin(), polygons.end(), isEven);
+    out << std::count_if(polygons.begin(), polygons.end(), isEven) << '\n';
   }
   void AreaEven(const std::vector< Polygon >& polygons, std::ostream& out)
   {
-    std::vector< Polygon > even_polygons(polygons.size());
+    size_t size_of_even_vector = std::count_if(polygons.begin(), polygons.end(), isEven);
+    std::vector< Polygon > even_polygons(size_of_even_vector);
     std::copy_if(polygons.begin(), polygons.end(), even_polygons.begin(), isEven);
-    std::vector< double > areas_of_even(even_polygons.size());
+    std::vector< double > areas_of_even(size_of_even_vector);
     std::transform(even_polygons.begin(), even_polygons.end(), areas_of_even.begin(), getArea);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(areas_of_even.begin(), areas_of_even.end(), 0.0); 
+    out << std::fixed << std::setprecision(1) << std::accumulate(areas_of_even.begin(), areas_of_even.end(), 0.0) << '\n';
   }
   void AreaOdd(const std::vector< Polygon >& polygons, std::ostream& out)
   {
-    std::vector< Polygon > even_polygons(polygons.size());
-    std::copy_if(polygons.begin(), polygons.end(), even_polygons.begin(), isOdd);
-    std::vector< double > areas_of_odd(even_polygons.size());
-    std::transform(even_polygons.begin(), even_polygons.end(), areas_of_odd.begin(), getArea);
+    size_t size_of_odd_vector = std::count_if(polygons.begin(), polygons.end(), isOdd);
+    std::vector< Polygon > odd_polygons(size_of_odd_vector);
+    std::copy_if(polygons.begin(), polygons.end(), odd_polygons.begin(), isOdd);
+    std::vector< double > areas_of_odd(size_of_odd_vector);
+    std::transform(odd_polygons.begin(), odd_polygons.end(), areas_of_odd.begin(), getArea);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(areas_of_odd.begin(), areas_of_odd.end(), 0.0); 
+    out << std::fixed << std::setprecision(1) << std::accumulate(areas_of_odd.begin(), areas_of_odd.end(), 0.0) << '\n';
   }
   void AreaMean(const std::vector< Polygon >& polygons, std::ostream& out)
   {
@@ -83,7 +85,7 @@ namespace zhuravlev
     std::vector< double > needed_area(needed_area.size());
     std::transform(needed_values.begin(), needed_values.end(), needed_area.begin(), getArea);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(needed_area.begin(), needed_area.end(), 0.0);
+    out << std::fixed << std::setprecision(1) << std::accumulate(needed_area.begin(), needed_area.end(), 0.0) << '\n';
   }
   void MaxArea(const std::vector< Polygon >& polygons, std::ostream& out)
   {
@@ -92,10 +94,10 @@ namespace zhuravlev
       throw std::logic_error("You need to add at least one polygon\n");
     }
     std::vector< double > all_areas(polygons.size());
-    std::transform(polygons.begin(), polygons.end(), std::back_inserter(all_areas), getArea);
+    std::transform(polygons.begin(), polygons.end(), all_areas.begin(), getArea);
     std::sort(all_areas.begin(), all_areas.end());
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << all_areas[-1] << "\n";
+    out << std::fixed << std::setprecision(1) << all_areas.back() << '\n';
   }
   void MaxVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
   {
@@ -103,7 +105,7 @@ namespace zhuravlev
     std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), getNumberOfVertexes);
     std::sort(vertexes.begin(), vertexes.end());
     iofmtguard iofmtguard(out);
-    out << vertexes.back();
+    out << vertexes.back() << '\n';
   }
   void MinArea(const std::vector< Polygon >& polygons, std::ostream& out)
   {
@@ -112,7 +114,7 @@ namespace zhuravlev
       throw std::logic_error("You need to add at least one polygon\n");
     }
     std::vector< double > all_areas(polygons.size());
-    std::transform(polygons.begin(), polygons.end(), std::back_inserter(all_areas), getArea);
+    std::transform(polygons.begin(), polygons.end(), all_areas.begin(), getArea);
     std::sort(all_areas.begin(), all_areas.end());
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << all_areas.front() << "\n";
@@ -120,14 +122,16 @@ namespace zhuravlev
   void MinVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     std::vector< size_t > vertexes(polygons.size());
-    std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), getNumberOfVertexes);
+    std::transform(polygons.begin(), polygons.end(), vertexes.begin(), getNumberOfVertexes);
     std::sort(vertexes.begin(), vertexes.end());
     iofmtguard iofmtguard(out);
-    out << vertexes.front();
+    out << vertexes.front() << '\n';
   }
-  void countVertexes(const std::vector< Polygon >& polygons, const size_t num_of_vertexes, std::ostream& out)
+  void countVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
   {
+    size_t num_of_vertexes = 0;
+    std::cin >> num_of_vertexes;
     iofmtguard iofmtguard(out);
-    out << std::count_if(polygons.begin(), polygons.end(), getNumberOfVertexes);
+    out << std::count_if(polygons.begin(), polygons.end(), getNumberOfVertexes) << '\n';
   }
 }

@@ -12,7 +12,7 @@ namespace zhuravlev
   bool isOdd(const Polygon& polygons);
   void countOdd(const std::vector< Polygon >& polygons, std::ostream& out);
   void countEven(const std::vector< Polygon >& polygons, std::ostream& out);
-  void countVertexes(const std::vector< Polygon >& polygons, const size_t num_of_vertexes, std::ostream& out);
+  void countVertexes(const std::vector< Polygon >& polygons, std::ostream& out);
   void AreaEven(const std::vector< Polygon >& polygons, std::ostream& out);
   void AreaOdd(const std::vector< Polygon >& polygons, std::ostream& out);
   void AreaMean(const std::vector< Polygon >& polygons, std::ostream& out);
