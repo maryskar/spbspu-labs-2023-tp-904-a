@@ -1,5 +1,4 @@
 #include "iofmtguard.h"
-
 avdeeva::iofmtguard::iofmtguard(std::basic_ios< char > & s):
   s_(s),
   fill_(s.fill()),

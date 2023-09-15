@@ -1,4 +1,5 @@
 #include "outCommand.h"
+#include <iomanip>
 #include <exception>
 #include <map>
 #include <string>
@@ -6,7 +7,7 @@
 #include "polygon.h"
 #include "iofmtguard.h"
 #include "commands.h"
-void avdeeva::areaCommand(const std::deque< avdeeva::Polygon > & polygons, std::istream & in, std::ostream & out)
+void avdeeva::areaCommand(const std::deque< Polygon > & polygons, std::istream & in, std::ostream & out)
 {
   std::string argument;
   in >> argument;
@@ -14,7 +15,7 @@ void avdeeva::areaCommand(const std::deque< avdeeva::Polygon > & polygons, std::
   {
     throw std::invalid_argument("Invalid command");
   }
-  std::map< std::string, std::function< double(const std::deque< Polygon >) > > areaCommands(
+  std::map< std::string, std::function< double (const std::deque< Polygon >) > > areaCommands(
     {
       {"EVEN", calcAreaEven},
       {"ODD", calcAreaOdd},
@@ -24,7 +25,7 @@ void avdeeva::areaCommand(const std::deque< avdeeva::Polygon > & polygons, std::
   try
   {
     area = areaCommands.at(argument)(polygons);
-    avdeeva::iofmtguard guard(out);
+    iofmtguard guard(out);
     out << std::setprecision(1) << std::fixed << area << '\n';
   }
   catch (const std::exception & e)
@@ -34,8 +35,8 @@ void avdeeva::areaCommand(const std::deque< avdeeva::Polygon > & polygons, std::
     {
       throw std::logic_error("Polygons have more than 3 vertexes");
     }
-    area = avdeeva::calcAreaVerts(polygons, vertexes);
-    avdeeva::iofmtguard guard(out);
+    area = calcAreaVerts(polygons, vertexes);
+    iofmtguard guard(out);
     out << std::setprecision(1) << std::fixed << area << '\n';
   }
 }
@@ -45,37 +46,37 @@ void avdeeva::maxCommand(const std::deque< Polygon > & polygons, std::istream & 
   in >> argument;
   if (argument == "AREA")
   {
-    avdeeva::iofmtguard guard(out);
-    out << std::setprecision(1) << std::fixed << avdeeva::findMaxArea(polygons) << '\n';
+    iofmtguard guard(out);
+    out << std::setprecision(1) << std::fixed << findMaxArea(polygons) << '\n';
   }
   else if (argument == "VERTEXES")
   {
-    out << avdeeva::findMaxVerts(polygons) << '\n';
+    out << findMaxVerts(polygons) << '\n';
   }
   else
   {
     throw std::invalid_argument("Invalid command");
   }
 }
-void avdeeva::minCommand(const std::deque< avdeeva::Polygon > & polygons, std::istream & in, std::ostream & out)
+void avdeeva::minCommand(const std::deque< Polygon > & polygons, std::istream & in, std::ostream & out)
 {
   std::string argument;
   in >> argument;
   if (argument == "AREA")
   {
-    avdeeva::iofmtguard guard(out);
-    out << std::setprecision(1) << std::fixed << avdeeva::findMinArea(polygons) << '\n';
+    iofmtguard guard(out);
+    out << std::setprecision(1) << std::fixed << findMinArea(polygons) << '\n';
   }
   else if (argument == "VERTEXES")
   {
-    out << avdeeva::findMinVerts(polygons) << '\n';
+    out << findMinVerts(polygons) << '\n';
   }
   else
   {
     throw std::invalid_argument("Invalid argument");
   }
 }
-void avdeeva::countCommand(const std::deque< avdeeva::Polygon > & polygons, std::istream & in, std::ostream & out)
+void avdeeva::countCommand(const std::deque< Polygon > & polygons, std::istream & in, std::ostream & out)
 {
   std::string argument;
   in >> argument;
@@ -83,7 +84,7 @@ void avdeeva::countCommand(const std::deque< avdeeva::Polygon > & polygons, std:
   {
     throw std::runtime_error("Input error");
   }
-  std::map< std::string, std::function< size_t(const std::deque< avdeeva:: Polygon >) > > countCommands(
+  std::map< std::string, std::function< size_t (const std::deque< Polygon >) > > countCommands(
     {
       {"EVEN", counterEven},
       {"ODD", counterOdd}
@@ -101,24 +102,24 @@ void avdeeva::countCommand(const std::deque< avdeeva::Polygon > & polygons, std:
     {
       throw std::logic_error("Polygons have more than 3 vertexes");
     }
-    count = avdeeva::counterVertexes(polygons, verts);
+    count = counterVertexes(polygons, verts);
     out << count << '\n';
   }
 }
-void avdeeva::rightshapesCommand(const std::deque< avdeeva::Polygon > & polygons, std::istream & in, std::ostream & out)
+void avdeeva::rightshapesCommand(const std::deque< Polygon > & polygons, std::istream & in, std::ostream & out)
 {
-  size_t count = avdeeva::countRightShapes(polygons);
+  size_t count = countRightShapes(polygons);
   out << count << '\n';
 }
-void avdeeva::inframeCommand(const std::deque< avdeeva::Polygon > & polygons, std::istream & in, std::ostream & out)
+void avdeeva::inframeCommand(const std::deque< Polygon > & polygons, std::istream & in, std::ostream & out)
 {
-  avdeeva::Polygon input;
+  Polygon input;
   in >> input;
   if (!in)
   {
     throw std::runtime_error("Input error");
   }
-  bool isInFrame = avdeeva::isInFrame(polygons, input);
+  bool isInFrame = isInFrame(polygons, input);
   if (isInFrame)
   {
     out << "<TRUE>" << "\n";

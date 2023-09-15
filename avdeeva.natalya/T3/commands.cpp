@@ -3,7 +3,6 @@
 #include <numeric>
 #include <functional>
 #include "helpFunctions.h"
-
 template< typename Pred >
 double calcArea(const std::deque< avdeeva::Polygon > & polygons, Pred p)
 {
@@ -35,10 +34,6 @@ double avdeeva::calcAreaMean(const std::deque< Polygon > & polygons)
 }
 double avdeeva::calcAreaVerts(const std::deque< Polygon > & polygons, size_t num)
 {
-  if (num < 3)
-  {
-    throw std::invalid_argument("No polygons with this number of vertexes");
-  }
   using namespace std::placeholders;
   auto pred = std::bind(isNumOfVerts, _1, num);
   return calcArea(polygons, pred);
@@ -58,10 +53,6 @@ size_t avdeeva::counterOdd(const std::deque< Polygon > & polygons)
 }
 size_t avdeeva::counterVertexes(const std::deque< Polygon > & polygons, size_t num)
 {
-  if (num < 3)
-  {
-    throw std::invalid_argument("No polygons with this number of vertexes");
-  }
   using namespace std::placeholders;
   auto pred = std::bind(isNumOfVerts, _1, num);
   return counter(polygons, pred);

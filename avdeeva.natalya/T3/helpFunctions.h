@@ -13,12 +13,12 @@ namespace avdeeva
   bool isRightTriangle(const Point & lhs, const Point & rhs, const Point & third);
   bool checkTriangle(Point & first, Point & second, const Point & third);
   bool isRightshape(const Polygon & polygon);
-  Point minPoint(const Polygon& polygon);
-  Point maxPoint(const Polygon& polygon);
-  bool compMinX(const Polygon& lhs, const Polygon & rhs);
-  bool compMinY(const Polygon& lhs, const Polygon & rhs);
-  bool compMaxX(const Polygon& lhs, const Polygon & rhs);
-  bool compMaxY(const Polygon& lhs, const Polygon & rhs);
+  Point minPoint(const Polygon & polygon);
+  Point maxPoint(const Polygon & polygon);
+  bool compMinX(const Polygon & lhs, const Polygon & rhs);
+  bool compMinY(const Polygon & lhs, const Polygon & rhs);
+  bool compMaxX(const Polygon & lhs, const Polygon & rhs);
+  bool compMaxY(const Polygon & lhs, const Polygon & rhs);
   Polygon createFrame(const std::deque< Polygon > & polygons);
   bool isLessPoint(const Point & lhs, const Point & rhs);
   bool isInFrame(const Polygon & polygon, const Polygon & frameRect);
