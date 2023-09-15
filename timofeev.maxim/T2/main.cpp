@@ -19,7 +19,8 @@ int main()
     if (!std::cin)
     {
       std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      auto max = std::numeric_limits< std::streamsize >::max();
+      std::cin.ignore(max '\n');
     }
   }
   std::sort(data.begin(), data.end(), comparator);
