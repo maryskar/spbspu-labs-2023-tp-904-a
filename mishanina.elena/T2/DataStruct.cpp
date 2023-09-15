@@ -62,8 +62,10 @@ std::ostream &mishanina::operator<<(std::ostream &out, const DataStruct &data)
   out << '(';
 //  mishanina::operator<<(out, data.key1);
 //  mishanina::operator<<(out, data.key2);
-  out << data.key1;
-  out << data.key2;
+  long long llk = data.key1;
+  unsigned long long ullk = data.key2;
+  out << LongLongIO{llk};
+  out << UnsignedLongLongIO{ullk};
   out << ":key3 " << std::quoted(data.key3, '"');
   out << ":)";
   return out;
