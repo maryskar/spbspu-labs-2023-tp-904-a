@@ -4,8 +4,45 @@
 #include <string>
 #include <functional>
 #include "polygon.h"
+#include "iofmtguard.h"
 #include "commands.h"
-void avdeeva::countCommand(const std::deque< avdeeva::Polygon >& polygons, std::istream& in, std::ostream& out)
+void avdeeva::maxCommand(const std::deque< Polygon > & polygons, std::istream & in, std::ostream & out)
+{
+  std::string argument;
+  in >> argument;
+  if (argument == "AREA")
+  {
+    avdeeva::iofmtguard guard(out);
+    out << std::setprecision(1) << std::fixed << avdeeva::findMaxArea(polygons) << '\n';
+  }
+  else if (argument == "VERTEXES")
+  {
+    out << avdeeva::findMaxVerts(polygons) << '\n';
+  }
+  else
+  {
+    throw std::invalid_argument("Incorrect max parameter!");
+  }
+}
+void avdeeva::minCommand(const std::deque< avdeeva::Polygon > & polygons, std::istream & in, std::ostream & out)
+{
+  std::string argument;
+  in >> argument;
+  if (argument == "AREA")
+  {
+    avdeeva::iofmtguard guard(out);
+    out << std::setprecision(1) << std::fixed << avdeeva::findMinArea(polygons) << '\n';
+  }
+  else if (argument == "VERTEXES")
+  {
+    out << avdeeva::findMinVerts(polygons) << '\n';
+  }
+  else
+  {
+    throw std::logic_error("Incorrect min argument!");
+  }
+}
+void avdeeva::countCommand(const std::deque< avdeeva::Polygon > & polygons, std::istream & in, std::ostream & out)
 {
   std::string argument;
   in >> argument;
