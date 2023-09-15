@@ -14,7 +14,6 @@
 namespace mashkin
 {
   using namespace std::placeholders;
-
   constexpr auto maxSize = std::numeric_limits< std::streamsize >::max();
 
   template< class P >
@@ -39,15 +38,12 @@ namespace mashkin
     return out;
   }
 
-  void runMean(const std::deque< Polygon >& res, std::ostream& out)
+  std::ostream& runMean(const std::deque< Polygon >& res, std::ostream& out)
   {
     std::deque< Polygon > data = res;
-    size_t quantity = res.size();
     std::vector< FullArea > areas = getFullArea(data.begin(), data.end());
-    std::vector< FullArea > sumArea;
-    sumArea.push_back(std::accumulate(areas.begin(), areas.end(), FullArea()));
-    sumArea.begin()->res /= quantity;
-    std::copy(sumArea.begin(), sumArea.end(), std::ostream_iterator< FullArea >(out, "\n"));
+    out << std::accumulate(areas.begin(), areas.end(), FullArea()).res / res.size();
+    return out;
   }
 
   void runAreaNumOfVertexes(const std::deque< Polygon >& res, std::ostream& out, const std::string& num)
