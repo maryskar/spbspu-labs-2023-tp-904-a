@@ -56,24 +56,24 @@ double avdeeva::calcAreaVerts(const std::deque< Polygon > & polygons, size_t num
 namespace
 {
   template< typename Pred >
-  size_t counter(const std::deque< avdeeva::Polygon > & polygons, Pred p)
+  size_t count(const std::deque< avdeeva::Polygon > & polygons, Pred p)
   {
     return std::count_if(polygons.begin(), polygons.end(), p);
   }
 }
-size_t avdeeva::counterEven(const std::deque< Polygon > & polygons)
+size_t avdeeva::countEven(const std::deque< Polygon > & polygons)
 {
-  return counter(polygons, isEven);
+  return count(polygons, isEven);
 }
-size_t avdeeva::counterOdd(const std::deque< Polygon > & polygons)
+size_t avdeeva::countOdd(const std::deque< Polygon > & polygons)
 {
-  return counter(polygons, isOdd);
+  return count(polygons, isOdd);
 }
-size_t avdeeva::counterVertexes(const std::deque< Polygon > & polygons, size_t num)
+size_t avdeeva::countIsNumVertexes(const std::deque< Polygon > & polygons, size_t num)
 {
   using namespace std::placeholders;
   auto pred = std::bind(isNumOfVerts, _1, num);
-  return counter(polygons, pred);
+  return count(polygons, pred);
 }
 namespace
 {
