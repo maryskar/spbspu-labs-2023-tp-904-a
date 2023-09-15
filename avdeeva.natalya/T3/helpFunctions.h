@@ -14,6 +14,10 @@ namespace avdeeva
   bool isRightshape(const Polygon & polygon);
   Point minPoint(const Polygon& polygon);
   Point maxPoint(const Polygon& polygon);
+  bool compMinX(const Polygon& lhs, const Polygon & rhs);
+  bool compMinY(const Polygon& lhs, const Polygon & rhs);
+  bool compMaxX(const Polygon& lhs, const Polygon & rhs);
+  bool compMaxY(const Polygon& lhs, const Polygon & rhs);
   Polygon createFrame(const std::deque< Polygon > & polygons);
 }
 #endif

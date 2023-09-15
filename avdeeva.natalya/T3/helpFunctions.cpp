@@ -70,8 +70,35 @@ avdeeva::Point avdeeva::maxPoint(const Polygon & polygon)
   Point maxPoint{maxX, maxY};
   return maxPoint;
 }
+bool avdeeva::compMinX(const Polygon & lhs, const Polygon & rhs)
+{
+  return minPoint(lhs).x < minPoint(rhs).x;
+}
+bool avdeeva::compMaxX(const Polygon & lhs, const Polygon & rhs)
+{
+  return maxPoint(lhs).x < maxPoint(rhs).x;
+}
+bool avdeeva::compMinY(const Polygon & lhs, const Polygon & rhs)
+{
+  return minPoint(lhs).y < minPoint(rhs).y;
+}
+bool avdeeva::compMaxY(const Polygon & lhs, const Polygon & rhs)
+{
+  return maxPoint(lhs).y < maxPoint(rhs).y;
+}
 avdeeva::Polygon avdeeva::createFrame(const std::deque< Polygon > & polygons)
 {
   Polygon frame;
+  auto begin = polygons.begin();
+  auto end = polygons.end();
+  int minX = minPoint(*std::min_element(begin, end, compMinX)).x;
+  int minY = minPoint(*std::min_element(begin, end, compMinY)).y;
+  int maxX = maxPoint(*std::max_element(begin, end, compMaxX)).x;
+  int maxY = maxPoint(*std::max_element(begin, end, compMaxY)).y;
+  frame.points.push_back(Point{minX, minY});
+  frame.points.push_back(Point{maxX, maxY});
+  frame.points.push_back(Point{maxX, minY});
+  frame.points.push_back(Point{minX, maxY});
+  return frame;
 
 }
