@@ -34,9 +34,8 @@ int main(int argc, char ** argv)
       input.ignore(maxstream, '\n');
     }
   }
-  using cmd = std::function< void (const std::deque< avdeeva::Polygon > &,
-    std::istream &, std::ostream &) >;
-  std::map< std::string, cmd > commands(
+  using cmd_t = std::function< void (const std::deque< avdeeva::Polygon > &, std::istream &, std::ostream &) >;
+  std::map< std::string, cmd_t > commands
     {
       {"AREA", avdeeva::areaCommand},
       {"MAX", avdeeva::maxCommand},
@@ -44,7 +43,7 @@ int main(int argc, char ** argv)
       {"COUNT", avdeeva::countCommand},
       {"RIGHTSHAPES", avdeeva::rightshapesCommand},
       {"INFRAME", avdeeva::inframeCommand}
-    });
+    };
   while (!std::cin.eof())
   {
     std::cin.clear();
