@@ -10,7 +10,8 @@
 
 void createSet(Dictionary& dict, std::istream& in);
 void threeMostPopular(const Dictionary& dict, std::ostream& out);
-void print(const Dictionary& dict, std::ostream& out);
-
+void print(const std::vector< std::pair <std::string, size_t> >& dict, std::ostream& out);
+void findWord(const Dictionary& dict, std::istream& in, std::ostream& out);
+void deleteWord(Dictionary& dict, std::istream& in, std::ostream& out);
 
 #endif
