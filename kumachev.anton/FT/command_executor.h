@@ -19,8 +19,7 @@ namespace kumachev {
   class CommandExecutor {
   public:
     CommandExecutor(std::istream &istream, std::ostream &ostream,
-        const CommandSystem& commandSystem, kumachev::State &state,
-        bool interactive);
+        const CommandSystem& commandSystem, kumachev::State &state);
 
     void handleCommand();
 
@@ -29,7 +28,6 @@ namespace kumachev {
     std::istream &istream_;
     std::ostream &ostream_;
     State &state_;
-    const bool interactive_;
   };
 
   CommandSystem createCommandSystem();

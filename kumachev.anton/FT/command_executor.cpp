@@ -3,13 +3,20 @@
 #include <functional>
 #include <algorithm>
 #include <iterator>
+#include <fstream>
 
 namespace kumachev {
   using dict_map_pair = std::pair< const std::string, er_dictionary >;
+  using er_pair = std::pair< const std::string, std::vector< std::string > >;
 
   static std::string getDictName(const dict_map_pair &pair)
   {
     return pair.first;
+  }
+
+  static bool isNotInDict(const er_pair &pair, const er_dictionary &dict)
+  {
+    return dict.find(pair.first) == dict.cend();
   }
 
   static void handleHelp(State &state, string_vector &args,
@@ -46,11 +53,10 @@ namespace kumachev {
       std::ostream &ostream);
 
   CommandExecutor::CommandExecutor(std::istream &istream, std::ostream &ostream,
-    const CommandSystem &commandSystem, State &state, bool interactive):
+      const CommandSystem &commandSystem, State &state):
     istream_(istream),
     ostream_(ostream),
     commandSystem_(commandSystem),
-    interactive_(interactive),
     state_(state)
   {
   }
@@ -60,6 +66,11 @@ namespace kumachev {
     std::string line, command;
 
     std::getline(istream_, line, '\n');
+
+    if (line.empty()) {
+      return;
+    }
+
     size_t spcIndex = line.find(' ');
     std::vector< std::string > args;
 
@@ -135,7 +146,7 @@ namespace kumachev {
             << "\t10. merge <dict_out> <dict1> <dict2> -"
             << " объединить словари <dict1> и <dict2> в словарь <dict_out>\n"
             << "\t11. subtract <dict_out> <dict1> <dict2> - вычесть"
-            << "словарь <dict2> из <dict1 и записать"
+            << "словарь <dict2> из <dict1> и записать"
             << " результат в <dict_out>\n\n";
   }
 
@@ -152,10 +163,10 @@ namespace kumachev {
     std::vector< std::string > names;
     names.reserve(state.dicts.size());
     auto inserter = std::back_inserter(names);
-    const auto& dicts = state.dicts;
+    const auto &dicts = state.dicts;
     std::transform(dicts.cbegin(), dicts.cend(), inserter, getDictName);
 
-    auto output = std::ostream_iterator<std::string>(ostream, "\n");
+    auto output = std::ostream_iterator< std::string >(ostream, "\n");
     std::copy(names.cbegin(), names.cend(), output);
   }
 
@@ -207,26 +218,122 @@ namespace kumachev {
 
   void handleClear(State &state, string_vector &args, std::ostream &ostream)
   {
+    if (args.size() != 1) {
+      throw std::logic_error("Команда принимает 1 аргумент");
+    }
 
+    std::string dictName = args[0];
+    const auto &searchResult = state.dicts.find(dictName);
+
+    if (searchResult == state.dicts.end()) {
+      throw std::logic_error("ОШИБКА: Словарь не найден");
+    }
+
+    searchResult->second.clear();
   }
 
   void handleTranslate(State &state, string_vector &args, std::ostream &ostream)
   {
+    if (args.size() != 2) {
+      throw std::logic_error("Команда принимает 2 аргумента");
+    }
 
+    std::string dictName = args[0];
+    std::string english = args[1];
+
+    const auto &searchResult = state.dicts.find(dictName);
+
+    if (searchResult == state.dicts.end()) {
+      throw std::logic_error("ОШИБКА: Словарь не найден");
+    }
+
+    try {
+      const auto &translated = searchResult->second.at(english);
+      auto output = std::ostream_iterator< std::string >(ostream, "\n");
+      std::copy(translated.cbegin(), translated.cend(), output);
+    }
+    catch (const std::out_of_range &) {
+      ostream << "ОШИБКА: слово отсутствует в словаре\n\n";
+    }
   }
 
   void handleExecute(State &state, string_vector &args, std::ostream &ostream)
   {
+    if (args.size() != 1) {
+      throw std::logic_error("Команда принимает 1 аргумент");
+    }
 
+    std::string path = args[0];
+    std::ifstream script(path);
+
+    if (!script.good()) {
+      throw std::logic_error("ОШИБКА: Не удалось открыть файл скрипта");
+    }
+
+    kumachev::CommandSystem cs = kumachev::createCommandSystem();
+    kumachev::CommandExecutor scriptExecutor(script, std::cout, cs, state);
+
+    while (script.good()) {
+      scriptExecutor.handleCommand();
+    }
   }
 
   void handleMerge(State &state, string_vector &args, std::ostream &ostream)
   {
+    if (args.size() != 3) {
+      throw std::logic_error("Команда принимает 3 аргумента");
+    }
 
+    std::string resultDictName = args[0];
+    std::string firstName = args[1];
+    std::string secondName = args[2];
+
+    er_dictionary result;
+    const auto &first = state.dicts.find(firstName);
+    const auto &second = state.dicts.find(secondName);
+
+    if (first == state.dicts.end()) {
+      throw std::logic_error("ОШИБКА: Словарь 1 не найден");
+    }
+
+    if (second == state.dicts.end()) {
+      throw std::logic_error("ОШИБКА: Словарь 2 не найден");
+    }
+
+    result.insert(first->second.cbegin(), first->second.cend());
+    result.insert(second->second.cbegin(), second->second.cend());
+    state.dicts[resultDictName] = result;
   }
 
   void handleSubtract(State &state, string_vector &args, std::ostream &ostream)
   {
+    using namespace std::placeholders;
 
+    if (args.size() != 3) {
+      throw std::logic_error("Команда принимает 3 аргумента");
+    }
+
+    std::string resultDictName = args[0];
+    std::string firstName = args[1];
+    std::string secondName = args[2];
+
+    er_dictionary result;
+    const auto &first = state.dicts.find(firstName);
+    const auto &second = state.dicts.find(secondName);
+
+    if (first == state.dicts.end()) {
+      throw std::logic_error("ОШИБКА: Словарь 1 не найден");
+    }
+
+    if (second == state.dicts.end()) {
+      throw std::logic_error("ОШИБКА: Словарь 2 не найден");
+    }
+
+    auto isNotInSecond = std::bind(isNotInDict, _1, second->second);
+    std::vector< er_pair > subtractionResult;
+    auto inserter = std::back_inserter(subtractionResult);
+    std::copy_if(first->second.cbegin(), first->second.cend(), inserter, isNotInSecond);
+    result.insert(subtractionResult.cbegin(), subtractionResult.cend());
+    state.dicts[resultDictName] = result;
   }
 }
