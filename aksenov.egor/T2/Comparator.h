@@ -1,6 +1,6 @@
 #ifndef T2_COMPARATOR_H
 #define T2_COMPARATOR_H
-#include <common/DataStruct.h>
+#include <DataStruct.h>
 
 namespace aksenov
 {
