@@ -8,12 +8,7 @@ int main()
   kumachev::CommandExecutor e(std::cin, std::cout, cs, globalState);
 
   while (std::cin.good()) {
-    try {
-      e.handleCommand();
-    }
-    catch (const std::exception &e) {
-      std::cerr << e.what() << '\n';
-    }
+    e.handleCommand();
   }
 
   return 0;

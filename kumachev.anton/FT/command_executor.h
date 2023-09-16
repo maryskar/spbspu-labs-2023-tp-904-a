@@ -24,9 +24,9 @@ namespace kumachev {
     void handleCommand();
 
   private:
-    const CommandSystem &commandSystem_;
     std::istream &istream_;
     std::ostream &ostream_;
+    const CommandSystem &commandSystem_;
     State &state_;
   };
 
