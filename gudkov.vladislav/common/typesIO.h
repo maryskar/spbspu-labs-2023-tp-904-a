@@ -5,6 +5,8 @@
 
 namespace gudkov
 {
+  extern bool isEndOfLine;
+
   struct DelimiterExpIO
   {
     char exp;
@@ -34,6 +36,8 @@ namespace gudkov
   {
     std::string &ref;
   };
+
+  void clearStream(std::istream &in);
 
   std::istream &operator>>(std::istream &in, DelimiterExpIO &&dest);
   std::istream &operator>>(std::istream &in, SuffixExpIO &&dest);
