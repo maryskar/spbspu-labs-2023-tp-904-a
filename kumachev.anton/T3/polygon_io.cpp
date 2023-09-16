@@ -11,15 +11,14 @@ namespace kumachev {
   {
     std::istream::sentry sentry(istream);
     StreamGuard guard(istream);
-    istream >> std::noskipws;
 
     if (!sentry) {
       return istream;
     }
 
     Point value{ 0, 0 };
-    istream >> CharIO{ ' ' } >> CharIO{ '(' } >> value.x >> CharIO{ ';' } >> value.y;
-    istream >> CharIO{ ')' };
+    istream >> CharIO{ '(' } >> value.x >> CharIO{ ';' };
+    istream >> value.y >> CharIO{ ')' };
 
     if (istream) {
       point = value;
@@ -33,7 +32,6 @@ namespace kumachev {
     using istream_iterator = std::istream_iterator< Point >;
     std::istream::sentry sentry(istream);
     StreamGuard guard(istream);
-    istream >> std::noskipws;
 
     if (!sentry) {
       return istream;
@@ -48,13 +46,9 @@ namespace kumachev {
     }
 
     Polygon value;
+    value.points.reserve(vertexCount);
     auto backInserter = std::back_inserter(value.points);
     std::copy_n(istream_iterator(istream), vertexCount, backInserter);
-    int nextChar = istream.peek();
-
-    if (nextChar != '\n' && nextChar != -1) {
-      istream.setstate(std::ios::failbit);
-    }
 
     if (istream) {
       std::swap(polygon, value);

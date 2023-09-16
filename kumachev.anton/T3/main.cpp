@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     }
   }
 
-  auto commands = kumachev::createCommandSystem();
+  kumachev::CommandSystem commands;
   std::istream &in = std::cin;
   std::ostream &out = std::cout;
 
@@ -48,10 +48,6 @@ int main(int argc, char **argv)
       kumachev::printInvalid(out);
       out << '\n';
       in.clear();
-
-      // If stream is empty, in.ignore will delete next command.
-      // As a workaround, unget will put newline back, if it was just read
-      in.unget();
       in.ignore(streamsize_limits::max(), '\n');
     }
     catch (const std::runtime_error &e) {

@@ -21,26 +21,38 @@ namespace kumachev {
     return poly;
   }
 
-  CommandSystem createCommandSystem()
+  CommandSystem::CommandSystem()
   {
-    CommandSystem cs;
-    cs.dict1.insert({ "AREA EVEN", areaEven });
-    cs.dict1.insert({ "AREA ODD", areaOdd });
-    cs.dict1.insert({ "AREA MEAN", areaMean });
-    cs.dict1.insert({ "MAX AREA", maxArea });
-    cs.dict1.insert({ "MAX VERTEXES", maxVert });
-    cs.dict1.insert({ "MIN AREA", minArea });
-    cs.dict1.insert({ "MIN VERTEXES", minVert });
-    cs.dict1.insert({ "COUNT EVEN", countEven });
-    cs.dict1.insert({ "COUNT ODD", countOdd });
+    dict1_.insert({ "AREA EVEN", areaEven });
+    dict1_.insert({ "AREA ODD", areaOdd });
+    dict1_.insert({ "AREA MEAN", areaMean });
+    dict1_.insert({ "MAX AREA", maxArea });
+    dict1_.insert({ "MAX VERTEXES", maxVert });
+    dict1_.insert({ "MIN AREA", minArea });
+    dict1_.insert({ "MIN VERTEXES", minVert });
+    dict1_.insert({ "COUNT EVEN", countEven });
+    dict1_.insert({ "COUNT ODD", countOdd });
 
-    cs.dict2.insert({ "AREA", areaVertex });
-    cs.dict2.insert({ "COUNT", countVert });
+    dict2_.insert({ "AREA", areaVertex });
+    dict2_.insert({ "COUNT", countVert });
 
-    cs.dict3.insert({ "ECHO", echo });
-    cs.dict3.insert({ "RMECHO", rmEcho });
+    dict3_.insert({ "ECHO", echo });
+    dict3_.insert({ "RMECHO", rmEcho });
+  }
 
-    return cs;
+  const umap &CommandSystem::getDict1() const
+  {
+    return dict1_;
+  }
+
+  const umap_int &CommandSystem::getDict2() const
+  {
+    return dict2_;
+  }
+
+  const umap_poly &CommandSystem::getDict3() const
+  {
+    return dict3_;
   }
 
   void printInvalid(std::ostream &ostream)
@@ -78,7 +90,7 @@ namespace kumachev {
       std::ostream &ostream)
   {
     try {
-      auto &handler = cmds.dict1.at(commandName);
+      auto &handler = cmds.getDict1().at(commandName);
       handler(polygons, ostream);
       return;
     }
@@ -86,7 +98,7 @@ namespace kumachev {
     }
 
     try {
-      auto &handler = cmds.dict3.at(commandName);
+      auto &handler = cmds.getDict3().at(commandName);
       Polygon param = readPolygonParameter(istream);
       handler(polygons, param, ostream);
       return;
@@ -102,7 +114,7 @@ namespace kumachev {
       throw std::logic_error("Vertex count must more than 2");
     }
 
-    auto &handler = cmds.dict2.at(cmd);
+    auto &handler = cmds.getDict2().at(cmd);
     handler(polygons, parameter, ostream);
   }
 }
