@@ -8,8 +8,8 @@ namespace zhdanov
 {
   struct DataStruct
   {
-    long long key1 = 0;          
-    unsigned long long key2 = 0; 
+    long long key1 = 0;
+    unsigned long long key2 = 0;
     std::string key3 = "";
   };
   bool operator<(const DataStruct& a, const DataStruct& b);

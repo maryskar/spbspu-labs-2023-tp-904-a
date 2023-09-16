@@ -68,7 +68,7 @@ std::istream& zhdanov::operator>>(std::istream& input, DataStruct& data)
       break;
     }
     if (checkKey[i] == false)
-    { 
+    {
       input.setstate(std::ios::failbit);
     }
   }

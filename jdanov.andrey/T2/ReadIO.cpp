@@ -74,7 +74,7 @@ std::string zhdanov::toBinary(unsigned long long decimalNumber)
 {
   unsigned long long number = decimalNumber;
   std::string result = "";
-  do 
+  do
   {
     if (number % 2 == 1)
     {

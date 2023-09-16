@@ -13,7 +13,7 @@ int main()
   auto endCin = std::istream_iterator< DataStruct >();
   std::copy(firstCin, endCin, std::back_inserter(vector));
   while (!std::cin.eof())
-  {  
+  {
     if (std::cin.fail())
     {
       std::cin.clear();
