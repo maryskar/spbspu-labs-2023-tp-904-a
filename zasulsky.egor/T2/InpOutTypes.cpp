@@ -33,9 +33,9 @@ std::istream& operator>>(std::istream& in, DblIO&& ref)
   {
     return in;
   }
-  double c = 0;
-  in >> std::scientific >> c;
-  ref.ref = c;
+  double s = 0;
+  in >> std::scientific >> s;
+  ref.ref = s;
   return in;
 }
 
