@@ -16,7 +16,7 @@ int main()
   while (!std::cin.eof())
   {
     std::copy(itInp(std::cin), itInp(), std::back_inserter(vector));
-    
+
   }
   std::sort(vector.begin(), vector.end(), compare);
   std::copy(vector.begin(), vector.end(), itOut(std::cout));
