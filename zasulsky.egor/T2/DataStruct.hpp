@@ -1,9 +1,9 @@
 #ifndef data_t_H
 #define data_t_H
 
-#include <string>
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 struct dataStruct
 {
