@@ -1,5 +1,5 @@
 #include "DataStruct.h"
-#include "Iofmtguard.h"
+#include <common/Iofmtguard.h>
 namespace aksenov
 {
   std::istream &operator>>(std::istream &in, StringIO &&dest)

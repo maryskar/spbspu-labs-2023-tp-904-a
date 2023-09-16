@@ -4,16 +4,10 @@
 #include <iterator>
 #include <algorithm>
 #include <istream>
+#include <common/dataStruct.h>
 
 namespace aksenov
 {
-  struct DelimiterIO
-  {
-    char exp;
-  };
-
-  std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
-
   struct Point
   {
     int x, y;
