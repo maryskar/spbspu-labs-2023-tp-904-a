@@ -64,7 +64,7 @@ std::istream& zhdanov::operator>>(std::istream& input, BinaryIO&& binaryNumber)
   {
     binaryNumber.refence = toDecimal(data);
   }
-  catch (std::runtime_error)
+  catch (const std::runtime_error & e)
   {
     input.setstate(std::ios::failbit);
   }
