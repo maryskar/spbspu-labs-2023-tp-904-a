@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include "Comparator.h"
-#include <common/DataStruct.h>
+#include <DataStruct.h>
 int main()
 {
   std::vector< aksenov::DataStruct > data;
