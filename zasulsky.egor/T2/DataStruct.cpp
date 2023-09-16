@@ -8,7 +8,7 @@ std::ostream& operator<<(std::ostream& out, const dataStruct& ref)
   {
     return out;
   }
-  out << "(:key1 "  << convertToSci(ref.key1);
+  out << "(:key1 "  <<  (convertToSci(ref.key1));
   out << ":key2 " << ref.key2 << "ll";
   out << ":key3 " << '"' << ref.key3 << '"' << ":" << ")";
   return out;
@@ -33,7 +33,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     switch (d)
     {
     case 1:
-      in >> std::scientific >>  res.key1 ;
+      in >> std::scientific >> std::setprecision(1)  >> res.key1 ;
       break;
 
     case 2:

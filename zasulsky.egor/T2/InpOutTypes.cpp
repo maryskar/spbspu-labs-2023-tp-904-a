@@ -59,9 +59,9 @@ std::string convertToSci(double dbl)
     }
   }
   dbl *= 10;
-  double val = std::round(dbl);
+  int val = std::round(dbl);
   std::string str = std::to_string(val);
-  str.insert(1, 1, '.');
+  str.insert(1ull, 1ull, '.');
   str += 'e';
   if (num >= 0)
   {
