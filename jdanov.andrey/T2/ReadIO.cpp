@@ -68,6 +68,7 @@ std::istream& zhdanov::operator>>(std::istream& input, BinaryIO&& binaryNumber)
   {
     input.setstate(std::ios::failbit);
   }
+  return input;
 }
 
 std::string zhdanov::toBinary(unsigned long long decimalNumber)
