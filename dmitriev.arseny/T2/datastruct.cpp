@@ -1,6 +1,7 @@
 #include "datastruct.h"
 #include <iostream>
 #include "customtypes.h"
+#include "streamguard.h"
 
 bool dmitriev::compareDataStructures(const DataStruct& lhs, const DataStruct& rhs)
 {
@@ -25,7 +26,6 @@ std::istream& dmitriev::operator>>(std::istream& inp, DataStruct& data)
   {
     return inp;
   }
-
 
   DataStruct input;
   inp >> SeparatorIO{'('} >> SeparatorIO{':'};
@@ -69,6 +69,7 @@ std::ostream& dmitriev::operator<<(std::ostream& out, const DataStruct& data)
   {
     return out;
   }
+  StreamGuard streamGuard(out);
 
   out << LableIO{"(:key1 "} << DoubleO{data.key1};
   out << LableIO{":key2 "} << LongLongO{data.key2};
