@@ -1,6 +1,6 @@
 #include "typesIO.h"
+#include <limits>
 #include "scopeGuard.h"
-#include <numeric>
 
 bool gudkov::isEndOfLine = false;
 
