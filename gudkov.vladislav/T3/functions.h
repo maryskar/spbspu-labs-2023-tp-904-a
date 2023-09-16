@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include "Polygon.h"
+#include "polygon.h"
 
 namespace gudkov
 {

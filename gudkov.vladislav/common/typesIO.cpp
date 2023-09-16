@@ -1,7 +1,8 @@
 #include "typesIO.h"
 #include "scopeGuard.h"
+#include <numeric>
 
-static bool gudkov::isEndOfLine = false;
+bool gudkov::isEndOfLine = false;
 
 void gudkov::clearStream(std::istream &in)
 {
