@@ -1,4 +1,5 @@
 #include "datastruct.h"
+#include <iostream>
 #include "customtypes.h"
 
 bool dmitriev::compareDataStructures(const DataStruct& lhs, const DataStruct& rhs)

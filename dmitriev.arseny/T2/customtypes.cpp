@@ -1,5 +1,4 @@
 #include "customtypes.h"
-#include <string>
 #include <iomanip>
 
 std::istream& dmitriev::operator>>(std::istream& inp, SeparatorIO&& data)
