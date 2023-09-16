@@ -10,7 +10,7 @@ namespace kumachev {
     return p1.x * p2.y - p1.y * p2.x;
   }
 
-  size_t vertex(const Polygon &polygon)
+  size_t getVerticesCount(const Polygon &polygon)
   {
     return polygon.points.size();
   }
@@ -21,14 +21,15 @@ namespace kumachev {
     auto areaOperator = std::bind(getTriangleArea, _2, _1);
 
     std::vector< double > values;
-    auto backInserter = std::back_inserter(values);
+    values.reserve(getVerticesCount(polygon));
+    auto inserter = std::back_inserter(values);
 
     auto first = polygon.points.begin();
     auto second = first;
     ++second;
     auto end = polygon.points.end();
 
-    std::transform(second, end, first, backInserter, areaOperator);
+    std::transform(second, end, first, inserter, areaOperator);
     double area = std::accumulate(values.begin(), values.end(), .0);
     area += areaOperator(polygon.points.front(), polygon.points.back());
     area = std::abs(area) / 2;
@@ -36,9 +37,9 @@ namespace kumachev {
     return area;
   }
 
-  bool PointComparator::operator()(const Point &lhs, const Point &rhs)
+  bool Point::operator==(const Point &other) const
   {
-    return lhs.x == rhs.x && lhs.y == rhs.y;
+    return x == other.x && y == other.y;
   }
 
   bool PolygonComparator::operator()(const Polygon &lhs, const Polygon &rhs)
@@ -50,8 +51,7 @@ namespace kumachev {
     auto leftBegin = lhs.points.begin();
     auto leftEnd = lhs.points.end();
     auto rightBegin = rhs.points.begin();
-    PointComparator comp;
 
-    return std::equal(leftBegin, leftEnd, rightBegin, comp);
+    return std::equal(leftBegin, leftEnd, rightBegin);
   }
 }

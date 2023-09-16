@@ -1,27 +1,11 @@
 #include "polygon_io.h"
-#include "stream_guard.h"
 #include <iostream>
 #include <algorithm>
 #include <iterator>
+#include "basic_io.h"
+#include "stream_guard.h"
 
 namespace kumachev {
-  std::istream &operator>>(std::istream &istream, CharIO &&character)
-  {
-    std::istream::sentry sentry(istream);
-
-    if (!sentry) {
-      return istream;
-    }
-
-    char c = '\0';
-    istream >> c;
-
-    if (c != character.value) {
-      istream.setstate(std::ios::failbit);
-    }
-
-    return istream;
-  }
 
   std::istream &operator>>(std::istream &istream, Point &point)
   {

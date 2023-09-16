@@ -14,7 +14,7 @@ using namespace std::placeholders;
 namespace kumachev {
   static bool isEven(const Polygon &p)
   {
-    return vertex(p) % 2 == 0;
+    return getVerticesCount(p) % 2 == 0;
   }
 
   static bool isOdd(const Polygon &p)
@@ -34,12 +34,13 @@ namespace kumachev {
 
   static double intoVertexArea(const Polygon &p, size_t vertexCount)
   {
-    return (vertex(p) == vertexCount) ? getArea(p) : 0.0;
+    return (getVerticesCount(p) == vertexCount) ? getArea(p) : 0.0;
   }
 
   void areaEven(const std::vector< Polygon > &polygons, std::ostream &ostream)
   {
     std::vector< double > areas;
+    areas.reserve(polygons.size());
     auto inserter = std::back_inserter(areas);
     std::transform(polygons.begin(), polygons.end(), inserter, intoEvenArea);
     double area = std::accumulate(areas.begin(), areas.end(), 0.0);
@@ -51,6 +52,7 @@ namespace kumachev {
   void areaOdd(const std::vector< Polygon > &polygons, std::ostream &ostream)
   {
     std::vector< double > areas;
+    areas.reserve(polygons.size());
     auto inserter = std::back_inserter(areas);
     std::transform(polygons.begin(), polygons.end(), inserter, intoOddArea);
     double area = std::accumulate(areas.begin(), areas.end(), 0.0);
@@ -66,6 +68,7 @@ namespace kumachev {
     }
 
     std::vector< double > areas;
+    areas.reserve(polygons.size());
     auto inserter = std::back_inserter(areas);
     std::transform(polygons.begin(), polygons.end(), inserter, getArea);
     double total = std::accumulate(areas.begin(), areas.end(), 0.0);
@@ -80,6 +83,7 @@ namespace kumachev {
   {
     auto transformer = std::bind(intoVertexArea, _1, vertex);
     std::vector< double > areas;
+    areas.reserve(polygons.size());
     auto inserter = std::back_inserter(areas);
     std::transform(polygons.begin(), polygons.end(), inserter, transformer);
     double area = std::accumulate(areas.begin(), areas.end(), 0.0);
@@ -95,6 +99,7 @@ namespace kumachev {
     }
 
     std::vector< double > areas;
+    areas.reserve(polygons.size());
     auto inserter = std::back_inserter(areas);
     std::transform(polygons.begin(), polygons.end(), inserter, getArea);
     auto max = std::max_element(areas.begin(), areas.end());
@@ -110,6 +115,7 @@ namespace kumachev {
     }
 
     std::vector< double > areas;
+    areas.reserve(polygons.size());
     auto inserter = std::back_inserter(areas);
     std::transform(polygons.begin(), polygons.end(), inserter, getArea);
     auto min = std::min_element(areas.begin(), areas.end());
@@ -125,8 +131,11 @@ namespace kumachev {
     }
 
     std::vector< size_t > vertexCount;
+    vertexCount.reserve(polygons.size());
     auto inserter = std::back_inserter(vertexCount);
-    std::transform(polygons.begin(), polygons.end(), inserter, vertex);
+    auto begin = polygons.begin();
+    auto end = polygons.end();
+    std::transform(begin, end, inserter, getVerticesCount);
 
     auto max = std::max_element(vertexCount.begin(), vertexCount.end());
     StreamGuard guard(ostream);
@@ -140,8 +149,11 @@ namespace kumachev {
     }
 
     std::vector< size_t > vertexCount;
+    vertexCount.reserve(polygons.size());
     auto inserter = std::back_inserter(vertexCount);
-    std::transform(polygons.begin(), polygons.end(), inserter, vertex);
+    auto begin = polygons.begin();
+    auto end = polygons.end();
+    std::transform(begin, end, inserter, getVerticesCount);
 
     auto min = std::min_element(vertexCount.begin(), vertexCount.end());
     StreamGuard guard(ostream);
@@ -165,7 +177,8 @@ namespace kumachev {
   void countVert(const std::vector< Polygon > &polygons, size_t vert,
       std::ostream &ostream)
   {
-    auto matchVert = std::bind(std::equal_to<>{}, std::bind(vertex, _1), vert);
+    auto getVertCount = std::bind(getVerticesCount, _1);
+    auto matchVert = std::bind(std::equal_to<>{}, getVertCount, vert);
     size_t count = std::count_if(polygons.begin(), polygons.end(), matchVert);
     StreamGuard guard(ostream);
     ostream << std::fixed << count;
