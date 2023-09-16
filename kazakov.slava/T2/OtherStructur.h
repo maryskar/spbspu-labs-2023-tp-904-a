@@ -8,7 +8,7 @@ struct ExpectedSymbol
 };
 struct ExpectedChar
 {
-    char bukva = '/';
+    char bukva = '.';
 };
 struct ExpectedString
 {
