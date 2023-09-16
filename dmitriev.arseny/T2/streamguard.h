@@ -1,5 +1,5 @@
-#ifndef STREAMSGUARD_H
-#define STREAMSGUARD_H
+#ifndef STREAMGUARD_H
+#define STREAMGUARD_H
 
 #include <ios>
 
@@ -15,7 +15,7 @@ namespace dmitriev
 		std::basic_ios< char >& m_stream;
 		char m_fill;
 		std::streamsize m_precision;
-		std::basic_ios< char >::fmtflags m_flag;
+		std::basic_ios< char >::fmtflags m_flags;
 	};
 }
 
