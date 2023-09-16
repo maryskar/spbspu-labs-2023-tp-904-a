@@ -1,16 +1,18 @@
-#include"DataStructur.hpp"
+#include"DataStructur.h"
 
-std::ostream &kazakov:: operator << (std::ostream& out, const kazakov::DataStructur& p) 
+std::ostream &kazakov::operator<<(std::ostream& out, const kazakov::DataStructur& p)
 {
     std::ostream::sentry sentry(out);
     if (!sentry)
     {
         return out;
     }
-    out << "(" << ":" << "key1" << " " << p.key1 << "ll" << ":" << "key2" << " " << "'" << p.key2 << "'" << ":" << "key3" << " " << "\"" << p.key3 << "\"" << ":" << ")";
+    out << "(" << ":" << "key1" << " " << p.key1 << "ll" << ":";
+    out << "key2" << " " << "'" << p.key2 << "'" << ":";
+    out << "key3" << " " << "\"" << p.key3 << "\"" << ":" << ")";
     return out;
 }
-std::istream &kazakov::operator >> (std::istream& in, kazakov::DataStructur& p) 
+std::istream &kazakov::operator>>(std::istream& in, kazakov::DataStructur& p)
 {
     std::istream::sentry sentry(in);
     if (!sentry)

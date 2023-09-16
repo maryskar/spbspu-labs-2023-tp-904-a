@@ -1,6 +1,5 @@
-#include"OtherStructur.hpp"
-
-std::istream& operator >>(std::istream& in, ExpectedSymbol&& dest)
+#include"OtherStructur.h"
+std::istream& operator>>(std::istream& in, ExpectedSymbol&& dest)
 {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -15,7 +14,7 @@ std::istream& operator >>(std::istream& in, ExpectedSymbol&& dest)
     }
     return in;
 }
-std::istream& operator >>(std::istream& in, ExpectedString& dest)
+std::istream& operator>>(std::istream& in, ExpectedString& dest)
 {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -23,14 +22,14 @@ std::istream& operator >>(std::istream& in, ExpectedString& dest)
         return in;
     }
     in >> ExpectedSymbol{ '\"' };
-    if (in.fail()) 
+    if (in.fail())
     {
         return in;
     }
     std::getline(in, dest.string, '\"');
     return in;
 }
-std::istream& operator >>(std::istream& in, ExpectedLongLong& dest)
+std::istream& operator>>(std::istream& in, ExpectedLongLong& dest)
 {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -38,10 +37,10 @@ std::istream& operator >>(std::istream& in, ExpectedLongLong& dest)
         return in;
     }
     in >> dest.ll;
-    if (!in.fail()) 
+    if (!in.fail())
     {
         in >> ExpectedSymbol{ 'l' } >> ExpectedSymbol{ 'l' };
-        if (!in.fail()) 
+        if (!in.fail())
         {
             return in;
         }
@@ -57,24 +56,24 @@ std::istream& operator>>(std::istream& in, ExpectedChar& dest)
         return in;
     }
     in >> ExpectedSymbol{ '\'' };
-    if (in.fail()) 
+    if (in.fail())
     {
         return in;
     }
     in >> dest.bukva >> ExpectedSymbol{ '\'' };
     return in;
 }
-std::ostream& operator << (std::ostream& out, const ExpectedString& dest)
+std::ostream& operator<<(std::ostream& out, const ExpectedString& dest)
 {
     out << dest.string;
     return out;
 }
-std::ostream& operator << (std::ostream& out, const ExpectedLongLong& dest)
+std::ostream& operator<<(std::ostream& out, const ExpectedLongLong& dest)
 {
     out << dest.ll;
     return out;
 }
-std::ostream& operator << (std::ostream& out, const ExpectedChar& dest)
+std::ostream& operator<<(std::ostream& out, const ExpectedChar& dest)
 {
     out << dest.bukva;
     return out;

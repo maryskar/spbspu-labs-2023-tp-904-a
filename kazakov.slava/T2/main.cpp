@@ -2,14 +2,16 @@
 #include <fstream>
 #include <algorithm>
 #include <iterator>
-#include"DataStructur.hpp"
+#include"DataStructur.h"
 
-int main() 
+int main()
 {
     std::vector<kazakov::DataStructur> v;
     while (true)
     {
-        std::copy(std::istream_iterator<kazakov::DataStructur>(std::cin), std::istream_iterator<kazakov::DataStructur>(), std::inserter(v, v.end()));  
+        std::copy(std::istream_iterator<kazakov::DataStructur>(std::cin),
+            std::istream_iterator<kazakov::DataStructur>(),
+            std::inserter(v, v.end()));
         if (std::cin.eof())
         {
             break;
