@@ -49,10 +49,9 @@ void findWord(const Dictionary& dict, std::istream& in, std::ostream& out)
       out << "This word is missing";
     }
   }
-  catch (const std::out_of_range& e)
+  catch (const std::out_of_range& )
   {}
 }
-
 void deleteWord(Dictionary& dict, std::istream& in, std::ostream& out)
 {
   std::string word = "";
@@ -70,7 +69,25 @@ void deleteWord(Dictionary& dict, std::istream& in, std::ostream& out)
       out << "Error: This word is missing";
     }
   }
-  catch (const std::out_of_range& e)
+  catch (const std::out_of_range& )
+  {}
+}
+void printWordToSpecificLetter(const Dictionary& dict, std::istream& in, std::ostream& out)
+{
+  char letter = ' ';
+  in >> letter;
+  for (auto it = dict.dict_.begin(); it != dict.dict_.end(); ++it)
   {
+    if (it->first[0] == letter) 
+    {
+      out << it->first << " : " << it->second << std::endl;
+    }
   }
+}
+
+void printDictionary(const Dictionary& dict, std::ostream& out)
+{
+  std::vector< std::pair <std::string, size_t> > sorted_word_count(dict.dict_.begin(), dict.dict_.end());
+  std::sort(sorted_word_count.begin(), sorted_word_count.end(), [](const auto& p1, const auto& p2) { return p1.second > p2.second; });
+  print(sorted_word_count, out);
 }

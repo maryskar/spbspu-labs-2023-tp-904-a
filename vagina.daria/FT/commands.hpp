@@ -13,5 +13,7 @@ void threeMostPopular(const Dictionary& dict, std::ostream& out);
 void print(const std::vector< std::pair <std::string, size_t> >& dict, std::ostream& out);
 void findWord(const Dictionary& dict, std::istream& in, std::ostream& out);
 void deleteWord(Dictionary& dict, std::istream& in, std::ostream& out);
+void printWordToSpecificLetter(const Dictionary& dict, std::istream& in, std::ostream& out);
+void printDictionary(const Dictionary& dict, std::ostream& out);
 
 #endif
