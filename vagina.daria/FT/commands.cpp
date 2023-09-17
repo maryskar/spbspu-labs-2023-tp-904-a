@@ -1,6 +1,6 @@
 #include "commands.hpp"
 
-void createSet(Dictionary& dict, std::istream& in)
+void createSet(dictionary& dict, std::istream& in)
 {
   std::string filename = "";
   in >> filename;
@@ -14,17 +14,13 @@ void createSet(Dictionary& dict, std::istream& in)
     dict.insert(word);
   }
 }
-void threeMostPopular(const Dictionary& dict, std::ostream& out)
+void threeMostPopular(const dictionary& dict, std::ostream& out)
 {
   std::vector< std::pair <std::string, size_t> > sorted_word_count(dict.dict_.begin(), dict.dict_.end());
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), [](const auto& p1, const auto& p2) { return p1.second > p2.second; });
   std::vector< std::pair <std::string, size_t> > first_three_keys;
   std::copy_n(sorted_word_count.begin(), 3, std::back_inserter(first_three_keys));
   print(first_three_keys, out);
-  /*for (const auto& p : first_three_keys)
-  {
-    out << p.first << ": " << p.second << std::endl;
-  }*/
 }
 void print(const std::vector< std::pair <std::string, size_t> >& dict, std::ostream& out)
 {
@@ -33,7 +29,7 @@ void print(const std::vector< std::pair <std::string, size_t> >& dict, std::ostr
     out << pair.first << ": " << pair.second << '\n';
   }
 }
-void findWord(const Dictionary& dict, std::istream& in, std::ostream& out)
+void findWord(const dictionary& dict, std::istream& in, std::ostream& out)
 {
   std::string word = "";
   in >> word;
@@ -52,7 +48,7 @@ void findWord(const Dictionary& dict, std::istream& in, std::ostream& out)
   catch (const std::out_of_range& )
   {}
 }
-void deleteWord(Dictionary& dict, std::istream& in, std::ostream& out)
+void deleteWord(dictionary& dict, std::istream& in, std::ostream& out)
 {
   std::string word = "";
   in >> word;
@@ -72,7 +68,7 @@ void deleteWord(Dictionary& dict, std::istream& in, std::ostream& out)
   catch (const std::out_of_range& )
   {}
 }
-void printWordToSpecificLetter(const Dictionary& dict, std::istream& in, std::ostream& out)
+void printWordToSpecificLetter(const dictionary& dict, std::istream& in, std::ostream& out)
 {
   char letter = ' ';
   in >> letter;
@@ -85,13 +81,13 @@ void printWordToSpecificLetter(const Dictionary& dict, std::istream& in, std::os
   }
 }
 
-void printDictionary(const Dictionary& dict, std::ostream& out)
+void printDictionary(const dictionary& dict, std::ostream& out)
 {
   std::vector< std::pair <std::string, size_t> > sorted_word_count(dict.dict_.begin(), dict.dict_.end());
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), [](const auto& p1, const auto& p2) { return p1.second > p2.second; });
   print(sorted_word_count, out);
 }
-std::map<char, size_t> countOfLetters(const Dictionary& dict)
+std::map<char, size_t> countOfLetters(const dictionary& dict)
 {
   std::map<char, size_t> letterFreq;
   for (auto& word : dict.dict_)
@@ -109,7 +105,7 @@ std::map<char, size_t> countOfLetters(const Dictionary& dict)
   }
   return letterFreq;
 }
-void maxCountLetterDictionary(const Dictionary& dict, std::ostream& out)
+void maxCountLetterDictionary(const dictionary& dict, std::ostream& out)
 {
   std::map<char, size_t> letterFreq;
   letterFreq = countOfLetters(dict);
@@ -125,7 +121,7 @@ void maxCountLetterDictionary(const Dictionary& dict, std::ostream& out)
   }
   out << "The most common letter is " << mostFrequentLetter;
 }
-void minCountLetterDictionary(const Dictionary& dict, std::ostream& out)
+void minCountLetterDictionary(const dictionary& dict, std::ostream& out)
 {
   std::map<char, size_t> letterFreq;
   letterFreq = countOfLetters(dict);
@@ -141,13 +137,9 @@ void minCountLetterDictionary(const Dictionary& dict, std::ostream& out)
   }
   out << "The rarest letter is " << leastFrequentLetter;
 }
-
-void mergeDictionary(Dictionary& dictOfResult, const Dictionary& dict1, const Dictionary& dict2)
+void mergeDictionary(dictionary& dictOfResult, const dictionary& dict1, const dictionary& dict2)
 {
-  for (const auto& pair : dict1.dict_) 
-  {
-    dictOfResult.dict_[pair.first] = pair.second;
-  }
+  dictOfResult = dict1;
   for (const auto& pair : dict2.dict_) 
   {
     if (dictOfResult.dict_.find(pair.first) != dictOfResult.dict_.end()) 
@@ -157,6 +149,56 @@ void mergeDictionary(Dictionary& dictOfResult, const Dictionary& dict1, const Di
     else 
     {
       dictOfResult.dict_[pair.first] = pair.second;
+    }
+  }
+}
+void uniqueWord(dictionary& dictOfResult, const dictionary& dict1, const dictionary& dict2)
+{
+  dictOfResult = dict1;
+  for (const auto& pair : dict2.dict_)
+  {
+    if (dictOfResult.dict_.find(pair.first) == dictOfResult.dict_.end())
+    {
+      dictOfResult.dict_[pair.first] = pair.second;
+    }
+    else
+    {
+      dictOfResult.dict_.erase(pair.first);
+    }
+  }
+}
+void countIndentical(const dictionary& dict1, const dictionary& dict2, std::ostream& out)
+{
+  for (const auto& pair1 : dict1.dict_) 
+  {
+    const std::string& word = pair1.first;
+    auto it = dict2.dict_.find(word);
+    if (it != dict2.dict_.end()) 
+    {
+      out << word << ": " << pair1.second << " " << it->second << "\n";
+    }
+  }
+}
+void wordsWithLetter(const dictionary& dict, std::istream& in, std::ostream& out)
+{
+  char letter = ' ';
+  size_t minCount = 0;
+  in >> minCount >> letter;
+  for (const auto& pair : dict.dict_)
+  {
+    const std::string& word = pair.first;
+    int count = 0;
+    for (char c : word) 
+    {
+      if (c == letter) 
+      {
+        count++;
+        if (count >= minCount)
+        {
+          out << word << "\n";
+          break;
+        }
+      }
     }
   }
 }
