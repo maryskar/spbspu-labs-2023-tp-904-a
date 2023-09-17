@@ -14,6 +14,10 @@ std::string getCommand(std::istream & in)
   {
     throw std::runtime_error("eof");
   }
+  if (res == "SAME")
+  {
+    return res;
+  }
   std::string name;
   in >> name;
   if (!in)

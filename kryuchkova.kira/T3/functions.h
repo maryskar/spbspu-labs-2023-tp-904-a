@@ -17,7 +17,7 @@ namespace kryuchkova
   void printCountOdd(const std::vector< Polygon > & polygon, std::ostream & out);
   void printCountNumOfVer(const std::vector< Polygon > & polygon, std::ostream & out, size_t num);
   void printRightShapes(const std::vector< Polygon > & polygon, std::ostream & out);
-  void printSame(const std::vector< Polygon > & polygon, std::ostream & out);
+  void printSame(const std::vector< Polygon > & polygon, std::ostream & out, std::istream & in);
 
 }
 

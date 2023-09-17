@@ -3,6 +3,7 @@
 #include <numeric>
 #include <functional>
 #include <iomanip>
+#include <iofmtguard.h>
 #include "polygon.h"
 
 namespace kryuchkova
@@ -67,15 +68,50 @@ namespace kryuchkova
     return (*temp).points.size();
   }
 
+  bool isFormRightAngles(const std::vector< Point > & pos, size_t n)
+  {
+    Point a = pos[n];
+    Point b = pos[(n + 1) % pos.size()];
+    Point c = pos[(n + 2) % pos.size()];
+    return (b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0;
+  }
+
+  bool isEqualPoint(const Point & lhs, const Point & rhs)
+  {
+    return lhs.x == rhs.x && lhs.y == rhs.y;
+  }
+
+  Point movePoint(const Point & pos, int dx, int dy)
+  {
+    return {pos.x - dx, pos.y - dy};
+  }
+
+  Polygon moveToStartCoord(const Polygon & pol)
+  {
+    int dx = pol.points.front().x;
+    int dy = pol.points.front().y;
+    using namespace std::placeholders;
+    auto func = std::bind(movePoint, _1, dx, dy);
+    std::vector< Point > movedPos(pol.points.size());
+    std::transform(pol.points.begin(), pol.points.end(), std::back_inserter(movedPos), func);
+    return Polygon{movedPos};
+  }
+
+  bool isSamePol(const Polygon & lhs, const Polygon & rhs)
+  {
+    if (lhs.points.size() != rhs.points.size())
+    {
+      return false;
+    }
+    auto movedLhs = moveToStartCoord(lhs);
+    auto movedRhs = moveToStartCoord(rhs);
+    return std::equal(movedLhs.points.begin(), movedLhs.points.end(), movedRhs.points.begin(), isEqualPoint);
+  }
+
   bool isRightAngles(const Polygon & pol)
   {
-    auto state = [&](size_t n)
-    {
-      Point a = pol.points[n];
-      Point b = pol.points[(n + 1) % pol.points.size()];
-      Point c = pol.points[(n + 2) % pol.points.size()];
-      return (b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0;
-    };
+    using namespace std::placeholders;
+    auto state = std::bind(isFormRightAngles, pol.points, _1);
     std::vector< size_t > index(pol.points.size());
     std::iota(index.begin(), index.end(), 0);
     return std::any_of(index.begin(), index.end(), state);
@@ -174,8 +210,17 @@ namespace kryuchkova
     out << std::count_if(polygon.begin(), polygon.end(), isRightAngles) << '\n';
   }
 
-  void printSame(const std::vector< Polygon > & polygon, std::ostream & out)
+  void printSame(const std::vector< Polygon > & polygon, std::ostream & out, std::istream & in)
   {
-
+    Polygon pol;
+    in >> pol;
+    if (!in)
+    {
+      throw std::logic_error("Invalid input");
+    }
+    using namespace std::placeholders;
+    auto func = std::bind(isSamePol, _1, pol);
+    iofmtguard iofmtguard(out);
+    out << std::count_if(polygon.begin(), polygon.end(), func) << '\n';
   }
 }

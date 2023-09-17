@@ -42,6 +42,7 @@ namespace kryuchkova
     dict["MIN VERTEXES"] = printMinVer;
     dict["COUNT EVEN"] = printCountEven;
     dict["COUNT ODD"] = printCountOdd;
+    dict["RIGHTSHAPES"] = printRightShapes;
     return dict;
   }
   std::map< std::string, CommandDict::comm_size_t > CommandDict::initSizeComm()
@@ -54,7 +55,7 @@ namespace kryuchkova
   std::map< std::string, CommandDict::comm_input_t > CommandDict::initInputComm()
   {
     std::map< std::string, comm_input_t > dict;
-    //
+    dict["SAME"] = printSame;
     return dict;
   }
 }
