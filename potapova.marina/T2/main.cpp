@@ -22,7 +22,7 @@ int main()
     }
   }
 
-  std::sort(data.begin(), data.end(), Comparator::operator());
+  std::sort(data.begin(), data.end(), Comparator());
 
   std::copy(
     std::begin(data),
