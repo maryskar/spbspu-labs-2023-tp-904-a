@@ -1,4 +1,6 @@
 #include "commands.hpp"
+#include <algorithm>
+#include <fstream>
 
 void createSet(dictionaryOfNames& diction, std::istream& in)
 {
@@ -94,7 +96,6 @@ void printWordToSpecificLetter(const dictionaryOfNames& dict, std::istream& in, 
     }
   }
 }
-
 void printDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string name = "";

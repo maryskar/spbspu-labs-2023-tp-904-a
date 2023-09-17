@@ -1,8 +1,5 @@
 #ifndef FT_COMMANDS_HPP
 #define FT_COMMANDS_HPP
-#include <algorithm>
-#include <fstream>
-#include <functional>
 #include <map>
 #include <string>
 #include <vector>

@@ -1,8 +1,6 @@
-#include "commands.hpp"
-#include "dictionary.hpp"
 #include <iostream>
+#include "commands.hpp"
 #include "dictionaryOfCommands.hpp"
-
 
 int main()
 {
@@ -12,8 +10,8 @@ int main()
   {
     try
     {
-      auto read = readCommand(std::cin);
-      doCommand(read, dictionary, allDicts, std::cin, std::cout);
+      auto read = dictionary.readCommand(std::cin);
+      dictionary.doCommand(read, dictionary, allDicts, std::cin, std::cout);
     }
     catch (const std::runtime_error& e)
     {

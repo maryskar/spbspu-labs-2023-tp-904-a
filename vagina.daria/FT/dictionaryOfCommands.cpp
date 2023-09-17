@@ -1,5 +1,4 @@
 #include "dictionaryOfCommands.hpp"
-#include <map>
 
 
 DictionaryOfCommands::DictionaryOfCommands()
@@ -36,7 +35,7 @@ void DictionaryOfCommands::doCommNotConst(const std::string& command, dictionary
   func(dict, in, out);
 }
 
-std::string readCommand(std::istream& in)
+std::string DictionaryOfCommands::readCommand(std::istream& in)
 {
   std::string comm = " ";
   in >> comm;
@@ -47,7 +46,7 @@ std::string readCommand(std::istream& in)
   return comm;
 }
 
-void doCommand(const std::string& command, const DictionaryOfCommands& commands,
+void DictionaryOfCommands::doCommand(const std::string& command, const DictionaryOfCommands& commands,
   dictionaryOfNames& dest, std::istream& in, std::ostream& out)
 {
   try
