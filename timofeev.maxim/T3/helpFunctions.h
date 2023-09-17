@@ -1,6 +1,5 @@
 #ifndef T3_HELPFUNCTIONS_H
 #define T3_HELPFUNCTIONS_H
-
 #include <string>
 #include <vector>
 #include "polygon.h"

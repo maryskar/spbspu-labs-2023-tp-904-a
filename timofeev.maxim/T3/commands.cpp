@@ -1,8 +1,6 @@
 #include "commands.h"
 #include <istream>
 #include <iostream>
-#include <algorithm>
-#include <iterator>
 #include <iomanip>
 #include "helpFunctions.h"
 namespace timofeev
