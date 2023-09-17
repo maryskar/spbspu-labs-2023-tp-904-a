@@ -12,8 +12,8 @@ namespace aristarkhov
     std::string key3;
   };
 
-  std::istream& operator>>(std::istream& in, DataStruct&);
-  std::ostream& operator<<(std::ostream& out, const DataStruct&);
+  std::istream& operator>>(std::istream& in, DataStruct& dest);
+  std::ostream& operator<<(std::ostream& out, const DataStruct& dest);
   bool compare(const DataStruct& first, const DataStruct& second);
 }
 #endif

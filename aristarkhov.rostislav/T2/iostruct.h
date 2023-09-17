@@ -12,7 +12,7 @@ namespace aristarkhov
 
   struct RationalNumberIO
   {
-    std::pair< long long, unsigned long long >& rat;
+    std::pair< long long, unsigned long long >& ref;
   };
 
   struct CharIO

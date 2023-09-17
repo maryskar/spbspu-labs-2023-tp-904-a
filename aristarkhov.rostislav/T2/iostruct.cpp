@@ -39,21 +39,11 @@ std::istream& aristarkhov::operator>>(std::istream& in, RationalNumberIO&& dest)
     return in;
   }
   in >> DelimiterIO{'('} >> DelimiterIO{':'};
-  in >> DelimiterIO{'N'} >> dest.rat.first;
+  in >> DelimiterIO{'N'} >> dest.ref.first;
   in >> DelimiterIO{':'};
-  in >> DelimiterIO{'D'} >> dest.rat.second;
+  in >> DelimiterIO{'D'} >> dest.ref.second;
   return in >> DelimiterIO{':'} >> DelimiterIO{')'};
 }
-
-// std::istream& aristarkhov::operator>>(std::istream& in, RationalNumberIO&& c)
-//{
-//   std::istream::sentry sentry(in);
-//   if (!sentry)
-//   {
-//     return in;
-//   }
-//   return in >> c.ref;
-// }
 
 std::istream& aristarkhov::operator>>(std::istream& in, StringIO&& dest)
 {
