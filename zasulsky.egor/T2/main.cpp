@@ -15,7 +15,7 @@ int main()
 
   while(!std::cin.eof())
   {
-    if (std::cin.fail())
+    if (!std::cin)
     {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
@@ -23,5 +23,5 @@ int main()
     std::copy(itInp(std::cin), itInp(), std::back_inserter(vector));
   }
   std::sort(vector.begin(), vector.end(), compare);
-  std::copy(vector.begin(), vector.end(), itOut(std::cout));
+  std::copy(vector.begin(), vector.end(), itOut(std::cout ,"\n"));
 }
