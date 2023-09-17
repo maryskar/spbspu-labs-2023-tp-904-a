@@ -91,3 +91,72 @@ void printDictionary(const Dictionary& dict, std::ostream& out)
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), [](const auto& p1, const auto& p2) { return p1.second > p2.second; });
   print(sorted_word_count, out);
 }
+std::map<char, size_t> countOfLetters(const Dictionary& dict)
+{
+  std::map<char, size_t> letterFreq;
+  for (auto& word : dict.dict_)
+  {
+    for (char letter : word.first) {
+      if (letterFreq.find(letter) != letterFreq.end())
+      {
+        letterFreq[letter]++;
+      }
+      else
+      {
+        letterFreq[letter] = 1;
+      }
+    }
+  }
+  return letterFreq;
+}
+void maxCountLetterDictionary(const Dictionary& dict, std::ostream& out)
+{
+  std::map<char, size_t> letterFreq;
+  letterFreq = countOfLetters(dict);
+  char mostFrequentLetter = ' ';
+  size_t maxFreq = 0;
+  for (auto& letter : letterFreq) 
+  {
+    if (letter.second > maxFreq) 
+    {
+      maxFreq = letter.second;
+      mostFrequentLetter = letter.first;
+    }
+  }
+  out << "The most common letter is " << mostFrequentLetter;
+}
+void minCountLetterDictionary(const Dictionary& dict, std::ostream& out)
+{
+  std::map<char, size_t> letterFreq;
+  letterFreq = countOfLetters(dict);
+  char leastFrequentLetter = ' ';
+  size_t minFreq = std::numeric_limits<size_t>::max();
+  for (auto& letter : letterFreq)
+  {
+    if (letter.second < minFreq)
+    {
+      minFreq = letter.second;
+      leastFrequentLetter = letter.first;
+    }
+  }
+  out << "The rarest letter is " << leastFrequentLetter;
+}
+
+void mergeDictionary(Dictionary& dictOfResult, const Dictionary& dict1, const Dictionary& dict2)
+{
+  for (const auto& pair : dict1.dict_) 
+  {
+    dictOfResult.dict_[pair.first] = pair.second;
+  }
+  for (const auto& pair : dict2.dict_) 
+  {
+    if (dictOfResult.dict_.find(pair.first) != dictOfResult.dict_.end()) 
+    {
+      dictOfResult.dict_[pair.first] += pair.second;
+    }
+    else 
+    {
+      dictOfResult.dict_[pair.first] = pair.second;
+    }
+  }
+}
