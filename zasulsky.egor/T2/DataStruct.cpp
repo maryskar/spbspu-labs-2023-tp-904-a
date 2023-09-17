@@ -8,7 +8,7 @@ std::ostream& operator<<(std::ostream& out, const dataStruct& ref)
   {
     return out;
   }
-  out << "(:key1 "  <<  (convertToSci(ref.key1));
+  out << "(:key1 " << convertToSci(ref.key1);
   out << ":key2 " << ref.key2 << "ll";
   out << ":key3 " << '"' << ref.key3 << '"' << ":" << ")";
   return out;
@@ -22,6 +22,9 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     return in;
   }
   int d = 0;
+  bool key1 = true;
+  bool key2 = true;
+  bool key3 = true;
   dataStruct res{0.0,0,""};
   in >> DelimiterIO{ '(' };
 
@@ -33,15 +36,27 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     switch (d)
     {
     case 1:
-      in >> std::scientific >> std::setprecision(1)  >> res.key1 ;
+      if(key1)
+      {
+      in >> std::scientific >> std::setprecision(1) >> res.key1;
+      key1 = false;
+      }
       break;
 
     case 2:
-      in >> res.key2 >> DelimiterIO{ 'l' } >> DelimiterIO{'l'};
+      if (key2)
+      {
+      in >> res.key2 >> DelimiterIO{ 'l' } >> DelimiterIO{ 'l' };
+      key2 = false;
+      }
       break;
 
     case 3:
-      in >> StringIO{ res.key3 };
+      if (key3)
+      {
+        in >> StringIO{ res.key3 };
+        key3 = false;
+      }
       break;
 
     default:
