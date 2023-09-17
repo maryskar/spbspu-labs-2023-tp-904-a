@@ -120,7 +120,7 @@ void avdeeva::inframeCommand(const std::deque< Polygon > & polygons, std::istrea
   Polygon input;
   in >> input;
   char check;
-  if (!in || !(in.get(check) && check == '\n')))
+  if (!in || !(in.get(check) && check == '\n'))
   {
     throw std::runtime_error("Input error");
   }
