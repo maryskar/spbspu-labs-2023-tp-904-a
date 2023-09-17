@@ -138,10 +138,6 @@ namespace kryuchkova
 
   void printAreaMean(const std::vector< Polygon > & polygon, std::ostream & out)
   {
-    if (polygon.empty())
-    {
-      throw std::invalid_argument("not enough polygons");
-    }
     std::vector< double > areas;
     std::transform(polygon.begin(), polygon.end(), std::back_inserter(areas), getArea);
     double sum = std::accumulate(areas.begin(), areas.end(), 0.0);
