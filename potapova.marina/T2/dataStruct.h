@@ -23,7 +23,7 @@ namespace potapova
   {
     unsigned long long& bin;
   };
-  
+
   struct StringIO
   {
     std::string& str;
