@@ -1,9 +1,9 @@
-#include "data_struct.h"
 #include <iostream>
 #include <iterator>
 #include <algorithm>
 #include <limits>
 #include <deque>
+#include "data_struct.h"
 
 int main()
 {
