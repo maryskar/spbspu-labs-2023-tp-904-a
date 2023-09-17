@@ -1,12 +1,13 @@
 #include "Commands.h"
 
-#include "FormatGuard.h"
-#include "TypesIO.h"
 #include <algorithm>
 #include <functional>
 #include <iomanip>
 #include <numeric>
 #include <stdexcept>
+
+#include "FormatGuard.h"
+#include "TypesIO.h"
 
 namespace {
   using OutS = std::ostream;
