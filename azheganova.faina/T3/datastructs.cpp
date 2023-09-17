@@ -4,22 +4,7 @@
 #include <limits>
 #include <functional>
 #include <iterator>
-
-std::istream & azheganova::operator>>(std::istream & in, DelimiterIO && dest)
-{
-  std::istream::sentry sentry(in);
-  if (!sentry)
-  {
-    return in;
-  }
-  char c = '0';
-  in >> c;
-  if (in && (c != dest.exp))
-  {
-    in.setstate(std::ios::failbit);
-  }
-  return in;
-}
+#include <iotypes.h>
 
 std::istream & azheganova::operator>>(std::istream & in, Point & dest)
 {
@@ -31,6 +16,7 @@ std::istream & azheganova::operator>>(std::istream & in, Point & dest)
   in >> DelimiterIO{ '(' } >> dest.x >> DelimiterIO{ ';' } >> dest.y >> DelimiterIO{ ')' };
   return in;
 }
+
 std::istream & azheganova::operator>>(std::istream & in, Polygon & dest)
 {
   std::istream::sentry sentry(in);

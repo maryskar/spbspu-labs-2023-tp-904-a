@@ -3,11 +3,11 @@
 #include <functional>
 #include <numeric>
 #include <iofmtguard.h>
+#include <map>
 
 namespace azheganova
 {
-  using namespace std::placeholders;
-    bool isEven(const Polygon & polygon)
+  bool isEven(const Polygon & polygon)
   {
     return polygon.points.size() % 2 == 0;
   }
@@ -31,6 +31,7 @@ namespace azheganova
 
   double getArea(const Polygon & polygon)
   {
+    using namespace std::placeholders;
     Point prev = polygon.points[polygon.points.size() - 1];
     double area = 0;
     area = std::accumulate(polygon.points.cbegin(), polygon.points.cend(), 0, std::bind(getPartArea, _1, _2, prev));
@@ -44,6 +45,7 @@ namespace azheganova
 
   double getAreaEven(const std::vector< Polygon > & polygon)
   {
+    using namespace std::placeholders;
     double area = 0;
     std::vector< Polygon > areas;
     std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isEven, _1));
@@ -53,6 +55,7 @@ namespace azheganova
 
   double getAreaOdd(const std::vector< Polygon > & polygon)
   {
+    using namespace std::placeholders;
     double area = 0;
     std::vector< Polygon > areas;
     std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isOdd, _1));
@@ -73,6 +76,7 @@ namespace azheganova
 
   double getAreaVertexes(const std::vector< Polygon > & polygon, size_t countVert)
   {
+    using namespace std::placeholders;
     double area = 0;
     std::vector< Polygon > areas;
     std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isCountVertex, _1, countVert));
@@ -116,16 +120,19 @@ namespace azheganova
 
   size_t getCountEven(const std::vector< Polygon > & polygon)
   {
+    using namespace std::placeholders;
     return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(isEven, _1));
   }
 
   size_t getCountOdd(const std::vector< Polygon > & polygon)
   {
+    using namespace std::placeholders;
     return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(isOdd, _1));
   }
 
   size_t getCountVertexes(const std::vector< Polygon > & polygon, size_t countVert)
   {
+    using namespace std::placeholders;
     return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(isCountVertex, _1, countVert));
   }
 
@@ -264,6 +271,7 @@ void azheganova::count(std::vector< Polygon > & polygon, std::istream & in, std:
 
 void azheganova::rmecho(std::vector< Polygon > & polygon, std::istream & in, std::ostream & out)
 {
+  using namespace std::placeholders;
   Polygon newpolygon;
   in >> newpolygon;
   if (!in)

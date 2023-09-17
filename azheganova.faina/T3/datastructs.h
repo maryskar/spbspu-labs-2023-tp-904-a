@@ -5,10 +5,6 @@
 
 namespace azheganova
 {
-  struct DelimiterIO
-  {
-    char exp;
-  };
   struct Point
   {
     int x, y;
@@ -18,7 +14,6 @@ namespace azheganova
     std::vector< Point > points;
   };
 
-  std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   std::istream & operator>>(std::istream & in, Point & dest);
   std::istream & operator>>(std::istream & in, Polygon & dest);
   bool operator==(const Point & first, const Point & second);

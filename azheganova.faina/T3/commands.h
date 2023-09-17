@@ -1,6 +1,5 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
-#include <map>
 #include "datastructs.h"
 
 namespace azheganova
@@ -13,7 +12,5 @@ namespace azheganova
   void rightshapes(std::vector< Polygon > & polygon, std::ostream & out);
   std::ostream & printInvalidCommand(std::ostream & out);
 }
-
-
 
 #endif
