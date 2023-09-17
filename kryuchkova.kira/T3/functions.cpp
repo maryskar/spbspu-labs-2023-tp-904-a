@@ -67,6 +67,20 @@ namespace kryuchkova
     return (*temp).points.size();
   }
 
+  bool isRightAngles(const Polygon & pol)
+  {
+    auto state = [&](size_t n)
+    {
+      Point a = pol.points[n];
+      Point b = pol.points[(n + 1) % pol.points.size()];
+      Point c = pol.points[(n + 2) % pol.points.size()];
+      return (b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0;
+    };
+    std::vector< size_t > index(pol.points.size());
+    std::iota(index.begin(), index.end(), 0);
+    return std::any_of(index.begin(), index.end(), state);
+  }
+
   template< typename P >
   void printAreaIf(const std::vector< Polygon > & temp, std::ostream & out, P p)
   {
@@ -153,5 +167,15 @@ namespace kryuchkova
     }
     using namespace std::placeholders;
     countIf(polygon, out, std::bind(isEqualNum, _1, num));
+  }
+
+  void printRightShapes(const std::vector< Polygon > & polygon, std::ostream & out)
+  {
+    out << std::count_if(polygon.begin(), polygon.end(), isRightAngles) << '\n';
+  }
+
+  void printSame(const std::vector< Polygon > & polygon, std::ostream & out)
+  {
+
   }
 }
