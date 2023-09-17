@@ -146,11 +146,10 @@ namespace azheganova
     return (b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0;
   }
 
-  bool hasRightAngles(const Polygon & polygon)
+  bool hasRightAngles(const Polygon & polygon, size_t i)
   {
-    auto n = polygon.points.size();
-    auto points = polygon.points;
-    auto state = [&](size_t i)
+    size_t n = polygon.points.size();
+    const std::vector< Point > points = polygon.points;
     {
       Point a = points[i];
       Point b = points[(i + 1) % n];
@@ -279,9 +278,7 @@ void azheganova::rmecho(std::vector< Polygon > & polygon, std::istream & in, std
     throw std::logic_error("error");
   }
   size_t sizeBefore = polygon.size();
-  auto func = std::bind(isCompareRmecho, _1, _2, newpolygon);
-  auto condition = std::unique(polygon.begin(), polygon.end(), func);
-  polygon.erase(condition, polygon.end());
+  polygon.erase(std::unique(polygon.begin(), polygon.end(), std::bind(isCompareRmecho, _1, _2, newpolygon)), polygon.end());
   out << sizeBefore - polygon.size() << '\n';
 }
 
