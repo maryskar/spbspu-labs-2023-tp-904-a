@@ -39,32 +39,37 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     switch (d)
     {
     case 1:
-      if(key1)
+    {
+      if (key1)
       {
-      in >> DblIO{ res.key1 };
-      key1 = false;
+        in >> DblIO{ res.key1 };
+        key1 = false;
       }
       break;
-
+    }
     case 2:
+    {
       if (key2)
       {
-      in >> SllIO{ res.key2 }
-      key2 = false;
+        in >> SllIO{ res.key2 };
+        key2 = false;
       }
       break;
-
+    }
     case 3:
+    {
       if (key3)
       {
         in >> StringIO{ res.key3 };
         key3 = false;
       }
       break;
-
+    }
     default:
+    {
       in.setstate(std::ios::failbit);
       break;
+    }
     }
   }
   in >> LabelIO{ ":)" };
