@@ -117,7 +117,7 @@ namespace potapova
     return in;
   }
 
-  std::ostream& operator<<(std::ostream& out, DataStruct& source)
+  std::ostream& operator<<(std::ostream& out, const DataStruct& source)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
@@ -133,7 +133,7 @@ namespace potapova
     return out;
   }
 
-  bool Comparator::operator()(DataStruct& that, DataStruct& other)
+  bool Comparator::operator()(const DataStruct& that, const DataStruct& other)
   {
     if (that.key1 == other.key1)
     {
