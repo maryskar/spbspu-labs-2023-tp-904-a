@@ -34,14 +34,14 @@ int main(int argc, char **argv)
     }
   }
 
-  kumachev::CommandSystem commands;
   std::istream &in = std::cin;
   std::ostream &out = std::cout;
+  kumachev::CommandSystem commandSystem(in, out, shapes);
 
   while (!in.eof()) {
     try {
-      auto command = kumachev::inputCommand(in);
-      kumachev::handleCommand(command, commands, shapes, in, out);
+      auto command = commandSystem.inputCommand();
+      commandSystem.handleCommand(command);
       out << '\n';
     }
     catch (const std::logic_error &e) {

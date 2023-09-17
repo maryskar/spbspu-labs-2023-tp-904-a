@@ -22,23 +22,22 @@ namespace kumachev {
 
   class CommandSystem {
   public:
-    CommandSystem();
-    const umap& getDict1() const;
-    const umap_int& getDict2() const;
-    const umap_poly& getDict3() const;
+    CommandSystem(std::istream &istream, std::ostream &ostream,
+        const std::vector< Polygon > &polygons);
+
+    void handleCommand(const std::string &commandName);
+    std::string inputCommand();
 
   private:
     umap dict1_;
     umap_int dict2_;
     umap_poly dict3_;
+    std::istream &istream_;
+    std::ostream &ostream_;
+    std::vector< Polygon > polygons_;
   };
 
-  std::string inputCommand(std::istream &istream);
   void printInvalid(std::ostream &ostream);
-
-  void handleCommand(const std::string &commandName,
-      const CommandSystem &commandSystem, std::vector< Polygon > &polygons,
-      std::istream &istream, std::ostream &ostream);
 }
 
 #endif
