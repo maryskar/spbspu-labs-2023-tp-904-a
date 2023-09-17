@@ -1,6 +1,7 @@
 #include <limits>
 #include <fstream>
 #include <algorithm>
+#include <numeric>
 #include "commands.h"
 #include "../common/printmessages.h"
 #include "dictionaryfunctors.h"
@@ -31,7 +32,7 @@ void romanovich::CommandHandler::addWordToDict()
   std::string dictName;
   in_ >> word;
   in_ >> dictName;
-  auto it = std::find_if(dictionaries_->begin(), dictionaries_->end(), DictionaryNameEqual(dictName));
+  auto it = findDictByName(dictName);
   if (it != dictionaries_->end())
   {
     it->second.addKey(word);
@@ -53,14 +54,11 @@ void romanovich::CommandHandler::addTranslation()
   in_ >> word;
   in_ >> dictName;
   in_ >> translation;
-  for (auto &pair: *dictionaries_)
+  auto it = findDictByName(dictName);
+  if (it != dictionaries_->end())
   {
-    if (pair.first == dictName)
-    {
-      pair.second.addValue(word, translation);
-      pair.second.print(out_);
-      return;
-    }
+    it->second.addValue(word, translation);
+    it->second.print(out_);
   }
 }
 void romanovich::CommandHandler::removeWord()
@@ -69,14 +67,11 @@ void romanovich::CommandHandler::removeWord()
   std::string dictName;
   in_ >> word;
   in_ >> dictName;
-  for (auto &pair: *dictionaries_)
+  auto it = findDictByName(dictName);
+  if (it != dictionaries_->end())
   {
-    if (pair.first == dictName)
-    {
-      pair.second.removeKey(word);
-      pair.second.print(out_);
-      break;
-    }
+    it->second.removeKey(word);
+    it->second.print(out_);
   }
 }
 void romanovich::CommandHandler::removeTranslation()
@@ -87,14 +82,11 @@ void romanovich::CommandHandler::removeTranslation()
   in_ >> word;
   in_ >> dictName;
   in_ >> translation;
-  for (auto &pair: *dictionaries_)
+  auto it = findDictByName(dictName);
+  if (it != dictionaries_->end())
   {
-    if (pair.first == dictName)
-    {
-      pair.second.removeValue(word, translation);
-      pair.second.print(out_);
-      break;
-    }
+    it->second.removeValue(word, translation);
+    it->second.print(out_);
   }
 }
 void romanovich::CommandHandler::searchTranslations()
@@ -104,24 +96,21 @@ void romanovich::CommandHandler::searchTranslations()
   in_ >> word;
   in_ >> dictName;
   out_ << "Translations of \"" << word << "\" in dictionary \"" << dictName << "\":\n";
-  for (auto &pair: *dictionaries_)
+  auto it = findDictByName(dictName);
+  if (it == dictionaries_->end())
   {
-    if (pair.first == dictName)
+    return;
+  }
+  const HashTable &dict = it->second;
+  for (size_t i = 0; i < dict.getCapacity(); ++i)
+  {
+    const std::vector< std::string > &translations = dict.getData()[i].translations;
+    if (!translations.empty())
     {
-      for (size_t i = 0; i < pair.second.getCapacity(); ++i)
-      {
-        const WordEntry &entry = pair.second.getData()[i];
-        if (entry.translations.empty())
-        {
-          continue;
-        }
-        out_ << entry.translations[0];
-        for (size_t j = 1; j < entry.translations.size(); ++j)
-        {
-          out_ << ", " << entry.translations[j];
-        }
-      }
-      break;
+      StringConcatenator concatenator(", ");
+      std::string combinedTrans = std::accumulate(translations.begin(),
+                                                  translations.end(), std::string(""), concatenator);
+      out_ << combinedTrans;
     }
   }
   out_ << "\n";
@@ -319,4 +308,8 @@ void romanovich::CommandHandler::operator()(const std::string &command)
 romanovich::CommandHandler::~CommandHandler()
 {
   delete dictionaries_;
+}
+romanovich::DictionariesVault::value_t::iterator romanovich::CommandHandler::findDictByName(const std::string &dictName)
+{
+  return std::find_if(dictionaries_->begin(), dictionaries_->end(), romanovich::DictionaryNameEqual(dictName));
 }

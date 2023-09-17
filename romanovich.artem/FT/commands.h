@@ -35,6 +35,7 @@ namespace romanovich
     void createLevelDict();
     void mergeDicts();
     void printDicts(std::ostream &out);
+    romanovich::DictionariesVault::value_t::iterator findDictByName(const std::string& dictName);
   };
 }
 #endif
