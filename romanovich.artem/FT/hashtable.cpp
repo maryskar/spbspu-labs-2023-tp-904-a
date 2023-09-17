@@ -1,7 +1,7 @@
+#include "hashtable.h"
 #include <ostream>
 #include <algorithm>
 #include <iostream>
-#include "hashtable.h"
 #include "murmurhash2.h"
 romanovich::HashTable::HashTable(size_t size, size_t capacity):
   size_(size),

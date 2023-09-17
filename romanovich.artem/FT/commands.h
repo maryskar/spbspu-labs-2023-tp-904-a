@@ -2,7 +2,6 @@
 #define COMMANDS_H
 #include <functional>
 #include <iosfwd>
-#include <memory>
 #include <unordered_map>
 #include "hashtable.h"
 #include "dictionariesvault.h"

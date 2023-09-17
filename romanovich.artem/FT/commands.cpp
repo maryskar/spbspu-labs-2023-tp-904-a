@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <numeric>
 #include <iterator>
+#include <printmessages.h>
 #include "commands.h"
-#include "../common/printmessages.h"
 #include "dictionaryfunctors.h"
 romanovich::CommandHandler::CommandHandler(std::istream &in, std::ostream &out_):
   dictionaries_(DictionariesVault::instance()),
