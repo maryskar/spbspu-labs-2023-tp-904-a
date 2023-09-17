@@ -5,7 +5,7 @@
 
 namespace gudkov
 {
-  extern bool isEndOfLine;
+  static bool isEndOfLine = false;
 
   struct DelimiterExpIO
   {

@@ -18,11 +18,11 @@ namespace gudkov
   void checkForNumber(const std::string &str);
 
   void doArea(const std::vector< Polygon > &data, const std::string &subcommand);
-  void max(const std::vector< Polygon > &data, const std::string &subcommand);
-  void min(const std::vector< Polygon > &data, const std::string &subcommand);
-  void count(const std::vector< Polygon > &data, const std::string &subcommand);
-  void perms(const std::vector< Polygon > &data);
-  void lessarea(const std::vector< Polygon > &data);
+  void doMax(const std::vector< Polygon > &data, const std::string &subcommand);
+  void doMin(const std::vector< Polygon > &data, const std::string &subcommand);
+  void doCount(const std::vector< Polygon > &data, const std::string &subcommand);
+  void doPerms(const std::vector< Polygon > &data);
+  void doLessarea(const std::vector< Polygon > &data);
   void doCommand(const std::vector< Polygon > &data, const std::string &command, const std::string &subcommand);
 
   void error();

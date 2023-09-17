@@ -111,7 +111,7 @@ bool gudkov::isEqualPolygons(const Polygon &a, const Polygon &b)
   return std::equal(std::begin(copy_a), std::end(copy_a), std::begin(copy_b), isEqualCoordinates);
 }
 
-double gudkov::areaEven(const std::vector< Polygon > &data)
+double gudkov::calcAreaEven(const std::vector< Polygon > &data)
 {
   std::vector< Polygon > even;
   std::copy_if(std::begin(data), std::end(data), back_inserter(even), isEvenVertexesCount);
@@ -124,7 +124,7 @@ double gudkov::areaEven(const std::vector< Polygon > &data)
   return sum;
 }
 
-double gudkov::areaOdd(const std::vector< Polygon > &data)
+double gudkov::calcAreaOdd(const std::vector< Polygon > &data)
 {
   std::vector< Polygon > odd;
   std::copy_if(std::begin(data), std::end(data), back_inserter(odd), isOddVertexesCount);
@@ -137,7 +137,7 @@ double gudkov::areaOdd(const std::vector< Polygon > &data)
   return sum;
 }
 
-double gudkov::areaMean(const std::vector< Polygon > &data)
+double gudkov::calcAreaMean(const std::vector< Polygon > &data)
 {
   std::vector< double > squares;
   std::transform(std::begin(data), std::end(data), back_inserter(squares), getArea);
@@ -147,7 +147,7 @@ double gudkov::areaMean(const std::vector< Polygon > &data)
   return sum / data.size();
 }
 
-double gudkov::areaVertexes(const std::vector< Polygon > &data, size_t vertexes)
+double gudkov::calcAreaVertexes(const std::vector< Polygon > &data, size_t vertexes)
 {
   std::vector< Polygon > equal;
   std::copy_if(
@@ -165,14 +165,14 @@ double gudkov::areaVertexes(const std::vector< Polygon > &data, size_t vertexes)
   return sum;
 }
 
-double gudkov::maxArea(const std::vector< Polygon > &data)
+double gudkov::getMaxArea(const std::vector< Polygon > &data)
 {
   double area = getArea(*std::max_element(std::begin(data), std::end(data), isLessByArea));
 
   return area;
 }
 
-size_t gudkov::maxVertexes(const std::vector< Polygon > &data)
+size_t gudkov::getMaxVertexes(const std::vector< Polygon > &data)
 {
   size_t vertexes = std::max_element(
     std::begin(data),
@@ -183,14 +183,14 @@ size_t gudkov::maxVertexes(const std::vector< Polygon > &data)
   return vertexes;
 }
 
-double gudkov::minArea(const std::vector< Polygon > &data)
+double gudkov::getMinArea(const std::vector< Polygon > &data)
 {
   double area = getArea(*std::min_element(std::begin(data), std::end(data), isLessByArea));
 
   return area;
 }
 
-size_t gudkov::minVertexes(const std::vector< Polygon > &data)
+size_t gudkov::getMinVertexes(const std::vector< Polygon > &data)
 {
   size_t vertexes = std::min_element(
     std::begin(data),
@@ -201,21 +201,21 @@ size_t gudkov::minVertexes(const std::vector< Polygon > &data)
   return vertexes;
 }
 
-size_t gudkov::countEven(const std::vector< Polygon > &data)
+size_t gudkov::getCountEven(const std::vector< Polygon > &data)
 {
   size_t count = std::count_if(std::begin(data), std::end(data), isEvenVertexesCount);
 
   return count;
 }
 
-size_t gudkov::countOdd(const std::vector< Polygon > &data)
+size_t gudkov::getCountOdd(const std::vector< Polygon > &data)
 {
   size_t count = std::count_if(std::begin(data), std::end(data), isOddVertexesCount);
 
   return count;
 }
 
-size_t gudkov::countVertexes(const std::vector< Polygon > &data, size_t vertexes)
+size_t gudkov::getCountVertexes(const std::vector< Polygon > &data, size_t vertexes)
 {
   size_t count = std::count_if(
     std::begin(data),
@@ -226,7 +226,7 @@ size_t gudkov::countVertexes(const std::vector< Polygon > &data, size_t vertexes
   return count;
 }
 
-size_t gudkov::permutations(const std::vector< Polygon > &data, const Polygon &polygon)
+size_t gudkov::getPermutationsCount(const std::vector< Polygon > &data, const Polygon &polygon)
 {
   size_t count = std::count_if(
     std::begin(data),
@@ -237,7 +237,7 @@ size_t gudkov::permutations(const std::vector< Polygon > &data, const Polygon &p
   return count;
 }
 
-size_t gudkov::lessArea(const std::vector< Polygon > &data, const Polygon &polygon)
+size_t gudkov::getLessAreaCount(const std::vector< Polygon > &data, const Polygon &polygon)
 {
   size_t count = std::count_if(
     std::begin(data),

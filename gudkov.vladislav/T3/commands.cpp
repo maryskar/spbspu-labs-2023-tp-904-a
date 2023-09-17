@@ -192,17 +192,17 @@ void gudkov::doArea(const std::vector< Polygon > &data, const std::string &subco
 {
   if (subcommand == "EVEN")
   {
-    std::cout << areaEven(data) << std::endl;
+    std::cout << calcAreaEven(data) << std::endl;
     return;
   }
   if (subcommand == "ODD")
   {
-    std::cout << areaOdd(data) << std::endl;
+    std::cout << calcAreaOdd(data) << std::endl;
     return;
   }
   if (subcommand == "MEAN" && !data.empty())
   {
-    std::cout << areaMean(data) << std::endl;
+    std::cout << calcAreaMean(data) << std::endl;
     return;
   }
 
@@ -214,21 +214,26 @@ void gudkov::doArea(const std::vector< Polygon > &data, const std::string &subco
     throw std::runtime_error("Invalid number.\n");
   }
 
-  std::cout << areaVertexes(data, vertexesNum) << std::endl;
+  if (vertexesNum < 3)
+  {
+    throw std::runtime_error("Invalid vertexes count.\n");
+  }
+
+  std::cout << calcAreaVertexes(data, vertexesNum) << std::endl;
 }
 
-void gudkov::max(const std::vector< Polygon > &data, const std::string &subcommand)
+void gudkov::doMax(const std::vector< Polygon > &data, const std::string &subcommand)
 {
   if (!data.empty())
   {
     if (subcommand == "AREA")
     {
-      std::cout << maxArea(data) << std::endl;
+      std::cout << getMaxArea(data) << std::endl;
       return;
     }
     else if (subcommand == "VERTEXES")
     {
-      std::cout << maxVertexes(data) << std::endl;
+      std::cout << getMaxVertexes(data) << std::endl;
       return;
     }
   }
@@ -236,18 +241,18 @@ void gudkov::max(const std::vector< Polygon > &data, const std::string &subcomma
   throw std::runtime_error("Polygons are missing.\n");
 }
 
-void gudkov::min(const std::vector< Polygon > &data, const std::string &subcommand)
+void gudkov::doMin(const std::vector< Polygon > &data, const std::string &subcommand)
 {
   if (!data.empty())
   {
     if (subcommand == "AREA")
     {
-      std::cout << minArea(data) << std::endl;
+      std::cout << getMinArea(data) << std::endl;
       return;
     }
     else if (subcommand == "VERTEXES")
     {
-      std::cout << minVertexes(data) << std::endl;
+      std::cout << getMinVertexes(data) << std::endl;
       return;
     }
   }
@@ -255,45 +260,67 @@ void gudkov::min(const std::vector< Polygon > &data, const std::string &subcomma
   throw std::runtime_error("Polygons are missing.\n");
 }
 
-void gudkov::count(const std::vector< Polygon > &data, const std::string &subcommand)
+void gudkov::doCount(const std::vector< Polygon > &data, const std::string &subcommand)
 {
   if (subcommand == "EVEN")
   {
-    std::cout << countEven(data) << std::endl;
+    std::cout << getCountEven(data) << std::endl;
     return;
   }
   if (subcommand == "ODD")
   {
-    std::cout << countOdd(data) << std::endl;
+    std::cout << getCountOdd(data) << std::endl;
     return;
   }
 
-  int vertexesNum = std::stoi(subcommand);
-  std::cout << countVertexes(data, vertexesNum) << std::endl;
+  size_t countOfProceedSymbols = 0;
+  int vertexesNum = std::stoi(subcommand, &countOfProceedSymbols);
+
+  if (countOfProceedSymbols != subcommand.size())
+  {
+    throw std::runtime_error("Invalid number.\n");
+  }
+
+  if (vertexesNum < 3)
+  {
+    throw std::runtime_error("Invalid vertexes count.\n");
+  }
+
+  std::cout << getCountVertexes(data, vertexesNum) << std::endl;
 }
 
-void gudkov::perms(const std::vector< Polygon > &data)
+void gudkov::doPerms(const std::vector< Polygon > &data)
 {
   gudkov::Polygon input;
   std::cin >> input;
 
+  if (input.points.size() < 3)
+  {
+    throw std::runtime_error("Invalid vertexes count.\n");
+  }
+
   if (std::cin)
   {
-    std::cout << permutations(data, input) << std::endl;
+    std::cout << getPermutationsCount(data, input) << std::endl;
     return;
   }
 
   throw std::runtime_error("Invalid polygon.\n");
 }
 
-void gudkov::lessarea(const std::vector< Polygon > &data)
+void gudkov::doLessarea(const std::vector< Polygon > &data)
 {
   gudkov::Polygon input;
   std::cin >> input;
 
+  if (input.points.size() < 3)
+  {
+    throw std::runtime_error("Invalid vertexes count.\n");
+  }
+
   if (std::cin)
   {
-    std::cout << lessArea(data, input) << std::endl;
+    std::cout << getLessAreaCount(data, input) << std::endl;
     return;
   }
 
@@ -308,23 +335,23 @@ void gudkov::doCommand(const std::vector< Polygon > &data, const std::string &co
   }
   else if (command == "MAX")
   {
-    gudkov::max(data, subcommand);
+    gudkov::doMax(data, subcommand);
   }
   else if (command == "MIN")
   {
-    gudkov::min(data, subcommand);
+    gudkov::doMin(data, subcommand);
   }
   else if (command == "COUNT")
   {
-    gudkov::count(data, subcommand);
+    gudkov::doCount(data, subcommand);
   }
   else if (command == "PERMS")
   {
-    gudkov::perms(data);
+    gudkov::doPerms(data);
   }
   else if (command == "LESSAREA")
   {
-    gudkov::lessarea(data);
+    gudkov::doLessarea(data);
   }
 }
 
@@ -332,7 +359,7 @@ void gudkov::error()
 {
   if (!std::cin.eof())
   {
-    std::cerr << "<INVALID COMMAND>" << std::endl;
+    std::cout << "<INVALID COMMAND>" << std::endl;
 
     gudkov::clearStream(std::cin);
   }

@@ -2,8 +2,6 @@
 #include <limits>
 #include "scopeGuard.h"
 
-bool gudkov::isEndOfLine = false;
-
 void gudkov::clearStream(std::istream &in)
 {
   in.clear();

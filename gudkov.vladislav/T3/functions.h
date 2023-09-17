@@ -17,22 +17,22 @@ namespace gudkov
   bool isEqualCoordinates(const Point &a, const Point &b);
   bool isEqualPolygons(const Polygon &a, const Polygon &b);
 
-  double areaEven(const std::vector< Polygon > &data);
-  double areaOdd(const std::vector< Polygon > &data);
-  double areaMean(const std::vector< Polygon > &data);
-  double areaVertexes(const std::vector< Polygon > &data, size_t count);
+  double calcAreaEven(const std::vector< Polygon > &data);
+  double calcAreaOdd(const std::vector< Polygon > &data);
+  double calcAreaMean(const std::vector< Polygon > &data);
+  double calcAreaVertexes(const std::vector< Polygon > &data, size_t count);
 
-  double maxArea(const std::vector< Polygon > &data);
-  size_t maxVertexes(const std::vector< Polygon > &data);
+  double getMaxArea(const std::vector< Polygon > &data);
+  size_t getMaxVertexes(const std::vector< Polygon > &data);
 
-  double minArea(const std::vector< Polygon > &data);
-  size_t minVertexes(const std::vector< Polygon > &data);
+  double getMinArea(const std::vector< Polygon > &data);
+  size_t getMinVertexes(const std::vector< Polygon > &data);
 
-  size_t countEven(const std::vector< Polygon > &data);
-  size_t countOdd(const std::vector< Polygon > &data);
-  size_t countVertexes(const std::vector< Polygon > &data, size_t count);
+  size_t getCountEven(const std::vector< Polygon > &data);
+  size_t getCountOdd(const std::vector< Polygon > &data);
+  size_t getCountVertexes(const std::vector< Polygon > &data, size_t count);
 
-  size_t permutations(const std::vector< Polygon > &data, const Polygon &polygon);
-  size_t lessArea(const std::vector< Polygon > &data, const Polygon &polygon);
+  size_t getPermutationsCount(const std::vector< Polygon > &data, const Polygon &polygon);
+  size_t getLessAreaCount(const std::vector< Polygon > &data, const Polygon &polygon);
 }
 #endif
