@@ -132,4 +132,20 @@ namespace potapova
     out << ")";
     return out;
   }
+
+  bool Comparator::operator()(const DataStruct& that, const DataStruct& other)
+  {
+    if (that.key1 == other.key1)
+    {
+      if (that.key2 == other.key2)
+      {
+        return that.key3.length() < other.key3.length();
+      }
+      return that.key2 < other.key2;
+    }
+    else
+    {
+      return that.key1 < other.key1;
+    }
+  }
 }
