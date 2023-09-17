@@ -50,7 +50,7 @@ std::ostream& aristarkhov::operator<<(std::ostream& out, const DataStruct& data)
   StreamGuard streamGuard(out);
   out << "(:key1 \'" << data.key1 << '\'';
   out << ":key2 (:N " << data.key2.first << ":D " << data.key2.second;
-  out << ":key3 \"" << data.key3 << "\":)";
+  out << ":):key3 \"" << data.key3 << "\":)";
   return out;
 }
 
