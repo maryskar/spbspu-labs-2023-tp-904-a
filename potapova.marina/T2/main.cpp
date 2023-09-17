@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "dataStruct.h"
 
 using namespace potapova;
@@ -7,11 +8,21 @@ using namespace potapova;
 int main()
 {
   std::vector< DataStruct > data;
-  std::copy(
+  while (!std::cin.eof())
+  {
+    std::copy(
     std::istream_iterator< DataStruct >(std::cin),
     std::istream_iterator< DataStruct >(),
     std::back_inserter(data)
-  );
+    );
+    if (std::cin.fail())
+    {
+      std::cin.clear();
+      std::cin.ignore(2147483647, '\n');
+    }
+  }
+
+  std::sort(data.begin(), data.end(), Comparator::operator());
 
   std::copy(
     std::begin(data),
