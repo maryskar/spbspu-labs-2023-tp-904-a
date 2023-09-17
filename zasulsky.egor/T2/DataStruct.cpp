@@ -41,7 +41,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     case 1:
       if(key1)
       {
-      in >>  std::fixed >> std::setprecision(1) >> std::scientific  >> res.key1;
+      in >> DblIO{ res.key1 };
       key1 = false;
       }
       break;
@@ -49,7 +49,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     case 2:
       if (key2)
       {
-      in >> res.key2 >> DelimiterIO{ 'l' } >> DelimiterIO{ 'l' };
+      in >> SllIO{ res.key2 }
       key2 = false;
       }
       break;
