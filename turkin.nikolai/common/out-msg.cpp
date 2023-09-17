@@ -1,5 +1,4 @@
 #include <out-msg.hpp>
-#include <iterator>
 
 void turkin::outInvalidCMD(std::ostream & out)
 {

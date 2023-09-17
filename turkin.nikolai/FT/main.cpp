@@ -3,9 +3,9 @@
 #include <limits>
 #include <stdexcept>
 
-#include "data-types.hpp"
-#include "commands-list.hpp"
 #include <out-msg.hpp>
+
+#include "commands-list.hpp"
 
 int main()
 {

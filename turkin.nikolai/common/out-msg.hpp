@@ -5,8 +5,6 @@
 #include <utility>
 #include <string>
 
-#include "../FT/data-types.hpp"
-
 namespace turkin
 {
   void outInvalidCMD(std::ostream & out);
