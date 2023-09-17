@@ -69,15 +69,17 @@ namespace zhuravlev
       size_t num = std::stoull(command.substr(command.find_first_of(' ')));
       std::string cmd = (command.substr(0, command.find(' ')) + " N");
       doCommandWithInput(pls, out, num, cmd);
+      try
+      {
+        doConstCommand(pls, out, command);
+        return;
+      }
+      catch (const std::exception& e)
+      {}
+    }
+    catch (const std::exception& e)
+    {
       return;
     }
-    catch (const std::exception& e)
-    {}
-    try
-    {
-      doConstCommand(pls, out, command);
-    }
-    catch (const std::exception& e)
-    {}
   }
 }
