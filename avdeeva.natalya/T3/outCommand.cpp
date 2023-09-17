@@ -15,12 +15,13 @@ void avdeeva::areaCommand(const std::deque< Polygon > & polygons, std::istream &
   {
     throw std::invalid_argument("Invalid command");
   }
-  std::map< std::string, std::function< double (const std::deque< Polygon >) > > areaCommands(
-    {
-      {"EVEN", calcAreaEven},
-      {"ODD",  calcAreaOdd},
-      {"MEAN", calcAreaMean}
-    });
+  using area_cmd_t = std::function< double (const std::deque< Polygon >) >;
+  std::map< std::string, area_cmd_t > areaCommands(
+  {
+    {"EVEN", calcAreaEven},
+    {"ODD",  calcAreaOdd},
+    {"MEAN", calcAreaMean}
+  });
   double area = 0.0;
   try
   {
@@ -84,11 +85,12 @@ void avdeeva::countCommand(const std::deque< Polygon > & polygons, std::istream 
   {
     throw std::runtime_error("Input error");
   }
-  std::map< std::string, std::function< size_t (const std::deque< Polygon >) > > countCommands
-    ({
-      {"EVEN", countEven},
-      {"ODD", countOdd}
-    });
+  using count_cmd_t = std::function< size_t (const std::deque< Polygon >) >;
+  std::map< std::string, count_cmd_t > countCommands(
+  {
+    {"EVEN", countEven},
+    {"ODD", countOdd}
+  });
   size_t count = 0;
   try
   {

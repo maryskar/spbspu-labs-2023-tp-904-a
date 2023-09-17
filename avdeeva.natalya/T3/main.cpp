@@ -12,21 +12,20 @@ int main(int argc, char ** argv)
 {
   if (argc != 2)
   {
-    std::cerr << "Not enough CL parameters" << '\n';
+    std::cerr << "Wrong number of parameters" << '\n';
     return 1;
   }
   std::ifstream input(argv[1]);
   if (!input)
   {
-    std::cerr << "File not open" << '\n';
+    std::cerr << "Could not open the file" << '\n';
     return 2;
   }
   std::deque< avdeeva::Polygon > polygons;
+  using istreamIt = std::istream_iterator< avdeeva::Polygon >;
   while (!input.eof())
   {
-    std::copy(std::istream_iterator< avdeeva::Polygon >(input),
-      std::istream_iterator< avdeeva::Polygon >(),
-      std::back_inserter(polygons));
+    std::copy(istreamIt(input), istreamIt(), std::back_inserter(polygons));
     if (input.fail())
     {
       input.clear();
@@ -35,15 +34,15 @@ int main(int argc, char ** argv)
     }
   }
   using cmd_t = std::function< void (const std::deque< avdeeva::Polygon > &, std::istream &, std::ostream &) >;
-  std::map< std::string, cmd_t > commands
-    ({
-      {"AREA", avdeeva::areaCommand},
-      {"MAX", avdeeva::maxCommand},
-      {"MIN", avdeeva::minCommand},
-      {"COUNT", avdeeva::countCommand},
-      {"RIGHTSHAPES", avdeeva::rightshapesCommand},
-      {"INFRAME", avdeeva::inframeCommand}
-    });
+  std::map< std::string, cmd_t > commands(
+  {
+    {"AREA", avdeeva::areaCommand},
+    {"MAX", avdeeva::maxCommand},
+    {"MIN", avdeeva::minCommand},
+    {"COUNT", avdeeva::countCommand},
+    {"RIGHTSHAPES", avdeeva::rightshapesCommand},
+    {"INFRAME", avdeeva::inframeCommand}
+  });
   while (!std::cin.eof())
   {
     std::cin.clear();
