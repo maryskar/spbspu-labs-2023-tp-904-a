@@ -188,7 +188,7 @@ namespace kumachev {
       std::ostream &ostream)
   {
     std::list< Polygon > polygonList(polygons.begin(), polygons.end());
-    auto equal = std::bind(PolygonComparator{}, _1, polygon);
+    auto equal = std::bind(std::equal_to<>{}, _1, polygon);
     auto search = std::find_if(polygonList.begin(), polygonList.end(), equal);
     size_t echoed = 0;
 
@@ -207,8 +207,8 @@ namespace kumachev {
   void rmEcho(std::vector< Polygon > &polygons, const Polygon &polygon,
       std::ostream &ostream)
   {
-    auto firstEqual = std::bind(PolygonComparator{}, _1, polygon);
-    auto secondEqual = std::bind(PolygonComparator{}, _2, polygon);
+    auto firstEqual = std::bind(std::equal_to<>{}, _1, polygon);
+    auto secondEqual = std::bind(std::equal_to<>{}, _2, polygon);
     auto equal = std::bind(std::logical_and<>{}, firstEqual, secondEqual);
     std::list< Polygon > pList(polygons.begin(), polygons.end());
 

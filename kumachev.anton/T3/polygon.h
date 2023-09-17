@@ -14,14 +14,12 @@ namespace kumachev {
 
   struct Polygon {
     std::vector< Point > points;
+
+    bool operator == (const Polygon &other) const;
   };
 
   size_t getVerticesCount(const Polygon &polygon);
   double getArea(const Polygon &polygon);
-
-  struct PolygonComparator {
-    bool operator ()(const Polygon &lhs, const Polygon &rhs);
-  };
 }
 
 #endif

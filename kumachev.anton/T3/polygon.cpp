@@ -42,15 +42,15 @@ namespace kumachev {
     return x == other.x && y == other.y;
   }
 
-  bool PolygonComparator::operator()(const Polygon &lhs, const Polygon &rhs)
+  bool Polygon::operator==(const Polygon &other) const
   {
-    if (lhs.points.size() != rhs.points.size()) {
+    if (points.size() != other.points.size()) {
       return false;
     }
 
-    auto leftBegin = lhs.points.begin();
-    auto leftEnd = lhs.points.end();
-    auto rightBegin = rhs.points.begin();
+    auto leftBegin = points.begin();
+    auto leftEnd = points.end();
+    auto rightBegin = other.points.begin();
 
     return std::equal(leftBegin, leftEnd, rightBegin);
   }
