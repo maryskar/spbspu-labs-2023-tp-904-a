@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <istream>
 #include "dataStruct.h"
 
 using namespace potapova;
