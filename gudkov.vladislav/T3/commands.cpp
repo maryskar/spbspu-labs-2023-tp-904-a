@@ -294,11 +294,6 @@ void gudkov::doPerms(const std::vector< Polygon > &data)
   gudkov::Polygon input;
   std::cin >> input;
 
-  if (input.points.size() < 3)
-  {
-    throw std::runtime_error("Invalid vertexes count.\n");
-  }
-
   if (std::cin)
   {
     std::cout << getPermutationsCount(data, input) << std::endl;
@@ -312,11 +307,6 @@ void gudkov::doLessarea(const std::vector< Polygon > &data)
 {
   gudkov::Polygon input;
   std::cin >> input;
-
-  if (input.points.size() < 3)
-  {
-    throw std::runtime_error("Invalid vertexes count.\n");
-  }
 
   if (std::cin)
   {

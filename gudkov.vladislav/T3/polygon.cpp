@@ -77,6 +77,11 @@ std::istream &gudkov::operator>>(std::istream &in, Polygon &dest)
         in >> input.points[i];
       }
     }
+
+    if (input.points.size() < 3)
+    {
+      in.setstate(std::ios::failbit);
+    }
   }
 
   if (in)
