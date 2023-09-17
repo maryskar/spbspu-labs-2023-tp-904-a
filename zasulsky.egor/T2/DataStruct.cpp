@@ -38,7 +38,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     case 1:
       if(key1)
       {
-      in >> std::scientific >> std::setprecision(1) >> res.key1;
+      in >>  std::fixed >> std::setprecision(1) >> std::scientific  >> res.key1;
       key1 = false;
       }
       break;
