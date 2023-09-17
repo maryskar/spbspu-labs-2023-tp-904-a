@@ -53,11 +53,11 @@ namespace nesterov
       points,
       std::back_inserter(input.points)
     );
-    IOFmtGuard iofmtguard(in);
-    in >> std::noskipws >> DelimiterIO{'\n'};
-    if (in.eof())
+    std::string remaining;
+    std::getline(in, remaining, '\n');
+    if (!remaining.empty())
     {
-      in.clear();
+      in.setstate(std::ios::failbit);
     }
     if (in)
     {
