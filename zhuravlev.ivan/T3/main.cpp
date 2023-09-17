@@ -33,10 +33,9 @@ int main(int argc, char* argv[])
     {
       zhuravlev::doCommand(polygons, std::cout, zhuravlev::readCommand(std::cin));
     }
-    catch(const std::logic_error& e)
+    catch(...)
     {
       zhuravlev::skipUntilNewLines(std::cin);
-      zhuravlev::printError(std::cout);
     }
   }
   return 0;
