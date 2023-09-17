@@ -17,7 +17,6 @@ namespace shestakov
     }
     return in;
   }
-
   std::istream& operator>>(std::istream& in, LabelIO&& dest)
   {
     std::istream::sentry sentry(in);
@@ -31,7 +30,6 @@ namespace shestakov
     }
     return in;
   }
-
   std::istream& operator>>(std::istream& in, CharLitIO&& dest)
   {
     std::istream::sentry sentry(in);
@@ -41,8 +39,8 @@ namespace shestakov
     }
     return in >> DelIO{ '\'' } >> dest.ref >> DelIO{ '\'' };
   }
-
-  std::istream& operator>>(std::istream& in, CmpLspIO&& dest) {
+  std::istream& operator>>(std::istream& in, CmpLspI&& dest)
+  {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
@@ -54,13 +52,17 @@ namespace shestakov
     dest.ref = std::complex< double >(real_from_in, imag_from_in);
     return in;
   }
-
-  std::istream& operator>>(std::istream& in, StringIO&& dest){
+  std::istream& operator>>(std::istream& in, StringIO&& dest)
+  {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
       return in;
     }
     return std::getline(in >> DelIO{ '"' }, dest.str, '"');
+  }
+  std::ostream& operator<<(std::ostream& out, const CmpLspO& dest)
+  {
+    return out << "#c(" << dest.ref.real() << ' ' << dest.ref.imag() << ')';
   }
 }

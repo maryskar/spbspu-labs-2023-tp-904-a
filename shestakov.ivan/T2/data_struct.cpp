@@ -1,8 +1,8 @@
-#include "TypesIO.h"
-#include "iofmtguard.h"
 #include <iomanip>
 #include <iterator>
 #include <cmath>
+#include "TypesIO.h"
+#include "iofmtguard.h"
 
 namespace shestakov
 {
@@ -37,7 +37,7 @@ namespace shestakov
       using sep = DelIO;
       using label = LabelIO;
       using chl = CharLitIO;
-      using cl = CmpLspIO;
+      using cl = CmpLspI;
       using str = StringIO;
       in >> sep{ '(' } >> sep{ ':' };
       size_t num = 0;
@@ -64,7 +64,6 @@ namespace shestakov
       }
       return in;
     }
-
   }
   std::ostream& operator<<(std::ostream& out, const std::complex< double >& dest)
   {
@@ -79,8 +78,9 @@ namespace shestakov
       return out;
     }
     iofmtguard fmtguard(out);
+    CmpLspO key2{ src.key2 };
     out << "(:key1 '" << src.key1 << "'";
-    out << ":key2 "  << src.key2;
+    out << ":key2 "  << key2;
     out << ":key3 " << std::quoted(src.key3, '"') << ":)";
     return out;
   }
