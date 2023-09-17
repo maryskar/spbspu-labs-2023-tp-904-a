@@ -1,6 +1,6 @@
 #include "iofmtguard.hpp"
 
-turkin::iofmtguard::iofmtguard(std::basic_ios< char > & s) :
+turkin::iofmtguard::iofmtguard(std::basic_ios< char > & s):
   s_(s),
   fill_(s.fill()),
   precision_(s.precision()),

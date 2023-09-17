@@ -1,5 +1,6 @@
 #ifndef IOFMTGUARD_H
 #define IOFMTGUARD_H
+
 #include <ios>
 
 namespace tarasenko
