@@ -1,9 +1,11 @@
 #include "sub-commands.hpp"
 #include "data-types.hpp"
+#include "pred-comp.hpp"
 
 #include <iterator>
 #include <stdexcept>
 #include <fstream>
+#include <algorithm>
 #include <out-msg.hpp>
 
 std::ostream & turkin::add_dict(base_t & base, std::istream & in, std::ostream & out)
@@ -17,16 +19,25 @@ std::ostream & turkin::add_dict(base_t & base, std::istream & in, std::ostream &
 
 std::ostream & turkin::add_word(base_t & base, std::istream & in, std::ostream & out)
 {
-  std::string dict_name = "";
+  std::string dict = "";
   std::string word = "";
   std::string trns = "";
-  in >> dict_name >> word >> trns;
-  base[dict_name][word] = trns;
+  in >> dict >> word >> trns;
+  base[dict][word] = trns;
   outAddedCMD(out);
   return out;
 }
 
-std::ostream & turkin::add_trns(base_t & base, std::istream & in, std::ostream &);
+std::ostream & turkin::add_trns(base_t & base, std::istream & in, std::ostream & out)
+{
+  std::string dict = "";
+  std::string word = "";
+  std::string trns = "";
+  in >> dict >> word >> trns;
+  auto & temp = base[dict];
+  std::find_if(temp.begin(), temp.end(), isSameTRNS(trns))->second = trns;
+  return out;
+}
 
 
 std::ostream & turkin::remove_dict(base_t & base, std::istream & in, std::ostream & out)
@@ -48,8 +59,16 @@ std::ostream & turkin::remove_word(base_t & base, std::istream & in, std::ostrea
   return out;
 }
 
-std::ostream & turkin::remove_trns(base_t & base, std::istream & in, std::ostream &);
-
+std::ostream & turkin::remove_trns(base_t & base, std::istream & in, std::ostream & out)
+{
+  std::string dict = "";
+  std::string word = "";
+  std::string trns = "";
+  in >> dict >> word >> trns;
+  auto & temp = base[dict];
+  std::find_if(temp.begin(), temp.end(), isSameTRNS(trns))->second = "";
+  return out;
+}
 
 std::ostream & turkin::find_word(base_t & base, std::istream & in, std::ostream & out)
 {
@@ -65,18 +84,33 @@ std::ostream & turkin::find_word(base_t & base, std::istream & in, std::ostream 
   return out << result;
 }
 
-std::ostream & turkin::find_trns(base_t & base, std::istream & in, std::ostream & out);
+std::ostream & turkin::find_trns(base_t & base, std::istream & in, std::ostream & out)
+{
+  std::string dict = "";
+  std::string word = "";
+  std::string trns = "";
+  in >> dict >> word >> trns;
+  auto & temp = base[dict];
+  return out << std::find_if(temp.begin(), temp.end(), isSameTRNS(trns))->second;
+}
 
 std::ostream & turkin::count_word(base_t & base, std::istream & in, std::ostream & out)
 {
   std::string dict = "";
   std::string word = "";
   in >> dict >> word;
-  auto result = base[dict].count(word);
-  return out << result;
+  return out << base[dict].count(word);
 }
 
-std::ostream & turkin::count_trns(base_t & base, std::istream & in, std::ostream & out);
+std::ostream & turkin::count_trns(base_t & base, std::istream & in, std::ostream & out)
+{
+  std::string dict = "";
+  std::string word = "";
+  std::string trns = "";
+  in >> dict >> word >> trns;
+  auto & temp = base[dict];
+  return out << std::count_if(temp.begin(), temp.end(), isSameTRNS(trns));
+}
 
 std::ostream & turkin::save_file(base_t & base, std::istream & in, std::ostream & out)
 {
