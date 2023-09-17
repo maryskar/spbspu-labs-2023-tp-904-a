@@ -41,7 +41,7 @@ namespace zhuravlev
     try
     {
       auto toexecute = cmd_with_input.at(cmd);
-      toexecute(pls, std::cout, condition);
+      toexecute(pls, out, condition);
     }
     catch(...)
     {
@@ -54,7 +54,7 @@ namespace zhuravlev
     try
     {
       auto toexecute = const_cmds.at(cmd);
-      toexecute(pls, std::cout);
+      toexecute(pls, out);
     }
     catch(...)
     {
