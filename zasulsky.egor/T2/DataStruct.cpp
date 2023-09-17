@@ -53,7 +53,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
       }
       break;
 
-    case 3: 
+    case 3:
       if (key3)
       {
         in >> StringIO{ res.key3 };
