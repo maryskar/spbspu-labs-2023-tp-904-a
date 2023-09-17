@@ -1,5 +1,6 @@
 #include "DataStruct.hpp"
 #include "InpOutTypes.hpp"
+#include "Iofmtguard.hpp"
 
 std::ostream& operator<<(std::ostream& out, const dataStruct& ref)
 {
@@ -21,6 +22,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
   {
     return in;
   }
+  iofmtguard iofmtguard(in);
   int d = 0;
   bool key1 = true;
   bool key2 = true;
@@ -51,7 +53,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
       }
       break;
 
-    case 3:
+    case 3: 
       if (key3)
       {
         in >> StringIO{ res.key3 };
