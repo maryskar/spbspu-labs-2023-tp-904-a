@@ -3,9 +3,9 @@
 #include <iterator>
 #include <limits>
 
-std::vector< tarasenko::Polygon > tarasenko::readPolygons(std::istream& in)
+std::deque< tarasenko::Polygon > tarasenko::readPolygons(std::istream& in)
 {
-  std::vector< Polygon > polygons;
+  std::deque< Polygon > polygons;
   using in_iter = std::istream_iterator< Polygon >;
   while (!in.eof())
   {

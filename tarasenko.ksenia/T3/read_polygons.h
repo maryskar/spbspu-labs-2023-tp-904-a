@@ -1,12 +1,12 @@
 #ifndef READPOLYGONS_H
 #define READPOLYGONS_H
 
-#include <vector>
+#include <deque>
 #include <iostream>
 #include "data_struct.h"
 
 namespace tarasenko
 {
-  std::vector< Polygon > readPolygons(std::istream& in);
+  std::deque< Polygon > readPolygons(std::istream& in);
 }
 #endif

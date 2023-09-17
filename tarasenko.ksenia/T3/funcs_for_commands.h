@@ -6,11 +6,13 @@
 #include <algorithm>
 #include <numeric>
 #include <iterator>
+#include <deque>
 #include "data_struct.h"
 
 namespace tarasenko
 {
   using namespace std::placeholders;
+  using data_t = std::deque< Polygon >;
 
   size_t getNumOfVerts(const Polygon& p)
   {
@@ -36,7 +38,7 @@ namespace tarasenko
     auto calculateArea = std::bind(getTriangleArea, first, _1, _2);
 
     std::transform(p.points.begin() + 1, p.points.end() - 1, p.points.begin() + 2,
-                   std::back_inserter(areas), calculateArea);
+       std::back_inserter(areas), calculateArea);
 
     double area = std::accumulate(areas.begin(), areas.end(), 0.0);
     return area;
@@ -67,7 +69,7 @@ namespace tarasenko
     return hasEqualNumVerts(p, n) ? getPolygonArea(p) : 0.0;
   }
 
-  double getAreaIf(const std::vector< Polygon >& data, bool(*cond)(const Polygon& p))
+  double getAreaIf(const data_t& data, bool(*cond)(const Polygon& p))
   {
     auto op = std::bind(getPolygonAreaIf, _1, cond);
     std::vector< double > areas = {};
@@ -75,17 +77,17 @@ namespace tarasenko
     return std::accumulate(areas.begin(), areas.end(), 0.0);
   }
 
-  double getAreaEven(const std::vector< Polygon >& data)
+  double getAreaEven(const data_t& data)
   {
     return getAreaIf(data, hasEvenVerts);
   }
 
-  double getAreaOdd(const std::vector< Polygon >& data)
+  double getAreaOdd(const data_t& data)
   {
     return getAreaIf(data, hasOddVerts);
   }
 
-  double getAreaWithEqualNumVerts(const std::vector< Polygon >& data, size_t n)
+  double getAreaWithEqualNumVerts(const data_t& data, size_t n)
   {
     if (n < 3)
     {
@@ -97,14 +99,14 @@ namespace tarasenko
     return std::accumulate(areas.begin(), areas.end(), 0.0);
   }
 
-  std::vector< double > getAreasOf(const std::vector< Polygon >& data)
+  std::vector< double > getAreasOf(const data_t& data)
   {
     std::vector< double > areas = {};
     std::transform(data.begin(), data.end(), std::back_inserter(areas), getPolygonArea);
     return areas;
   }
 
-  double getAreaMean(const std::vector< Polygon >& data)
+  double getAreaMean(const data_t& data)
   {
     if (data.empty())
     {
@@ -114,7 +116,7 @@ namespace tarasenko
     return std::accumulate(areas.begin(), areas.end(), 0.0) / data.size();
   }
 
-  double getMaxArea(const std::vector< Polygon >& data)
+  double getMaxArea(const data_t& data)
   {
     if (data.empty())
     {
@@ -124,7 +126,7 @@ namespace tarasenko
     return *std::max_element(areas.begin(), areas.end());
   }
 
-  double getMinArea(const std::vector< Polygon >& data)
+  double getMinArea(const data_t& data)
   {
     if (data.empty())
     {
@@ -134,14 +136,14 @@ namespace tarasenko
     return *std::min_element(areas.begin(), areas.end());
   }
 
-  std::vector< size_t > getVertsOf(const std::vector< Polygon >& data)
+  std::vector< size_t > getVertsOf(const data_t& data)
   {
     std::vector< size_t > verts = {};
     std::transform(data.begin(), data.end(), std::back_inserter(verts), getNumOfVerts);
     return verts;
   }
 
-  size_t getMaxVerts(const std::vector< Polygon >& data)
+  size_t getMaxVerts(const data_t& data)
   {
     if (data.empty())
     {
@@ -151,7 +153,7 @@ namespace tarasenko
     return *std::max_element(verts.begin(), verts.end());
   }
 
-  size_t getMinVerts(const std::vector< Polygon >& data)
+  size_t getMinVerts(const data_t& data)
   {
     if (data.empty())
     {
@@ -161,17 +163,17 @@ namespace tarasenko
     return *std::min_element(verts.begin(), verts.end());
   }
 
-  size_t getNumEven(const std::vector< Polygon >& data)
+  size_t getNumEven(const data_t& data)
   {
     return std::count_if(data.begin(), data.end(), hasEvenVerts);
   }
 
-  size_t getNumOdd(const std::vector< Polygon >& data)
+  size_t getNumOdd(const data_t& data)
   {
     return std::count_if(data.begin(), data.end(), hasOddVerts);
   }
 
-  size_t getNumWithEqualNumVerts(const std::vector< Polygon >& data, size_t n)
+  size_t getNumWithEqualNumVerts(const data_t& data, size_t n)
   {
     if (n < 3)
     {
@@ -186,22 +188,29 @@ namespace tarasenko
     return (b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0;
   }
 
-  bool hasRightAngles(const Polygon& p)
+  namespace details
   {
-    auto n = p.points.size();
-    auto points = p.points;
-    auto cond = [&](size_t i) {
+    bool isFormRightAngles(const std::vector< Point >& points, size_t i)
+    {
+      auto n = points.size();
       Point a = points[i];
       Point b = points[(i + 1) % n];
       Point c = points[(i + 2) % n];
       return isRightAngle(a, b, c);
-    };
+    }
+  }
+
+  bool hasRightAngles(const Polygon& p)
+  {
+    auto n = p.points.size();
+    auto points = p.points;
+    auto cond = std::bind(details::isFormRightAngles, points, _1);
     std::vector< size_t > indexes(n);
     std::iota(indexes.begin(), indexes.end(), 0);
     return std::any_of(indexes.begin(), indexes.end(), cond);
   }
 
-  size_t getNumRightShapes(const std::vector< Polygon >& data)
+  size_t getNumRightShapes(const data_t& data)
   {
     return std::count_if(data.begin(), data.end(), hasRightAngles);
   }
@@ -261,12 +270,11 @@ namespace tarasenko
     int max_x = getMaxX(p);
     int max_y = getMaxY(p);
 
-    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y},
-       {max_x, max_y}, {max_x, min_y}};
+    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y}, {max_x, max_y}, {max_x, min_y}};
     return Polygon{points_rect};
   }
 
-  Polygon getFrameRectForCompositeShapes(const std::vector< Polygon >& data)
+  Polygon getFrameRectForCompositeShapes(const data_t& data)
   {
     if (data.empty())
     {
@@ -288,12 +296,11 @@ namespace tarasenko
     auto poly_with_maxy = std::max_element(data.begin(), data.end(), comp_maxy);
     auto max_y = getMaxY(*poly_with_maxy);
 
-    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y},
-       {max_x, max_y}, {max_x, min_y}};
+    std::vector< Point > points_rect{{min_x, min_y}, {min_x, max_y}, {max_x, max_y}, {max_x, min_y}};
     return Polygon{points_rect};
   }
 
-  bool isInFrame(const std::vector< Polygon >& data, const Polygon& poly)
+  bool isInFrame(const data_t& data, const Polygon& poly)
   {
     auto frame_data = getFrameRectForCompositeShapes(data);
     auto frame_poly = getFrameRect(poly);
