@@ -1,5 +1,4 @@
 #include <iomanip>
-#include <iterator>
 #include <cmath>
 #include "TypesIO.h"
 #include "iofmtguard.h"
