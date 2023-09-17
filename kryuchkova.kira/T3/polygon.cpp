@@ -52,7 +52,7 @@ namespace kryuchkova
     std::vector< int > areas;
     auto begin = polygon.points.begin();
     auto end = polygon.points.end();
-    std::transform(begin, --end, ++begin, std::back_inserter(areas), counter);
+    std::transform(begin, --end, ++begin, areas.begin(), counter);
     area = std::accumulate(areas.begin(), areas.end(), 0.0);
     area += ((--end)->x * begin->y - begin->x * (--end)->y);
     area = std::abs(area) / 2;
