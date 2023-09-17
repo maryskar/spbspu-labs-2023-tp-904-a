@@ -106,11 +106,6 @@ void romanovich::CommandHandler::searchTranslations()
   std::vector< std::string > allTranslations;
   TranslateCopier copier(allTranslations);
   std::accumulate(dict.getData().begin(), dict.getData().end(), allTranslations, copier);
-//  for (size_t i = 0; i < dict.getCapacity(); ++i)
-//  {
-//    const std::vector< std::string > &translations = dict.getData()[i].translations;
-//    std::copy_if(translations.begin(), translations.end(), std::back_inserter(allTranslations), NonEmptyString());
-//  }
   std::copy(allTranslations.begin(), allTranslations.end(), std::ostream_iterator< std::string >(out_, ", "));
   out_ << "\n";
 }
@@ -270,10 +265,6 @@ void romanovich::CommandHandler::operator()(const std::string &command)
     printInvalidCommand(out_) << '\n';
     in_.ignore(maxLLSize, '\n');
   }
-}
-romanovich::CommandHandler::~CommandHandler()
-{
-  delete dictionaries_;
 }
 romanovich::DictionariesVault::value_t::iterator romanovich::CommandHandler::findDictByName(const std::string &dictName)
 {

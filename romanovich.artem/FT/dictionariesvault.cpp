@@ -1,10 +1,10 @@
 #include "dictionariesvault.h"
-romanovich::DictionariesVault::value_t *romanovich::DictionariesVault::instance()
+std::shared_ptr< romanovich::DictionariesVault::value_t > romanovich::DictionariesVault::instance()
 {
-  static value_t *ptrVault_ = nullptr;
+  static std::shared_ptr< value_t > ptrVault_ = nullptr;
   if (!ptrVault_)
   {
-    ptrVault_ = new DictionariesVault::value_t;
+    ptrVault_ = std::make_shared< value_t >();
   }
   return ptrVault_;
 }

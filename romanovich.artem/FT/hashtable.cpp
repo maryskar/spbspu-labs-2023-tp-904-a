@@ -128,10 +128,7 @@ void romanovich::HashTable::removeValue(const std::string &word, const std::stri
     return;
   }
   auto &translations = data_[index].translations;
-  translations.erase(
-    std::remove(translations.begin(), translations.end(), trans),
-    translations.end()
-  );
+  translations.erase(std::remove(translations.begin(), translations.end(), trans), translations.end());
 }
 size_t romanovich::HashTable::getSize() const
 {

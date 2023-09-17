@@ -12,14 +12,14 @@ namespace romanovich
   {
   public:
     explicit CommandHandler(std::istream &, std::ostream &);
-    ~CommandHandler();
+    ~CommandHandler() = default;
     CommandHandler &operator=(CommandHandler &&) = delete;
     void operator()(const std::string &command);
   private:
     std::istream &in_;
     std::ostream &out_;
     std::unordered_map< std::string, std::function< void() > > processor_;
-    DictionariesVault::value_t *dictionaries_;
+    std::shared_ptr< DictionariesVault::value_t > dictionaries_;
     void addWordToDict();
     void addDict();
     void addTranslation();
@@ -35,7 +35,7 @@ namespace romanovich
     void createLevelDict();
     void mergeDicts();
     void printDicts(std::ostream &out);
-    romanovich::DictionariesVault::value_t::iterator findDictByName(const std::string& dictName);
+    romanovich::DictionariesVault::value_t::iterator findDictByName(const std::string &dictName);
   };
 }
 #endif

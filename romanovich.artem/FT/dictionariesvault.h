@@ -2,6 +2,7 @@
 #define DICTIONARIESVAULT_H
 #include <vector>
 #include <string>
+#include <memory>
 #include "hashtable.h"
 namespace romanovich
 {
@@ -10,7 +11,7 @@ namespace romanovich
   public:
     using value_t = std::vector< std::pair< std::string, HashTable>>;
     DictionariesVault &operator=(DictionariesVault &&) = delete;
-    static DictionariesVault::value_t *instance();
+    static std::shared_ptr< value_t > instance();
   };
 }
 #endif
