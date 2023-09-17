@@ -2,14 +2,15 @@
 #define FT_DICTIONARY_HPP
 #include <map>
 #include <string>
-class Dictionary
-{
-public:
-  Dictionary();
-  void insert(const std::string& word);
-//private:
-  std::map< std::string, size_t > dict_;
-};
+#include <iostream>
 
+struct dictionary
+{
+  std::map< std::string, size_t > dict_;
+  void insert(const std::string& word);
+};
+using dictionaryOfNames = std::map < std::string, dictionary >;
+dictionary& findSpecificDict(dictionaryOfNames&, std::string& name);
+const dictionary& findSpecificDict(const dictionaryOfNames& dicts, std::string& name);
 
 #endif
