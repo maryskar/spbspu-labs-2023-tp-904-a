@@ -67,6 +67,7 @@ std::ostream & turkin::remove_trns(base_t & base, std::istream & in, std::ostrea
   in >> dict >> word >> trns;
   auto & temp = base[dict];
   std::find_if(temp.begin(), temp.end(), isSameTRNS(trns))->second = "";
+  outRemovedCMD(out);
   return out;
 }
 
