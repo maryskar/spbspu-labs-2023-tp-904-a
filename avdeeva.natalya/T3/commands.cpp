@@ -20,7 +20,7 @@ namespace
   template< typename Pred >
   double calcArea(const std::deque< avdeeva::Polygon > & polygons, Pred p)
   {
-    std::deque < avdeeva::Polygon > filtPolygons(polygons.size());
+    std::deque < avdeeva::Polygon > filtPolygons;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(filtPolygons), p);
     std::deque< double > values(filtPolygons.size());
     std::transform(filtPolygons.begin(), filtPolygons.end(), values.begin(), avdeeva::getArea);
