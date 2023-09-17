@@ -4,7 +4,6 @@
 #include <string>
 
 namespace ganiullin {
-  using NodeType = std::pair< std::string, size_t >;
 
   struct DelimiterIO {
     char exp;
@@ -24,18 +23,7 @@ namespace ganiullin {
   struct ULongLongIO {
     unsigned long long& ref;
   };
-  struct WordIO {
-    std::string& ref;
-  };
-  struct EntryI {
-    std::string& ref;
-    size_t& val;
-  };
-  struct EntryO {
-    const NodeType& ref;
-  };
-  std::istream& operator>>(std::istream& in, EntryI&& dest);
-  std::istream& operator>>(std::istream& in, WordIO&& dest);
+
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
   std::istream& operator>>(std::istream& in, DoubleI&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
@@ -43,6 +31,7 @@ namespace ganiullin {
   std::istream& operator>>(std::istream& in, ULongLongIO&& dest);
 
   std::ostream& operator<<(std::ostream& out, const DoubleO&& dest);
-  std::ostream& operator<<(std::ostream& out, const EntryO&& dest);
+  std::ostream& printErrorMessage(std::ostream& out);
+
 }
 #endif

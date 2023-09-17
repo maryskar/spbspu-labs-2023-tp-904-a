@@ -1,14 +1,20 @@
 #include "FrequencyDictionary.h"
 
 #include <algorithm>
-#include <fstream>
-#include <functional>
 #include <iostream>
+#include <iterator>
+#include <utility>
+
+#include "NodeIO.h"
 #include "TypesIO.h"
 
+using FreqDict = ganiullin::FreqDict;
+using Dict = std::unordered_map< ganiullin::Word, size_t >;
+using SubComm = ganiullin::SubComm;
+using NodeType = std::pair< const ganiullin::Word, size_t >;
+using VectorDict = ganiullin::VectorDict;
 namespace {
-  bool compareNodes(const ganiullin::NodeType& lhs,
-      const ganiullin::NodeType& rhs)
+  bool compareNodes(const NodeType& lhs, const NodeType& rhs)
   {
     if (lhs.second == rhs.second) {
       return lhs.first < rhs.first;
@@ -16,69 +22,69 @@ namespace {
     return lhs.second > rhs.second;
   }
 }
-using InS = std::istream;
-using OutS = std::ostream;
-using Dict = ganiullin::Dict;
-
-Dict ganiullin::getIntersect(const Dict& lhs, const Dict& rhs,
-    const SubComm func)
+bool FreqDict::contains(const Word& key) const
 {
-  Dict res;
-
-  for (const NodeType& elem : lhs) {
-    if (rhs.find(elem.first) != rhs.end()) {
-      size_t valueToInsert = func(elem.second, rhs.find(elem.first)->second);
-      res[elem.first] = valueToInsert;
-    }
-  }
-  return res;
+  return map_.find(key) != std::end(map_);
 }
-
-Dict ganiullin::merge(const Dict& lhs, const Dict& rhs, const SubComm func)
+const size_t& FreqDict::at(const Word& key) const
 {
-  Dict res;
-  res.reserve(std::max(lhs.size(), rhs.size()));
+  return map_.at(key);
+}
+FreqDict FreqDict::merge(const FreqDict& other, const SubComm func) const
+{
+  FreqDict res;
+  res.map_.reserve(std::max(map_.size(), other.map_.size()));
 
-  for (const NodeType& elem : lhs) {
+  for (const NodeType& elem : map_) {
     size_t valueToInsert = 0;
-    if (rhs.find(elem.first) != rhs.end()) {
-      valueToInsert = func(elem.second, rhs.find(elem.first)->second);
-    } else {
+    try {
+      valueToInsert = func(elem.second, other.map_.at(elem.first));
+    } catch (...) {
       valueToInsert = elem.second;
     }
-    res[elem.first] = valueToInsert;
+    res.map_[elem.first] = valueToInsert;
   }
-  for (const NodeType& elem : rhs) {
-    if (res.find(elem.first) == res.end()) {
-      res[elem.first] = elem.second;
+  for (const NodeType& elem : other.map_) {
+    if (!res.contains(elem.first)) {
+      res.map_[elem.first] = elem.second;
     }
   }
   return res;
 }
-
-Dict ganiullin::getDifference(const Dict& lhs, const Dict& rhs)
+FreqDict FreqDict::intersect(const FreqDict& other, const SubComm func) const
 {
-  Dict res;
+  FreqDict res;
 
-  for (const NodeType& elem : lhs) {
-    if (rhs.find(elem.first) == rhs.end()) {
-      res[elem.first] = elem.second;
-    }
-  }
-  for (const NodeType& elem : rhs) {
-    if (lhs.find(elem.first) == lhs.end()) {
-      res[elem.first] = elem.second;
+  for (const NodeType& elem : map_) {
+    if (other.contains(elem.first)) {
+      size_t valueToInsert = func(elem.second, other.map_.at(elem.first));
+      res.map_[elem.first] = valueToInsert;
     }
   }
   return res;
 }
-template < class T >
-ganiullin::VectorDict ganiullin::getSorted(const Dict& src, const T& predicate)
+FreqDict FreqDict::diff(const FreqDict& other) const
+{
+  FreqDict res;
+
+  for (const NodeType& elem : map_) {
+    if (!other.contains(elem.first)) {
+      res.map_[elem.first] = elem.second;
+    }
+  }
+  for (const NodeType& elem : other.map_) {
+    if (!contains(elem.first)) {
+      res.map_[elem.first] = elem.second;
+    }
+  }
+  return res;
+}
+template < class T > VectorDict FreqDict::getSorted(const T& predicate) const
 {
   VectorDict res;
-  res.reserve(src.size());
-  auto dictBeginIt = std::begin(src);
-  auto dictEndIt = std::end(src);
+  res.reserve(map_.size());
+  auto dictBeginIt = std::begin(map_);
+  auto dictEndIt = std::end(map_);
   auto resInsertIt = std::back_inserter(res);
   std::copy(dictBeginIt, dictEndIt, resInsertIt);
   auto resBeginIt = std::begin(res);
@@ -87,81 +93,68 @@ ganiullin::VectorDict ganiullin::getSorted(const Dict& src, const T& predicate)
   std::sort(resBeginIt, resEndIt, predicate);
   return res;
 }
-OutS& ganiullin::print(OutS& out, const Dict& src)
+std::ostream& FreqDict::printSomeElems(
+    std::ostream& out, const VectorDict& src, size_t num)
 {
-  VectorDict res = getSorted(src, compareNodes);
-  printSomeElems(out, res, res.size());
+  num = std::min(num, src.size());
+  auto beginIt = std::begin(src);
+  auto outIt = std::ostream_iterator< ganiullin::VecNode >(out, "\n");
 
+  std::copy_n(beginIt, num, outIt);
   return out;
 }
-OutS& ganiullin::printRareElems(OutS& out, const Dict& src, size_t num)
-{
-  using namespace std::placeholders;
-  auto compareNodesObj = std::bind(compareNodes, _1, _2);
-  auto compareNodesRev = std::bind(std::logical_not< bool >{}, compareNodesObj);
 
-  VectorDict res = getSorted(src, compareNodesRev);
-
-  printSomeElems(out, res, num);
-  return out;
-}
-OutS& ganiullin::printCommonElems(OutS& out, const Dict& src, size_t num)
+std::ostream& FreqDict::printRareElems(std::ostream& out, size_t num) const
 {
   using namespace std::placeholders;
-  auto compareNodesObj = std::bind(compareNodes, _1, _2);
-  VectorDict res = getSorted(src, compareNodesObj);
-
-  printSomeElems(out, res, num);
+  auto comp = std::bind(compareNodes, _2, _1);
+  printSomeElems(out, getSorted(comp), num);
   return out;
 }
-OutS& ganiullin::printSomeElems(OutS& out, const VectorDict& src, size_t num)
+std::ostream& FreqDict::printCommonElems(std::ostream& out, size_t num) const
 {
-  for (size_t i = 0; i < num && i < src.size(); i++) {
-    NodeType elem = src[i];
-    out << EntryO{elem};
-    if (i != num - 1 && i != src.size() - 1) {
-      out << '\n';
-    }
-  }
+  printSomeElems(out, getSorted(compareNodes), num);
   return out;
 }
-InS& ganiullin::readText(InS& in, Dict& src)
+std::istream& FreqDict::readText(std::istream& in)
 {
   while (!in.eof()) {
-    std::string word = "";
-    in >> WordIO{word};
-    if (word.size() != 0) {
-      src[word] += 1;
+    Word word("");
+    try {
+      in >> word;
+      if (!word.empty()) {
+        map_[word] += 1;
+      }
+    } catch (const std::logic_error& e) {
     }
   }
   return in;
 }
-std::ifstream& ganiullin::loadDict(std::ifstream& in, Dict& src)
+std::istream& ganiullin::operator>>(std::istream& in, FreqDict& src)
 {
-  if (!in.is_open()) {
-    throw std::runtime_error("Could not open file");
-  }
-  while (in.peek() != '\n' && in) {
-    std::string word = "";
+  while (!(in.peek() == '\n' || in.eof())) {
+    Word word("");
     size_t val = 0;
-
-    in >> EntryI{word, val};
-    src[word] = val;
+    try {
+      in >> word >> val;
+    } catch (const std::logic_error& e) {
+    }
+    if (val != 0 && !word.empty()) {
+      src.map_[word] = val;
+    }
+    if (!in) {
+      in.clear();
+    }
   }
   return in;
 }
-std::ofstream& ganiullin::saveDict(std::ofstream& out, const Dict& src)
+std::ostream& ganiullin::operator<<(std::ostream& out, const FreqDict& src)
 {
-  if (!out.is_open()) {
-    throw std::runtime_error("Could not open file");
-  }
-  size_t i = 0;
-  for (const NodeType& elem : src) {
-    i++;
-    out << elem.first << ' ' << elem.second;
-    if (i < src.size()) {
-      out << ' ';
-    }
-  }
+  VectorDict dict = src.getSorted(compareNodes);
+  auto beginIt = std::begin(dict);
+  auto endIt = std::end(dict);
+  auto outIt = std::ostream_iterator< ganiullin::VecNode >(out, " ");
+
+  std::copy(beginIt, endIt, outIt);
   return out;
 }
