@@ -7,20 +7,15 @@ namespace shestakov
 {
   bool compareValues(const DataStruct& lhs, const DataStruct& rhs)
   {
-    if (lhs.key1 != rhs.key1)
-    {
+    if (lhs.key1 != rhs.key1) {
       return lhs.key1 < rhs.key1;
-    }
-    else if (lhs.key2 != rhs.key2)
-    {
+    } else if (lhs.key2 != rhs.key2) {
       double left = 0.0;
       double right = 0.0;
       left = pow(pow(lhs.key2.real(), 2) + pow(lhs.key2.imag(), 2), 0.5);
       right = pow(pow(rhs.key2.real(), 2) + pow(rhs.key2.imag(), 2), 0.5);
       return left < right;
-    }
-    else
-    {
+    } else {
       return lhs.key3.length() < rhs.key3.length();
     }
   }
