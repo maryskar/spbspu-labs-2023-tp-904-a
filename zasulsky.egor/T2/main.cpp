@@ -27,5 +27,5 @@ int main()
     std::cout << vector.back() << '\n';
   }
   std::sort(vector.begin(), vector.end(), compare);
-  std::copy(vector.begin(), vector.end(), itOut(std::cout ,"\n"));
+  std::copy(std::begin(vector),std::end(vector), itOut(std::cout, "\n"));
 }
