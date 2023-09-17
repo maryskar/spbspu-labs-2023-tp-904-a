@@ -11,11 +11,13 @@ std::istream & avdeeva::operator>>(std::istream & in, Point & rhs)
   {
     return in;
   }
-  Point input{0, 0};
-  in >> DelimiterIO{'('} >> input.x >> DelimiterIO{';'} >> input.y >> DelimiterIO{')'};
+  int x = 0;
+  int y = 0;
+  in >> DelimiterIO{'('} >> x >> DelimiterIO{';'} >> y >> DelimiterIO{')'};
   if (in)
   {
-    rhs = input;
+    rhs.x = x;
+    rhs.y = y;
   }
   return in;
 }
@@ -26,19 +28,19 @@ std::istream & avdeeva::operator>>(std::istream & in, Polygon & rhs)
   {
     return in;
   }
-  Polygon input;
   size_t verts = 0;
   in >> verts;
   if (!in || verts < 3)
   {
     in.setstate(std::ios::failbit);
   }
-  input.points.reserve(verts);
+  std::vector< Point > polygon;
+  polygon.reserve(verts);
   using inIter = std::istream_iterator< Point >;
-  std::copy_n(inIter(in), verts, std::back_inserter(input.points));
+  std::copy_n(inIter(in), verts, std::back_inserter(polygon));
   if (in)
   {
-    rhs.points.swap(input.points);
+    rhs.points = polygon;
   }
   return in;
 }
