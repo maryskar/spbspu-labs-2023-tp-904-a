@@ -1,5 +1,5 @@
 #include "point.h"
-#include "../common/IOstructs.h"
+#include <IOstructs.h>
 
 namespace kryuchkova
 {

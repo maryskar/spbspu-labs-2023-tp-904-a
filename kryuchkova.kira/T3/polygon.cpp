@@ -1,5 +1,5 @@
 #include "polygon.h"
-#include "../common/IOstructs.h"
+#include <IOstructs.h>
 #include <vector>
 #include <algorithm>
 #include <numeric>
