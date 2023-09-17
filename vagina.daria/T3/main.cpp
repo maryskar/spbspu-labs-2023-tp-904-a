@@ -38,8 +38,8 @@ int main(int argNum, char* argv[])
   {
     try
     {
-      auto read = vagina::readCommand(std::cin);
-      vagina::doCommand(read, dictionary, polygon, std::cin, std::cout);
+      auto read = dictionary.readCommand(std::cin);
+      dictionary.doCommand(read, dictionary, polygon, std::cin, std::cout);
     }
     catch (const std::logic_error& e)
     {

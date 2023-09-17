@@ -161,7 +161,8 @@ void vagina::messageInvalidCommand(std::ostream& out)
 {
   out << "<INVALID COMMAND>\n";
 }
-vagina::DictionaryOfCommands::DictionaryOfCommands()
+using Dict = vagina::DictionaryOfCommands;
+Dict::DictionaryOfCommands()
 {
   polygon.insert({"AREA EVEN", areaEven});
   polygon.insert({"AREA ODD", areaOdd});
@@ -177,7 +178,7 @@ vagina::DictionaryOfCommands::DictionaryOfCommands()
   vertexes.insert({"COUNT NUM", countVertexes});
   permutation.insert({"PERMS", perms});
 }
-std::string vagina::readCommand(std::istream& in)
+std::string Dict::readCommand(std::istream& in)
 {
   std::string comm = " ";
   in >> comm;
@@ -198,7 +199,6 @@ std::string vagina::readCommand(std::istream& in)
   }
   return comm;
 }
-using Dict = vagina::DictionaryOfCommands;
 void Dict::doCommPerms(const std::string& command, const std::vector< Polygon >& data,
   std::ostream& out, std::istream& in) const
 {
@@ -215,7 +215,7 @@ void Dict::doCommPoly(const std::string& command, const std::vector< Polygon >& 
   auto func = polygon.at(command);
   func(data, out);
 }
-void vagina::doCommand(const std::string& command, const DictionaryOfCommands& commands,
+void Dict::doCommand(const std::string& command, const DictionaryOfCommands& commands,
   const std::vector< Polygon >& dest, std::istream& in, std::ostream& out)
 {
   try
