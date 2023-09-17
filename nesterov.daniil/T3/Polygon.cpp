@@ -15,7 +15,15 @@ namespace nesterov
     }
     Point input{0, 0};
     using del = DelimiterIO;
-    in >> del{'('} >> input.x >> del{';'} >> input.y >> del{')'};
+    if (in.peek() != '(')
+    {
+      in.unget();
+      in.setstate(std::ios::failbit);
+    } else
+    {
+      in >> del{'('} >> input.x >> del{';'} >> input.y >> del{')'};
+    }
+
     if (in)
     {
       rhs = input;
@@ -53,9 +61,7 @@ namespace nesterov
       points,
       std::back_inserter(input.points)
     );
-    std::string remaining;
-    std::getline(in, remaining, '\n');
-    if (!remaining.empty())
+    if (in.peek() != '\n' && !in.eof())
     {
       in.setstate(std::ios::failbit);
     }
