@@ -1,9 +1,44 @@
 #include "DataStruct.hpp"
-#include "ScopeGuard.hpp"
-#include "Structures.hpp"
+#include <cmath>
+#include <ScopeGuard.hpp>
+#include <iostructures.hpp>
+namespace litvin
+{
+  std::string convertToScientific(double num)
+  {
+    int pow = 0;
+    if (std::abs(num) >= 10)
+    {
+      while (std::abs(num) >= 10)
+      {
+        num /= 10;
+        ++pow;
+      }
+    }
+    else if (std::abs(num) < 1 && num != 0)
+    {
+      while (std::abs(num) < 1)
+      {
+        num *= 10;
+        --pow;
+      }
+    }
+    num *= 10;
+    int temp = std::round(num);
+    std::string res = std::to_string(temp);
+    res.insert(1ull, 1ull, '.');
+    res += 'e';
+    if (pow >= 0)
+    {
+      res += '+';
+    }
+    res += std::to_string(pow);
+    return res;
+  }
+}
 std::istream & litvin::operator>>(std::istream & in, DataStruct & dest)
 {
-  std::istream ::sentry sentry(in);
+  std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
@@ -42,7 +77,7 @@ std::istream & litvin::operator>>(std::istream & in, DataStruct & dest)
         in >> str{key3};
         hasKey3 = true;
       }
-      if(!in)
+      if (!in)
       {
         return in;
       }
