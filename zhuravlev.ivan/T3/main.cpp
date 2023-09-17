@@ -37,11 +37,6 @@ int main(int argc, char* argv[])
       zhuravlev::skipUntilNewLines(std::cin);
       zhuravlev::printError(std::cout);
     }
-    catch(const std::exception& e)
-    {
-      zhuravlev::skipUntilNewLines(std::cin);
-      zhuravlev::printError(std::cout);
-    }
   }
   return 0;
 }
