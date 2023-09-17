@@ -17,7 +17,7 @@ namespace ovsyannikov
 
   struct Comparator
   {
-      bool operator()(const DataStruct& data1, const DataStruct& data2) const;
+    bool operator()(const DataStruct& data1, const DataStruct& data2) const;
   };
 }
 #endif

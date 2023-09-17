@@ -7,27 +7,27 @@ namespace ovsyannikov
 {
   struct DelimiterIO
   {
-      char exp;
+    char exp;
   };
 
   struct StringIO
   {
-      std::string& ref;
+    std::string& ref;
   };
 
   struct LabelIO
   {
-      std::string exp;
+    std::string exp;
   };
 
   struct ULongLongIO
   {
-      unsigned long long& ref;
+    unsigned long long& ref;
   };
 
   struct CharIO
   {
-      char& ref;
+    char& ref;
   };
 
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
