@@ -6,7 +6,7 @@
 namespace timofeev
 {
   using dict_t = std::map< std::string, std::vector<std::string> >;
-  void readDict(std::istream& in, std::ostream& out, dict_t& dict);
+  void addInDict(std::istream& in, std::ostream& out, dict_t& dict);
   void delTrans(std::istream& in, std::ostream &out, dict_t& dict);
   std::ostream& printInvalid(std::ostream& out);
   std::ostream& printEmpty(std::ostream& out);

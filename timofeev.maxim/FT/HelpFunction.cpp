@@ -2,7 +2,7 @@
 #include <algorithm>
 namespace timofeev
 {
-  void readDict(std::istream& in, std::ostream& out, dict_t& dict)
+  void addInDict(std::istream& in, std::ostream& out, dict_t& dict)
   {
     while (true)
     {
