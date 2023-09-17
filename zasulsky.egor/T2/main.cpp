@@ -21,10 +21,10 @@ int main()
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
     std::copy(itInp(std::cin), itInp(), std::back_inserter(vector));
-    if (vector.size() == 1)
-    {
-      std::cout << vector.back() << '\n';
-    }
+  }
+  if (vector.size() == 1)
+  {
+    std::copy(vector.begin(), vector.end(), itOut(std::cout, "\n"));
   }
   std::sort(vector.begin(), vector.end(), compare);
   std::copy(vector.begin(), vector.end(), itOut(std::cout ,"\n"));
