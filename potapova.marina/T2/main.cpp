@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <istream>
+#include <iterator>
 #include "dataStruct.h"
 
 using namespace potapova;
