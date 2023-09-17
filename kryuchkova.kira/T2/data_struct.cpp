@@ -3,8 +3,8 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include "iofmtguard.h"
-#include "../common/IOstructs.h"
+#include <iofmtguard.h>
+#include <IOstructs.h>
 
 namespace kryuchkova
 {
