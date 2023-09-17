@@ -12,7 +12,6 @@ int main()
   using itInp = std::istream_iterator<dataStruct>;
   std::vector<dataStruct> vector;
   dataStruct data;
-
   while(!std::cin.eof())
   {
     if (std::cin.fail())
