@@ -2,10 +2,10 @@
 
 void turkin::outInvalidCMD(std::ostream & out)
 {
-  out << "<INVALID COMMAND>\n";
+  out << "<INVALID COMMAND>";
 }
 
 void turkin::outEmptyCMD(std::ostream & out)
 {
-  out << "<EMPTY>\n";
+  out << "<EMPTY>";
 }

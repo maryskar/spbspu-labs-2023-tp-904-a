@@ -7,6 +7,7 @@
 #include <stdexcept>
 
 #include "area-calc.hpp"
+#include "data-structs.hpp"
 #include "pred-comp.hpp"
 
 turkin::ReturnType turkin::area_odd(data_t & data, std::istream &)
@@ -104,11 +105,11 @@ turkin::ReturnType turkin::maxseq_sub(data_t & data, std::istream & in)
   std::size_t amount = 0;
   using namespace std::placeholders;
   auto pred = std::bind(std::equal_to< Polygon >{}, _1, temp);
-  auto first = data.begin();
+  std::deque< Polygon >::iterator first = data.begin();
   while (first != data.end())
   {
     first = std::find_if(first, data.end(), pred);
-    auto last = std::find_if_not(first, data.end(), pred);
+    std::deque< Polygon >::iterator last = std::find_if_not(first, data.end(), pred);
     amount = std::max(amount, static_cast< size_t >(std::abs(std::distance(first, last))));
     first = last;
   }

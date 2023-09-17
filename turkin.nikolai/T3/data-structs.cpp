@@ -7,24 +7,39 @@
 #include <io-work.hpp>
 
 turkin::ReturnType::ReturnType(std::size_t num):
-  num_({ .uns=num }),
-  type_('u')
+  num_({ .uns = num }),
+  type_(RType::SIZE_T)
 {}
 
 turkin::ReturnType::ReturnType(double num):
-  num_({ .db=num }),
-  type_('d')
+  num_({ .db = num }),
+  type_(RType::DOUBLE)
 {}
+
+turkin::RType turkin::ReturnType::getType() const
+{
+  return type_;
+}
+
+std::size_t turkin::ReturnType::getNum() const
+{
+  return num_.uns;
+}
+
+double turkin::ReturnType::getDouble() const
+{
+  return num_.db;
+}
 
 std::ostream & turkin::operator<<(std::ostream & out, const ReturnType & rt)
 {
-  if (rt.type_ == 'u')
+  if (rt.getType() == RType::SIZE_T)
   {
-    out << rt.num_.uns;
+    out << rt.getNum();
   }
-  else if (rt.type_ == 'd')
+  else if (rt.getType() == RType::DOUBLE)
   {
-    out << std::fixed << std::setprecision(1) << rt.num_.db;
+    out << std::fixed << std::setprecision(1) << rt.getDouble();
   }
   return out;
 }

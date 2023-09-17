@@ -11,9 +11,12 @@ namespace
 {
   void put_string(const std::string & str, std::istream & in)
   {
-    auto temp = str;
+    std::string temp = str;
     std::reverse(temp.begin(), temp.end());
-    for (auto it : temp) in.putback(it);
+    for (char it: temp)
+    {
+      in.putback(it);
+    }
   }
 }
 
