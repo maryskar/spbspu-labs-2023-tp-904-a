@@ -39,11 +39,17 @@ int main(int argc, char* argv[])
   {
     try
     {
-      zhuravlev::readAndDoCommand(polygons, std::cin, std::cout);
+      zhuravlev::doCommand(polygons, std::cout, zhuravlev::readCommand(std::cin));
+    }
+    catch(const std::logic_error& e)
+    {
+      zhuravlev::skipUntilNewLines(std::cin);
+      zhuravlev::printError(std::cout);
     }
     catch(const std::exception& e)
     {
-      e.what();
+      zhuravlev::skipUntilNewLines(std::cin);
+      zhuravlev::printError(std::cout);
     }
   }
   return 0;

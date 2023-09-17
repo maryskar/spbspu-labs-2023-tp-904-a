@@ -33,7 +33,7 @@ namespace zhuravlev
     }
     return in;
   }
-  void skipUntilNewLine(std::istream & in)
+  void skipUntilNewLines(std::istream& in)
   {
     auto maxstream = std::numeric_limits< std::streamsize >::max();
     in.ignore(maxstream, '\n');

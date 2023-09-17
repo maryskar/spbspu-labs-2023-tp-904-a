@@ -3,7 +3,7 @@
 #include <numeric>
 #include <iomanip>
 #include <functional>
-#include "iofmtguard.hpp"
+#include <iofmtguard.hpp>
 
 namespace zhuravlev
 {
@@ -40,17 +40,17 @@ namespace zhuravlev
   {
     return !isEven(polygons);
   }
-  void countOdd(const std::vector< Polygon >& polygons, std::istream&, std::ostream& out)
+  void countOdd(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     iofmtguard iofmtguard(out);
     out << std::count_if(polygons.begin(), polygons.end(), isOdd) << '\n';
   }
-  void countEven(const std::vector< Polygon >& polygons, std::istream&, std::ostream& out)
+  void countEven(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     iofmtguard iofmtguard(out);
     out << std::count_if(polygons.begin(), polygons.end(), isEven) << '\n';
   }
-  void AreaEven(const std::vector< Polygon >& polygons, std::istream&, std::ostream& out)
+  void AreaEven(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     size_t size_of_even_vector = std::count_if(polygons.begin(), polygons.end(), isEven);
     std::vector< Polygon > even_polygons(size_of_even_vector);
@@ -60,7 +60,7 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(areas_of_even.begin(), areas_of_even.end(), 0.0) << '\n';
   }
-  void AreaOdd(const std::vector< Polygon >& polygons, std::istream&, std::ostream& out)
+  void AreaOdd(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     size_t size_of_odd_vector = std::count_if(polygons.begin(), polygons.end(), isOdd);
     std::vector< Polygon > odd_polygons(size_of_odd_vector);
@@ -70,7 +70,7 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(areas_of_odd.begin(), areas_of_odd.end(), 0.0) << '\n';
   }
-  void AreaMean(const std::vector< Polygon >& polygons, std::istream&, std::ostream& out)
+  void AreaMean(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     if (polygons.empty())
     {
@@ -81,11 +81,10 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << ((std::accumulate(areas.begin(), areas.end(), 0.0)) / (areas.size())) << "\n";
   }
-  void AreaVertexes(const std::vector< Polygon >& polygons, std::istream& in, std::ostream& out)
+  void AreaVertexes(const std::vector< Polygon >& polygons, std::ostream& out, const size_t condition)
   {
     using namespace std::placeholders;
-    size_t num_of_vertexes;
-    in >> num_of_vertexes;
+    size_t num_of_vertexes = condition;
     size_t size_of_needed_values = 0;
     size_of_needed_values = std::count_if(polygons.begin(), polygons.end(), std::bind(isRightNumberOfVertexes, _1, num_of_vertexes));
     std::vector< Polygon > needed_values(size_of_needed_values);
@@ -95,7 +94,7 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(needed_area.begin(), needed_area.end(), 0.0) << '\n';
   }
-  void MaxArea(const std::vector< Polygon >& polygons, std::istream&, std::ostream& out)
+  void MaxArea(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     if (polygons.empty())
     {
@@ -107,7 +106,7 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << all_areas.back() << '\n';
   }
-  void MaxVertexes(const std::vector< Polygon >& polygons, std::istream&, std::ostream& out)
+  void MaxVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     std::vector< size_t > vertexes(polygons.size());
     std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), getNumberOfVertexes);
@@ -115,7 +114,7 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << vertexes.back() << '\n';
   }
-  void MinArea(const std::vector< Polygon >& polygons, std::istream&, std::ostream& out)
+  void MinArea(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     if (polygons.empty())
     {
@@ -127,7 +126,7 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << all_areas.front() << "\n";
   }
-  void MinVertexes(const std::vector< Polygon >& polygons, std::istream&, std::ostream& out)
+  void MinVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
   {
     std::vector< size_t > vertexes(polygons.size());
     std::transform(polygons.begin(), polygons.end(), vertexes.begin(), getNumberOfVertexes);
@@ -135,12 +134,16 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << vertexes.front() << '\n';
   }
-  void countVertexes(const std::vector< Polygon >& polygons, std::istream& in, std::ostream& out)
+  void countVertexes(const std::vector< Polygon >& polygons, std::ostream& out, const size_t condition)
   {
-    size_t num_of_vertexes = 0;
-    in >> num_of_vertexes;
+    if (condition < 3)
+    {
+      throw std::logic_error("Wrong condition");
+    }
+    using namespace std::placeholders;
+    auto countNumOfRightPolygons = std::bind(isCountOfVertexes, _1, condition);
     iofmtguard iofmtguard(out);
-    out << std::count_if(polygons.begin(), polygons.end(), getNumberOfVertexes) << '\n';
+    out << std::count_if(polygons.begin(), polygons.end(), countNumOfRightPolygons) << '\n';
   }
   void printError(std::ostream& out)
   {
