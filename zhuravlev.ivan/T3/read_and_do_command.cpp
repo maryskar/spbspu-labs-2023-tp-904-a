@@ -5,22 +5,11 @@
 
 namespace zhuravlev
 {
-  bool isStringDigit(const std::string& str)
-  {
-    for (char c : str)
-    {
-      if (c < '0' || c > '9')
-      {
-        return false;
-      }
-    }
-    return true;
-  }
   using const_cmd_t = std::function< void (const std::vector< zhuravlev::Polygon >, std::ostream&) >;
   //using cmd_t = std::function< void (std::vector< zhuravlev::Polygon >&, std::istream&, std::ostream&) >;
   using cmt_t_with_input = std::function< void (std::vector< zhuravlev::Polygon >&, std::ostream&, const size_t) >;
   std::map< std::string, const_cmd_t > const_cmds
-  { 
+  {
     {"COUNT ODD", zhuravlev::countOdd},
     {"COUNT EVEN", zhuravlev::countEven},
     {"MAX AREA", zhuravlev::MaxArea},
