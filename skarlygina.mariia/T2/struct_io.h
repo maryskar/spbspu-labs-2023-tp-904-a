@@ -26,7 +26,7 @@ namespace skarlygina
 
   struct DBLsciO
   {
-    double ref;
+    const double ref;
   };
 
   struct ULLhexI
@@ -36,7 +36,7 @@ namespace skarlygina
 
   struct ULLhexO
   {
-    unsigned long long ref;
+    const unsigned long long ref;
   };
 
   std::istream& operator>>(std::istream& in, DelimiterSep&& dest);
