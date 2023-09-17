@@ -168,7 +168,7 @@ namespace kryuchkova
   void printMaxVer(const std::vector< Polygon > & polygon, std::ostream & out)
   {
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << getMaxOrMinVer(polygon, isLessVer) << '\n';
+    out << std::setprecision(1) << getMaxOrMinVer(polygon, isLessVer) << '\n';
   }
 
   void printMinArea(const std::vector< Polygon > & polygon, std::ostream & out)
@@ -182,7 +182,7 @@ namespace kryuchkova
   {
     iofmtguard iofmtguard(out);
     using namespace std::placeholders;
-    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(polygon, std::bind(isLessVer, _2, _1)) << '\n';
+    out << std::setprecision(1) << getMaxOrMinArea(polygon, std::bind(isLessVer, _2, _1)) << '\n';
   }
 
   void printCountEven(const std::vector< Polygon > & polygon, std::ostream & out)
