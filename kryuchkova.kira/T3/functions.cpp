@@ -157,12 +157,20 @@ namespace kryuchkova
   }
   void printMaxArea(const std::vector< Polygon > & polygon, std::ostream & out)
   {
+    if (polygon.empty())
+    {
+      throw std::invalid_argument("not enough polygons");
+    }
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getMaxOrMinArea(polygon, isLessArea) << '\n';
   }
 
   void printMaxVer(const std::vector< Polygon > & polygon, std::ostream & out)
   {
+    if (polygon.empty())
+    {
+      throw std::invalid_argument("not enough polygons");
+    }
     iofmtguard iofmtguard(out);
     out << std::setprecision(1) << getMaxOrMinVer(polygon, isLessVer) << '\n';
   }

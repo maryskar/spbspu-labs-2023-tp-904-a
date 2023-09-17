@@ -12,10 +12,6 @@ namespace kryuchkova
 
   void CommandDict::handleCommand(std::string comm, const std::vector< Polygon > & pol, std::ostream & out, std::istream & in)
   {
-    if (pol.empty())
-    {
-      throw std::invalid_argument("not enough polygons");
-    }
     try
     {
       input_comm_.at(comm)(pol, out, in);
