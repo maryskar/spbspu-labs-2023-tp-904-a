@@ -53,7 +53,7 @@ namespace zhuravlev
       doConstCommand(pls, out, command);
       return;
     }
-    catch (...)
+    catch (const std::logic_error& e)
     {}
     try
     {
@@ -64,7 +64,7 @@ namespace zhuravlev
     }
     catch (...)
     {
-      printError(out);
+      throw;
     }
   }
 }
