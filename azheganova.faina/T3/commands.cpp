@@ -7,14 +7,14 @@
 
 namespace azheganova
 {
-  bool isEven(const Polygon & polygon)
+  bool checkEven(const Polygon & polygon)
   {
     return polygon.points.size() % 2 == 0;
   }
 
-  bool isOdd(const Polygon & polygon)
+  bool checkOdd(const Polygon & polygon)
   {
-    return !isEven(polygon);
+    return !checkEven(polygon);
   }
 
   bool isCountVertex(const Polygon & polygon, size_t vertexcount)
@@ -48,7 +48,7 @@ namespace azheganova
     using namespace std::placeholders;
     double area = 0;
     std::vector< Polygon > areas;
-    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isEven, _1));
+    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(checkEven, _1));
     area = std::accumulate(areas.cbegin(), areas.cend(), 0, getSumArea);
     return area;
   }
@@ -58,7 +58,7 @@ namespace azheganova
     using namespace std::placeholders;
     double area = 0;
     std::vector< Polygon > areas;
-    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(isOdd, _1));
+    std::copy_if(polygon.cbegin(), polygon.cend(), std::back_inserter(areas), std::bind(checkOdd, _1));
     area = std::accumulate(areas.cbegin(), areas.cend(), 0, getSumArea);
     return area;
   }
@@ -121,13 +121,13 @@ namespace azheganova
   size_t getCountEven(const std::vector< Polygon > & polygon)
   {
     using namespace std::placeholders;
-    return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(isEven, _1));
+    return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(checkEven, _1));
   }
 
   size_t getCountOdd(const std::vector< Polygon > & polygon)
   {
     using namespace std::placeholders;
-    return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(isOdd, _1));
+    return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(checkOdd, _1));
   }
 
   size_t getCountVertexes(const std::vector< Polygon > & polygon, size_t countVert)
@@ -146,19 +146,21 @@ namespace azheganova
     return (b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0;
   }
 
-  bool hasRightAngles(const Polygon & polygon, size_t i)
+  bool hasRightAngles(std::vector< Point > points, size_t i)
   {
-    size_t n = polygon.points.size();
-    const std::vector< Point > points = polygon.points;
-    {
-      Point a = points[i];
-      Point b = points[(i + 1) % n];
-      Point c = points[(i + 2) % n];
-      return isRightAngle(a, b, c);
-    };
-    std::vector< size_t > ind(n);
+    size_t n = points.size();
+    Point a = points[i];
+    Point b = points[(i + 1) % n];
+    Point c = points[(i + 2) % n];
+    return isRightAngle(a, b, c);
+  }
+
+  bool getRightShapes(const Polygon & polygon)
+  {
+    using namespace std::placeholders;
+    std::vector< size_t > ind(polygon.points.size());
     std::iota(ind.begin(), ind.end(), 0);
-    return std::any_of(ind.begin(), ind.end(), state);
+    return std::any_of(ind.begin(), ind.end(), std::bind(hasRightAngles, polygon.points, _1));
   }
 
   bool isNumber(const std::string & str)
@@ -284,7 +286,7 @@ void azheganova::rmecho(std::vector< Polygon > & polygon, std::istream & in, std
 
 void azheganova::rightshapes(std::vector< Polygon > & polygon, std::ostream & out)
 {
-  out << std::count_if(polygon.begin(), polygon.end(), hasRightAngles) << '\n';
+  out << std::count_if(polygon.begin(), polygon.end(), getRightShapes) << '\n';
 }
 
 std::ostream & azheganova::printInvalidCommand(std::ostream & out)
