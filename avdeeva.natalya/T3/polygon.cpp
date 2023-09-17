@@ -1,5 +1,7 @@
 #include "polygon.h"
 #include <algorithm>
+#include <iterator>
+#include <numeric>
 #include <cmath>
 #include "iostructs.h"
 std::istream & avdeeva::operator>>(std::istream & in, Point & rhs)

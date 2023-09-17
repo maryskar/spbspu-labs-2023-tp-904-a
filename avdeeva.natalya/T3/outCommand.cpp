@@ -108,6 +108,10 @@ void avdeeva::countCommand(const std::deque< Polygon > & polygons, std::istream 
 }
 void avdeeva::rightshapesCommand(const std::deque< Polygon > & polygons, std::istream & in, std::ostream & out)
 {
+  if (in)
+  {
+    throw std::invalid_argument("Invalid argument");
+  }
   size_t count = countRightShapes(polygons);
   out << count << '\n';
 }
