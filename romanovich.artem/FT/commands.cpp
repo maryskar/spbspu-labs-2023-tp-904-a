@@ -2,6 +2,7 @@
 #include <fstream>
 #include <algorithm>
 #include <numeric>
+#include <iterator>
 #include "commands.h"
 #include "../common/printmessages.h"
 #include "dictionaryfunctors.h"
@@ -102,17 +103,13 @@ void romanovich::CommandHandler::searchTranslations()
     return;
   }
   const HashTable &dict = it->second;
+  std::vector< std::string > allTranslations;
   for (size_t i = 0; i < dict.getCapacity(); ++i)
   {
     const std::vector< std::string > &translations = dict.getData()[i].translations;
-    if (!translations.empty())
-    {
-      StringConcatenator concatenator(", ");
-      std::string combinedTrans = std::accumulate(translations.begin(),
-                                                  translations.end(), std::string(""), concatenator);
-      out_ << combinedTrans;
-    }
+    std::copy_if(translations.begin(), translations.end(), std::back_inserter(allTranslations), NonEmptyString());
   }
+  std::copy(allTranslations.begin(), allTranslations.end(), std::ostream_iterator< std::string >(out_, ", "));
   out_ << "\n";
 }
 void romanovich::CommandHandler::searchWords()
@@ -120,30 +117,20 @@ void romanovich::CommandHandler::searchWords()
   std::string dictName;
   in_ >> dictName;
   out_ << "Words in dictionary \"" << dictName << "\":\n";
-  for (auto &pair: *dictionaries_)
+  auto it = findDictByName(dictName);
+  if (it == dictionaries_->end())
   {
-    if (pair.first == dictName)
-    {
-      HashTable &table = pair.second;
-      size_t capacity = table.getCapacity();
-      size_t firstIndex = 0;
-      while (firstIndex < capacity && table.getData()[firstIndex].word.empty())
-      {
-        ++firstIndex;
-      }
-      if (firstIndex < capacity)
-      {
-        out_ << table.getData()[firstIndex].word;
-      }
-      for (size_t i = firstIndex + 1; i < capacity; ++i)
-      {
-        if (!table.getData()[i].word.empty())
-        {
-          out_ << ", " << table.getData()[i].word;
-        }
-      }
-      break;
-    }
+    return;
+  }
+  HashTable &table = it->second;
+  const std::vector< WordEntry > &data = table.getData();
+  auto firstNotEmptyWord = std::find_if(data.begin(), data.end(), NonEmptyWord());
+  if (firstNotEmptyWord != data.end())
+  {
+    out_ << firstNotEmptyWord->word;
+    std::vector< std::string > words;
+    std::transform(firstNotEmptyWord, data.end(), std::back_inserter(words), WordToString());
+    std::copy(words.begin(), words.end(), std::ostream_iterator< std::string >(out_, ", "));
   }
   out_ << "\n";
 }
@@ -152,34 +139,31 @@ void romanovich::CommandHandler::countWords()
   std::string dictName;
   in_ >> dictName;
   out_ << "Words count in dictionary \"" << dictName << "\": ";
-  size_t count = 0;
-  for (auto &pair: *dictionaries_)
+  auto it = findDictByName(dictName);
+  if (it == dictionaries_->end())
   {
-    auto data = pair.second.getData();
-    for (size_t j = 1; j < data.size(); ++j)
-    {
-      if (!data[j].word.empty())
-      {
-        ++count;
-      }
-    }
+    out_ << "0\n";
+    return;
   }
+  HashTable &table = it->second;
+  const std::vector< WordEntry > &data = table.getData();
+  size_t count = std::count_if(data.begin() + 1, data.end(), NonEmptyWord());
   out_ << count << "\n";
 }
 void romanovich::CommandHandler::countTranslations()
 {
   std::string dictName;
   in_ >> dictName;
-  out_ << "Words count in dictionary \"" << dictName << "\": ";
-  size_t count = 0;
-  for (auto &pair: *dictionaries_)
+  out_ << "Translations count in dictionary \"" << dictName << "\": ";
+  auto it = findDictByName(dictName);
+  if (it == dictionaries_->end())
   {
-    auto data = pair.second.getData();
-    for (size_t j = 1; j < data.size(); ++j)
-    {
-      count += data[j].translations.size();
-    }
+    out_ << "0\n";
+    return;
   }
+  HashTable &table = it->second;
+  const std::vector< WordEntry > &data = table.getData();
+  size_t count = std::accumulate(data.begin() + 1, data.end(), 0, CountTranslations());
   out_ << count << "\n";
 }
 void romanovich::CommandHandler::exportToFile()

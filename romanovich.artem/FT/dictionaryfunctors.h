@@ -17,15 +17,32 @@ namespace romanovich
       return pair.first == targetName;
     }
   };
-  struct StringConcatenator
+  struct NonEmptyString
+  {
+    bool operator()(const std::string &str) const
     {
-    std::string delimiter_;
-    explicit StringConcatenator(std::string del):
-    delimiter_(std::move(del))
-    {}
-    std::string operator()(const std::string& tmp, const std::string& value) const
+      return !str.empty();
+    }
+  };
+  struct NonEmptyWord
+  {
+    bool operator()(const WordEntry &entry) const
     {
-      return tmp.empty() ? value : tmp + delimiter_ + value;
+      return !entry.word.empty();
+    }
+  };
+  struct WordToString
+  {
+    std::string operator()(const WordEntry &entry) const
+    {
+      return entry.word;
+    }
+  };
+  struct CountTranslations
+  {
+    size_t operator()(size_t accumulator, const WordEntry &entry) const
+    {
+      return accumulator + entry.translations.size();
     }
   };
 }

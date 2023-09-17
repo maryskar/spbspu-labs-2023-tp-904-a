@@ -16,6 +16,7 @@ namespace romanovich
     std::vector< std::string > translations;
     Level level;
     bool operator==(const WordEntry &rhs) const;
+    WordEntry& operator=(const WordEntry &rhs) = default;
   };
 }
 #endif
