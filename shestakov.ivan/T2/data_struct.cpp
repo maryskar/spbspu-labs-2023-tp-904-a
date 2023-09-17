@@ -65,11 +65,6 @@ namespace shestakov
       return in;
     }
   }
-  std::ostream& operator<<(std::ostream& out, const std::complex< double >& dest)
-  {
-    out << std::fixed << std::setprecision(1) << "#c(" << dest.real() << ' ' << dest.imag() << ')';
-    return out;
-  }
   std::ostream& operator<<(std::ostream& out, const DataStruct& src)
   {
     std::ostream::sentry sentry(out);
