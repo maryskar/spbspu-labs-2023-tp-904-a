@@ -10,7 +10,7 @@
 
 int main(int argc, char* argv[])
 {
-  /*if (argc != 2)
+  if (argc != 2)
   {
     std::cerr << "Wrong input\n";
     return -1;
@@ -20,14 +20,8 @@ int main(int argc, char* argv[])
   {
     std::cerr << "Something wrong with file\n";
     return 2;
-  }*/
+  }
   std::vector< zhuravlev::Polygon > polygons;
-  std::istringstream input{
-    "3 (0;0) (1;1) (1;0)\n"
-    "4 (0;0) (1;0) (1;1) (0;1)\n"
-    "3 (0;0) (1;1) (1;0)\n"
-    "4 (0;0) (2;0) (2;2) (0;2)\n"
-    };
   while (!input.eof())
   {
     using in_pol_iter = std::istream_iterator< zhuravlev::Polygon >;
