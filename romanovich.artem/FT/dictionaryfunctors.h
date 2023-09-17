@@ -2,6 +2,7 @@
 #define DICTIONARYFUNCTORS_H
 #include <string>
 #include <utility>
+#include <algorithm>
 #include "hashtable.h"
 namespace romanovich
 {
@@ -43,6 +44,21 @@ namespace romanovich
     size_t operator()(size_t accumulator, const WordEntry &entry) const
     {
       return accumulator + entry.translations.size();
+    }
+  };
+  struct TranslateCopier
+  {
+    std::vector< std::string > &result_;
+    explicit TranslateCopier(std::vector< std::string > &result)
+      : result_(result)
+    {
+    }
+    std::vector< std::string > &operator()(std::vector< std::string > &result,
+                                           const WordEntry &wordEntry)
+    {
+      std::copy_if(wordEntry.translations.begin(), wordEntry.translations.end(),
+                   std::back_inserter(result), NonEmptyString());
+      return result;
     }
   };
 }

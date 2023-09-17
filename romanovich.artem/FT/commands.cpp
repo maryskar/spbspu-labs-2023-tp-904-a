@@ -104,11 +104,13 @@ void romanovich::CommandHandler::searchTranslations()
   }
   const HashTable &dict = it->second;
   std::vector< std::string > allTranslations;
-  for (size_t i = 0; i < dict.getCapacity(); ++i)
-  {
-    const std::vector< std::string > &translations = dict.getData()[i].translations;
-    std::copy_if(translations.begin(), translations.end(), std::back_inserter(allTranslations), NonEmptyString());
-  }
+  TranslateCopier copier(allTranslations);
+  std::accumulate(dict.getData().begin(), dict.getData().end(), allTranslations, copier);
+//  for (size_t i = 0; i < dict.getCapacity(); ++i)
+//  {
+//    const std::vector< std::string > &translations = dict.getData()[i].translations;
+//    std::copy_if(translations.begin(), translations.end(), std::back_inserter(allTranslations), NonEmptyString());
+//  }
   std::copy(allTranslations.begin(), allTranslations.end(), std::ostream_iterator< std::string >(out_, ", "));
   out_ << "\n";
 }
@@ -198,24 +200,20 @@ void romanovich::CommandHandler::addMissingWords()
   std::string dictTo;
   in_ >> dictFrom;
   in_ >> dictTo;
-  for (auto &pair1: *dictionaries_)
+  auto itFrom = findDictByName(dictFrom);
+  auto itTo = findDictByName(dictTo);
+  if (itFrom == dictionaries_->end())
   {
-    if (pair1.first == dictFrom)
-    {
-      for (auto &pair2: *dictionaries_)
-      {
-        if (pair2.first == dictTo)
-        {
-          pair2.second.addWordsFromAnother(pair1.second);
-          out_ << "Added missing words from dictionary '" << dictFrom << "' to dictionary '" << dictTo << "'\n";
-          return;
-        }
-      }
-      out_ << "Dictionary '" << dictTo << "' not found.\n";
-      return;
-    }
+    out_ << "Dictionary '" << dictFrom << "' not found.\n";
+    return;
   }
-  out_ << "Dictionary '" << dictFrom << "' not found.\n";
+  if (itTo == dictionaries_->end())
+  {
+    out_ << "Dictionary '" << dictTo << "' not found.\n";
+    return;
+  }
+  itTo->second.addWordsFromAnother(itFrom->second);
+  out_ << "Added missing words from dictionary '" << dictFrom << "' to dictionary '" << dictTo << "'\n";
 }
 void romanovich::CommandHandler::createLevelDict()
 {
@@ -225,55 +223,39 @@ void romanovich::CommandHandler::createLevelDict()
   in_ >> newDictName;
   std::pair< std::string, romanovich::HashTable > newDict;
   newDict.first = newDictName;
-  for (auto &pair: *dictionaries_)
+  auto it = findDictByName(dict);
+  if (it == dictionaries_->end())
   {
-    if (pair.first == dict)
-    {
-      newDict.second.addLevelWordsFromAnother(pair.second);
-      out_ << "Added level words from dictionary '" << dict << "'\n";
-      dictionaries_->push_back(newDict);
-      return;
-    }
+    out_ << "Dictionary '" << dict << "' not found.\n";
+    return;
   }
-  out_ << "Dictionary '" << dict << "' not found.\n";
+  HashTable hashTable;
+  hashTable.addLevelWordsFromAnother(it->second);
+  dictionaries_->emplace_back(newDictName, hashTable);
+  out_ << "Added level words from dictionary '" << dict << "'\n";
 }
 void romanovich::CommandHandler::mergeDicts()
 {
-  std::string dict1;
-  std::string dict2;
+  std::string dict;
   std::string newDictName;
-  in_ >> dict1;
-  in_ >> dict2;
+  in_ >> dict;
   in_ >> newDictName;
-  std::pair< std::string, romanovich::HashTable > newDict;
-  newDict.first = newDictName;
-  for (auto &pair1: *dictionaries_)
+  auto it = findDictByName(dict);
+  if (it == dictionaries_->end())
   {
-    if (pair1.first == dict1)
-    {
-      newDict.second.addWordsFromAnother(pair1.second);
-      out_ << "Added missing words from dictionary '" << dict1 << "'\n";
-      dictionaries_->push_back(newDict);
-    }
-    out_ << "Dictionary '" << dict1 << "' not found.\n";
+    out_ << "Dictionary '" << dict << "' not found.\n";
+    return;
   }
-  for (auto &pair2: *dictionaries_)
-  {
-    if (pair2.first == dict2)
-    {
-      newDict.second.addWordsFromAnother(pair2.second);
-      out_ << "Added missing words from dictionary '" << dict2 << "'\n";
-      return;
-    }
-    out_ << "Dictionary '" << dict2 << "' not found.\n";
-  }
+  HashTable newDict;
+  newDict.addLevelWordsFromAnother(it->second);
+  dictionaries_->emplace_back(newDictName, newDict);
+  out_ << "Added level words from dictionary '" << dict << "'\n";
 }
 void romanovich::CommandHandler::printDicts(std::ostream &out)
 {
   for (const auto &pair: *dictionaries_)
   {
-    out << "Dict " << pair.first << ":\n";
-    pair.second.print(out);
+    pair.second.print(out << "Dict " << pair.first << ":\n");
   }
 }
 void romanovich::CommandHandler::operator()(const std::string &command)
