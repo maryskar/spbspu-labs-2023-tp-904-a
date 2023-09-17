@@ -6,6 +6,11 @@
 #include "polygon.h"
 #include "commands_dict.h"
 
+std::ostream & outInvalidCommand(std::ostream & out)
+{
+  out << "<INVALID COMMAND>";
+  return out;
+}
 std::string getCommand(std::istream & in)
 {
   std::string res;
@@ -64,9 +69,13 @@ int main(int argc, char * argv[])
     }
     catch(const std::logic_error & e)
     {
-      std::cout << "<INVALID COMMAND>\n";
+      outInvalidCommand(std::cout) << '\n';
       std::cin.ignore(max_size, '\n');
       std::cin.clear();
+    }
+    catch (const std::runtime_error & e)
+    {
+      break;
     }
     return 0;
   }
