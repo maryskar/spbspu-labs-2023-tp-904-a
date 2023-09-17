@@ -56,6 +56,6 @@ double avdeeva::getArea(const Polygon & pol)
   int x2 = pol.points.begin()->x;
   int y1 = (--pol.points.end())->y;
   int y2 = pol.points.begin()->y;
-  area += 0.5 * std::abs(x1 * y2 - x2 * y1);
-  return area;
+  area += 0.5 * (x1 * y2 - x2 * y1);
+  return std::abs(area);
 }
