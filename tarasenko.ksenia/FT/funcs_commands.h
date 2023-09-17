@@ -19,7 +19,7 @@ namespace tarasenko
   bool pair_comp(const std::pair< Key, Value >& pair1, const std::pair< Key, Value >& pair2, Compare comp)
   {
     return comp(pair1.first, pair2.first);
-  };
+  }
 
   template< class Key, class Value, class Compare >
   std::map< Key, Value, Compare > complement(const std::map< Key, Value, Compare >& lhs,
