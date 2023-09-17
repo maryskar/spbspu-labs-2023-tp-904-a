@@ -8,7 +8,7 @@ std::istream &mishanina::operator>>(std::istream &in, DataStruct &data)
   {
     return in;
   }
-  DataStruct dataStruct = {0,0};
+  DataStruct dataStruct = {0, 0};
   std::size_t number = 0;
   in >> DelimiterIO{'('} >> DelimiterIO{':'};
   for (size_t i = 0; i < 3; i++)
