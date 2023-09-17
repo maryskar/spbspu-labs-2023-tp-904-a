@@ -22,6 +22,7 @@ namespace kryuchkova
     try
     {
       simple_comm_.at(comm)(pol, out);
+      return;
     }
     catch(const std::out_of_range & e)
     {}
