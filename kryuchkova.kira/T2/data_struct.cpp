@@ -8,7 +8,7 @@
 
 namespace kryuchkova
 {
-  bool CmpData(const DataStruct & lhs, const DataStruct & rhs)
+  bool cmpData(const DataStruct & lhs, const DataStruct & rhs)
   {
     if (lhs.key1 != rhs.key1)
     {

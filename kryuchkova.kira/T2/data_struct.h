@@ -13,7 +13,7 @@ namespace kryuchkova
 
   std::istream & operator>>(std::istream & in, DataStruct & dest);
   std::ostream & operator<<(std::ostream & out, const DataStruct & source);
-  bool CmpData(const DataStruct & lhs, const DataStruct & rhs);
+  bool cmpData(const DataStruct & lhs, const DataStruct & rhs);
 }
 
 #endif
