@@ -1,10 +1,9 @@
 #include "struct_io.h"
-#include "iofmt_guard.h"
-
+#include <iofmt_guard.h>
 #include <iostream>
 #include <iomanip>
 
-std::istream& skarlygina::operator>>(std::istream& in, delimiter_sep_t&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, DelimiterSep&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -20,7 +19,7 @@ std::istream& skarlygina::operator>>(std::istream& in, delimiter_sep_t&& dest)
   return in;
 }
 
-std::istream& skarlygina::operator>>(std::istream& in, delimiter_IO_t&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, DelimiterIO&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -36,17 +35,17 @@ std::istream& skarlygina::operator>>(std::istream& in, delimiter_IO_t&& dest)
   return in;
 }
 
-std::istream& skarlygina::operator>>(std::istream& in, string_IO_t&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, StringIO&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
   {
     return in;
   }
-  return std::getline(in >> delimiter_IO_t{ '"' }, dest.ref, '"');
+  return std::getline(in >> DelimiterIO{ '"' }, dest.ref, '"');
 }
 
-std::istream& skarlygina::operator>>(std::istream& in, DBL_sciI_t&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, DBLsciI&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
@@ -56,18 +55,18 @@ std::istream& skarlygina::operator>>(std::istream& in, DBL_sciI_t&& dest)
   return in >> std::scientific >> dest.ref;
 }
 
-std::istream& skarlygina::operator>>(std::istream& in, ULL_hexI_t&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, ULLhexI&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
   {
     return in;
   }
-  in >> delimiter_sep_t{ '0' } >> delimiter_sep_t{ 'x' } >> std::hex >> dest.ref;
+  in >> DelimiterSep{ '0' } >> DelimiterSep{ 'x' } >> std::hex >> dest.ref;
   return in;
 }
 
-std::ostream& skarlygina::operator<<(std::ostream& out, ULL_hexO_t&& dest)
+std::ostream& skarlygina::operator<<(std::ostream& out, ULLhexO&& dest)
 {
   std::ostream::sentry sent(out);
   if (!sent)
@@ -77,7 +76,7 @@ std::ostream& skarlygina::operator<<(std::ostream& out, ULL_hexO_t&& dest)
   return out << "0x" << std::hex << std::uppercase << dest.ref;
 }
 
-std::ostream& skarlygina::operator<<(std::ostream& out, const DBL_sciO_t& dest)
+std::ostream& skarlygina::operator<<(std::ostream& out, const DBLsciO& dest)
 {
   std::ostream::sentry sent(out);
   if (!sent)
@@ -102,7 +101,7 @@ std::ostream& skarlygina::operator<<(std::ostream& out, const DBL_sciO_t& dest)
   return out;
 }
 
-std::ostream& operator<<(std::ostream& out, const skarlygina::string_IO_t& dest)
+std::ostream& operator<<(std::ostream& out, const skarlygina::StringIO& dest)
 {
   std::ostream::sentry sent(out);
   if (!sent)

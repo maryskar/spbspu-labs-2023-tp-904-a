@@ -24,8 +24,8 @@ std::ostream& skarlygina::operator<<(std::ostream& out, const DataStruct& data)
     return out;
   }
   Iofmtguard fmtguard(out);
-  out << "(:key1 " << DBL_sciO_t{data.key1};
-  out << ":key2 " << ULL_hexO_t{data.key2};
+  out << "(:key1 " << DBLsciO{data.key1};
+  out << ":key2 " << ULLhexO{data.key2};
   out << ":key3 " << '"' << data.key3 << '"' << ":)";
   return out;
 }
@@ -38,30 +38,30 @@ std::istream& skarlygina::operator>>(std::istream& in, DataStruct& data)
     return in;
   }
   DataStruct in_data = {0.0, 0, ""};
-  in >> delimiter_sep_t{'('} >> delimiter_sep_t{':'};
+  in >> DelimiterSep{'('} >> DelimiterSep{':'};
   for (int i = 0; i < 3; ++i)
   {
     std::string keyX = "";
     in >> keyX;
     if (keyX == "key1")
     {
-      in >> DBL_sciI_t{in_data.key1};
+      in >> DBLsciI{in_data.key1};
     }
     else if (keyX == "key2")
     {
-      in >> ULL_hexI_t{in_data.key2};
+      in >> ULLhexI{in_data.key2};
     }
     else if (keyX == "key3")
     {
-      in >> string_IO_t{in_data.key3};
+      in >> StringIO{in_data.key3};
     }
     else
     {
       in.setstate(std::ios::failbit);
     }
-    in >> delimiter_sep_t{':'};
+    in >> DelimiterSep{':'};
   }
-  in >> delimiter_sep_t{')'};
+  in >> DelimiterSep{')'};
   if (in)
   {
     data = in_data;

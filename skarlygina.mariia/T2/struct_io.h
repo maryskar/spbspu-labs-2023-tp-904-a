@@ -4,48 +4,48 @@
 
 namespace skarlygina
 {
-  struct delimiter_sep_t
+  struct DelimiterSep
   {
     char sep;
   };
 
-  struct delimiter_IO_t
+  struct DelimiterIO
   {
     char exp;
   };
 
-  struct string_IO_t
+  struct StringIO
   {
     std::string& ref;
   };
 
-  struct DBL_sciI_t
+  struct DBLsciI
   {
     double& ref;
   };
 
-  struct DBL_sciO_t
+  struct DBLsciO
   {
     double ref;
   };
 
-  struct ULL_hexI_t
+  struct ULLhexI
   {
     unsigned long long& ref;
   };
 
-  struct ULL_hexO_t
+  struct ULLhexO
   {
     unsigned long long ref;
   };
 
-  std::istream& operator>>(std::istream& in, delimiter_sep_t&& dest);
-  std::istream& operator>>(std::istream& in, delimiter_IO_t&& dest);
-  std::istream& operator>>(std::istream& in, string_IO_t&& dest);
-  std::istream& operator>>(std::istream& in, DBL_sciI_t&& dest);
-  std::istream& operator>>(std::istream& in, ULL_hexI_t&& dest);
-  std::ostream& operator<<(std::ostream& out, ULL_hexO_t&& dest);
-  std::ostream& operator<<(std::ostream& out, const DBL_sciO_t& dest);
-  std::ostream& operator<<(std::ostream& out, const string_IO_t& dest);
+  std::istream& operator>>(std::istream& in, DelimiterSep&& dest);
+  std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
+  std::istream& operator>>(std::istream& in, StringIO&& dest);
+  std::istream& operator>>(std::istream& in, DBLsciI&& dest);
+  std::istream& operator>>(std::istream& in, ULLhexI&& dest);
+  std::ostream& operator<<(std::ostream& out, ULLhexO&& dest);
+  std::ostream& operator<<(std::ostream& out, const DBLsciO& dest);
+  std::ostream& operator<<(std::ostream& out, const StringIO& dest);
 }
 #endif
