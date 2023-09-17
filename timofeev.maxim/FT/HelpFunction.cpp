@@ -1,49 +1,44 @@
 #include "HelpFunction.h"
 #include <algorithm>
+#include <string>
 namespace timofeev
 {
+  void splitter(std::string translation, std::string word, vector line, dict_t& dict)
+  {
+    size_t start;
+    size_t end = 0;
+    while ((start = translation.find_first_not_of(' ', end)) != std::string::npos)
+    {
+      end = translation.find(' ', start);
+      line.push_back(translation.substr(start, end - start));
+    }
+    dict[word] = line;
+  }
   void addInDict(std::istream& in, std::ostream& out, dict_t& dict)
   {
-    while (true)
-    {
       std::string word = "";
       std::vector <std::string> line;
       std::string translation;
-      out << "Write a word (or 'exit'): ";
       in >> word;
-      if (word == "exit")
-      {
-        break;
-      }
       if (dict.count(word) > 0)
       {
         out << "Word already in dictionary!! Want to rewrite it?\n";
-        out << "Yes or No?";
+        out << "Yes or No? ";
         std::string answ = "";
         in >> answ;
         if (answ == "No")
         {
-          continue;
+          return;
         } else if (answ == "Yes")
         {
-          out << "new translation (or 'done' to finish): ";
+          out << "new translation: ";
         }
       }
       else
       {
-        out << "translation (or 'done' to finish): ";
-        while (true)
-        {
-          in >> translation;
-          if (translation == "done")
-          {
-            break;
-          }
-          line.push_back(translation);
-        }
-        dict[word] = line;
+        std::getline(in, translation);
+        splitter(translation, word, line, dict);
       }
-    }
   }
   std::ostream& printEmpty(std::ostream& out)
   {
@@ -66,7 +61,6 @@ namespace timofeev
       {
         break;
       }
-      out << "Write translation to remove: ";
       in >> rTrans;
       auto it = dict.find(word);
       if (it != dict.end())
@@ -83,10 +77,19 @@ namespace timofeev
 
   void printList(const std::vector <std::string> &list, std::ostream &out)
   {
-    out << '-';
+    out << '-' << " ";
+    bool flag = false;
     for (const std::string &translation: list)
     {
-      out << " " << translation;
+      if (!flag)
+      {
+        out << translation;
+        flag = true;
+      }
+      else
+      {
+        out << " " << translation;
+      }
     }
   }
 

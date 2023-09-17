@@ -8,17 +8,18 @@ namespace timofeev
   void Createdict(std::istream& in, std::ostream&, dictsOfDicts& dicts)
   {
     std::string Name;
-    while (true)
+    std::getline(in, Name);
+    std::map <std::string, std::vector<std::string>> translateDict;
+    size_t start;
+    size_t end = 0;
+    while ((start = Name.find_first_not_of(' ', end)) != std::string::npos)
     {
-      std::cout << "Write \"name\" or \"stop\" to out: ";
-      in >> Name;
-      if (Name == "stop")
-      {
-        break;
-      }
-      std::map <std::string, std::vector<std::string>> translateDict;
-      dicts[Name] = translateDict;
+      end = Name.find(' ', start);
+      std::string tmp;
+      tmp = Name.substr(start, end - start);
+      dicts[tmp] = translateDict;
     }
+
   }
   void printHelp(std::istream& in, std::ostream& out, dictsOfDicts &)
   {
@@ -167,7 +168,7 @@ namespace timofeev
       {
         if (findWord(word, p.second))
         {
-          out << word << " in " << p.first;
+          out << word << " in " << p.first << "\n";
           flag = true;
         }
       }
@@ -203,7 +204,7 @@ namespace timofeev
         {
           if (unique.count(translation) > 0)
           {
-            out << word.first << translation << "\n";
+            out << word.first << "-" << translation << "\n";
           }
           else
           {
