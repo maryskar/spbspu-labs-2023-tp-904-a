@@ -27,7 +27,7 @@ namespace timofeev
     out << "Write down \"List\" to get list of command: " << "\n";
     std::string tmp = "";
     in >> tmp;
-    if (tmp == "All")
+    if (tmp == "Info")
     {
       out << "Create \"name\" - let you make new dictionary and use it\n";
       out << "AddWord \"name\" - let you add word and translation chosen dictionary \n";

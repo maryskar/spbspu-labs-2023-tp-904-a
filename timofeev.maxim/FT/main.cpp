@@ -6,8 +6,8 @@
 #include "HelpFunction.h"
 int main()
 {
-  setlocale(LC_ALL, "Russian");
-  using Dictionary = std::map< std::string, std::vector<std::string> >;
+  std::setlocale(LC_ALL, "Russian");
+  using Dictionary = std::map< std::string, std::vector< std::string > >;
   std::map<std::string, Dictionary> dictOfDict;
   std::map< std::string, void(*)(std::istream&, std::ostream&, std::map<std::string, Dictionary>& ) > commands;
   timofeev::command(commands);
