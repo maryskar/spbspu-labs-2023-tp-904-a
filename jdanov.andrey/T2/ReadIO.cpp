@@ -71,10 +71,35 @@ std::istream& zhdanov::operator>>(std::istream& input, BinaryIO&& binaryNumber)
   return input;
 }
 
+//std::string zhdanov::toBinary(unsigned long long decimalNumber)
+//{
+//  unsigned long long number = decimalNumber;
+//  std::string result = "";
+//  do
+//  {
+//    if (number % 2 == 1)
+//    {
+//      result += '1';
+//    }
+//    else
+//    {
+//      result += '0';
+//    }
+//    number = number / 2;
+//  } while (number != 0);
+//  std::reverse(result.begin(), result.end());
+//  return result;
+//}
+
 std::string zhdanov::toBinary(unsigned long long decimalNumber)
 {
   unsigned long long number = decimalNumber;
   std::string result = "";
+  if (number == 0)
+  {
+    result = "0b0";
+    return result;
+  }
   do
   {
     if (number % 2 == 1)
@@ -87,6 +112,7 @@ std::string zhdanov::toBinary(unsigned long long decimalNumber)
     }
     number = number / 2;
   } while (number != 0);
+  result += 'b';
   std::reverse(result.begin(), result.end());
   return result;
 }
