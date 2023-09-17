@@ -24,7 +24,7 @@ int main()
   }
   if (vector.size() == 1)
   {
-    std::cout << vevtor.back() << '\n';
+    std::cout << vector.back() << '\n';
   }
   std::sort(vector.begin(), vector.end(), compare);
   std::copy(vector.begin(), vector.end(), itOut(std::cout ,"\n"));
