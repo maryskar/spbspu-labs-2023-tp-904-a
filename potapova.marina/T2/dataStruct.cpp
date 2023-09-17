@@ -2,6 +2,7 @@
 #include <string>
 #include <iomanip>
 #include <bitset>
+#include "IOFormatGuard.h"
 
 namespace potapova
 {
@@ -114,5 +115,21 @@ namespace potapova
       dest = input;
     }
     return in;
+  }
+
+  std::ostream& operator<<(std::ostream& out, DataStruct& source)
+  {
+    std::ostream::sentry sentry(out);
+    if (!sentry)
+    {
+      return out;
+    }
+    IOFormatGuard format_guard(out);
+    out << "(:";
+    out << "key1 " << source.key1 << ":";
+    out << "key2 " << source.key2 << ":";
+    out << "key3 " << source.key3 << ":";
+    out << ")";
+    return out;
   }
 }
