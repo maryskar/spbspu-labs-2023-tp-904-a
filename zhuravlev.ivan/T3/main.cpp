@@ -25,8 +25,6 @@ int main(int argc, char* argv[])
   {
     using in_pol_iter = std::istream_iterator< zhuravlev::Polygon >;
     std::copy(in_pol_iter(input), in_pol_iter(), std::back_inserter(polygons));
-    std::cout << polygons.size() << "\n";
-    std::copy(polygons.cbegin(), polygons.cend(), std::ostream_iterator< zhuravlev::Polygon >(std::cout, "\n"));
   }
   while (!std::cin.eof())
   {
