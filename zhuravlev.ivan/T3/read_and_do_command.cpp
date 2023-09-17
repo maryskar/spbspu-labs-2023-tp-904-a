@@ -38,48 +38,32 @@ namespace zhuravlev
   }
   void doCommandWithInput(std::vector< Polygon >& pls, std::ostream& out, const size_t condition, std::string cmd)
   {
-    try
-    {
-      auto toexecute = cmd_with_input.at(cmd);
-      toexecute(pls, out, condition);
-    }
-    catch(...)
-    {
-      zhuravlev::skipUntilNewLines(std::cin);
-      zhuravlev::printError(std::cout);
-    }
+    auto toexecute = cmd_with_input.at(cmd);
+    toexecute(pls, out, condition);
   }
   void doConstCommand(std::vector< Polygon >& pls, std::ostream& out, std::string cmd)
   {
-    try
-    {
-      auto toexecute = const_cmds.at(cmd);
-      toexecute(pls, out);
-    }
-    catch(...)
-    {
-      zhuravlev::skipUntilNewLines(std::cin);
-      zhuravlev::printError(std::cout);
-    }
+    auto toexecute = const_cmds.at(cmd);
+    toexecute(pls, out);
   }
   void doCommand(std::vector< Polygon >pls, std::ostream& out, std::string command)
   {
     try
     {
+      doConstCommand(pls, out, command);
+      return;
+    }
+    catch (...)
+    {}
+    try
+    {
       size_t num = std::stoull(command.substr(command.find_first_of(' ')));
       std::string cmd = (command.substr(0, command.find(' ')) + " N");
       doCommandWithInput(pls, out, num, cmd);
-      try
-      {
-        doConstCommand(pls, out, command);
-        return;
-      }
-      catch (const std::exception& e)
-      {}
     }
-    catch (const std::exception& e)
+    catch (...)
     {
-      return;
+      printError(out);
     }
   }
 }
