@@ -54,7 +54,7 @@ std::ostream& aristarkhov::operator<<(std::ostream& out, const DataStruct& data)
   return out;
 }
 
-bool aristarkhov::compare(const DataStruct& first, const DataStruct& second)
+bool aristarkhov::compare(const DataStruct& lhs, const DataStruct& rhs)
 {
   if (lhs.key1 != rhs.key1)
   {
