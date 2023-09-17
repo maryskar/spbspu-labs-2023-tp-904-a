@@ -2,10 +2,12 @@
 #include <limits>
 #include "scopeGuard.h"
 
+static bool isEndOfLine = false;
+
 void gudkov::clearStream(std::istream &in)
 {
   in.clear();
-  if (!gudkov::isEndOfLine)
+  if (!isEndOfLine)
   {
     in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
   }

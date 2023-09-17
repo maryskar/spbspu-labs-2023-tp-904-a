@@ -5,8 +5,6 @@
 
 namespace gudkov
 {
-  static bool isEndOfLine = false;
-
   struct DelimiterExpIO
   {
     char exp;
