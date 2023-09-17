@@ -103,4 +103,4 @@ bool ovsyannikov::Comparator::operator()(const DataStruct& data1, const DataStru
     return data1.key2 < data2.key2;
   }
   return data1.key1 < data2.key1;
-};
+}

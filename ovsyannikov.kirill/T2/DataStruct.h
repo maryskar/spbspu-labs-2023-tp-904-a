@@ -7,9 +7,9 @@ namespace ovsyannikov
 {
   struct DataStruct
   {
-      unsigned long long key1;
-      char key2;
-      std::string key3;
+    unsigned long long key1;
+    char key2;
+    std::string key3;
   };
 
   std::istream& operator>>(std::istream& in, DataStruct& dest);
