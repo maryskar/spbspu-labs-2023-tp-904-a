@@ -3,5 +3,8 @@
 #include <iostream>
 #include "polygon.hpp"
 
-void readAndDoCommand(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out);
+namespace zhuravlev
+{
+  void readAndDoCommand(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out);
+}
 #endif
