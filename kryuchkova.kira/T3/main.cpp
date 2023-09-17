@@ -65,7 +65,6 @@ int main(int argc, char * argv[])
     {
       auto comm = getCommand(std::cin);
       commDict.handleCommand(comm, pol, std::cout, std::cin);
-      std::cout << '\n';
     }
     catch(const std::logic_error & e)
     {
