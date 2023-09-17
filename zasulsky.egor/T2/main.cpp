@@ -22,10 +22,6 @@ int main()
     }
     std::copy(itInp(std::cin), itInp(), std::back_inserter(vector));
   }
-  if (vector.size() == 1)
-  {
-    std::cout << vector.back() << '\n';
-  }
   std::sort(vector.begin(), vector.end(), compare);
   std::copy(std::begin(vector),std::end(vector), itOut(std::cout, "\n"));
 }
