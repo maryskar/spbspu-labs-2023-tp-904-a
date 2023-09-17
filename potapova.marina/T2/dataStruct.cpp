@@ -133,7 +133,7 @@ namespace potapova
     return out;
   }
 
-  bool Comparator::operator()(const DataStruct& that, const DataStruct& other)
+  bool Comparator::operator()(DataStruct& that, DataStruct& other)
   {
     if (that.key1 == other.key1)
     {

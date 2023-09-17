@@ -44,6 +44,6 @@ namespace potapova
 
   struct Comparator
   {
-    bool operator()(const DataStruct& that, const DataStruct& other);
+    bool operator()(DataStruct& that, DataStruct& other);
   };
 }
