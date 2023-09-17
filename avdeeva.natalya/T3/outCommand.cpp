@@ -124,7 +124,7 @@ void avdeeva::inframeCommand(const std::deque< Polygon > & polygons, std::istrea
     throw std::runtime_error("Input error");
   }
   bool polInFrame = isInFrame(polygons, input);
-  if (polIsFrame)
+  if (polInFrame)
   {
     out << "<TRUE>" << "\n";
   }
