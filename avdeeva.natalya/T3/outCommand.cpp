@@ -86,8 +86,8 @@ void avdeeva::countCommand(const std::deque< Polygon > & polygons, std::istream 
   }
   std::map< std::string, std::function< size_t (const std::deque< Polygon >) > > countCommands
     ({
-      {"EVEN", counterEven},
-      {"ODD", counterOdd}
+      {"EVEN", countEven},
+      {"ODD", countOdd}
     });
   size_t count = 0;
   try
@@ -102,7 +102,7 @@ void avdeeva::countCommand(const std::deque< Polygon > & polygons, std::istream 
     {
       throw std::logic_error("Polygons have more than 3 vertexes");
     }
-    count = counterVertexes(polygons, verts);
+    count = countIsNumVertexes(polygons, verts);
     out << count << '\n';
   }
 }
@@ -119,8 +119,8 @@ void avdeeva::inframeCommand(const std::deque< Polygon > & polygons, std::istrea
   {
     throw std::runtime_error("Input error");
   }
-  bool isInFrame = isInFrame(polygons, input);
-  if (isInFrame)
+  bool polIsInFrame = isInFrame(polygons, input);
+  if (polIsInFrame)
   {
     out << "<TRUE>" << "\n";
   }

@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include "iostructs.h"
-std::istream & avdeeva::operator>>(std::istream & in, const Point & rhs)
+std::istream & avdeeva::operator>>(std::istream & in, Point & rhs)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -17,7 +17,7 @@ std::istream & avdeeva::operator>>(std::istream & in, const Point & rhs)
   }
   return in;
 }
-std::istream & avdeeva::operator>>(std::istream & in, const Polygon & rhs)
+std::istream & avdeeva::operator>>(std::istream & in, Polygon & rhs)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -47,7 +47,7 @@ double avdeeva::areaCounter(const Point & lhs, const Point & rhs)
 double avdeeva::getArea(const Polygon & pol)
 {
   double area = 0.0;
-  std::vector< double > values(size(pol));
+  std::vector< double > values(pol.points.size());
   std::transform(pol.points.begin(), --pol.points.end(), ++pol.points.begin(), std::back_inserter(values), areaCounter);
   area = std::accumulate(values.begin(), values.end(), 0.0);
   int x1 = (--pol.points.end())->x;

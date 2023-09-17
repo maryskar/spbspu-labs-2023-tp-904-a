@@ -12,8 +12,8 @@ namespace avdeeva
   {
     std::vector< Point > points;
   };
-  std::istream & operator>>(std::istream & in, const Point & rhs);
-  std::istream & operator>>(std::istream & in, const Polygon & rhs);
+  std::istream & operator>>(std::istream & in, Point & rhs);
+  std::istream & operator>>(std::istream & in, Polygon & rhs);
   double areaCounter(const Point & lhs, const Point & rhs);
   double getArea(const Polygon & pol);
 }

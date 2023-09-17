@@ -150,14 +150,14 @@ namespace
   }
   bool isRightshape(const avdeeva::Polygon & polygon)
   {
-    Point first = polygon.points.at(polygon.points.size() - 2);
-    Point second = polygon.points.at(polygon.points.size() - 1);
+    avdeeva::Point first = polygon.points.at(polygon.points.size() - 2);
+    avdeeva::Point second = polygon.points.at(polygon.points.size() - 1);
     auto begin = polygon.points.begin();
     auto end = polygon.points.end();
     using namespace std::placeholders;
     auto checkPoint = std::bind(checkTriangle, first, second, _1);
     size_t countRightTriangles = std::count_if(begin, end, checkPoint);
-    return (counterRight > 0);
+    return (countRightTriangles > 0);
   }
 }
 size_t avdeeva::countRightShapes(const std::deque< Polygon > & polygons)
@@ -218,17 +218,17 @@ namespace
     int minY = minPoint(*std::min_element(begin, end, compMinY)).y;
     int maxX = maxPoint(*std::max_element(begin, end, compMaxX)).x;
     int maxY = maxPoint(*std::max_element(begin, end, compMaxY)).y;
-    frame.points.push_back(Point{minX, minY});
-    frame.points.push_back(Point{maxX, maxY});
-    frame.points.push_back(Point{maxX, minY});
-    frame.points.push_back(Point{minX, maxY});
+    frame.points.push_back(avdeeva::Point{minX, minY});
+    frame.points.push_back(avdeeva::Point{maxX, maxY});
+    frame.points.push_back(avdeeva::Point{maxX, minY});
+    frame.points.push_back(avdeeva::Point{minX, maxY});
     return frame;
   }
   bool isLessPoint(const avdeeva::Point & lhs, const avdeeva::Point & rhs)
   {
     return (lhs.x <= rhs.x) && (lhs.y <= rhs.y);
   }
-  bool isInFrame(const avdeeva::Polygon & polygon, const avdeeva::Polygon & frame)
+  bool checkInFrame(const avdeeva::Polygon & polygon, const avdeeva::Polygon & frame)
   {
     avdeeva::Point minPol = minPoint(polygon);
     avdeeva::Point maxPol = maxPoint(polygon);
@@ -242,5 +242,5 @@ namespace
 bool avdeeva::isInFrame(const std::deque< Polygon > & polygons, const Polygon & polygon)
 {
   Polygon frame = createFrame(polygons);
-  return isInFrame(polygon, frame);
+  return checkInFrame(polygon, frame);
 }
