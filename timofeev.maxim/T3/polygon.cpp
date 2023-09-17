@@ -1,5 +1,6 @@
 #include "polygon.h"
 #include <iterator>
+#include <algorithm>
 #include "../common/IofGuard.h"
 #include "../common/DataStruct.h"
 namespace timofeev
