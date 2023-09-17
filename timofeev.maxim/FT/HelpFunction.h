@@ -19,4 +19,4 @@ namespace timofeev
   void findTrans(std::ostream& out, const std::string& word, dict_t& dict);
   bool findWord(const std::string& word, dict_t& dict);
 }
-#endif //FT_HELPFUNCTION_H
+#endif
