@@ -36,14 +36,14 @@ int main(int argc, char ** argv)
   }
   using cmd_t = std::function< void (const std::deque< avdeeva::Polygon > &, std::istream &, std::ostream &) >;
   std::map< std::string, cmd_t > commands
-    {
+    ({
       {"AREA", avdeeva::areaCommand},
       {"MAX", avdeeva::maxCommand},
       {"MIN", avdeeva::minCommand},
       {"COUNT", avdeeva::countCommand},
       {"RIGHTSHAPES", avdeeva::rightshapesCommand},
       {"INFRAME", avdeeva::inframeCommand}
-    };
+    });
   while (!std::cin.eof())
   {
     std::cin.clear();
