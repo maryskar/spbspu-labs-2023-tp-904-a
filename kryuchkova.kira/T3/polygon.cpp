@@ -2,6 +2,7 @@
 #include <IOstructs.h>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 #include <numeric>
 
 namespace kryuchkova
