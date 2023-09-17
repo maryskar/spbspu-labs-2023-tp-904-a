@@ -15,7 +15,7 @@ namespace dmitriev
     std::basic_ios< char >& m_stream;
     char m_fill;
     std::streamsize m_precision;
-    std::basic_ios< char >::fmtflags m_flags;
+    std::basic_ios< char >::fmtflags m_fmt;
   };
 }
 
