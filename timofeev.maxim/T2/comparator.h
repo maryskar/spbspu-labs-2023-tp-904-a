@@ -1,6 +1,6 @@
 #ifndef COMPARATOR_H
 #define COMPARATOR_H
-#include "DataStruct.h"
+#include "../common/DataStruct.h"
 namespace timofeev
 {
   struct Comparator

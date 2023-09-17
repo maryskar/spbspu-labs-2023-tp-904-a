@@ -85,7 +85,6 @@ namespace timofeev
   }
   std::string getScientificDouble(double val)
   {
-  // >1 - <=9  >0 <1   >9    <1 != 0  -237 --> -2,37*10^2 --> -2.37e+2    0.5 --> 5.0e-1
     std::string res;
     int power = 0;
     if (std::abs(val) > 9 )
