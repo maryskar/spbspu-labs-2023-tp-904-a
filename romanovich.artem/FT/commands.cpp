@@ -1,7 +1,9 @@
 #include <limits>
 #include <fstream>
+#include <algorithm>
 #include "commands.h"
 #include "../common/printmessages.h"
+#include "dictionaryfunctors.h"
 romanovich::CommandHandler::CommandHandler(std::istream &in, std::ostream &out_):
   dictionaries_(DictionariesVault::instance()),
   in_(in),
@@ -29,14 +31,11 @@ void romanovich::CommandHandler::addWordToDict()
   std::string dictName;
   in_ >> word;
   in_ >> dictName;
-  for (auto &pair: *dictionaries_)
+  auto it = std::find_if(dictionaries_->begin(), dictionaries_->end(), DictionaryNameEqual(dictName));
+  if (it != dictionaries_->end())
   {
-    if (pair.first == dictName)
-    {
-      pair.second.addKey(word);
-      pair.second.print(out_);
-      break;
-    }
+    it->second.addKey(word);
+    it->second.print(out_);
   }
 }
 void romanovich::CommandHandler::addDict()

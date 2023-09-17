@@ -20,11 +20,11 @@ namespace romanovich
     std::ostream &out_;
     std::unordered_map< std::string, std::function< void() > > processor_;
     DictionariesVault::value_t *dictionaries_;
-    void addWordToDict();//
-    void addDict();//
-    void addTranslation();//
-    void removeWord();//
-    void removeTranslation();//
+    void addWordToDict();
+    void addDict();
+    void addTranslation();
+    void removeWord();
+    void removeTranslation();
     void searchTranslations();
     void searchWords();
     void countWords();
