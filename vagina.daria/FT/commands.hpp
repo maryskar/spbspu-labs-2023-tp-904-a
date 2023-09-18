@@ -5,6 +5,7 @@
 #include <vector>
 #include "dictionary.hpp"
 
+std::ostream& messageOfEmpty(std::ostream& out);
 void createSet(dictionaryOfNames& diction, std::istream& in);
 void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::ostream& out);
 void print(const std::vector< std::pair <std::string, size_t> >& dict, std::ostream& out);

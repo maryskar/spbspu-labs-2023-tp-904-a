@@ -12,3 +12,7 @@ const dictionary& findSpecificDict(const dictionaryOfNames& dicts, std::string& 
 {
   return dicts.at(name);
 }
+bool dictionary::empty() const
+{
+  return dict_.empty();
+}

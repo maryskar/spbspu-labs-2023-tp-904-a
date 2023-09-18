@@ -1,6 +1,5 @@
 #include "dictionaryOfCommands.hpp"
 
-
 DictionaryOfCommands::DictionaryOfCommands()
 {
   withoutOutput.insert({"createSet", createSet});
@@ -16,25 +15,21 @@ DictionaryOfCommands::DictionaryOfCommands()
   constCommand.insert({"wordsWithLetter", wordsWithLetter});
   notConstCommand.insert({"deleteWord", deleteWord});
 }
-
 void DictionaryOfCommands::doCommWithoutOutput(const std::string& command, dictionaryOfNames& dict, std::istream& in) const
 {
   auto func = withoutOutput.at(command);
   func(dict, in);
 }
-
 void DictionaryOfCommands::doCommConstComm(const std::string& command, const dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
 {
   auto func = constCommand.at(command);
   func(dict, in, out);
 }
-
 void DictionaryOfCommands::doCommNotConst(const std::string& command, dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
 {
   auto func = notConstCommand.at(command);
   func(dict, in, out);
 }
-
 std::string DictionaryOfCommands::readCommand(std::istream& in)
 {
   std::string comm = " ";
@@ -45,7 +40,6 @@ std::string DictionaryOfCommands::readCommand(std::istream& in)
   }
   return comm;
 }
-
 void DictionaryOfCommands::doCommand(const std::string& command, const DictionaryOfCommands& commands,
   dictionaryOfNames& dest, std::istream& in, std::ostream& out)
 {
@@ -55,22 +49,19 @@ void DictionaryOfCommands::doCommand(const std::string& command, const Dictionar
     return;
   }
   catch (const std::out_of_range& e)
-  {
-  }
+  {}
   try
   {
     commands.doCommConstComm(command, dest, in, out);
     return;
   }
   catch (const std::out_of_range& e)
-  {
-  }
+  {}
   try
   {
     commands.doCommNotConst(command, dest, in, out);
     return;
   }
   catch (const std::out_of_range& e)
-  {
-  }
+  {}
 }
