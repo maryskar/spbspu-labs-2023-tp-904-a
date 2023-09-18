@@ -34,11 +34,17 @@ int main(int argc, char* argv[])
     }
     catch(const std::logic_error& e)
     {
+      zhuravlev::printError(std::cout);
       zhuravlev::skipUntilNewLines(std::cin);
     }
     catch(const std::runtime_error& e)
     {
       break;
+    }
+    if (!std::cin)
+    {
+      std::cin.clear();
+      zhuravlev::skipUntilNewLines(std::cin);
     }
   }
   return 0;

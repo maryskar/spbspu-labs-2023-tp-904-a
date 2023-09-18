@@ -62,8 +62,6 @@ namespace zhuravlev
       doCommandWithInput(pls, out, num, cmd);
     }
     catch (const std::out_of_range& e)
-    {
-      printError(out);
-    }
+    {}
   }
 }
