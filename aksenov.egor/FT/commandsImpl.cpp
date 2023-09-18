@@ -230,6 +230,3 @@ void unite(std::istream &in, dictOfDicts &dicts, std::ostream &out)
 
   out << "New dictionary '" << newNameOfDict << "' created with union of dictionaries." << std::endl;
 }
-
-
-

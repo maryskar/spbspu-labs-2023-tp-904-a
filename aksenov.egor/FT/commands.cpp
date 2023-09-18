@@ -88,5 +88,3 @@ void executeCommand(std::ostream &out, std::istream &in, Commands &commands, dic
     out << "command not found" << "\n";
   }
 }
-
-
