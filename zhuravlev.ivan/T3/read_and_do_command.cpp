@@ -60,6 +60,7 @@ namespace zhuravlev
     try
     {
       doConstCommand(pls, out, command);
+      return;
     }
     catch(const std::runtime_error& e)
     {}
