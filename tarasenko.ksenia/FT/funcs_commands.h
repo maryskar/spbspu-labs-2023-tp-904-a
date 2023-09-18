@@ -78,23 +78,28 @@ namespace tarasenko
     return result;
   }
 
+  namespace details
+  {
+    template< class Key, class Value >
+    void printSpaceKeyValue(std::ostream& output, const std::pair< Key, Value >& p)
+    {
+      output << " " << p.first << " " << p.second;
+    }
+  }
+
   template< class Key, class Value, class Compare >
   std::ostream& printDict(std::ostream& output, const std::string& name_of_dict,
      const std::map< Key, Value, Compare >& dict)
   {
     if (!dict.empty())
     {
-      output << name_of_dict << " ";
-      auto iter = dict.cbegin();
-      output << iter->first << " " << iter->second;
-      ++iter;
-      std::for_each(iter, dict.cend(), [&output](const std::pair< Key, Value >& p)
-      {
-        output << " " << p.first << " " << p.second;
-      });
+      output << name_of_dict;
+      auto printData = std::bind(details::printSpaceKeyValue< Key, Value >, std::ref(output), _1);
+      std::for_each(dict.cbegin(), dict.cend(), printData);
     }
     return output;
   }
+
 
   template< class Key, class Value, class Compare >
   std::istream& operator>>(std::istream& input, std::map< Key, Value, Compare >& dict)
