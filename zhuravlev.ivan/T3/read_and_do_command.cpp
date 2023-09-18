@@ -87,8 +87,14 @@ namespace zhuravlev
     }
     catch(...)
     {}
-    size_t num = std::stoull(command.substr(command.find_first_of(' ')));
-    std::string cmd = (command.substr(0, command.find(' ')) + " N");
-    doCommandWithInput(pls, out, num, cmd);
+    try
+    {
+      size_t num = std::stoull(command.substr(command.find_first_of(' ')));
+      std::string cmd = (command.substr(0, command.find(' ')) + " N");
+      doCommandWithInput(pls, out, num, cmd);
+      return;
+    }
+    catch(...)
+    {}
   }
 }
