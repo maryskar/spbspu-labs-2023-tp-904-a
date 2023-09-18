@@ -79,10 +79,14 @@ namespace zhuravlev
     std::vector< double > areas(polygons.size());
     std::transform(polygons.begin(), polygons.end(), areas.begin(), getArea);
     iofmtguard iofmtguard(out);
-    out << ((std::accumulate(areas.begin(), areas.end(), 0.0)) / (areas.size())) << "\n";
+    out << std::fixed << std::setprecision(1) << ((std::accumulate(areas.begin(), areas.end(), 0.0)) / (areas.size())) << "\n";
   }
   void AreaVertexes(const std::vector< Polygon >& polygons, std::ostream& out, const size_t condition)
   {
+    if (condition < 2)
+    {
+      throw std::logic_error("There is no needed amount of vertexes...");
+    }
     using namespace std::placeholders;
     size_t num_of_vertexes = condition;
     size_t size_of_needed_values = 0;
@@ -136,7 +140,7 @@ namespace zhuravlev
   }
   void countVertexes(const std::vector< Polygon >& polygons, std::ostream& out, const size_t condition)
   {
-    if (condition < 3)
+    if (condition < 2)
     {
       throw std::logic_error("Wrong condition");
     }
