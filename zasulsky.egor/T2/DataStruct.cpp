@@ -14,28 +14,28 @@ std::istream& zasulsky::operator>>(std::istream& in, DataStruct& dest)
   double key1 = 0.0;
   long long key2 = 0;
   std::string key3 = "";
-  bool inKey1 = false;
-  bool inKey2 = false;
-  bool inKey3 = false;
-  int number = 0;
+  bool isK1 = false;
+  bool isK2 = false;
+  bool isK3 = false;
+  int num = 0;
   in >> DelimiterIO{ '(' };
-  while (!(inKey1 && inKey2 && inKey3) && in.good())
+  while (!(isK1 && isK2 && isK3) && in.good())
   {
     in >> LabelIO{ ":key" } >> number;
-    if (number == 1 && !inKey1)
+    if (num == 1 && !isK1)
     {
       in >> DoubleI{ key1 };
-      inKey1 = true;
+      isK1 = true;
     }
-    else if (number == 2 && !inKey2)
+    else if (num == 2 && !inKey2)
     {
       in >> LongLongIO{ key2 };
-      inKey2 = true;
+      isK2 = true;
     }
-    else if (number == 3 && !inKey3)
+    else if (num == 3 && !isK3)
     {
       in >> StringIO{ key3 };
-      inKey3 = true;
+      isK3 = true;
     }
     else
     {
@@ -58,9 +58,9 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DataStruct& data)
   }
   iofmtguard guard(out);
   out << "(";
-  out << ":key1" << " " << DoubleO{ data.key1 };
-  out << ":key2" << " " << data.key2 << "ll";
-  out << ":key3" << " " << '"' << data.key3 << '"';
+  out << ":key1 " << DoubleO{ data.key1 };
+  out << ":key2 " << data.key2 << "ll";
+  out << ":key3 " << '"' << data.key3 << '"';
   out << ":)";
   return out;
 }
