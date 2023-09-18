@@ -222,8 +222,12 @@ namespace zhuravlev
   {
     return (point.x <= max_x && point.x >= min_x) && (point.y <= max_y && point.y >= min_y);
   }
-  void inFrame(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out)
+  void inFrame(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out, size_t num)
   {
+    if (num < 3)
+    {
+      throw std::logic_error("Wrong condition");
+    }
     using namespace std::placeholders;
     int max_x = findMaxXInMultiplePolygons(polygons);
     int max_y = findMaxYInMultiplePolygons(polygons);
