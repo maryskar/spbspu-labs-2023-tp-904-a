@@ -76,7 +76,7 @@ namespace zhuravlev
     {
       size_t num = std::stoull(command.substr(command.find_first_of(' ')));
       std::string cmd = (command.substr(0, command.find(' ')) + " N");
-      doCommandsWithInputPolygon(pls, in, out, cmd, num);
+      doCommandWithInputPolygon(pls, in, out, cmd, num);
     }
     catch(...)
     {}
