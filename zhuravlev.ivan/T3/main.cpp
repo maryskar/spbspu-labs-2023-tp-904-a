@@ -9,7 +9,7 @@
 
 int main(int argc, char* argv[])
 {
-  constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
+  //constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   if (argc != 2)
   {
     std::cerr << "Wrong input\n";
