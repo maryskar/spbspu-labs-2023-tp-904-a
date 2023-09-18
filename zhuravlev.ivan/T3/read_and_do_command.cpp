@@ -45,7 +45,7 @@ namespace zhuravlev
       }
       else
       {
-        continue;
+        throw std::invalid_argument("empty line");
       }
     }
     return command;
@@ -72,7 +72,7 @@ namespace zhuravlev
       doConstCommand(pls, out, command);
       return;
     }
-    catch (...)
+    catch (const std::out_of_range& e)
     {}
     try
     {
@@ -85,16 +85,11 @@ namespace zhuravlev
       doCommandWithInputPolygon(pls, in, out, cmd, num);
       return;
     }
-    catch(...)
+    catch (const std::out_of_range& e)
     {}
-    try
-    {
       size_t num = std::stoull(command.substr(command.find_first_of(' ')));
       std::string cmd = (command.substr(0, command.find(' ')) + " N");
       doCommandWithInput(pls, out, num, cmd);
       return;
-    }
-    catch(...)
-    {}
   }
 }
