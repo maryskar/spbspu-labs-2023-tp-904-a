@@ -46,7 +46,7 @@ std::string gudkov::BinaryCode::toString() const
   return str;
 }
 
-std::istream& gudkov::BinaryCode::readBinary(std::istream& in)
+std::istream &gudkov::BinaryCode::readBinary(std::istream &in)
 {
   data_.clear();
 
@@ -57,7 +57,7 @@ std::istream& gudkov::BinaryCode::readBinary(std::istream& in)
   }
 
   unsigned char byte = 0;
-  while (in.read(reinterpret_cast<char*>(&byte), sizeof(byte)))
+  while (in.read(reinterpret_cast<char *>(&byte), sizeof(byte)))
   {
     for (size_t i = BinaryCode::bitsInByte_ - 1; i != not_position_; --i)
     {
@@ -88,7 +88,7 @@ std::istream& gudkov::BinaryCode::readBinary(std::istream& in)
   return in;
 }
 
-std::ostream& gudkov::BinaryCode::writeBinary(std::ostream& out) const
+std::ostream &gudkov::BinaryCode::writeBinary(std::ostream &out) const
 {
   size_t shift = BinaryCode::bitsInByte_ - 1;
   unsigned char byte = 0;
@@ -100,7 +100,7 @@ std::ostream& gudkov::BinaryCode::writeBinary(std::ostream& out) const
 
     if (shift == not_position_)
     {
-      out.write(reinterpret_cast<char*>(&byte), sizeof(byte));
+      out.write(reinterpret_cast<char *>(&byte), sizeof(byte));
       byte = 0;
       shift = BinaryCode::bitsInByte_ - 1;
     }
@@ -108,16 +108,16 @@ std::ostream& gudkov::BinaryCode::writeBinary(std::ostream& out) const
 
   if (shift != BinaryCode::bitsInByte_ - 1)
   {
-    out.write(reinterpret_cast<char*>(&byte), sizeof(byte));
+    out.write(reinterpret_cast<char *>(&byte), sizeof(byte));
   }
 
   byte = ((BinaryCode::bitsInByte_ - 1) - shift);
-  out.write(reinterpret_cast<char*>(&byte), sizeof(byte));
+  out.write(reinterpret_cast<char *>(&byte), sizeof(byte));
 
   return out;
 }
 
-std::ostream& gudkov::operator<<(std::ostream& out, const BinaryCode& departure)
+std::ostream &gudkov::operator<<(std::ostream &out, const BinaryCode &departure)
 {
   for (bool bit : departure.data_)
   {

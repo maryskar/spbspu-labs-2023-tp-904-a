@@ -16,24 +16,24 @@ namespace gudkov
     SymbolCodes() = default;
     ~SymbolCodes() = default;
 
-    SymbolCodes(const SymbolCodes&) = default;
-    SymbolCodes& operator=(const SymbolCodes&) = default;
+    SymbolCodes(const SymbolCodes &) = default;
+    SymbolCodes &operator=(const SymbolCodes &) = default;
 
-    SymbolCodes(SymbolCodes&&) = default;
-    SymbolCodes& operator=(SymbolCodes&&) = default;
+    SymbolCodes(SymbolCodes &&) = default;
+    SymbolCodes &operator=(SymbolCodes &&) = default;
 
     iterator begin() const;
     iterator end() const;
 
-    void pushBack(char symbol, const BinaryCode& info);
+    void pushBack(char symbol, const BinaryCode &info);
 
-    BinaryCode encode(const Text& text) const;
+    BinaryCode encode(const Text &text) const;
 
   private:
     std::map< char, BinaryCode > data_;
 
-    friend std::istream& operator>>(std::istream& in, SymbolCodes& destination);
-    friend std::ostream& operator<<(std::ostream& out, const SymbolCodes& departure);
+    friend std::istream &operator>>(std::istream &in, SymbolCodes &destination);
+    friend std::ostream &operator<<(std::ostream &out, const SymbolCodes &departure);
   };
 }
 #endif

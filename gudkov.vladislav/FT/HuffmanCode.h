@@ -15,21 +15,21 @@ namespace gudkov
     HuffmanCode() = default;
     ~HuffmanCode() = default;
 
-    HuffmanCode(const HuffmanCode& other) = default;
-    HuffmanCode& operator=(const HuffmanCode& other) = default;
+    HuffmanCode(const HuffmanCode &other) = default;
+    HuffmanCode &operator=(const HuffmanCode &other) = default;
 
-    HuffmanCode(HuffmanCode&& other) = default;
-    HuffmanCode& operator=(HuffmanCode&& other) = default;
+    HuffmanCode(HuffmanCode &&other) = default;
+    HuffmanCode &operator=(HuffmanCode &&other) = default;
 
-    HuffmanCode(const Text& input);
-    HuffmanCode(const CharacterFrequency& characterFrequency);
-    HuffmanCode(const SymbolCodes& symbolsCodes);
+    HuffmanCode(const Text &input);
+    HuffmanCode(const CharacterFrequency &characterFrequency);
+    HuffmanCode(const SymbolCodes &symbolsCodes);
 
-    const SymbolCodes& getCodeSymbols() const;
-    const CodeTree& getCodeTree() const;
+    const SymbolCodes &getCodeSymbols() const;
+    const CodeTree &getCodeTree() const;
 
-    BinaryCode encode(const Text& textToEncode) const;
-    Text decode(const BinaryCode& textToDecode) const;
+    BinaryCode encode(const Text &textToEncode) const;
+    Text decode(const BinaryCode &textToDecode) const;
   private:
     SymbolCodes codeSymbols_;
     CodeTree codeTree_;

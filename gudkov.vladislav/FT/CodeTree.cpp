@@ -15,10 +15,10 @@ gudkov::CodeTree::CodeTree():
 
 }
 
-gudkov::CodeTree::CodeTree(const SymbolCodes& codeSymbols):
+gudkov::CodeTree::CodeTree(const SymbolCodes &codeSymbols):
   CodeTree()
 {
-  for (const auto& element : codeSymbols)
+  for (const auto &element : codeSymbols)
   {
     insert(element.first, element.second.toString());
   }
@@ -30,7 +30,7 @@ void gudkov::CodeTree::clear()
   root_->right_ = nullptr;
 }
 
-void gudkov::CodeTree::fillRecursive(std::shared_ptr< Node > root, const CharacterFrequency& alphabetFrequency)
+void gudkov::CodeTree::fillRecursive(std::shared_ptr< Node > root, const CharacterFrequency &alphabetFrequency)
 {
   std::pair<CharacterFrequency, CharacterFrequency> parts;
   alphabetFrequency.splitTwoParts(parts);
@@ -63,12 +63,12 @@ void gudkov::CodeTree::fillRecursive(std::shared_ptr< Node > root, const Charact
   }
 }
 
-void gudkov::CodeTree::fill(const CharacterFrequency& alphabetFrequency)
+void gudkov::CodeTree::fill(const CharacterFrequency &alphabetFrequency)
 {
   fillRecursive(root_, alphabetFrequency);
 }
 
-void gudkov::CodeTree::createCodeRecursive(std::shared_ptr< Node > root, BinaryCode& word, SymbolCodes& codeWords)
+void gudkov::CodeTree::createCodeRecursive(std::shared_ptr< Node > root, BinaryCode &word, SymbolCodes &codeWords)
 {
   if (root->data_ != dummyChar_)
   {
@@ -95,7 +95,7 @@ gudkov::SymbolCodes gudkov::CodeTree::createCode() const
   return codeWords;
 }
 
-char gudkov::CodeTree::decodeNextSymbol(const BinaryCode& code, size_t& i) const
+char gudkov::CodeTree::decodeNextSymbol(const BinaryCode &code, size_t &i) const
 {
   std::shared_ptr< Node > temp = root_;
 
@@ -126,7 +126,7 @@ char gudkov::CodeTree::decodeNextSymbol(const BinaryCode& code, size_t& i) const
   throw std::runtime_error("Wrong code tree: wrong code of symbol (too short code).\n");
 }
 
-gudkov::Text gudkov::CodeTree::decode(const BinaryCode& code) const
+gudkov::Text gudkov::CodeTree::decode(const BinaryCode &code) const
 {
   Text text;
 
@@ -152,7 +152,7 @@ gudkov::Text gudkov::CodeTree::decode(const BinaryCode& code) const
   return text;
 }
 
-void gudkov::CodeTree::insert(char symbol, const std::string& code)
+void gudkov::CodeTree::insert(char symbol, const std::string &code)
 {
   std::shared_ptr< Node > temp = root_;
 
@@ -181,7 +181,7 @@ void gudkov::CodeTree::insert(char symbol, const std::string& code)
   temp->data_ = symbol;
 }
 
-void gudkov::CodeTree::print_recursive(std::ostream& out, std::vector<bool>& code, std::shared_ptr< Node > root, size_t level)
+void gudkov::CodeTree::print_recursive(std::ostream &out, std::vector<bool> &code, std::shared_ptr< Node > root, size_t level)
 {
   if (root == nullptr)
   {
@@ -215,7 +215,7 @@ void gudkov::CodeTree::print_recursive(std::ostream& out, std::vector<bool>& cod
   code.pop_back();
 }
 
-std::ostream& gudkov::operator<<(std::ostream& out, const CodeTree& departure)
+std::ostream &gudkov::operator<<(std::ostream &out, const CodeTree &departure)
 {
   std::vector<bool> code;
 

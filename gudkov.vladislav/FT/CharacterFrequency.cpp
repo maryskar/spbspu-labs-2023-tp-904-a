@@ -9,19 +9,19 @@ gudkov::CharacterFrequency::CharacterFrequency():
 
 }
 
-gudkov::CharacterFrequency::CharacterFrequency(const Text& input):
+gudkov::CharacterFrequency::CharacterFrequency(const Text &input):
   CharacterFrequency()
 {
   fillBy(input);
 }
 
-void gudkov::CharacterFrequency::fillBy(const Text& input)
+void gudkov::CharacterFrequency::fillBy(const Text &input)
 {
   data_.clear();
 
   std::map< char, size_t > alphabet;
 
-  for (const Line& line : input)
+  for (const Line &line : input)
   {
     for (char character : line)
     {
@@ -32,12 +32,12 @@ void gudkov::CharacterFrequency::fillBy(const Text& input)
 
   data_.reserve(alphabet.size());
 
-  for (const auto& elem : alphabet)
+  for (const auto &elem : alphabet)
   {
     data_.push_back(elem);
   }
 
-  const auto isLess = [](const std::pair <char, size_t>& a, const std::pair <char, size_t>& b) -> bool
+  const auto isLess = [](const std::pair <char, size_t> &a, const std::pair <char, size_t> &b) -> bool
     {
       return a.second > b.second;
     };
@@ -60,7 +60,7 @@ bool gudkov::CharacterFrequency::isEmpty() const
   return data_.empty();
 }
 
-void gudkov::CharacterFrequency::splitTwoParts(std::pair<CharacterFrequency, CharacterFrequency>& parts) const
+void gudkov::CharacterFrequency::splitTwoParts(std::pair<CharacterFrequency, CharacterFrequency> &parts) const
 {
   size_t accumulatedSum = 0;
 
@@ -79,9 +79,9 @@ void gudkov::CharacterFrequency::splitTwoParts(std::pair<CharacterFrequency, Cha
   parts.second.frequencySum_ = this->frequencySum_ - accumulatedSum;
 }
 
-std::ostream& gudkov::operator<<(std::ostream& out, const CharacterFrequency& departure)
+std::ostream &gudkov::operator<<(std::ostream &out, const CharacterFrequency &departure)
 {
-  for (const auto& elem : departure.data_)
+  for (const auto &elem : departure.data_)
   {
     out << elem.first << ": " << elem.second << std::endl;
   }
@@ -89,7 +89,7 @@ std::ostream& gudkov::operator<<(std::ostream& out, const CharacterFrequency& de
   return out;
 }
 
-std::istream& gudkov::operator>>(std::istream& in, CharacterFrequency& destination)
+std::istream &gudkov::operator>>(std::istream &in, CharacterFrequency &destination)
 {
   destination.data_.clear();
   destination.frequencySum_ = 0;

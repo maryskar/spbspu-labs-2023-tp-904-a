@@ -10,16 +10,16 @@ gudkov::SymbolCodes::iterator gudkov::SymbolCodes::end() const
   return data_.end();
 }
 
-void gudkov::SymbolCodes::pushBack(char symbol, const BinaryCode& info)
+void gudkov::SymbolCodes::pushBack(char symbol, const BinaryCode &info)
 {
   data_.insert(std::pair< char, BinaryCode >(symbol, info));
 }
 
-gudkov::BinaryCode gudkov::SymbolCodes::encode(const Text& text) const
+gudkov::BinaryCode gudkov::SymbolCodes::encode(const Text &text) const
 {
   BinaryCode code;
 
-  for (const Line& line : text)
+  for (const Line &line : text)
   {
     for (char symbol : line)
     {
@@ -40,7 +40,7 @@ gudkov::BinaryCode gudkov::SymbolCodes::encode(const Text& text) const
   return code;
 }
 
-std::istream& gudkov::operator>>(std::istream& in, SymbolCodes& destination)
+std::istream &gudkov::operator>>(std::istream &in, SymbolCodes &destination)
 {
   while (!in.eof())
   {
@@ -57,7 +57,7 @@ std::istream& gudkov::operator>>(std::istream& in, SymbolCodes& destination)
     }
 
     in.get();
-    
+
     if (!in)
     {
       throw std::runtime_error("Wrong bit code: space after symbol is missing.\n");
@@ -95,14 +95,14 @@ std::istream& gudkov::operator>>(std::istream& in, SymbolCodes& destination)
     destination.data_[symbol] = code;
   }
 
-  
+
 
   return in;
 }
 
-std::ostream& gudkov::operator<<(std::ostream& out, const SymbolCodes& departure)
+std::ostream &gudkov::operator<<(std::ostream &out, const SymbolCodes &departure)
 {
-  for (const auto& element : departure.data_)
+  for (const auto &element : departure.data_)
   {
     out << element.first << " ";
     for (size_t i = 0; i < element.second.size(); ++i)

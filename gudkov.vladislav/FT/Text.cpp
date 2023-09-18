@@ -6,30 +6,30 @@ gudkov::Text::Text(char symbol):
 
 }
 
-gudkov::Text::Text(const char* cStr):
+gudkov::Text::Text(const char *cStr):
   Text(Line(cStr))
 {
 
 }
 
-gudkov::Text::Text(const std::string& str):
+gudkov::Text::Text(const std::string &str):
   Text(Line(str))
 {
 
 }
 
-gudkov::Text::Text(const Line& line)
+gudkov::Text::Text(const Line &line)
 {
   data_.push_back(line);
 }
 
-gudkov::Text::Text(const std::vector< Line >& text):
+gudkov::Text::Text(const std::vector< Line > &text):
   data_(text)
 {
 
 }
 
-void gudkov::Text::pushBack(const Line& line)
+void gudkov::Text::pushBack(const Line &line)
 {
   data_.push_back(line);
 }
@@ -44,14 +44,14 @@ gudkov::Text::iterator gudkov::Text::end() const
   return data_.end();
 }
 
-gudkov::Text& gudkov::Text::operator+=(const Text& other)
+gudkov::Text &gudkov::Text::operator+=(const Text &other)
 {
   data_.insert(data_.end(), other.begin(), other.end());
 
   return *this;
 }
 
-gudkov::Text gudkov::Text::operator+(const Text& other) const
+gudkov::Text gudkov::Text::operator+(const Text &other) const
 {
   Text result = *this;
 
@@ -60,7 +60,7 @@ gudkov::Text gudkov::Text::operator+(const Text& other) const
   return result;
 }
 
-std::istream& gudkov::operator>>(std::istream& in, Text& destination)
+std::istream &gudkov::operator>>(std::istream &in, Text &destination)
 {
   Line line;
   while (in >> line)
@@ -81,9 +81,9 @@ std::istream& gudkov::operator>>(std::istream& in, Text& destination)
   return in;
 }
 
-std::ostream& gudkov::operator<<(std::ostream& out, const Text& depature)
+std::ostream &gudkov::operator<<(std::ostream &out, const Text &depature)
 {
-  for (const Line& line : depature.data_)
+  for (const Line &line : depature.data_)
   {
     out << line;
   }

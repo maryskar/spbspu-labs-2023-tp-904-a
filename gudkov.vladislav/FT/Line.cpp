@@ -5,13 +5,13 @@ gudkov::Line::Line(char symbol)
   data_ += symbol;
 }
 
-gudkov::Line::Line(const char* cStr):
+gudkov::Line::Line(const char *cStr):
   data_(cStr)
 {
 
 }
 
-gudkov::Line::Line(const std::string& str):
+gudkov::Line::Line(const std::string &str):
   data_(str)
 {
 
@@ -42,7 +42,7 @@ void gudkov::Line::clear()
   data_.clear();
 }
 
-bool gudkov::Line::operator<(const Line& other) const
+bool gudkov::Line::operator<(const Line &other) const
 {
   return this->data_ < other.data_;
 }
@@ -57,14 +57,14 @@ size_t gudkov::Line::length() const
   return data_.length();
 }
 
-std::istream& gudkov::operator>>(std::istream& in, Line& destination)
+std::istream &gudkov::operator>>(std::istream &in, Line &destination)
 {
   std::getline(in, destination.data_);
 
   return in;
 }
 
-std::ostream& gudkov::operator<<(std::ostream& out, const Line& depature)
+std::ostream &gudkov::operator<<(std::ostream &out, const Line &depature)
 {
   out << depature.data_;
   return out;

@@ -161,7 +161,8 @@ void printInfo()
   std::cout << "15) EFFICIENCY" << std::endl;
   std::cout << "\n";
   std::cout << "Description:" << std::endl;
-  std::cout << "Output to the console the efficiency of encoding text that was added to the library: that is, how many times the file size has decreased." << std::endl;
+  std::cout << "Output to the console the efficiency of encoding text that was added to the library: ";
+  std::cout << "that is, how many times the file size has decreased." << std::endl;
   std::cout << "\n";
   std::cout << "Example:" << std::endl;
   std::cout << "EFFICIENCY Text - 1" << std::endl;
