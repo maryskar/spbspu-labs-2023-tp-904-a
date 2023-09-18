@@ -53,7 +53,7 @@ namespace zhuravlev
       doConstCommand(pls, out, command);
       return;
     }
-    catch (...)
+    catch (const std::runtime_error& e)
     {}
     try
     {
@@ -61,9 +61,7 @@ namespace zhuravlev
       std::string cmd = (command.substr(0, command.find(' ')) + " N");
       doCommandWithInput(pls, out, num, cmd);
     }
-    catch (...)
-    {
-      throw;
-    }
+    catch (const std::runtime_error& e)
+    {}
   }
 }

@@ -26,7 +26,6 @@ int main(int argc, char* argv[])
     using in_pol_iter = std::istream_iterator< zhuravlev::Polygon >;
     std::copy(in_pol_iter(input), in_pol_iter(), std::back_inserter(polygons));
   }
-
   while (!std::cin.eof())
   {
     try
@@ -36,8 +35,8 @@ int main(int argc, char* argv[])
     catch(const std::logic_error& e)
     {
       zhuravlev::printError(std::cout);
-      zhuravlev::skipUntilNewLines(std::cin);
       std::cin.clear();
+      zhuravlev::skipUntilNewLines(std::cin);
     }
     catch(const std::runtime_error& e)
     {
