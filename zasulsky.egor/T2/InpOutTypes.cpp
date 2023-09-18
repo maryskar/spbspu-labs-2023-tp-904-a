@@ -13,7 +13,7 @@ std::istream& zasulsky::operator>>(std::istream& in, DelimiterIO&& dest)
   }
   char exp = '0';
   in >> exp;
-  if (in && exp != std::tolower(dest.exp))
+  if (in && exp != dest.exp)
   {
     in.setstate(std::ios::failbit);
   }
@@ -60,7 +60,7 @@ std::istream& zasulsky::operator>>(std::istream& in, DblI&& dest)
   int mantisa = 0;
   int number = 0;
   int power = 0;
-  in >> mantisa >> DelimiterIO{ '.' } >> number >> DelimiterIO{ 'E' } >> power;
+  in >> mantisa >> DelimiterIO{ '.' } >> number >> DelimiterIO{ 'e' } >> power;
   dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
   return in;
 }

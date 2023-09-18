@@ -1,7 +1,6 @@
 #ifndef INPOUTTYPES_HPP
 #define INPOUTTYPES_HPP
 
-
 #include <string>
 #include <iostream>
 
