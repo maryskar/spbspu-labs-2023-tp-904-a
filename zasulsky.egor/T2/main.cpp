@@ -21,4 +21,5 @@ int main()
   }
   std::sort(vector.begin(), vector.end(), compare);
   std::copy(std::begin(vector), std::end(vector), std::ostream_iterator<dataStruct>(std::cout, "\n"));
+  return 0;
 }
