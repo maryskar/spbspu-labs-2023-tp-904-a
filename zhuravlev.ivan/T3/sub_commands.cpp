@@ -83,7 +83,7 @@ namespace zhuravlev
   }
   void AreaVertexes(const std::vector< Polygon >& polygons, std::ostream& out, const size_t condition)
   {
-    if (condition < 2)
+    if (condition < 3)
     {
       throw std::logic_error("There is no needed amount of vertexes...");
     }
@@ -112,6 +112,10 @@ namespace zhuravlev
   }
   void MaxVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
   {
+    if (polygons.empty())
+    {
+      throw std::logic_error("You need to add at least one polygon\n");
+    }
     std::vector< size_t > vertexes(polygons.size());
     std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), getNumberOfVertexes);
     std::sort(vertexes.begin(), vertexes.end());
@@ -140,7 +144,7 @@ namespace zhuravlev
   }
   void countVertexes(const std::vector< Polygon >& polygons, std::ostream& out, const size_t condition)
   {
-    if (condition < 2)
+    if (condition < 3)
     {
       throw std::logic_error("Wrong condition");
     }
