@@ -5,7 +5,6 @@
 #include <string>
 namespace zasulsky
 {
-
   struct DataStruct
   {
     double key1;
