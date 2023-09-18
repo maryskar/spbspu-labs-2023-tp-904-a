@@ -12,8 +12,8 @@ struct dataStruct
   std::string key3;
 };
 
-std::istream& operator>>(std::istream& in, dataStruct& ref);
-std::ostream& operator<<(std::ostream& out, const dataStruct& ref);
+std::istream& operator>>(std::istream& in, dataStruct& dest);
+std::ostream& operator<<(std::ostream& out, const dataStruct& dest);
 
 bool compare(dataStruct& lhs, dataStruct& rhs);
 

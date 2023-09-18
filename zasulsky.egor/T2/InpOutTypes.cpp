@@ -35,6 +35,10 @@ std::istream& operator>>(std::istream& in, DblIO&& ref)
   }
   double s = 0;
   in >> std::scientific >> s;
+  if (in.fail())
+  {
+    return in
+  }
   ref.ref = s;
   return in;
 }
