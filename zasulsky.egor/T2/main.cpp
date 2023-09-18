@@ -1,16 +1,15 @@
 #include <iostream>
-#include <iomanip>
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <limits>
 #include "DataStruct.hpp"
-#include "InpOutTypes.hpp"
 
 int main()
 {
   using itInp = std::istream_iterator< zasulsky::DataStruct >;
   using itOut = std::ostream_iterator< zasulsky::DataStruct >;
-  std::vector < zasulsky:: DataStruct > data;
+  std::vector < zasulsky::DataStruct > data;
   while (!std::cin.eof())
   {
     if (std::cin.fail())

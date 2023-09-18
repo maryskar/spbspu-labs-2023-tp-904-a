@@ -4,7 +4,7 @@
 #include <iomanip>
 #include "Iofmtguard.hpp"
 
-std::istream& zasulsky::operator>>(std::istream& in, DelimiterIO&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, DelimiterIO&& obj)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -13,44 +13,44 @@ std::istream& zasulsky::operator>>(std::istream& in, DelimiterIO&& dest)
   }
   char exp = '0';
   in >> exp;
-  if (in && exp != std::tolower(dest.exp))
+  if (in && exp != std::tolower(obj.exp))
   {
     in.setstate(std::ios::failbit);
   }
   return in;
 }
-std::istream& zasulsky::operator>>(std::istream& in, LabelIO&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, LabelIO&& obj)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  for (size_t i = 0; i < dest.exp.length(); ++i)
+  for (size_t i = 0; i < obj.exp.length(); ++i)
   {
-    in >> DelimiterIO{ dest.exp[i] };
+    in >> DelimiterIO{ obj.exp[i] };
   }
   return in;
 }
-std::istream& zasulsky::operator>>(std::istream& in, StringIO&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, StringIO&& obj)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  return std::getline(in >> DelimiterIO{ '"' }, dest.exp, '"');
+  return std::getline(in >> DelimiterIO{ '"' }, obj.exp, '"');
 }
-std::istream& zasulsky::operator>>(std::istream& in, LongLongIO&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, SllIO&& obj)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  return in >> dest.num >> zasulsky::LabelIO{ "ll" };
+  return in >> obj.num >> zasulsky::LabelIO{ "ll" };
 }
-std::istream& zasulsky::operator>>(std::istream& in, DoubleI&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, DblI&& obj)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -58,13 +58,14 @@ std::istream& zasulsky::operator>>(std::istream& in, DoubleI&& dest)
     return in;
   }
   int mantisa = 0;
-  int number = 0;
-  int power = 0;
-  in >> mantisa >> DelimiterIO{ '.' } >> number >> DelimiterIO{ 'E' } >> power;
-  dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
+  int num = 0;
+  int pow = 0;
+  in >> mantisa >> DelimiterIO{ '.' };
+  in >> num >> DelimiterIO{ 'e' } >> pow;
+  DblI.num = (mantisa * 1.0 + num * 0.01) * std::pow(10, pow);
   return in;
 }
-std::ostream& zasulsky::operator<<(std::ostream& out, const DoubleO&& dest)
+std::ostream& zasulsky::operator<<(std::ostream& out, const DblO&& obj)
 {
   std::ostream::sentry sentry(out);
   iofmtguard guard(out);
@@ -72,18 +73,20 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DoubleO&& dest)
   {
     return out;
   }
-  double number = dest.num;
-  int power = 0;
-  while (std::abs(number) < 1)
+  double num = DblO.num;
+  int pow = 0;
+  while (std::abs(num) < 1)
   {
-    number *= 10;
-    power--;
+    num *= 10;
+    pow--;
   }
-  while (std::abs(number) >= 10)
+  while (std::abs(num) >= 10)
   {
-    number /= 10;
-    power++;
+    num /= 10;
+    pow++;
   }
-  return out << std::fixed << std::setprecision(1) << number << 'e' << std::showpos << power;
+  out << std::fixed << std::setprecision(1);
+  out << num << 'e' << std::showpos << pow;
+  return out;
 }
 
