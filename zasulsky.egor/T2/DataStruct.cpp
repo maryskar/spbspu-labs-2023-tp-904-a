@@ -21,7 +21,7 @@ std::istream& zasulsky::operator>>(std::istream& in, DataStruct& dest)
   in >> DelimiterIO{ '(' };
   while (!(isK1 && isK2 && isK3) && in.good())
   {
-    in >> LabelIO{ ":key" } >> number;
+    in >> LabelIO{ ":key" } >> num;
     if (num == 1 && !isK1)
     {
       in >> DoubleI{ key1 };
