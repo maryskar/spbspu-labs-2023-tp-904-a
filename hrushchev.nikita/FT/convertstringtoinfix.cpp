@@ -1,6 +1,6 @@
 #include "convertstringtoinfix.hpp"
 #include <string>
-#include "queue.hpp"
+#include <queue>
 
 bool isOperator(char c)
 {

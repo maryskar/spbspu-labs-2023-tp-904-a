@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <queue>
 #include <stack>
-#include <avltree.hpp>
+#include <map>
 
 namespace hrushchev
 {
@@ -42,7 +42,7 @@ namespace hrushchev
     return op == "sin" || op == "cos";
   }
 
-  bool isVariable(const std::string& op, AVLTree< std::string, std::string >& variables)
+  bool isVariable(const std::string& op, std::map< std::string, std::string >& variables)
   {
     try
     {
@@ -57,7 +57,7 @@ namespace hrushchev
 }
 
 std::queue< std::string > hrushchev::convertInfixToPostfix(std::queue< std::string >& infixQueue,
-    AVLTree< std::string, std::string >& variables)
+    std::map< std::string, std::string >& variables)
 {
   namespace hrn = hrushchev;
   std::queue< std::string > postfixQueue;

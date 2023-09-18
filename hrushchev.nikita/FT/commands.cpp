@@ -1,7 +1,7 @@
 #include "commands.hpp"
 #include <string>
 #include <iomanip>
-#include <avltree.hpp>
+#include <map>
 #include <queue>
 #include "convertstringtoinfix.hpp"
 #include "convertinfixtopostfix.hpp"
@@ -10,7 +10,7 @@
 void hrushchev::addToInfixDict(infix_dict& dict, const std::string& name, const std::string& expr)
 {
   std::queue< std::string > infix_queue(convertStringToInfix(expr));
-  dict.insert(name, infix_queue);
+  dict.insert({name, infix_queue});
 }
 
 void hrushchev::addToPostfixDict(postfix_dict& post_dict,
@@ -22,7 +22,7 @@ void hrushchev::addToPostfixDict(postfix_dict& post_dict,
 {
   std::queue< std::string > infix_queue = in_dict.at(in_name);
   std::queue< std::string > postfix_queue = convertInfixToPostfix(infix_queue, vars);
-  post_dict.insert(post_name, postfix_data(postfix_queue, accuracy));
+  post_dict.insert({post_name, postfix_data(postfix_queue, accuracy)});
 }
 
 void hrushchev::sumPostfix(postfix_dict& dict, str& res, str& name1, str& name2, int accuracy)
@@ -45,7 +45,7 @@ void hrushchev::sumPostfix(postfix_dict& dict, str& res, str& name1, str& name2,
     res_queue.push(temp);
   }
   res_queue.push("+");
-  dict.insert(res, postfix_data(res_queue, accuracy));
+  dict.insert({res, postfix_data(res_queue, accuracy)});
 }
 
 void hrushchev::subtractPostfix(postfix_dict& dict, str& res, str& name1, str& name2, int accuracy)
@@ -68,7 +68,7 @@ void hrushchev::subtractPostfix(postfix_dict& dict, str& res, str& name1, str& n
     res_queue.push(temp);
   }
   res_queue.push("-");
-  dict.insert(res, postfix_data(res_queue, accuracy));
+  dict.insert({res, postfix_data(res_queue, accuracy)});
 }
 
 void hrushchev::multiplyPostfix(postfix_dict& dict, str& res, str& name1, str& name2, int accuracy)
@@ -91,7 +91,7 @@ void hrushchev::multiplyPostfix(postfix_dict& dict, str& res, str& name1, str& n
     res_queue.push(temp);
   }
   res_queue.push("*");
-  dict.insert(res, postfix_data(res_queue, accuracy));
+  dict.insert({res, postfix_data(res_queue, accuracy)});
 }
 
 void hrushchev::divisionPostfix(postfix_dict& dict, str& res, str& name1, str& name2, int accuracy)
@@ -114,7 +114,7 @@ void hrushchev::divisionPostfix(postfix_dict& dict, str& res, str& name1, str& n
     res_queue.push(temp);
   }
   res_queue.push("/");
-  dict.insert(res, postfix_data(res_queue, accuracy));
+  dict.insert({res, postfix_data(res_queue, accuracy)});
 }
 
 void printQueue(std::queue< std::string > queue, std::ostream& out)
@@ -202,7 +202,7 @@ void hrushchev::calculate(postfix_dict& dict, str& name, std::ostream& out)
 
 void hrushchev::set(variables_dict& dict, str& name, str& value)
 {
-  dict.insert(name, value);
+  dict.insert({name, value});
 }
 
 void hrushchev::printVariable(variables_dict& dict, str& name, std::ostream& out)

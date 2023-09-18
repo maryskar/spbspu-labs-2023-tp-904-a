@@ -2,8 +2,8 @@
 #define WORKWITHDICT_HPP
 
 #include <string>
-#include <queue.hpp>
-#include <avltree.hpp>
+#include <queue>
+#include <map>
 #include "commands.hpp"
 
 namespace hrushchev
@@ -25,16 +25,16 @@ namespace hrushchev
       using com9 = void(*)(variables_dict&, str&, std::ostream&);
       using com10 = void(*)(variables_dict&, std::ostream&);
 
-      AVLTree< std::string, com1 > dict1_;
-      AVLTree< std::string, com2 > dict2_;
-      AVLTree< std::string, com3 > dict3_;
-      AVLTree< std::string, com4 > dict4_;
-      AVLTree< std::string, com5 > dict5_;
-      AVLTree< std::string, com6 > dict6_;
-      AVLTree< std::string, com7 > dict7_;
-      AVLTree< std::string, com8 > dict8_;
-      AVLTree< std::string, com9 > dict9_;
-      AVLTree< std::string, com10 > dict10_;
+      std::map< std::string, com1 > dict1_;
+      std::map< std::string, com2 > dict2_;
+      std::map< std::string, com3 > dict3_;
+      std::map< std::string, com4 > dict4_;
+      std::map< std::string, com5 > dict5_;
+      std::map< std::string, com6 > dict6_;
+      std::map< std::string, com7 > dict7_;
+      std::map< std::string, com8 > dict8_;
+      std::map< std::string, com9 > dict9_;
+      std::map< std::string, com10 > dict10_;
   };
 }
 

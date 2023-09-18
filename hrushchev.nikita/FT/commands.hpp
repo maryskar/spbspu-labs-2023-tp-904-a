@@ -5,15 +5,15 @@
 #include <utility>
 #include <ostream>
 #include <queue>
-#include <avltree.hpp>
+#include <map>
 
 namespace hrushchev
 {
-  using infix_dict = AVLTree< std::string, std::queue< std::string > >;
+  using infix_dict = std::map< std::string, std::queue< std::string > >;
   using str = const std::string;
   using postfix_data = std::pair< std::queue< std::string >, int >;
-  using postfix_dict = AVLTree< std::string, postfix_data >;
-  using variables_dict = AVLTree< std::string, std::string >;
+  using postfix_dict = std::map< std::string, postfix_data >;
+  using variables_dict = std::map< std::string, std::string >;
 
   void addToInfixDict(infix_dict& dict, str& name, str& expr);
   void addToPostfixDict(postfix_dict& post_dict,
