@@ -53,7 +53,6 @@ void gudkov::CodeTree::fillRecursive(std::shared_ptr< Node > root, const Charact
     if (parts.second.size() == 1)
     {
       root->right_ = std::shared_ptr< Node >(new Node(parts.second.getFirstChar()));
-
     }
     else
     {
@@ -175,7 +174,9 @@ void gudkov::CodeTree::insert(char symbol, const std::string &code)
       temp = temp->left_;
     }
     else
+    {
       throw std::runtime_error("Wrong symbol code: invalid symbol [0 / 1 expected].\n");
+    }
   }
 
   temp->data_ = symbol;

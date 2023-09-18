@@ -95,8 +95,6 @@ std::istream &gudkov::operator>>(std::istream &in, SymbolCodes &destination)
     destination.data_[symbol] = code;
   }
 
-
-
   return in;
 }
 
