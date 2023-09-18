@@ -44,6 +44,7 @@ int main(int argc, char* argv[])
     if (!std::cin)
     {
       std::cin.clear();
+      zhuravlev::skipUntilNewLines(std::cin);
     }
   }
   return 0;
