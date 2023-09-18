@@ -21,7 +21,7 @@ int main(int argc, char * argv[])
     std::cerr << "cannot open file\n";
     return 1;
   }
-
+  using isit = std::istream_iterator< turkin::Polygon >;
   std::deque< turkin::Polygon > data;
 
   while (!file.eof())
@@ -32,7 +32,7 @@ int main(int argc, char * argv[])
       file.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       continue;
     }
-    std::copy(std::istream_iterator< turkin::Polygon >(file), std::istream_iterator< turkin::Polygon >(), std::back_inserter(data));
+    std::copy(isit(file), isit(), std::back_inserter(data));
   }
 
   while (std::cin)

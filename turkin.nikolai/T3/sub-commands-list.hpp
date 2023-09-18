@@ -37,12 +37,12 @@ namespace turkin
 
   std::map< std::string, sub_cmd_t > sub_maxseq_list
   {
-    {"DEFAULT", maxseq_sub}
+    {"POLYGON", maxseq_sub}
   };
 
   std::map< std::string, sub_cmd_t > sub_rightshapes_list
   {
-    {"DEFAULT", rightshapes_sub}
+    {"NON-TYPE", rightshapes_sub}
   };
 }
 #endif

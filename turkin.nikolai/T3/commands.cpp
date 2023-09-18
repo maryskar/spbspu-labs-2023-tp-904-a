@@ -62,7 +62,7 @@ std::ostream & turkin::maxseq(data_t & data, std::istream & in, std::ostream & o
   {
     throw std::runtime_error("empty source");
   }
-  return out << sub_maxseq_list["DEFAULT"](data, in);
+  return out << sub_maxseq_list["POLYGON"](data, in);
 }
 
 std::ostream & turkin::rightshapes(data_t & data, std::istream & in, std::ostream & out)
@@ -71,5 +71,5 @@ std::ostream & turkin::rightshapes(data_t & data, std::istream & in, std::ostrea
   {
     throw std::runtime_error("empty source");
   }
-  return out << sub_rightshapes_list["DEFAULT"](data, in);
+  return out << sub_rightshapes_list["NON-TYPE"](data, in);
 }
