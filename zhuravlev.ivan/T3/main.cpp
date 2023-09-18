@@ -23,6 +23,11 @@ int main(int argc, char* argv[])
   std::vector< zhuravlev::Polygon > polygons;
   while (!input.eof())
   {
+    if (input.fail())
+    {
+      input.clear();
+      zhuravlev::skipUntilNewLines(input);
+    }
     using in_pol_iter = std::istream_iterator< zhuravlev::Polygon >;
     std::copy(in_pol_iter(input), in_pol_iter(), std::back_inserter(polygons));
   }
@@ -30,7 +35,12 @@ int main(int argc, char* argv[])
   {
     try
     {
-      zhuravlev::doCommand(polygons, std::cin, std::cout, zhuravlev::readCommand(std::cin));
+      std::string cmd = zhuravlev::readCommand(std::cin);
+      if (cmd.empty())
+      {
+        zhuravlev::skipUntilNewLines(std::cin);
+      }
+      zhuravlev::doCommand(polygons, std::cin, std::cout, cmd);
     }
     catch(const std::logic_error& e)
     {

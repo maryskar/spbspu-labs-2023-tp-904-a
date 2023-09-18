@@ -37,7 +37,17 @@ namespace zhuravlev
     {
       in.setstate(std::ios::failbit);
     }
-    std::getline(in, command);
+    while (std::getline(in, command))
+    {
+      if (!command.empty())
+      {
+        return command;
+      }
+      else
+      {
+        continue;
+      }
+    }
     return command;
   }
   void doCommandWithInput(std::vector< Polygon >& pls, std::ostream& out, const size_t condition, std::string cmd)
