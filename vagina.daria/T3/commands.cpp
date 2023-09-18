@@ -4,158 +4,162 @@
 #include <numeric>
 #include <IOFmtGuard.h>
 
-bool vagina::isEven(const Polygon& pol)
+using Polygon = std::vector< Polygon >;
+namespace vagina
 {
-  return (pol.points.size() % 2 == 0);
-}
-bool vagina::isOdd(const Polygon& pol)
-{
-  return !isEven(pol);
-}
-bool vagina::isCountOfVertexes(const Polygon& pol, std::size_t param)
-{
-  return (pol.points.size() == param);
-}
-void vagina::areaEven(const std::vector< Polygon >& dest, std::ostream& out)
-{
-  std::vector< Polygon > tmp (dest.size());
-  std::copy_if(dest.begin(), dest.end(), tmp.begin(), isEven);
-  std::size_t count = std::count_if(dest.begin(), dest.end(), isEven);
-  std::vector< double > tmpS(count);
-  auto fin = tmp.begin() + count;
-  std::transform(tmp.begin(), fin, std::back_inserter(tmpS), getArea);
-  iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
-}
-void vagina::areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
-{
-  std::vector< Polygon > tmp (dest.size());
-  std::copy_if(dest.begin(), dest.end(), tmp.begin(), isOdd);
-  std::size_t count = std::count_if(dest.begin(), dest.end(), isOdd);
-  std::vector< double > tmpS(count);
-  auto fin = tmp.begin() + count;
-  std::transform(tmp.begin(), fin, std::back_inserter(tmpS), getArea);
-  iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
-}
-void vagina::areaMean(const std::vector< Polygon >& dest, std::ostream& out)
-{
-  if (dest.empty())
+  bool isEven(const Polygon& pol)
   {
-    throw std::logic_error("No polygon");
+    return (pol.points.size() % 2 == 0);
   }
-  std::vector< double > tmp(dest.size());
-  std::transform(dest.begin(), dest.end(), tmp.begin(), getArea);
-  iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1) << std::accumulate(tmp.begin(), tmp.end(), 0.0) / dest.size() << "\n";
-}
-void vagina::areaVertexes(const std::vector< Polygon >& dest, std::ostream& out, std::size_t param)
-{
-  if (param < 3)
+  bool isOdd(const Polygon& pol)
   {
-    throw std::logic_error("Invalid parametr");
+    return !isEven(pol);
   }
-  using namespace std::placeholders;
-  auto countVert = std::bind(isCountOfVertexes, _1, param);
-  std::vector< Polygon > tmp (dest.size());
-  std::copy_if(dest.begin(), dest.end(), tmp.begin(), countVert);
-  std::size_t count = std::count_if(dest.begin(), dest.end(), countVert);
-  std::vector< double > tmpS(count);
-  auto fin = tmp.begin() + count;
-  std::transform(tmp.begin(), fin, tmpS.begin(), getArea);
-  iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
-}
-void vagina::maxArea(const std::vector < Polygon >& dest, std::ostream& out)
-{
-  if (dest.empty())
+  bool isCountOfVertexes(const Polygon& pol, std::size_t param)
   {
-    throw std::logic_error("No polygon");
+    return (pol.points.size() == param);
   }
-  std::vector< Polygon > tmp(dest.size());
-  std::copy(dest.begin(), dest.end(), tmp.begin());
-  std::sort(tmp.begin(), tmp.end(), comparatorArea);
-  iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1) << getArea(tmp[0]) << "\n";
-}
-void vagina::maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
-{
-  if (dest.empty())
+  void areaEven(const std::vector< Polygon >& dest, std::ostream& out)
   {
-    throw std::logic_error("No polygon");
+    std::vector< Polygon > tmp(dest.size());
+    std::copy_if(dest.begin(), dest.end(), tmp.begin(), isEven);
+    std::size_t count = std::count_if(dest.begin(), dest.end(), isEven);
+    std::vector< double > tmpS(count);
+    auto fin = tmp.begin() + count;
+    std::transform(tmp.begin(), fin, std::back_inserter(tmpS), getArea);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
   }
-  std::vector< Polygon > tmp(dest.size());
-  std::copy(dest.begin(), dest.end(), tmp.begin());
-  std::sort(tmp.begin(), tmp.end(), comparatorVertexes);
-  iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1) << tmp[0].points.size() << "\n";
-}
-void vagina::minArea(const std::vector < Polygon >& dest, std::ostream& out)
-{
-  if (dest.empty())
+  void areaOdd(const std::vector< Polygon >& dest, std::ostream& out)
   {
-    throw std::logic_error("No polygon");
+    std::vector< Polygon > tmp(dest.size());
+    std::copy_if(dest.begin(), dest.end(), tmp.begin(), isOdd);
+    std::size_t count = std::count_if(dest.begin(), dest.end(), isOdd);
+    std::vector< double > tmpS(count);
+    auto fin = tmp.begin() + count;
+    std::transform(tmp.begin(), fin, std::back_inserter(tmpS), getArea);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
   }
-  std::vector< Polygon > tmp(dest.size());
-  std::copy(dest.begin(), dest.end(), tmp.begin());
-  std::sort(tmp.begin(), tmp.end(), comparatorArea);
-  iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1) << getArea(tmp[tmp.size() - 1]) << "\n";
-}
-void vagina::minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
-{
-  if (dest.empty())
+  void areaMean(const std::vector< Polygon >& dest, std::ostream& out)
   {
-    throw std::logic_error("No polygon");
+    if (dest.empty())
+    {
+      throw std::logic_error("No polygon");
+    }
+    std::vector< double > tmp(dest.size());
+    std::transform(dest.begin(), dest.end(), tmp.begin(), getArea);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(tmp.begin(), tmp.end(), 0.0) / dest.size() << "\n";
   }
-  std::vector< Polygon > tmp(dest.size());
-  std::copy(dest.begin(), dest.end(), tmp.begin());
-  std::sort(tmp.begin(), tmp.end(), comparatorVertexes);
-  iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1) << tmp[0].points.size() << "\n";
-}
-void vagina::countEven(const std::vector < Polygon >& dest, std::ostream& out)
-{
-  iofmtguard iofmtguard(out);
-  out << std::count_if(dest.begin(), dest.end(), isEven) << "\n";
-}
-void vagina::countOdd(const std::vector < Polygon >& dest, std::ostream& out)
-{
-  iofmtguard iofmtguard(out);
-  out << std::count_if(dest.begin(), dest.end(), isOdd) << "\n";
-}
-void vagina::countVertexes(const std::vector < Polygon >& dest, std::ostream& out, std::size_t param)
-{
-  if (param < 3)
+  void areaVertexes(const std::vector< Polygon >& dest, std::ostream& out, std::size_t param)
   {
-    throw std::logic_error("Invalid parameter");
+    if (param < 3)
+    {
+      throw std::logic_error("Invalid parametr");
+    }
+    using namespace std::placeholders;
+    auto countVert = std::bind(isCountOfVertexes, _1, param);
+    std::vector< Polygon > tmp(dest.size());
+    std::copy_if(dest.begin(), dest.end(), tmp.begin(), countVert);
+    std::size_t count = std::count_if(dest.begin(), dest.end(), countVert);
+    std::vector< double > tmpS(count);
+    auto fin = tmp.begin() + count;
+    std::transform(tmp.begin(), fin, tmpS.begin(), getArea);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(tmpS.begin(), tmpS.end(), 0.0) << "\n";
   }
-  using namespace std::placeholders;
-  auto countVert = std::bind(isCountOfVertexes, _1, param);
-  iofmtguard iofmtguard(out);
-  out << std::count_if(dest.begin(), dest.end(), countVert) << "\n";
-}
-void vagina::rects(const std::vector < Polygon >& dest, std::ostream& out)
-{
-  iofmtguard iofmtguard(out);
-  out << std::count_if(dest.begin(), dest.end(), isRectangle) << "\n";
-}
-bool vagina::isPerm(const Polygon& lhs, const Polygon& rhs)
-{
-  return std::is_permutation(lhs.points.begin(), lhs.points.end(), rhs.points.begin(), rhs.points.end());
-}
-void vagina::perms(const std::vector < Polygon >& dest, std::ostream& out, std::istream& in)
-{
-  Polygon pol;
-  in >> pol;
-  if (pol.points.size() < 3)
+  void maxArea(const std::vector < Polygon >& dest, std::ostream& out)
   {
-    throw std::logic_error("Invalid parameter");
+    if (dest.empty())
+    {
+      throw std::logic_error("No polygon");
+    }
+    std::vector< Polygon > tmp(dest.size());
+    std::copy(dest.begin(), dest.end(), tmp.begin());
+    std::sort(tmp.begin(), tmp.end(), comparatorArea);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << getArea(tmp[0]) << "\n";
   }
-  using namespace std::placeholders;
-  auto perm = std::bind(isPerm, _1, pol);
-  iofmtguard iofmtguard(out);
-  out << std::count_if(dest.begin(), dest.end(), perm) << '\n';
+  void maxVertexes(const std::vector < Polygon >& dest, std::ostream& out)
+  {
+    if (dest.empty())
+    {
+      throw std::logic_error("No polygon");
+    }
+    std::vector< Polygon > tmp(dest.size());
+    std::copy(dest.begin(), dest.end(), tmp.begin());
+    std::sort(tmp.begin(), tmp.end(), comparatorVertexes);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << tmp[0].points.size() << "\n";
+  }
+  void minArea(const std::vector < Polygon >& dest, std::ostream& out)
+  {
+    if (dest.empty())
+    {
+      throw std::logic_error("No polygon");
+    }
+    std::vector< Polygon > tmp(dest.size());
+    std::copy(dest.begin(), dest.end(), tmp.begin());
+    std::sort(tmp.begin(), tmp.end(), comparatorArea);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << getArea(tmp[tmp.size() - 1]) << "\n";
+  }
+  void minVertexes(const std::vector < Polygon >& dest, std::ostream& out)
+  {
+    if (dest.empty())
+    {
+      throw std::logic_error("No polygon");
+    }
+    std::vector< Polygon > tmp(dest.size());
+    std::copy(dest.begin(), dest.end(), tmp.begin());
+    std::sort(tmp.begin(), tmp.end(), comparatorVertexes);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << tmp[0].points.size() << "\n";
+  }
+  void countEven(const std::vector < Polygon >& dest, std::ostream& out)
+  {
+    iofmtguard iofmtguard(out);
+    out << std::count_if(dest.begin(), dest.end(), isEven) << "\n";
+  }
+  void countOdd(const std::vector < Polygon >& dest, std::ostream& out)
+  {
+    iofmtguard iofmtguard(out);
+    out << std::count_if(dest.begin(), dest.end(), isOdd) << "\n";
+  }
+  void countVertexes(const std::vector < Polygon >& dest, std::ostream& out, std::size_t param)
+  {
+    if (param < 3)
+    {
+      throw std::logic_error("Invalid parameter");
+    }
+    using namespace std::placeholders;
+    auto countVert = std::bind(isCountOfVertexes, _1, param);
+    iofmtguard iofmtguard(out);
+    out << std::count_if(dest.begin(), dest.end(), countVert) << "\n";
+  }
+  void rects(const std::vector < Polygon >& dest, std::ostream& out)
+  {
+    iofmtguard iofmtguard(out);
+    out << std::count_if(dest.begin(), dest.end(), isRectangle) << "\n";
+  }
+  bool isPerm(const Polygon& lhs, const Polygon& rhs)
+  {
+    return std::is_permutation(lhs.points.begin(), lhs.points.end(), rhs.points.begin(), rhs.points.end());
+  }
+  void perms(const std::vector < Polygon >& dest, std::ostream& out, std::istream& in)
+  {
+    Polygon pol;
+    in >> pol;
+    if (pol.points.size() < 3)
+    {
+      throw std::logic_error("Invalid parameter");
+    }
+    using namespace std::placeholders;
+    auto perm = std::bind(isPerm, _1, pol);
+    iofmtguard iofmtguard(out);
+    out << std::count_if(dest.begin(), dest.end(), perm) << '\n';
+  }
 }
 void vagina::messageInvalidCommand(std::ostream& out)
 {
