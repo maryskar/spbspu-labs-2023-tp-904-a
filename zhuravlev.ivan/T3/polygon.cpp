@@ -37,6 +37,10 @@ namespace zhuravlev
     Polygon input;
     size_t points;
     in >> points;
+    if (points < 3)
+    {
+      in.setstate(std::ios::failbit);
+    }
     input.points.reserve(points);
     using in_point_iter = std::istream_iterator< Point >;
     std::copy_n(in_point_iter(in), points, std::back_inserter(input.points));
