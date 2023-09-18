@@ -4,7 +4,6 @@
 #include <numeric>
 #include <IOFmtGuard.h>
 
-using Polygon = std::vector< Polygon >;
 namespace vagina
 {
   bool isEven(const Polygon& pol)
