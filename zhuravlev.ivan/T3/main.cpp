@@ -40,7 +40,6 @@ int main(int argc, char* argv[])
     }
     catch(const std::logic_error& e)
     {
-      std::cin.clear();
       zhuravlev::printError(std::cout);
     }
     catch(const std::runtime_error& e)
