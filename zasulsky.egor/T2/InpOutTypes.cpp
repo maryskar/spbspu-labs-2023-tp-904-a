@@ -47,7 +47,7 @@ std::istream& operator>>(std::istream& in, LongLongIO&& dest)
   {
     return in;
   }
-  return in >> dest.num >> LabelIO{ "ull" };
+  return in >> dest.num >> LabelIO{ "ll" };
 }
 
 std::istream& operator>>(std::istream& in, DoubleI&& dest)
@@ -86,7 +86,3 @@ std::ostream& operator<<(std::ostream& out, const DoubleO&& dest)
   }
   return out << std::fixed << std::setprecision(1) << number << 'e' << std::showpos << power;
 }
-
-
-
-
