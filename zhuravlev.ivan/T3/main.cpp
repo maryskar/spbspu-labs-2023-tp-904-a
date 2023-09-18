@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
       zhuravlev::doCommand(polygons, std::cin, std::cout, cmd);
     }
     catch(const std::logic_error& e)
-    { 
+    {
       zhuravlev::printError(std::cout);
     }
     catch(const std::runtime_error& e)
