@@ -11,17 +11,17 @@ namespace zasulsky
   {
     char exp;
   };
-  struct DblI
+  struct DoubleI
   {
     double& num;
   };
-  struct DblO
+  struct DoubleO
   {
     const double num;
   };
-  struct SllIO
+  struct LongLongIO
   {
-    long long& num;
+     long long& num;
   };
   struct StringIO
   {
@@ -31,11 +31,11 @@ namespace zasulsky
   {
     std::string exp;
   };
-  std::istream& operator>>(std::istream& in, DelimiterIO&& obj);
-  std::istream& operator>>(std::istream& in, LabelIO&& obj);
-  std::istream& operator>>(std::istream& in, StringIO&& obj);
-  std::istream& operator>>(std::istream& in, SllIO&& obj);
-  std::istream& operator>>(std::istream& in, DblI&& obj);
-  std::ostream& operator<<(std::ostream& out, const DblO&& obj);
+  std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
+  std::istream& operator>>(std::istream& in, LabelIO&& dest);
+  std::istream& operator>>(std::istream& in, StringIO&& dest);
+  std::istream& operator>>(std::istream& in, LongLongIO&& dest);
+  std::istream& operator>>(std::istream& in, DoubleI&& dest);
+  std::ostream& operator<<(std::ostream& out, const DoubleO&& dest);
 }
 #endif
