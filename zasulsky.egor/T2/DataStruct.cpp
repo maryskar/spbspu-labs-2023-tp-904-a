@@ -1,4 +1,4 @@
-#include "Datastruct.hpp"
+#include "DataStruct.hpp"
 #include <string>
 #include <iostream>
 #include "InpOutTypes.hpp"
