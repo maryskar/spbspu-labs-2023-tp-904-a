@@ -2,9 +2,9 @@
 #define WORKWITHDICT_HPP
 
 #include <string>
+#include <queue.hpp>
 #include <avltree.hpp>
 #include "commands.hpp"
-#include "queue.hpp"
 
 namespace hrushchev
 {

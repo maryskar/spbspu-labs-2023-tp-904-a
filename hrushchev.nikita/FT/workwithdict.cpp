@@ -1,9 +1,9 @@
 #include "workwithdict.hpp"
 #include <string>
 #include <iostream>
+#include <queue>
 #include <avltree.hpp>
 #include "commands.hpp"
-#include "queue.hpp"
 
 hrushchev::Commands::Commands()
 {
@@ -25,8 +25,8 @@ hrushchev::Commands::Commands()
 void hrushchev::Commands::runCommand(std::istream& in, std::ostream& out)
 {
   namespace hrn = hrushchev;
-  hrn::AVLTree< std::string, hrn::Queue< std::string > > dict_with_infix;
-  hrn::AVLTree< std::string, std::pair< hrn::Queue< std::string >, int > > dict_with_postfix;
+  hrn::AVLTree< std::string, std::queue< std::string > > dict_with_infix;
+  hrn::AVLTree< std::string, std::pair< std::queue< std::string >, int > > dict_with_postfix;
   hrn::AVLTree< std::string, std::string > dict_with_vars;
   while(in)
   {

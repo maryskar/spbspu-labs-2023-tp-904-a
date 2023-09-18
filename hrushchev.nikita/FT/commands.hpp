@@ -4,14 +4,14 @@
 #include <string>
 #include <utility>
 #include <ostream>
+#include <queue>
 #include <avltree.hpp>
-#include "queue.hpp"
 
 namespace hrushchev
 {
-  using infix_dict = AVLTree< std::string, Queue< std::string > >;
+  using infix_dict = AVLTree< std::string, std::queue< std::string > >;
   using str = const std::string;
-  using postfix_data = std::pair< Queue< std::string >, int >;
+  using postfix_data = std::pair< std::queue< std::string >, int >;
   using postfix_dict = AVLTree< std::string, postfix_data >;
   using variables_dict = AVLTree< std::string, std::string >;
 

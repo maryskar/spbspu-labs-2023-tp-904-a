@@ -1,9 +1,9 @@
 #include "convertinfixtopostfix.hpp"
 #include <string>
 #include <stdexcept>
+#include <queue>
+#include <stack>
 #include <avltree.hpp>
-#include "queue.hpp"
-#include "stack.hpp"
 
 namespace hrushchev
 {
@@ -56,16 +56,16 @@ namespace hrushchev
   }
 }
 
-hrushchev::Queue< std::string > hrushchev::convertInfixToPostfix(Queue< std::string >& infixQueue,
+std::queue< std::string > hrushchev::convertInfixToPostfix(std::queue< std::string >& infixQueue,
     AVLTree< std::string, std::string >& variables)
 {
   namespace hrn = hrushchev;
-  hrn::Queue< std::string > postfixQueue;
-  hrn::Stack< std::string > stack;
+  std::queue< std::string > postfixQueue;
+  std::stack< std::string > stack;
 
-  while (!infixQueue.isEmpty())
+  while (!infixQueue.empty())
   {
-    std::string token = infixQueue.get();
+    std::string token = infixQueue.front();
     infixQueue.pop();
     if (std::isdigit(token[0]))
     {
@@ -75,12 +75,12 @@ hrushchev::Queue< std::string > hrushchev::convertInfixToPostfix(Queue< std::str
     {
       if (token == ")")
       {
-        while (!stack.isEmpty() && (stack.get() != "("))
+        while (!stack.empty() && (stack.top() != "("))
         {
-          postfixQueue.push(stack.get());
+          postfixQueue.push(stack.top());
           stack.pop();
         }
-        if (stack.isEmpty())
+        if (stack.empty())
         {
           throw std::logic_error("Mismatched parentheses");
         }
@@ -92,9 +92,9 @@ hrushchev::Queue< std::string > hrushchev::convertInfixToPostfix(Queue< std::str
       }
       else
       {
-        while (!stack.isEmpty() && (hrn::isHigherPriority(stack.get(),token)))
+        while (!stack.empty() && (hrn::isHigherPriority(stack.top(),token)))
         {
-          postfixQueue.push(stack.get());
+          postfixQueue.push(stack.top());
           stack.pop();
         }
         stack.push(token);
@@ -114,9 +114,9 @@ hrushchev::Queue< std::string > hrushchev::convertInfixToPostfix(Queue< std::str
     }
   }
 
-  while (!stack.isEmpty())
+  while (!stack.empty())
   {
-    std::string op = stack.get();
+    std::string op = stack.top();
     stack.pop();
     if (op == "(")
     {

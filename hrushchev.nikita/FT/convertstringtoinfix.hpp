@@ -1,11 +1,11 @@
 #ifndef CONVERTSTRINGTOINFIX_HPP
 #define CONVERTSTRINGTOINFIX_HPP
 #include <string>
-#include "queue.hpp"
+#include <queue>
 
 namespace hrushchev
 {
-  Queue< std::string > convertStringToInfix(std::string str);
+  std::queue< std::string > convertStringToInfix(std::string str);
 }
 
 #endif

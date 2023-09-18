@@ -7,10 +7,10 @@ bool isOperator(char c)
   return c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')';
 }
 
-hrushchev::Queue< std::string > hrushchev::convertStringToInfix(std::string str)
+std::queue< std::string > hrushchev::convertStringToInfix(std::string str)
 {
   namespace hrn = hrushchev;
-  hrn::Queue< std::string > infix_queue;
+  std::queue< std::string > infix_queue;
   std::string cur_token;
 
   infix_queue.push("(");

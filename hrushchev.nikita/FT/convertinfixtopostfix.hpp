@@ -2,11 +2,11 @@
 #define CONVERINFIXTOPOSTFIX_HPP
 #include <string>
 #include <avltree.hpp>
-#include "queue.hpp"
+#include <queue>
 
 namespace hrushchev
 {
-  Queue< std::string > convertInfixToPostfix(Queue< std::string >& infixQueue,
+  std::queue< std::string > convertInfixToPostfix(std::queue< std::string >& infixQueue,
     AVLTree< std::string, std::string >& variables);
 }
 

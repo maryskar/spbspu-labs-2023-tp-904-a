@@ -1,18 +1,19 @@
 #include "calcucalepostfix.hpp"
 #include <string>
+#include <stdexcept>
 #include <cmath>
-#include "queue.hpp"
-#include "stack.hpp"
+#include <stack>
+#include <queue>
 #include "arithmetic.hpp"
 
-long double hrushchev::calculatePostfix(hrushchev::Queue< std::string >& postfixQueue)
+long double hrushchev::calculatePostfix(std::queue< std::string >& postfixQueue)
 {
   namespace hrn = hrushchev;
 
-  hrn::Stack< long double > stack;
-  while (!postfixQueue.isEmpty())
+  std::stack< long double > stack;
+  while (!postfixQueue.empty())
   {
-    std::string token = postfixQueue.get();
+    std::string token = postfixQueue.front();
     postfixQueue.pop();
     if (std::isdigit(token[0]))
     {
@@ -20,11 +21,11 @@ long double hrushchev::calculatePostfix(hrushchev::Queue< std::string >& postfix
     }
     else if (token == "sin" || token == "cos")
     {
-      if (stack.isEmpty())
+      if (stack.empty())
       {
         throw std::logic_error("Not enough operands for unary operator");
       }
-      long double operand = stack.get();
+      long double operand = stack.top();
       stack.pop();
       long double result;
       if (token == "sin")
@@ -39,9 +40,9 @@ long double hrushchev::calculatePostfix(hrushchev::Queue< std::string >& postfix
     }
     else
     {
-      long double operand2 = stack.get();
+      long double operand2 = stack.top();
       stack.pop();
-      long double operand1 = stack.get();
+      long double operand1 = stack.top();
       stack.pop();
       long double result;
       if (token == "+")
@@ -67,7 +68,7 @@ long double hrushchev::calculatePostfix(hrushchev::Queue< std::string >& postfix
       stack.push(result);
     }
   }
-  return stack.get();
+  return stack.top();
 }
 
 
