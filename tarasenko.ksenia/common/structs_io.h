@@ -10,27 +10,22 @@ namespace tarasenko
   {
     char exp;
   };
-
   struct LabelIO
   {
     std::string exp;
   };
-
   struct StringIO
   {
     std::string& ref;
   };
-
   struct LiteralIO
   {
     std::string exp;
   };
-
   struct ULLIO
   {
     unsigned long long& ref;
   };
-
   struct ULLBinIO
   {
     unsigned long long& ref;
