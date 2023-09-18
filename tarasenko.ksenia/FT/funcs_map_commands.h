@@ -116,14 +116,21 @@ namespace tarasenko
     return in;
   }
 
+  namespace details
+  {
+    template< typename Key, typename Value, typename Compare >
+    void deleteDict(dict_of_dict_t< Key, Value, Compare >& dict, const std::string& key)
+    {
+      dict.erase(key);
+    }
+  }
+
   template< class Key, class Value, class Compare >
   std::istream& deleteCommand(std::istream& in, dict_of_dict_t< Key, Value, Compare >& dict_of_dict)
   {
     std::forward_list< std::string > keys = details::getKeys(in);
-    std::for_each(keys.cbegin(), keys.cend(), [&](const std::string& key)
-    {
-      dict_of_dict.erase(key);
-    });
+    auto del = std::bind(details::deleteDict< Key, Value, Compare >, std::ref(dict_of_dict), _1);
+    std::for_each(keys.cbegin(), keys.cend(), del);
     return in;
   }
 
