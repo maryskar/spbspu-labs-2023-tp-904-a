@@ -4,6 +4,14 @@
 #include <numeric>
 #include <cmath>
 #include "iostructs.h"
+bool avdeeva::operator==(const Point & lhs, const Point & rhs)
+{
+  return (lhs.x == rhs.x && lhs.y == rhs.y);
+}
+bool avdeeva::operator==(const Polygon & lhs, const Polygon & rhs)
+{
+  return (lhs.points.size() == rhs.points.size() && lhs.points == rhs.points);
+}
 std::istream & avdeeva::operator>>(std::istream & in, Point & rhs)
 {
   std::istream::sentry sentry(in);
