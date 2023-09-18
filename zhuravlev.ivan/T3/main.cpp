@@ -9,6 +9,7 @@
 
 int main(int argc, char* argv[])
 {
+  constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   if (argc != 2)
   {
     std::cerr << "Wrong input\n";
@@ -25,7 +26,7 @@ int main(int argc, char* argv[])
   {
     if (input.fail())
     {
-      std::cin.clear();
+      input.clear();
       zhuravlev::skipUntilNewLines(std::cin);
     }
     using in_pol_iter = std::istream_iterator< zhuravlev::Polygon >;
@@ -40,6 +41,7 @@ int main(int argc, char* argv[])
     }
     catch(const std::logic_error& e)
     {
+      std::cin.clear();
       zhuravlev::printError(std::cout);
     }
     catch(const std::runtime_error& e)
