@@ -37,4 +37,5 @@ namespace zasulsky
   std::istream& operator>>(std::istream& in, DblI&& dest);
   std::ostream& operator<<(std::ostream& out, const DblO&& dest);
 }
+
 #endif

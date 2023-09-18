@@ -60,7 +60,8 @@ std::istream& zasulsky::operator>>(std::istream& in, DblI&& dest)
   int mantisa = 0;
   int number = 0;
   int power = 0;
-  in >> mantisa >> DelimiterIO{ '.' } >> number >> DelimiterIO{ 'e' } >> power;
+  in >> mantisa >> DelimiterIO{ '.' };
+  in >> number >> DelimiterIO{ 'e' } >> power;
   dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
   return in;
 }
@@ -84,6 +85,7 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DblO&& dest)
     number /= 10;
     power++;
   }
-  return out << std::fixed << std::setprecision(1) << number << 'e' << std::showpos << power;
+  out << std::fixed << std::setprecision(1);
+  out << number << 'e' << std::showpos << power;
+  return out;
 }
-

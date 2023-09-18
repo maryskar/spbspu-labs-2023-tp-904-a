@@ -16,4 +16,5 @@ namespace zasulsky
   std::ostream& operator<<(std::ostream& out, const DataStruct& dest);
   bool compare(DataStruct& lhs, DataStruct& rhs);
 }
+
 #endif

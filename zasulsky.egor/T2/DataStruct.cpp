@@ -64,7 +64,7 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DataStruct& data)
   out << ":)";
   return out;
 }
-bool zasulsky::compare(zasulsky::DataStruct& lhs,zasulsky::DataStruct& rhs)
+bool zasulsky::compare(zasulsky::DataStruct& lhs, zasulsky::DataStruct& rhs)
 {
   if (rhs.key1 > lhs.key1)
   {
