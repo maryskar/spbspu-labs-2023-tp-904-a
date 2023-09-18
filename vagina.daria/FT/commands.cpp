@@ -169,7 +169,7 @@ void printDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostre
     throw std::logic_error("Dictionary is Empty");
   }
   std::vector< std::pair <std::string, size_t> > sorted_word_count(diction.dict_.begin(), diction.dict_.end());
-  std::sort(sorted_word_count.begin(), sorted_word_count.end(), 
+  std::sort(sorted_word_count.begin(), sorted_word_count.end(),
     [](const auto& p1, const auto& p2) { return p1.second > p2.second; });
   print(sorted_word_count, out);
 }
