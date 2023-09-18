@@ -1,4 +1,5 @@
 #include "TypesIO.h"
+#include <iomanip>
 
 namespace shestakov
 {
@@ -63,6 +64,6 @@ namespace shestakov
   }
   std::ostream& operator<<(std::ostream& out, const CmpLspO& dest)
   {
-    return out << "#c(" << dest.ref.real() << ' ' << dest.ref.imag() << ')';
+    return out << std::fixed << std::setprecision(1) << "#c(" << dest.ref.real() << ' ' << dest.ref.imag() << ')';
   }
 }
