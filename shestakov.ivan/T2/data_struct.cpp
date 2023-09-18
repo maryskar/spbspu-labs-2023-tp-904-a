@@ -1,5 +1,5 @@
 #include <iomanip>
-#include <cmath>
+#include "get_abs_complex.h"
 #include "TypesIO.h"
 #include "iofmtguard.h"
 
@@ -15,8 +15,8 @@ namespace shestakov
     {
       double left = 0.0;
       double right = 0.0;
-      left = pow(pow(lhs.key2.real(), 2) + pow(lhs.key2.imag(), 2), 0.5);
-      right = pow(pow(rhs.key2.real(), 2) + pow(rhs.key2.imag(), 2), 0.5);
+      left = getAbsComplex(lhs.key2);
+      right = getAbsComplex(rhs.key2);
       return left < right;
     }
     else

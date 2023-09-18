@@ -3,6 +3,6 @@
 namespace shestakov{
   double getAbsComplex(std::complex< double > complex_number)
   {
-    return std::sqrt(pow(complex_number.real(), 2) + pow(complex_number.imag(), 2));
+    return std::sqrt(pow(complex_number.real(), 2.0) + pow(complex_number.imag(), 2.0));
   }
 }
