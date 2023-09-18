@@ -28,7 +28,9 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
   bool key1 = true;
   bool key2 = true;
   bool key3 = true;
-  dataStruct res{0.0,0,""};
+  double k1 = 0.0;
+  long long k2 = 0;
+  std::string k3 = "";
   in >> DelimiterIO{ '(' };
 
   for (size_t i = 0; i < 3; i++)
@@ -42,7 +44,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     {
       if (key1)
       {
-        in >> DblIO{ res.key1 };
+        in >> DblIO{ k1 };
         key1 = false;
       }
       break;
@@ -51,7 +53,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     {
       if (key2)
       {
-        in >> SllIO{ res.key2 };
+        in >> SllIO{ k2 };
         key2 = false;
       }
       break;
@@ -60,7 +62,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     {
       if (key3)
       {
-        in >> StringIO{ res.key3 };
+        in >> StringIO{ k3 };
         key3 = false;
       }
       break;
@@ -73,7 +75,7 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
     }
   }
   in >> LabelIO{ ":)" };
-  ref = res;
+  ref  = dataStruct{ k1, k2, k3 };
   return in;
 }
 
@@ -87,7 +89,7 @@ bool compare(dataStruct& lhs, dataStruct& rhs)
   {
     if (lhs.key2 == rhs.key2)
     {
-      return rhs.key3 > lhs.key3;
+      return rhs.key3.size() > lhs.key3.size();
     }
     return rhs.key2 > lhs.key2;
   }
