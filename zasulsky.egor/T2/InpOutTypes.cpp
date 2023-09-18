@@ -89,4 +89,3 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DblO&& obj)
   out << num << 'e' << std::showpos << pow;
   return out;
 }
-
