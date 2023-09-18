@@ -134,6 +134,16 @@ namespace tarasenko
     return in;
   }
 
+  namespace details
+  {
+    template< typename Key, typename Value, typename Compare >
+    void writeDataInString(std::ostream& out, const std::string& key,
+       const dict_of_dict_t< Key, Value, Compare >& dict)
+    {
+      printDict(out, key, dict.at(key)) << "\n";
+    }
+  }
+
   template< class Key, class Value, class Compare >
   std::ostream& writeCommand(std::ostream& output, std::istream& in,
      const dict_of_dict_t< Key, Value, Compare >& dict_of_dict)
@@ -147,10 +157,9 @@ namespace tarasenko
       throw std::invalid_argument("File not found");
     }
     std::forward_list< std::string > keys = details::getKeys(in);
-    std::for_each(keys.cbegin(), keys.cend(), [&](const std::string& key)
-    {
-      printDict(out, key, dict_of_dict.at(key)) << "\n";
-    });
+    auto write = std::bind(details::writeDataInString< Key, Value, Compare >,
+       std::ref(out), _1, std::cref(dict_of_dict));
+    std::for_each(keys.cbegin(), keys.cend(), write);
     return output;
   }
 
