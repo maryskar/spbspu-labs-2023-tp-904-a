@@ -4,21 +4,9 @@
 #include <cctype>
 #include <numeric>
 #include <string>
+#include <sstream>
 
 #include "sub-commands-list.hpp"
-
-namespace
-{
-  void put_string(const std::string & str, std::istream & in)
-  {
-    std::string temp = str;
-    std::reverse(temp.begin(), temp.end());
-    for (char it: temp)
-    {
-      in.putback(it);
-    }
-  }
-}
 
 std::ostream & turkin::area(data_t & data, std::istream & in, std::ostream & out)
 {
@@ -26,8 +14,9 @@ std::ostream & turkin::area(data_t & data, std::istream & in, std::ostream & out
   in >> type;
   if (std::isdigit(type[0]))
   {
-    put_string(type, in);
+    std::istringstream iss(type);
     type = "VERTEXES";
+    return out << sub_area_list[type](data, iss);
   }
   return out << sub_area_list[type](data, in);
 }
@@ -60,8 +49,9 @@ std::ostream & turkin::count(data_t & data, std::istream & in, std::ostream & ou
   in >> type;
   if (std::isdigit(type[0]))
   {
-    put_string(type, in);
+    std::istringstream iss(type);
     type = "VERTEXES";
+    return out << sub_count_list[type](data, iss);
   }
   return out << sub_count_list[type](data, in);
 }
