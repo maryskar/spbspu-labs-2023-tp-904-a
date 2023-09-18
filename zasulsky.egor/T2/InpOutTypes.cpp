@@ -41,7 +41,7 @@ std::istream& zasulsky::operator>>(std::istream& in, StringIO&& dest)
   }
   return std::getline(in >> DelimiterIO{ '"' }, dest.exp, '"');
 }
-std::istream& zasulsky::operator>>(std::istream& in, LongLongIO&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, SllIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -50,7 +50,7 @@ std::istream& zasulsky::operator>>(std::istream& in, LongLongIO&& dest)
   }
   return in >> dest.num >> zasulsky::LabelIO{ "ll" };
 }
-std::istream& zasulsky::operator>>(std::istream& in, DoubleI&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, DblI&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -64,7 +64,7 @@ std::istream& zasulsky::operator>>(std::istream& in, DoubleI&& dest)
   dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
   return in;
 }
-std::ostream& zasulsky::operator<<(std::ostream& out, const DoubleO&& dest)
+std::ostream& zasulsky::operator<<(std::ostream& out, const DblO&& dest)
 {
   std::ostream::sentry sentry(out);
   iofmtguard guard(out);

@@ -24,12 +24,12 @@ std::istream& zasulsky::operator>>(std::istream& in, DataStruct& dest)
     in >> LabelIO{ ":key" } >> num;
     if (num == 1 && !isK1)
     {
-      in >> DoubleI{ key1 };
+      in >> DblI{ key1 };
       isK1 = true;
     }
     else if (num == 2 && !isK2)
     {
-      in >> LongLongIO{ key2 };
+      in >> SllIO{ key2 };
       isK2 = true;
     }
     else if (num == 3 && !isK3)
@@ -58,7 +58,7 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DataStruct& data)
   }
   iofmtguard guard(out);
   out << "(";
-  out << ":key1 " << DoubleO{ data.key1 };
+  out << ":key1 " << DblO{ data.key1 };
   out << ":key2 " << data.key2 << "ll";
   out << ":key3 " << '"' << data.key3 << '"';
   out << ":)";
