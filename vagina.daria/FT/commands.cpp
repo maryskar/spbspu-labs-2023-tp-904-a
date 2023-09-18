@@ -22,6 +22,10 @@ void createSet(dictionaryOfNames& diction, std::istream& in)
   std::string word;
   std::string name = "";
   in >> name;
+  if (!in)
+  {
+    throw std::runtime_error("EOF");
+  }
   dictionary dict;
   while (file)
   {
@@ -55,7 +59,8 @@ void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::o
   {
     throw std::invalid_argument("Invalid parameter");
   }
-  std::sort(sorted_word_count.begin(), sorted_word_count.end(), [](const auto& p1, const auto& p2) { return p1.second > p2.second; });
+  std::sort(sorted_word_count.begin(), sorted_word_count.end(),
+    [](const auto& p1, const auto& p2) { return p1.second > p2.second; });
   std::vector< std::pair <std::string, size_t> > first_three_keys;
   std::copy_n(sorted_word_count.begin(), 3, std::back_inserter(first_three_keys));
   print(first_three_keys, out);
@@ -144,7 +149,7 @@ void printWordToSpecificLetter(const dictionaryOfNames& dict, std::istream& in, 
   }
   for (auto it = diction.dict_.begin(); it != diction.dict_.end(); ++it)
   {
-    if (it->first[0] == letter) 
+    if (it->first[0] == letter)
     {
       out << it->first << " : " << it->second << "\n";
     }
@@ -172,7 +177,7 @@ std::map<char, size_t> countOfLetters(const dictionary& dict)
   std::map<char, size_t> letterFreq;
   for (auto& word : dict.dict_)
   {
-    for (char letter : word.first) 
+    for (char letter : word.first)
     {
       if (letterFreq.find(letter) != letterFreq.end())
       {
