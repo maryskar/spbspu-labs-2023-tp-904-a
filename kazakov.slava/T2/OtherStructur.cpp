@@ -102,4 +102,3 @@ bool operator==(const ExpectedLongLong& dest, const ExpectedLongLong& otherdest)
 {
   return dest.ll == otherdest.ll;
 }
-

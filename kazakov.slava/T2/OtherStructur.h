@@ -32,4 +32,3 @@ bool operator<(const ExpectedString& dest, const ExpectedString& otherdest);
 bool operator==(const ExpectedChar& dest, const ExpectedChar& otherdest);
 bool operator==(const ExpectedLongLong& dest, const ExpectedLongLong& otherdest);
 #endif
-

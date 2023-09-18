@@ -62,4 +62,3 @@ bool kazakov::comparator(const kazakov::DataStructur& p1, const kazakov::DataStr
   }
   return p1.key1 < p2.key1;
 }
-

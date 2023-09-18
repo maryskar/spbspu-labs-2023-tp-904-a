@@ -29,4 +29,3 @@ int main()
   std::copy(v.begin(), v.end(), std::ostream_iterator< kazakov::DataStructur >(std::cout, "\n"));
   return 0;
 }
-
