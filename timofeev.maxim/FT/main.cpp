@@ -28,8 +28,7 @@ int main()
     }
     catch (const std::logic_error &e)
     {
-      timofeev::printInvalid(std::cout);
-      return 1;
+      std::cout << "<INVALID COMMAND>" << "\n";
     }
     catch (const std::out_of_range &e)
     {

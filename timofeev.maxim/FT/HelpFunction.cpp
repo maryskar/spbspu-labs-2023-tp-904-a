@@ -44,10 +44,6 @@ namespace timofeev
   {
     out << "<EMPTY>" << "\n";
   }
-  std::ostream &printInvalid(std::ostream& out)
-  {
-    out << "<INVALID COMMAND>" << "\n";
-  }
 
   void delTrans(std::istream& in, std::ostream& out, dict_t& dict)
   {
