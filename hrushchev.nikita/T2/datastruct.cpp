@@ -5,7 +5,6 @@
 #include <scopeguard.hpp>
 #include <iotypes.hpp>
 
-
 bool hrushchev::Comparator::operator()(const DataStruct& lhs, const DataStruct& rhs) const
 {
   if (lhs.key1 != rhs.key1)
