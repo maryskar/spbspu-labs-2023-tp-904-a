@@ -72,23 +72,23 @@ namespace zhuravlev
       doConstCommand(pls, out, command);
       return;
     }
-    catch (const std::out_of_range& e)
+    catch (...)
     {}
     try
     {
       size_t num = std::stoull(command.substr(command.find_first_of(' ')));
       std::string cmd = (command.substr(0, command.find(' ')) + " N");
-      doCommandWithInput(pls, out, num, cmd);
-    }
-    catch (const std::out_of_range& e)
-    {}
-    try
-    {
-      size_t num = std::stoull(command.substr(command.find_first_of(' ')));
-      std::string cmd = (command.substr(0, command.find(' ')) + " N");
+      if (num < 3)
+      {
+        throw std::logic_error("Not enouth vertexeses for that commands");
+      }
       doCommandWithInputPolygon(pls, in, out, cmd, num);
+      return;
     }
     catch(...)
     {}
+    size_t num = std::stoull(command.substr(command.find_first_of(' ')));
+    std::string cmd = (command.substr(0, command.find(' ')) + " N");
+    doCommandWithInput(pls, out, num, cmd);
   }
 }

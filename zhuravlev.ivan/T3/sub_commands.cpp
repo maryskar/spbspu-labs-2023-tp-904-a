@@ -166,7 +166,7 @@ namespace zhuravlev
   {
     if (polygons.empty())
     {
-      throw std::logic_error("You need to add at least one polygon\n");
+      throw std::invalid_argument("You need to add at least one polygon\n");
     }
     std::vector< double > all_areas(polygons.size());
     std::transform(polygons.begin(), polygons.end(), all_areas.begin(), getArea);
@@ -178,7 +178,7 @@ namespace zhuravlev
   {
     if (polygons.empty())
     {
-      throw std::logic_error("You need to add at least one polygon\n");
+      throw std::invalid_argument("You need to add at least one polygon\n");
     }
     std::vector< size_t > vertexes(polygons.size());
     std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), getNumberOfVertexes);
