@@ -37,20 +37,20 @@ namespace kumachev {
     return area;
   }
 
-  bool Point::operator==(const Point &other) const
+  bool operator==(const Point &lhs, const Point &rhs)
   {
-    return x == other.x && y == other.y;
+    return lhs.x == rhs.x && lhs.y == rhs.y;
   }
 
-  bool Polygon::operator==(const Polygon &other) const
+  bool operator==(const Polygon &lhs, const Polygon &rhs)
   {
-    if (points.size() != other.points.size()) {
+    if (lhs.points.size() != rhs.points.size()) {
       return false;
     }
 
-    auto leftBegin = points.begin();
-    auto leftEnd = points.end();
-    auto rightBegin = other.points.begin();
+    auto leftBegin = lhs.points.begin();
+    auto leftEnd = lhs.points.end();
+    auto rightBegin = rhs.points.begin();
 
     return std::equal(leftBegin, leftEnd, rightBegin);
   }
