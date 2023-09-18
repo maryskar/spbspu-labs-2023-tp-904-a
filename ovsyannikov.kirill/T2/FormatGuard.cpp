@@ -1,12 +1,14 @@
-#include "iofmtguard.h"
+#include "FormatGuard.h"
 
-tarasenko::iofmtguard::iofmtguard(std::basic_ios< char >& s):
+ovsyannikov::iofmtguard::iofmtguard(std::basic_ios< char >& s):
   s_(s),
   fill_(s.fill()),
   precision_(s.precision()),
   fmt_(s.flags())
-{}
-tarasenko::iofmtguard::~iofmtguard()
+{
+}
+
+ovsyannikov::iofmtguard::~iofmtguard()
 {
   s_.fill(fill_);
   s_.precision(precision_);
