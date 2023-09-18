@@ -82,4 +82,16 @@ std::ostream &kotova::operator<<(std::ostream &out, const Polygon &rhs)
   out << rhs.points.back();
   return out;
 }
-
+double kotova::getArea(const Polygon &polygon)
+{
+  double area = 0.0;
+  auto getPoint = [&](Point a, Point b)
+  {
+    return a.x * b.y - a.y * b.x;
+  };
+  std::vector< int > arr(polygon.points.size());
+  std::transform(polygon.points.begin(), --polygon.points.end(), ++polygon.points.begin(), std::back_inserter(arr), getPoint);
+  area = std::accumulate(arr.begin(), arr.end(), 0.0);
+  area += (--polygon.points.end())->x * polygon.points.begin()->y - polygon.points.begin()->x * (--polygon.points.end())->y;
+  return std::abs(area * 0.5);
+}

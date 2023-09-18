@@ -21,5 +21,6 @@ namespace kotova
   std::istream &operator>>(std::istream &in, Point &point);
   std::ostream &operator<<(std::ostream &out, const Polygon &rhs);
   std::ostream &operator<<(std::ostream &out, const Point &rhs);
+  double getArea(const Polygon &polygon);
 }
 #endif
