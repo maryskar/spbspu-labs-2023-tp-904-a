@@ -8,20 +8,17 @@
 
 int main()
 {
-  using itOut = std::ostream_iterator<dataStruct>;
-  using itInp = std::istream_iterator<dataStruct>;
   std::vector<dataStruct> vector;
-  dataStruct data;
+  dataStruct data; 
   while(!std::cin.eof())
   {
-    std::copy(itInp(std::cin), itInp(), std::back_inserter(vector));
-    if (std::cin.fail() && !std::cin.eof())
+    if (std::cin.fail())
     {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
+    std::copy(std::istream_iterator<dataStruct>(std::cin), std::istream_iterator<dataStruct>(), std::back_inserter(vector));
   }
   std::sort(vector.begin(), vector.end(), compare);
-  std::copy(std::begin(vector),std::end(vector), itOut(std::cout, "\n"));
-  std::cout << "why";
+  std::copy(std::begin(vector), std::end(vector), std::ostream_iterator<dataStruct>(std::cout, "\n"));
 }
