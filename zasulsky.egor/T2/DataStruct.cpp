@@ -27,7 +27,7 @@ std::istream& zasulsky::operator>>(std::istream& in, DataStruct& dest)
       in >> DoubleI{ key1 };
       isK1 = true;
     }
-    else if (num == 2 && !inKey2)
+    else if (num == 2 && !isK2)
     {
       in >> LongLongIO{ key2 };
       isK2 = true;
