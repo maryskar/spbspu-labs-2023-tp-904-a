@@ -9,7 +9,7 @@
 int main()
 {
   std::vector<dataStruct> vector;
-  dataStruct data; 
+  dataStruct data;
   while(!std::cin.eof())
   {
     if (std::cin.fail())
