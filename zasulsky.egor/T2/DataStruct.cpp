@@ -45,6 +45,10 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
       if (key1)
       {
         in >> DblIO{ k1 };
+        if (!in)
+        {
+          return in;
+        }
         key1 = false;
       }
       break;
@@ -54,6 +58,10 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
       if (key2)
       {
         in >> SllIO{ k2 };
+        if (!in)
+        {
+          return in;
+        }
         key2 = false;
       }
       break;
@@ -63,6 +71,10 @@ std::istream& operator>>(std::istream& in, dataStruct& ref)
       if (key3)
       {
         in >> StringIO{ k3 };
+        if (!in)
+        {
+          return in;
+        }
         key3 = false;
       }
       break;
