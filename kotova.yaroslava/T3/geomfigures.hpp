@@ -5,10 +5,6 @@
 #include <iostream>
 namespace kotova
 {
-  struct DelimiterIO
-  {
-    char exp;
-  };
   struct Point
   {
     int x, y;
