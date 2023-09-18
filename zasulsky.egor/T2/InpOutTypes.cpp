@@ -80,7 +80,7 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DblO&& dest)
     numb *= 10;
     pow--;
   }
-  while (std::abs(number) >= 10)
+  while (std::abs(numb) >= 10)
   {
     numb /= 10;
     pow++;
