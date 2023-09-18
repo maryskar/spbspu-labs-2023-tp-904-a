@@ -13,7 +13,7 @@ std::istream& zasulsky::operator>>(std::istream& in, DelimiterIO&& obj)
   }
   char exp = '0';
   in >> exp;
-  if (in && exp != obj.exp)
+  if (in && exp != std::tolower(obj.exp))
   {
     in.setstate(std::ios::failbit);
   }
