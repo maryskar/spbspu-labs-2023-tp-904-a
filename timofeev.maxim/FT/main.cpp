@@ -4,6 +4,7 @@
 #include <string>
 #include "Commands.h"
 #include "HelpFunction.h"
+
 int main()
 {
   std::setlocale(LC_ALL, "Russian");

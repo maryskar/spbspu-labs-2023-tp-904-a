@@ -5,7 +5,6 @@ namespace timofeev
 {
   void command(input& command)
   {
-    command["DictList"] = printDictList;
     command["Create"] = Createdict;
     command["Help"] = printHelp;
     command["AddWord"] = AddWord;
