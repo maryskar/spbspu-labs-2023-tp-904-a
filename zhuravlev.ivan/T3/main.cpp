@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
   {
     try
     {
-      zhuravlev::doCommand(polygons, std::cout, zhuravlev::readCommand(std::cin));
+      zhuravlev::doCommand(polygons, std::cin, std::cout, zhuravlev::readCommand(std::cin));
     }
     catch(const std::logic_error& e)
     {

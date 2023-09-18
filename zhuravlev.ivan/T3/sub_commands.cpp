@@ -7,6 +7,70 @@
 
 namespace zhuravlev
 {
+  int getXCoordinate(const Point& point)
+  {
+    return point.x;
+  }
+  int getYCoordinate(const Point& point)
+  {
+    return point.y;
+  }
+  int findMaxXInSinglePolygon(const Polygon& pl)
+  {
+    std::vector< int > x_values(pl.points.size());
+    std::transform(pl.points.begin(), pl.points.end(), x_values.begin(), getXCoordinate);
+    std::sort(x_values.begin(), x_values.end());
+    return x_values.back();
+  }
+  int findMaxXInMultiplePolygons(const std::vector< Polygon >& pls)
+  {
+    std::vector< int > x_values(pls.size());
+    std::transform(pls.begin(), pls.end(), x_values.begin(), findMaxXInSinglePolygon);
+    std::sort(x_values.begin(), x_values.end());
+    return x_values.back();
+  }
+  int findMinXInSinglePolygon(const Polygon& pl)
+  {
+    std::vector< int > x_values(pl.points.size());
+    std::transform(pl.points.begin(), pl.points.end(), x_values.begin(), getXCoordinate);
+    std::sort(x_values.begin(), x_values.end());
+    return x_values.front();
+  }
+  int findMinXInMultiplePolygons(const std::vector< Polygon >& pls)
+  {
+    std::vector< int > x_values(pls.size());
+    std::transform(pls.begin(), pls.end(), x_values.begin(), findMinXInSinglePolygon);
+    std::sort(x_values.begin(), x_values.end());
+    return x_values.front();
+  }
+  int findMaxYInSinglePolygon(const Polygon& pl)
+  {
+    std::vector< int > y_values(pl.points.size());
+    std::transform(pl.points.begin(), pl.points.end(), y_values.begin(), getYCoordinate);
+    std::sort(y_values.begin(), y_values.end());
+    return y_values.back();
+  }
+  int findMaxYInMultiplePolygons(const std::vector< Polygon >& pls)
+  {
+    std::vector< int > y_values(pls.size());
+    std::transform(pls.begin(), pls.end(), y_values.begin(), findMaxYInSinglePolygon);
+    std::sort(y_values.begin(), y_values.end());
+    return y_values.back();
+  }
+  int findMinYInSinglePolygon(const Polygon& pl)
+  {
+    std::vector< int > y_values(pl.points.size());
+    std::transform(pl.points.begin(), pl.points.end(), y_values.begin(), getYCoordinate);
+    std::sort(y_values.begin(), y_values.end());
+    return y_values.front();
+  }
+  int findMinYInMultiplePolygons(const std::vector< Polygon >& pls)
+  {
+    std::vector< int > y_values(pls.size());
+    std::transform(pls.begin(), pls.end(), y_values.begin(), findMinYInSinglePolygon);
+    std::sort(y_values.begin(), y_values.end());
+    return y_values.front();
+  }
   size_t getNumberOfVertexes(const Polygon& polygon)
   {
     return polygon.points.size();
@@ -152,6 +216,32 @@ namespace zhuravlev
     auto countNumOfRightPolygons = std::bind(isCountOfVertexes, _1, condition);
     iofmtguard iofmtguard(out);
     out << std::count_if(polygons.begin(), polygons.end(), countNumOfRightPolygons) << '\n';
+  }
+  //void rmEcho(const std::vector< zhuravlev::Polygon >& polygons, const Polygon& polygon, std::ostream& out)
+  bool inReact(const Point& point, const int max_x, const int min_x, const int max_y, const int min_y)
+  {
+    return (point.x <= max_x && point.x >= min_x) && (point.y <= max_y && point.y >= min_y);
+  }
+  void inFrame(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out)
+  {
+    using namespace std::placeholders;
+    int max_x = findMaxXInMultiplePolygons(polygons);
+    int max_y = findMaxYInMultiplePolygons(polygons);
+    int min_x = findMinXInMultiplePolygons(polygons);
+    int min_y = findMinYInMultiplePolygons(polygons);
+    Polygon input;
+    in >> input;
+    std::vector< bool > input_points(input.points.size());
+    std::transform(input.points.begin(), input.points.end(), input_points.begin(), std::bind(inReact, _1, max_x, min_x, max_y, min_y));
+    size_t sum = std::accumulate(input_points.begin(), input_points.end(), 0);
+    if (sum == input_points.size())
+    {
+      out << "<TRUE>\n";
+    }
+    else
+    {
+      out << "<FALSE>\n";
+    }
   }
   void printError(std::ostream& out)
   {
