@@ -13,7 +13,7 @@ std::istream& zasulsky::operator>>(std::istream& in, DelimiterIO&& obj)
   }
   char exp = '0';
   in >> exp;
-  if (in && exp != std::tolower(obj.exp))
+  if (in && exp != obj.exp)
   {
     in.setstate(std::ios::failbit);
   }
@@ -62,7 +62,7 @@ std::istream& zasulsky::operator>>(std::istream& in, DblI&& obj)
   int pow = 0;
   in >> mantisa >> DelimiterIO{ '.' };
   in >> num >> DelimiterIO{ 'e' } >> pow;
-  DblI.num = (mantisa * 1.0 + num * 0.01) * std::pow(10, pow);
+  obj.num = (mantisa * 1.0 + num * 0.01) * std::pow(10, pow);
   return in;
 }
 std::ostream& zasulsky::operator<<(std::ostream& out, const DblO&& obj)
@@ -73,7 +73,7 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DblO&& obj)
   {
     return out;
   }
-  double num = DblO.num;
+  double num = obj.num;
   int pow = 0;
   while (std::abs(num) < 1)
   {

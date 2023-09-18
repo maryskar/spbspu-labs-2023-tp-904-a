@@ -22,10 +22,10 @@ std::istream& zasulsky::operator>>(std::istream& in, DataStruct& obj)
   while (!(isK1 && isK2 && isK3) && in.good())
   {
     in >> LabelIO{ ":key" } >> num;
-    if (num == 1 && !inK1)
+    if (num == 1 && !isK1)
     {
-      in >> obj{ key1 };
-      inKey1 = true;
+      in >> DblI{ key1 };
+      isK1 = true;
     }
     else if (num == 2 && !isK2)
     {
@@ -58,7 +58,7 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DataStruct& data)
   }
   iofmtguard guard(out);
   out << "(";
-  out << ":key1 " << obj{ data.key1 };
+  out << ":key1 " << data.key1;
   out << ":key2 " << data.key2 << "ll";
   out << ":key3 " << '"' << data.key3 << '"';
   out << ":)";
