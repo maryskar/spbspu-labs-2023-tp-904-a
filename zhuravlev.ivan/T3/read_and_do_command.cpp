@@ -45,7 +45,7 @@ namespace zhuravlev
       }
       else
       {
-        throw std::invalid_argument("empty line");
+        continue;
       }
     }
     return command;
