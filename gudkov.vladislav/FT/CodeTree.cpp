@@ -181,7 +181,7 @@ void gudkov::CodeTree::insert(char symbol, const std::string &code)
   temp->data_ = symbol;
 }
 
-void gudkov::CodeTree::print_recursive(std::ostream &out, std::vector<bool> &code, std::shared_ptr< Node > root, size_t level)
+void gudkov::CodeTree::print_recursive(std::ostream &out, std::vector< bool > &code, std::shared_ptr< Node > root, size_t level)
 {
   if (root == nullptr)
   {
@@ -217,7 +217,7 @@ void gudkov::CodeTree::print_recursive(std::ostream &out, std::vector<bool> &cod
 
 std::ostream &gudkov::operator<<(std::ostream &out, const CodeTree &departure)
 {
-  std::vector<bool> code;
+  std::vector< bool > code;
 
   CodeTree::print_recursive(out, code, departure.root_, 0);
 

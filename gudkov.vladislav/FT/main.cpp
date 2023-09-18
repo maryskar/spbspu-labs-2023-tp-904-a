@@ -499,7 +499,7 @@ int main()
       std::cout << "Initial amount of memory occupied by text: " << countBytes1 << " bytes." << std::endl;
       std::cout << "The amount of memory occupied after encoding: " << countBytes2 << " bytes." << std::endl;
       std::cout << "The amount of memory occupied by the text has decreased by " <<
-        static_cast<double>(countBytes1) / countBytes2 << " times." << std::endl;
+        static_cast< double >(countBytes1) / countBytes2 << " times." << std::endl;
 
       std::cout << std::endl;
     }

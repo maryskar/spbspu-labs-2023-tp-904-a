@@ -49,7 +49,7 @@ namespace gudkov
 
     char decodeNextSymbol(const BinaryCode &code, size_t &index) const;
 
-    static void print_recursive(std::ostream &out, std::vector<bool> &code, std::shared_ptr< Node > root_, size_t level);
+    static void print_recursive(std::ostream &out, std::vector< bool > &code, std::shared_ptr< Node > root_, size_t level);
 
     friend std::ostream &operator<<(std::ostream &out, const CodeTree &departure);
   };
