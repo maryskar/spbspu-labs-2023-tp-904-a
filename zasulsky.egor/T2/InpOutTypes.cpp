@@ -75,9 +75,9 @@ std::ostream& zasulsky::operator<<(std::ostream& out, const DblO&& dest)
   }
   double numb = dest.num;
   int pow = 0;
-  while (std::abs(number) < 1)
+  while (std::abs(numb) < 1)
   {
-    number *= 10;
+    numb *= 10;
     pow--;
   }
   while (std::abs(number) >= 10)
