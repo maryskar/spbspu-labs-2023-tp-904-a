@@ -2,7 +2,7 @@
 #define IOFMTGUARD_HPP
 
 #include <iomanip>
-  
+
 class iofmtguard {
   public:
     iofmtguard(std::basic_ios< char >& s);

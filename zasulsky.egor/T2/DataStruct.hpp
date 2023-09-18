@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-namespace zasulsky 
+namespace zasulsky
 {
 
   struct DataStruct
