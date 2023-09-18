@@ -78,18 +78,19 @@ namespace zhuravlev
     {
       size_t num = std::stoull(command.substr(command.find_first_of(' ')));
       std::string cmd = (command.substr(0, command.find(' ')) + " N");
-      if (num < 3)
-      {
-        throw std::logic_error("Not enouth vertexeses for that commands");
-      }
+      doCommandWithInput(pls, out, num, cmd);
+      return;
+    }
+    catch (const std::out_of_range& e)
+    {}
+    try
+    {
+      size_t num = std::stoull(command.substr(command.find_first_of(' ')));
+      std::string cmd = (command.substr(0, command.find(' ')) + " N");
       doCommandWithInputPolygon(pls, in, out, cmd, num);
       return;
     }
     catch (const std::out_of_range& e)
     {}
-      size_t num = std::stoull(command.substr(command.find_first_of(' ')));
-      std::string cmd = (command.substr(0, command.find(' ')) + " N");
-      doCommandWithInput(pls, out, num, cmd);
-      return;
   }
 }

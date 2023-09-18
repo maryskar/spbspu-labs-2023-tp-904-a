@@ -9,7 +9,6 @@
 
 int main(int argc, char* argv[])
 {
-  //constexpr auto max_size = std::numeric_limits< std::streamsize >::max();
   if (argc != 2)
   {
     std::cerr << "Wrong input\n";
@@ -27,6 +26,7 @@ int main(int argc, char* argv[])
     if (input.fail())
     {
       input.clear();
+      zhuravlev::skipUntilNewLines(input);
     }
     using in_pol_iter = std::istream_iterator< zhuravlev::Polygon >;
     std::copy(in_pol_iter(input), in_pol_iter(), std::back_inserter(polygons));
@@ -41,15 +41,12 @@ int main(int argc, char* argv[])
     catch(const std::logic_error& e)
     {
       zhuravlev::printError(std::cout);
+      std::cin.clear();
+      zhuravlev::skipUntilNewLines(std::cin);
     }
     catch(const std::runtime_error& e)
     {
       break;
-    }
-    if (!std::cin)
-    {
-      std::cin.clear();
-      zhuravlev::skipUntilNewLines(std::cin);
     }
   }
   return 0;
