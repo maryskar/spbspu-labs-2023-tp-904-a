@@ -23,5 +23,4 @@ class DictionaryOfCommands
     std::map< std::string, commandNotConst > notConstCommand;
 };
 
-
 #endif

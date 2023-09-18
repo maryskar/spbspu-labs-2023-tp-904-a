@@ -23,7 +23,7 @@ void createSet(dictionaryOfNames& diction, std::istream& in)
   std::string name = "";
   in >> name;
   dictionary dict;
-  while (file) 
+  while (file)
   {
     file >> word;
     try
@@ -62,7 +62,7 @@ void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::o
 }
 void print(const std::vector< std::pair <std::string, size_t> >& dict, std::ostream& out)
 {
-  for (const auto& pair : dict) 
+  for (const auto& pair : dict)
   {
     out << pair.first << ": " << pair.second << '\n';
   }
@@ -93,7 +93,7 @@ void findWord(const dictionaryOfNames& dict, std::istream& in, std::ostream& out
       out << "This word is missing" << "\n";
     }
   }
-  catch (const std::out_of_range& )
+  catch (const std::out_of_range& e)
   {}
 }
 void deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream& out)
@@ -125,7 +125,7 @@ void deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream& out)
       out << "Error: This word is missing" << "\n";
     }
   }
-  catch (const std::out_of_range& )
+  catch (const std::out_of_range& e)
   {}
 }
 void printWordToSpecificLetter(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
@@ -172,7 +172,8 @@ std::map<char, size_t> countOfLetters(const dictionary& dict)
   std::map<char, size_t> letterFreq;
   for (auto& word : dict.dict_)
   {
-    for (char letter : word.first) {
+    for (char letter : word.first) 
+    {
       if (letterFreq.find(letter) != letterFreq.end())
       {
         letterFreq[letter]++;
@@ -202,9 +203,9 @@ void maxCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, s
   letterFreq = countOfLetters(diction);
   char mostFrequentLetter = ' ';
   size_t maxFreq = 0;
-  for (auto& letter : letterFreq) 
+  for (auto& letter : letterFreq)
   {
-    if (letter.second > maxFreq) 
+    if (letter.second > maxFreq)
     {
       maxFreq = letter.second;
       mostFrequentLetter = letter.first;
@@ -257,11 +258,11 @@ void mergeDictionary(dictionaryOfNames& dict, std::istream& in)
   dictionary dictOfResult = diction1;
   for (const auto& pair : diction2.dict_)
   {
-    if (dictOfResult.dict_.find(pair.first) != dictOfResult.dict_.end()) 
+    if (dictOfResult.dict_.find(pair.first) != dictOfResult.dict_.end())
     {
       dictOfResult.dict_[pair.first] += pair.second;
     }
-    else 
+    else
     {
       dictOfResult.dict_[pair.first] = pair.second;
     }
@@ -358,9 +359,9 @@ void wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, std::ostre
   {
     const std::string& word = pair.first;
     int count = 0;
-    for (char c : word) 
+    for (char c : word)
     {
-      if (c == letter) 
+      if (c == letter)
       {
         count++;
         if (count >= minCount)

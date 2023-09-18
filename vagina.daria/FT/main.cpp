@@ -1,5 +1,4 @@
 #include <iostream>
-#include "commands.hpp"
 #include "dictionaryOfCommands.hpp"
 
 int main()

@@ -20,7 +20,8 @@ void DictionaryOfCommands::doCommWithoutOutput(const std::string& command, dicti
   auto func = withoutOutput.at(command);
   func(dict, in);
 }
-void DictionaryOfCommands::doCommConstComm(const std::string& command, const dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
+void DictionaryOfCommands::doCommConstComm(const std::string& command,
+  const dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
 {
   auto func = constCommand.at(command);
   func(dict, in, out);
