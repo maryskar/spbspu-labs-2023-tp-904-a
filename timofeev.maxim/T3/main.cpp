@@ -4,7 +4,6 @@
 #include <iterator>
 #include <map>
 #include "dictionary.h"
-#include "commands.h"
 #include "helpFunctions.h"
 int main(int argc, char **argv)
 {
@@ -43,29 +42,33 @@ int main(int argc, char **argv)
     try
     {
       std::cin >> firstPart;
-      if (commands.count(firstPart) == 0)
+      if (std::cin.eof())
       {
-        timofeev::printError(std::cout);
+        break;
       }
-      else
+      if (commands.count(firstPart) != 0)
       {
         commands[firstPart](std::cin, polygon);
       }
+      else
+      {
+        throw std::logic_error("Invalid");
+      }
     }
-    catch (std::logic_error &e)
+    catch (const std::logic_error &e)
     {
       timofeev::printError(std::cout);
+      std::cin.clear();
       std::cin.ignore(maxSize, '\n');
     }
-    catch (const std::runtime_error & e)
+    catch (const std::runtime_error& e)
     {
       break;
     }
-  }
-  if (std::cin.fail())
-  {
-    std::cin.clear();
-    std::cin.ignore(maxSize, '\n');
+    catch (...)
+    {
+      break;
+    }
   }
   return 0;
 }

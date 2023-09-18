@@ -7,7 +7,7 @@ namespace timofeev
     command["AREA"] = doAreaCommands;
     command["MAX"] = doMaxCommands;
     command["MIN"] = doMinCommands;
-    command["CUNT"] = doCountCommands;
+    command["COUNT"] = doCountCommands;
     command["RECTS"] = doRectsCommand;
     command["RIGHTSHAPES"] = doRSCommand;
   }

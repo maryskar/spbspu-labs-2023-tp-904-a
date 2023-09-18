@@ -1,7 +1,6 @@
 #include "polygon.h"
 #include <iterator>
 #include <algorithm>
-#include <iomanip>
 #include "../common/IofGuard.h"
 #include "../common/DataStruct.h"
 namespace timofeev
@@ -42,4 +41,3 @@ namespace timofeev
     return dest.points.size();
   }
 }
-
