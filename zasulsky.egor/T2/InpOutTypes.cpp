@@ -1,6 +1,10 @@
 #include "InpOutTypes.hpp"
+#include <cmath>
+#include <iostream>
+#include <iomanip>
+#include "Iofmtguard.hpp"
 
-std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, DelimiterIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -15,9 +19,7 @@ std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
   }
   return in;
 }
-
-
-std::istream& operator>>(std::istream& in, LabelIO&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, LabelIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -30,8 +32,7 @@ std::istream& operator>>(std::istream& in, LabelIO&& dest)
   }
   return in;
 }
-
-std::istream& operator>>(std::istream& in, StringIO&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, StringIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -40,17 +41,16 @@ std::istream& operator>>(std::istream& in, StringIO&& dest)
   }
   return std::getline(in >> DelimiterIO{ '"' }, dest.exp, '"');
 }
-std::istream& operator>>(std::istream& in, LongLongIO&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, LongLongIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  return in >> dest.num >> LabelIO{ "ll" };
+  return in >> dest.num >> zasulsky::LabelIO{ "ll" };
 }
-
-std::istream& operator>>(std::istream& in, DoubleI&& dest)
+std::istream& zasulsky::operator>>(std::istream& in, DoubleI&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -64,7 +64,7 @@ std::istream& operator>>(std::istream& in, DoubleI&& dest)
   dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
   return in;
 }
-std::ostream& operator<<(std::ostream& out, const DoubleO&& dest)
+std::ostream& zasulsky::operator<<(std::ostream& out, const DoubleO&& dest)
 {
   std::ostream::sentry sentry(out);
   iofmtguard guard(out);
@@ -86,3 +86,4 @@ std::ostream& operator<<(std::ostream& out, const DoubleO&& dest)
   }
   return out << std::fixed << std::setprecision(1) << number << 'e' << std::showpos << power;
 }
+
