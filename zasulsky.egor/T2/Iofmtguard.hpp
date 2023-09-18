@@ -3,7 +3,7 @@
 
 #include <iomanip>
 
-class iofmtguard 
+class iofmtguard
 {
   public:
     iofmtguard(std::basic_ios< char >& s);
