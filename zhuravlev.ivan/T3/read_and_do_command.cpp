@@ -53,7 +53,7 @@ namespace zhuravlev
       doConstCommand(pls, out, command);
       return;
     }
-    catch (const std::logic_error& e)
+    catch (...)
     {}
     try
     {
