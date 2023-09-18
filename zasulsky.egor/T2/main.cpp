@@ -23,4 +23,5 @@ int main()
   }
   std::sort(vector.begin(), vector.end(), compare);
   std::copy(std::begin(vector),std::end(vector), itOut(std::cout, "\n"));
+  std::cout << "why";
 }
