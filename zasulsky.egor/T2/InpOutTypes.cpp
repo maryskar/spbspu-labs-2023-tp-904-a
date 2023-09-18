@@ -1,112 +1,92 @@
 #include "InpOutTypes.hpp"
 
-std::istream& operator>>(std::istream& in, DelimiterIO&& ref)
+std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  char c = '0';
-  in >> c;
-  if (c != ref.exp && in)
+  char exp = '0';
+  in >> exp;
+  if (in && exp != std::tolower(dest.exp))
   {
     in.setstate(std::ios::failbit);
   }
   return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const DelimiterIO& data)
+
+std::istream& operator>>(std::istream& in, LabelIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  for (size_t i = 0; i < dest.exp.length(); ++i)
+  {
+    in >> DelimiterIO{ dest.exp[i] };
+  }
+  return in;
+}
+
+std::istream& operator>>(std::istream& in, StringIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  return std::getline(in >> DelimiterIO{ '"' }, dest.exp, '"');
+}
+std::istream& operator>>(std::istream& in, LongLongIO&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  return in >> dest.num >> LabelIO{ "ull" };
+}
+
+std::istream& operator>>(std::istream& in, DoubleI&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  int mantisa = 0;
+  int number = 0;
+  int power = 0;
+  in >> mantisa >> DelimiterIO{ '.' } >> number >> DelimiterIO{ 'E' } >> power;
+  dest.num = (mantisa * 1.0 + number * 0.01) * std::pow(10, power);
+  return in;
+}
+std::ostream& operator<<(std::ostream& out, const DoubleO&& dest)
 {
   std::ostream::sentry sentry(out);
+  iofmtguard guard(out);
   if (!sentry)
   {
     return out;
   }
-  return out << data.exp;
+  double number = dest.num;
+  int power = 0;
+  while (std::abs(number) < 1)
+  {
+    number *= 10;
+    power--;
+  }
+  while (std::abs(number) >= 10)
+  {
+    number /= 10;
+    power++;
+  }
+  return out << std::fixed << std::setprecision(1) << number << 'e' << std::showpos << power;
 }
 
-std::istream& operator>>(std::istream& in, DblIO&& ref)
-{
-  std::istream::sentry sentry(in);
-  if (!sentry)
-  {
-    return in;
-  }
-  double s = 0;
-  in >> std::scientific >> s;
-  if (in.fail())
-  {
-    return in
-  }
-  ref.ref = s;
-  return in;
-}
 
-std::string convertToSci(double dbl)
-{
-  int num = 0;
-  if (std::abs(dbl) >= 10)
-  {
-    while (std::abs(dbl) >= 10)
-    {
-      dbl /= 10;
-      ++num;
-    }
-  }
-  else if (std::abs(dbl) < 1)
-  {
-    while (std::abs(dbl) < 1)
-    {
-      dbl *= 10;
-      --num;
-    }
-  }
-  dbl *= 10;
-  int val = std::round(dbl);
-  std::string str = std::to_string(val);
-  str.insert(1ull, 1ull, '.');
-  str += 'e';
-  if (num >= 0)
-  {
-    str += '+';
-  }
-  str += std::to_string(num);
-  return str;
-}
 
-std::istream& operator>>(std::istream& in, SllIO&& ref)
-{
-  std::istream::sentry sentry(in);
-  if (!sentry)
-  {
-    return in;
-  }
-  in >> ref.ref >> DelimiterIO{ 'l' } >> DelimiterIO{ 'l' };
-  return in;
-}
 
-std::istream& operator>>(std::istream& in, StringIO&& ref)
-{
-  std::istream::sentry sentry(in);
-  if (!sentry)
-  {
-    return in;
-  }
-  getline(in >> DelimiterIO{ '"' }, ref.ref, '"');
-  return in;
-}
-
-std::istream& operator>>(std::istream& in, LabelIO&& ref)
-{
-  std::istream::sentry sentry(in);
-  if (!sentry)
-  {
-    return in;
-  }
-  for (size_t i = 0; i < ref.exp.length(); i++)
-  {
-    in >> DelimiterIO{ ref.exp[i] };
-  }
-  return in;
-}
