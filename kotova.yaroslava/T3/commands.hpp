@@ -13,7 +13,7 @@ namespace kotova
   void minVertexes(const std::vector< Polygon > &dest, std::ostream &out);
   void countEven(const std::vector< Polygon > &dest, std::ostream &out);
   void countOdd(const std::vector< Polygon > &dest, std::ostream &out);
-  void countNumVertexes(const std::vector< Polygon > &dest, std::ostream &out);
+  void countNumVertexes(size_t n, const std::vector< Polygon > &dest, std::ostream &out);
   void inframe(const std::vector< Polygon > &dest, std::ostream &out);
   void same(const std::vector< Polygon > &dest, std::ostream &out);
 }

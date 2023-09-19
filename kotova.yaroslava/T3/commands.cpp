@@ -28,7 +28,7 @@ namespace kotova
     return getArea(lhs) < getArea(rhs);
   }
 
-  bool copmVer(const Polygon &rhs, const Polygon &lhs)
+  bool compVer(const Polygon &rhs, const Polygon &lhs)
   {
     return lhs.points.size() < rhs.points.size();
   }
@@ -53,7 +53,7 @@ namespace kotova
   {
     if (dest.empty())
     {
-      std::invalid_argument("error, there is no polygon");
+      std::logic_error("error, there is no polygon");
     }
     std::vector < double > area;
     std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
@@ -74,5 +74,82 @@ namespace kotova
     std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+  }
+
+  void maxArea(const std::vector< Polygon > &dest, std::ostream &out)
+  {
+    if (dest.empty())
+    {
+      std::logic_error("error, there is no polygon");
+    }
+    std::vector < double > area;
+    std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), compArea);
+    std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+  }
+
+  void maxVertexes(const std::vector< Polygon > &dest, std::ostream &out)
+  {
+    if (dest.empty())
+    {
+      std::logic_error("error, there is no polygon");
+    }
+    std::vector < double > area;
+    std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), compVer);
+    std::transform(dest.begin(), dest.end(), std::back_inserter(area), calcNumVert);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+  }
+
+  void minArea(const std::vector< Polygon > &dest, std::ostream &out)
+  {
+    if (dest.empty())
+    {
+      std::logic_error("error, there is no polygon");
+    }
+    std::vector < double > area;
+    std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), (!compArea));
+    std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+  }
+
+  void minVertexes(const std::vector< Polygon > &dest, std::ostream &out)
+  {
+    if (dest.empty())
+    {
+      std::logic_error("error, there is no polygon");
+    }
+    std::vector < double > area;
+    std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), (!compVer));
+    std::transform(dest.begin(), dest.end(), std::back_inserter(area), calcNumVert);
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+  }
+
+  void countEven(const std::vector< Polygon > &dest, std::ostream &out)
+  {
+    auto cnt = std::count_if(dest.begin(), dest.end(), isEven);
+    iofmtguard iofmtguard(out);
+    out << cnt << "\n";
+  }
+
+  void countOdd(const std::vector< Polygon > &dest, std::ostream &out)
+  {
+    auto cnt = std::count_if(dest.begin(), dest.end(), isOdd);
+    iofmtguard iofmtguard(out);
+    out << cnt << "\n";
+  }
+
+  void countNumVertexes(size_t n, const std::vector< Polygon > &dest, std::ostream &out)
+  {
+    if (n < 3)
+    {
+      throw std::logic_error("error");
+    }
+    using namespace std::placeholders;
+    iofmtguard iofmtguard(out);
+    out << std::count_if(dest.begin(), dest.end(), std::bind(calcNumVert, _1, n)) << "\n";
   }
 }
