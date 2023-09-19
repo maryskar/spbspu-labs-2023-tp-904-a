@@ -224,12 +224,6 @@ namespace zhuravlev
   }
   void inFrame(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out)
   {
-    size_t num = 0;
-    in >> num;
-    if (num < 3)
-    {
-      throw std::logic_error("Wrong condition");
-    }
     using namespace std::placeholders;
     Polygon input;
     in >> input;
