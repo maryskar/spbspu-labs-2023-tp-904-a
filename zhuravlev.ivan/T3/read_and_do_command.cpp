@@ -35,7 +35,7 @@ namespace zhuravlev
     in >> command;
     if (!in)
     {
-      throw std::runtime_error("EOF");
+      in.setstate(std::ios::fail);
     }
     if (command != "INFRAME" && command != "RMECHO")
     {
