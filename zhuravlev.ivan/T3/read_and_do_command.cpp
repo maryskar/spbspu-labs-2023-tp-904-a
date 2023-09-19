@@ -34,7 +34,7 @@ namespace zhuravlev
     std::istream::sentry sentry(in);
     if (!sentry)
     {
-      return;
+      throw std::runtime_error("EOF");
     }
     std::string command = "";
     in >> command;
