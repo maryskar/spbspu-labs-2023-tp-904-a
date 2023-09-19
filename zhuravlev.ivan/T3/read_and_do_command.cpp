@@ -6,7 +6,7 @@
 namespace zhuravlev
 {
   using const_cmd_t = std::function< void (const std::vector< zhuravlev::Polygon >, std::ostream&) >;
-  using cmd_t_with_input_polygon = std::function< void (std::vector< zhuravlev::Polygon >&, const Polygon&, std::ostream&) >;
+  using cmd_t_with_input_polygon = std::function< void (std::vector< zhuravlev::Polygon >&, std::istream& in, std::ostream&) >;
   using cmt_t_with_input = std::function< void (std::vector< zhuravlev::Polygon >&, std::ostream&, const size_t) >;
   std::map< std::string, const_cmd_t > const_cmds
   {
@@ -61,10 +61,10 @@ namespace zhuravlev
     auto toexecute = const_cmds.at(cmd);
     toexecute(pls, out);
   }
-  void doCommandWithInputPolygon(std::vector< Polygon >& pls, const Polygon& polygon, std::ostream& out, std::string cmd)
+  void doCommandWithInputPolygon(std::vector< Polygon >& pls, std::istream& in, std::ostream& out, std::string cmd)
   {
     auto toexecute = cmds_with_input_polygon.at(cmd);
-    toexecute(pls, polygon, out);
+    toexecute(pls, in, out);
   }
   void doCommand(std::vector< Polygon >pls, std::istream& in, std::ostream& out, std::string command)
   {
@@ -86,14 +86,7 @@ namespace zhuravlev
     {}
     try
     {
-      Polygon polygon;
-      in >> polygon;
-      if (!in)
-      {
-        in.clear();
-        throw std::invalid_argument("not supported");
-      }
-      doCommandWithInputPolygon(pls, polygon, out, command);
+      doCommandWithInputPolygon(pls, in, out, command);
       return;
     }
     catch (const std::out_of_range& e)
