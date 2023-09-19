@@ -90,7 +90,8 @@ namespace zhuravlev
       in >> polygon;
       if (!in)
       {
-        throw std::invalid_argument("wrong input.........");
+        in.clear();
+        throw std::invalid_argument("not supported");
       }
       doCommandWithInputPolygon(pls, polygon, out, command);
       return;

@@ -46,7 +46,6 @@ int main(int argc, char* argv[])
     }
     catch(const std::runtime_error& e)
     {
-      std::cin.clear();
       break;
     }
   }
