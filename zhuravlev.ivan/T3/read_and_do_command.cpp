@@ -32,21 +32,21 @@ namespace zhuravlev
   std::string readCommand(std::istream& in)
   {
     std::string command = "";
-    std::istream::sentry sentry(in);
-    if (!sentry)
+    in >> command;
+    if (!in)
     {
-      in.setstate(std::ios::failbit);
+      throw std::runtime_error("EOF");
     }
-    while (std::getline(in, command))
+    if (command != "INFRAME" && command != "RMECHO")
     {
-      if (!command.empty())
+      std::string param = "";
+      in >> param;
+      if (!in)
       {
-        return command;
+        throw std::invalid_argument("Invalid parameter");
       }
-      else
-      {
-        continue;
-      }
+      command += " ";
+      command += param;
     }
     return command;
   }
