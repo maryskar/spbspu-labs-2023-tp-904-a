@@ -22,7 +22,8 @@ namespace zhuravlev
   };
   std::map< std::string, cmd_t_with_input_polygon > cmds_with_input_polygon
   {
-    {"INFRAME", zhuravlev::inFrame}
+    {"INFRAME", zhuravlev::inFrame},
+    {"RMECHO", zhuravlev::rmEcho}
   };
   std::map< std::string, cmt_t_with_input> cmd_with_input
   {

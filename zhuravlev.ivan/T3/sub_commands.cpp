@@ -217,7 +217,32 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << std::count_if(polygons.begin(), polygons.end(), countNumOfRightPolygons) << '\n';
   }
-  //void rmEcho(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out)
+  bool isEqualSubCommand(const Polygon& lhs, const Polygon& rhs)
+  {
+    return std::equal(lhs.points.begin(), lhs.points.end(), rhs.points.begin(), rhs.points.end());
+  }
+  bool isEqualPolygon(const Polygon& polygon, const Polygon& first, const Polygon& second)
+  {
+    return isEqualSubCommand(first, second) && isEqualSubCommand(second, polygon);
+  }
+  void rmEcho(std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out)
+  {
+    using namespace std::placeholders;
+    Polygon polygon;
+    in >> polygon;
+    if (!in)
+    {
+      in.clear();
+      throw std::invalid_argument("not supported");
+    }
+    size_t result = 0;
+    auto new_predicate = std::bind(isEqualPolygon, _1, _2, polygon);
+    auto end = std::unique(polygons.begin(), polygons.end(), new_predicate);
+    result = std::distance(end, polygons.end());
+    polygons.erase(end, polygons.end());
+    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << result << "\n";
+  }
   bool inReact(const Point& point, const int max_x, const int min_x, const int max_y, const int min_y)
   {
     return (point.x <= max_x && point.x >= min_x) && (point.y <= max_y && point.y >= min_y);
