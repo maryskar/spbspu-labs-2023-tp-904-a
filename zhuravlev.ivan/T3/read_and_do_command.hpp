@@ -1,6 +1,5 @@
 #ifndef READ_AND_DO_COMMAND_HPP
 #define READ_AND_DO_COMMAND_HPP
-#include <iostream>
 #include "polygon.hpp"
 
 namespace zhuravlev

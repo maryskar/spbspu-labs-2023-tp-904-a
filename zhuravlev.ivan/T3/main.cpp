@@ -1,9 +1,6 @@
 #include <iostream>
-#include <string>
 #include <fstream>
-#include <deque>
-#include <sstream>
-#include "polygon.hpp"
+#include <string>
 #include "sub_commands.hpp"
 #include "read_and_do_command.hpp"
 
@@ -38,13 +35,13 @@ int main(int argc, char* argv[])
       std::string cmd = zhuravlev::readCommand(std::cin);
       zhuravlev::doCommand(polygons, std::cin, std::cout, cmd);
     }
-    catch(const std::logic_error& e)
+    catch (const std::logic_error& e)
     {
       zhuravlev::printError(std::cout);
       zhuravlev::skipUntilNewLines(std::cin);
       std::cin.clear();
     }
-    catch(const std::runtime_error& e)
+    catch (const std::runtime_error& e)
     {
       break;
     }

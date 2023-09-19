@@ -2,8 +2,6 @@
 #define POLYGON_HPP
 #include <vector>
 #include <iostream>
-#include <iterator>
-#include <algorithm>
 #include <IO_separators.hpp>
 #include <iofmtguard.hpp>
 

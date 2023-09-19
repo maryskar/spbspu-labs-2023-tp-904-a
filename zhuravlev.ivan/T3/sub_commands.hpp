@@ -1,5 +1,6 @@
 #ifndef SUB_COMMANDS_HPP
 #define SUB_COMMANDS_HPP
+#include <iterator>
 #include "polygon.hpp"
 
 namespace zhuravlev

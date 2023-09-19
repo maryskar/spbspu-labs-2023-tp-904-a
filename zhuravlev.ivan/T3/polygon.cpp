@@ -1,4 +1,6 @@
 #include "polygon.hpp"
+#include <algorithm>
+#include <iterator>
 
 namespace zhuravlev
 {

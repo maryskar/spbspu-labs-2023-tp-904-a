@@ -1,8 +1,8 @@
 #include "sub_commands.hpp"
 #include <algorithm>
-#include <numeric>
-#include <iomanip>
 #include <functional>
+#include <iomanip>
+#include <numeric>
 #include <iofmtguard.hpp>
 
 namespace zhuravlev
