@@ -35,7 +35,7 @@ namespace zhuravlev
     in >> command;
     if (!in)
     {
-      in.setstate(std::ios::fail);
+      throw;
     }
     if (command != "INFRAME" && command != "RMECHO")
     {
@@ -85,7 +85,7 @@ namespace zhuravlev
     {}
     try
     {
-      doCommandWithInputPolygon(pls, in, out, cmd);
+      doCommandWithInputPolygon(pls, in, out, command);
       return;
     }
     catch (const std::out_of_range& e)
