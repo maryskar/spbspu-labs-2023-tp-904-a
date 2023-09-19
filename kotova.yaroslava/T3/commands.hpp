@@ -3,9 +3,10 @@
 #include "geomfigures.hpp"
 namespace kotova
 {
-  void checkArea(const std::vector< Polygon > &dest, std::ostream &out);
+  void areaEven(const std::vector< Polygon > &dest, std::ostream &out);
+  void areaOdd(const std::vector< Polygon > &dest, std::ostream &out);
   void areaMean(const std::vector< Polygon > &dest, std::ostream &out);
-  void areaNumVertexes(const std::vector< Polygon > &dest, std::ostream &out);
+  void areaNumVertexes(size_t n, const std::vector< Polygon > &dest, std::ostream &out);
   void maxArea(const std::vector< Polygon > &dest, std::ostream &out);
   void maxVertexes(const std::vector< Polygon > &dest, std::ostream &out);
   void minArea(const std::vector< Polygon > &dest, std::ostream &out);
