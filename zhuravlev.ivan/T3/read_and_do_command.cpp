@@ -6,7 +6,7 @@
 namespace zhuravlev
 {
   using const_cmd_t = std::function< void (const std::vector< zhuravlev::Polygon >, std::ostream&) >;
-  using cmd_t_with_input_polygon = std::function< void (std::vector< zhuravlev::Polygon >&, std::istream&, std::ostream&, size_t num) >;
+  using cmd_t_with_input_polygon = std::function< void (std::vector< zhuravlev::Polygon >&, std::istream&, std::ostream&) >;
   using cmt_t_with_input = std::function< void (std::vector< zhuravlev::Polygon >&, std::ostream&, const size_t) >;
   std::map< std::string, const_cmd_t > const_cmds
   {
@@ -22,7 +22,7 @@ namespace zhuravlev
   };
   std::map< std::string, cmd_t_with_input_polygon > cmds_with_input_polygon
   {
-    {"INFRAME N", zhuravlev::inFrame}
+    {"INFRAME", zhuravlev::inFrame}
   };
   std::map< std::string, cmt_t_with_input> cmd_with_input
   {
@@ -85,8 +85,6 @@ namespace zhuravlev
     {}
     try
     {
-      size_t num = std::stoull(command.substr(command.find_first_of(' ')));
-      std::string cmd = (command.substr(0, command.find(' ')) + " N");
       doCommandWithInputPolygon(pls, in, out, cmd, num);
       return;
     }
