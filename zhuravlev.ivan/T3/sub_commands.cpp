@@ -231,12 +231,12 @@ namespace zhuravlev
       throw std::logic_error("Wrong condition");
     }
     using namespace std::placeholders;
+    Polygon input;
+    in >> input;
     int max_x = findMaxXInMultiplePolygons(polygons);
     int max_y = findMaxYInMultiplePolygons(polygons);
     int min_x = findMinXInMultiplePolygons(polygons);
     int min_y = findMinYInMultiplePolygons(polygons);
-    Polygon input;
-    in >> input;
     std::vector< bool > input_points(input.points.size());
     std::transform(input.points.begin(), input.points.end(), input_points.begin(), std::bind(inReact, _1, max_x, min_x, max_y, min_y));
     size_t sum = std::accumulate(input_points.begin(), input_points.end(), 0);

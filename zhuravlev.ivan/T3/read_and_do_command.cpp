@@ -31,12 +31,13 @@ namespace zhuravlev
   };
   std::string readCommand(std::istream& in)
   {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      return;
+    }
     std::string command = "";
     in >> command;
-    if (!in)
-    {
-      throw;
-    }
     if (command != "INFRAME" && command != "RMECHO")
     {
       std::string param = "";
