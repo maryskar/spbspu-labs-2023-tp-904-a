@@ -40,8 +40,8 @@ namespace potapova
       return in;
     }
     char sec_value = '0';
-    return in >> DelimiterIO{'0'} >> sec_value;
-    if (sec_value != 'b' || sec_value != 'B')
+    in >> DelimiterIO{'0'} >> sec_value;
+    if (sec_value != 'b' && sec_value != 'B')
     {
       in.setstate(std::ios::failbit);
       return in;
@@ -63,10 +63,10 @@ namespace potapova
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO{'"'}, dest.str, '"');
+    return std::getline(in, dest.str, ':');
   }
 
-  std::istream& operator>>(std::istream& in, LabelIO&& dest)
+  std::istream& operator>>(std::istream& in, std::string&& dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -74,7 +74,7 @@ namespace potapova
       return in;
     }
     std::string data = "";
-    if ((in >> StringIO{data}) && (data != dest.value))
+    if ((in >> StringIO{data}) && !((data == "key1") || (data == "key2") || (data == "key3")))
     {
       in.setstate(std::ios::failbit);
     }
@@ -91,22 +91,25 @@ namespace potapova
     DataStruct input;
     {
       in >> DelimiterIO{'('};
-      in >> DelimiterIO{':'};
-      while (in)
+      size_t counter = 1;
+      std::string value;
+      while (counter <= 3 && !in.eof())
       {
-        if (in >> LabelIO{"key1"})
+        in >> DelimiterIO{':'};
+        in >> value;
+        if (value == "key1")
         {
           in >> UnsignedLongIntOctIO{input.key1};
         }
-        else if (in >> LabelIO{"key2"})
+        else if (value == "key2")
         {
           in >> UnsignedLongIntBinIO{input.key2};
         }
-        else
+        else if (value == "key3")
         {
           in >> StringIO{input.key3};
         }
-        in >> DelimiterIO{':'};
+        counter++;
       }
       in >> DelimiterIO{')'};
     }

@@ -29,16 +29,11 @@ namespace potapova
     std::string& str;
   };
 
-  struct LabelIO
-  {
-    std::string value;
-  };
-
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
   std::istream& operator>>(std::istream& in, UnsignedLongIntOctIO&& dest);
   std::istream& operator>>(std::istream& in, UnsignedLongIntBinIO&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
-  std::istream& operator>>(std::istream& in, LabelIO&& dest);
+  std::istream& operator>>(std::istream& in, std::string&& dest);
   std::istream& operator>>(std::istream& in, DataStruct& dest);
   std::ostream& operator<<(std::ostream& out, const DataStruct& dest);
 
