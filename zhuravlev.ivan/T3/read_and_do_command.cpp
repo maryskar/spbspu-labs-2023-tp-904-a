@@ -60,10 +60,10 @@ namespace zhuravlev
     auto toexecute = const_cmds.at(cmd);
     toexecute(pls, out);
   }
-  void doCommandWithInputPolygon(std::vector< Polygon >& pls, std::istream& in, std::ostream& out, std::string cmd, size_t num)
+  void doCommandWithInputPolygon(std::vector< Polygon >& pls, std::istream& in, std::ostream& out, std::string cmd)
   {
     auto toexecute = cmds_with_input_polygon.at(cmd);
-    toexecute(pls, in, out, num);
+    toexecute(pls, in, out);
   }
   void doCommand(std::vector< Polygon >pls, std::istream& in, std::ostream& out, std::string command)
   {
@@ -85,7 +85,7 @@ namespace zhuravlev
     {}
     try
     {
-      doCommandWithInputPolygon(pls, in, out, cmd, num);
+      doCommandWithInputPolygon(pls, in, out, cmd);
       return;
     }
     catch (const std::out_of_range& e)
