@@ -46,7 +46,16 @@ namespace zhuravlev
     std::copy_n(in_point_iter(in), points, std::back_inserter(input.points));
     if (in)
     {
-      rhs.points.swap(input.points);
+      std::string temp = "";
+      std::getline(in, temp);
+      if (temp.empty())
+      {
+        rhs.points.swap(input.points);
+      }
+      else
+      {
+        in.setstate(std::ios::failbit);
+      }
     }
     return in;
   }
