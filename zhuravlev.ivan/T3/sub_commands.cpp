@@ -217,7 +217,7 @@ namespace zhuravlev
     iofmtguard iofmtguard(out);
     out << std::count_if(polygons.begin(), polygons.end(), countNumOfRightPolygons) << '\n';
   }
-  //void rmEcho(const std::vector< zhuravlev::Polygon >& polygons, const Polygon& polygon, std::ostream& out)
+  //void rmEcho(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out)
   bool inReact(const Point& point, const int max_x, const int min_x, const int max_y, const int min_y)
   {
     return (point.x <= max_x && point.x >= min_x) && (point.y <= max_y && point.y >= min_y);
@@ -227,6 +227,10 @@ namespace zhuravlev
     using namespace std::placeholders;
     Polygon input;
     in >> input;
+    if (!in)
+    {
+      throw std::invalid_argument("Invalid argument");
+    }
     int max_x = findMaxXInMultiplePolygons(polygons);
     int max_y = findMaxYInMultiplePolygons(polygons);
     int min_x = findMinXInMultiplePolygons(polygons);
