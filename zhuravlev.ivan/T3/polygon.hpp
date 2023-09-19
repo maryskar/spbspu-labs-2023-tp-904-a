@@ -22,5 +22,6 @@ namespace zhuravlev
   std::ostream& operator<<(std::ostream& out, const Point& rhs);
   std::istream& operator>>(std::istream& in, Polygon& rhs);
   std::ostream& operator<<(std::ostream& out, const Polygon& rhs);
+  bool operator==(const Point& lhs, const Point& rhs);
 }
 #endif

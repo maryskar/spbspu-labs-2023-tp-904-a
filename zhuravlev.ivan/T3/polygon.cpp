@@ -71,4 +71,8 @@ namespace zhuravlev
     std::copy_n(rhs.points.begin(), points - 1, std::ostream_iterator< Point >(out << ' ', " "));
     return out << rhs.points.back();
   }
+  bool operator==(const Point& lhs, const Point& rhs)
+  {
+    return (lhs.x == rhs.x) && (lhs.y == rhs.y);
+  }
 }
