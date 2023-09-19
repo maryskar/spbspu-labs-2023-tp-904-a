@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
       zhuravlev::printError(std::cout);
       std::cin.clear();
     }
-    catch(const std::logic_error& e)
+    catch(const std::runtime_error& e)
     {
       break;
     }
