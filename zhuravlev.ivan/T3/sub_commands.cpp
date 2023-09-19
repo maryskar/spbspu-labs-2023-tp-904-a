@@ -222,21 +222,15 @@ namespace zhuravlev
   {
     return (point.x <= max_x && point.x >= min_x) && (point.y <= max_y && point.y >= min_y);
   }
-  void inFrame(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out)
+  void inFrame(const std::vector< zhuravlev::Polygon >& polygons, const Polygon& polygon, std::ostream& out)
   {
     using namespace std::placeholders;
-    Polygon input;
-    in >> input;
-    if (!in)
-    {
-      throw std::invalid_argument("Invalid argument");
-    }
     int max_x = findMaxXInMultiplePolygons(polygons);
     int max_y = findMaxYInMultiplePolygons(polygons);
     int min_x = findMinXInMultiplePolygons(polygons);
     int min_y = findMinYInMultiplePolygons(polygons);
-    std::vector< bool > input_points(input.points.size());
-    std::transform(input.points.begin(), input.points.end(), input_points.begin(), std::bind(inReact, _1, max_x, min_x, max_y, min_y));
+    std::vector< bool > input_points(polygon.points.size());
+    std::transform(polygon.points.begin(), polygon.points.end(), input_points.begin(), std::bind(inReact, _1, max_x, min_x, max_y, min_y));
     size_t sum = std::accumulate(input_points.begin(), input_points.end(), 0);
     if (sum == input_points.size())
     {

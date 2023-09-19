@@ -21,7 +21,7 @@ namespace zhuravlev
   void MaxVertexes(const std::vector< zhuravlev::Polygon >& polygons, std::ostream& out);
   void MinArea(const std::vector< zhuravlev::Polygon >& polygons, std::ostream& out);
   void MinVertexes(const std::vector< zhuravlev::Polygon >& polygons, std::ostream& out);
-  void inFrame(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out);
+  void inFrame(const std::vector< zhuravlev::Polygon >& polygons, const Polygon& polygon, std::ostream& out);
   void rmEcho(const std::vector< zhuravlev::Polygon >& polygons, std::istream& in, std::ostream& out);
   void printError(std::ostream& out);
 }
