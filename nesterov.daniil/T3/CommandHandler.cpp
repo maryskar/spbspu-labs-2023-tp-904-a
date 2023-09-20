@@ -328,17 +328,20 @@ namespace nesterov
 
   double getArea(const Polygon &polygon)
   {
-    double leftSum = 0.0;
-    double rightSum = 0.0;
+    std::vector< double > area(polygon.points.size());
 
-    for (size_t i = 0; i < polygon.points.size(); ++i)
-    {
-      size_t j = (i + 1) % polygon.points.size();
-      leftSum += polygon.points[i].x * polygon.points[j].y;
-      rightSum += polygon.points[j].x * polygon.points[i].y;
-    }
+    std::transform(
+      polygon.points.begin(),
+      polygon.points.end() - 1,
+      polygon.points.begin() + 1,
+      area.begin(),
+      getAreaHelper
+    );
 
-    return 0.5 * std::abs(leftSum - rightSum);
+    double sum = std::accumulate(area.begin(), area.end(), 0.0);
+    sum += getAreaHelper(polygon.points.back(), polygon.points.front());
+
+    return 0.5 * std::abs(sum);
   }
 
   bool hasNVertexes(const Polygon &polygon, size_t vertexes)
@@ -381,5 +384,10 @@ namespace nesterov
       return area;
     }
     return area + getArea(polygon);
+  }
+
+  double getAreaHelper(const Point &point1, const Point &point2)
+  {
+    return point1.x * point2.y - point2.x * point1.y;
   }
 }

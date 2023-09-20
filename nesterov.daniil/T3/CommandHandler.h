@@ -104,6 +104,8 @@ namespace nesterov
   double getAreaEvenFun(double area, const Polygon &polygon);
 
   double getAreaWithVertexesFun(double area, const Polygon &polygon, size_t vertexes);
+
+  double getAreaHelper(const Point &point1, const Point &point2);
 }
 
 #endif
