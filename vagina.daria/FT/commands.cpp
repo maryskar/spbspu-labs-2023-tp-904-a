@@ -41,6 +41,10 @@ void createSet(dictionaryOfNames& diction, std::istream& in)
   }
   diction.insert({ name, dict });
 }
+bool isGreater(const std::pair<std::string, size_t>& p1, const std::pair<std::string, size_t>& p2) 
+{
+  return p1.second > p2.second;
+}
 void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::ostream& out)
 {
   std::string name = "";
@@ -59,8 +63,7 @@ void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::o
   {
     throw std::invalid_argument("Invalid parameter");
   }
-  std::sort(sorted_word_count.begin(), sorted_word_count.end(),
-    [](const auto& p1, const auto& p2) { return p1.second > p2.second; });
+  std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
   std::vector< std::pair <std::string, size_t> > first_three_keys;
   std::copy_n(sorted_word_count.begin(), 3, std::back_inserter(first_three_keys));
   print(first_three_keys, out);
@@ -169,8 +172,7 @@ void printDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostre
     throw std::logic_error("Dictionary is Empty");
   }
   std::vector< std::pair <std::string, size_t> > sorted_word_count(diction.dict_.begin(), diction.dict_.end());
-  std::sort(sorted_word_count.begin(), sorted_word_count.end(),
-    [](const auto& p1, const auto& p2) { return p1.second > p2.second; });
+  std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
   print(sorted_word_count, out);
 }
 std::map<char, size_t> countOfLetters(const dictionary& dict)

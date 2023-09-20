@@ -1,5 +1,6 @@
 #include <iostream>
 #include "dictionaryOfCommands.hpp"
+#include <commands.h>
 
 int main()
 {
@@ -14,7 +15,8 @@ int main()
     }
     catch (const std::logic_error& e)
     {
-      std::cout << "invalid command" << "\n";
+      messageInvalidCommand(std::cout);
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
     catch (const std::runtime_error& e)
     {

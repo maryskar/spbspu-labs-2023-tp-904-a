@@ -3,7 +3,7 @@
 #include <fstream>
 #include <functional>
 #include <limits>
-#include "commands.h"
+#include <commands.h>
 #include "polygon.h"
 
 int main(int argNum, char* argv[])
