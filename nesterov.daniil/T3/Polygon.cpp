@@ -15,7 +15,6 @@ namespace nesterov
     }
     Point input{0, 0};
     using del = DelimiterIO;
-    
     in >> del{'('} >> input.x >> del{';'} >> input.y >> del{')'};
     std::string remaining;
     std::getline(in, remaining, '\n');
