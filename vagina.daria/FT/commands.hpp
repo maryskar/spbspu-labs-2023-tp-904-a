@@ -7,7 +7,6 @@
 
 namespace vagina
 {
-  std::ostream& messageOfEmpty(std::ostream& out);
   void createSet(dictionaryOfNames& diction, std::istream& in);
   bool isGreater(const std::pair< std::string, size_t >& p1, const std::pair< std::string, size_t >& p2);
   void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::ostream& out);
@@ -24,5 +23,6 @@ namespace vagina
   void countIndentical(const dictionaryOfNames& dict, std::istream& in, std::ostream& out);
   void wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, std::ostream& out);
 }
+
 
 #endif

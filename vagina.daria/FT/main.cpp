@@ -15,7 +15,7 @@ int main()
     }
     catch (const std::invalid_argument& e)
     {
-      vagina::messageOfEmpty(std::cout);
+      std::cerr << e.what() << '\n';
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
     catch (const std::logic_error& e)

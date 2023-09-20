@@ -35,7 +35,7 @@ void DictionaryComm::doCommNotConst(const std::string& command,
 }
 std::string DictionaryComm::readCommand(std::istream& in)
 {
-  std::string comm = " ";
+  std::string comm = "";
   in >> comm;
   if (!in)
   {
