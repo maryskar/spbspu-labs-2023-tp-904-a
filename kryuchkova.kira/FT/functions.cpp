@@ -1,11 +1,16 @@
 #include "functions.h"
 #include <istream>
 #include <iterator>
+#include <functional>
 
 namespace kryuchkova
 {
+  bool isName(std::string & name, const ErDictionary & dict)
+  {
+    return dict.getName() == name;
+  }
   void doCreate(const std::string & name);
-  void doInsert(std::istream & in, ErDictionary & dict)
+  void doInsert(std::istream & in, std::map< std::string, ErDictionary > & dicts)
   {
     std::string name;
     in >> name;
@@ -17,7 +22,15 @@ namespace kryuchkova
     {
       trans.push_back(data);
     }
-    
+    auto iter = dicts.find(name);
+    if (iter == dicts.end())
+    {
+      throw std::logic_error("No such dicts with this name");
+    }
+    else
+    {
+      (*iter).second.insert(word, trans);
+    }
   }
 
   void doSearch(std::istream & in, const ErDictionary & dict)
