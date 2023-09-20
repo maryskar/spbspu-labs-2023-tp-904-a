@@ -152,6 +152,7 @@ void vagina::printWordToSpecificLetter(const dictionaryOfNames& dict, std::istre
   try
   {
     std::vector< std::pair < std::string, size_t > > result;
+    result.reserve(diction.dict_.size());
     using namespace std::placeholders;
     auto func = std::bind(compareTheFirstLetter, _1, letter);
     std::copy_if(diction.dict_.begin(), diction.dict_.end(), std::back_inserter(result), func);
@@ -362,6 +363,7 @@ void vagina::wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, st
     throw std::invalid_argument("Error reading letter or minimum number of occurrences");
   }
   std::vector< std::pair < std::string, size_t > > matchingWords;
+  matchingWords.reserve(diction.dict_.size());
   using namespace std::placeholders;
   auto func = std::bind(isWordMatchingCondition, _1, letter, minCount);
   std::copy_if(diction.dict_.begin(), diction.dict_.end(), std::back_inserter(matchingWords), func);
