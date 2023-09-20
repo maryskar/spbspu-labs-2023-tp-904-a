@@ -15,7 +15,7 @@ namespace vagina
         dictionaryOfNames& dest, std::istream& in, std::ostream& out);
     private:
       void doCommWithoutOutput(const std::string& command, dictionaryOfNames& dict, std::istream& in) const;
-      void doCommConstComm(const std::string& command, const dictionaryOfNames& dict, std::istream& in, std::ostream& out) const;
+      void doCommConstComm(const std::string&, const dictionaryOfNames&, std::istream& in, std::ostream& out) const;
       void doCommNotConst(const std::string&, dictionaryOfNames& dict, std::istream& in, std::ostream& out) const;
       using commandWithoutOutput = void(*)(dictionaryOfNames& dict, std::istream& in);
       using commandConstWithOutput = void(*)(const dictionaryOfNames& dict, std::istream& in, std::ostream& out);

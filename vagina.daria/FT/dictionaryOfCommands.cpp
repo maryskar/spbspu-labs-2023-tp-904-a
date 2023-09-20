@@ -21,12 +21,14 @@ void DictionaryComm::doCommWithoutOutput(const std::string& command, dictionaryO
   auto func = withoutOutput.at(command);
   func(dict, in);
 }
-void DictionaryComm::doCommConstComm(const std::string& command, const dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
+void DictionaryComm::doCommConstComm(const std::string& command,
+  const dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
 {
   auto func = constCommand.at(command);
   func(dict, in, out);
 }
-void DictionaryComm::doCommNotConst(const std::string& command, dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
+void DictionaryComm::doCommNotConst(const std::string& command,
+  dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
 {
   auto func = notConstCommand.at(command);
   func(dict, in, out);
@@ -41,7 +43,8 @@ std::string DictionaryComm::readCommand(std::istream& in)
   }
   return comm;
 }
-void DictionaryComm::doCommand(const std::string& command, const DictionaryOfCommands& commands, dictionaryOfNames& dest, std::istream& in, std::ostream& out)
+void DictionaryComm::doCommand(const std::string& command,
+  const DictionaryOfCommands& commands, dictionaryOfNames& dest, std::istream& in, std::ostream& out)
 {
   try
   {

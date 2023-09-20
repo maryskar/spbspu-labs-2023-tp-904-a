@@ -1,8 +1,8 @@
 #ifndef FT_DICTIONARY_HPP
 #define FT_DICTIONARY_HPP
+#include <iostream>
 #include <map>
 #include <string>
-#include <iostream>
 
 namespace vagina
 {
