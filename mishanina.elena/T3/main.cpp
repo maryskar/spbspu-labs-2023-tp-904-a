@@ -2,15 +2,20 @@
 #include <fstream>
 #include <limits>
 #include "CommandsDictionary.h"
-int main(int argc, char **argv)
+int main(int argc, char* argv[])
 {
   using namespace mishanina;
   if (argc != 2){
-    std::cerr << "Not enough CL parameters\n";
+    std::cerr << "Error : not enough CL parameters\n";
     return 1;
   }
 
   std::ifstream input(argv[1]);
+  if (!input)
+  {
+    std::cerr << "Error : file not open" << '\n';
+    return 1;
+  }
   std::vector<Polygon> polygons;
   while (!input.eof())
   {
@@ -24,6 +29,7 @@ int main(int argc, char **argv)
       input.ignore(maxstream, '\n');
     }
   }
+  input.close();
   CommandDictionary dictionary;
   while (!std::cin.eof())
   {
