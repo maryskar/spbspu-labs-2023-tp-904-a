@@ -7,6 +7,7 @@ namespace mishanina{
   bool isOdd(const Polygon& polygon);
   double getSide(const Point& p1, const Point& p2);
   double getArea(const Polygon& polygon);
+  double getTotalArea(const std::vector<Polygon> &pol);
   template <class P>
   std::vector<Polygon> getPolygonsIf(const std::vector<Polygon> &polygons, P p)
   {

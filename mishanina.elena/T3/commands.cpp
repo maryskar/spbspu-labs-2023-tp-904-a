@@ -10,15 +10,10 @@ namespace mishanina{
     out << std::fixed << std::setprecision(1) << getAreaIf(polygons, isOdd) << '\n';
   }
   void printAreaMean(const std::vector<Polygon>& polygons, std::ostream& out){
-    if (polygons.empty()) {
+    if (polygons.empty())
+    {
       throw std::invalid_argument("ERROR : polygons are empty");
     }
-    std::vector<double> areas(polygons.size());
-    std::transform(polygons.begin(), polygons.end(), areas.begin(), mishanina::getArea);
-
-    double sum = std::accumulate(areas.begin(), areas.end(), 0.0);
-    double mean = sum / polygons.size();
-//    mishanina::iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << mean << '\n';
+    out << std::fixed << std::setprecision(1) << getTotalArea(polygons) / polygons.size() << '\n';
   }
 }

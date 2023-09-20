@@ -22,5 +22,11 @@ namespace mishanina{
       (--polygon.points.end())->x * polygon.points.begin()->y - polygon.points.begin()->x * (--polygon.points.end())->y;
     return std::abs(area) / 2.0;
   }
-
+  double getTotalArea(const std::vector<Polygon> &pol)
+  {
+    std::vector<double> areas(pol.size());
+    std::transform(pol.begin(), pol.end(), areas.begin(), getArea);
+    double sum = std::accumulate(areas.begin(), areas.end(), 0.0);
+    return sum;
+  }
 }
