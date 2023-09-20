@@ -15,15 +15,14 @@ namespace nesterov
     }
     Point input{0, 0};
     using del = DelimiterIO;
-    if (in.peek() != '(')
+    
+    in >> del{'('} >> input.x >> del{';'} >> input.y >> del{')'};
+    std::string remaining;
+    std::getline(in, remaining, '\n');
+    if (!remaining.empty())
     {
-      in.unget();
       in.setstate(std::ios::failbit);
-    } else
-    {
-      in >> del{'('} >> input.x >> del{';'} >> input.y >> del{')'};
     }
-
     if (in)
     {
       rhs = input;
