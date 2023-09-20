@@ -19,20 +19,24 @@ int main(int argc, char* argv[])
   std::vector<Polygon> polygons;
   while (!input.eof())
   {
-    std::copy(std::istream_iterator<Polygon>(input),
-              std::istream_iterator<Polygon>(),
-              std::back_inserter(polygons));
     if (input.fail())
     {
       input.clear();
-      auto maxstream = std::numeric_limits<std::streamsize>::max();
-      input.ignore(maxstream, '\n');
+      input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
+    std::copy(std::istream_iterator<Polygon>(input),
+              std::istream_iterator<Polygon>(),
+              std::back_inserter(polygons));
   }
   input.close();
   CommandDictionary dictionary;
   while (!std::cin.eof())
   {
+    if(!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
     try
     {
       std::string cmd = dictionary.readCommand(std::cin);
@@ -43,17 +47,11 @@ int main(int argc, char* argv[])
       std::cerr << "<INVALID COMMAND>\n";
       long long maxstream = std::numeric_limits<std::streamsize>::max();
       std::cin.ignore(maxstream, '\n');
-     // std::cin.clear();
+      std::cin.clear();
     }
     catch (const std::runtime_error &e)
     {
-      std::cerr << e.what() << '\n';
-      return 1;
-    }
-    if(!std::cin)
-    {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      break;
     }
   }
   return 0;
