@@ -1,7 +1,8 @@
 #ifndef EXTRA_COMMANDS_H
 #define EXTRA_COMMANDS_H
-#include "Polygon.h"
 #include <numeric>
+#include <functional>
+#include "Polygon.h"
 namespace mishanina
 {
   bool isEven(const Polygon &polygon);
