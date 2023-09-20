@@ -41,7 +41,7 @@ void createSet(dictionaryOfNames& diction, std::istream& in)
   }
   diction.insert({ name, dict });
 }
-bool isGreater(const std::pair<std::string, size_t>& p1, const std::pair<std::string, size_t>& p2) 
+bool isGreater(const std::pair< std::string, size_t >& p1, const std::pair< std::string, size_t >& p2) 
 {
   return p1.second > p2.second;
 }
@@ -58,17 +58,17 @@ void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::o
   {
     throw std::logic_error("Dictionary is Empty");
   }
-  std::vector< std::pair <std::string, size_t> > sorted_word_count(dict.dict_.begin(), dict.dict_.end());
+  std::vector< std::pair < std::string, size_t > > sorted_word_count(dict.dict_.begin(), dict.dict_.end());
   if (sorted_word_count.size() < 3)
   {
     throw std::invalid_argument("Invalid parameter");
   }
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
-  std::vector< std::pair <std::string, size_t> > first_three_keys;
+  std::vector< std::pair < std::string, size_t > > first_three_keys;
   std::copy_n(sorted_word_count.begin(), 3, std::back_inserter(first_three_keys));
   print(first_three_keys, out);
 }
-void print(const std::vector< std::pair <std::string, size_t> >& dict, std::ostream& out)
+void print(const std::vector< std::pair < std::string, size_t > >& dict, std::ostream& out)
 {
   for (const auto& pair : dict)
   {
@@ -171,13 +171,13 @@ void printDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostre
   {
     throw std::logic_error("Dictionary is Empty");
   }
-  std::vector< std::pair <std::string, size_t> > sorted_word_count(diction.dict_.begin(), diction.dict_.end());
+  std::vector< std::pair < std::string, size_t > > sorted_word_count(diction.dict_.begin(), diction.dict_.end());
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
   print(sorted_word_count, out);
 }
-std::map<char, size_t> countOfLetters(const dictionary& dict)
+std::map< char, size_t > countOfLetters(const dictionary& dict)
 {
-  std::map<char, size_t> letterFreq;
+  std::map< char, size_t > letterFreq;
   for (auto& word : dict.dict_)
   {
     for (char letter : word.first)
@@ -207,7 +207,7 @@ void maxCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, s
   {
     throw std::logic_error("Dictionary is Empty");
   }
-  std::map<char, size_t> letterFreq;
+  std::map< char, size_t > letterFreq;
   letterFreq = countOfLetters(diction);
   char mostFrequentLetter = ' ';
   size_t maxFreq = 0;
@@ -234,7 +234,7 @@ void minCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, s
   {
     throw std::logic_error("Dictionary is Empty");
   }
-  std::map<char, size_t> letterFreq;
+  std::map< char, size_t > letterFreq;
   letterFreq = countOfLetters(diction);
   char leastFrequentLetter = ' ';
   size_t minFreq = std::numeric_limits<size_t>::max();
