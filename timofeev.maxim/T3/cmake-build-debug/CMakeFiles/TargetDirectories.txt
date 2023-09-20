@@ -1,0 +1,3 @@
+Y:/spbspu-labs-2023-tp-904-a/timofeev.maxim/T3/cmake-build-debug/CMakeFiles/T3.dir
+Y:/spbspu-labs-2023-tp-904-a/timofeev.maxim/T3/cmake-build-debug/CMakeFiles/edit_cache.dir
+Y:/spbspu-labs-2023-tp-904-a/timofeev.maxim/T3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
