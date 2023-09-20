@@ -12,6 +12,9 @@ namespace mishanina{
   void printMaxVertexes(const std::vector<Polygon> &polygons, std::ostream &out);
   void printMinArea(const std::vector<Polygon> &polygons, std::ostream &out);
   void printMinVertexes(const std::vector<Polygon> &polygons, std::ostream &out);
+  void printCountEven(const std::vector<Polygon> &polygons, std::ostream &out);
+  void printCountOdd(const std::vector<Polygon> &polygons, std::ostream &out);
+  void printCountNumOfVertexes(const std::vector<Polygon> &polygons, std::ostream &out, std::size_t num);
 
 }
 #endif

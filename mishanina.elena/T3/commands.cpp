@@ -60,4 +60,21 @@ namespace mishanina
     }
     out << getMaxMinVert(polygons, false) << '\n';
   }
+  void printCountEven(const std::vector<Polygon> &polygons, std::ostream &out)
+  {
+    out << getCountIf(polygons, isEven) << '\n';
+  }
+  void printCountOdd(const std::vector<Polygon> &polygons, std::ostream &out)
+  {
+    out << getCountIf(polygons, isOdd) << '\n';
+  }
+  void printCountNumOfVertexes(const std::vector<Polygon> &polygons, std::ostream &out, std::size_t num)
+  {
+    if (num < 3)
+    {
+      throw std::invalid_argument("ERROR : invalid parameter");
+    }
+    std::vector<Polygon> polNum = getPolygonsWithNumOfVertexes(polygons, num);
+    out << polNum.size() << '\n';
+  }
 }

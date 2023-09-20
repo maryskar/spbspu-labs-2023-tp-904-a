@@ -8,7 +8,10 @@ mishanina::CommandDictionary::CommandDictionary()
   dict_out.insert({"MAX VERTEXES", printMaxVertexes});
   dict_out.insert({"MIN AREA", printMinArea});
   dict_out.insert({"MIN VERTEXES", printMinVertexes});
+  dict_out.insert({"COUNT EVEN", printCountEven});
+  dict_out.insert({"COUNT ODD", printCountOdd});
   dict_num.insert({"AREA NUM", printAreaNumOfVertexes});
+  dict_num.insert({"COUNT NUM", printCountNumOfVertexes});
 }
 std::string mishanina::CommandDictionary::readCommand(std::istream &in)
 {

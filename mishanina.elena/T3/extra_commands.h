@@ -29,6 +29,13 @@ namespace mishanina{
     double sum = std::accumulate(areas.begin(), areas.end(), 0.0);
     return sum;
   }
+  template <class P>
+  std::size_t getCountIf(const std::vector<Polygon> &polygons, P p)
+  {
+    std::vector<Polygon> polygonsIf = getPolygonsIf(polygons, p);
+    std::size_t res = std::count_if(polygonsIf.begin(), polygonsIf.end(), p);
+    return res;
+  }
 }
 
 #endif
