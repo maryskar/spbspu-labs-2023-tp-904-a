@@ -55,7 +55,8 @@ namespace nesterov
     );
     std::string remaining;
     std::getline(in, remaining, '\n');
-    if (!remaining.empty())
+    std::cout << remaining << '\n';
+    if (remaining != "\n" || input.points.size() < 3)
     {
       in.setstate(std::ios::failbit);
     }
