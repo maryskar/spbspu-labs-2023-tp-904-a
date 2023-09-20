@@ -16,6 +16,7 @@ namespace kryuchkova
     translations find(const word & wrd) const;
     word getName() const;
     void insert(const word & wrd, const translations & trans);
+    void erase(const word & wrd);
   private:
     std::string name_;
     std::map< word, translations > dict_;

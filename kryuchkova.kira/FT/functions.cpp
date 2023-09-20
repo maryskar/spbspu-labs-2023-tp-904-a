@@ -66,17 +66,22 @@ namespace kryuchkova
     in >> name;
     std::string word;
     in >> word;
-
+    if (!hasDictWithName(dicts, name))
+    {
+      throw std::logic_error("No such dicts with this name");
+    }
+    ErDictionary dict = dicts.find(name)->second;
+    dict.erase(word);
   }
 
   void fillDict(std::istream & in, ErDictionary & dict);
   void findByFirstLet(std::istream & in, ErDictionary & dict);
   void printDict(std::ostream & out, const ErDictionary & dict);
   void exportDict(std::istream & in, ErDictionary & dict);
-  void unite(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);
-  void intersect(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);
-  void symSubtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);
-  void subtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);
-  void addition(const ErDictionary & dict1, const ErDictionary & dict2);
+  void unite(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);//std::set_union
+  void intersect(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);//std::set_intersection
+  void symSubtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);//std::set_symmetric_difference
+  void subtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);//std::set_difference
+  void addition(const ErDictionary & dict1, const ErDictionary & dict2);//std::include
 
 }

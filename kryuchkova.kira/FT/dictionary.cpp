@@ -26,6 +26,9 @@ namespace kryuchkova
     return name_;
   }
 
-
+  void ErDictionary::erase(const word & wrd)
+  {
+    dict_.erase(wrd);
+  }
 
 }
