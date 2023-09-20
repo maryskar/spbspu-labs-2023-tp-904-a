@@ -1,4 +1,4 @@
-#include"OtherStructur.h"
+#include "OtherStructur.h"
 std::istream& operator>>(std::istream& in, ExpectedSymbol&& dest)
 {
   std::istream::sentry sentry(in);

@@ -1,4 +1,4 @@
-#include"DataStructur.h"
+#include "DataStructur.h"
 std::ostream& kazakov::operator<<(std::ostream& out, const kazakov::DataStructur& p)
 {
   std::ostream::sentry sentry(out);

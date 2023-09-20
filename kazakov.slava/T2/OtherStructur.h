@@ -4,7 +4,7 @@
 #include <iostream>
 struct ExpectedSymbol
 {
-  char symbol = '/';
+  char symbol = '.';
 };
 struct ExpectedChar
 {
