@@ -41,7 +41,7 @@ void createSet(dictionaryOfNames& diction, std::istream& in)
   }
   diction.insert({ name, dict });
 }
-bool isGreater(const std::pair< std::string, size_t >& p1, const std::pair< std::string, size_t >& p2) 
+bool isGreater(const std::pair< std::string, size_t >& p1, const std::pair< std::string, size_t >& p2)
 {
   return p1.second > p2.second;
 }
