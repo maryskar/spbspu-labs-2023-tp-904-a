@@ -17,7 +17,7 @@ void createSet(dictionaryOfNames& diction, std::istream& in)
   std::ifstream file(filename);
   if (!file.is_open())
   {
-    throw std::invalid_argument("File didn't open");
+    throw std::runtime_error("File didn't open");
   }
   std::string word;
   std::string name = "";
@@ -30,14 +30,17 @@ void createSet(dictionaryOfNames& diction, std::istream& in)
   while (file)
   {
     file >> word;
-    try
+    if (!word.empty())
     {
-      word.erase(std::remove_if(word.begin(), word.end(), ispunct), word.end());
-      std::transform(word.begin(), word.end(), word.begin(), tolower);
-      dict.insert(word);
+      try
+      {
+        word.erase(std::remove_if(word.begin(), word.end(), ispunct), word.end());
+        std::transform(word.begin(), word.end(), word.begin(), tolower);
+        dict.insert(word);
+      }
+      catch (const std::runtime_error& e)
+      {}
     }
-    catch (const std::invalid_argument& e)
-    {}
   }
   diction.insert({ name, dict });
 }
@@ -51,17 +54,17 @@ void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::o
   in >> name;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dictionary dict = findSpecificDict(diction, name);
   if (dict.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   std::vector< std::pair < std::string, size_t > > sorted_word_count(dict.dict_.begin(), dict.dict_.end());
   if (sorted_word_count.size() < 3)
   {
-    throw std::invalid_argument("Invalid parameter");
+    throw std::logic_error("Invalid parameter");
   }
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
   std::vector< std::pair < std::string, size_t > > first_three_keys;
@@ -82,12 +85,12 @@ void findWord(const dictionaryOfNames& dict, std::istream& in, std::ostream& out
   in >> name >> word;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   try
   {
@@ -111,12 +114,12 @@ void deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream& out)
   in >> name >> word;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   try
   {
@@ -143,12 +146,12 @@ void printWordToSpecificLetter(const dictionaryOfNames& dict, std::istream& in, 
   in >> name >> letter;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   for (auto it = diction.dict_.begin(); it != diction.dict_.end(); ++it)
   {
@@ -164,12 +167,12 @@ void printDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostre
   in >> name;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   std::vector< std::pair < std::string, size_t > > sorted_word_count(diction.dict_.begin(), diction.dict_.end());
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
@@ -200,12 +203,12 @@ void maxCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, s
   in >> name;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   std::map< char, size_t > letterFreq;
   letterFreq = countOfLetters(diction);
@@ -227,12 +230,12 @@ void minCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, s
   in >> name;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   std::map< char, size_t > letterFreq;
   letterFreq = countOfLetters(diction);
@@ -255,13 +258,13 @@ void mergeDictionary(dictionaryOfNames& dict, std::istream& in)
   in >> nameFirst >> nameSecond;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dictionary diction1 = findSpecificDict(dict, nameFirst);
   dictionary diction2 = findSpecificDict(dict, nameSecond);
   if (diction1.empty() || diction2.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   dictionary dictOfResult = diction1;
   for (const auto& pair : diction2.dict_)
@@ -279,7 +282,7 @@ void mergeDictionary(dictionaryOfNames& dict, std::istream& in)
   in >> name;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dict.insert({ name, dictOfResult });
 }
@@ -290,13 +293,13 @@ void uniqueWord(dictionaryOfNames& dict, std::istream& in)
   in >> nameFirst >> nameSecond;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid in");
   }
   dictionary diction1 = findSpecificDict(dict, nameFirst);
   dictionary diction2 = findSpecificDict(dict, nameSecond);
   if (diction1.empty() || diction2.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   dictionary dictOfResult = diction1;
   for (const auto& pair : diction2.dict_)
@@ -314,7 +317,7 @@ void uniqueWord(dictionaryOfNames& dict, std::istream& in)
   in >> name;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dict.insert({ name, dictOfResult });
 }
@@ -331,7 +334,7 @@ void countIndentical(const dictionaryOfNames& dict, std::istream& in, std::ostre
   dictionary diction2 = findSpecificDict(dict, nameSecond);
   if (diction1.empty() || diction2.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   for (const auto& pair1 : diction1.dict_)
   {
@@ -349,19 +352,19 @@ void wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, std::ostre
   in >> name;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
   {
-    throw std::logic_error("Dictionary is Empty");
+    throw std::invalid_argument("Dictionary is Empty");
   }
   char letter = ' ';
   size_t minCount = 0;
   in >> minCount >> letter;
   if (!in)
   {
-    throw std::invalid_argument("Invalid in");
+    throw std::runtime_error("Invalid read name");
   }
   for (const auto& pair : diction.dict_)
   {

@@ -13,6 +13,11 @@ int main()
       auto read = dictionary.readCommand(std::cin);
       dictionary.doCommand(read, dictionary, allDicts, std::cin, std::cout);
     }
+    catch (const std::invalid_argument& e)
+    {
+      messageOfEmpty(std::cout);
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
     catch (const std::logic_error& e)
     {
       messageInvalidCommand(std::cout);
