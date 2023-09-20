@@ -4,6 +4,10 @@ mishanina::CommandDictionary::CommandDictionary()
   dict_out.insert({"AREA EVEN", printAreaEven});
   dict_out.insert({"AREA ODD", printAreaOdd});
   dict_out.insert({"AREA MEAN", printAreaMean});
+  dict_out.insert({"MAX AREA", printMaxArea});
+  dict_out.insert({"MAX VERTEXES", printMaxVertexes});
+  dict_out.insert({"MIN AREA", printMinArea});
+  dict_out.insert({"MIN VERTEXES", printMinVertexes});
   dict_num.insert({"AREA NUM", printAreaNumOfVertexes});
 }
 std::string mishanina::CommandDictionary::readCommand(std::istream &in)

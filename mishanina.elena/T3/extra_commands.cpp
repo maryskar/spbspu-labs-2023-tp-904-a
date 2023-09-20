@@ -1,6 +1,6 @@
 #include "extra_commands.h"
-
-namespace mishanina{
+namespace mishanina
+{
   bool isEven(const Polygon &polygon)
   {
     return polygon.points.size() % 2 == 0;
@@ -13,10 +13,16 @@ namespace mishanina{
   {
     return (polygon.points.size() == num);
   }
-  double getSide(const Point& p1, const Point& p2){
+  std::size_t getNumOfVertexes(const Polygon &polygon)
+  {
+    return polygon.points.size();
+  }
+  double getSide(const Point &p1, const Point &p2)
+  {
     return p1.x * p2.y - p1.y * p2.x;
   }
-  double getArea(const Polygon& polygon){
+  double getArea(const Polygon &polygon)
+  {
     double area;
     std::vector<int> arr(polygon.points.size());
     std::transform(polygon.points.begin(), --polygon.points.end(), ++polygon.points.begin(), std::back_inserter(arr),
@@ -32,6 +38,20 @@ namespace mishanina{
     std::transform(pol.begin(), pol.end(), areas.begin(), getArea);
     double sum = std::accumulate(areas.begin(), areas.end(), 0.0);
     return sum;
+  }
+  std::size_t getMaxMinVert(const std::vector<Polygon> &polygons, bool isMax)
+  {
+    std::vector<std::size_t> points(polygons.size());
+    std::transform(polygons.begin(), polygons.end(), points.begin(), getNumOfVertexes);
+    auto res = isMax ? std::max_element(points.begin(), points.end()) : std::min_element(points.begin(), points.end());
+    return *res;
+  }
+  double getMaxMinArea(const std::vector<Polygon> &polygons, bool isMax)
+  {
+    std::vector<double> areas(polygons.size());
+    std::transform(polygons.begin(), polygons.end(), areas.begin(), getArea);
+    auto res = isMax ? std::max_element(areas.begin(), areas.end()) : std::min_element(areas.begin(), areas.end());
+    return *res;
   }
   std::vector<Polygon> getPolygonsWithNumOfVertexes(const std::vector<Polygon> &polygons, std::size_t num)
   {
