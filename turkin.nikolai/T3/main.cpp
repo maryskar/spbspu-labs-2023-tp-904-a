@@ -5,7 +5,8 @@
 #include <limits>
 #include <stdexcept>
 
-#include "commands-list.hpp"
+#include "parser.hpp"
+
 #include <out-msg.hpp>
 
 int main(int argc, char * argv[])
@@ -35,17 +36,16 @@ int main(int argc, char * argv[])
     std::copy(isit(file), isit(), std::back_inserter(data));
   }
 
+  turkin::MakeCMD make;
   while (std::cin)
   {
-    std::string cmd;
-    std::cin >> cmd;
     if (!std::cin)
     {
       break;
     }
     try
     {
-      turkin::main_list.at(cmd)(data, std::cin, std::cout) << "\n";
+      make(data, std::cin, std::cout) << "\n";
     }
     catch (...)
     {

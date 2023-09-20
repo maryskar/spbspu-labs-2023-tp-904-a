@@ -7,15 +7,15 @@
 
 namespace turkin
 {
-  using main_cmd_t = std::ostream & (*)(data_t &, std::istream &, std::ostream &);
-  std::map< std::string, main_cmd_t > main_list
+  using main_cmd_t = ReturnType (*)(data_t &, SubCommandsList &, std::string &, std::string &);
+  using main_map_t = std::map< std::string, main_cmd_t >;
+  struct CommandsList
   {
-    {"AREA", area},
-    {"MAX", max},
-    {"MIN", min},
-    {"COUNT", count},
-    {"MAXSEQ", maxseq},
-    {"RIGHTSHAPES", rightshapes}
+    public:
+      CommandsList();
+      main_cmd_t & get(const std::string & type);
+    private:
+       main_map_t list_;
   };
 }
 #endif

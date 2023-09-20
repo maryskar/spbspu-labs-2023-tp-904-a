@@ -5,6 +5,9 @@
 #include <iterator>
 #include <iomanip>
 #include <io-work.hpp>
+#include <string>
+
+#include "str-work.hpp"
 
 turkin::ReturnType::ReturnType(std::size_t num):
   num_({ .uns = num }),
@@ -75,6 +78,28 @@ std::istream & turkin::operator>>(std::istream & in, Polygon & rhs)
     rhs.points.swap(input.points);
   }
   return in;
+}
+
+namespace
+{
+  turkin::Point make_point(std::string & point)
+  {
+    std::vector< std::string > pts = turkin::split_str(point, ";");
+    turkin::Point result {std::stoi(pts[0]), std::stoi(pts[1])};
+    return result;
+  }
+}
+
+void turkin::operator>>(std::string & in, Polygon & rhs)
+{
+  std::replace(in.begin(), in.end(), '(', ' ');
+  std::replace(in.begin(), in.end(), ')', ' ');
+  std::vector< std::string > input = turkin::split_str(in, " ");
+  rhs.points.reserve(std::stoull(input[0]));
+  for (std::vector< std::string >::iterator it = ++input.begin(); it != input.end(); it++)
+  {
+    rhs.points.push_back(make_point(*it));
+  }
 }
 
 bool turkin::operator==(const Point & lhs, const Point & rhs)

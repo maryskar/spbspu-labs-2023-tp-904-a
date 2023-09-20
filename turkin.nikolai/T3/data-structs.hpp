@@ -41,6 +41,7 @@ namespace turkin
   std::ostream & operator<<(std::ostream & out, const ReturnType & rt);
   std::istream & operator>>(std::istream & in, Point & rhs);
   std::istream & operator>>(std::istream & in, Polygon & rhs);
+  void operator>>(std::string & in, Polygon & rhs);
 
   bool operator==(const Point & lhs, const Point & rhs);
   bool operator==(const Polygon & lhs, const Polygon & rhs);
