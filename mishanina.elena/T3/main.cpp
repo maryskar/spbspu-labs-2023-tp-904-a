@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <limits>
-#include "Polygon.h"
+#include "CommandsDictionary.h"
 int main()
 {
   using namespace mishanina;
@@ -11,24 +11,38 @@ int main()
     "\n"
     "4 (0;0) (1;0) (1;1) (0;1)\n"
   };
-  std::vector<Polygon> pol;
+  std::vector<Polygon> polygons;
   while (!input.eof())
   {
     std::copy(std::istream_iterator<Polygon>(input),
               std::istream_iterator<Polygon>(),
-              std::back_inserter(pol));
+              std::back_inserter(polygons));
     if (input.fail())
     {
       input.clear();
-      input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      auto maxstream = std::numeric_limits<std::streamsize>::max();
+      input.ignore(maxstream, '\n');
     }
   }
-  for (Polygon &pl: pol)
+  CommandDictionary dictionary;
+  while (!std::cin.eof())
   {
-    std::cout << "point\n";
-    for (auto &point: pl.points)
+    try
     {
-      std::cout << "x = " << point.x << "\ty = " << point.y << '\n';
+      std::string cmd = dictionary.readCommand(std::cin);
+      dictionary.doCommand(polygons, cmd, dictionary, std::cin, std::cout);
+    }
+    catch (const std::logic_error &e)
+    {
+      std::cin.clear();
+      long long maxstream = std::numeric_limits<std::streamsize>::max();
+      std::cin.ignore(maxstream, '\n');
+      std::cerr << "<INVALID COMMAND>\n";
+    }
+    catch (const std::runtime_error &e)
+    {
+      std::cerr << e.what() << '\n';
+      return 1;
     }
   }
   return 0;
