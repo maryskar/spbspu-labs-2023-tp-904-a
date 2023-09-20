@@ -21,7 +21,7 @@ std::string mishanina::CommandDictionary::readCommand(std::istream &in)
   in >> cmd;
   if (!in)
   {
-    throw std::runtime_error("EOF");
+    throw std::runtime_error("Error : invalid read cmd");
   }
   if (cmd != "RMECHO" && cmd != "RECTS")
   {
