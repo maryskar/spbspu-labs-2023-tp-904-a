@@ -89,16 +89,17 @@ namespace mishanina
     iofmtguard iofmtguard(out);
     out << polNum.size() << '\n';
   }
-  void printRects(const std::vector<Polygon>& polygons, std::ostream& out)
+  void printRects(const std::vector<Polygon> &polygons, std::ostream &out)
   {
     iofmtguard iofmtguard(out);
     out << getCountIf(polygons, isRectangle) << '\n';
   }
-  void printRmecho(std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
+  void printRmecho(std::vector<Polygon> &polygons, std::ostream &out, std::istream &in)
   {
     Polygon target;
     in >> target;
-    if (!in || target.points.size() < 3){
+    if (!in || target.points.size() < 3)
+    {
       throw std::invalid_argument("Invalid rmecho");
     }
     using namespace std::placeholders;

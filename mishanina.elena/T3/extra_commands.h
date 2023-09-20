@@ -2,23 +2,22 @@
 #define EXTRA_COMMANDS_H
 #include "Polygon.h"
 #include <numeric>
-namespace mishanina{
-  bool isEven(const Polygon& polygon);
-  bool isOdd(const Polygon& polygon);
+namespace mishanina
+{
+  bool isEven(const Polygon &polygon);
+  bool isOdd(const Polygon &polygon);
   bool isCountOfVertexes(const Polygon &polygon, std::size_t num);
-  bool isEqualPolygon(const Polygon& lhs, const Polygon& rhs, const Polygon& polygon);
+  bool isEqualPolygon(const Polygon &lhs, const Polygon &rhs, const Polygon &polygon);
   std::size_t getNumOfVertexes(const Polygon &polygon);
-  double getSide(const Point& p1, const Point& p2);
-  double getArea(const Polygon& polygon);
+  double getSide(const Point &p1, const Point &p2);
+  double getArea(const Polygon &polygon);
   double getTotalArea(const std::vector<Polygon> &pol);
   std::size_t getMaxMinVert(const std::vector<Polygon> &polygons, bool isMax);
   double getMaxMinArea(const std::vector<Polygon> &polygons, bool isMax);
   std::vector<Polygon> getPolygonsWithNumOfVertexes(const std::vector<Polygon> &polygons, std::size_t num);
-  double getSideF(const Point& p1, const Point& p2);
+  double getSideF(const Point &p1, const Point &p2);
   bool isParallelorgam(double side1, double side2, double side3, double side4);
-  bool isRectangle(const Polygon& polygon);
-
-
+  bool isRectangle(const Polygon &polygon);
   template <class P>
   std::vector<Polygon> getPolygonsIf(const std::vector<Polygon> &polygons, P p)
   {
@@ -43,5 +42,4 @@ namespace mishanina{
     return res;
   }
 }
-
 #endif

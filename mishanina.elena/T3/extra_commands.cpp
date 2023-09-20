@@ -14,7 +14,7 @@ namespace mishanina
   {
     return (polygon.points.size() == num);
   }
-  bool isEqualPolygon(const Polygon& lhs, const Polygon& rhs, const Polygon& polygon)
+  bool isEqualPolygon(const Polygon &lhs, const Polygon &rhs, const Polygon &polygon)
   {
     return (rhs.points == lhs.points) && (rhs.points == polygon.points);
   }
@@ -66,26 +66,26 @@ namespace mishanina
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(result), countVertexes);
     return result;
   }
-  double getSideF(const Point& p1, const Point& p2) {
+  double getSideF(const Point &p1, const Point &p2)
+  {
     return std::sqrt(std::pow(p1.x - p2.x, 2) + std::pow(p1.y - p2.y, 2));
   }
-  bool isParallelorgam(double side1, double side2, double side3, double side4) {
+  bool isParallelorgam(double side1, double side2, double side3, double side4)
+  {
     return ((side1 == side3) && (side2 == side4));
   }
-  bool isRectangle(const Polygon& polygon) {
+  bool isRectangle(const Polygon &polygon)
+  {
     if (!isCountOfVertexes(polygon, 4ull))
     {
       return false;
     }
-
     double s1 = getSideF(polygon.points[0], polygon.points[1]);
     double s2 = getSideF(polygon.points[1], polygon.points[2]);
     double s3 = getSideF(polygon.points[2], polygon.points[3]);
     double s4 = getSideF(polygon.points[3], polygon.points[0]);
-
     double d1 = getSideF(polygon.points[0], polygon.points[2]);
     double d2 = getSideF(polygon.points[1], polygon.points[3]);
-
     return (isParallelorgam(s1, s2, s3, s4) && (d1 == d2));
   }
 }
