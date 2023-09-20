@@ -53,9 +53,7 @@ mishanina::CommandDictionary::doCommandRm(std::string &cmd, vect_pol &pols, std:
   auto func = dict_rm.at(cmd);
   func(pols, out, in);
 }
-void mishanina::CommandDictionary::doCommand(vect_pol &pols, std::string &cmd, const CommandDictionary &cmds,
-                                             std::istream &in,
-                                             std::ostream &out)
+void mishanina::CommandDictionary::doCommand(vect_pol &pols, std::string &cmd, std::istream &in, std::ostream &out)
 {
   try
   {
@@ -64,4 +62,15 @@ void mishanina::CommandDictionary::doCommand(vect_pol &pols, std::string &cmd, c
   } catch (const std::out_of_range &e)
   {
   }
+  try
+  {
+    doCommandRm(cmd, pols, out, in);
+    return;
+  } catch (const std::out_of_range &e)
+  {
+  }
+  std::size_t sep = cmd.find(' ');
+  std::size_t num = std::stoull(cmd.substr(sep));
+  std::string fin_cmd = cmd.substr(0, sep) + " NUM";
+  doCommandNum(fin_cmd, pols, out, num);
 }

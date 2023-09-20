@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     try
     {
       std::string cmd = dictionary.readCommand(std::cin);
-      dictionary.doCommand(polygons, cmd, dictionary, std::cin, std::cout);
+      dictionary.doCommand(polygons, cmd, std::cin, std::cout);
     }
     catch (const std::logic_error &e)
     {

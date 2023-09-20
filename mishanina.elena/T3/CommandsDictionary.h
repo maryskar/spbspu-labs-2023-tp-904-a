@@ -15,7 +15,6 @@ namespace mishanina
     std::string readCommand(std::istream &in);
     void doCommand(vect_pol &pols,
                    std::string &cmd,
-                   const CommandDictionary &cmds,
                    std::istream &in,
                    std::ostream &out);
   private:
