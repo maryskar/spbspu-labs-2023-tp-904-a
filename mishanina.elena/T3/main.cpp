@@ -43,12 +43,17 @@ int main(int argc, char* argv[])
       std::cerr << "<INVALID COMMAND>\n";
       long long maxstream = std::numeric_limits<std::streamsize>::max();
       std::cin.ignore(maxstream, '\n');
-      std::cin.clear();
+     // std::cin.clear();
     }
     catch (const std::runtime_error &e)
     {
       std::cerr << e.what() << '\n';
       return 1;
+    }
+    if(!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
   return 0;
