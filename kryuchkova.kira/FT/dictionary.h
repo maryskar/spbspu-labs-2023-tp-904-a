@@ -12,9 +12,13 @@ namespace kryuchkova
     using word = std::string;
     using translations = std::vector< word >;
     ErDictionary(std::map< word, translations > & dict);
+    translations find(const word & word) const;
+    void insert(const word & word, const translations & trans);
   private:
+    std::string name_;
     std::map< word, translations > dict_;
   };
+
 
   std::ostream & operator<<(std::ostream & out, const ErDictionary & dict);
   std::istream & operator>>(std::istream & in, ErDictionary & dict);
