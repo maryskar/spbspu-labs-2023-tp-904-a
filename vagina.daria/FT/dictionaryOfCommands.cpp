@@ -1,6 +1,7 @@
 #include "dictionaryOfCommands.hpp"
 
-DictionaryOfCommands::DictionaryOfCommands()
+using DictionaryComm = vagina::DictionaryOfCommands;
+DictionaryComm::DictionaryOfCommands()
 {
   withoutOutput.insert({"createSet", createSet});
   withoutOutput.insert({"mergeDictionary", mergeDictionary});
@@ -15,23 +16,22 @@ DictionaryOfCommands::DictionaryOfCommands()
   constCommand.insert({"wordsWithLetter", wordsWithLetter});
   notConstCommand.insert({"deleteWord", deleteWord});
 }
-void DictionaryOfCommands::doCommWithoutOutput(const std::string& command, dictionaryOfNames& dict, std::istream& in) const
+void DictionaryComm::doCommWithoutOutput(const std::string& command, dictionaryOfNames& dict, std::istream& in) const
 {
   auto func = withoutOutput.at(command);
   func(dict, in);
 }
-void DictionaryOfCommands::doCommConstComm(const std::string& command,
-  const dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
+void DictionaryComm::doCommConstComm(const std::string& command, const dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
 {
   auto func = constCommand.at(command);
   func(dict, in, out);
 }
-void DictionaryOfCommands::doCommNotConst(const std::string& command, dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
+void DictionaryComm::doCommNotConst(const std::string& command, dictionaryOfNames& dict, std::istream& in, std::ostream& out) const
 {
   auto func = notConstCommand.at(command);
   func(dict, in, out);
 }
-std::string DictionaryOfCommands::readCommand(std::istream& in)
+std::string DictionaryComm::readCommand(std::istream& in)
 {
   std::string comm = " ";
   in >> comm;
@@ -41,8 +41,7 @@ std::string DictionaryOfCommands::readCommand(std::istream& in)
   }
   return comm;
 }
-void DictionaryOfCommands::doCommand(const std::string& command, const DictionaryOfCommands& commands,
-  dictionaryOfNames& dest, std::istream& in, std::ostream& out)
+void DictionaryComm::doCommand(const std::string& command, const DictionaryOfCommands& commands, dictionaryOfNames& dest, std::istream& in, std::ostream& out)
 {
   try
   {

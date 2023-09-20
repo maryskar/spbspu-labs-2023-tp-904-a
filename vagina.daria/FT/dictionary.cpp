@@ -1,18 +1,18 @@
 #include "dictionary.hpp"
 
-void dictionary::insert(const std::string& word)
+void vagina::dictionary::insert(const std::string& word)
 {
   ++dict_[word];
 }
-dictionary& findSpecificDict(dictionaryOfNames& dicts, std::string& name)
+vagina::dictionary& vagina::findSpecificDict(dictionaryOfNames& dicts, std::string& name)
 {
   return dicts.at(name);
 }
-const dictionary& findSpecificDict(const dictionaryOfNames& dicts, std::string& name)
+const vagina::dictionary& vagina::findSpecificDict(const dictionaryOfNames& dicts, std::string& name)
 {
   return dicts.at(name);
 }
-bool dictionary::empty() const
+bool vagina::dictionary::empty() const
 {
   return dict_.empty();
 }

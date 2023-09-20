@@ -2,11 +2,11 @@
 #include <algorithm>
 #include <fstream>
 
-std::ostream& messageOfEmpty(std::ostream& out)
+std::ostream& vagina::messageOfEmpty(std::ostream& out)
 {
   return out << "<EMPTY>" << "\n";
 }
-void createSet(dictionaryOfNames& diction, std::istream& in)
+void vagina::createSet(dictionaryOfNames& diction, std::istream& in)
 {
   std::string filename = "";
   in >> filename;
@@ -44,11 +44,11 @@ void createSet(dictionaryOfNames& diction, std::istream& in)
   }
   diction.insert({ name, dict });
 }
-bool isGreater(const std::pair< std::string, size_t >& p1, const std::pair< std::string, size_t >& p2)
+bool vagina::isGreater(const std::pair< std::string, size_t >& p1, const std::pair< std::string, size_t >& p2)
 {
   return p1.second > p2.second;
 }
-void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::ostream& out)
+void vagina::threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::ostream& out)
 {
   std::string name = "";
   in >> name;
@@ -71,14 +71,14 @@ void threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::o
   std::copy_n(sorted_word_count.begin(), 3, std::back_inserter(first_three_keys));
   print(first_three_keys, out);
 }
-void print(const std::vector< std::pair < std::string, size_t > >& dict, std::ostream& out)
+void vagina::print(const std::vector< std::pair < std::string, size_t > >& dict, std::ostream& out)
 {
   for (const auto& pair : dict)
   {
     out << pair.first << ": " << pair.second << '\n';
   }
 }
-void findWord(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
+void vagina::findWord(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string word = "";
   std::string name = "";
@@ -107,7 +107,7 @@ void findWord(const dictionaryOfNames& dict, std::istream& in, std::ostream& out
   catch (const std::out_of_range& e)
   {}
 }
-void deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream& out)
+void vagina::deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string word = "";
   std::string name = "";
@@ -139,7 +139,7 @@ void deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream& out)
   catch (const std::out_of_range& e)
   {}
 }
-void printWordToSpecificLetter(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
+void vagina::printWordToSpecificLetter(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   char letter = ' ';
   std::string name = "";
@@ -161,7 +161,7 @@ void printWordToSpecificLetter(const dictionaryOfNames& dict, std::istream& in, 
     }
   }
 }
-void printDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
+void vagina::printDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string name = "";
   in >> name;
@@ -178,7 +178,7 @@ void printDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostre
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
   print(sorted_word_count, out);
 }
-std::map< char, size_t > countOfLetters(const dictionary& dict)
+std::map< char, size_t > vagina::countOfLetters(const dictionary& dict)
 {
   std::map< char, size_t > letterFreq;
   for (auto& word : dict.dict_)
@@ -197,7 +197,7 @@ std::map< char, size_t > countOfLetters(const dictionary& dict)
   }
   return letterFreq;
 }
-void maxCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
+void vagina::maxCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string name = "";
   in >> name;
@@ -224,7 +224,7 @@ void maxCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, s
   }
   out << "The most common letter is " << mostFrequentLetter << "\n";
 }
-void minCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
+void vagina::minCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string name = "";
   in >> name;
@@ -251,7 +251,7 @@ void minCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, s
   }
   out << "The rarest letter is " << leastFrequentLetter << "\n";
 }
-void mergeDictionary(dictionaryOfNames& dict, std::istream& in)
+void vagina::mergeDictionary(dictionaryOfNames& dict, std::istream& in)
 {
   std::string nameFirst = "";
   std::string nameSecond = "";
@@ -286,7 +286,7 @@ void mergeDictionary(dictionaryOfNames& dict, std::istream& in)
   }
   dict.insert({ name, dictOfResult });
 }
-void uniqueWord(dictionaryOfNames& dict, std::istream& in)
+void vagina::uniqueWord(dictionaryOfNames& dict, std::istream& in)
 {
   std::string nameFirst = "";
   std::string nameSecond = "";
@@ -321,7 +321,7 @@ void uniqueWord(dictionaryOfNames& dict, std::istream& in)
   }
   dict.insert({ name, dictOfResult });
 }
-void countIndentical(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
+void vagina::countIndentical(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string nameFirst = "";
   std::string nameSecond = "";
@@ -346,7 +346,7 @@ void countIndentical(const dictionaryOfNames& dict, std::istream& in, std::ostre
     }
   }
 }
-void wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
+void vagina::wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string name = "";
   in >> name;

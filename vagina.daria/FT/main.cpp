@@ -4,8 +4,8 @@
 
 int main()
 {
-  dictionaryOfNames allDicts{};
-  auto dictionary = DictionaryOfCommands();
+  vagina::dictionaryOfNames allDicts{};
+  auto dictionary = vagina::DictionaryOfCommands();
   while (!std::cin.eof())
   {
     try
@@ -15,12 +15,12 @@ int main()
     }
     catch (const std::invalid_argument& e)
     {
-      messageOfEmpty(std::cout);
+      vagina::messageOfEmpty(std::cout);
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
     catch (const std::logic_error& e)
     {
-      messageInvalidCommand(std::cout);
+      vagina::messageInvalidCommand(std::cout);
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
     catch (const std::runtime_error& e)

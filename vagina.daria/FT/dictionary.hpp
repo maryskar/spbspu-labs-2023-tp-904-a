@@ -4,14 +4,17 @@
 #include <string>
 #include <iostream>
 
-struct dictionary
+namespace vagina
 {
-  std::map< std::string, size_t > dict_;
-  void insert(const std::string& word);
-  bool empty() const;
-};
-using dictionaryOfNames = std::map < std::string, dictionary >;
-dictionary& findSpecificDict(dictionaryOfNames&, std::string& name);
-const dictionary& findSpecificDict(const dictionaryOfNames& dicts, std::string& name);
+  struct dictionary
+  {
+    std::map< std::string, size_t > dict_;
+    void insert(const std::string& word);
+    bool empty() const;
+  };
+  using dictionaryOfNames = std::map < std::string, dictionary >;
+  dictionary& findSpecificDict(dictionaryOfNames&, std::string& name);
+  const dictionary& findSpecificDict(const dictionaryOfNames& dicts, std::string& name);
+}
 
 #endif
