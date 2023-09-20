@@ -1,6 +1,7 @@
 #include "commands.hpp"
 #include <algorithm>
 #include <fstream>
+#include <functional>
 
 void vagina::createSet(dictionaryOfNames& diction, std::istream& in)
 {
@@ -68,6 +69,7 @@ void vagina::threeMostPopular(const dictionaryOfNames& diction, std::istream& in
   }
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
   std::vector< std::pair < std::string, size_t > > first_three_keys;
+  first_three_keys.reserve(3);
   std::copy_n(sorted_word_count.begin(), 3, std::back_inserter(first_three_keys));
   print(first_three_keys, out);
 }
@@ -92,20 +94,15 @@ void vagina::findWord(const dictionaryOfNames& dict, std::istream& in, std::ostr
   {
     throw std::invalid_argument("Dictionary is Empty");
   }
-  try
+  auto it = diction.dict_.find(word);
+  if (it != diction.dict_.end())
   {
-    auto it = diction.dict_.find(word);
-    if (it != diction.dict_.end())
-    {
-      out << "This word occurs - " << it->second << " times" << "\n";
-    }
-    else
-    {
-      out << "This word is missing" << "\n";
-    }
+    out << "This word occurs - " << it->second << " times" << "\n";
   }
-  catch (const std::out_of_range& e)
-  {}
+  else
+  {
+    out << "This word is missing" << "\n";
+  }
 }
 void vagina::deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
@@ -121,23 +118,22 @@ void vagina::deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream&
   {
     throw std::invalid_argument("Dictionary is Empty");
   }
-  try
+  auto it = diction.dict_.find(word);
+  if (it != diction.dict_.end())
   {
-    auto it = diction.dict_.find(word);
-    if (it != diction.dict_.end())
-    {
-      diction.dict_.erase(word);
-      out << "The word is deleted" << "\n";
-      dict.erase(name);
-      dict.insert({name, diction});
-    }
-    else
-    {
-      out << "Error: This word is missing" << "\n";
-    }
+    diction.dict_.erase(word);
+    out << "The word is deleted" << "\n";
+    dict.erase(name);
+    dict.insert({ name, diction });
   }
-  catch (const std::out_of_range& e)
-  {}
+  else
+  {
+    out << "Error: This word is missing" << "\n";
+  }
+}
+bool compareTheFirstLetter(const std::pair< std::string, size_t >& firstLetter, char letter)
+{
+  return firstLetter.first[0] == letter;
 }
 void vagina::printWordToSpecificLetter(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
@@ -149,17 +145,20 @@ void vagina::printWordToSpecificLetter(const dictionaryOfNames& dict, std::istre
     throw std::invalid_argument("Error reading name of dictionary or letter");
   }
   dictionary diction = findSpecificDict(dict, name);
-  if (diction.empty())
+  if (diction.dict_.empty())
   {
     throw std::invalid_argument("Dictionary is Empty");
   }
-  for (auto it = diction.dict_.begin(); it != diction.dict_.end(); ++it)
+  try
   {
-    if (it->first[0] == letter)
-    {
-      out << it->first << " : " << it->second << "\n";
-    }
+    std::vector< std::pair < std::string, size_t > > result;
+    using namespace std::placeholders;
+    auto func = std::bind(compareTheFirstLetter, _1, letter);
+    std::copy_if(diction.dict_.begin(), diction.dict_.end(), std::back_inserter(result), func);
+    print(result, out);
   }
+  catch (const std::out_of_range& e)
+  {}
 }
 void vagina::printDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
@@ -197,6 +196,10 @@ std::map< char, size_t > vagina::countOfLetters(const dictionary& dict)
   }
   return letterFreq;
 }
+bool isLess(const std::pair< char, size_t >& p1, const std::pair< char, size_t >& p2)
+{
+  return p1.second < p2.second;
+}
 void vagina::maxCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string name = "";
@@ -212,17 +215,10 @@ void vagina::maxCountLetterDictionary(const dictionaryOfNames& dict, std::istrea
   }
   std::map< char, size_t > letterFreq;
   letterFreq = countOfLetters(diction);
-  char mostFrequentLetter = ' ';
-  size_t maxFreq = 0;
-  for (auto& letter : letterFreq)
-  {
-    if (letter.second > maxFreq)
-    {
-      maxFreq = letter.second;
-      mostFrequentLetter = letter.first;
-    }
-  }
-  out << "The most common letter is " << mostFrequentLetter << "\n";
+  using namespace std::placeholders;
+  auto func = std::bind(isLess, _1, _2);
+  auto maxFreqLetter = std::max_element(letterFreq.begin(), letterFreq.end(), func);
+  out << "The most common letter is " << '"' << maxFreqLetter->first << '"' << "\n";
 }
 void vagina::minCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
@@ -239,17 +235,10 @@ void vagina::minCountLetterDictionary(const dictionaryOfNames& dict, std::istrea
   }
   std::map< char, size_t > letterFreq;
   letterFreq = countOfLetters(diction);
-  char leastFrequentLetter = ' ';
-  size_t minFreq = std::numeric_limits<size_t>::max();
-  for (auto& letter : letterFreq)
-  {
-    if (letter.second < minFreq)
-    {
-      minFreq = letter.second;
-      leastFrequentLetter = letter.first;
-    }
-  }
-  out << "The rarest letter is " << leastFrequentLetter << "\n";
+  using namespace std::placeholders;
+  auto func = std::bind(isLess, _1, _2);
+  auto minFreqLetter = std::min_element(letterFreq.begin(), letterFreq.end(), func);
+  out << "The rarest letter is " << '"' << minFreqLetter->first << '"' << "\n";
 }
 void vagina::mergeDictionary(dictionaryOfNames& dict, std::istream& in)
 {
@@ -346,6 +335,12 @@ void vagina::countIndentical(const dictionaryOfNames& dict, std::istream& in, st
     }
   }
 }
+bool isWordMatchingCondition(const std::pair<std::string, size_t>& wordInfo, char letter, size_t minCount)
+{
+  const std::string& word = wordInfo.first;
+  size_t count = std::count(word.begin(), word.end(), letter);
+  return (count >= minCount);
+}
 void vagina::wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
   std::string name = "";
@@ -366,21 +361,9 @@ void vagina::wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, st
   {
     throw std::invalid_argument("Error reading letter or minimum number of occurrences");
   }
-  for (const auto& pair : diction.dict_)
-  {
-    const std::string& word = pair.first;
-    int count = 0;
-    for (char c : word)
-    {
-      if (c == letter)
-      {
-        count++;
-        if (count >= minCount)
-        {
-          out << word << "\n";
-          break;
-        }
-      }
-    }
-  }
+  std::vector< std::pair < std::string, size_t > > matchingWords;
+  using namespace std::placeholders;
+  auto func = std::bind(isWordMatchingCondition, _1, letter, minCount);
+  std::copy_if(diction.dict_.begin(), diction.dict_.end(), std::back_inserter(matchingWords), func);
+  print(matchingWords, out);
 }
