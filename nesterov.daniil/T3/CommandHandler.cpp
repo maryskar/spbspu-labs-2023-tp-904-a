@@ -282,6 +282,12 @@ namespace nesterov
     Polygon input;
     if (in >> input)
     {
+      std::string remaining;
+      std::getline(in, remaining, ')');
+      if (!remaining.empty())
+      {
+        throw std::logic_error("");
+      }
       size_t max = 0;
       auto i = std::find(pls.begin(), pls.end(), input);
       while (i != pls.end())
