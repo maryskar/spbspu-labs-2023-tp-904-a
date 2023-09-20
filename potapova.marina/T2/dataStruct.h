@@ -33,7 +33,6 @@ namespace potapova
   std::istream& operator>>(std::istream& in, UnsignedLongIntOctIO&& dest);
   std::istream& operator>>(std::istream& in, UnsignedLongIntBinIO&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
-  std::istream& operator>>(std::istream& in, std::string&& dest);
   std::istream& operator>>(std::istream& in, DataStruct& dest);
   std::ostream& operator<<(std::ostream& out, const DataStruct& dest);
 

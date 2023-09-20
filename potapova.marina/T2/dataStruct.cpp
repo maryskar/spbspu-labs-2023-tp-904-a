@@ -66,21 +66,6 @@ namespace potapova
     return std::getline(in, dest.str, ':');
   }
 
-  std::istream& operator>>(std::istream& in, std::string&& dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    std::string data = "";
-    if ((in >> StringIO{data}) && !((data == "key1") || (data == "key2") || (data == "key3")))
-    {
-      in.setstate(std::ios::failbit);
-    }
-    return in;
-  }
-
   std::istream& operator>>(std::istream& in, DataStruct& dest)
   {
     std::istream::sentry sentry(in);
