@@ -255,6 +255,12 @@ namespace nesterov
     Polygon input;
     if (in >> input)
     {
+      std::string remaining;
+      std::getline(in, remaining, ')');
+      if (!remaining.empty())
+      {
+        throw std::logic_error("");
+      }
       std::list< Polygon > list(pls.begin(), pls.end());
       size_t inserted = 0;
 
