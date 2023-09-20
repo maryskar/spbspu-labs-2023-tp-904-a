@@ -40,7 +40,6 @@ int main(int argc, char* argv[])
     }
     catch (const std::logic_error &e)
     {
-      std::cin.clear();
       long long maxstream = std::numeric_limits<std::streamsize>::max();
       std::cin.ignore(maxstream, '\n');
       std::cerr << "<INVALID COMMAND>\n";
