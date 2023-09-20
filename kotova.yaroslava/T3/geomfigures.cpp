@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <IO_structs.hpp>
 
+
 std::istream &kotova::operator>>(std::istream &in, DelimiterIO &&dest)
   {
     std::istream::sentry sentry(in);
