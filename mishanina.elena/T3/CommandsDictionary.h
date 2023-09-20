@@ -6,6 +6,7 @@ namespace mishanina
 {
   using vect_pol = std::vector<Polygon>;
   using cmd_out = void (*)(const vect_pol &, std::ostream &);
+  using cmd_num = void (*)(const vect_pol &, std::ostream &, std::size_t);
   class CommandDictionary
   {
   public:
@@ -18,7 +19,9 @@ namespace mishanina
                    std::ostream &out);
   private:
     std::map<std::string, cmd_out> dict_out;
+    std::map<std::string, cmd_num> dict_num;
     void doCommandOut(std::string &cmd, const vect_pol &pols, std::ostream &out) const;
+    void doCommandNum(std::string &cmd, const vect_pol &pols, std::ostream &out, std::size_t num) const;
   };
 }
 #endif

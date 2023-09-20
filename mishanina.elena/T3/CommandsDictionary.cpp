@@ -4,6 +4,7 @@ mishanina::CommandDictionary::CommandDictionary()
   dict_out.insert({"AREA EVEN", printAreaEven});
   dict_out.insert({"AREA ODD", printAreaOdd});
   dict_out.insert({"AREA MEAN", printAreaMean});
+  dict_num.insert({"AREA NUM", printAreaNumOfVertexes});
 }
 std::string mishanina::CommandDictionary::readCommand(std::istream &in)
 {
@@ -30,6 +31,12 @@ void mishanina::CommandDictionary::doCommandOut(std::string &cmd, const vect_pol
 {
   auto func = dict_out.at(cmd);
   func(pols, out);
+}
+void mishanina::CommandDictionary::doCommandNum(std::string &cmd, const vect_pol &pols, std::ostream &out,
+                                                std::size_t num) const
+{
+  auto func = dict_num.at(cmd);
+  func(pols, out, num);
 }
 void mishanina::CommandDictionary::doCommand(vect_pol &pols, std::string &cmd, const CommandDictionary &cmds,
                                              std::istream &in,
