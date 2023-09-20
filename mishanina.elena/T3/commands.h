@@ -7,5 +7,6 @@ namespace mishanina{
   void printAreaEven(const std::vector<Polygon>& polygons, std::ostream& out);
   void printAreaOdd(const std::vector<Polygon>& polygons, std::ostream& out);
   void printAreaMean(const std::vector<Polygon>& polygons, std::ostream& out);
+  void printAreaNumOfVertexes(const std::vector<Polygon> &polygons, std::ostream &out, std::size_t num);
 }
 #endif

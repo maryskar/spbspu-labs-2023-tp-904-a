@@ -9,6 +9,10 @@ namespace mishanina{
   {
     return !isEven(polygon);
   }
+  bool isCountOfVertexes(const Polygon &polygon, std::size_t num)
+  {
+    return (polygon.points.size() == num);
+  }
   double getSide(const Point& p1, const Point& p2){
     return p1.x * p2.y - p1.y * p2.x;
   }
@@ -28,5 +32,13 @@ namespace mishanina{
     std::transform(pol.begin(), pol.end(), areas.begin(), getArea);
     double sum = std::accumulate(areas.begin(), areas.end(), 0.0);
     return sum;
+  }
+  std::vector<Polygon> getPolygonsWithNumOfVertexes(const std::vector<Polygon> &polygons, std::size_t num)
+  {
+    using namespace std::placeholders;
+    auto countVertexes = std::bind(isCountOfVertexes, _1, num);
+    std::vector<Polygon> result;
+    std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(result), countVertexes);
+    return result;
   }
 }

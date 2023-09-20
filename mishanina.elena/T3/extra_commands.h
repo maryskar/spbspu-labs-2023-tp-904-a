@@ -5,9 +5,11 @@
 namespace mishanina{
   bool isEven(const Polygon& polygon);
   bool isOdd(const Polygon& polygon);
+  bool isCountOfVertexes(const Polygon &polygon, std::size_t num);
   double getSide(const Point& p1, const Point& p2);
   double getArea(const Polygon& polygon);
   double getTotalArea(const std::vector<Polygon> &pol);
+  std::vector<Polygon> getPolygonsWithNumOfVertexes(const std::vector<Polygon> &polygons, std::size_t num);
   template <class P>
   std::vector<Polygon> getPolygonsIf(const std::vector<Polygon> &polygons, P p)
   {

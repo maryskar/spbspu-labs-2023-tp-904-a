@@ -16,4 +16,13 @@ namespace mishanina{
     }
     out << std::fixed << std::setprecision(1) << getTotalArea(polygons) / polygons.size() << '\n';
   }
+  void printAreaNumOfVertexes(const std::vector<Polygon> &polygons, std::ostream &out, std::size_t num)
+  {
+    if (num < 3)
+    {
+      throw std::invalid_argument("ERROR : invalid parameter");
+    }
+    std::vector<Polygon> polygonsNum = getPolygonsWithNumOfVertexes(polygons, num);
+    out << std::fixed << std::setprecision(1) << getTotalArea(polygonsNum) << '\n';
+  }
 }
