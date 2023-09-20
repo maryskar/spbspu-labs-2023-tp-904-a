@@ -4,9 +4,9 @@
 
 namespace kryuchkova
 {
-  void doCreate(const std::string & name);
+  void doCreate(std::istream & in, std::map< std::string, ErDictionary > & dicts);
   void doInsert(std::istream & in, ErDictionary & dict);
-  void doSearch(std::istream & in, const ErDictionary & dict);
+  void doSearch(std::istream & in, std::ostream & out, const ErDictionary & dict);
   void doDelete(std::istream & in, ErDictionary & dict);
   void fillDict(std::istream & in, ErDictionary & dict);
   void findByFirstLet(std::istream & in, ErDictionary & dict);

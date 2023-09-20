@@ -11,6 +11,7 @@ namespace kryuchkova
   public:
     using word = std::string;
     using translations = std::vector< word >;
+    ErDictionary();
     ErDictionary(std::map< word, translations > & dict);
     translations find(const word & wrd) const;
     word getName() const;

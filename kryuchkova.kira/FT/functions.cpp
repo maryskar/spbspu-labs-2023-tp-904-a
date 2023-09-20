@@ -5,11 +5,22 @@
 
 namespace kryuchkova
 {
-  bool isName(std::string & name, const ErDictionary & dict)
+  bool hasDictWithName(const std::map< std::string, ErDictionary > & dicts, const std::string name)
   {
-    return dict.getName() == name;
+    return dicts.find(name) != dicts.end();
   }
-  void doCreate(const std::string & name);
+
+  void doCreate(std::istream & in, std::map< std::string, ErDictionary > & dicts)
+  {
+    std::string name;
+    in >> name;
+    if (hasDictWithName(dicts, name))
+    {
+      throw std::logic_error("Dict with this name already exists");
+    }
+    dicts[name] = ErDictionary();
+  }
+
   void doInsert(std::istream & in, std::map< std::string, ErDictionary > & dicts)
   {
     std::string name;
@@ -23,25 +34,41 @@ namespace kryuchkova
       trans.push_back(data);
     }
     auto iter = dicts.find(name);
-    if (iter == dicts.end())
+    if (!hasDictWithName(dicts, name))
     {
       throw std::logic_error("No such dicts with this name");
     }
     else
     {
-      (*iter).second.insert(word, trans);
+      iter->second.insert(word, trans);
     }
   }
 
-  void doSearch(std::istream & in, const ErDictionary & dict)
+  void doSearch(std::istream & in, std::ostream & out, std::map< std::string, ErDictionary > & dicts)
   {
     std::string name;
     in >> name;
     std::string word;
     in >> word;
+    if (!hasDictWithName(dicts, name))
+    {
+      throw std::logic_error("No such dicts with this name");
+    }
+    ErDictionary dict = dicts.find(name)->second;
     ErDictionary::translations res = dict.find(word);
+    out << word << ": ";
+    std::copy(res.begin(), res.end(), std::ostream_iterator< std::string >(out, " "));
   }
-  void doDelete(std::istream & in, ErDictionary & dict);
+
+  void doDelete(std::istream & in, std::map< std::string, ErDictionary > & dicts)
+  {
+    std::string name;
+    in >> name;
+    std::string word;
+    in >> word;
+
+  }
+
   void fillDict(std::istream & in, ErDictionary & dict);
   void findByFirstLet(std::istream & in, ErDictionary & dict);
   void printDict(std::ostream & out, const ErDictionary & dict);
