@@ -1,5 +1,5 @@
-#ifndef T2_STRUCTURES_HPP
-#define T2_STRUCTURES_HPP
+#ifndef T3_IOSTRUCTURES_HPP
+#define T3_IOSTRUCTURES_HPP
 #include <string>
 namespace litvin
 {
@@ -23,7 +23,6 @@ namespace litvin
   {
     std::string exp;
   };
-  std::string convertToScientific(double num);
   std::istream & operator>>(std::istream & in, DelimiterIO && dest);
   std::istream & operator>>(std::istream & in, DoubleIO && dest);
   std::istream & operator>>(std::istream & in, StringIO && dest);
