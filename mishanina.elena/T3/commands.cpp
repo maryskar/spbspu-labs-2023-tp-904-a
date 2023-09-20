@@ -77,4 +77,8 @@ namespace mishanina
     std::vector<Polygon> polNum = getPolygonsWithNumOfVertexes(polygons, num);
     out << polNum.size() << '\n';
   }
+  void printRects(const std::vector<Polygon>& polygons, std::ostream& out)
+  {
+    out << getCountIf(polygons, isRectangle) << '\n';
+  }
 }

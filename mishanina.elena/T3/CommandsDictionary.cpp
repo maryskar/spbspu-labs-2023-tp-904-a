@@ -10,6 +10,7 @@ mishanina::CommandDictionary::CommandDictionary()
   dict_out.insert({"MIN VERTEXES", printMinVertexes});
   dict_out.insert({"COUNT EVEN", printCountEven});
   dict_out.insert({"COUNT ODD", printCountOdd});
+  dict_out.insert({"RECTS", printRects});
   dict_num.insert({"AREA NUM", printAreaNumOfVertexes});
   dict_num.insert({"COUNT NUM", printCountNumOfVertexes});
 }

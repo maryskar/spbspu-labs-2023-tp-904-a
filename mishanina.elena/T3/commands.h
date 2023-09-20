@@ -15,6 +15,7 @@ namespace mishanina{
   void printCountEven(const std::vector<Polygon> &polygons, std::ostream &out);
   void printCountOdd(const std::vector<Polygon> &polygons, std::ostream &out);
   void printCountNumOfVertexes(const std::vector<Polygon> &polygons, std::ostream &out, std::size_t num);
+  void printRects(const std::vector<Polygon>& polygons, std::ostream& out);
 
 }
 #endif

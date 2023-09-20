@@ -13,6 +13,11 @@ namespace mishanina{
   std::size_t getMaxMinVert(const std::vector<Polygon> &polygons, bool isMax);
   double getMaxMinArea(const std::vector<Polygon> &polygons, bool isMax);
   std::vector<Polygon> getPolygonsWithNumOfVertexes(const std::vector<Polygon> &polygons, std::size_t num);
+  double getSideF(const Point& p1, const Point& p2);
+  bool isParallelorgam(double side1, double side2, double side3, double side4);
+  bool isRectangle(const Polygon& polygon);
+
+
   template <class P>
   std::vector<Polygon> getPolygonsIf(const std::vector<Polygon> &polygons, P p)
   {
