@@ -53,9 +53,7 @@ namespace nesterov
       points,
       std::back_inserter(input.points)
     );
-    std::string remaining;
-    std::getline(in, remaining, ')');
-    if (input.points.size() < 3 || !remaining.empty())
+    if ((input.points.size() < 3) || (in.peek() != '\n' && !in.eof()))
     {
       in.setstate(std::ios::failbit);
     }

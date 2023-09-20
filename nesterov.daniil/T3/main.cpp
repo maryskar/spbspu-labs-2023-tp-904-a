@@ -23,16 +23,16 @@ int main(int argc, char **argv)
   std::deque< Polygon > polygons;
   while (!input.eof())
   {
-    if (input.fail())
-    {
-      input.clear();
-      skipUntilNewLine(input);
-    }
     std::copy(
       std::istream_iterator< Polygon >(input),
       std::istream_iterator< Polygon >(),
       std::back_inserter(polygons)
     );
+    if (input.fail())
+    {
+      input.clear();
+      skipUntilNewLine(input);
+    }
   }
 
   std::map< std::string, const_cmd_t > const_cmds{
