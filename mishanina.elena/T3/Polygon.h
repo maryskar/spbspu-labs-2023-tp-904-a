@@ -4,7 +4,7 @@
 #include <istream>
 #include <iterator>
 #include <algorithm>
-#include "iodel.h"
+#include <iotypes.h>
 namespace mishanina
 {
   struct Point
