@@ -14,6 +14,7 @@ namespace kryuchkova
       throw std::logic_error("Dict doesn't contain this word");
     }
   }
+
   void ErDictionary::insert(const word & wrd, const translations & trans)
   {
     if (!dict_.insert(std::pair< word, translations >(wrd, trans)).second)
@@ -21,6 +22,7 @@ namespace kryuchkova
       throw std::logic_error("This word already exist in this dict");
     }
   }
+
   ErDictionary::word ErDictionary::getName() const
   {
     return name_;
@@ -29,6 +31,16 @@ namespace kryuchkova
   void ErDictionary::erase(const word & wrd)
   {
     dict_.erase(wrd);
+  }
+
+  std::map< ErDictionary::word, ErDictionary::translations >::const_iterator ErDictionary::begin() const
+  {
+    return dict_.begin();
+  }
+
+  std::map< ErDictionary::word, ErDictionary::translations >::const_iterator ErDictionary::end() const
+  {
+    return dict_.end();
   }
 
 }

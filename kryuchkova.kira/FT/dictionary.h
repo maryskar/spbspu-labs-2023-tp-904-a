@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iterator>
 
 namespace kryuchkova
 {
@@ -17,6 +18,8 @@ namespace kryuchkova
     word getName() const;
     void insert(const word & wrd, const translations & trans);
     void erase(const word & wrd);
+    std::map< word, translations >::const_iterator begin() const;
+    std::map< word, translations >::const_iterator end() const;
   private:
     std::string name_;
     std::map< word, translations > dict_;

@@ -12,11 +12,11 @@ namespace kryuchkova
   void findByFirstLet(std::istream & in, ErDictionary & dict);
   void printDict(std::ostream & out, const ErDictionary & dict);
   void exportDict(std::istream & in, ErDictionary & dict);
-  void unite(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);
-  void intersect(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);
-  void symSubtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);
-  void subtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);
-  void addition(const ErDictionary & dict1, const ErDictionary & dict2);
+  void unite(const ErDictionary & dict1, const ErDictionary & dict2);
+  void intersect(const ErDictionary & dict1, const ErDictionary & dict2);
+  void symSubtract(const ErDictionary & dict1, const ErDictionary & dict2);
+  void subtract(const ErDictionary & dict1, const ErDictionary & dict2);
+  bool addition(const ErDictionary & dict1, const ErDictionary & dict2);
 
 }
 

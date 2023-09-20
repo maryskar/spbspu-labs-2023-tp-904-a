@@ -2,6 +2,7 @@
 #include <istream>
 #include <iterator>
 #include <functional>
+#include <algorithm>
 
 namespace kryuchkova
 {
@@ -78,10 +79,35 @@ namespace kryuchkova
   void findByFirstLet(std::istream & in, ErDictionary & dict);
   void printDict(std::ostream & out, const ErDictionary & dict);
   void exportDict(std::istream & in, ErDictionary & dict);
-  void unite(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);//std::set_union
-  void intersect(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);//std::set_intersection
-  void symSubtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);//std::set_symmetric_difference
-  void subtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2);//std::set_difference
-  void addition(const ErDictionary & dict1, const ErDictionary & dict2);//std::include
+
+  void unite(const ErDictionary & dict1, const ErDictionary & dict2)
+  {
+    ErDictionary new_dict;
+    std::set_union(dict1.begin(), dict1.end(), dict2.begin(), dict2.end(), std::back_inserter(new_dict));
+  }
+
+  void intersect(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2)
+  {
+    ErDictionary new_dict;
+    std::set_intersection(dict1.begin(), dict1.end(), dict2.begin(), dict2.end(), std::back_inserter(new_dict));
+  }
+
+  void symSubtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2)
+  {
+    ErDictionary new_dict;
+    std::set_symmetric_difference(dict1.begin(), dict1.end(), dict2.begin(), dict2.end(), std::back_inserter(new_dict));
+  }
+
+  void subtract(ErDictionary new_dict, const ErDictionary & dict1, const ErDictionary & dict2)
+  {
+    ErDictionary new_dict;
+    std::set_difference(dict1.begin(), dict1.end(), dict2.begin(), dict2.end(), std::back_inserter(new_dict));
+  }
+
+  bool addition(const ErDictionary & dict1, const ErDictionary & dict2)
+  {
+    ErDictionary new_dict;
+    return std::includes(dict1.begin(), dict1.end(), dict2.begin(), dict2.end());
+  }
 
 }
