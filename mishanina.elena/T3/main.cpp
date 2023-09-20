@@ -1,16 +1,16 @@
 #include <iostream>
-#include <sstream>
+#include <fstream>
 #include <limits>
 #include "CommandsDictionary.h"
-int main()
+int main(int argc, char **argv)
 {
   using namespace mishanina;
-  std::stringstream input{
-    "3 (0;0) (1;1) (1;0)\n"
-    "2 (0;0) (1;1)\n"
-    "\n"
-    "4 (0;0) (1;0) (1;1) (0;1)\n"
-  };
+  if (argc != 2){
+    std::cerr << "Not enough CL parameters\n";
+    return 1;
+  }
+
+  std::ifstream input(argv[1]);
   std::vector<Polygon> polygons;
   while (!input.eof())
   {
