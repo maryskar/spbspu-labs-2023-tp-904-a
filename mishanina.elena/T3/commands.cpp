@@ -81,4 +81,20 @@ namespace mishanina
   {
     out << getCountIf(polygons, isRectangle) << '\n';
   }
+  void printRmecho(std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
+  {
+    Polygon target;
+    in >> target;
+    if (!in || target.points.size() < 3){
+      throw std::invalid_argument("Invalid rmecho");
+    }
+    using namespace std::placeholders;
+    auto pred = std::bind(isEqualPolygon, _1, _2, target);
+    auto end = std::unique(polygons.begin(), polygons.end(), pred);
+    std::size_t res = std::distance(end, polygons.end());
+    polygons.erase(end, polygons.end());
+//    iofmtguard iofmtguard(out);
+    out << std::fixed << std::setprecision(1);
+    out << res << "\n";
+  }
 }

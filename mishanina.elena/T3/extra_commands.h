@@ -6,6 +6,7 @@ namespace mishanina{
   bool isEven(const Polygon& polygon);
   bool isOdd(const Polygon& polygon);
   bool isCountOfVertexes(const Polygon &polygon, std::size_t num);
+  bool isEqualPolygon(const Polygon& lhs, const Polygon& rhs, const Polygon& polygon);
   std::size_t getNumOfVertexes(const Polygon &polygon);
   double getSide(const Point& p1, const Point& p2);
   double getArea(const Polygon& polygon);

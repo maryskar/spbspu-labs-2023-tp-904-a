@@ -13,6 +13,7 @@ mishanina::CommandDictionary::CommandDictionary()
   dict_out.insert({"RECTS", printRects});
   dict_num.insert({"AREA NUM", printAreaNumOfVertexes});
   dict_num.insert({"COUNT NUM", printCountNumOfVertexes});
+  dict_rm.insert({"RMECHO", printRmecho});
 }
 std::string mishanina::CommandDictionary::readCommand(std::istream &in)
 {
@@ -45,6 +46,12 @@ void mishanina::CommandDictionary::doCommandNum(std::string &cmd, const vect_pol
 {
   auto func = dict_num.at(cmd);
   func(pols, out, num);
+}
+void
+mishanina::CommandDictionary::doCommandRm(std::string &cmd, vect_pol &pols, std::ostream &out, std::istream &in) const
+{
+  auto func = dict_rm.at(cmd);
+  func(pols, out, in);
 }
 void mishanina::CommandDictionary::doCommand(vect_pol &pols, std::string &cmd, const CommandDictionary &cmds,
                                              std::istream &in,

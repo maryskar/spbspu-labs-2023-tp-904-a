@@ -14,6 +14,10 @@ namespace mishanina
   {
     return (polygon.points.size() == num);
   }
+  bool isEqualPolygon(const Polygon& lhs, const Polygon& rhs, const Polygon& polygon)
+  {
+    return (rhs.points == lhs.points) && (rhs.points == polygon.points);
+  }
   std::size_t getNumOfVertexes(const Polygon &polygon)
   {
     return polygon.points.size();
