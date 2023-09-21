@@ -39,7 +39,7 @@ int main(int argc, char ** argv)
     {
       if (polygons.size() == 0)
       {
-        throw;
+        throw std::logic_error("");
       }
       doCommand(polygons, std::cin, std::cout, cmd);
     }
