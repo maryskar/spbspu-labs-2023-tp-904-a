@@ -37,10 +37,6 @@ int main(int argc, char ** argv)
     std::cin >> cmd;
     try
     {
-      if (polygons.empty())
-      {
-        throw std::logic_error("");
-      }
       doCommand(polygons, std::cin, std::cout, cmd);
     }
     catch (const std::logic_error &e)
