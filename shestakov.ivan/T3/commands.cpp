@@ -47,7 +47,7 @@ namespace shestakov
     std::vector< double > ar_of_polygons(polygons.size());
     std::transform(polygons.begin(), polygons.end(), ar_of_polygons.begin(), getArea);
     std::sort(ar_of_polygons.begin(), ar_of_polygons.end());
-    printFix(std::baar_of_polygons.back(), out);
+    printFix(ar_of_polygons.back(), out);
   }
   void minArea(const std::vector<Polygon>& polygons, std::ostream &out)
   {
