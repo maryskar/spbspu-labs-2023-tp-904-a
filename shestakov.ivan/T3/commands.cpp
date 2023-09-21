@@ -157,6 +157,7 @@ namespace shestakov
     {
       throw std::logic_error("");
     }
+    //
     Polygon input;
     if (in >> input)
     {
