@@ -7,6 +7,7 @@
 
 namespace shestakov
 {
+  //
   void areaEven(const std::vector<Polygon>& polygons, std::ostream &out)
   {
     size_t size_of_even = 0;
