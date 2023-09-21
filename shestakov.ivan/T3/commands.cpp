@@ -99,10 +99,10 @@ namespace shestakov
   }
   void areaVert(const std::vector<Polygon>& polygons, size_t num, std::ostream &out)
   {
-    std::vector< Polygon > vert_polygons;
+    std::vector<Polygon> vert_polygons;
     double sum_areas = 0.0;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(vert_polygons),std::bind(equalVert, std::placeholders::_1, num));
-    std::vector< double > areas(vert_polygons.size());
+    std::vector<double> areas(vert_polygons.size());
     std::transform(vert_polygons.begin(), vert_polygons.end(), areas.begin(), getArea);
     sum_areas = std::accumulate(areas.begin(), areas.end(), 0.0);
     printFix(sum_areas, out);
