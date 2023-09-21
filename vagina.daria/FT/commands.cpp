@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <fstream>
 #include <functional>
+#include <set>
 
 void vagina::createSet(dictionaryOfNames& diction, std::istream& in)
 {
@@ -49,6 +50,28 @@ bool vagina::isGreater(const std::pair< std::string, size_t >& p1, const std::pa
 {
   return p1.second > p2.second;
 }
+void vagina::print(const dictionary& dict, std::ostream& out)
+{
+  for (const auto& pair : dict.dict_)
+  {
+    out << pair.first << ": " << pair.second << '\n';
+  }
+}
+void vagina::sortAndPrintFromTheLargest(const dictionary& wordFrequency, std::ostream& out)
+{
+  std::map< size_t, std::set< std::string >, std::greater < size_t > > sortedWordFrequency;
+  for (const auto& pair : wordFrequency.dict_)
+  {
+    sortedWordFrequency[pair.second].insert(pair.first);
+  }
+  for (const auto& freqPair : sortedWordFrequency)
+  {
+    for (const auto& word : freqPair.second)
+    {
+      out << word << ": " << freqPair.first << std::endl;
+    }
+  }
+}
 void vagina::threeMostPopular(const dictionaryOfNames& diction, std::istream& in, std::ostream& out)
 {
   std::string name = "";
@@ -68,17 +91,9 @@ void vagina::threeMostPopular(const dictionaryOfNames& diction, std::istream& in
     throw std::logic_error("Invalid parameter");
   }
   std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
-  std::vector< std::pair < std::string, size_t > > first_three_keys;
-  first_three_keys.reserve(3);
-  std::copy_n(sorted_word_count.begin(), 3, std::back_inserter(first_three_keys));
-  print(first_three_keys, out);
-}
-void vagina::print(const std::vector< std::pair < std::string, size_t > >& dict, std::ostream& out)
-{
-  for (const auto& pair : dict)
-  {
-    out << pair.first << ": " << pair.second << '\n';
-  }
+  dictionary first_three_keys;
+  std::copy_n(sorted_word_count.begin(), 3, std::inserter(first_three_keys.dict_, first_three_keys.dict_.begin()));
+  sortAndPrintFromTheLargest(first_three_keys, out);
 }
 void vagina::findWord(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
@@ -151,12 +166,11 @@ void vagina::printWordToSpecificLetter(const dictionaryOfNames& dict, std::istre
   }
   try
   {
-    std::vector< std::pair < std::string, size_t > > result;
-    result.reserve(diction.dict_.size());
     using namespace std::placeholders;
     auto func = std::bind(compareTheFirstLetter, _1, letter);
-    std::copy_if(diction.dict_.begin(), diction.dict_.end(), std::back_inserter(result), func);
-    print(result, out);
+    dictionary res;
+    std::copy_if(diction.dict_.begin(), diction.dict_.end(), std::inserter(res.dict_, res.dict_.begin()), func);
+    print(res, out);
   }
   catch (const std::out_of_range& e)
   {}
@@ -174,9 +188,8 @@ void vagina::printDictionary(const dictionaryOfNames& dict, std::istream& in, st
   {
     throw std::invalid_argument("Dictionary is Empty");
   }
-  std::vector< std::pair < std::string, size_t > > sorted_word_count(diction.dict_.begin(), diction.dict_.end());
-  std::sort(sorted_word_count.begin(), sorted_word_count.end(), isGreater);
-  print(sorted_word_count, out);
+  dictionary result = diction;
+  sortAndPrintFromTheLargest(result, out);
 }
 std::map< char, size_t > vagina::countOfLetters(const dictionary& dict)
 {
@@ -362,10 +375,9 @@ void vagina::wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, st
   {
     throw std::invalid_argument("Error reading letter or minimum number of occurrences");
   }
-  std::vector< std::pair < std::string, size_t > > matchingWords;
-  matchingWords.reserve(diction.dict_.size());
+  dictionary matchingWords;
   using namespace std::placeholders;
   auto func = std::bind(isWordMatchingCondition, _1, letter, minCount);
-  std::copy_if(diction.dict_.begin(), diction.dict_.end(), std::back_inserter(matchingWords), func);
+  std::copy_if(diction.dict_.begin(), diction.dict_.end(), std::inserter(matchingWords.dict_, matchingWords.dict_.begin()), func);
   print(matchingWords, out);
 }
