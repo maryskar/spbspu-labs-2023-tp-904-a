@@ -34,17 +34,17 @@ namespace shestakov
       {"RMECHO VERT", rmecho},
       {"ECHO VERT",   echo}
     };
-  void doConstCmds(const std::vector < Polygon >& polygons, std::ostream& out, std::string cmd)
+  void doConstCmds(const std::vector< Polygon >& polygons, std::ostream& out, std::string cmd)
   {
     auto toexecute = const_cmds.at(cmd);
     toexecute(polygons, out);
   }
-  void doConstCmdsIn(const std::vector < Polygon >& polygons, size_t vertixes, std::ostream& out, std::string cmd)
+  void doConstCmdsIn(const std::vector < Polygon >& polygons, size_t vertexes, std::ostream& out, std::string cmd)
   {
     auto toexecute = const_cmds_in.at(cmd);
-    toexecute(polygons, vertixes, out);
+    toexecute(polygons, vertexes, out);
   }
-  void doCmds(std::vector < Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
+  void doCmdsWithInPolygon(std::vector < Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
   {
     cmd += " VERT";
     auto toexecute = cmds.at(cmd);
@@ -56,7 +56,7 @@ namespace shestakov
     {
       try
       {
-        doCmds(polygons, in, out, cmd);
+        doCmdsWithInPolygon(polygons, in, out, cmd);
       }
       catch (...)
       {
@@ -84,7 +84,8 @@ namespace shestakov
         try
         {
           cmd = cmd.substr(0, cmd.find(' '));
-          doConstCmds(polygons, out, cmd);
+          size_t vert = std::stoull(cmd.substr(' '));
+          doConstCmdsIn(polygons, vert, out, cmd);
         }
         catch (...)
         {
