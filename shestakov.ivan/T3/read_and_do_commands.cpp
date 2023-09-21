@@ -56,9 +56,7 @@ namespace shestakov
         doCmdsWithInPolygon(polygons, in, out, cmd);
       }
       catch (...)
-      {
-        printError(out);
-      }
+      {}
     }
     else if (cmd == "COUNT" || cmd == "AREA")
     {
@@ -71,17 +69,18 @@ namespace shestakov
         {
           doConstCmds(polygons, out, cmd);
         }
-        catch (const std::runtime_error& e)
+        catch (...)
         {}
       }
       else
       {
         try
         {
-          size_t vert = std::stoull(cmd.substr(' '));
+          size_t vert = std::stoull(cmd.substr(cmd.find_first_of(' ')));
+          cmd = cmd.substr(0, cmd.find(' '));
           doConstCmdsIn(polygons, vert, out, cmd);
         }
-        catch (const std::runtime_error& e)
+        catch (...)
         {}
       }
     }
@@ -94,7 +93,7 @@ namespace shestakov
       {
         doConstCmds(polygons, out, cmd);
       }
-      catch (const std::runtime_error& e)
+      catch (...)
       {}
     }
   }
