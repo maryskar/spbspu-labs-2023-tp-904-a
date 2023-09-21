@@ -6,4 +6,8 @@ bool samoilenko::compareData(const DataStruct& lhs, const DataStruct& rhs)
   {
     return lhs.key1 < rhs.key1;
   }
+  else if (lhs.key2 != rhs.key2)
+  {
+    return std::abs(lhs.key2) < std::abs(rhs.key2);
+  }
 }
