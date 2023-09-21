@@ -47,7 +47,7 @@ namespace shestakov
     std::vector< double > ar_of_polygons(polygons.size());
     std::transform(polygons.begin(), polygons.end(), ar_of_polygons.begin(), getArea);
     std::sort(ar_of_polygons.begin(), ar_of_polygons.end());
-    printFix(ar_of_polygons.back(), out);
+    printFix(std::baar_of_polygons.back(), out);
   }
   void minArea(const std::vector<Polygon>& polygons, std::ostream &out)
   {
@@ -120,31 +120,55 @@ namespace shestakov
   {
     using namespace std::placeholders;
     Polygon input;
-    in >> input;
-    auto new_end = std::unique(polygons.begin(), polygons.end(), std::bind(compThreePolygons, _1, _2, input));
-    size_t count_polygons = std::distance(new_end, polygons.end());
-    polygons.erase(new_end, polygons.end());
-    out << std::fixed << std::setprecision(1);
-    out << count_polygons << '\n';
+    if (in >> input)
+    {
+      std::string remaining;
+      std::getline(in, remaining);
+      if (!remaining.empty())
+      {
+        throw std::logic_error("");
+      }
+      auto new_end = std::unique(polygons.begin(), polygons.end(), std::bind(compThreePolygons, _1, _2, input));
+      size_t count_polygons = std::distance(new_end, polygons.end());
+      polygons.erase(new_end, polygons.end());
+      out << std::fixed << std::setprecision(1);
+      out << count_polygons << '\n';
+    }
+    else
+    {
+      throw std::logic_error("");
+    }
   }
   void echo(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out)
   {
     Polygon input;
-    in >> input;
-    std::vector< Polygon > polygons_1;
-    size_t i = 0;
-    size_t count_echo = 0;
-    while (i < polygons.size())
+    if (in >> input)
     {
-      if(compTwoPolygons(polygons[i], input))
+      std::string remaining;
+      std::getline(in, remaining);
+      if (!remaining.empty())
       {
-        polygons_1.push_back(polygons[i]);
-        ++count_echo;
+        throw std::logic_error("");
       }
-      polygons_1.push_back(polygons[i]);
-      ++i;
+      std::vector<Polygon> polygons_1;
+      size_t i = 0;
+      size_t count_echo = 0;
+      while (i < polygons.size())
+      {
+        if (compTwoPolygons(polygons[i], input))
+        {
+          polygons_1.push_back(polygons[i]);
+          ++count_echo;
+        }
+        polygons_1.push_back(polygons[i]);
+        ++i;
+      }
+      polygons.assign(polygons_1.begin(), polygons_1.end());
+      out << count_echo << '\n';
     }
-    polygons.assign(polygons_1.begin(), polygons_1.end());
-    out << count_echo << '\n';
+    else
+    {
+      throw std::logic_error("");
+    }
   }
 }
