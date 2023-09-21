@@ -39,12 +39,12 @@ namespace shestakov
     auto toexecute = const_cmds.at(cmd);
     toexecute(polygons, out);
   }
-  void doConstCmdsIn(const std::vector < Polygon >& polygons, size_t vertexes, std::ostream& out, std::string cmd)
+  void doConstCmdsIn(const std::vector< Polygon >& polygons, size_t vertexes, std::ostream& out, std::string cmd)
   {
     auto toexecute = const_cmds_in.at(cmd);
     toexecute(polygons, vertexes, out);
   }
-  void doCmdsWithInPolygon(std::vector < Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
+  void doCmdsWithInPolygon(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
   {
     cmd += " VERT";
     auto toexecute = cmds.at(cmd);
