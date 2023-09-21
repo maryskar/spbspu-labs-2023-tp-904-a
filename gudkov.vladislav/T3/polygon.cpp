@@ -23,7 +23,7 @@ double gudkov::getTriangleArea(const Point &a, const Point &b, const Point &c)
   return std::sqrt(p * (p - ab) * (p - bc) * (p - ac));
 }
 
-bool gudkov::isSecond(const Point &point)
+bool gudkov::isSecond(const Point &)
 {
   bool isSecondPoint = false;
 
