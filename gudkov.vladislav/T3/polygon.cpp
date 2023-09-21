@@ -1,6 +1,98 @@
 #include "polygon.h"
+#include <algorithm>
+#include <numeric>
 #include "scopeGuard.h"
 #include "typesIO.h"
+
+static size_t index = 0;
+
+double gudkov::getSide(const Point &a, const Point &b)
+{
+  return std::sqrt(std::pow(a.x - b.x, 2) + std::pow(a.y - b.y, 2));
+}
+
+double gudkov::getTriangleArea(const Point &a, const Point &b, const Point &c)
+{
+  double ab = getSide(a, b);
+  double bc = getSide(b, c);
+  double ac = getSide(c, a);
+  double p = (ab + bc + ac) / 2;
+
+  return std::sqrt(p * (p - ab) * (p - bc) * (p - ac));
+}
+
+bool gudkov::isSecond(const Point &point)
+{
+  bool isSecondPoint = false;
+
+  if (index % 2 == 0)
+  {
+    isSecondPoint = true;
+  }
+
+  index++;
+
+  return isSecondPoint;
+}
+
+double gudkov::getTriangleAreaForArrayOnly(const Point &point)
+{
+  const Point *address = &point;
+
+  double area = 0.0;
+
+  if (isSecond(point))
+  {
+    area = getTriangleArea(address[0], address[1], address[2]);
+  }
+
+  return area;
+}
+
+double gudkov::getArea(const Polygon &polygon)
+{
+  const std::vector< Point > &points = polygon.points;
+  const size_t &n = points.size();
+
+  if (n < 3)
+  {
+    return 0.0;
+  }
+
+  std::vector< double > areas;
+  index = 0;
+  std::transform(
+    std::begin(points),
+    std::end(points) - 2,
+    std::back_inserter(areas),
+    getTriangleAreaForArrayOnly
+  );
+
+  double area = std::accumulate(std::begin(areas), std::end(areas), 0.0);
+
+  Polygon inner;
+  index = 0;
+  std::copy_if(
+    std::begin(points),
+    std::end(points) - 2,
+    std::back_inserter(inner.points),
+    isSecond
+  );
+
+  if (n % 2 == 0)
+  {
+    area += getTriangleArea(points[n - 2], points[n - 1], points[0]);
+    inner.points.push_back(points[n - 2]);
+  }
+  else
+  {
+    inner.points.push_back(points[n - 1]);
+  }
+
+  area += getArea(inner);
+
+  return area;
+}
 
 std::istream &gudkov::operator>>(std::istream &in, Point &dest)
 {
@@ -14,6 +106,7 @@ std::istream &gudkov::operator>>(std::istream &in, Point &dest)
 
   in.unsetf(std::ios_base::skipws);
 
+  in >> DelimiterExpIO{ ' ' };
   Point input;
   {
     in >> DelimiterExpIO{ '(' };
@@ -31,24 +124,6 @@ std::istream &gudkov::operator>>(std::istream &in, Point &dest)
   return in;
 }
 
-std::ostream &gudkov::operator<<(std::ostream &out, const Point &dest)
-{
-  std::ostream::sentry sentry(out);
-
-  if (!sentry)
-  {
-    return out;
-  }
-
-  out << '(';
-  out << dest.x;
-  out << ';';
-  out << dest.y;
-  out << ')';
-
-  return out;
-}
-
 std::istream &gudkov::operator>>(std::istream &in, Polygon &dest)
 {
   std::istream::sentry sentry(in);
@@ -58,7 +133,6 @@ std::istream &gudkov::operator>>(std::istream &in, Polygon &dest)
   }
 
   iofmtguard fmtguard(in);
-
   in.unsetf(std::ios_base::skipws);
 
   Polygon input;
@@ -69,13 +143,7 @@ std::istream &gudkov::operator>>(std::istream &in, Polygon &dest)
 
     if (in)
     {
-      input.points.resize(n);
-
-      for (size_t i = 0; i < n; ++i)
-      {
-        in >> DelimiterExpIO{ ' ' };
-        in >> input.points[i];
-      }
+      std::copy_n(std::istream_iterator< Point >(in), n, std::back_inserter(input.points));
     }
 
     if (input.points.size() < 3)
@@ -97,22 +165,4 @@ std::istream &gudkov::operator>>(std::istream &in, Polygon &dest)
   }
 
   return in;
-}
-
-std::ostream &gudkov::operator<<(std::ostream &out, const Polygon &dest)
-{
-  std::ostream::sentry sentry(out);
-
-  if (!sentry)
-  {
-    return out;
-  }
-
-  std::cout << dest.points.size();
-  for (size_t i = 0; i < dest.points.size(); ++i)
-  {
-    std::cout << ' ' << dest.points[i];
-  }
-
-  return out;
 }
