@@ -9,7 +9,7 @@ namespace kryuchkova
   void doSearch(std::istream & in, std::ostream & out, const ErDictionary & dict);
   void doDelete(std::istream & in, ErDictionary & dict);
   void fillDict(std::istream & in, ErDictionary & dict);
-  void findByFirstLet(std::istream & in, ErDictionary & dict);
+  void findByFirstLet(std::istream & in, std::ostream & out, ErDictionary & dict);
   void printDict(std::ostream & out, const ErDictionary & dict);
   void exportDict(std::istream & in, ErDictionary & dict);
   void unite(const ErDictionary & dict1, const ErDictionary & dict2);

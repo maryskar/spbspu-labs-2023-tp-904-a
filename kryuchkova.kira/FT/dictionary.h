@@ -18,6 +18,8 @@ namespace kryuchkova
     word getName() const;
     void insert(const word & wrd, const translations & trans);
     void erase(const word & wrd);
+    size_t size() const;
+    void print(const std::ostream & out) const;
     std::map< word, translations >::const_iterator begin() const;
     std::map< word, translations >::const_iterator end() const;
   private:

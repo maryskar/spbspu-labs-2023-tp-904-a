@@ -43,4 +43,9 @@ namespace kryuchkova
     return dict_.end();
   }
 
+  size_t ErDictionary::size() const
+  {
+    return dict_.size();
+  }
+
 }

@@ -3,9 +3,15 @@
 #include <iterator>
 #include <functional>
 #include <algorithm>
+#include <fstream>
 
 namespace kryuchkova
 {
+  bool isSameLetter(const char & letter, const std::string & word)
+  {
+    return letter == word[0];
+  }
+
   bool hasDictWithName(const std::map< std::string, ErDictionary > & dicts, const std::string name)
   {
     return dicts.find(name) != dicts.end();
@@ -75,9 +81,42 @@ namespace kryuchkova
     dict.erase(word);
   }
 
-  void fillDict(std::istream & in, ErDictionary & dict);
-  void findByFirstLet(std::istream & in, ErDictionary & dict);
-  void printDict(std::ostream & out, const ErDictionary & dict);
+  void fillDict(std::istream & in, std::map< std::string, ErDictionary > & dicts)
+  {
+    std::string name;
+    in >> name;
+    std::ofstream file;
+    std::string file_name;
+    file.open(file_name);
+    while (file)
+    {
+      
+    }
+  }
+
+  void findByFirstLet(std::istream & in, std::ostream & out, std::map< std::string, ErDictionary > & dicts)
+  {
+    std::string name;
+    in >> name;
+    char letter;
+    in >> letter;
+    if (!hasDictWithName(dicts, name))
+    {
+      throw std::logic_error("No such dicts with this name");
+    }
+    using namespace std::placeholders;
+    auto func = std::bind(isSameLetter, letter, _2);
+    ErDictionary dict = dicts.find(name)->second;
+    std::copy_if(dict.begin(), dict.end(), std::ostream_iterator< std::string >(out, " "), func);
+  }
+
+  void printDict(std::ostream & out, const ErDictionary & dict)
+  {
+    for (size_t i = 0; i < dict.size(); i++)
+    {
+      
+    }
+  }
   void exportDict(std::istream & in, ErDictionary & dict);
 
   void unite(const ErDictionary & dict1, const ErDictionary & dict2)
