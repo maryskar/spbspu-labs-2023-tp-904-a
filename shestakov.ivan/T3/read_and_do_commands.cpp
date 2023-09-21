@@ -37,18 +37,18 @@ namespace shestakov
   void doConstCmds(const std::vector < Polygon >& polygons, std::ostream& out, std::string cmd)
   {
     auto toexecute = const_cmds.at(cmd);
-    toexecute(polygons, std::cout);
+    toexecute(polygons, out);
   }
   void doConstCmdsIn(const std::vector < Polygon >& polygons, size_t vertixes, std::ostream& out, std::string cmd)
   {
     auto toexecute = const_cmds_in.at(cmd);
-    toexecute(polygons, vertixes, std::cout);
+    toexecute(polygons, vertixes, out);
   }
   void doCmds(std::vector < Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
   {
     cmd += " VERT";
     auto toexecute = cmds.at(cmd);
-    toexecute(polygons, std::cin, std::cout);
+    toexecute(polygons, in, out);
   }
   void doCommand(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
   {
@@ -66,7 +66,7 @@ namespace shestakov
     else if (cmd == "COUNT" || cmd == "AREA")
     {
       std::string sub_cmd = "";
-      std::getline(std::cin, sub_cmd);
+      std::getline(in, sub_cmd);
       cmd += sub_cmd;
       if (sub_cmd == " EVEN" || sub_cmd == " ODD" || sub_cmd == " MEAN")
       {
@@ -83,7 +83,6 @@ namespace shestakov
       {
         try
         {
-          size_t vert = std::stoull(cmd.substr(cmd.find_first_of(' ')));
           cmd = cmd.substr(0, cmd.find(' '));
           doConstCmds(polygons, out, cmd);
         }
@@ -96,7 +95,7 @@ namespace shestakov
     else
     {
       std::string sub_cmd = "";
-      std::getline(std::cin, sub_cmd);
+      std::getline(in, sub_cmd);
       cmd += sub_cmd;
       try
       {
