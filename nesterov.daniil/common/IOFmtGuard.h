@@ -9,7 +9,6 @@ namespace nesterov
   {
   public:
     explicit IOFmtGuard(std::basic_ios< char > &s);
-
     ~IOFmtGuard();
 
   private:
