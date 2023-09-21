@@ -50,7 +50,7 @@ namespace mashkin
             }
           }
         }
-        else
+        else if (!op.empty())
         {
           que.push(op);
         }

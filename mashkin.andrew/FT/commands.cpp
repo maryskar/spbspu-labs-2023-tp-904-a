@@ -117,7 +117,9 @@ namespace mashkin
         return before;
       }
     }
-    return node;
+    solveNode(node);
+    node->children.clear();
+    return before;
   }
 
   std::shared_ptr< semTree > copyExpr_impl(const std::shared_ptr< semTree >& toCopy,
@@ -150,22 +152,7 @@ namespace mashkin
     map[key] = copyExpr(map[expr]);
     auto node = map[key];
     auto begin = node;
-    node = getSimplify_impl(begin, begin);
-    while (node != map[key])
-    {
-      solveNode(node);
-      node->children.clear();
-      node = getSimplify_impl(begin, begin);
-    }
-    for (short int i = 0; i < node->children.size(); i++)
-    {
-      if (!node->children[i]->data.find_first_not_of("1234567890"))
-      {
-        return;
-      }
-    }
-    solveNode(node);
-    node->children.clear();
+    getSimplify_impl(begin, begin);
   }
 
   struct Parameters
@@ -232,11 +219,20 @@ namespace mashkin
     std::string key;
     inp >> key;
     inp >> expr;
-    map[key] = copyExpr(map[expr]);
     NewParam newParam;
     inp >> newParam.param_;
     inp >> newParam.newParam_;
-    traverse_lnr_impl(map[key], newParam);
+    Parameters param;
+    traverse_lnr_impl(map[expr], param);
+    if (param.param_.empty())
+    {
+      std::cout << "Expression has no parameters\n";
+    }
+    else
+    {
+      map[key] = copyExpr(map[expr]);
+      traverse_lnr_impl(map[key], newParam);
+    }
   }
 
   void replaceExprTtQueue(std::queue< std::string >& que, std::shared_ptr< semTree >& root)
@@ -274,6 +270,11 @@ namespace mashkin
   {
     std::string key;
     inp >> key;
+    if (map.find(key) == map.end())
+    {
+      std::cout << "There is no expr\n";
+      return;
+    }
     std::queue< std::string > toPrint;
     replaceExprTtQueue(toPrint, map[key]);
     printQueue(std::cout, toPrint) << "\n";
