@@ -1,5 +1,5 @@
-#ifndef T2_SCOPEGUARD_HPP
-#define T2_SCOPEGUARD_HPP
+#ifndef T3_SCOPEGUARD_HPP
+#define T3_SCOPEGUARD_HPP
 #include <iostream>
 namespace litvin
 {
@@ -16,4 +16,3 @@ namespace litvin
   };
 }
 #endif
-

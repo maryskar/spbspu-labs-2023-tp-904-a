@@ -1,8 +1,7 @@
-#include "TypesIO.h"
-#include "iofmtguard.h"
 #include <iomanip>
-#include <iterator>
-#include <cmath>
+#include "get_abs_complex.h"
+#include "iofmtguard.h"
+#include "TypesIO.h"
 
 namespace shestakov
 {
@@ -16,8 +15,8 @@ namespace shestakov
     {
       double left = 0.0;
       double right = 0.0;
-      left = pow(pow(lhs.key2.real(), 2) + pow(lhs.key2.imag(), 2), 0.5);
-      right = pow(pow(rhs.key2.real(), 2) + pow(rhs.key2.imag(), 2), 0.5);
+      left = getAbsComplex(lhs.key2);
+      right = getAbsComplex(rhs.key2);
       return left < right;
     }
     else
@@ -37,7 +36,7 @@ namespace shestakov
       using sep = DelIO;
       using label = LabelIO;
       using chl = CharLitIO;
-      using cl = CmpLspIO;
+      using cl = CmpLspI;
       using str = StringIO;
       in >> sep{ '(' } >> sep{ ':' };
       size_t num = 0;
@@ -64,12 +63,6 @@ namespace shestakov
       }
       return in;
     }
-
-  }
-  std::ostream& operator<<(std::ostream& out, const std::complex< double >& dest)
-  {
-    out << std::fixed << std::setprecision(1) << "#c(" << dest.real() << ' ' << dest.imag() << ')';
-    return out;
   }
   std::ostream& operator<<(std::ostream& out, const DataStruct& src)
   {
@@ -79,8 +72,9 @@ namespace shestakov
       return out;
     }
     iofmtguard fmtguard(out);
+    CmpLspO key2{ src.key2 };
     out << "(:key1 '" << src.key1 << "'";
-    out << ":key2 "  << src.key2;
+    out << ":key2 "  << key2;
     out << ":key3 " << std::quoted(src.key3, '"') << ":)";
     return out;
   }
