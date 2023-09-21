@@ -3,7 +3,6 @@
 #include <numeric>
 #include <iterator>
 #include <functional>
-#include <cmath>
 
 bool gudkov::isEvenVertexesCount(const Polygon &polygon)
 {

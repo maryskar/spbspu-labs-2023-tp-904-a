@@ -1,6 +1,8 @@
 #include "polygon.h"
 #include <algorithm>
 #include <numeric>
+#include <iterator>
+#include <cmath>
 #include "scopeGuard.h"
 #include "typesIO.h"
 
