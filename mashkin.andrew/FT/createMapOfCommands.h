@@ -7,8 +7,8 @@
 
 namespace mashkin
 {
-  using MapOfExpressions = std::map< std::string, SemanticTree< std::string >* >;
+  using MapOfExpressions = std::map< std::string, std::shared_ptr< mashkin::SemanticTree< std::string > > >;
   using MapOfCommands = std::map< std::string, void (*)(std::istream&, MapOfExpressions&) >;
-  void createMapOfCommands(MapOfCommands& mapOfCommands);
+  MapOfCommands createMapOfCommands();
 }
 #endif

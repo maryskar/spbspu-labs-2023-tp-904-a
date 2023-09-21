@@ -1,5 +1,6 @@
 #include "commands.h"
 #include <map>
+#include <memory>
 #include <queue>
 #include <stack>
 #include "convertToPostfixNotation.h"
@@ -42,11 +43,11 @@ namespace mashkin
     return out;
   }
 
-  void inputExpressionToTree(std::queue< std::string >& que, std::stack< SemanticTree< std::string >* >& stack)
+  void inputExpressionToTree(std::queue< std::string >& que, std::stack< std::shared_ptr< semTree > >& stack)
   {
     while (!que.empty())
     {
-      semTree* newNode = new semTree{que.front(), std::map< short int, semTree* >()};
+      auto newNode = std::make_shared< semTree >(semTree{que.front(), {}});
       if (isOperator(que.front()))
       {
         auto operation = defineOperation(que.front());
@@ -61,63 +62,22 @@ namespace mashkin
     }
   }
 
-  void addExpr(std::istream& input, MapOfExpressions& map)
+  void addExpr(std::istream& input, std::map< std::string, std::shared_ptr< SemanticTree< std::string > > >& map)
   {
     std::queue< std::string > que;
     std::string key;
     std::string line;
-    std::stack< SemanticTree< std::string >* > expression;
+    std::stack< std::shared_ptr< semTree > > expression;
     input >> key;
     std::getline(input, line);
     line += " ";
     convertToPostNot(line, que);
-    que.pop();
     inputExpressionToTree(que, expression);
     map[key] = expression.top();
     expression.pop();
   }
 
-  semTree* getSimplify_impl(semTree* node, semTree* before)
-  {
-    if (node->children.empty())
-    {
-      return before;
-    }
-    for (short int i = 0; i < defineOperation(node->data); i++)
-    {
-      node = getSimplify_impl(node->children[i], node);
-    }
-    for (short int i = 0; i < defineOperation(node->data); i++)
-    {
-      if (node->children[i]->data.find_first_of("0123456789"))
-      {
-        return before;
-      }
-    }
-    return node;
-  }
-
-  semTree* copyExpr_impl(semTree* toCopy, const semTree* tree)
-  {
-    if (tree->children.empty())
-    {
-      return toCopy;
-    }
-    for (short int i = 0; i < defineOperation(tree->data); i++)
-    {
-      toCopy->children[i] = new semTree{tree->children.at(i)->data, std::map< short int, semTree* >()};
-      copyExpr_impl(toCopy->children.at(i), tree->children.at(i));
-    }
-    return toCopy;
-  }
-
-  semTree* copyExpr(const semTree* tree)
-  {
-    semTree* res = new semTree{tree->data, std::map< short int, semTree* >()};
-    return copyExpr_impl(res, tree);
-  }
-
-  void solveNode(semTree* node)
+  void solveNode(std::shared_ptr< semTree >& node)
   {
     static std::map< std::string, int long long (*)(int long long, int long long) > mapOfSolving;
     mapOfSolving["!"] = factorial;
@@ -140,7 +100,48 @@ namespace mashkin
     }
   }
 
-  void simplifyExpr(std::istream& inp, MapOfExpressions& map)
+  std::shared_ptr< semTree > getSimplify_impl(std::shared_ptr< semTree >& node, std::shared_ptr< semTree >& before)
+  {
+    if (node->children.empty())
+    {
+      return before;
+    }
+    for (short int i = 0; i < defineOperation(node->data); i++)
+    {
+      node = getSimplify_impl(node->children[i], node);
+    }
+    for (short int i = 0; i < defineOperation(node->data); i++)
+    {
+      if (node->children[i]->data.find_first_of("0123456789"))
+      {
+        return before;
+      }
+    }
+    return node;
+  }
+
+  std::shared_ptr< semTree > copyExpr_impl(const std::shared_ptr< semTree >& toCopy,
+      const std::shared_ptr< semTree >& tree)
+  {
+    if (tree->children.empty())
+    {
+      return toCopy;
+    }
+    for (short int i = 0; i < defineOperation(tree->data); i++)
+    {
+      toCopy->children[i] = std::make_shared< semTree >(semTree{tree->children.at(i)->data, {}});
+      copyExpr_impl(toCopy->children.at(i), tree->children.at(i));
+    }
+    return toCopy;
+  }
+
+  std::shared_ptr< semTree > copyExpr(const std::shared_ptr< semTree >& tree)
+  {
+    auto res = std::make_shared< semTree >(semTree{tree->data, {}});
+    return copyExpr_impl(res, tree);
+  }
+
+  void simplifyExpr(std::istream& inp, std::map< std::string, std::shared_ptr< semTree > >& map)
   {
     std::string key;
     std::string expr;
@@ -181,7 +182,7 @@ namespace mashkin
   };
 
   template< class F >
-  F traverse_lnr_impl(SemanticTree< std::string >* root, F& f)
+  F traverse_lnr_impl(std::shared_ptr< semTree >& root, F& f)
   {
     if (!root)
     {
@@ -195,7 +196,7 @@ namespace mashkin
     return f;
   }
 
-  void getParameters(std::istream& inp, MapOfExpressions& map)
+  void getParameters(std::istream& inp, std::map< std::string, std::shared_ptr< semTree > >& map)
   {
     std::string key;
     inp >> key;
@@ -225,7 +226,7 @@ namespace mashkin
     std::string newParam_;
   };
 
-  void setNewExpr(std::istream& inp, MapOfExpressions& map)
+  void setNewExpr(std::istream& inp, std::map< std::string, std::shared_ptr< semTree > >& map)
   {
     std::string expr;
     std::string key;
@@ -238,7 +239,7 @@ namespace mashkin
     traverse_lnr_impl(map[key], newParam);
   }
 
-  void replaceExprTtQueue(std::queue< std::string >& que, semTree* root)
+  void replaceExprTtQueue(std::queue< std::string >& que, std::shared_ptr< semTree >& root)
   {
     if (root->children.empty())
     {
@@ -269,7 +270,7 @@ namespace mashkin
     }
   }
 
-  void showExpr(std::istream& inp, MapOfExpressions& map)
+  void showExpr(std::istream& inp, std::map< std::string, std::shared_ptr< semTree > >& map)
   {
     std::string key;
     inp >> key;

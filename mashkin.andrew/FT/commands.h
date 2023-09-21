@@ -7,11 +7,10 @@
 
 namespace mashkin
 {
-  using MapOfExpressions = std::map< std::string, SemanticTree< std::string >* >;
-  void addExpr(std::istream& inp, MapOfExpressions& map);
-  void simplifyExpr(std::istream& inp, MapOfExpressions& map);
-  void getParameters(std::istream& inp, MapOfExpressions& map);
-  void setNewExpr(std::istream& inp, MapOfExpressions& map);
-  void showExpr(std::istream& inp, MapOfExpressions& map);
+  void addExpr(std::istream& inp, std::map< std::string, std::shared_ptr< SemanticTree< std::string > > >& map);
+  void simplifyExpr(std::istream& inp, std::map< std::string, std::shared_ptr< SemanticTree< std::string > > >& map);
+  void getParameters(std::istream& inp, std::map< std::string, std::shared_ptr< SemanticTree< std::string > > >& map);
+  void setNewExpr(std::istream& inp, std::map< std::string, std::shared_ptr< SemanticTree< std::string > > >& map);
+  void showExpr(std::istream& inp, std::map< std::string, std::shared_ptr< SemanticTree< std::string > > >& map);
 }
 #endif

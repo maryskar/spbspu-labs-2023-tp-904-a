@@ -1,17 +1,18 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <memory>
 #include "semanticTree.h"
 #include "createMapOfCommands.h"
 
 int main()
 {
-  using MapOfExpressions = std::map< std::string, mashkin::SemanticTree< std::string >* >;
+  using MapOfExpressions = std::map< std::string, std::shared_ptr< mashkin::SemanticTree< std::string > > >;
   MapOfExpressions mapOfExpressions;
   std::map< std::string, void (*)(std::istream&, MapOfExpressions&) > mapOfCommands;
   try
   {
-    createMapOfCommands(mapOfCommands);
+    mapOfCommands = mashkin::createMapOfCommands();
     while (std::cin)
     {
       std::string command;
