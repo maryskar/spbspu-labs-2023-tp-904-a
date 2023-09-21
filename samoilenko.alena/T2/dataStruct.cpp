@@ -10,4 +10,8 @@ bool samoilenko::compareData(const DataStruct& lhs, const DataStruct& rhs)
   {
     return std::abs(lhs.key2) < std::abs(rhs.key2);
   }
+  else
+  {
+    return lhs.key3.length() < rhs.key3.length();
+  }
 }
