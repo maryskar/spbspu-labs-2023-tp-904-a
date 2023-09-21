@@ -57,7 +57,7 @@ namespace shestakov
     {
       in.clear();
       in.setstate(std::ios::failbit);
-      throw std::logic_error("");
+      return in;
     }
     input.points.reserve(points);
     std::copy_n(std::istream_iterator<Point>(in), points, std::back_inserter(input.points));
