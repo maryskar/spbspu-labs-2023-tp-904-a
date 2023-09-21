@@ -33,10 +33,9 @@ int main(int argc, char ** argv)
   }
   while (!std::cin.eof())
   {
-    std::string cmd = "";
-    std::cin >> cmd;
     try
     {
+      std::string cmd = readCommand(std::cin);
       doCommand(polygons, std::cin, std::cout, cmd);
     }
     catch (const std::logic_error &e)

@@ -31,6 +31,28 @@ namespace shestakov
       {"RMECHO VERT", rmecho},
       {"ECHO VERT",   echo}
     };
+  std::string readCommand(std::istream& in)
+  {
+    std::istream::sentry sentry(in);
+    if (!sentry)
+    {
+      throw std::runtime_error("EOF");
+    }
+    std::string command = "";
+    in >> command;
+    if (command != "ECHO" && command != "RMECHO")
+    {
+      std::string param = "";
+      in >> param;
+      if (!in)
+      {
+        throw std::invalid_argument("Invalid parameter");
+      }
+      command += " ";
+      command += param;
+    }
+    return command;
+  }
   void doConstCmds(const std::vector< Polygon >& polygons, std::ostream& out, const std::string& cmd)
   {
     auto toexecute = const_cmds.at(cmd);
@@ -49,52 +71,28 @@ namespace shestakov
   }
   void doCommand(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
   {
-    if (cmd == "RMECHO" || cmd == "ECHO")
+    try
     {
-      try
-      {
-        doCmdsWithInPolygon(polygons, in, out, cmd);
-      }
-      catch (...)
-      {}
+      doCmdsWithInPolygon(polygons, in, out, cmd);
+      return;
     }
-    else if (cmd == "COUNT" || cmd == "AREA")
+    catch (const std::out_of_range& e)
+    {}
+    try
     {
-      std::string sub_cmd = "";
-      std::getline(in, sub_cmd);
-      cmd += sub_cmd;
-      if (sub_cmd == " EVEN" || sub_cmd == " ODD" || sub_cmd == " MEAN")
-      {
-        try
-        {
-          doConstCmds(polygons, out, cmd);
-        }
-        catch (...)
-        {}
-      }
-      else
-      {
-        try
-        {
-          size_t vert = std::stoull(cmd.substr(cmd.find_first_of(' ')));
-          cmd = cmd.substr(0, cmd.find(' '));
-          doConstCmdsIn(polygons, vert, out, cmd);
-        }
-        catch (...)
-        {}
-      }
+      doConstCmds(polygons, out, cmd);
+      return;
     }
-    else
+    catch (const std::out_of_range& e)
+    {}
+    try
     {
-      std::string sub_cmd = "";
-      std::getline(in, sub_cmd);
-      cmd += sub_cmd;
-      try
-      {
-        doConstCmds(polygons, out, cmd);
-      }
-      catch (...)
-      {}
+      size_t vert = std::stoull(cmd.substr(cmd.find_first_of(' ')));
+      cmd = cmd.substr(0, cmd.find(' '));
+      doConstCmdsIn(polygons, vert, out, cmd);
+      return;
     }
+    catch (const std::out_of_range& e)
+    {}
   }
 }
