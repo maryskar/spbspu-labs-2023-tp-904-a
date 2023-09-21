@@ -71,10 +71,8 @@ namespace shestakov
         {
           doConstCmds(polygons, out, cmd);
         }
-        catch (...)
-        {
-          printError(out);
-        }
+        catch (const std::runtime_error)
+        {}
       }
       else
       {
@@ -83,10 +81,8 @@ namespace shestakov
           size_t vert = std::stoull(cmd.substr(' '));
           doConstCmdsIn(polygons, vert, out, cmd);
         }
-        catch (...)
-        {
-          printError(out);
-        }
+        catch (const std::runtime_error)
+        {}
       }
     }
     else
@@ -98,10 +94,8 @@ namespace shestakov
       {
         doConstCmds(polygons, out, cmd);
       }
-      catch (...)
-      {
-        printError(out);
-      }
+      catch (const std::runtime_error)
+      {}
     }
   }
 }
