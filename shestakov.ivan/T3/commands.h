@@ -4,12 +4,6 @@
 
 namespace shestakov
 {
-  bool isEven(const Polygon& polygons);
-  bool isOdd(const Polygon& polygons);
-  size_t countVertexes(const Polygon& polygon);
-  double getDeterminant(const Point& first, const Point& second);
-  double getArea(const Polygon& polygons);
-  bool equalVert(const Polygon& polygon, const size_t vert);
   void areaEven(const std::vector< Polygon >& polygons, std::ostream& out);
   void areaOdd(const std::vector< Polygon >& polygons, std::ostream& out);
   void areaMean(const std::vector< Polygon >& polygons, std::ostream& out);
@@ -21,6 +15,7 @@ namespace shestakov
   void countOdd(const std::vector< Polygon >& polygons, std::ostream& out);
   void countVert(const std::vector< Polygon >& polygons, size_t num, std::ostream& out);
   void areaVert(const std::vector< Polygon >& polygons, size_t num, std::ostream& out);
-  void printError(std::ostream& out);
+  void rmecho(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out);
+  void echo(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out);
 }
 #endif

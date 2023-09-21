@@ -2,31 +2,31 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
-#include <functional>
 #include <fstream>
 #include <deque>
 #include <limits>
 #include <sstream>
-#include <map>
 #include "polygon.h"
-#include "commands.h"
+#include "read_and_do_commands.cpp"
+#include "auxiliary_commands.h"
 
 int main(int argc, char ** argv)
 {
   using namespace shestakov;
-  if (argc != 2)
+  /*
+   * if (argc != 2)
   {
     std::cerr << "Not enough CL parameters\n";
     return 1;
   }
   std::ifstream input(argv[1]);
-  /*
+   */
   std::stringstream input(
-    "3 (0;0) (1;0) (1;6)\n"
-    "2 (0;1) (1;0)\n"
-    "\n"
-    "4 (0;0) (2;0) (2;2) (0;2)\n"
-    );*/
+  "3 (3;3) (1;1) (1;3)\n"
+  "4 (0;0) (1;0) (1;1) (0;1)\n"
+  "4 (0;0) (1;0) (1;1) (0;1)\n"
+  "3 (3;3) (1;1) (1;3)\n"
+    );
   std::vector< Polygon > polygons;
   auto maxstream = std::numeric_limits< std::streamsize >::max();
   while (!input.eof())
@@ -39,51 +39,24 @@ int main(int argc, char ** argv)
       input.ignore(maxstream, '\n');
     }
   }
-  using const_cmd_t = std::function< void (const std::vector< Polygon >&, std::ostream&) >;
-  using const_cmd_t_in = std::function< void (const std::vector< Polygon >&, size_t num, std::ostream&) >;
-  using cmd_t = std::function< void (std::vector< Polygon >&, std::istream&, std::ostream&, std::ostream&) >;
-  std::map< std::string, const_cmd_t > const_cmds
-  {
-    {"AREA EVEN", areaEven},
-    {"AREA ODD", areaOdd},
-    {"AREA MEAN", areaMean},
-    {"MAX AREA", maxArea},
-    {"MAX VERTEXES", maxVertexes},
-    {"MIN AREA", minArea},
-    {"MIN VERTEXES", minVertexes},
-    {"COUNT EVEN", countEven},
-    {"COUNT ODD", countOdd}
-  };
-  std::map< std::string, const_cmd_t_in > const_cmds_in
-  {
-    {"COUNT NUM", countVert},
-    {"AREA NUM", areaVert}
-  };
+
   while (!std::cin.eof())
   {
-    std::string cmd;
-    std::getline(std::cin, cmd);
-    if (cmd.empty())
+    std::string cmd = "";
+    std::cin >> cmd;
+    try
     {
-      continue;
+      doCommand(polygons, std::cin, std::cout, cmd);
     }
-    try {
-      auto toexecute = const_cmds.at(cmd);
-      toexecute(polygons, std::cout);
+    catch (const std::logic_error& e)
+    {
+      printError(std::cout);
+      skipUntilNewLine(std::cin);
+      std::cin.clear();
     }
-    catch (...){
-      try
-      {
-        size_t num = std::stoull(cmd.substr(cmd.find_first_of(' ')));
-        cmd = (cmd.substr(0, cmd.find(' ')) + " NUM");
-        auto toexecute = const_cmds_in.at(cmd);
-        toexecute(polygons, num, std::cout);
-      }
-      catch (...)
-      {
-        //skipUntilNewLine(std::cin);
-        std::cout << "<INVALID COMMAND>\n";
-      }
+    catch (const std::runtime_error& e)
+    {
+      break;
     }
   }
 }

@@ -1,10 +1,15 @@
 #include "polygon.h"
 #include <algorithm>
-#include <numeric>
-#include <limits>
-#include <functional>
 #include <iterator>
 
+bool shestakov::operator ==(const Point &lhs, const Point &rhs)
+{
+  return (lhs.x == rhs.x) && (lhs.y == rhs.y);
+}
+bool shestakov::operator ==(const shestakov::Polygon &lhs, const shestakov::Polygon &rhs)
+{
+  return std::equal(lhs.points.begin(),lhs.points.end(),rhs.points.begin());
+}
 std::istream & shestakov::operator>>(std::istream & in, DelimeterIO &&dest)
 {
   std::istream::sentry sentry(in);
@@ -52,6 +57,10 @@ std::istream & shestakov::operator>>(std::istream & in, Polygon & rhs)
   if (in)
   {
     rhs.points.swap(input.points);
+  }
+  if(points != rhs.points.size())
+  {
+    std::cout << "!!!ERROR!!!";
   }
   return in;
 }

@@ -9,13 +9,16 @@ namespace shestakov
   {
     char exp;
   };
-  struct Point{
+  struct Point
+    {
     int x, y;
   };
-  struct Polygon : public std::error_code
+  struct Polygon
   {
     std::vector< Point > points;
   };
+  bool operator ==(const Point &lhs, const Point &rhs);
+  bool operator ==(const Polygon &lhs, const Polygon &rhs);
   std::istream & operator>>(std::istream & in, DelimeterIO &&dest);
   std::istream & operator>>(std::istream & in, Point & rhs);
   std::istream & operator>>(std::istream & in, Polygon & rhs);
