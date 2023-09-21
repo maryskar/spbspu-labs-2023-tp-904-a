@@ -34,12 +34,12 @@ namespace shestakov
       {"RMECHO VERT", rmecho},
       {"ECHO VERT",   echo}
     };
-  void doConstCmds(const std::vector< Polygon >& polygons, std::ostream& out, std::string cmd)
+  void doConstCmds(const std::vector< Polygon >& polygons, std::ostream& out, const std::string& cmd)
   {
     auto toexecute = const_cmds.at(cmd);
     toexecute(polygons, out);
   }
-  void doConstCmdsIn(const std::vector< Polygon >& polygons, size_t vertexes, std::ostream& out, std::string cmd)
+  void doConstCmdsIn(const std::vector< Polygon >& polygons, size_t vertexes, std::ostream& out, const std::string& cmd)
   {
     auto toexecute = const_cmds_in.at(cmd);
     toexecute(polygons, vertexes, out);
