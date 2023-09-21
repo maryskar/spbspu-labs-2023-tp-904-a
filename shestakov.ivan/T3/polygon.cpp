@@ -55,13 +55,24 @@ namespace shestakov
     in >> points;
     if (points < 3)
     {
+      in.clear();
       in.setstate(std::ios::failbit);
+      throw std::logic_error("");
     }
     input.points.reserve(points);
     std::copy_n(std::istream_iterator<Point>(in), points, std::back_inserter(input.points));
     if (in)
     {
-      rhs.points.swap(input.points);
+      std::string temp = "";
+      std::getline(in, temp);
+      if (temp.empty())
+      {
+        rhs.points.swap(input.points);
+      }
+      else
+      {
+        in.setstate(std::ios::failbit);
+      }
     }
     return in;
   }
