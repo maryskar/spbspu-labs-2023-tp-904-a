@@ -10,6 +10,7 @@ namespace samoilenko
     std::complex< double > key2;
     std::string key3;
   };
+  bool compareData(const DataStruct& lhs, const DataStruct& rhs);
 }
 
 #endif
