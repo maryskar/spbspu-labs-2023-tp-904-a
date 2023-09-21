@@ -46,28 +46,28 @@ namespace shestakov
     std::vector< double > ar_of_polygons(polygons.size());
     std::transform(polygons.begin(), polygons.end(), ar_of_polygons.begin(), getArea);
     std::sort(ar_of_polygons.begin(), ar_of_polygons.end());
-    printFix(ar_of_polygons[polygons.size() - 1], out);
+    printFix(ar_of_polygons.back(), out);
   }
   void minArea(const std::vector<Polygon>& polygons, std::ostream &out)
   {
     std::vector< double > ar_of_polygons(polygons.size());
     std::transform(polygons.begin(), polygons.end(), ar_of_polygons.begin(), getArea);
     std::sort(ar_of_polygons.begin(), ar_of_polygons.end());
-    printFix(ar_of_polygons[0], out);
+    printFix(ar_of_polygons.front(), out);
   }
   void maxVertexes(const std::vector<Polygon>& polygons, std::ostream &out)
   {
     std::vector< size_t > count_vert(polygons.size());
     std::transform(polygons.begin(), polygons.end(), count_vert.begin(), countVertexes);
     std::sort(count_vert.begin(), count_vert.end());
-    out << count_vert[polygons.size() - 1] << '\n';
+    out << count_vert.back() << '\n';
   }
   void minVertexes(const std::vector<Polygon>& polygons, std::ostream &out)
   {
     std::vector< size_t > count_vert(polygons.size());
     std::transform(polygons.begin(), polygons.end(), count_vert.begin(), countVertexes);
     std::sort(count_vert.begin(), count_vert.end());
-    out << count_vert[0] << '\n';
+    out << count_vert.front() << '\n';
   }
   void countEven(const std::vector<Polygon>& polygons, std::ostream &out)
   {

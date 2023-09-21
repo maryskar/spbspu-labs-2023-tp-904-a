@@ -63,10 +63,6 @@ namespace shestakov
     {
       rhs.points.swap(input.points);
     }
-    if (points != rhs.points.size())
-    {
-      std::cout << "!!!ERROR!!!";
-    }
     return in;
   }
 }
