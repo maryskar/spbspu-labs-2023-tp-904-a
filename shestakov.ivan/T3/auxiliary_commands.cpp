@@ -60,8 +60,8 @@ namespace shestakov
     {
       return false;
     }
-    std::vector<bool> coincidence(polygon_1.points.size());
-    std::vector<Point> two_polygons(polygon_1.points.size());
+    std::vector< bool > coincidence(polygon_1.points.size());
+    std::vector< Point > two_polygons(polygon_1.points.size());
     std::copy(polygon_1.points.begin(), polygon_1.points.end(), two_polygons.begin());
     std::copy(polygon_2.points.begin(), polygon_2.points.end(), std::back_inserter(two_polygons));
     std::transform(two_polygons.begin(), two_polygons.end(), two_polygons.begin() + polygon_1.points.size(), coincidence.begin(), compPoints);

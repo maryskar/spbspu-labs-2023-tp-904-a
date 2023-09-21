@@ -1,9 +1,6 @@
 #include "read_and_do_commands.h"
-#include <iostream>
 #include <functional>
-#include <vector>
 #include <map>
-#include "polygon.h"
 #include "commands.h"
 #include "auxiliary_commands.h"
 

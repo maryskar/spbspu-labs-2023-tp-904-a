@@ -7,7 +7,7 @@
 #include <limits>
 #include <sstream>
 #include "polygon.h"
-#include "read_and_do_commands.cpp"
+#include "read_and_do_commands.h"
 #include "auxiliary_commands.h"
 
 int main(int argc, char ** argv)

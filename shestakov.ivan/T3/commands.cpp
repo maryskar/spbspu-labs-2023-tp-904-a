@@ -12,8 +12,8 @@ namespace shestakov
     size_t size_of_even = 0;
     double even_area = 0.0;
     size_of_even = std::count_if(polygons.begin(), polygons.end(), isEven);
-    std::vector<double> ar_of_even_polygons(size_of_even);
-    std::vector<Polygon> even_polygons(size_of_even);
+    std::vector< double > ar_of_even_polygons(size_of_even);
+    std::vector< Polygon > even_polygons(size_of_even);
     std::copy_if(polygons.begin(), polygons.end(), even_polygons.begin(), isEven);
     std::transform(even_polygons.begin(), even_polygons.end(), ar_of_even_polygons.begin(), getArea);
     even_area = std::accumulate(ar_of_even_polygons.begin(), ar_of_even_polygons.end(), 0.0);
@@ -24,8 +24,8 @@ namespace shestakov
     size_t size_of_odd = 0;
     double odd_area = 0.0;
     size_of_odd = std::count_if(polygons.begin(), polygons.end(), isOdd);
-    std::vector<double> ar_of_odd_polygons(size_of_odd);
-    std::vector<Polygon> odd_polygons(size_of_odd);
+    std::vector< double > ar_of_odd_polygons(size_of_odd);
+    std::vector< Polygon > odd_polygons(size_of_odd);
     std::copy_if(polygons.begin(), polygons.end(), odd_polygons.begin(), isOdd);
     std::transform(odd_polygons.begin(), odd_polygons.end(), ar_of_odd_polygons.begin(), getArea);
     odd_area = std::accumulate(ar_of_odd_polygons.begin(), ar_of_odd_polygons.end(), 0.0);
@@ -35,7 +35,7 @@ namespace shestakov
   {
     double area_mean = 0.0;
     double area_sum = 0.0;
-    std::vector<double> ar_of_polygons(polygons.size());
+    std::vector< double > ar_of_polygons(polygons.size());
     std::transform(polygons.begin(), polygons.end(), ar_of_polygons.begin(), getArea);
     area_sum = std::accumulate(ar_of_polygons.begin(), ar_of_polygons.end(), 0.0);
     area_mean = area_sum / double(polygons.size());
@@ -43,28 +43,28 @@ namespace shestakov
   }
   void maxArea(const std::vector<Polygon>& polygons, std::ostream &out)
   {
-    std::vector<double> ar_of_polygons(polygons.size());
+    std::vector< double > ar_of_polygons(polygons.size());
     std::transform(polygons.begin(), polygons.end(), ar_of_polygons.begin(), getArea);
     std::sort(ar_of_polygons.begin(), ar_of_polygons.end());
     printFix(ar_of_polygons[polygons.size() - 1], out);
   }
   void minArea(const std::vector<Polygon>& polygons, std::ostream &out)
   {
-    std::vector<double> ar_of_polygons(polygons.size());
+    std::vector< double > ar_of_polygons(polygons.size());
     std::transform(polygons.begin(), polygons.end(), ar_of_polygons.begin(), getArea);
     std::sort(ar_of_polygons.begin(), ar_of_polygons.end());
     printFix(ar_of_polygons[0], out);
   }
   void maxVertexes(const std::vector<Polygon>& polygons, std::ostream &out)
   {
-    std::vector<size_t> count_vert(polygons.size());
+    std::vector< size_t > count_vert(polygons.size());
     std::transform(polygons.begin(), polygons.end(), count_vert.begin(), countVertexes);
     std::sort(count_vert.begin(), count_vert.end());
     out << count_vert[polygons.size() - 1] << '\n';
   }
   void minVertexes(const std::vector<Polygon>& polygons, std::ostream &out)
   {
-    std::vector<size_t> count_vert(polygons.size());
+    std::vector< size_t > count_vert(polygons.size());
     std::transform(polygons.begin(), polygons.end(), count_vert.begin(), countVertexes);
     std::sort(count_vert.begin(), count_vert.end());
     out << count_vert[0] << '\n';
@@ -90,8 +90,8 @@ namespace shestakov
     else
     {
       size_t num_of_vert = 0;
-      std::vector<size_t> vert(polygons.size(), num);
-      std::vector<bool> equal(polygons.size());
+      std::vector< size_t > vert(polygons.size(), num);
+      std::vector< bool > equal(polygons.size());
       std::transform(polygons.begin(), polygons.end(), vert.begin(), equal.begin(), equalVert);
       num_of_vert = std::accumulate(equal.begin(), equal.end(), 0);
       out << num_of_vert << '\n';
@@ -99,10 +99,10 @@ namespace shestakov
   }
   void areaVert(const std::vector<Polygon>& polygons, size_t num, std::ostream &out)
   {
-    std::vector<Polygon> vert_polygons;
+    std::vector< Polygon > vert_polygons;
     double sum_areas = 0.0;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(vert_polygons),std::bind(equalVert, std::placeholders::_1, num));
-    std::vector<double> areas(vert_polygons.size());
+    std::vector< double > areas(vert_polygons.size());
     std::transform(polygons.begin(), polygons.end(), areas.begin(), getArea);
     sum_areas = std::accumulate(areas.begin(), areas.end(), 0.0);
     printFix(sum_areas, out);
