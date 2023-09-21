@@ -29,7 +29,7 @@ namespace shestakov
       {"COUNT", countVert},
       {"AREA",  areaVert}
     };
-  std::map <std::string, cmd_t> cmds
+  std::map <std::string, cmd_t> cmds_in
     {
       {"RMECHO VERT", rmecho},
       {"ECHO VERT",   echo}
@@ -47,7 +47,7 @@ namespace shestakov
   void doCmdsWithInPolygon(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
   {
     cmd += " VERT";
-    auto toexecute = cmds.at(cmd);
+    auto toexecute = cmds_in.at(cmd);
     toexecute(polygons, in, out);
   }
   void doCommand(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
@@ -83,7 +83,6 @@ namespace shestakov
       {
         try
         {
-          cmd = cmd.substr(0, cmd.find(' '));
           size_t vert = std::stoull(cmd.substr(' '));
           doConstCmdsIn(polygons, vert, out, cmd);
         }
