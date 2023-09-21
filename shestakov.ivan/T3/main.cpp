@@ -37,7 +37,7 @@ int main(int argc, char ** argv)
     std::cin >> cmd;
     try
     {
-      if (polygons.size() == 0)
+      if (polygons.empty())
       {
         throw std::logic_error("");
       }
