@@ -31,7 +31,7 @@ namespace shestakov
   {
     return polygon.points.size() == vert;
   }
-  double getDeterminant(const Point &first, const Point &second)
+  int getDeterminant(const Point &first, const Point &second)
   {
     int determinant = first.x * second.y - second.x * first.y;
     return determinant;
@@ -43,10 +43,10 @@ namespace shestakov
   double getArea(const Polygon &polygon)
   {
     double area = 0.0;
-    std::vector< double > deter(polygon.points.size());
+    std::vector< int > deter(polygon.points.size());
     std::transform(polygon.points.begin(), --polygon.points.end(), ++polygon.points.begin(), deter.begin(), getDeterminant);
     area = std::accumulate(deter.begin(), deter.end(), 0.0);
-    area += getDeterminant(polygon.points.front(), polygon.points.back());
+    area += getDeterminant(polygon.points.back(), polygon.points.front());
     area = std::abs(area) / 2.0;
     return area;
   }

@@ -10,7 +10,7 @@ namespace shestakov
   bool isOdd(const Polygon& polygons);
   size_t countVertexes(const Polygon& polygon);
   std::ostream& printFix(double src, std::ostream& out);
-  double getDeterminant(const Point& first, const Point& second);
+  int getDeterminant(const Point& first, const Point& second);
   double getArea(const Polygon& polygons);
   bool equalVert(const Polygon& polygon, size_t vert);
   bool compPoints(const Point& point_1, const Point& point_2);
