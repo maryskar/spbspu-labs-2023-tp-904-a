@@ -35,28 +35,23 @@ int main(int argc, char ** argv)
   {
     std::string cmd = "";
     std::cin >> cmd;
-    if (polygons.size() != 0)
+    try
     {
-      try
+      if (polygons.size() != 0)
       {
-        doCommand(polygons, std::cin, std::cout, cmd);
+        throw;
       }
-      catch (const std::logic_error &e)
-      {
-        printError(std::cout);
-        skipUntilNewLine(std::cin);
-        std::cin.clear();
-      }
-      catch (const std::runtime_error &e)
-      {
-        break;
-      }
+      doCommand(polygons, std::cin, std::cout, cmd);
     }
-    else
+    catch (const std::logic_error &e)
     {
       printError(std::cout);
       skipUntilNewLine(std::cin);
       std::cin.clear();
+    }
+    catch (const std::runtime_error &e)
+    {
+      break;
     }
   }
 }
