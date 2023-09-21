@@ -11,6 +11,8 @@ namespace samoilenko
     std::string key3;
   };
   bool compareData(const DataStruct& lhs, const DataStruct& rhs);
+  std::istream& operator>>(std::istream& in, DataStruct dest)
+
 }
 
 #endif
