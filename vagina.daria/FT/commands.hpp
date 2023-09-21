@@ -7,6 +7,7 @@
 
 namespace vagina
 {
+  void messageEmptyCommand(std::ostream& out);
   void createSet(dictionaryOfNames& diction, std::istream& in);
   bool isGreater(const std::pair< std::string, size_t >& p1, const std::pair< std::string, size_t >& p2);
   void sortAndPrintFromTheLargest(const dictionary& wordFrequency, std::ostream& out);

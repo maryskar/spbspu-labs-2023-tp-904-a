@@ -4,13 +4,17 @@
 #include <functional>
 #include <set>
 
+void vagina::messageEmptyCommand(std::ostream& out)
+{
+  out << "<EMPTY>" << '\n';
+}
 void vagina::createSet(dictionaryOfNames& diction, std::istream& in)
 {
   std::string filename = "";
   in >> filename;
-  if (!in)
+  if (filename.empty())
   {
-    throw std::runtime_error("Error reading filename");
+    throw std::invalid_argument("Invalid input: Filename is empty");
   }
   std::ifstream file(filename);
   if (!file.is_open())
@@ -20,9 +24,9 @@ void vagina::createSet(dictionaryOfNames& diction, std::istream& in)
   std::string word = "";
   std::string name = "";
   in >> name;
-  if (!in)
+  if (name.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dictionary dict;
   while (file)
@@ -76,9 +80,9 @@ void vagina::threeMostPopular(const dictionaryOfNames& diction, std::istream& in
 {
   std::string name = "";
   in >> name;
-  if (!in)
+  if (name.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dictionary dict = findSpecificDict(diction, name);
   if (dict.empty())
@@ -100,9 +104,9 @@ void vagina::findWord(const dictionaryOfNames& dict, std::istream& in, std::ostr
   std::string word = "";
   std::string name = "";
   in >> name >> word;
-  if (!in)
+  if (name.empty() || word.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary or word");
+    throw std::invalid_argument("Invalid input: Name or word is empty");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
@@ -124,9 +128,9 @@ void vagina::deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream&
   std::string word = "";
   std::string name = "";
   in >> name >> word;
-  if (!in)
+  if (name.empty() || word.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary or word");
+    throw std::invalid_argument("Invalid input: Name or word is empty");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
@@ -155,9 +159,13 @@ void vagina::printWordToSpecificLetter(const dictionaryOfNames& dict, std::istre
   char letter = ' ';
   std::string name = "";
   in >> name >> letter;
-  if (!in)
+  if (name.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary or letter");
+    throw std::invalid_argument("Invalid input: Name is empty or invalid letter");
+  }
+  if (!std::isalpha(letter))
+  {
+    throw std::logic_error("Input not a letter");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.dict_.empty())
@@ -179,9 +187,9 @@ void vagina::printDictionary(const dictionaryOfNames& dict, std::istream& in, st
 {
   std::string name = "";
   in >> name;
-  if (!in)
+  if (name.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
@@ -218,9 +226,9 @@ void vagina::maxCountLetterDictionary(const dictionaryOfNames& dict, std::istrea
 {
   std::string name = "";
   in >> name;
-  if (!in)
+  if (name.empty())
   {
-    throw std::runtime_error("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
@@ -238,9 +246,9 @@ void vagina::minCountLetterDictionary(const dictionaryOfNames& dict, std::istrea
 {
   std::string name = "";
   in >> name;
-  if (!in)
+  if (name.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
@@ -259,9 +267,9 @@ void vagina::mergeDictionary(dictionaryOfNames& dict, std::istream& in)
   std::string nameFirst = "";
   std::string nameSecond = "";
   in >> nameFirst >> nameSecond;
-  if (!in)
+  if (nameFirst.empty() || nameSecond.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dictionary diction1 = findSpecificDict(dict, nameFirst);
   dictionary diction2 = findSpecificDict(dict, nameSecond);
@@ -283,9 +291,9 @@ void vagina::mergeDictionary(dictionaryOfNames& dict, std::istream& in)
   }
   std::string name = "";
   in >> name;
-  if (!in)
+  if (name.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dict.insert({ name, dictOfResult });
 }
@@ -294,9 +302,9 @@ void vagina::uniqueWord(dictionaryOfNames& dict, std::istream& in)
   std::string nameFirst = "";
   std::string nameSecond = "";
   in >> nameFirst >> nameSecond;
-  if (!in)
+  if (nameFirst.empty() || nameSecond.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dictionary diction1 = findSpecificDict(dict, nameFirst);
   dictionary diction2 = findSpecificDict(dict, nameSecond);
@@ -318,9 +326,9 @@ void vagina::uniqueWord(dictionaryOfNames& dict, std::istream& in)
   }
   std::string name = "";
   in >> name;
-  if (!in)
+  if (name.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dict.insert({ name, dictOfResult });
 }
@@ -329,9 +337,9 @@ void vagina::countIndentical(const dictionaryOfNames& dict, std::istream& in, st
   std::string nameFirst = "";
   std::string nameSecond = "";
   in >> nameFirst >> nameSecond;
-  if (!in)
+  if (nameFirst.empty() || nameSecond.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dictionary diction1 = findSpecificDict(dict, nameFirst);
   dictionary diction2 = findSpecificDict(dict, nameSecond);
@@ -359,9 +367,9 @@ void vagina::wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, st
 {
   std::string name = "";
   in >> name;
-  if (!in)
+  if (name.empty())
   {
-    throw std::invalid_argument("Error reading name of dictionary");
+    throw std::invalid_argument("Invalid input: Name is empty");
   }
   dictionary diction = findSpecificDict(dict, name);
   if (diction.empty())
@@ -371,9 +379,9 @@ void vagina::wordsWithLetter(const dictionaryOfNames& dict, std::istream& in, st
   char letter = ' ';
   size_t minCount = 0;
   in >> minCount >> letter;
-  if (!in)
+  if (!std::isalpha(letter) || minCount < 0)
   {
-    throw std::invalid_argument("Error reading letter or minimum number of occurrences");
+    throw std::logic_error("Input not a letter or not a minCount");
   }
   dictionary matchingWords;
   using namespace std::placeholders;
