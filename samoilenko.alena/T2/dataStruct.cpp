@@ -24,4 +24,3 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
     return in;
   }
 }
-
