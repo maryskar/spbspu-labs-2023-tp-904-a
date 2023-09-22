@@ -10,11 +10,11 @@ namespace samoilenko
   };
   struct BinUll
   {
-    unsigned long long& n;
+    unsigned long long n;
   };
   struct ComplexNum
   {
-    std::complex< double >& cmpNum;
+    std::complex< double > cmpNum;
   };
   struct String
   {
