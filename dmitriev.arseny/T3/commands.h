@@ -13,7 +13,9 @@ namespace dmitriev
   void printMinArea(std::vector< Polygon > data, std::ostream& out);
   void printMaxSize(std::vector< Polygon > data, std::ostream& out);
   void printMinSize(std::vector< Polygon > data, std::ostream& out);
-  void printNSize(std::vector< Polygon > data, size_t number, std::ostream& out);
+  void printEvenSizeCount(std::vector< Polygon > data, std::ostream& out);
+  void printOddSizeCount(std::vector< Polygon > data, std::ostream& out);
+  void printNSizeCount(std::vector< Polygon > data, size_t number, std::ostream& out);
 
 
 }

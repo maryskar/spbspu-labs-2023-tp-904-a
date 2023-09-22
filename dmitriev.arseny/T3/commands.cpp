@@ -90,3 +90,25 @@ void dmitriev::printMinSize(std::vector< Polygon > data, std::ostream& out)
 {
   printSize(data, isLessSize, out);
 }
+
+void printSizeCount(std::vector< dmitriev::Polygon > data,
+  std::function< bool(const dmitriev::Polygon&) > condition,
+  std::ostream& out)
+{
+  out << std::count_if(data.begin(), data.end(), condition) << '\n';
+}
+
+void dmitriev::printEvenSizeCount(std::vector< Polygon > data, std::ostream& out)
+{
+  printSizeCount(data, isEven, out);
+}
+
+void dmitriev::printOddSizeCount(std::vector< Polygon > data, std::ostream & out)
+{
+  printSizeCount(data, isOdd, out);
+}
+
+void dmitriev::printNSizeCount(std::vector< Polygon > data, size_t number, std::ostream & out)
+{
+  printSizeCount(data, std::bind(isSizeEqualToN, _1, number), out);
+}
