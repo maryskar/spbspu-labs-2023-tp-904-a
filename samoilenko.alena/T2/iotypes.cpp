@@ -25,3 +25,13 @@ std::istream& samoilenko::operator>>(std::istream& in, Ull&& dest)
   }
   return in >> dest.n;
 }
+
+std::istream& samoilenko::operator>>(std::istream& in, ComplexNum&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+
+}
