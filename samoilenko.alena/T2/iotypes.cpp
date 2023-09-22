@@ -15,3 +15,13 @@ std::istream& samoilenko::operator>>(std::istream& in, Delimiter&& dest)
   }
   return in;
 }
+
+std::istream& samoilenko::operator>>(std::istream& in, Ull&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+
+}
