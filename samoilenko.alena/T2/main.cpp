@@ -7,8 +7,8 @@
 
 int main()
 {
-  using iter_of_inp = std::istream_iterator< samoilenko::DataStruct >;
   std::deque< samoilenko::DataStruct > data;
+  using iter_of_inp = std::istream_iterator< samoilenko::DataStruct >;
   while (!std::cin.eof())
   {
     if (std::cin.fail())
@@ -18,7 +18,8 @@ int main()
     }
     std::copy(iter_of_inp(std::cin), iter_of_inp(), std::back_inserter(data));
   }
+  using iter_of_out = std::ostream_iterator< samoilenko::DataStruct >;
   std::sort(data.begin(), data.end(), samoilenko::compareData);
-  std::copy(data.begin(), data.end(), std::ostream_iterator< samoilenko::DataStruct >(std::cout, "\n"));
+  std::copy(data.begin(), data.end(), iter_of_out(std::cout, "\n"));
   return 0;
 }
