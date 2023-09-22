@@ -8,7 +8,7 @@ namespace samoilenko
   {
     char exp;
   };
-  struct Ull
+  struct BinUll
   {
     unsigned long long& n;
   };
@@ -25,7 +25,7 @@ namespace samoilenko
     std::string exp;
   };
   std::istream& operator>>(std::istream& in, Delimiter&& dest);
-  std::istream& operator>>(std::istream& in, Ull&& dest);
+  std::istream& operator>>(std::istream& in, BinUll&& dest);
   std::istream& operator>>(std::istream& in, ComplexNum&& dest);
   std::istream& operator>>(std::istream& in, String&& dest);
   std::istream& operator>>(std::istream& in, Label&& dest);

@@ -1,4 +1,6 @@
 #include "iotypes.h"
+#include <bitset>
+#include <limits>
 
 std::istream& samoilenko::operator>>(std::istream& in, Delimiter&& dest)
 {
@@ -16,14 +18,21 @@ std::istream& samoilenko::operator>>(std::istream& in, Delimiter&& dest)
   return in;
 }
 
-std::istream& samoilenko::operator>>(std::istream& in, Ull&& dest)
+std::istream& samoilenko::operator>>(std::istream& in, BinUll&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry)
   {
     return in;
   }
-  return in >> dest.n;
+  in >> Delimiter{'0'} >> Label{"bB"};
+  if (in)
+  {
+    std::string binary = "";
+    std::getline(in, binary, ':');
+    dest.n = std::bitset< std::numeric_limits< unsigned long long >::digits >(binary).to_ullong();
+  }
+  return in;
 }
 
 std::istream& samoilenko::operator>>(std::istream& in, ComplexNum&& dest)
