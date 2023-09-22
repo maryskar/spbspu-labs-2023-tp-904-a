@@ -1,5 +1,6 @@
 #include "dataStruct.h"
 
+
 bool samoilenko::compareData(const DataStruct& lhs, const DataStruct& rhs)
 {
   if (lhs.key1 != rhs.key1)
@@ -22,5 +23,9 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
   if (!sentry)
   {
     return in;
+  }
+  DataStruct inp;
+  {
+
   }
 }
