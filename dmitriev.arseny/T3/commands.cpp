@@ -16,42 +16,44 @@ double countAreas(double result, const dmitriev::Polygon& polygon)
   return result + dmitriev::getArea(polygon);
 }
 
-void dmitriev::printEvenArea(std::ostream& out, std::vector< Polygon > data)
+void printArea(std::vector< dmitriev::Polygon > data,
+  std::function< bool(const dmitriev::Polygon&) > condition,
+  std::ostream& out)
 {
-  std::vector< Polygon > areas;
-  std::copy_if(data.cbegin(), data.cend(), std::back_inserter(areas), isEven);
-  
-  dmitriev::StreamGuard streamGuard(out);
-  out << std::fixed << std::setprecision(1);
-  out << std::accumulate(areas.begin(), areas.end(), 0.0, countAreas) << '\n';
-}
-
-void dmitriev::printOddArea(std::ostream& out, std::vector< Polygon > data)
-{
-  std::vector< Polygon > areas;
-  std::copy_if(data.cbegin(), data.cend(), std::back_inserter(areas), isOdd);
+  std::vector< dmitriev::Polygon > areas;
+  std::copy_if(data.cbegin(), data.cend(), std::back_inserter(areas), condition);
 
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
   out << std::accumulate(areas.begin(), areas.end(), 0.0, countAreas) << '\n';
 }
 
-void dmitriev::printNSizeArea(std::ostream& out, std::vector< Polygon > data, size_t number)
+void dmitriev::printEvenArea(std::vector< Polygon > data, std::ostream& out)
 {
-  std::vector< Polygon > areas;
-  std::copy_if(data.cbegin(),
-    data.cend(),
-    std::back_inserter(areas),
-    std::bind(isSizeEqualToN, _1, number));
-
-  dmitriev::StreamGuard streamGuard(out);
-  out << std::fixed << std::setprecision(1);
-  out << std::accumulate(areas.begin(), areas.end(), 0.0, countAreas) << '\n';
+  printArea(data, isEven, out);
 }
 
-void dmitriev::printMeanArea(std::ostream& out, std::vector< Polygon > data)
+void dmitriev::printOddArea(std::vector< Polygon > data, std::ostream& out)
+{
+  printArea(data, isOdd, out);
+}
+
+void dmitriev::printNSizeArea(std::vector< Polygon > data, size_t number, std::ostream& out)
+{
+  printArea(data, std::bind(isSizeEqualToN, _1, number), out);
+}
+
+void dmitriev::printMeanArea(std::vector< Polygon > data, std::ostream& out)
 {
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
   out << std::accumulate(data.begin(), data.end(), 0.0, countAreas) / data.size() << '\n';
 }
+
+//void dmitriev::printMaxArea(std::ostream& out, std::vector< Polygon > data)
+//{
+//  dmitriev::StreamGuard streamGuard(out);
+//  out << std::fixed << std::setprecision(1);
+//  //std::finf
+//}
+
