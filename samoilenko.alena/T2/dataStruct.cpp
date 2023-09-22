@@ -1,5 +1,5 @@
 #include "dataStruct.h"
-
+#include "iotypes.h"
 
 bool samoilenko::compareData(const DataStruct& lhs, const DataStruct& rhs)
 {
@@ -26,6 +26,6 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
   }
   DataStruct inp;
   {
-
+    in >> Delimiter{ '(' } >> Delimiter{ ':' };
   }
 }

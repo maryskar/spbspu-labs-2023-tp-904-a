@@ -20,6 +20,8 @@ namespace samoilenko
   {
     std::string& str;
   };
+  std::istream& operator>>(std::istream& in, Delimiter&& dest);
+
 }
 
 #endif
