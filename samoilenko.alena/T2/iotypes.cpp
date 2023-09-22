@@ -26,7 +26,7 @@ std::istream& samoilenko::operator>>(std::istream& in, BinUll&& dest)
   {
     return in;
   }
-  in >> Delimiter{'0'} >> Label{"bB"};
+  in >> Delimiter{'0'} >> Label{"b"};
   if (in)
   {
     std::string binary = "";

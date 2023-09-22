@@ -29,7 +29,7 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
   DataStruct inp;
   {
     in >> Delimiter{'('} >> Delimiter{':'};
-    for (size_t k = 0; k <= 2; k++)
+    for (size_t k = 0; k < 3; k++)
     {
       size_t num = 0;
       in >> Label{"key"} >> num;
