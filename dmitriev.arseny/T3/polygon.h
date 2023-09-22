@@ -1,16 +1,25 @@
 #ifndef POLYGON_H
 #define POLYGON_H
 
+#include <istream>
 #include <vector>
 
-struct Point
+namespace dmitriev
 {
-  int x, y;
-};
+  struct Point
+  {
+    int x, y;
+  };
 
-struct Polygon
-{
-  std::vector< Point > points;
-};
+  std::istream& operator>>(std::istream& inp, Point& data);
+
+  struct Polygon
+  {
+    std::vector< Point > points;
+  };
+
+  std::istream& operator>>(std::istream& inp, Polygon& data);
+
+}
 
 #endif
