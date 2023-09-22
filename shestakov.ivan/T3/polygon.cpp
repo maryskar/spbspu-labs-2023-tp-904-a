@@ -53,35 +53,42 @@ namespace shestakov
     Polygon input;
     size_t points = 0;
     in >> points;
-    if (points < 3)
+    if (points == 0)
     {
-      in.setstate(std::ios::failbit);
-    }
-    input.points.reserve(points);
-    std::copy_n(std::istream_iterator<Point>(in), points - 1, std::back_inserter(input.points));
-    char chr = '0';
-    in.get(chr);
-    if (chr != '\n')
-    {
-      std::copy_n(std::istream_iterator<Point>(in), 1, std::back_inserter(input.points));
+      return in;
     }
     else
     {
-      throw std::logic_error("");
-    }
-    if (in)
-    {
-      std::string temp = "";
-      std::getline(in, temp);
-      if (temp.empty())
-      {
-        rhs.points.swap(input.points);
-      }
-      else
+      if (points < 3)
       {
         in.setstate(std::ios::failbit);
       }
+      input.points.reserve(points);
+      std::copy_n(std::istream_iterator<Point>(in), points - 1, std::back_inserter(input.points));
+      char chr = '0';
+      in.get(chr);
+      if (chr != '\n')
+      {
+        std::copy_n(std::istream_iterator<Point>(in), 1, std::back_inserter(input.points));
+      }
+      else
+      {
+        throw std::logic_error("");
+      }
+      if (in)
+      {
+        std::string temp = "";
+        std::getline(in, temp);
+        if (temp.empty())
+        {
+          rhs.points.swap(input.points);
+        }
+        else
+        {
+          in.setstate(std::ios::failbit);
+        }
+      }
+      return in;
     }
-    return in;
   }
 }
