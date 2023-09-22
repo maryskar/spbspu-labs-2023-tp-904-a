@@ -7,7 +7,10 @@ namespace samoilenko
   {
     char exp;
   };
-
+  struct Ull
+  {
+    unsigned long long& n;
+  };
 }
 
 #endif
