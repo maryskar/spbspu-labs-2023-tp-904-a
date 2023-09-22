@@ -1,11 +1,28 @@
 #include "dictionary.h"
 #include <stdexcept>
+#include <algorithm>
 
 namespace kryuchkova
 {
+  ErDictionary::ErDictionary()
+  {
+  }
+
+  ErDictionary::ErDictionary(std::string & name)
+  {
+    name_ = name;
+  }
+
+  ErDictionary::ErDictionary(std::string & name, std::map< word, translations > & dict)
+  {
+    name_ = name;
+    dict_ = dict;
+  }
+
   ErDictionary::translations ErDictionary::find(const word & wrd) const
   {
-    if (auto res = dict_.find(wrd); res != dict_.end())
+    auto res = dict_.find(wrd);
+    if (res != dict_.end())
     {
       return res->second; 
     }
@@ -19,7 +36,7 @@ namespace kryuchkova
   {
     if (!dict_.insert(std::pair< word, translations >(wrd, trans)).second)
     {
-      throw std::logic_error("This word already exist in this dict");
+      throw std::logic_error("This word already exists in this dict");
     }
   }
 
@@ -27,20 +44,20 @@ namespace kryuchkova
   {
     return name_;
   }
+  
+  std::map< ErDictionary::word, ErDictionary::translations > ErDictionary::getDict() const
+  {
+    return dict_;
+  }
+
+  void ErDictionary::setName(const std::string & name)
+  {
+    name_ = name;
+  }
 
   void ErDictionary::erase(const word & wrd)
   {
     dict_.erase(wrd);
-  }
-
-  std::map< ErDictionary::word, ErDictionary::translations >::const_iterator ErDictionary::begin() const
-  {
-    return dict_.begin();
-  }
-
-  std::map< ErDictionary::word, ErDictionary::translations >::const_iterator ErDictionary::end() const
-  {
-    return dict_.end();
   }
 
   size_t ErDictionary::size() const
@@ -48,4 +65,35 @@ namespace kryuchkova
     return dict_.size();
   }
 
+  std::ostream & operator<<(std::ostream & out, const ErDictionary & dict)
+  {
+    out << dict.getName() << '\n';
+    for (const auto & pair : dict.getDict())
+    {
+      out << pair.first << ": ";
+      std::copy(pair.second.begin(), pair.second.end(), std::ostream_iterator< std::string >(out, " "));
+      out << '\n';
+    }
+    return out;
+  }
+
+  std::istream & operator>>(std::istream & in, ErDictionary & dict)
+  {
+    while (!in.eof())
+    {
+      std::istream::sentry sentry(in);
+      if (!sentry)
+      {
+        return in;
+      }
+      std::string word;
+      in >> word;
+      int n_translations;
+      in >> n_translations;
+      std::vector< std::string > translations;
+      std::copy_n(std::istream_iterator< std::string >(in), n_translations, std::back_inserter(translations));
+      dict.insert(word, translations);
+    }
+    return in;
+  }
 }
