@@ -50,3 +50,17 @@ std::istream& samoilenko::operator>>(std::istream& in, String&& dest)
   }
   return std::getline(in >> Delimiter{'"'}, dest.str, '"');
 }
+
+std::istream& samoilenko::operator>>(std::istream &in, Label&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  for (size_t k = 0; k < dest.exp.size(); k++)
+  {
+    in >> Delimiter{dest.exp[k]};
+  }
+  return in;
+}
