@@ -20,6 +20,9 @@ namespace dmitriev
 
   std::istream& operator>>(std::istream& inp, Polygon& data);
 
+  size_t getSize(const Polygon& polygon);
+  double getArea(const Polygon& polygon);
+
 }
 
 #endif
