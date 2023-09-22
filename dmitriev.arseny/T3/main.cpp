@@ -2,7 +2,7 @@
 #include <sstream>
 #include "polygon.h"
 
-int main()
+int main(int argc, char** argv)
 {
   std::stringstream sstr("3 (1; 1) (1; 3) (3; 3)\n"
     "4 (0; 0) (0; 1) (1; 1) (1; 0)\n"
@@ -23,6 +23,12 @@ int main()
       sstr.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
+
+
+  std::cout << dmitriev::getArea(polygons[0]) << '\n';
+  std::cout << dmitriev::getArea(polygons[1]) << '\n';
+  std::cout << dmitriev::getArea(polygons[2]) << '\n';
+  std::cout << dmitriev::getArea(polygons[3]) << '\n';
 
   return 0;
 }
