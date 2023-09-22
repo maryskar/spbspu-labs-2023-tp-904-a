@@ -31,6 +31,27 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
     {
       size_t num = 0;
       in >> Label{"key"} >> num;
+      if (num == 1)
+      {
+        in >> Ull{inp.key1} >> Delimiter{':'};
+      }
+      if (num == 2)
+      {
+        in >> ComplexNum{inp.key2} >> Delimiter{':'};
+      }
+      if (num == 3)
+      {
+        in >> String{inp.key3} >> Delimiter{':'};
+      }
+      if (!sentry)
+      {
+        return in;
+      }
     }
+    if (in)
+    {
+      dest = inp;
+    }
+    return in;
   }
 }
