@@ -68,7 +68,7 @@ std::ostream& samoilenko::operator<<(std::ostream& out, const DataStruct& src)
   }
   iofmtguard fmtguard(out);
   out << '(' << ":key1 " << src.key1;
-  out << ":key2 " << "#c" << '(' << src.key2 << ')';
+  out << ":key2 " << src.key2;
   out << ":key3 \"" << src.key3 << "\":)";
   return out;
 }

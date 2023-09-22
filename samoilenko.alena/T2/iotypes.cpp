@@ -83,7 +83,7 @@ std::ostream& samoilenko::operator<<(std::ostream& out, BinUll&& src)
   }
   std::string binary = std::bitset< 64 >(src.n).to_string();
   binary.erase(0, binary.find('1'));
-  out << "0b0" << binary;
+  out << "0b" << binary;
   return out;
 }
 
