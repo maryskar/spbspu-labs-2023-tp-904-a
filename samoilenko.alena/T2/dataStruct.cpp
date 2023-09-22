@@ -30,7 +30,7 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
     for (size_t k = 0; k <= 2; k++)
     {
       size_t num = 0;
-      in >>
+      in >> Label{"key"} >> num;
     }
   }
 }

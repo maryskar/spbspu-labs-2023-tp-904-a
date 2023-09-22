@@ -22,13 +22,13 @@ namespace samoilenko
   };
   struct Label
   {
-    std::string& exp;
+    std::string exp;
   };
   std::istream& operator>>(std::istream& in, Delimiter&& dest);
   std::istream& operator>>(std::istream& in, Ull&& dest);
   std::istream& operator>>(std::istream& in, ComplexNum&& dest);
   std::istream& operator>>(std::istream& in, String&& dest);
-  std::istream& operator>>(std::istream &in, Label&& dest);
+  std::istream& operator>>(std::istream& in, Label&& dest);
 }
 
 #endif
