@@ -24,7 +24,7 @@ namespace kryuchkova
     auto res = dict_.find(wrd);
     if (res != dict_.end())
     {
-      return res->second; 
+      return res->second;
     }
     else
     {
