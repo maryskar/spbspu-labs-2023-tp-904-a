@@ -72,7 +72,7 @@ void vagina::sortAndPrintFromTheLargest(const dictionary& wordFrequency, std::os
   {
     for (const auto& word : freqPair.second)
     {
-      out << word << ": " << freqPair.first << std::endl;
+      out << word << ": " << freqPair.first << '\n';
     }
   }
 }
@@ -116,11 +116,11 @@ void vagina::findWord(const dictionaryOfNames& dict, std::istream& in, std::ostr
   auto it = diction.dict_.find(word);
   if (it != diction.dict_.end())
   {
-    out << "This word occurs - " << it->second << " times" << "\n";
+    out << "This word occurs - " << it->second << " times" << '\n';
   }
   else
   {
-    out << "This word is missing" << "\n";
+    out << "This word is missing" << '\n';
   }
 }
 void vagina::deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream& out)
@@ -141,13 +141,13 @@ void vagina::deleteWord(dictionaryOfNames& dict, std::istream& in, std::ostream&
   if (it != diction.dict_.end())
   {
     diction.dict_.erase(word);
-    out << "The word is deleted" << "\n";
+    out << "The word is deleted" << '\n';
     dict.erase(name);
     dict.insert({ name, diction });
   }
   else
   {
-    out << "Error: This word is missing" << "\n";
+    out << "Error: This word is missing" << '\n';
   }
 }
 bool compareTheFirstLetter(const std::pair< std::string, size_t >& firstLetter, char letter)
@@ -240,7 +240,7 @@ void vagina::maxCountLetterDictionary(const dictionaryOfNames& dict, std::istrea
   using namespace std::placeholders;
   auto func = std::bind(isLess, _1, _2);
   auto maxFreqLetter = std::max_element(letterFreq.begin(), letterFreq.end(), func);
-  out << "The most common letter is " << '"' << maxFreqLetter->first << '"' << "\n";
+  out << "The most common letter is " << '"' << maxFreqLetter->first << '"' << '\n';
 }
 void vagina::minCountLetterDictionary(const dictionaryOfNames& dict, std::istream& in, std::ostream& out)
 {
@@ -259,8 +259,8 @@ void vagina::minCountLetterDictionary(const dictionaryOfNames& dict, std::istrea
   letterFreq = countOfLetters(diction);
   using namespace std::placeholders;
   auto func = std::bind(isLess, _1, _2);
-  auto minFreqLetter = std::min_element(letterFreq.begin(), letterFreq.end(), func);
-  out << "The rarest letter is " << '"' << minFreqLetter->first << '"' << "\n";
+  auto minFreqLetter = std::min_element(letterFreq.begin(), letterFreq.end());
+  out << "The rarest letter is " << '"' << minFreqLetter->first << '"' << '\n';
 }
 void vagina::mergeDictionary(dictionaryOfNames& dict, std::istream& in)
 {
@@ -353,7 +353,7 @@ void vagina::countIndentical(const dictionaryOfNames& dict, std::istream& in, st
     auto it = diction2.dict_.find(word);
     if (it != diction2.dict_.end())
     {
-      out << word << ": " << pair1.second << " " << it->second << "\n";
+      out << word << ": " << pair1.second << " " << it->second << '\n';
     }
   }
 }
