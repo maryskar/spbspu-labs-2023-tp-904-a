@@ -73,3 +73,15 @@ std::istream& samoilenko::operator>>(std::istream& in, Label&& dest)
   }
   return in;
 }
+
+std::ostream& samoilenko::operator<<(std::ostream& out, BinUll&& src)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry) {
+    return out;
+  }
+  std::string binary = std::bitset< 64 >(src.n).to_string();
+  binary.erase(0, binary.find('1'));
+  out << "0b0" << binary;
+  return out;
+}
