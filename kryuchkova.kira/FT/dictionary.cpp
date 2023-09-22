@@ -44,7 +44,7 @@ namespace kryuchkova
   {
     return name_;
   }
-  
+
   std::map< ErDictionary::word, ErDictionary::translations > ErDictionary::getDict() const
   {
     return dict_;
