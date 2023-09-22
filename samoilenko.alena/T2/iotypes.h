@@ -16,6 +16,10 @@ namespace samoilenko
   {
     std::complex< double >& cmpNum;
   };
+  struct String
+  {
+    std::string& str;
+  };
 }
 
 #endif
