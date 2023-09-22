@@ -35,7 +35,7 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
       in >> Label{"key"} >> num;
       if (num == 1)
       {
-        in >> BinUll{inp.key1} >> Delimiter{':'};
+        in >> BinUll{inp.key1};
       }
       else if (num == 2)
       {
