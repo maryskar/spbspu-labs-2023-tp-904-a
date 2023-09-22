@@ -7,9 +7,13 @@
 
 using namespace std::placeholders;
 auto getSize = std::bind(dmitriev::getSize, _1);
+auto getArea = std::bind(dmitriev::getArea, _1);
 auto isEven = std::bind(std::modulus< size_t >{}, getSize, 2);
 auto isOdd = std::bind(std::logical_not< bool >{}, std::bind(isEven, _1));
 auto isSizeEqualToN = std::bind(std::equal_to< size_t >{}, getSize, _2);
+auto isGreaterSize = std::bind(std::greater< size_t >{}, getSize, getSize);
+auto isGreaterArea = std::bind(std::less< double >{}, std::bind(getArea, _1), std::bind(getArea, _2));
+auto isLessArea = std::bind(std::greater< double >{}, std::bind(getArea, _1), std::bind(getArea, _2));
 
 double countAreas(double result, const dmitriev::Polygon& polygon)
 {
@@ -50,10 +54,21 @@ void dmitriev::printMeanArea(std::vector< Polygon > data, std::ostream& out)
   out << std::accumulate(data.begin(), data.end(), 0.0, countAreas) / data.size() << '\n';
 }
 
-//void dmitriev::printMaxArea(std::ostream& out, std::vector< Polygon > data)
-//{
-//  dmitriev::StreamGuard streamGuard(out);
-//  out << std::fixed << std::setprecision(1);
-//  //std::finf
-//}
+void printMaxMinArea(std::vector< dmitriev::Polygon > data,
+  std::function< bool(const dmitriev::Polygon&, const dmitriev::Polygon&) > comparator,
+  std::ostream& out)
+{
+  dmitriev::StreamGuard streamGuard(out);
+  out << std::fixed << std::setprecision(1);
+  out << dmitriev::getArea(*(std::max_element(data.begin(), data.end(), comparator))) << '\n';
+}
 
+void dmitriev::printMaxArea(std::vector< Polygon > data, std::ostream& out)
+{
+  printMaxMinArea(data, isGreaterArea, out);
+}
+
+void dmitriev::printMinArea(std::vector< Polygon > data, std::ostream& out)
+{
+  printMaxMinArea(data, isLessArea, out);
+}

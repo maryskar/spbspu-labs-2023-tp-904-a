@@ -10,7 +10,7 @@ namespace dmitriev
   void printNSizeArea(std::vector< Polygon > data, size_t number, std::ostream& out);
   void printMeanArea(std::vector< Polygon > data, std::ostream& out);
   void printMaxArea(std::vector< Polygon > data, std::ostream& out);
-
+  void printMinArea(std::vector< Polygon > data, std::ostream& out);
 
 }
 
