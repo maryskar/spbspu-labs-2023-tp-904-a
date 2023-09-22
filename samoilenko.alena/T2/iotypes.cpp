@@ -40,3 +40,13 @@ std::istream& samoilenko::operator>>(std::istream& in, ComplexNum&& dest)
   dest.cmpNum = std::complex< double >(realPart, imPart);
   return in;
 }
+
+std::istream& samoilenko::operator>>(std::istream& in, String&& dest)
+{
+  std::istream::sentry sentry(in);
+  if (!sentry)
+  {
+    return in;
+  }
+  return std::getline(in >> Delimiter{'"'}, dest.str, '"');
+}

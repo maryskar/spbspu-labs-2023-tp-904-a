@@ -23,7 +23,7 @@ namespace samoilenko
   std::istream& operator>>(std::istream& in, Delimiter&& dest);
   std::istream& operator>>(std::istream& in, Ull&& dest);
   std::istream& operator>>(std::istream& in, ComplexNum&& dest);
-
+  std::istream& operator>>(std::istream& in, String&& dest);
 }
 
 #endif
