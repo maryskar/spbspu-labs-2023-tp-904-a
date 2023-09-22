@@ -26,6 +26,6 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
   }
   DataStruct inp;
   {
-    in >> Delimiter{ '(' } >> Delimiter{ ':' };
+    in >> Delimiter{'('} >> Delimiter{':'};
   }
 }

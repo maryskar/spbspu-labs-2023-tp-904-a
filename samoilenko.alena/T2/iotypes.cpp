@@ -33,5 +33,10 @@ std::istream& samoilenko::operator>>(std::istream& in, ComplexNum&& dest)
   {
     return in;
   }
-
+  double realPart = 0.0;
+  double imPart = 0.0;
+  in >> Delimiter{'#'} >> Delimiter{'c'} >> Delimiter{'('};
+  in >> realPart >> imPart >> Delimiter{')'};
+  dest.cmpNum = std::complex< double >(realPart, imPart);
+  return in;
 }
