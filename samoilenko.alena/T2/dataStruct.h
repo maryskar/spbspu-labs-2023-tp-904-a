@@ -12,7 +12,7 @@ namespace samoilenko
   };
   bool compareData(const DataStruct& lhs, const DataStruct& rhs);
   std::istream& operator>>(std::istream& in, DataStruct& dest);
-  std::istream& operator<<(std::istream& out, const DataStruct& src);
+  std::ostream& operator<<(std::ostream& out, const DataStruct& src);
 }
 
 #endif

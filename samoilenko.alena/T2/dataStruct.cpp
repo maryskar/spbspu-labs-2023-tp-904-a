@@ -56,7 +56,7 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
   }
 }
 
-std::istream& samoilenko::operator<<(std::istream& out, const DataStruct& src)
+std::ostream& samoilenko::operator<<(std::ostream& out, const DataStruct& src)
 {
 
 }
