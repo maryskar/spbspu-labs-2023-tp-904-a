@@ -1,6 +1,7 @@
 #include "iotypes.h"
 #include <bitset>
 #include <limits>
+#include <iomanip>
 
 std::istream& samoilenko::operator>>(std::istream& in, Delimiter&& dest)
 {
@@ -84,4 +85,16 @@ std::ostream& samoilenko::operator<<(std::ostream& out, BinUll&& src)
   binary.erase(0, binary.find('1'));
   out << "0b0" << binary;
   return out;
+}
+
+std::ostream& samoilenko::operator<<(std::ostream& out, ComplexNum&& src)
+{
+  std::ostream::sentry sentry(out);
+  if(!sentry) {
+    return out;
+  }
+  out << std::fixed << std::setprecision(1);
+  out << "#c(" << src.cmpNum.real() << " " << src.cmpNum.imag() << ")";
+  return out;
+
 }

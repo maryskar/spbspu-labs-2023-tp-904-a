@@ -30,6 +30,7 @@ namespace samoilenko
   std::istream& operator>>(std::istream& in, String&& dest);
   std::istream& operator>>(std::istream& in, Label&& dest);
   std::ostream& operator<<(std::ostream& out, BinUll&& src);
+  std::ostream& operator<<(std::ostream& out, ComplexNum&& src);
 }
 
 #endif
