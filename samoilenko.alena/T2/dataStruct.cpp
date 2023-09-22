@@ -1,5 +1,7 @@
 #include "dataStruct.h"
+#include <iomanip>
 #include "iotypes.h"
+#include "scopeguard.h"
 
 bool samoilenko::compareData(const DataStruct& lhs, const DataStruct& rhs)
 {
@@ -63,4 +65,12 @@ std::ostream& samoilenko::operator<<(std::ostream& out, const DataStruct& src)
   {
     return out;
   }
+  iofmtguard fmtguard(out);
+  out << '(';
+  out << ":key1" << src.key1;
+  out << ":key2" << "#c" << '(';
+  out << std::fixed << std::setprecision(1);
+  out << src.key2.real() << " " << src.key2.imag() << ')';
+  out << ":key3 \"" << src.key3 << "\":)";
+  return out;
 }
