@@ -58,5 +58,9 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
 
 std::ostream& samoilenko::operator<<(std::ostream& out, const DataStruct& src)
 {
-
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
 }
