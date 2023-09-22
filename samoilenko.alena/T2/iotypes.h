@@ -30,4 +30,5 @@ namespace samoilenko
   std::istream& operator>>(std::istream& in, String&& dest);
   std::istream& operator>>(std::istream& in, Label&& dest);
 }
+
 #endif

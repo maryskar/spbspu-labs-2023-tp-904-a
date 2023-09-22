@@ -15,4 +15,5 @@ namespace samoilenko
     std::basic_ios<char>::fmtflags fmt_;
   };
 }
+
 #endif
