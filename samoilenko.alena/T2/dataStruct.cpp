@@ -9,7 +9,7 @@ bool samoilenko::compareData(const DataStruct& lhs, const DataStruct& rhs)
   {
     return lhs.key1 < rhs.key1;
   }
-  else if (lhs.key2 != rhs.key2)
+  else if (std::abs(lhs.key2) != std::abs(rhs.key2))
   {
     return std::abs(lhs.key2) < std::abs(rhs.key2);
   }
@@ -49,13 +49,14 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
       {
         return in;
       }
+      in >> Delimiter{')'};
     }
     if (in)
     {
       dest = inp;
     }
-    return in;
   }
+  return in;
 }
 
 std::ostream& samoilenko::operator<<(std::ostream& out, const DataStruct& src)
@@ -66,11 +67,8 @@ std::ostream& samoilenko::operator<<(std::ostream& out, const DataStruct& src)
     return out;
   }
   iofmtguard fmtguard(out);
-  out << '(';
-  out << ":key1" << src.key1;
-  out << ":key2" << "#c" << '(';
-  out << std::fixed << std::setprecision(1);
-  out << src.key2.real() << " " << src.key2.imag() << ')';
+  out << '(' << ":key1" << src.key1;
+  out << ":key2" << "#c" << '(' << src.key2 << ')';
   out << ":key3 \"" << src.key3 << "\":)";
   return out;
 }
