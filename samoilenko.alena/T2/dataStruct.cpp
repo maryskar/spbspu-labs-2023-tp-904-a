@@ -1,4 +1,6 @@
 #include "dataStruct.h"
+#include <bitset>
+#include <iomanip>
 #include "iotypes.h"
 #include "scopeguard.h"
 
@@ -66,8 +68,13 @@ std::ostream& samoilenko::operator<<(std::ostream& out, const DataStruct& src)
     return out;
   }
   iofmtguard fmtguard(out);
-  out << '(' << ":key1 " << BinUll{src.key1};
-  out << ":key2 " << "#c(" << ComplexNum{src.key2};
+  out << '(' << ":key1 ";
+  std::string binary = std::bitset< 64 >(src.key1).to_string();
+  binary.erase(0, binary.find('1'));
+  out << "0b" << binary;
+  out << ":key2 ";
+  out << std::fixed << std::setprecision(1);
+  out << "#c(" << src.key2.real() << " " << src.key2.imag() << ")";
   out << ":key3 \"" << src.key3 << "\":)";
   return out;
 }
