@@ -37,20 +37,20 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
       {
         in >> BinUll{inp.key1} >> Delimiter{':'};
       }
-      if (num == 2)
+      else if (num == 2)
       {
         in >> ComplexNum{inp.key2} >> Delimiter{':'};
       }
-      if (num == 3)
+      else if (num == 3)
       {
         in >> String{inp.key3} >> Delimiter{':'};
       }
-      if (!sentry)
+      else if (!sentry)
       {
         return in;
       }
-      in >> Delimiter{')'};
     }
+    in >> Delimiter{')'};
     if (in)
     {
       dest = inp;
