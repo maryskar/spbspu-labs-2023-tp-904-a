@@ -11,7 +11,8 @@ auto getArea = std::bind(dmitriev::getArea, _1);
 auto isEven = std::bind(std::modulus< size_t >{}, getSize, 2);
 auto isOdd = std::bind(std::logical_not< bool >{}, std::bind(isEven, _1));
 auto isSizeEqualToN = std::bind(std::equal_to< size_t >{}, getSize, _2);
-auto isGreaterSize = std::bind(std::greater< size_t >{}, getSize, getSize);
+auto isGreaterSize = std::bind(std::less< size_t >{}, std::bind(getSize, _1), std::bind(getSize, _2));
+auto isLessSize = std::bind(std::greater< size_t >{}, std::bind(getSize, _1), std::bind(getSize, _2));
 auto isGreaterArea = std::bind(std::less< double >{}, std::bind(getArea, _1), std::bind(getArea, _2));
 auto isLessArea = std::bind(std::greater< double >{}, std::bind(getArea, _1), std::bind(getArea, _2));
 
@@ -71,4 +72,21 @@ void dmitriev::printMaxArea(std::vector< Polygon > data, std::ostream& out)
 void dmitriev::printMinArea(std::vector< Polygon > data, std::ostream& out)
 {
   printMaxMinArea(data, isLessArea, out);
+}
+
+void printSize(std::vector< dmitriev::Polygon > data,
+  std::function< bool(const dmitriev::Polygon&, const dmitriev::Polygon&) > comparator,
+  std::ostream& out)
+{
+  out << dmitriev::getSize(*(std::max_element(data.begin(), data.end(), comparator))) << '\n';
+}
+
+void dmitriev::printMaxSize(std::vector< Polygon > data, std::ostream& out)
+{
+  printSize(data, isGreaterSize, out);
+}
+
+void dmitriev::printMinSize(std::vector< Polygon > data, std::ostream& out)
+{
+  printSize(data, isLessSize, out);
 }
