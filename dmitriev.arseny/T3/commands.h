@@ -5,9 +5,9 @@
 
 namespace dmitriev
 {
-  std::ostream& printEvenArea(std::ostream& out, std::vector< Polygon > data);
-  std::ostream& printOddArea(std::ostream& out, std::vector< Polygon > data);
-  std::ostream& printNSizeArea(std::ostream& out, std::vector< Polygon > data, size_t number);
+  void printEvenArea(std::ostream& out, std::vector< Polygon > data);
+  void printOddArea(std::ostream& out, std::vector< Polygon > data);
+  void printNSizeArea(std::ostream& out, std::vector< Polygon > data, size_t number);
 
    
 }
