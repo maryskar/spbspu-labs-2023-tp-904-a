@@ -73,13 +73,6 @@ namespace shestakov
   {
     try
     {
-      doCmdsWithInPolygon(polygons, in, out, cmd);
-      return;
-    }
-    catch (const std::out_of_range& e)
-    {}
-    try
-    {
       doConstCmds(polygons, out, cmd);
       return;
     }
@@ -90,6 +83,13 @@ namespace shestakov
       size_t vert = std::stoull(cmd.substr(cmd.find_first_of(' ')));
       cmd = cmd.substr(0, cmd.find(' '));
       doConstCmdsIn(polygons, vert, out, cmd);
+      return;
+    }
+    catch (const std::out_of_range& e)
+    {}
+    try
+    {
+      doCmdsWithInPolygon(polygons, in, out, cmd);
       return;
     }
     catch (const std::out_of_range& e)

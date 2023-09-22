@@ -157,20 +157,17 @@ namespace shestakov
   }
   void echo(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out)
   {
-    if (polygons.empty())
-    {
-      throw std::logic_error("");
-    }
-    //
     Polygon input;
-    if (in >> input)
+    in >> input;
+    if (!in)
     {
-      std::string remaining;
-      std::getline(in, remaining);
-      if (!remaining.empty())
-      {
-        throw std::logic_error("");
-      }
+      in.clear();
+      throw std::logic_error("wrong input...");
+    }
+    char c = '0';
+    in.get(c);
+    if (input.points.size() > 2 && c == '\n')
+    {
       std::vector<Polygon> polygons_1;
       size_t i = 0;
       size_t count_echo = 0;
@@ -187,7 +184,7 @@ namespace shestakov
       polygons.assign(polygons_1.begin(), polygons_1.end());
       out << count_echo << '\n';
     }
-    else
+    else if (c != '\n')
     {
       throw std::logic_error("");
     }
