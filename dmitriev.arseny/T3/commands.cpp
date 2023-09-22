@@ -48,3 +48,10 @@ void dmitriev::printNSizeArea(std::ostream& out, std::vector< Polygon > data, si
   out << std::fixed << std::setprecision(1);
   out << std::accumulate(areas.begin(), areas.end(), 0.0, countAreas) << '\n';
 }
+
+void dmitriev::printMeanArea(std::ostream& out, std::vector< Polygon > data)
+{
+  dmitriev::StreamGuard streamGuard(out);
+  out << std::fixed << std::setprecision(1);
+  out << std::accumulate(data.begin(), data.end(), 0.0, countAreas) / data.size() << '\n';
+}
