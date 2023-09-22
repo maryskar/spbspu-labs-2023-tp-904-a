@@ -60,7 +60,17 @@ namespace shestakov
       return in;
     }
     input.points.reserve(points);
-    std::copy_n(std::istream_iterator<Point>(in), points, std::back_inserter(input.points));
+    std::copy_n(std::istream_iterator<Point>(in), points - 1, std::back_inserter(input.points));
+    char chr = '0';
+    in.get(chr);
+    if (chr != '\n')
+    {
+      std::copy_n(std::istream_iterator<Point>(in), 1, std::back_inserter(input.points));
+    }
+    else
+    {
+      throw std::logic_error("");
+    }
     if (in)
     {
       std::string temp = "";

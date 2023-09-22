@@ -167,7 +167,7 @@ namespace shestakov
     {
       std::string remaining;
       std::getline(in, remaining);
-      if (!remaining.empty() )
+      if (!remaining.empty())
       {
         throw std::logic_error("");
       }
