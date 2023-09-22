@@ -23,5 +23,5 @@ std::istream& samoilenko::operator>>(std::istream& in, Ull&& dest)
   {
     return in;
   }
-
+  return in >> dest.n;
 }
