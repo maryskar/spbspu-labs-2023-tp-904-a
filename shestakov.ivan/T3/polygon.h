@@ -2,6 +2,7 @@
 #define UNTITLED3_POLYGON_H
 #include <iostream>
 #include <vector>
+#include <TypesIO.h>
 
 namespace shestakov
 {

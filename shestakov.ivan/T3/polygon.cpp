@@ -1,7 +1,6 @@
 #include "polygon.h"
 #include <algorithm>
 #include <iterator>
-#include <TypesIO.h>
 
 namespace shestakov
 {
