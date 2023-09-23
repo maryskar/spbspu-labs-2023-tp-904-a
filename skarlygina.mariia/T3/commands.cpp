@@ -18,7 +18,7 @@ void skarlygina::getArea(const std::vector< Polygon >& polys, std::istream& in, 
   std::string command = "";
   in >> command;
 
-  iofmtguard guard(out);
+  Iofmtguard guard(out);
   out << std::fixed << std::setprecision(1);
   try
   {
@@ -57,7 +57,7 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
   }
   std::string command = "";
   in >> command;
-  iofmtguard guard(out);
+  Iofmtguard guard(out);
   out << std::fixed << std::setprecision(1);
   if (command == "AREA")
   {
@@ -77,7 +77,7 @@ void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, s
 {
   std::string command = "";
   in >> command;
-  iofmtguard guard(out);
+  Iofmtguard guard(out);
   out << std::fixed << std::setprecision(1);
   if (command == "AREA")
   {
