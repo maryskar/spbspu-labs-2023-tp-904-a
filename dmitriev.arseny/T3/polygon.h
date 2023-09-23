@@ -26,7 +26,8 @@ namespace dmitriev
   using Frame = std::pair< Point, Point >;
 
   Frame getFrame(const Polygon& polygon);
-  Frame getPolygonsFrame(std::vector< Polygon > data);
+  Frame getPolygonsFrame(const std::vector< Polygon > data);
+  bool isFrameInFrame(const Frame& lhs, const Frame& rhs);
 }
 
 #endif

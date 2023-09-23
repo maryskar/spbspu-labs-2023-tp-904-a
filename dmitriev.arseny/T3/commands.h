@@ -20,7 +20,8 @@ namespace dmitriev
   void printOddSizeCount(polygons data, std::ostream& out);
   void printNSizeCount(polygons data, size_t number, std::ostream& out);
 
-
+  void printInFrame(const polygons& data, const polygon& figure, std::ostream& out);
+  void printSame(const polygons& data, const polygon& figure, std::ostream& out);
 }
 
 #endif

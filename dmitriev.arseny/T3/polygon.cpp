@@ -69,12 +69,12 @@ double dmitriev::getArea(const Polygon& polygon)
   return std::abs(std::accumulate(slopes.begin(), slopes.end(), 0.0) / 2.0);
 }
 
-bool compareX(dmitriev::Point lhs, dmitriev::Point rhs)
+bool lessX(dmitriev::Point lhs, dmitriev::Point rhs)
 {
   return lhs.x < rhs.x;
 }
 
-bool compareY(dmitriev::Point lhs, dmitriev::Point rhs)
+bool lessY(dmitriev::Point lhs, dmitriev::Point rhs)
 {
   return lhs.y < rhs.y;
 }
@@ -84,20 +84,20 @@ dmitriev::Frame dmitriev::getFrame(const Polygon& polygon)
   auto begin = polygon.points.begin();
   auto end = polygon.points.end();
 
-  int minX = std::min_element(begin, end, compareX)->x;
-  int maxX = std::max_element(begin, end, compareX)->x;
-  int minY = std::min_element(begin, end, compareY)->y;
-  int maxY = std::max_element(begin, end, compareY)->y;
+  int minX = std::min_element(begin, end, lessX)->x;
+  int maxX = std::max_element(begin, end, lessX)->x;
+  int minY = std::min_element(begin, end, lessY)->y;
+  int maxY = std::max_element(begin, end, lessY)->y;
 
   return {{minX, minY}, {maxX, maxY}};
 }
 
 dmitriev::Frame correctFrame(dmitriev::Frame result, dmitriev::Frame value)
 {
-  int minX = compareX(result.first, value.first) ? result.first.x : value.first.x;
-  int maxX = compareX(result.second, value.second) ? value.second.x : result.second.x;
-  int minY = compareY(result.first, value.first) ? result.first.y : value.first.y;
-  int maxY = compareY(result.second, value.second) ? value.second.y : result.second.y;
+  int minX = lessX(result.first, value.first) ? result.first.x : value.first.x;
+  int maxX = lessX(result.second, value.second) ? value.second.x : result.second.x;
+  int minY = lessY(result.first, value.first) ? result.first.y : value.first.y;
+  int maxY = lessY(result.second, value.second) ? value.second.y : result.second.y;
 
   return {{minX, minY}, {maxX, maxY}};
 }
@@ -112,4 +112,14 @@ dmitriev::Frame dmitriev::getPolygonsFrame(std::vector< Polygon > data)
 
   dmitriev::Frame frame = *frames.begin();
   return std::accumulate(frames.begin() + 1, frames.end(), frame, correctFrame);
+}
+
+bool dmitriev::isFrameInFrame(const Frame& lhs, const Frame& rhs)
+{
+  bool case1 = !lessX(lhs.first, rhs.first);
+  bool case2 = !lessY(lhs.first, rhs.first);
+  bool case3 = !lessX(rhs.second, lhs.second);
+  bool case4 = !lessY(rhs.second, lhs.second);
+
+  return case1 && case2 && case3 && case4;
 }
