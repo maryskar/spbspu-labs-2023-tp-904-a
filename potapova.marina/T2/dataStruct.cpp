@@ -2,6 +2,7 @@
 #include <string>
 #include <iomanip>
 #include <bitset>
+#include <limits>
 #include "IOFormatGuard.h"
 
 namespace potapova
@@ -29,7 +30,12 @@ namespace potapova
     {
       return in;
     }
-    return in >> std::oct >> dest.oct;
+    if (in >> std::oct >> dest.oct)
+    {
+      return in;
+    }
+    in.setstate(std::ios::failbit);
+    return in;
   }
 
   std::istream& operator>>(std::istream& in, UnsignedLongIntBinIO&& dest)
@@ -37,13 +43,6 @@ namespace potapova
     std::istream::sentry sentry(in);
     if (!sentry)
     {
-      return in;
-    }
-    char sec_value = '0';
-    in >> DelimiterIO{'0'} >> sec_value;
-    if (sec_value != 'b' && sec_value != 'B')
-    {
-      in.setstate(std::ios::failbit);
       return in;
     }
     std::bitset< 64 > binary = 0;
@@ -84,15 +83,27 @@ namespace potapova
         in >> value;
         if (value == "key1")
         {
-          in >> UnsignedLongIntOctIO{input.key1};
+          in >> DelimiterIO{'0'} >> UnsignedLongIntOctIO{input.key1};
         }
         else if (value == "key2")
         {
+          char sec_value = '0';
+          in >> DelimiterIO{'0'} >> sec_value;
+          if (sec_value != 'b' && sec_value != 'B')
+          {
+            in.setstate(std::ios::failbit);
+            return in;
+          }
           in >> UnsignedLongIntBinIO{input.key2};
         }
         else if (value == "key3")
         {
           in >> StringIO{input.key3};
+        }
+        if (!in)
+        {
+          in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+          return in;
         }
         counter++;
       }
