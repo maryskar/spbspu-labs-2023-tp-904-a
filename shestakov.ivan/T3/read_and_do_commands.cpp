@@ -70,10 +70,6 @@ namespace shestakov
   }
   void doCommand(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
   {
-    if (polygons.empty())
-    {
-      throw std::logic_error("Polygons are missing");
-    }
     try
     {
       doConstCmds(polygons, out, cmd);

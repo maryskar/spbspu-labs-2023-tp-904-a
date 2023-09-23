@@ -43,6 +43,10 @@ namespace shestakov
   }
   void maxArea(const std::vector<Polygon>& polygons, std::ostream &out)
   {
+    if (polygons.empty())
+    {
+      throw std::logic_error("Polygons are missing");
+    }
     std::vector< double > ar_of_polygons(polygons.size());
     std::transform(polygons.begin(), polygons.end(), ar_of_polygons.begin(), getArea);
     std::sort(ar_of_polygons.begin(), ar_of_polygons.end());
@@ -57,6 +61,10 @@ namespace shestakov
   }
   void maxVertexes(const std::vector<Polygon>& polygons, std::ostream &out)
   {
+    if (polygons.empty())
+    {
+      throw std::logic_error("Polygons are missing");
+    }
     std::vector< size_t > count_vert(polygons.size());
     std::transform(polygons.begin(), polygons.end(), count_vert.begin(), countVertexes);
     std::sort(count_vert.begin(), count_vert.end());
