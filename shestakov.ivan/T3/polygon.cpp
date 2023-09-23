@@ -28,7 +28,7 @@ namespace shestakov
       return in;
     }
     Point input{0, 0};
-    using del = DelimeterIO;
+    using del = DelIO;
     in >> del{'('} >> input.x >> del{';'} >> input.y >> del{')'};
     if (in)
     {
