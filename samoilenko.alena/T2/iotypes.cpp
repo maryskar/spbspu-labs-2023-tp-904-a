@@ -30,7 +30,14 @@ std::istream& samoilenko::operator>>(std::istream& in, BinUll&& dest)
   {
     std::string binary = "";
     std::getline(in, binary, ':');
-    dest.n = std::bitset< std::numeric_limits< unsigned long long >::digits >(binary).to_ullong();
+    try
+    {
+      dest.n = std::bitset< std::numeric_limits< unsigned long long >::digits >(binary).to_ullong();
+    }
+    catch(const std::invalid_argument& ex)
+    {
+      in.setstate(std::ios::failbit);
+    }
   }
   return in;
 }

@@ -40,11 +40,11 @@ std::istream& samoilenko::operator>>(std::istream& in, DataStruct& dest)
       }
       else if (num == 2)
       {
-        in >> ComplexNum{inp.key2} >> Delimiter{':'};
+        in >> ComplexNum{inp.key2};
       }
       else if (num == 3)
       {
-        in >> String{inp.key3} >> Delimiter{':'};
+        in >> String{inp.key3};
       }
       else if (!sentry)
       {
