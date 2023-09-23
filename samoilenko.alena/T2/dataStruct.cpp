@@ -72,8 +72,8 @@ std::ostream& samoilenko::operator<<(std::ostream& out, const DataStruct& src)
   std::string binary = std::bitset< 64 >(src.key1).to_string();
   binary.erase(0, binary.find('1'));
   out << "0b0" << binary;
-  out << ":key2 #c" << src.key2.real() << " " << src.key2.imag() << ')';
   out << std::fixed << std::setprecision(1);
+  out << ":key2 #c" << src.key2.real() << " " << src.key2.imag() << ')';
   out << ":key3 \"" << src.key3 << "\":)";
   return out;
 }
