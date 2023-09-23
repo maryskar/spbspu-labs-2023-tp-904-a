@@ -126,7 +126,7 @@ namespace shestakov
   {
     Polygon input;
     in >> input;
-    if (input.points.size() < 3 || !in)
+    if (input.points.size() < 3 || !in || in.eof())
     {
       throw std::logic_error("Invalid arguments");
     }

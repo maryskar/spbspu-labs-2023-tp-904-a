@@ -50,6 +50,12 @@ namespace shestakov
       cmd += " ";
       cmd += param;
     }
+    std::string sub_cmd = "";
+    sub_cmd = cmd.substr(0, cmd.find(' '));
+    if (const_cmds.find(cmd) == const_cmds.end() && const_cmds_in.find(sub_cmd) == const_cmds_in.end() && cmds_in.find(cmd) == cmds_in.end())
+    {
+      throw std::logic_error("There is no such command");
+    }
     return cmd;
   }
   void doConstCmds(const std::vector< Polygon >& polygons, std::ostream& out, const std::string& cmd)
