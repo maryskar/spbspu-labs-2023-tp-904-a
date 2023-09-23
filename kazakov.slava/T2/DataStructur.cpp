@@ -1,4 +1,5 @@
-#include "DataStructur.h"
+#include"DataStructur.h"
+
 std::ostream& kazakov::operator<<(std::ostream& out, const kazakov::DataStructur& p)
 {
   std::ostream::sentry sentry(out);
@@ -21,7 +22,7 @@ std::istream& kazakov::operator>>(std::istream& in, kazakov::DataStructur& p)
   kazakov::DataStructur vrem;
   in >> ExpectedSymbol{ '(' } >> ExpectedSymbol{ ':' };
   std::string getin;
-  for (int i = 0; i < 3; i++)
+  for (size_t i = 0; i < 3; i++)
   {
     in >> getin;
     if (getin == "key1")

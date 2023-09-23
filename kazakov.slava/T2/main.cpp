@@ -1,23 +1,19 @@
-#include <vector>
+#include<deque>
 #include <fstream>
 #include <algorithm>
 #include <iterator>
 #include <limits>
-#include "DataStructur.h"
+#include"DataStructur.h"
 
 int main()
 {
-  std::vector< kazakov::DataStructur > v;
-  while (true)
+  std::deque< kazakov::DataStructur > v;
+  while (!std::cin.eof())
   {
-    std::copy(std::istream_iterator< kazakov::DataStructur >(std::cin),
-        std::istream_iterator< kazakov::DataStructur >(),
-        std::inserter(v, v.end())
-    );
-    if (std::cin.eof())
-    {
-      break;
-    }
+    auto cin = std::istream_iterator< kazakov::DataStructur >(std::cin);
+    auto iterator = std::istream_iterator< kazakov::DataStructur >();
+    auto inserter = std::inserter(v, v.end());
+    std::copy(cin, iterator, inserter);
     if (std::cin.fail())
     {
       std::cin.clear();
@@ -26,6 +22,7 @@ int main()
     }
   }
   std::sort(v.begin(), v.end(), kazakov::comparator);
-  std::copy(v.begin(), v.end(), std::ostream_iterator< kazakov::DataStructur >(std::cout, "\n"));
+  auto cout = std::ostream_iterator< kazakov::DataStructur >(std::cout, "\n");
+  std::copy(v.begin(), v.end(), cout);
   return 0;
 }
