@@ -39,10 +39,6 @@ namespace shestakov
     }
     std::string cmd = "";
     in >> cmd;
-    if (const_cmds.find(cmd) == const_cmds.end() && const_cmds_in.find(cmd) == const_cmds_in.end() && cmds_in.find(cmd) == cmds_in.end())
-    {
-      throw std::logic_error("There is no such command");
-    }
     if (cmd != "ECHO" && cmd != "RMECHO" && (cmd == "MAX" || cmd == "MIN" || cmd == "AREA" || cmd == "COUNT"))
     {
       std::string param = "";
