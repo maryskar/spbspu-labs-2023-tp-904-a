@@ -3,8 +3,10 @@
 
 #include <iomanip>
 
-class iofmtguard
+namespace zasulsky
 {
+  class iofmtguard
+  {
   public:
     iofmtguard(std::basic_ios< char >& s);
     ~iofmtguard();
@@ -15,5 +17,6 @@ class iofmtguard
     std::streamsize precision_;
     std::basic_ios< char >::fmtflags fmt_;
   };
+}
 
 #endif
