@@ -1,7 +1,7 @@
 #include <iomanip>
-#include "get_abs_complex.h"
 #include <iofmtguard.h>
-#include <Types.IO>
+#include <TypesIO.h>
+#include "get_abs_complex.h"
 
 namespace shestakov
 {
