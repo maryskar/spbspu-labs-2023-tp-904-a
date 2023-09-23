@@ -2,7 +2,6 @@
 #include <functional>
 #include <map>
 #include "commands.h"
-#include "auxiliary_commands.h"
 
 namespace shestakov
 {
