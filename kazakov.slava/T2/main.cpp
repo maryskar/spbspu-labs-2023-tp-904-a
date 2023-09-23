@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iterator>
 #include <limits>
-#include"DataStructur.h"
+#include "DataStructur.h"
 
 int main()
 {
