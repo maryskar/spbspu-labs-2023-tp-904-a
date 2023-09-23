@@ -68,3 +68,48 @@ double dmitriev::getArea(const Polygon& polygon)
 
   return std::abs(std::accumulate(slopes.begin(), slopes.end(), 0.0) / 2.0);
 }
+
+bool compareX(dmitriev::Point lhs, dmitriev::Point rhs)
+{
+  return lhs.x < rhs.x;
+}
+
+bool compareY(dmitriev::Point lhs, dmitriev::Point rhs)
+{
+  return lhs.y < rhs.y;
+}
+
+dmitriev::Frame dmitriev::getFrame(const Polygon& polygon)
+{
+  auto begin = polygon.points.begin();
+  auto end = polygon.points.end();
+
+  int minX = std::min_element(begin, end, compareX)->x;
+  int maxX = std::max_element(begin, end, compareX)->x;
+  int minY = std::min_element(begin, end, compareY)->y;
+  int maxY = std::max_element(begin, end, compareY)->y;
+
+  return {{minX, minY}, {maxX, maxY}};
+}
+
+dmitriev::Frame correctFrame(dmitriev::Frame result, dmitriev::Frame value)
+{
+  int minX = compareX(result.first, value.first) ? result.first.x : value.first.x;
+  int maxX = compareX(result.second, value.second) ? value.second.x : result.second.x;
+  int minY = compareY(result.first, value.first) ? result.first.y : value.first.y;
+  int maxY = compareY(result.second, value.second) ? value.second.y : result.second.y;
+
+  return {{minX, minY}, {maxX, maxY}};
+}
+
+dmitriev::Frame dmitriev::getPolygonsFrame(std::vector< Polygon > data)
+{
+  auto begin = data.begin();
+  auto end = data.end();
+
+  std::vector< dmitriev::Frame > frames;
+  std::transform(begin, end, std::back_inserter(frames), dmitriev::getFrame);
+
+  dmitriev::Frame frame = *frames.begin();
+  return std::accumulate(frames.begin() + 1, frames.end(), frame, correctFrame);
+}

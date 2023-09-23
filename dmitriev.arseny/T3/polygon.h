@@ -23,6 +23,10 @@ namespace dmitriev
   size_t getSize(const Polygon& polygon);
   double getArea(const Polygon& polygon);
 
+  using Frame = std::pair< Point, Point >;
+
+  Frame getFrame(const Polygon& polygon);
+  Frame getPolygonsFrame(std::vector< Polygon > data);
 }
 
 #endif
