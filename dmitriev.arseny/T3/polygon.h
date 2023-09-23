@@ -12,6 +12,7 @@ namespace dmitriev
   };
 
   std::istream& operator>>(std::istream& inp, Point& data);
+  bool operator<(const Point& lhs, const Point& rhs);
 
   struct Polygon
   {
@@ -28,6 +29,9 @@ namespace dmitriev
   Frame getFrame(const Polygon& polygon);
   Frame getPolygonsFrame(const std::vector< Polygon > data);
   bool isFrameInFrame(const Frame& lhs, const Frame& rhs);
+
+  bool isSame(Polygon lhs, Polygon rhs);
+  size_t countAllSame(const std::vector< Polygon > data, const Polygon& figure);
 }
 
 #endif

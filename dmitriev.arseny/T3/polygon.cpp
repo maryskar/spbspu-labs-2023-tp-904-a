@@ -123,3 +123,48 @@ bool dmitriev::isFrameInFrame(const Frame& lhs, const Frame& rhs)
 
   return case1 && case2 && case3 && case4;
 }
+
+dmitriev::Point getDifference(const dmitriev::Point& lhs, const dmitriev::Point& rhs)
+{
+  return {rhs.x - lhs.x, rhs.y - lhs.y};
+}
+
+bool compareDifference(const dmitriev::Point& lhs, const dmitriev::Point& rhs)
+{
+  return ((lhs.x == rhs.x) && (lhs.y == rhs.y));
+}
+
+bool dmitriev::isSame(Polygon lhs, Polygon rhs)
+{
+  if (getSize(lhs) != getSize(rhs))
+  {
+    return false;
+  }
+
+  std::sort(lhs.points.begin(), lhs.points.end(), lessX);
+  std::sort(lhs.points.begin(), lhs.points.end(), lessY);
+  std::sort(rhs.points.begin(), rhs.points.end(), lessX);
+  std::sort(rhs.points.begin(), rhs.points.end(), lessY);
+
+  std::vector< Point > lhsDifferences;
+  std::transform(lhs.points.begin(),
+    lhs.points.end() - 1,
+    lhs.points.begin() + 1,
+    std::back_inserter(lhsDifferences),
+    getDifference);
+
+  std::vector< Point > rhsDifferences;
+  std::transform(rhs.points.begin(),
+    rhs.points.end() - 1,
+    rhs.points.begin() + 1,
+    std::back_inserter(rhsDifferences),
+    getDifference);
+
+  bool result = std::equal(lhsDifferences.begin(),
+    lhsDifferences.end(),
+    rhsDifferences.begin(),
+    compareDifference);
+
+  return result;
+}
+//команды + опраторы== + 
