@@ -2,15 +2,10 @@
 
 #include <cmath>
 #include <iomanip>
+
 #include "FormatGuard.h"
 
-std::istream& ganiullin::operator>>(std::istream& in, EntryI&& dest)
-{
-  std::istream::sentry sentry(in);
-  in >> dest.ref >> dest.val;
-  return in;
-}
-std::istream& ganiullin::operator>>(std::istream& in, ganiullin::DelimiterIO&& dest)
+std::istream& ganiullin::operator>>(std::istream& in, DelimiterIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry) {
@@ -23,31 +18,8 @@ std::istream& ganiullin::operator>>(std::istream& in, ganiullin::DelimiterIO&& d
   }
   return in;
 }
-std::istream& ganiullin::operator>>(std::istream& in, ganiullin::WordIO&& dest)
-{
-  std::istream::sentry sentry(in);
-  if (!sentry) {
-    return in;
-  }
-  in >> dest.ref;
-  char a = '\0';
-  a = dest.ref.front();
-  while (!isalnum(a) && a != '\0') {
-    dest.ref.erase(0, 1);
-    a = dest.ref.front();
-  }
-  a = dest.ref.back();
-  while (!isalnum(a) && a != '\0') {
-    dest.ref.erase(dest.ref.size() - 1, 1);
-    a = dest.ref.back();
-  }
-  dest.ref.shrink_to_fit();
-  for (size_t i = 0; i < dest.ref.size(); i++) {
-    dest.ref[i] = std::tolower(dest.ref[i]);
-  }
-  return in;
-}
-std::istream& ganiullin::operator>>(std::istream& in, ganiullin::DoubleI&& dest)
+
+std::istream& ganiullin::operator>>(std::istream& in, DoubleI&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry) {
@@ -56,7 +28,7 @@ std::istream& ganiullin::operator>>(std::istream& in, ganiullin::DoubleI&& dest)
   return in >> std::scientific >> dest.ref;
 }
 
-std::ostream& ganiullin::operator<<(std::ostream& out, const ganiullin::DoubleO&& dest)
+std::ostream& ganiullin::operator<<(std::ostream& out, const DoubleO&& dest)
 {
   std::ostream::sentry sentry(out);
   iofmtguard iofmtguard(out);
@@ -80,35 +52,40 @@ std::ostream& ganiullin::operator<<(std::ostream& out, const ganiullin::DoubleO&
       exponent++;
     }
   }
-  return out << std::fixed << std::setprecision(1) << value << (exponent < 0 ? "e" : "e+") << exponent;
+  return out << std::fixed << std::setprecision(1) << value
+             << (exponent < 0 ? "e" : "e+") << exponent;
 }
 
-std::istream& ganiullin::operator>>(std::istream& in, ganiullin::StringIO&& dest)
+std::istream& ganiullin::operator>>(std::istream& in, StringIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry) {
     return in;
   }
-  return std::getline(in >> ganiullin::DelimiterIO {'"'}, dest.ref, '"');
+  return std::getline(in >> DelimiterIO {'"'}, dest.ref, '"');
 }
 
-std::istream& ganiullin::operator>>(std::istream& in, ganiullin::LabelIO&& dest)
+std::istream& ganiullin::operator>>(std::istream& in, LabelIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry) {
     return in;
   }
   for (size_t i = 0; i < dest.exp.size(); i++) {
-    in >> ganiullin::DelimiterIO {dest.exp[i]};
+    in >> DelimiterIO {dest.exp[i]};
   }
   return in;
 }
 
-std::istream& ganiullin::operator>>(std::istream& in, ganiullin::ULongLongIO&& dest)
+std::istream& ganiullin::operator>>(std::istream& in, ULongLongIO&& dest)
 {
   std::istream::sentry sentry(in);
   if (!sentry) {
     return in;
   }
-  return in >> ganiullin::LabelIO {"0x"} >> std::hex >> dest.ref;
+  return in >> LabelIO {"0x"} >> std::hex >> dest.ref;
+}
+std::ostream& ganiullin::printErrorMessage(std::ostream& out)
+{
+  return out << "<INVALID COMMAND>";
 }
