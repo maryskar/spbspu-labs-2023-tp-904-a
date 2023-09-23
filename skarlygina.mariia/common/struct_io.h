@@ -3,10 +3,10 @@
 #include <iosfwd>
 namespace skarlygina
 {
-  struct delimiter_IO_t
+  struct DelimiterIO
   {
     char exp;
   };
-  std::istream& operator>>(std::istream& in, delimiter_IO_t&& dest);
+  std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
 }
 #endif

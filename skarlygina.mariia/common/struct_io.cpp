@@ -1,7 +1,7 @@
 #include "struct_io.h"
 #include <istream>
 
-std::istream& skarlygina::operator>>(std::istream& in, delimiter_IO_t&& dest)
+std::istream& skarlygina::operator>>(std::istream& in, DelimiterIO&& dest)
 {
   std::istream::sentry sent(in);
   if (!sent)
