@@ -16,6 +16,11 @@ std::istream& dmitriev::operator>>(std::istream& inp, Point& data)
   return inp;
 }
 
+bool dmitriev::operator==(const Point& lhs, const Point& rhs)
+{
+  return ((lhs.x == rhs.x) && (lhs.y == rhs.y));
+}
+
 std::istream& dmitriev::operator>>(std::istream& inp, Polygon& data)
 {
   std::istream::sentry sentry(inp);
@@ -43,6 +48,16 @@ std::istream& dmitriev::operator>>(std::istream& inp, Polygon& data)
   }
 
   return inp;
+}
+
+bool dmitriev::operator==(const Polygon& lhs, const Polygon& rhs)
+{
+  auto firstLhs = lhs.points.begin();
+  auto lastLhs = lhs.points.end();
+  auto firstRhs = rhs.points.begin();
+
+  bool result = std::equal(firstLhs, lastLhs, firstRhs);
+  return result;
 }
 
 size_t dmitriev::getSize(const Polygon& polygon)
@@ -124,14 +139,9 @@ bool dmitriev::isFrameInFrame(const Frame& lhs, const Frame& rhs)
   return case1 && case2 && case3 && case4;
 }
 
-dmitriev::Point getDifference(const dmitriev::Point& lhs, const dmitriev::Point& rhs)
+dmitriev::Point getDif(const dmitriev::Point& lhs, const dmitriev::Point& rhs)
 {
   return {rhs.x - lhs.x, rhs.y - lhs.y};
-}
-
-bool compareDifference(const dmitriev::Point& lhs, const dmitriev::Point& rhs)
-{
-  return ((lhs.x == rhs.x) && (lhs.y == rhs.y));
 }
 
 bool dmitriev::isSame(Polygon lhs, Polygon rhs)
@@ -146,25 +156,23 @@ bool dmitriev::isSame(Polygon lhs, Polygon rhs)
   std::sort(rhs.points.begin(), rhs.points.end(), lessX);
   std::sort(rhs.points.begin(), rhs.points.end(), lessY);
 
-  std::vector< Point > lhsDifferences;
-  std::transform(lhs.points.begin(),
-    lhs.points.end() - 1,
-    lhs.points.begin() + 1,
-    std::back_inserter(lhsDifferences),
-    getDifference);
+  Polygon lhsDif;
+  auto firstLhs = lhs.points.begin();
+  auto lastLhs = lhs.points.end() - 1;
+  auto secondLhs = lhs.points.begin() + 1;
+  std::transform(firstLhs, lastLhs, secondLhs, std::back_inserter(lhsDif.points), getDif);
 
-  std::vector< Point > rhsDifferences;
-  std::transform(rhs.points.begin(),
-    rhs.points.end() - 1,
-    rhs.points.begin() + 1,
-    std::back_inserter(rhsDifferences),
-    getDifference);
+  Polygon rhsDif;
+  auto firstRhs = rhs.points.begin();
+  auto lastRhs = rhs.points.end() - 1;
+  auto secondRhs = rhs.points.begin() + 1;
+  std::transform(firstRhs, lastRhs, secondRhs, std::back_inserter(rhsDif.points), getDif);
 
-  bool result = std::equal(lhsDifferences.begin(),
-    lhsDifferences.end(),
-    rhsDifferences.begin(),
-    compareDifference);
-
-  return result;
+  return lhsDif == rhsDif;
 }
-//команды + опраторы== + 
+
+size_t dmitriev::countAllSame(const std::vector< Polygon > data, const Polygon& figure)
+{
+  using namespace std::placeholders;
+  return std::count_if(data.begin(), data.end(), std::bind(isSame, _1, figure));
+}

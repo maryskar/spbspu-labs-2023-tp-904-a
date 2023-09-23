@@ -131,3 +131,8 @@ void dmitriev::printInFrame(const polygons& data, const polygon& figure, std::os
 {
   printBool(out, isFrameInFrame(getFrame(figure), getPolygonsFrame(data)));
 }
+
+void dmitriev::printSame(const polygons& data, const polygon& figure, std::ostream& out)
+{
+  out << dmitriev::countAllSame(data, figure) << '\n';
+}

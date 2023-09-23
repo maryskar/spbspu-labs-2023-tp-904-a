@@ -12,7 +12,7 @@ namespace dmitriev
   };
 
   std::istream& operator>>(std::istream& inp, Point& data);
-  bool operator<(const Point& lhs, const Point& rhs);
+  bool operator==(const Point& lhs, const Point& rhs);
 
   struct Polygon
   {
@@ -20,6 +20,7 @@ namespace dmitriev
   };
 
   std::istream& operator>>(std::istream& inp, Polygon& data);
+  bool operator==(const Polygon& lhs, const Polygon& rhs);
 
   size_t getSize(const Polygon& polygon);
   double getArea(const Polygon& polygon);
