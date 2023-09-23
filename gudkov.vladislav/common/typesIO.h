@@ -35,6 +35,8 @@ namespace gudkov
     std::string &ref;
   };
 
+  void clearStream(std::istream &in);
+
   std::istream &operator>>(std::istream &in, DelimiterExpIO &&dest);
   std::istream &operator>>(std::istream &in, SuffixExpIO &&dest);
   std::istream &operator>>(std::istream &in, LongLongIO &&dest);

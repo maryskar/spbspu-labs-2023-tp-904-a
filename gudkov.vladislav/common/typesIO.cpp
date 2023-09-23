@@ -1,5 +1,18 @@
 #include "typesIO.h"
+#include <limits>
 #include "scopeGuard.h"
+
+static bool isEndOfLine = false;
+
+void gudkov::clearStream(std::istream &in)
+{
+  in.clear();
+  if (!isEndOfLine)
+  {
+    in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+  }
+  isEndOfLine = false;
+}
 
 std::istream &gudkov::operator>>(std::istream &in, DelimiterExpIO &&dest)
 {
@@ -8,12 +21,24 @@ std::istream &gudkov::operator>>(std::istream &in, DelimiterExpIO &&dest)
   {
     return in;
   }
+
+  isEndOfLine = false;
+
   char c = '0';
+
   in >> c;
 
-  if (in && (c != dest.exp))
+  if (in)
   {
-    in.setstate(std::ios::failbit);
+    if (c == '\n')
+    {
+      isEndOfLine = true;
+    }
+
+    if (c != dest.exp)
+    {
+      in.setstate(std::ios::failbit);
+    }
   }
   return in;
 }
@@ -25,6 +50,8 @@ std::istream &gudkov::operator>>(std::istream &in, SuffixExpIO &&dest)
   {
     return in;
   }
+
+  isEndOfLine = false;
 
   iofmtguard fmtguard(in);
 
@@ -41,11 +68,18 @@ std::istream &gudkov::operator>>(std::istream &in, SuffixExpIO &&dest)
 
   if (in)
   {
+    isEndOfLine = false;
+
     const bool isLower = islower(c);
 
     if (tolower(c) != tolower(dest.exp[0]))
     {
       in.setstate(std::ios::failbit);
+
+      if (c == '\n')
+      {
+        isEndOfLine = true;
+      }
     }
     else
     {
@@ -61,6 +95,11 @@ std::istream &gudkov::operator>>(std::istream &in, SuffixExpIO &&dest)
           if (tolower(c) != tolower(dest.exp[i]) || isLower != static_cast< bool >(islower(c)))
           {
             in.setstate(std::ios::failbit);
+
+            if (c == '\n')
+            {
+              isEndOfLine = true;
+            }
             break;
           }
         }
@@ -77,6 +116,9 @@ std::istream &gudkov::operator>>(std::istream &in, LongLongIO &&dest)
   {
     return in;
   }
+
+  isEndOfLine = false;
+
   return in >> dest.ref >> SuffixExpIO{ "ll" };
 }
 
@@ -87,6 +129,9 @@ std::istream &gudkov::operator>>(std::istream &in, UnsignedLongLongIO &&dest)
   {
     return in;
   }
+
+  isEndOfLine = false;
+
   return in >> dest.ref >> SuffixExpIO{ "ull" };
 }
 
@@ -97,6 +142,9 @@ std::istream &gudkov::operator>>(std::istream &in, StringIO &&dest)
   {
     return in;
   }
+
+  isEndOfLine = false;
+
   return std::getline(in >> DelimiterExpIO{ '"' }, dest.ref, '"');
 }
 
@@ -107,5 +155,8 @@ std::istream &gudkov::operator>>(std::istream &in, LabelIO &&dest)
   {
     return in;
   }
+
+  isEndOfLine = false;
+
   return in >> dest.ref;
 }
