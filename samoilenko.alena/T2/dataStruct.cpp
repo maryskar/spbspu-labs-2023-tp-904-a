@@ -74,7 +74,7 @@ std::ostream& samoilenko::operator<<(std::ostream& out, const DataStruct& src)
   out << "0b0" << binary;
   out << ":key2 ";
   out << std::fixed << std::setprecision(1);
-  out << "#c(" << src.key2.real() << " " << src.key2.imag() << ")";
+  out << "#c(" << src.key2 << ")";
   out << ":key3 \"" << src.key3 << "\":)";
   return out;
 }
