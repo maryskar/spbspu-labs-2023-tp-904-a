@@ -33,6 +33,10 @@ namespace shestakov
   }
   void areaMean(const std::vector<Polygon>& polygons, std::ostream &out)
   {
+    if (polygons.empty())
+    {
+      throw std::logic_error("Polygons are missing");
+    }
     double area_mean = 0.0;
     double area_sum = 0.0;
     std::vector< double > ar_of_polygons(polygons.size());
