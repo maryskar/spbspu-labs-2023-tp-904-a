@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <deque>
 #include <algorithm>
 #include <iterator>
 #include "DataStruct.hpp"
@@ -8,7 +8,7 @@ int main()
 {
   using itInp = std::istream_iterator< zasulsky::DataStruct >;
   using itOut = std::ostream_iterator< zasulsky::DataStruct >;
-  std::vector < zasulsky:: DataStruct > data;
+  std::deque< zasulsky:: DataStruct > data;
   while (!std::cin.eof())
   {
     if (std::cin.fail())
