@@ -54,23 +54,13 @@ namespace shestakov
     area = std::abs(area) / 2.0;
     return area;
   }
-  bool compPoints(const Point& point_1, const Point& point_2)
-  {
-    return point_1.x == point_2.x && point_1.y == point_2.y;
-  }
   bool compTwoPolygons(const Polygon& polygon_1, const Polygon& polygon_2)
   {
     if (polygon_1.points.size() != polygon_2.points.size())
     {
       return false;
     }
-    std::vector< bool > coincidence(polygon_1.points.size());
-    std::vector< Point > two_polygons(polygon_1.points.size());
-    std::copy(polygon_1.points.begin(), polygon_1.points.end(), two_polygons.begin());
-    std::copy(polygon_2.points.begin(), polygon_2.points.end(), std::back_inserter(two_polygons));
-    std::transform(two_polygons.begin(), two_polygons.end(), two_polygons.begin() + polygon_1.points.size(), coincidence.begin(), compPoints);
-    size_t sum = std::accumulate(coincidence.begin(), coincidence.end(), 0);
-    return sum == polygon_1.points.size();
+    return polygon_1 == polygon_2;
   }
   bool compThreePolygons(const Polygon& polygon_1, const Polygon& polygon_2, const Polygon& polygon_3)
   {

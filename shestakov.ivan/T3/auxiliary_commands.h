@@ -13,9 +13,7 @@ namespace shestakov
   int getDeterminant(const Point& first, const Point& second);
   double getArea(const Polygon& polygons);
   bool equalVert(const Polygon& polygon, size_t vert);
-  bool compPoints(const Point& point_1, const Point& point_2);
   bool compTwoPolygons(const Polygon& polygon_1, const Polygon& polygon_2);
-  bool compPoints(const Point& point_1, const Point& point_2);
   bool compTwoPolygons(const Polygon& polygon_1, const Polygon& polygon_2);
   bool compThreePolygons(const Polygon& polygon_1, const Polygon& polygon_2, const Polygon& polygon_3);
 }
