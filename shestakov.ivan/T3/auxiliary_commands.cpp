@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <numeric>
 #include <limits>
+#include <iofmtguard.h>
 
 namespace shestakov
 {
@@ -40,8 +41,9 @@ namespace shestakov
     int determinant = first.x * second.y - second.x * first.y;
     return determinant;
   }
-  std::ostream& printFix(const double src, std::ostream &out)
+  std::ostream& printFix(const double& src, std::ostream& out)
   {
+    iofmtguard iofmtguard(out);
     return out << std::fixed << std::setprecision(1) << src << '\n';
   }
   double getArea(const Polygon &polygon)
