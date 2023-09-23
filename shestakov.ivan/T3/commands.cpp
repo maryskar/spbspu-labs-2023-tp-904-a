@@ -126,6 +126,10 @@ namespace shestakov
   {
     Polygon input;
     in >> input;
+    if (input.points.size() < 3 || !in)
+    {
+      throw std::logic_error("Invalid arguments");
+    }
     std::vector<Polygon> polygons_1;
     size_t i = 0;
     size_t count_echo = 0;

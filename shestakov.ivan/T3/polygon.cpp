@@ -29,6 +29,13 @@ namespace shestakov
   }
   std::istream& operator>>(std::istream &in, Point &rhs)
   {
+    char c = '0';
+    in.get(c);
+    if(c == '\n')
+    {
+      in.setstate(std::ios::eofbit);
+      return in;
+    }
     std::istream::sentry sentry(in);
     if (!sentry)
     {
@@ -56,12 +63,22 @@ namespace shestakov
     if (points < 3)
     {
       in.setstate(std::ios::failbit);
+      return in;
     }
     input.points.reserve(points);
     std::copy_n(std::istream_iterator<Point>(in), points, std::back_inserter(input.points));
     if (in)
     {
-      rhs.points.swap(input.points);
+      char c = '0';
+      in.get(c);
+      if (c == '\n')
+      {
+        rhs.points.swap(input.points);
+      }
+      else
+      {
+        in.setstate(std::ios::failbit);
+      }
     }
     return in;
   }

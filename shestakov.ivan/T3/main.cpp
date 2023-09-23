@@ -5,7 +5,6 @@
 #include <fstream>
 #include <deque>
 #include <limits>
-#include <sstream>
 #include "polygon.h"
 #include "read_and_do_commands.h"
 #include "auxiliary_commands.h"
@@ -40,13 +39,14 @@ int main(int argc, char ** argv)
     }
     catch (const std::logic_error &e)
     {
-      printError(std::cout);
       skipUntilNewLine(std::cin);
       std::cin.clear();
+      printError(std::cout);
     }
     catch (const std::runtime_error &e)
     {
       break;
     }
+    std::cin.clear();
   }
 }

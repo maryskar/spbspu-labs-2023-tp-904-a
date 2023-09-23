@@ -12,8 +12,12 @@ namespace shestakov
   }
   void skipUntilNewLine(std::istream &in)
   {
-    auto maxstream = std::numeric_limits< std::streamsize >::max();
-    in.ignore(maxstream, '\n');
+    if (!in.eof())
+    {
+      in.clear();
+      auto maxstream = std::numeric_limits<std::streamsize>::max();
+      in.ignore(maxstream, '\n');
+    }
   }
   bool isEven(const Polygon &polygon)
   {

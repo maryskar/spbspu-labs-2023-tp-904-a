@@ -27,8 +27,8 @@ namespace shestakov
     };
   std::map <std::string, cmd_t> cmds_in
     {
-      {"RMECHO VERT", rmecho},
-      {"ECHO VERT",   echo}
+      {"RMECHO", rmecho},
+      {"ECHO",   echo}
     };
   std::string readCommand(std::istream& in)
   {
@@ -37,9 +37,13 @@ namespace shestakov
     {
       throw std::runtime_error("EOF");
     }
-    std::string command = "";
-    in >> command;
-    if (command != "ECHO" && command != "RMECHO")
+    std::string cmd = "";
+    in >> cmd;
+    if (const_cmds.find(cmd) == const_cmds.end() && const_cmds_in.find(cmd) == const_cmds_in.end() && cmds_in.find(cmd) == cmds_in.end())
+    {
+      throw std::logic_error("There is no such command");
+    }
+    if (cmd != "ECHO" && cmd != "RMECHO" && (cmd == "MAX" || cmd == "MIN" || cmd == "AREA" || cmd == "COUNT"))
     {
       std::string param = "";
       in >> param;
@@ -47,24 +51,29 @@ namespace shestakov
       {
         throw std::invalid_argument("Invalid parameter");
       }
-      command += " ";
-      command += param;
+      cmd += " ";
+      cmd += param;
     }
-    return command;
+    return cmd;
   }
   void doConstCmds(const std::vector< Polygon >& polygons, std::ostream& out, const std::string& cmd)
   {
     auto toexecute = const_cmds.at(cmd);
     toexecute(polygons, out);
   }
-  void doConstCmdsIn(const std::vector< Polygon >& polygons, size_t vertexes, std::ostream& out, const std::string& cmd)
+  void doConstCmdsIn(const std::vector< Polygon >& polygons, std::ostream& out, std::string cmd)
   {
+    size_t vertexes = std::stoull(cmd.substr(cmd.find_first_of(' ')));
+    cmd = cmd.substr(0, cmd.find(' '));
+    if (vertexes < 3)
+    {
+      throw std::invalid_argument("Invalid arguments");
+    }
     auto toexecute = const_cmds_in.at(cmd);
     toexecute(polygons, vertexes, out);
   }
-  void doCmdsWithInPolygon(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out, std::string cmd)
+  void doCmdsWithInPolygon(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out, const std::string& cmd)
   {
-    cmd += " VERT";
     auto toexecute = cmds_in.at(cmd);
     toexecute(polygons, in, out);
   }
@@ -79,20 +88,14 @@ namespace shestakov
     {}
     try
     {
-      size_t vert = std::stoull(cmd.substr(cmd.find_first_of(' ')));
-      if (vert < 3)
-      {
-        throw std::invalid_argument("Invalid arguments");
-      }
-      cmd = cmd.substr(0, cmd.find(' '));
-      doConstCmdsIn(polygons, vert, out, cmd);
+      doCmdsWithInPolygon(polygons, in, out, cmd);
       return;
     }
     catch (const std::out_of_range& e)
     {}
     try
     {
-      doCmdsWithInPolygon(polygons, in, out, cmd);
+      doConstCmdsIn(polygons, out, cmd);
       return;
     }
     catch (const std::out_of_range& e)

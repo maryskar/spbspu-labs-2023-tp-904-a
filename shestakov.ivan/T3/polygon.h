@@ -10,7 +10,7 @@ namespace shestakov
     char exp;
   };
   struct Point
-    {
+  {
     int x, y;
   };
   struct Polygon
