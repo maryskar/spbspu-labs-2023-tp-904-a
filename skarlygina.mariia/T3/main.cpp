@@ -37,12 +37,12 @@ int main(int argc, char** argv)
   }
 
   std::map< std::string, std::function< void() > > commands = {
-    {"AREA", std::bind(skarlygina::getArea, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))},
-    {"MAX", std::bind(skarlygina::getMax, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))},
-    {"MIN", std::bind(skarlygina::getMin, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))},
-    {"COUNT", std::bind(skarlygina::countFigures, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))},
-    {"PERMS", std::bind(skarlygina::findPerms, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))},
-    {"SAME", std::bind(skarlygina::findSame, std::ref(std::cin), std::ref(polygons), std::ref(std::cout))}
+    {"AREA", std::bind(skarlygina::getArea, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"MAX", std::bind(skarlygina::getMax, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"MIN", std::bind(skarlygina::getMin, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"COUNT", std::bind(skarlygina::countFigures, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"PERMS", std::bind(skarlygina::findPerms, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"SAME", std::bind(skarlygina::findSame, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))}
   };
 
   while (!std::cin.eof())
