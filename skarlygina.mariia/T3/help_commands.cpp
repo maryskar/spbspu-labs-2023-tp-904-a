@@ -24,6 +24,11 @@ bool isEven(const skarlygina::Polygon& poly)
   return !(isOdd(poly));
 }
 
+bool isVert(const skarlygina::Polygon& poly, size_t number_vert)
+{
+  return poly.points.size() == number_vert;
+}
+
 double skarlygina::findAreaOdd(const std::vector< Polygon >& polys)
 {
   using namespace std::placeholders;
@@ -93,11 +98,6 @@ size_t skarlygina::countEven(const std::vector< Polygon >& polys)
 skarlygina::Point doOffset(skarlygina::Point point, skarlygina::Point offset)
 {
   return point + offset;
-}
-
-bool isVert(const skarlygina::Polygon& poly, size_t number_vert)
-{
-  return poly.points.size() == number_vert;
 }
 
 size_t countNumOfVertexes(const std::vector< skarlygina::Polygon >& polys, size_t number_vert)
