@@ -89,7 +89,8 @@ namespace potapova
         {
           char sec_value = '0';
           in >> DelimiterIO{'0'} >> sec_value;
-          if (sec_value != 'b' && sec_value != 'B')
+          sec_value = (sec_value == 'B') ? 'b' : sec_value;
+          if (sec_value != 'b')
           {
             in.setstate(std::ios::failbit);
             return in;
