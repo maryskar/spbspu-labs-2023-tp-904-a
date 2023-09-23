@@ -19,6 +19,11 @@ bool isOdd(const skarlygina::Polygon& poly)
   return poly.points.size() % 2;
 }
 
+bool isEven(const skarlygina::Polygon& poly)
+{
+  return !(isOdd(poly));
+}
+
 double skarlygina::findAreaOdd(const std::vector< Polygon >& polys)
 {
   using namespace std::placeholders;
@@ -71,11 +76,6 @@ size_t getSize(const skarlygina::Polygon poly)
 bool skarlygina::isPerm(const skarlygina::Polygon& first, const skarlygina::Polygon& poly)
 {
   return std::is_permutation(poly.points.begin(), poly.points.end(), first.points.begin(), first.points.end());
-}
-
-bool isEven(const skarlygina::Polygon& poly)
-{
-  return !(isOdd(poly));
 }
 
 size_t skarlygina::countOdd(const std::vector< Polygon >& polys)
