@@ -3,19 +3,22 @@
 
 #include "polygon.h"
 
+using polygon = dmitriev::Polygon;
+using polygons = std::vector< polygon >;
+
 namespace dmitriev
 {
-  void printEvenArea(std::vector< Polygon > data, std::ostream& out);
-  void printOddArea(std::vector< Polygon > data, std::ostream& out);
-  void printNSizeArea(std::vector< Polygon > data, size_t number, std::ostream& out);
-  void printMeanArea(std::vector< Polygon > data, std::ostream& out);
-  void printMaxArea(std::vector< Polygon > data, std::ostream& out);
-  void printMinArea(std::vector< Polygon > data, std::ostream& out);
-  void printMaxSize(std::vector< Polygon > data, std::ostream& out);
-  void printMinSize(std::vector< Polygon > data, std::ostream& out);
-  void printEvenSizeCount(std::vector< Polygon > data, std::ostream& out);
-  void printOddSizeCount(std::vector< Polygon > data, std::ostream& out);
-  void printNSizeCount(std::vector< Polygon > data, size_t number, std::ostream& out);
+  void printEvenArea(polygons data, std::ostream& out);
+  void printOddArea(polygons data, std::ostream& out);
+  void printNSizeArea(polygons data, size_t number, std::ostream& out);
+  void printMeanArea(polygons data, std::ostream& out);
+  void printMaxArea(polygons data, std::ostream& out);
+  void printMinArea(polygons data, std::ostream& out);
+  void printMaxSize(polygons data, std::ostream& out);
+  void printMinSize(polygons data, std::ostream& out);
+  void printEvenSizeCount(polygons data, std::ostream& out);
+  void printOddSizeCount(polygons data, std::ostream& out);
+  void printNSizeCount(polygons data, size_t number, std::ostream& out);
 
 
 }
