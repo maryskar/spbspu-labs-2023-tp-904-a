@@ -1,6 +1,7 @@
 #include "polygon.h"
 #include <algorithm>
 #include <iterator>
+#include <TypesIO.h>
 
 namespace shestakov
 {
@@ -11,21 +12,6 @@ namespace shestakov
   bool operator==(const Polygon& lhs, const Polygon& rhs)
   {
     return std::equal(lhs.points.begin(), lhs.points.end(), rhs.points.begin());
-  }
-  std::istream& operator>>(std::istream &in, DelimeterIO &&dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    char c = '0';
-    in >> c;
-    if (in && (c != dest.exp))
-    {
-      in.setstate(std::ios::failbit);
-    }
-    return in;
   }
   std::istream& operator>>(std::istream &in, Point &rhs)
   {
