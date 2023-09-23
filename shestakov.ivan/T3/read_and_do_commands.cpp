@@ -80,6 +80,10 @@ namespace shestakov
     try
     {
       size_t vert = std::stoull(cmd.substr(cmd.find_first_of(' ')));
+      if (vert < 3)
+      {
+        throw std::invalid_argument("Invalid arguments");
+      }
       cmd = cmd.substr(0, cmd.find(' '));
       doConstCmdsIn(polygons, vert, out, cmd);
       return;
