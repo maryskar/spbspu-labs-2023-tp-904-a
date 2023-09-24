@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <numeric>
+#include <iterator>
 #include "dictionary.h"
 
 int main(int argc, char** argv)
@@ -52,7 +54,6 @@ int main(int argc, char** argv)
     {
       break;
     }
-
   }
   return 0;
 }

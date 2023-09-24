@@ -1,6 +1,7 @@
 #include "polygon.h"
 #include <algorithm>
 #include <functional>
+#include <iterator>
 #include <numeric>
 #include <customtypes.h>
 
