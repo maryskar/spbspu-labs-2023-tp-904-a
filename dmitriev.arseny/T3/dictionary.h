@@ -19,11 +19,12 @@ namespace dmitriev
 
     void doCommand(const std::string& cmd,
       const polygons& data,
-      const Polygon& pol,
+      size_t num,
       std::ostream& out) const;
+
     void doCommand(const std::string& cmd,
       const polygons& data,
-      size_t num,
+      const Polygon& pol,
       std::ostream& out) const;
 
   private:
