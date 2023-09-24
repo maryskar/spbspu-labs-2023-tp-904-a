@@ -24,14 +24,12 @@ int main(int argc, char** argv)
     std::copy(std::istream_iterator< dmitriev::Polygon >(file),
       std::istream_iterator< dmitriev::Polygon >(),
       std::back_inserter(polygons));
-
     if (file.fail())
     {
       file.clear();
       file.ignore(maxNum, '\n');
     }
   }
-
   dmitriev::CommandsDictionaty cmd;
   while (!std::cin.eof())
   {
@@ -56,7 +54,5 @@ int main(int argc, char** argv)
     }
 
   }
-  
-
   return 0;
 }
