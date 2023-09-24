@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <numeric>
+#include <limits>
 #include <iterator>
 #include "dictionary.h"
 
