@@ -1,34 +1,61 @@
 #include <iostream>
-#include <sstream>
-#include "polygon.h"
+#include <fstream>
+#include "dictionary.h"
 
 int main(int argc, char** argv)
 {
-  std::stringstream sstr("3 (1; 1) (1; 3) (3; 3)\n"
-    "4 (0; 0) (0; 1) (1; 1) (1; 0)\n"
-    "5 (0; 0) (0; 1) (1; 2) (2; 1) (2; 0)\n"
-    "3 (0; 0) (-2; 0) (0; -2));\n");
+  if (argc != 2)
+  {
+    std::cerr << "invalid quantity of arguments" << '\n';
+    return 1;
+  }
+  std::ifstream file(argv[1]);
+  if (!file.is_open())
+  {
+    std::cerr << "problems while opening file" << '\n';
+    return 1;
+  }
 
   std::vector< dmitriev::Polygon > polygons;
+  auto maxNum = std::numeric_limits< std::streamsize >::max();
 
-  while (!sstr.eof())
+  while (!file.eof())
   {
-    std::copy(std::istream_iterator< dmitriev::Polygon >(sstr),
+    std::copy(std::istream_iterator< dmitriev::Polygon >(file),
       std::istream_iterator< dmitriev::Polygon >(),
       std::back_inserter(polygons));
 
-    if (sstr.fail())
+    if (file.fail())
     {
-      sstr.clear();
-      sstr.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      file.clear();
+      file.ignore(maxNum, '\n');
     }
   }
 
-
-  std::cout << dmitriev::getArea(polygons[0]) << '\n';
-  std::cout << dmitriev::getArea(polygons[1]) << '\n';
-  std::cout << dmitriev::getArea(polygons[2]) << '\n';
-  std::cout << dmitriev::getArea(polygons[3]) << '\n';
+  dmitriev::CommandsDictionaty cmd;
+  while (!std::cin.eof())
+  {
+    try
+    {
+      dmitriev::runCommand(polygons, cmd, std::cout, std::cin);
+      std::cout << '\n';
+    }
+    catch (const std::runtime_error&)
+    {
+      break;
+    }
+    catch (const std::logic_error&)
+    {
+      dmitriev::printInvalidCommand(std::cout);
+      std::cout << '\n';
+      if (!std::cin)
+      {
+        std::cin.clear();
+      }
+      std::cin.ignore(maxNum, '\n');
+    }
+  }
+  
 
   return 0;
 }
