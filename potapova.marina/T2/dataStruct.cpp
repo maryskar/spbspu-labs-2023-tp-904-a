@@ -126,8 +126,8 @@ namespace potapova
     }
     IOFormatGuard format_guard(out);
     out << "(:";
-    out << "key1 " << source.key1 << ":";
-    out << "key2 " << source.key2 << ":";
+    out << "key1 " << "0" << source.key1 << ":";
+    out << "key2 " << "0b" <<source.key2 << ":";
     out << "key3 " << source.key3 << ":";
     out << ")";
     return out;
