@@ -8,6 +8,14 @@
 
 namespace kotova
 {
+  void outFalse(std::ostream& out)
+  {
+    out << "<FALSE>\n";
+  }
+  void outTrue(std::ostream& out)
+  {
+    out << "<TRUE>\n";
+  }
   bool isEven(const Polygon &polygon)
   {
     return polygon.points.size() % 2 ==0;
@@ -23,27 +31,27 @@ namespace kotova
     return polygon.points.size() == cnt;
   }
 
-  bool compPointX(const Point &rhs, const Point &lhs)
+  bool compPointX(const Point &lhs, const Point &rhs)
   {
     return rhs.x > lhs.x;
   }
 
-  bool compPointY(const Point &rhs, const Point &lhs)
+  bool compPointY(const Point &lhs, const Point &rhs)
   {
     return rhs.y > lhs.y;
   }
 
-  bool compArea(const Polygon &rhs, const Polygon &lhs)
+  bool compArea(const Polygon &lhs, const Polygon &rhs)
   {
     return getArea(lhs) < getArea(rhs);
   }
 
-  bool compVer(const Polygon &rhs, const Polygon &lhs)
+  bool compVer(const Polygon &lhs, const Polygon &rhs)
   {
     return lhs.points.size() < rhs.points.size();
   }
 
-  bool equalPoints(const Point &rhs, const Point &lhs)
+  bool equalPoints(const Point &lhs, const Point &rhs)
   {
     return lhs.x == rhs.x && lhs.y == rhs.y;
   }
@@ -63,14 +71,16 @@ namespace kotova
 
   auto findPoints(const Polygon &dest)
   {
-    auto xMinMax = std::minmax_element(dest.points.cbegin(), dest.points.cend(), compPointX);
-    auto yMinMax = std::minmax_element(dest.points.cbegin(), dest.points.cend(), compPointY);
-    Point lowerPoint{(*xMinMax.first).x, (*yMinMax.first).y};
-    Point higherPoint{(*xMinMax.second).x, (*yMinMax.first).y};
+    auto minX = std::min_element(dest.points.begin(), dest.points.end(), compPointX)->x;
+    auto minY = std::min_element(dest.points.begin(), dest.points.end(), compPointY)->y;
+    auto maxX = std::max_element(dest.points.begin(), dest.points.end(), compPointX)->x;
+    auto maxY = std::max_element(dest.points.begin(), dest.points.end(), compPointY)->y;
+    Point lowerPoint{minX, minY};
+    Point higherPoint{maxX, maxY};
     return std::make_pair(lowerPoint, higherPoint);
   }
 
-  bool isSamePolygon(const Polygon &rhs, const Polygon &lhs)
+  bool isSamePolygon(const Polygon &lhs, const Polygon &rhs)
   {
     if ((rhs.points.size() != lhs.points.size() || getArea(rhs) != getArea(lhs)))
     {
@@ -205,6 +215,39 @@ namespace kotova
     using namespace std::placeholders;
     iofmtguard iofmtguard(out);
     out << std::count_if(dest.begin(), dest.end(), std::bind(calcNumVert, _1, n)) << "\n";
+  }
+
+  void inFrame(const std::vector< Polygon > &dest, std::istream &in, std::ostream &out)
+  {
+    Polygon polygon;
+    in >> polygon;
+    if (!in)
+    {
+      throw std::logic_error("error");
+    }
+    Point lowerLhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
+    Point higherRhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
+    for (auto&& i: dest)
+    {
+      auto point = findPoints(i);
+      lowerLhs.x = std::min(lowerLhs.x, point.first.x);
+      lowerLhs.y = std::min(lowerLhs.y, point.first.y);
+      higherRhs.x = std::max(higherRhs.x, point.second.x);
+      higherRhs.y = std::max(higherRhs.y, point.second.y);
+    }
+    auto pol = findPoints(polygon);
+    int polMinX = pol.first.x;
+    int polMinY = pol.first.y;
+    int polMaxX = pol.second.x;
+    int polMaxY = pol.second.y;
+    if (lowerLhs.x <= polMinX && lowerLhs.y <= polMinY && higherRhs.x >= polMaxX && higherRhs.y >= polMaxY)
+    {
+      outFalse(out);
+    }
+    else
+    {
+      outTrue(out);
+    }
   }
 
   void isSame(const std::vector< Polygon > &dest, std::istream &in, std::ostream &out)
