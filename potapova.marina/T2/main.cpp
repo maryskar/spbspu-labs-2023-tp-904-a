@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iterator>
 #include <fstream>
+#include <limits>
 #include "dataStruct.h"
 
 using namespace potapova;
@@ -20,7 +21,7 @@ int main()
     if (std::cin.fail())
     {
       std::cin.clear();
-      std::cin.ignore(2147483647, '\n');
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
 
