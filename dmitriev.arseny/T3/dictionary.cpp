@@ -48,7 +48,7 @@ void dmitriev::CommandsDictionaty::doCommand(const std::string& cmd,
 
 std::ostream& dmitriev::printInvalidCommand(std::ostream& out)
 {
-  return out << "<INVALID COMMAND>";
+  return out << "<INVALID COMMAND>" << '\n';
 }
 
 std::string dmitriev::getCommand(std::istream& in)

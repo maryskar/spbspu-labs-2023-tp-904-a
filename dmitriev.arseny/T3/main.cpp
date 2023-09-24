@@ -44,7 +44,6 @@ int main(int argc, char** argv)
     catch (const std::logic_error&)
     {
       dmitriev::printInvalidCommand(std::cout);
-      std::cout << '\n';
       if (!std::cin)
       {
         std::cin.clear();
@@ -56,7 +55,6 @@ int main(int argc, char** argv)
       break;
     }
   }
-  std::cout << '\n';
 
   return 0;
 }

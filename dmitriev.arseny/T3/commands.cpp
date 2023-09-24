@@ -28,7 +28,7 @@ void printArea(const polygons& data, predicate pred, std::ostream& out)
 
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
-  out << std::accumulate(areas.begin(), areas.end(), 0.0, countAreas);
+  out << std::accumulate(areas.begin(), areas.end(), 0.0, countAreas) << '\n';
 }
 
 void dmitriev::printEvenArea(const polygons& data, std::ostream& out)
@@ -51,14 +51,14 @@ void dmitriev::printMeanArea(const polygons& data, std::ostream& out)
 {
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
-  out << std::accumulate(data.begin(), data.end(), 0.0, countAreas) / data.size();
+  out << std::accumulate(data.begin(), data.end(), 0.0, countAreas) / data.size() << '\n';
 }
 
 void printMaxMinArea(const polygons& data, comparator cmp, std::ostream& out)
 {
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
-  out << dmitriev::getArea(*(std::max_element(data.begin(), data.end(), cmp)));
+  out << dmitriev::getArea(*(std::max_element(data.begin(), data.end(), cmp))) << '\n';
 }
 
 void dmitriev::printMaxArea(const polygons& data, std::ostream& out)
@@ -77,7 +77,7 @@ void dmitriev::printMinArea(const polygons& data, std::ostream& out)
 
 void printSize(const polygons& data, comparator cmp, std::ostream& out)
 {
-  out << dmitriev::getSize(*(std::max_element(data.begin(), data.end(), cmp)));
+  out << dmitriev::getSize(*(std::max_element(data.begin(), data.end(), cmp))) << '\n';
 }
 
 void dmitriev::printMaxSize(const polygons& data, std::ostream& out)
@@ -119,11 +119,11 @@ void printBool(std::ostream& out, bool value)
 {
   if (value)
   {
-    out << "<TRUE>";
+    out << "<TRUE>" << '\n';
   }
   else
   {
-    out << "<FALSE>";
+    out << "<FALSE>" << '\n';
   }
 }
 
