@@ -30,7 +30,7 @@ namespace potapova
     {
       return in;
     }
-    if (in >> std::oct >> dest.oct)
+    if (in >> dest.oct)
     {
       return in;
     }
