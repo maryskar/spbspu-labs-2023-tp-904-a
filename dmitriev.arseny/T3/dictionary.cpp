@@ -1,4 +1,5 @@
 #include "dictionary.h"
+#include <customtypes.h>
 
 dmitriev::CommandsDictionaty::CommandsDictionaty()
 {
@@ -83,7 +84,7 @@ void dmitriev::runCommand(const polygons& data,
   if (cmdName == "INFRAME" || cmdName == "SAME")
   {
     polygon figure;
-    in >> figure;
+    in >> figure >> SeparatorIO{'\n'};
     if (!in)
     {
       throw std::invalid_argument("Invalid command parameter");

@@ -40,10 +40,6 @@ int main(int argc, char** argv)
       dmitriev::runCommand(polygons, cmd, std::cout, std::cin);
       std::cout << '\n';
     }
-    catch (const std::runtime_error&)
-    {
-      break;
-    }
     catch (const std::logic_error&)
     {
       dmitriev::printInvalidCommand(std::cout);
@@ -54,6 +50,11 @@ int main(int argc, char** argv)
       }
       std::cin.ignore(maxNum, '\n');
     }
+    catch (const std::exception&)
+    {
+      break;
+    }
+
   }
   
 
