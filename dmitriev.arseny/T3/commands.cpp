@@ -114,11 +114,6 @@ void dmitriev::printMinSize(const polygons& data, std::ostream& out)
 
 void printSizeCount(const polygons& data, predicate pred, std::ostream& out)
 {
-  if (data.empty())
-  {
-    throw std::invalid_argument("empty data");
-  }
-
   out << std::count_if(data.begin(), data.end(), pred) << '\n';
 }
 
