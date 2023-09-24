@@ -14,7 +14,6 @@ namespace shestakov
   double getArea(const Polygon& polygons);
   bool equalVert(const Polygon& polygon, size_t vert);
   bool compTwoPolygons(const Polygon& polygon_1, const Polygon& polygon_2);
-  bool compTwoPolygons(const Polygon& polygon_1, const Polygon& polygon_2);
   bool compThreePolygons(const Polygon& polygon_1, const Polygon& polygon_2, const Polygon& polygon_3);
 }
 #endif
