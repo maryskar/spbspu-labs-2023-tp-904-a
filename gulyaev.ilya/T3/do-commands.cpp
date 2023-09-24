@@ -28,11 +28,14 @@ namespace gulyaev
         iofmtguard ofmtguard(out);
         toexecute(data, in, out);
       } catch (const std::out_of_range &e) {
-        out << "<INVALID COMMAND>\n";
         in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+        out << "<INVALID COMMAND>" << "\n";
       } catch (const std::invalid_argument &e) {
-        in.clear();
         out << e.what() << "\n";
+      } catch (const std::ios::failure &) {
+        in.clear();
+        in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+        out << "<INVALID COMMAND>" << "\n";
       } catch (const std::bad_alloc &e) {
         out << e.what() << "\n";
         return;

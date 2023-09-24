@@ -158,9 +158,7 @@ namespace gulyaev
       using namespace std::placeholders;
       out << getCountOfPolygonsIf(data, std::bind(checkPermutation, _1, polygon)) << "\n";
     } else {
-      std::string cleaning;
-      std::getline(in, cleaning, '\n');
-      throw std::invalid_argument("<INVALID COMMAND>");
+      throw std::ios::failure("<INVALID COMMAND>");
     }
   }
   void printRightShapes(const std::vector< Polygon > &data, std::istream &in, std::ostream &out)
