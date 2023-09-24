@@ -57,7 +57,7 @@ std::string dmitriev::getCommand(std::istream& in)
   in >> cmdName;
   if (!in)
   {
-    throw std::logic_error("problems with input");
+    throw std::runtime_error("problems with input");
   }
 
   if (cmdName != "INFRAME" && cmdName != "SAME")
@@ -66,7 +66,7 @@ std::string dmitriev::getCommand(std::istream& in)
     in >> cmdSubName;
     if (!in)
     {
-      throw std::logic_error("problems with input");
+      throw std::runtime_error("problems with input");
     }
 
     cmdName = cmdName + " " + cmdSubName;

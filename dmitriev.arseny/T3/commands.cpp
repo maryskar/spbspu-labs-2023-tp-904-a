@@ -12,8 +12,8 @@ namespace
   auto getSizeR = std::bind(dmitriev::getSize, _2);
   auto getAreaL = std::bind(dmitriev::getArea, _1);
   auto getAreaR = std::bind(dmitriev::getArea, _2);
-  auto isEven = std::bind(std::modulus< size_t >{}, getSizeL, 2);
-  auto isOdd = std::bind(std::logical_not< bool >{}, std::bind(isEven, _1));
+  auto isOdd = std::bind(std::modulus< size_t >{}, getSizeL, 2);
+  auto isEven = std::bind(std::logical_not< bool >{}, std::bind(isOdd, _1));
   auto isSizeEqualToN = std::bind(std::equal_to< size_t >{}, getSizeL, _2);
   auto countAreas = std::bind(std::plus< double >{}, _1, getAreaR);
 }
