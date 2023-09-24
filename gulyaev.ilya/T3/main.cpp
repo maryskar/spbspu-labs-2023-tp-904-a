@@ -21,14 +21,14 @@ int main(int argc, char **argv)
   }
   std::vector< Polygon > data;
   while (!input_file.eof()) {
-    if (input_file.fail()) {
-      input_file.clear();
-      input_file.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-    }
     std::copy(std::istream_iterator< Polygon >(input_file),
         std::istream_iterator< Polygon >(),
         std::back_inserter(data)
     );
+    if (input_file.fail()) {
+      input_file.clear();
+      input_file.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
   }
   doCommands(std::cin, std::cout, data);
   return 0;

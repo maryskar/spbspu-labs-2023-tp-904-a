@@ -7,7 +7,7 @@ namespace gulyaev
 {
   struct Point
   {
-    int x,y;
+    int x, y;
   };
   struct Polygon
   {

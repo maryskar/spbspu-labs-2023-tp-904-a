@@ -65,7 +65,7 @@ namespace gulyaev
   }
   unsigned int getCountOfPolygonsIf(const std::vector< Polygon > &data, std::function< bool (Polygon) > pred)
   {
-    auto count = std::count_if(std::cbegin(data), std::cend(data), pred);
+    unsigned int count = std::count_if(std::cbegin(data), std::cend(data), pred);
     return count;
   }
 
@@ -158,8 +158,8 @@ namespace gulyaev
       using namespace std::placeholders;
       out << getCountOfPolygonsIf(data, std::bind(checkPermutation, _1, polygon)) << "\n";
     } else {
-      in.clear();
-      in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      std::string cleaning;
+      std::getline(in, cleaning, '\n');
       throw std::invalid_argument("<INVALID COMMAND>");
     }
   }

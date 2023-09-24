@@ -7,16 +7,16 @@
 namespace gulyaev
 {
   using cmd_t = std::function< void (const std::vector< Polygon > &, std::istream &, std::ostream &) >;
-  std::map< std::string, cmd_t > cmds {
-      {"AREA", printArea},
-      {"MAX", printMax},
-      {"MIN", printMin},
-      {"COUNT", printCount},
-      {"PERMS", printPerms},
-      {"RIGHTSHAPES", printRightShapes}
-  };
   void doCommands(std::istream &in, std::ostream &out, std::vector< Polygon > data)
   {
+    std::map< std::string, cmd_t > cmds {
+        {"AREA", printArea},
+        {"MAX", printMax},
+        {"MIN", printMin},
+        {"COUNT", printCount},
+        {"PERMS", printPerms},
+        {"RIGHTSHAPES", printRightShapes}
+    };
     while (!in.eof()) {
       std::string cmd;
       in >> cmd;
@@ -31,6 +31,7 @@ namespace gulyaev
         out << "<INVALID COMMAND>\n";
         in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       } catch (const std::invalid_argument &e) {
+        in.clear();
         out << e.what() << "\n";
       } catch (const std::bad_alloc &e) {
         out << e.what() << "\n";
