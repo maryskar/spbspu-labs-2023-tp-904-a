@@ -35,7 +35,7 @@ namespace shestakov
     }
     return in;
   }
-  std::istream& operator>>(std::istream &in, Polygon &rhs)
+  std::istream& operator>>(std::istream& in, Polygon& rhs)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -51,7 +51,7 @@ namespace shestakov
       return in;
     }
     input.points.reserve(points);
-    std::copy_n(std::istream_iterator<Point>(in), points, std::back_inserter(input.points));
+    std::copy_n(std::istream_iterator< Point >(in), points, std::back_inserter(input.points));
     if (in)
     {
       char c = '0';
