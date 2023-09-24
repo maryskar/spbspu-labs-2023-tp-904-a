@@ -39,7 +39,6 @@ int main(int argc, char** argv)
     try
     {
       dmitriev::runCommand(polygons, cmd, std::cout, std::cin);
-      std::cout << '\n';
     }
     catch (const std::logic_error&)
     {

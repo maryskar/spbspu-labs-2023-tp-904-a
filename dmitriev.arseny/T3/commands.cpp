@@ -43,12 +43,20 @@ void dmitriev::printOddArea(const polygons& data, std::ostream& out)
 
 void dmitriev::printNSizeArea(const polygons& data, size_t number, std::ostream& out)
 {
+  if (number < 3)
+  {
+    throw std::invalid_argument("Invalid command parameter");
+  }
   using namespace std::placeholders;
   printArea(data, std::bind(isSizeEqualToN, _1, number), out);
 }
 
 void dmitriev::printMeanArea(const polygons& data, std::ostream& out)
 {
+  if (data.empty())
+  {
+    throw std::invalid_argument("empty dataset");
+  }
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
   out << std::accumulate(data.begin(), data.end(), 0.0, countAreas) / data.size() << '\n';
@@ -56,6 +64,11 @@ void dmitriev::printMeanArea(const polygons& data, std::ostream& out)
 
 void printMaxMinArea(const polygons& data, comparator cmp, std::ostream& out)
 {
+  if (data.empty())
+  {
+    throw std::invalid_argument("empty data");
+  }
+
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
   out << dmitriev::getArea(*(std::max_element(data.begin(), data.end(), cmp))) << '\n';
@@ -77,6 +90,11 @@ void dmitriev::printMinArea(const polygons& data, std::ostream& out)
 
 void printSize(const polygons& data, comparator cmp, std::ostream& out)
 {
+  if (data.empty())
+  {
+    throw std::invalid_argument("empty data");
+  }
+
   out << dmitriev::getSize(*(std::max_element(data.begin(), data.end(), cmp))) << '\n';
 }
 
@@ -96,6 +114,11 @@ void dmitriev::printMinSize(const polygons& data, std::ostream& out)
 
 void printSizeCount(const polygons& data, predicate pred, std::ostream& out)
 {
+  if (data.empty())
+  {
+    throw std::invalid_argument("empty data");
+  }
+
   out << std::count_if(data.begin(), data.end(), pred) << '\n';
 }
 
@@ -111,6 +134,10 @@ void dmitriev::printOddSizeCount(const polygons& data, std::ostream & out)
 
 void dmitriev::printNSizeCount(const polygons& data, size_t number, std::ostream & out)
 {
+  if (number < 3)
+  {
+    throw std::invalid_argument("Invalid command parameter");
+  }
   using namespace std::placeholders;
   printSizeCount(data, std::bind(isSizeEqualToN, _1, number), out);
 }
@@ -129,10 +156,19 @@ void printBool(std::ostream& out, bool value)
 
 void dmitriev::printInFrame(const polygons& data, const polygon& figure, std::ostream& out)
 {
+  if (data.empty())
+  {
+    throw std::invalid_argument("empty data");
+  }
+
   printBool(out, isFrameInFrame(getFrame(figure), getPolygonsFrame(data)));
 }
 
 void dmitriev::printSame(const polygons& data, const polygon& figure, std::ostream& out)
 {
+  if (data.empty())
+  {
+    throw std::invalid_argument("empty data");
+  }
   out << dmitriev::countAllSame(data, figure) << '\n';
 }
