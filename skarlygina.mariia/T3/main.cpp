@@ -35,7 +35,8 @@ int main(int argc, char** argv)
     }
   }
 
-  std::map< std::string, std::function< void() > > commands = {
+  std::map< std::string, std::function< void() > > commands =
+  {
     {"AREA", std::bind(skarlygina::getArea, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
     {"MAX", std::bind(skarlygina::getMax, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
     {"MIN", std::bind(skarlygina::getMin, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
@@ -57,7 +58,7 @@ int main(int argc, char** argv)
     {
       commands.at(command)();
     }
-    catch (const std::exception& e)
+    catch (const std::exception&)
     {
       skarlygina::printInvalidCommand(std::cout);
       std::cin.clear();

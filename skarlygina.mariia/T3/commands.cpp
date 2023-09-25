@@ -9,7 +9,8 @@
 
 void skarlygina::getArea(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
-  std::map< std::string, std::function< double() > > commandArea = {
+  std::map< std::string, std::function< double() > > commandArea =
+  {
     {"EVEN", std::bind(findAreaEven, std::ref(polys))},
     {"ODD", std::bind(findAreaOdd, std::ref(polys))},
     {"MEAN", std::bind(findAreaMean, std::ref(polys))}
@@ -33,7 +34,8 @@ void skarlygina::getArea(const std::vector< Polygon >& polys, std::istream& in, 
 
 void skarlygina::countFigures(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
-  std::map< std::string, std::function< size_t() > > command_count = {
+  std::map< std::string, std::function< size_t() > > command_count =
+  {
     {"ODD", std::bind(countOdd, std::ref(polys))},
     {"EVEN", std::bind(countEven, std::ref(polys))}
   };
@@ -52,7 +54,8 @@ void skarlygina::countFigures(const std::vector< Polygon >& polys, std::istream&
 
 void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
-  if (polys.empty()) {
+  if (polys.empty())
+  {
     throw std::invalid_argument("There are no polygons");
   }
   std::string command = "";
