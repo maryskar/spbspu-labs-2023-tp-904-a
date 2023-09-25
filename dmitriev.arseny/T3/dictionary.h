@@ -39,7 +39,6 @@ namespace dmitriev
   };
 
   std::ostream& printInvalidCommand(std::ostream& out);
-  std::string getCommand(std::istream& in);
   void runCommand(const polygons& data,
     const CommandsDictionaty& dict,
     std::ostream& out,

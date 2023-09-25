@@ -51,7 +51,16 @@ std::ostream& dmitriev::printInvalidCommand(std::ostream& out)
   return out << "<INVALID COMMAND>";
 }
 
-std::string dmitriev::getCommand(std::istream& in)
+bool isSpecialCommand(std::string name)
+{
+  return name == "INFRAME" || name == "SAME";
+}
+bool isBasicCommand(std::string name)
+{
+  return name == "MAX" || name == "MIN" || name == "AREA" || name == "COUNT";
+}
+
+std::string getCommand(std::istream& in)
 {
   std::string cmdName = "";
   in >> cmdName;
@@ -60,9 +69,9 @@ std::string dmitriev::getCommand(std::istream& in)
     throw std::runtime_error("problems with input");
   }
 
-  if (cmdName != "INFRAME" && cmdName != "SAME")
+  if (!isSpecialCommand(cmdName))
   {
-    if (cmdName == "MAX" || cmdName == "MIN" || cmdName == "AREA" || cmdName == "COUNT")
+    if (isBasicCommand(cmdName))
     {
       std::string cmdSubName = "";
       in >> cmdSubName;
@@ -87,7 +96,7 @@ void dmitriev::runCommand(const polygons& data,
   std::istream& in)
 {
   std::string cmdName = getCommand(in);
-  if (cmdName == "INFRAME" || cmdName == "SAME")
+  if (isSpecialCommand(cmdName))
   {
     polygon figure;
     in >> figure >> SeparatorIO{'\n'};
@@ -96,11 +105,13 @@ void dmitriev::runCommand(const polygons& data,
       throw std::invalid_argument("Invalid command parameter");
     }
     dict.doCommand(cmdName, data, figure, out);
+    out << '\n';
     return;
   }
   try
   {
     dict.doCommand(cmdName, data, out);
+    out << '\n';
     return;
   }
   catch (const std::out_of_range&)
@@ -108,4 +119,5 @@ void dmitriev::runCommand(const polygons& data,
   size_t pos = cmdName.find(' ');
   size_t num = std::stoull(cmdName.substr(pos));
   dict.doCommand(cmdName.substr(0, pos), data, num, out);
+  out << '\n';
 }
