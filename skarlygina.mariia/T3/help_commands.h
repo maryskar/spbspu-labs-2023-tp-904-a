@@ -3,7 +3,7 @@
 #include "polygon.h"
 namespace skarlygina
 {
-  double findAreaPoly(const skarlygina::Polygon&, double area);
+  double findAreaPoly(const skarlygina::Polygon&, double area = 0.0);
   double findAreaOdd(const std::vector< Polygon >&);
   double findAreaEven(const std::vector< Polygon >&);
   double findAreaMean(const std::vector< Polygon >&);
