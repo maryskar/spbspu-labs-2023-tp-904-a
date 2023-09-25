@@ -40,7 +40,7 @@ double skarlygina::findAreaOdd(const std::vector< Polygon >& polys)
 double skarlygina::findAreaEven(const std::vector< Polygon >& polys)
 {
   auto even_vert = std::bind(std::logical_not< bool >{}, std::bind(isOdd, std::placeholders::_1));
-  AreaCondition< std::function< bool(const skarlygina::Polygon&) > > even_area(isEven);
+  AreaCondition< std::function< bool(const skarlygina::Polygon&) > > even_area(even_vert);
   return std::accumulate(polys.begin(), polys.end(), 0.0, even_area);
 }
 
