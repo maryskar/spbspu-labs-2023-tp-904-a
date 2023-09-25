@@ -106,14 +106,15 @@ void skarlygina::findPerms(const std::vector< Polygon >& polys, std::istream& in
 
 void skarlygina::findSame(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
-  skarlygina::Polygon polygon_first;
-  in >> polygon_first;
-  if (in.rdstate() == std::ios::failbit)
+  skarlygina::Polygon poly;
+  in >> poly;
+  if (!in)
   {
-    throw std::invalid_argument("Incorrect enter shape");
+    throw std::logic_error("Invalid input");
   }
-  auto check_same = std::bind(isSame, std::placeholders::_1, polygon_first);
-  out << std::count_if(polys.begin(), polys.end(), check_same) << '\n';
+  auto same_dir = std::bind(isSame, std::placeholders::_1, poly);
+  Iofmtguard iofmt(out);
+  out << std::count_if(polys.begin(), polys.end(), same_dir) << '\n';
 }
 
 std::ostream& skarlygina::printInvalidCommand(std::ostream& out)

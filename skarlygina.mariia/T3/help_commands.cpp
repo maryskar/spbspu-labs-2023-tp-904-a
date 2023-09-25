@@ -46,7 +46,8 @@ double skarlygina::findAreaEven(const std::vector< Polygon >& polys)
 
 double skarlygina::findAreaMean(const std::vector< Polygon >& polys)
 {
-  if (polys.empty()) {
+  if (polys.empty())
+  {
     throw std::invalid_argument("Not enough figures");
   }
   auto getArea = std::bind(findAreaPoly, std::placeholders::_2, std::placeholders::_1);
@@ -96,9 +97,14 @@ size_t skarlygina::countEven(const std::vector< Polygon >& polys)
   return std::count_if(polys.begin(), polys.end(), even_vert);
 }
 
-skarlygina::Point doOffset(skarlygina::Point point, skarlygina::Point offset)
+bool isSamePoint(const skarlygina::Point& first, const skarlygina::Point& second)
 {
-  return point + offset;
+  return first.x == second.x && first.y == second.y;
+}
+
+skarlygina::Point moveOff(const skarlygina::Point& pos, int dx, int dy)
+{
+  return {pos.x - dx, pos.y - dy};
 }
 
 size_t skarlygina::countNumOfVertexes(const std::vector< skarlygina::Polygon >& polys, size_t number_vert)
@@ -111,21 +117,25 @@ size_t skarlygina::countNumOfVertexes(const std::vector< skarlygina::Polygon >& 
   return std::count_if(polys.begin(), polys.end(), hasNumOfVert);
 }
 
+skarlygina::Polygon findStart(const skarlygina::Polygon& poly)
+{
+  int x_p = poly.points.front().x;
+  int y_p = poly.points.front().y;
+  auto move = std::bind(moveOff, std::placeholders::_1, x_p, y_p);
+  std::vector< skarlygina::Point > moved(poly.points.size());
+  std::transform(poly.points.begin(), poly.points.end(), std::back_inserter(moved), move);
+  return skarlygina::Polygon{moved};
+}
+
 bool skarlygina::isSame(const skarlygina::Polygon& first_poly, const skarlygina::Polygon& second_poly)
 {
-  std::vector< skarlygina::Point > first = first_poly.points;
-  std::vector< skarlygina::Point > second = second_poly.points;
-  if (first.size() != second.size())
+  if (first_poly.points.size() != second_poly.points.size())
   {
     return false;
   }
-  skarlygina::Point offset{ first[0].x - second[0].x, first[0].y - second[0].y };
-  std::vector< skarlygina::Point > second_new;
-
-  auto off = std::bind(doOffset, std::placeholders::_1, offset);
-  std::transform(second.begin(), second.end(), std::back_inserter(second_new), off);
-
-  return first == second_new;
+  auto moved_first = findStart(first_poly);
+  auto moved_second = findStart(second_poly);
+  return std::equal(moved_first.points.begin(), moved_first.points.end(), moved_second.points.begin(), isSamePoint);
 }
 
 double skarlygina::maxArea(const std::vector< Polygon >& polys)
