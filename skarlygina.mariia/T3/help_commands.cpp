@@ -99,7 +99,7 @@ size_t skarlygina::countEven(const std::vector< Polygon >& polys)
 
 bool isSamePoint(const skarlygina::Point& first, const skarlygina::Point& second)
 {
-  return first.x == second.x && first.y == second.y;
+  return first == second;
 }
 
 skarlygina::Point moveOff(const skarlygina::Point& pos, int dx, int dy)
