@@ -125,7 +125,7 @@ bool skarlygina::isSame(const skarlygina::Polygon& first_poly, const skarlygina:
   {
     return false;
   }
-  skarlygina::Point offset{ first[0].x - second[0].x, first[0].y - second[0].y };
+  skarlygina::Point offset{first[0].x - second[0].x, first[0].y - second[0].y};
   std::vector< skarlygina::Point > second_new;
 
   auto off = std::bind(doOff, std::placeholders::_1, offset);
