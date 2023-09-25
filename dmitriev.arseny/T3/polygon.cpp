@@ -74,15 +74,16 @@ int getTriangleArea(const dmitriev::Point& lhs, const dmitriev::Point& rhs)
 double dmitriev::getArea(const Polygon& polygon)
 {
   std::vector< double > slopes;
-  slopes.reserve(getSize(polygon) - 1);
-  slopes.push_back(getTriangleArea(polygon.points.front(), polygon.points.back()));
+  slopes.reserve(getSize(polygon));
+
   std::transform(polygon.points.begin(),
-    polygon.points.end() - 1,
-    polygon.points.begin() + 1,
+    --polygon.points.end(),
+    ++polygon.points.begin(),
     std::back_inserter(slopes),
     getTriangleArea);
+  slopes.push_back(getTriangleArea(polygon.points.back(), polygon.points.front()));
 
-  return std::abs(std::accumulate(slopes.begin(), slopes.end(), 0.0) / 2.0);
+  return std::abs(std::accumulate(slopes.begin(), slopes.end(), 0) / 2.0);
 }
 
 bool lessX(dmitriev::Point lhs, dmitriev::Point rhs)
