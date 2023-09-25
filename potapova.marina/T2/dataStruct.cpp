@@ -110,10 +110,7 @@ namespace potapova
       }
       in >> DelimiterIO{')'};
     }
-    if (in)
-    {
-      dest = input;
-    }
+    dest = input;
     return in;
   }
 
