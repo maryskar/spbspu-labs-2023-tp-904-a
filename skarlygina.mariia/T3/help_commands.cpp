@@ -118,14 +118,23 @@ bool skarlygina::isSame(const skarlygina::Polygon& first_poly, const skarlygina:
   {
     return false;
   }
-  skarlygina::Point offset{ first[0].x - second[0].x, first[0].y - second[0].y };
-  std::vector< skarlygina::Point > second_new;
-
-  auto off = std::bind(doOffset, std::placeholders::_1, offset);
-  std::transform(second.begin(), second.end(), std::back_inserter(second_new), off);
-
-  return first == second_new;
-
+  for (size_t i = 0; i < first.size(); ++i)
+  {
+    bool is_same = true;
+    for (size_t j = 0; j < first.size(); ++j)
+    {
+      if (first[j] != second[(i + j) % first.size()])
+      {
+        is_same = false;
+        break;
+      }
+    }
+    if (is_same)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 double skarlygina::maxArea(const std::vector< Polygon >& polys)
