@@ -46,7 +46,7 @@ void skarlygina::countFigures(const std::vector< Polygon >& polys, std::istream&
   catch (const std::out_of_range&)
   {
     size_t num_vert = std::stoul(command);
-    out << countNumOfVertexes(polys, num_vert) << '\n';
+    out << skarlygina::countNumOfVertexes(polys, num_vert) << '\n';
   }
 }
 
