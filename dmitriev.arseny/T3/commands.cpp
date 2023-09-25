@@ -28,7 +28,7 @@ void printArea(const polygons& data, predicate pred, std::ostream& out)
 
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
-  out << std::accumulate(areas.begin(), areas.end(), 0.0, countAreas) << '\n';
+  out << std::accumulate(areas.begin(), areas.end(), 0.0, countAreas);
 }
 
 void dmitriev::printEvenArea(const polygons& data, std::ostream& out)
@@ -59,7 +59,7 @@ void dmitriev::printMeanArea(const polygons& data, std::ostream& out)
   }
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
-  out << std::accumulate(data.begin(), data.end(), 0.0, countAreas) / data.size() << '\n';
+  out << std::accumulate(data.begin(), data.end(), 0.0, countAreas) / data.size();
 }
 
 void printMaxMinArea(const polygons& data, comparator cmp, std::ostream& out)
@@ -71,7 +71,7 @@ void printMaxMinArea(const polygons& data, comparator cmp, std::ostream& out)
 
   dmitriev::StreamGuard streamGuard(out);
   out << std::fixed << std::setprecision(1);
-  out << dmitriev::getArea(*(std::max_element(data.begin(), data.end(), cmp))) << '\n';
+  out << dmitriev::getArea(*(std::max_element(data.begin(), data.end(), cmp)));
 }
 
 void dmitriev::printMaxArea(const polygons& data, std::ostream& out)
@@ -95,7 +95,7 @@ void printSize(const polygons& data, comparator cmp, std::ostream& out)
     throw std::invalid_argument("empty data");
   }
 
-  out << dmitriev::getSize(*(std::max_element(data.begin(), data.end(), cmp))) << '\n';
+  out << dmitriev::getSize(*(std::max_element(data.begin(), data.end(), cmp)));
 }
 
 void dmitriev::printMaxSize(const polygons& data, std::ostream& out)
@@ -114,7 +114,7 @@ void dmitriev::printMinSize(const polygons& data, std::ostream& out)
 
 void printSizeCount(const polygons& data, predicate pred, std::ostream& out)
 {
-  out << std::count_if(data.begin(), data.end(), pred) << '\n';
+  out << std::count_if(data.begin(), data.end(), pred);
 }
 
 void dmitriev::printEvenSizeCount(const polygons& data, std::ostream& out)
@@ -141,11 +141,11 @@ void printBool(std::ostream& out, bool value)
 {
   if (value)
   {
-    out << "<TRUE>" << '\n';
+    out << "<TRUE>";
   }
   else
   {
-    out << "<FALSE>" << '\n';
+    out << "<FALSE>";
   }
 }
 
@@ -165,5 +165,5 @@ void dmitriev::printSame(const polygons& data, const polygon& figure, std::ostre
   {
     throw std::invalid_argument("empty data");
   }
-  out << dmitriev::countAllSame(data, figure) << '\n';
+  out << dmitriev::countAllSame(data, figure);
 }

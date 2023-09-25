@@ -1,26 +1,4 @@
 #include "dictionary.h"
-struct SeparatorIO
-{
-  char expected;
-};
-
-std::istream& operator>>(std::istream& inp, SeparatorIO&& data)
-{
-  std::istream::sentry sentry(inp);
-  if (!sentry)
-  {
-    return inp;
-  }
-
-  char c = '\0';
-  inp >> c;
-  if (inp && c != data.expected)
-  {
-    inp.setstate(std::ios::failbit);
-  }
-
-  return inp;
-}
 
 dmitriev::CommandsDictionaty::CommandsDictionaty()
 {
@@ -45,7 +23,7 @@ void dmitriev::CommandsDictionaty::doCommand(const std::string& cmd,
   const polygons& data,
   std::ostream& out) const
 {
-  FirstType function = dictFirst.at(cmd);
+  type1 function = dictFirst.at(cmd);
   function(data, out);
 }
 
@@ -54,7 +32,7 @@ void dmitriev::CommandsDictionaty::doCommand(const std::string& cmd,
   size_t num,
   std::ostream & out) const
 {
-  SecondType function = dictSecond.at(cmd);
+  type2 function = dictSecond.at(cmd);
   function(data, num, out);
 }
 
@@ -63,13 +41,22 @@ void dmitriev::CommandsDictionaty::doCommand(const std::string& cmd,
   const Polygon& pol,
   std::ostream& out) const
 {
- ThirdType function = dictThird.at(cmd);
+ type3 function = dictThird.at(cmd);
  function(data, pol, out);
 }
 
 std::ostream& dmitriev::printInvalidCommand(std::ostream& out)
 {
   return out << "<INVALID COMMAND>";
+}
+
+bool isSpecialCommand(std::string name)
+{
+  return name == "INFRAME" || name == "SAME";
+}
+bool isBasicCommand(std::string name)
+{
+  return name == "MAX" || name == "MIN" || name == "AREA" || name == "COUNT";
 }
 
 std::string dmitriev::getCommand(std::istream& in)
@@ -81,15 +68,15 @@ std::string dmitriev::getCommand(std::istream& in)
     throw std::runtime_error("problems with input");
   }
 
-  if (cmdName != "INFRAME" && cmdName != "SAME")
+  if (!isSpecialCommand(cmdName))
   {
-    if (cmdName == "MAX" || cmdName == "MIN" || cmdName == "AREA" || cmdName == "COUNT")
+    if (isBasicCommand(cmdName))
     {
       std::string cmdSubName = "";
       in >> cmdSubName;
       if (!in)
       {
-        std::invalid_argument("invalid command parameter");
+        throw std::invalid_argument("invalid command parameter");
       }
       cmdName += " " + cmdSubName;
     }
@@ -108,20 +95,22 @@ void dmitriev::runCommand(const polygons& data,
   std::istream& in)
 {
   std::string cmdName = getCommand(in);
-  if (cmdName == "INFRAME" || cmdName == "SAME")
+  if (isSpecialCommand(cmdName))
   {
     polygon figure;
-    in >> figure >> SeparatorIO{'\n'};
+    in >> figure;
     if (!in)
     {
       throw std::invalid_argument("Invalid command parameter");
     }
     dict.doCommand(cmdName, data, figure, out);
+    out << '\n';
     return;
   }
   try
   {
     dict.doCommand(cmdName, data, out);
+    out << '\n';
     return;
   }
   catch (const std::out_of_range&)
@@ -129,4 +118,5 @@ void dmitriev::runCommand(const polygons& data,
   size_t pos = cmdName.find(' ');
   size_t num = std::stoull(cmdName.substr(pos));
   dict.doCommand(cmdName.substr(0, pos), data, num, out);
+  out << '\n';
 }
