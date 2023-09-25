@@ -108,7 +108,8 @@ void skarlygina::findSame(const std::vector< Polygon >& polys, std::istream& in,
 {
   skarlygina::Polygon poly;
   in >> poly;
-  if (!in)
+  char check;
+  if (!in || !(in.get(check) && check == '\n'))
   {
     throw std::logic_error("Invalid input");
   }
