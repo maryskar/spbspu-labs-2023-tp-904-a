@@ -62,7 +62,9 @@ namespace potapova
     {
       return in;
     }
-    return std::getline(in, dest.str, ':');
+    in >> DelimiterIO{'"'};
+    std::getline(in, dest.str, '"');
+    return in;
   }
 
   std::istream& operator>>(std::istream& in, DataStruct& dest)
@@ -103,7 +105,6 @@ namespace potapova
         }
         if (!in)
         {
-          in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
           return in;
         }
         counter++;
