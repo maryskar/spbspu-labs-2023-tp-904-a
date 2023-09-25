@@ -11,7 +11,7 @@ std::istream& skarlygina::operator>>(std::istream& in, Point& point)
   }
   int x = 0;
   int y = 0;
-  in >> delimiter_IO_t{'('} >> x >> delimiter_IO_t{';'} >> y >> delimiter_IO_t{')'};
+  in >> DelimiterIO{'('} >> x >> DelimiterIO{';'} >> y >> DelimiterIO{')'};
   if (in)
   {
     point = {x, y};
