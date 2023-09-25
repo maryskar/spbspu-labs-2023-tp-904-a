@@ -109,7 +109,7 @@ namespace potapova
         }
         counter++;
       }
-      in >> DelimiterIO{')'};
+      in >> DelimiterIO{':'} >> DelimiterIO{')'};
     }
     dest = input;
     return in;
