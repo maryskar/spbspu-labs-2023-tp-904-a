@@ -99,9 +99,9 @@ void skarlygina::findPerms(const std::vector< Polygon >& polys, std::istream& in
   in >> base;
   if (!in)
   {
-    throw std::invalid_argument("");
+    throw std::invalid_argument("False polygon");
   }
-  out << std::count_if(polys.begin(), polys.end(), std::bind(&skarlygina::findPerms, base, std::placeholders::_1)) << '\n';
+  out << std::count_if(polys.begin(), polys.end(), std::bind(&skarlygina::isPerm, base, std::placeholders::_1)) << '\n';
 }
 
 void skarlygina::findSame(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
