@@ -100,7 +100,7 @@ skarlygina::Point doOffset(skarlygina::Point point, skarlygina::Point offset)
   return point + offset;
 }
 
-size_t countNumOfVertexes(const std::vector< skarlygina::Polygon >& polys, size_t number_vert)
+size_t skarlygina::countNumOfVertexes(const std::vector< skarlygina::Polygon >& polys, size_t number_vert)
 {
   if (number_vert < 3)
   {
