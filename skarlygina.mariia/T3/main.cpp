@@ -46,19 +46,22 @@ int main(int argc, char** argv)
 
   while (!std::cin.eof())
   {
+    std::cin.clear();
+    std::string command = "";
+    std::cin >> command;
+    if (command.empty())
+    {
+      continue;
+    }
     try
     {
-      std::string command = "";
-      if (std::cin >> command)
-      {
-        commands.at(command)();
-      }
+      commands.at(command)();
     }
-    catch (const std::exception&)
+    catch (const std::exception& e)
     {
+      skarlygina::printInvalidCommand(std::cout);
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-      skarlygina::printInvalidCommand(std::cout);
     }
   }
 }
