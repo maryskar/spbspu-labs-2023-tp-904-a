@@ -83,14 +83,20 @@ std::string dmitriev::getCommand(std::istream& in)
 
   if (cmdName != "INFRAME" && cmdName != "SAME")
   {
-    std::string cmdSubName = "";
-    in >> cmdSubName;
-    if (!in)
+    if (cmdName == "MAX" || cmdName == "MIN" || cmdName == "AREA" || cmdName == "COUNT")
     {
-      throw std::runtime_error("problems with input");
+      std::string cmdSubName = "";
+      in >> cmdSubName;
+      if (!in)
+      {
+        std::invalid_argument("invalid command parameter");
+      }
+      cmdName += " " + cmdSubName;
     }
-
-    cmdName = cmdName + " " + cmdSubName;
+    else
+    {
+      throw std::invalid_argument("invalid command name");
+    }
   }
 
   return cmdName;
