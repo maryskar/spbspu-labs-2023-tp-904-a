@@ -1,26 +1,5 @@
 #include "dictionary.h"
-struct SeparatorIO
-{
-  char expected;
-};
-
-std::istream& operator>>(std::istream& inp, SeparatorIO&& data)
-{
-  std::istream::sentry sentry(inp);
-  if (!sentry)
-  {
-    return inp;
-  }
-
-  char c = '\0';
-  inp >> c;
-  if (inp && c != data.expected)
-  {
-    inp.setstate(std::ios::failbit);
-  }
-
-  return inp;
-}
+#include <customtypes.h>
 
 dmitriev::CommandsDictionaty::CommandsDictionaty()
 {
