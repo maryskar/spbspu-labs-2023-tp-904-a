@@ -6,8 +6,9 @@
 #include <iofmt_guard.h>
 #include "help_structures.h"
 
-double skarlygina::findAreaPoly(const skarlygina::Polygon& polys, double area = 0.0)
+double skarlygina::findAreaPoly(const skarlygina::Polygon& polys)
 {
+  double area = 0.0;
   std::vector< skarlygina::Point > poly = polys.points;
   skarlygina::PolygonsArea area_polygon_count(*poly.rbegin());
   area += std::abs(std::accumulate(poly.begin(), poly.end(), 0.0, area_polygon_count)) / 2.0;
