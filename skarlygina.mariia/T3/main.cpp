@@ -35,35 +35,33 @@ int main(int argc, char** argv)
     }
   }
 
-  using cmd_t = std::function< void(const std::vector< skarlygina::Polygon >&, std::istream&, std::ostream&) >;
-  std::map< std::string, cmd_t > commands = {
-    {"AREA", skarlygina::getArea},
-    {"MAX", skarlygina::getMax},
-    {"MIN", skarlygina::getMin},
-    {"COUNT", skarlygina::countFigures},
-    {"PERMS", skarlygina::findPerms},
-    {"SAME", skarlygina::findSame}
+  std::map< std::string, std::function< void() > > commands = {
+    {"AREA", std::bind(skarlygina::getArea, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"MAX", std::bind(skarlygina::getMax, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"MIN", std::bind(skarlygina::getMin, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"COUNT", std::bind(skarlygina::countFigures, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"PERMS", std::bind(skarlygina::findPerms, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))},
+    {"SAME", std::bind(skarlygina::findSame, std::ref(polygons), std::ref(std::cin), std::ref(std::cout))}
   };
 
   while (!std::cin.eof())
   {
-    std::string command;
+    std::cin.clear();
+    std::string command = "";
     std::cin >> command;
-    if (std::cin.eof())
+    if (command.empty())
     {
       continue;
     }
     try
     {
-      auto try_ex = commands.at(command);
-      Iofmtguard ofmtguard(std::cout);
-      try_ex(polygons, std::cin, std::cout);
+      commands.at(command)();
     }
     catch (const std::exception& e)
     {
+      skarlygina::printInvalidCommand(std::cout);
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
-      skarlygina::printInvalidCommand(std::cout);
     }
   }
 }
