@@ -33,12 +33,12 @@ int main(int argc, char** argv)
       file.ignore(maxNum, '\n');
     }
   }
-  dmitriev::CommandsDictionaty cmds;
+  dmitriev::CommandsDictionaty cmd;
   while (!std::cin.eof())
   {
     try
     {
-      dmitriev::runCommand(polygons, cmds, std::cout, std::cin);
+      dmitriev::runCommand(polygons, cmd, std::cout, std::cin);
     }
     catch (const std::logic_error&)
     {

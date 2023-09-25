@@ -28,14 +28,14 @@ namespace dmitriev
       std::ostream& out) const;
 
   private:
-    using type1 = std::function< void(const polygons&, std::ostream&) >;
-    using type2 = std::function< void(const polygons&, size_t, std::ostream&) >;
-    using type3 = std::function< void(const polygons&, const polygon&, std::ostream&) >;
+    using FirstType = std::function< void(const polygons&, std::ostream&) >;
+    using SecondType = std::function< void(const polygons&, size_t, std::ostream&) >;
+    using ThirdType = std::function< void(const polygons&, const polygon&, std::ostream&) >;
 
 
-    std::map< std::string, type1 > dictFirst;
-    std::map< std::string, type2 > dictSecond;
-    std::map< std::string, type3 > dictThird;
+    std::map< std::string, FirstType > dictFirst;
+    std::map< std::string, SecondType > dictSecond;
+    std::map< std::string, ThirdType > dictThird;
   };
 
   std::ostream& printInvalidCommand(std::ostream& out);
