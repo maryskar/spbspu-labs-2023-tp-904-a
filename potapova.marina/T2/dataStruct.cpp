@@ -130,7 +130,7 @@ namespace potapova
     {
       out << source.key2;
     }
-    out << ":" << "key3 " << source.key3 << ":";
+    out << ":" << "key3 " << '"' << source.key3 << '"' << ":";
     out << ")";
     return out;
   }
