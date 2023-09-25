@@ -23,7 +23,6 @@ int main(int argc, char** argv)
     return 1;
   }
   std::vector< skarlygina::Polygon > polygons;
-  using vector_of_polygons = std::vector< skarlygina::Polygon >;
   using iterator_istream = std::istream_iterator< skarlygina::Polygon >;
 
   while (!fin.eof())
