@@ -95,6 +95,20 @@ namespace kotova
     return area;
   }
 
+  template< typename P >
+  double getMaxOrMinArea(const std::vector< Polygon > & pol, P p)
+  {
+    std::vector< Polygon >::const_iterator tmp = std::max_element(pol.cbegin(), pol.cend(), p);
+    return getArea(*tmp);
+  }
+
+  template< typename P >
+  double getMaxOrMinVer(const std::vector< Polygon > & pol, P p)
+  {
+    std::vector< Polygon >::const_iterator tmp = std::max_element(pol.cbegin(), pol.cend(), p);
+    return (*tmp).points.size();
+  }
+
   auto findPoints(const Polygon &dest)
   {
     auto minX = std::min_element(dest.points.begin(), dest.points.end(), compPointX)->x;
@@ -155,11 +169,14 @@ namespace kotova
       throw std::logic_error("error");
     }
     using namespace std::placeholders;
-    std::vector < Polygon > area;
-    std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), std::bind(calcNumVert, _1, n));
-    std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
+    std::vector< Polygon > tmp(dest.size());
+    std::copy_if(dest.begin(), dest.end(), tmp.begin(), std::bind(calcNumVert, _1, n));
+    size_t cnt = std::count_if(dest.begin(), dest.end(), std::bind(calcNumVert, _1, n));
+    std::vector< double > tmp_cnt(cnt);
+    auto fin_num = tmp.begin() + cnt;
+    std::transform(tmp.begin(), fin_num, tmp_cnt.begin(), getArea);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+    out << std::fixed << std::setprecision(1) << std::accumulate(tmp_cnt.begin(), tmp_cnt.end(), 0.0) << '\n';
   }
 
   void maxArea(const std::vector< Polygon > &dest, std::ostream &out)
@@ -168,12 +185,8 @@ namespace kotova
     {
       std::logic_error("error, there is no polygon");
     }
-    std::vector < Polygon > area;
-    std::copy(dest.begin(), dest.end(), std::back_inserter(area));
-    std::sort(dest.begin(), dest.end(), compArea);
-    std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(dest, compArea) << '\n';
   }
 
   void maxVertexes(const std::vector< Polygon > &dest, std::ostream &out)
@@ -182,12 +195,8 @@ namespace kotova
     {
       std::logic_error("error, there is no polygon");
     }
-    std::vector < Polygon > area;
-    std::copy(dest.begin(), dest.end(), std::back_inserter(area));
-    std::sort(dest.begin(), dest.end(), compVer);
-    std::transform(dest.begin(), dest.end(), std::back_inserter(area), calcNumVert);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+    out << std::fixed << std::setprecision(1) << getMaxOrMinVer(dest, compVer) << '\n';
   }
 
   void minArea(const std::vector< Polygon > &dest, std::ostream &out)
@@ -196,12 +205,8 @@ namespace kotova
     {
       std::logic_error("error, there is no polygon");
     }
-    std::vector < Polygon > area;
-    std::copy(dest.begin(), dest.end(), std::back_inserter(area));
-    std::sort(dest.begin(), dest.end(), cmpArea);
-    std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(dest, cmpArea) << '\n';
   }
 
   void minVertexes(const std::vector< Polygon > &dest, std::ostream &out)
@@ -210,12 +215,8 @@ namespace kotova
     {
       std::logic_error("error, there is no polygon");
     }
-    std::vector < Polygon > area;
-    std::copy(dest.begin(), dest.end(), std::back_inserter(area));
-    std::sort(dest.begin(), dest.end(), cmpVer);
-    std::transform(dest.begin(), dest.end(), std::back_inserter(area), calcNumVert);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+    out << std::fixed << std::setprecision(1) << getMaxOrMinVer(dest, cmpVer) << '\n';
   }
 
   void countEven(const std::vector< Polygon > &dest, std::ostream &out)
