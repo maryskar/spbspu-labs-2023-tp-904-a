@@ -16,22 +16,32 @@ namespace turkin
     std::vector< Point > points;
   };
 
+  enum class RType
+  {
+    SIZE_T, DOUBLE
+  };
+
   struct ReturnType
   {
-    explicit ReturnType(std::size_t num);
-    explicit ReturnType(double num);
-
-    union
-    {
-      std::size_t uns;
-      double db;
-    } num_;
-    char type_;
+    public:
+      explicit ReturnType(std::size_t num);
+      explicit ReturnType(double num);
+      RType getType() const;
+      std::size_t getNum() const;
+      double getDouble() const;
+    private:
+      union
+      {
+        std::size_t uns;
+        double db;
+      } num_;
+      RType type_;
   };
 
   std::ostream & operator<<(std::ostream & out, const ReturnType & rt);
   std::istream & operator>>(std::istream & in, Point & rhs);
   std::istream & operator>>(std::istream & in, Polygon & rhs);
+  void operator>>(std::string & in, Polygon & rhs);
 
   bool operator==(const Point & lhs, const Point & rhs);
   bool operator==(const Polygon & lhs, const Polygon & rhs);

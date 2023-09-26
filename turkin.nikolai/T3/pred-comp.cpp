@@ -49,9 +49,9 @@ namespace
   std::vector< turkin::Point > sub;
   bool calcAngle(std::size_t it, std::size_t index)
   {
-    auto a = sub[index];
-    auto b = sub[(index + 1) % sub.size()];
-    auto c = sub[(index + 2) % sub.size()];
+    turkin::Point a = sub[index];
+    turkin::Point b = sub[(index + 1) % sub.size()];
+    turkin::Point c = sub[(index + 2) % sub.size()];
     return it + ((b.x - a.x) * (c.x - b.x) + (b.y - a.y) * (c.y - b.y) == 0);
   }
 }

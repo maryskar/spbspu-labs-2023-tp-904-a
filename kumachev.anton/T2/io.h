@@ -6,10 +6,6 @@
 #include "data_struct.h"
 
 namespace kumachev {
-  struct CharIO {
-    char value;
-  };
-
   struct FieldIO {
     std::string &value;
   };
@@ -27,7 +23,6 @@ namespace kumachev {
   };
 
   std::istream &operator>>(std::istream &istream, DataStruct &dataStruct);
-  std::istream &operator>>(std::istream &istream, CharIO &&character);
   std::istream &operator>>(std::istream &istream, FieldIO &&field);
   std::istream &operator>>(std::istream &istream, StringIO &&field);
   std::istream &operator>>(std::istream &istream, UnsignedLongLongIO &&ullIO);
