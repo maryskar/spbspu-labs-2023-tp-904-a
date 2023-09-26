@@ -48,7 +48,7 @@ turkin::HType::HType(const phrase_t & phrase):
   }
 
   queue_t queue;
-  for (auto it: list_)
+  for (std::pair< const char, std::shared_ptr< node_t > > it: list_)
   {
     queue.push(it.second);
   }
@@ -160,7 +160,7 @@ std::shared_ptr< turkin::node_t > turkin::HType::copy(std::shared_ptr< node_t > 
 
 std::ostream & turkin::operator<<(std::ostream & out, const encoding_map_t & map)
 {
-  for (auto it = map.begin(); it != map.end(); it++)
+  for (std::map< char, encoding_t >::const_iterator it = map.begin(); it != map.end(); it++)
   {
     out << "| " << it->first << " - " << it->second << " ";
   }
