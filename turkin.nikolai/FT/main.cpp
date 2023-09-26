@@ -1,32 +1,28 @@
 #include <iostream>
-#include <iterator>
-#include <limits>
-#include <stdexcept>
+#include <string>
+
+#include "data-types.hpp"
+#include "commands-exe.hpp"
 
 #include <out-msg.hpp>
 
-#include "commands-list.hpp"
-
 int main()
 {
-  turkin::base_t base;
+  turkin::Execute execute;
+
+  turkin::phrase_dict_t phrase;
+  turkin::encoding_dict_t encoding;
+
   while (std::cin)
   {
-    std::string cmd;
-    std::cin >> cmd;
-    if (!std::cin)
-    {
-      break;
-    }
     try
     {
-      turkin::main_list.at(cmd)(base, std::cin, std::cout) << "\n";
+      execute(phrase, encoding, std::cin, std::cout) << "\n";
     }
     catch (...)
     {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       turkin::outInvalidCMD(std::cout);
     }
   }
+  return 0;
 }

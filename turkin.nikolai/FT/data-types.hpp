@@ -1,22 +1,22 @@
 #ifndef DATA_TYPES_HPP
 #define DATA_TYPES_HPP
 
-#include <map>
 #include <string>
-#include <istream>
-#include <ostream>
-#include <utility>
+#include <map>
+#include <queue>
+#include <memory>
+
+#include "tree-node.hpp"
 
 namespace turkin
 {
-  using dict_t = std::map< std::string, std::string >;
-  using word_it_t = dict_t::iterator;
-  using word_pair_t = std::pair< std::string, std::string >;
-  using base_t = std::map< std::string, dict_t >;
-  using func_t = std::map< std::string, std::ostream & (*)(base_t &, std::istream &, std::ostream &) >;
-
-  std::ostream & operator<<(std::ostream & out, const word_it_t & word);
-  std::ostream & operator<<(std::ostream & out, const word_pair_t & word);
+  using phrase_t = std::string;
+  using encoding_t = std::string;
+  using encoding_pair_t = std::pair< char, std::size_t >;
+  using encoding_map_t = std::map< char, encoding_t, std::less< > >;
+  using node_t = TreeNode< encoding_pair_t >;
+  using encoding_list_t = std::map< char, std::shared_ptr< node_t >, std::less< > >;
+  using queue_t = std::queue< std::shared_ptr< node_t > >;
 }
 
 #endif
