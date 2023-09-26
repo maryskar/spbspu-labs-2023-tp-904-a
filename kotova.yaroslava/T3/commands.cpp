@@ -72,6 +72,29 @@ namespace kotova
     return {p1.x - p2.x, p1.y - p2.y};
   }
 
+  double getSumArea(double area, const Polygon &pol)
+  {
+    return area + getArea(pol);
+  }
+
+  double getAreaEven(const std::vector<Polygon> &dest)
+  {
+    using namespace std::placeholders;
+    std::vector< Polygon > tmp;
+    std::copy_if(dest.cbegin(), dest.cend(), std::back_inserter(tmp), std::bind(isEven, _1));
+    double area = std::accumulate(tmp.cbegin(), tmp.cend(), 0, getSumArea);
+    return area;
+  }
+
+  double getAreaOdd(const std::vector<Polygon> &dest)
+  {
+    using namespace std::placeholders;
+    std::vector< Polygon > tmp;
+    std::copy_if(dest.cbegin(), dest.cend(), std::back_inserter(tmp), std::bind(isOdd, _1));
+    double area = std::accumulate(tmp.cbegin(), tmp.cend(), 0, getSumArea);
+    return area;
+  }
+
   auto findPoints(const Polygon &dest)
   {
     auto minX = std::min_element(dest.points.begin(), dest.points.end(), compPointX)->x;
@@ -102,18 +125,14 @@ namespace kotova
 
   void areaEven(const std::vector< Polygon > &dest, std::ostream &out)
   {
-    std::vector < Polygon > area;
-    std::transform(dest.begin(), dest.end(), std::back_inserter(area), isEven);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+    out << std::fixed << std::setprecision(1) << getAreaEven(dest) << '\n';
   }
 
   void areaOdd(const std::vector< Polygon > &dest, std::ostream &out)
   {
-    std::vector < Polygon > area;
-    std::transform(dest.begin(), dest.end(), std::back_inserter(area), isOdd);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
+    out << std::fixed << std::setprecision(1) << getAreaOdd(dest) << '\n';
   }
 
   void areaMean(const std::vector< Polygon > &dest, std::ostream &out)
