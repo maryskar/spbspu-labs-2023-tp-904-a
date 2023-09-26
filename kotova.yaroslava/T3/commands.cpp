@@ -16,6 +16,7 @@ namespace kotova
   {
     out << "<TRUE>\n";
   }
+
   bool isEven(const Polygon &polygon)
   {
     return polygon.points.size() % 2 ==0;
@@ -46,9 +47,19 @@ namespace kotova
     return getArea(lhs) < getArea(rhs);
   }
 
+  bool cmpArea(const Polygon &lhs, const Polygon &rhs)
+  {
+    return (!compArea(lhs, rhs));
+  }
+
   bool compVer(const Polygon &lhs, const Polygon &rhs)
   {
     return lhs.points.size() < rhs.points.size();
+  }
+
+  bool cmpVer(const Polygon &lhs, const Polygon &rhs)
+  {
+    return (!compVer(lhs, rhs));
   }
 
   bool equalPoints(const Point &lhs, const Point &rhs)
@@ -58,15 +69,7 @@ namespace kotova
 
   Point movePoint(const Point &p1, const Point &p2)
   {
-    if (compPointX(p1, p2))
-    {
-      if (compPointY(p1, p2))
-      {
-        return {p1.x - p2.x, p1.y - p2.y};
-      }
-      return;
-    }
-    return;
+    return {p1.x - p2.x, p1.y - p2.y};
   }
 
   auto findPoints(const Polygon &dest)
@@ -99,7 +102,7 @@ namespace kotova
 
   void areaEven(const std::vector< Polygon > &dest, std::ostream &out)
   {
-    std::vector < double > area;
+    std::vector < Polygon > area;
     std::transform(dest.begin(), dest.end(), std::back_inserter(area), isEven);
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
@@ -107,7 +110,7 @@ namespace kotova
 
   void areaOdd(const std::vector< Polygon > &dest, std::ostream &out)
   {
-    std::vector < double > area;
+    std::vector < Polygon > area;
     std::transform(dest.begin(), dest.end(), std::back_inserter(area), isOdd);
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
@@ -119,9 +122,9 @@ namespace kotova
     {
       std::logic_error("error, there is no polygon");
     }
-    std::vector < double > area;
-    std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
-    double finAreas = std::accumulate(area.begin(), area.end(), 0.0) / dest.size();
+    std::vector< double > tmp(dest.size());
+    std::transform(dest.begin(), dest.end(), tmp.begin(), getArea);
+    double finAreas = std::accumulate(tmp.begin(), tmp.end(), 0.0) / dest.size();
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << finAreas << '\n';
   }
@@ -133,7 +136,7 @@ namespace kotova
       throw std::logic_error("error");
     }
     using namespace std::placeholders;
-    std::vector < double > area;
+    std::vector < Polygon > area;
     std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), std::bind(calcNumVert, _1, n));
     std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
     iofmtguard iofmtguard(out);
@@ -146,8 +149,9 @@ namespace kotova
     {
       std::logic_error("error, there is no polygon");
     }
-    std::vector < double > area;
-    std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), compArea);
+    std::vector < Polygon > area;
+    std::copy(dest.begin(), dest.end(), std::back_inserter(area));
+    std::sort(dest.begin(), dest.end(), compArea);
     std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
@@ -159,8 +163,9 @@ namespace kotova
     {
       std::logic_error("error, there is no polygon");
     }
-    std::vector < double > area;
-    std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), compVer);
+    std::vector < Polygon > area;
+    std::copy(dest.begin(), dest.end(), std::back_inserter(area));
+    std::sort(dest.begin(), dest.end(), compVer);
     std::transform(dest.begin(), dest.end(), std::back_inserter(area), calcNumVert);
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
@@ -172,8 +177,9 @@ namespace kotova
     {
       std::logic_error("error, there is no polygon");
     }
-    std::vector < double > area;
-    std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), (!compArea));
+    std::vector < Polygon > area;
+    std::copy(dest.begin(), dest.end(), std::back_inserter(area));
+    std::sort(dest.begin(), dest.end(), cmpArea);
     std::transform(dest.begin(), dest.end(), std::back_inserter(area), getArea);
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
@@ -185,8 +191,9 @@ namespace kotova
     {
       std::logic_error("error, there is no polygon");
     }
-    std::vector < double > area;
-    std::copy_if(dest.begin(), dest.end(), std::back_inserter(area), (!compVer));
+    std::vector < Polygon > area;
+    std::copy(dest.begin(), dest.end(), std::back_inserter(area));
+    std::sort(dest.begin(), dest.end(), cmpVer);
     std::transform(dest.begin(), dest.end(), std::back_inserter(area), calcNumVert);
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << std::accumulate(area.begin(), area.end(), 0.0) << '\n';
