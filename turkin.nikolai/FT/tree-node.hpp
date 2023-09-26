@@ -15,21 +15,21 @@ namespace turkin
       left(),
       right()
     {}
-    
+
     explicit TreeNode(T dt):
       data(dt),
       parent(),
       left(),
       right()
     {}
-    
+
     explicit TreeNode(T dt, t_node lhs, t_node rhs):
       data(dt),
       parent(),
       left(lhs),
       right(rhs)
     {}
-    
+
     T data;
     t_node parent;
     t_node left;
