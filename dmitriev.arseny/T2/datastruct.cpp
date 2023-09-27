@@ -1,7 +1,7 @@
 #include "datastruct.h"
 #include <iostream>
-#include "customtypes.h"
-#include "streamguard.h"
+#include <customtypes.h>
+#include <streamguard.h>
 
 bool dmitriev::compareDataStructures(const DataStruct& lhs, const DataStruct& rhs)
 {
