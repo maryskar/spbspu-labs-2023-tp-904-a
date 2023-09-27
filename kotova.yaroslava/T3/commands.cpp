@@ -269,11 +269,11 @@ namespace kotova
     int polMaxY = pol.second.y;
     if (lowerLhs.x <= polMinX && lowerLhs.y <= polMinY && higherRhs.x >= polMaxX && higherRhs.y >= polMaxY)
     {
-      outFalse(out);
+      outTrue(out);
     }
     else
     {
-      outTrue(out);
+      outFalse(out);
     }
   }
 
