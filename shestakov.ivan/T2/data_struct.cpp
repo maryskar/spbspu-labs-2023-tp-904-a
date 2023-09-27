@@ -1,3 +1,4 @@
+#include "data_struct.h"
 #include <iomanip>
 #include <iofmtguard.h>
 #include <TypesIO.h>
