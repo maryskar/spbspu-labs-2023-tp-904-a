@@ -1,4 +1,4 @@
-namespace kazakov 
+namespace kazakov{ 
 #include "DataStructur.h"
 
 std::ostream& kazakov::operator<<(std::ostream& out, const kazakov::DataStructur& p)
@@ -65,4 +65,5 @@ std::ostream& kazakov::operator<<(std::ostream& out, const kazakov::DataStructur
     }
     return p1.key1 < p2.key1;
   }
+}
 }
