@@ -49,10 +49,10 @@ int main(int argc, char * argv[])
     }
     catch (...)
     {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       turkin::outInvalidCMD(std::cout);
       std::cout << "\n";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
 }
