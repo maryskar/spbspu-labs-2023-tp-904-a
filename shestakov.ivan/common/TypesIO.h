@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include <iterator>
-#include "../T2/data_struct.h"
+#include <complex>
 
 namespace shestakov
 {
