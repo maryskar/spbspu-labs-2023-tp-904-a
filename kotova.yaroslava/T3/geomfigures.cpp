@@ -6,7 +6,7 @@
 #include <numeric>
 #include <stdexcept>
 #include <IO_structs.hpp>
-
+#include <iofmtguard.hpp>
 
 std::istream &kotova::operator>>(std::istream &in, kotova::Point &rhs)
 {
@@ -34,11 +34,8 @@ std::istream &kotova::operator>>(std::istream &in, kotova::Polygon &rhs)
     in.setstate(std::ios::failbit);
     return in;
   }
-  size_t points = 0;
   kotova::Polygon input;
-  in >> points;
-  input.points.reserve(points);
-  std::copy_n(std::istream_iterator< kotova::Point >(in), points, std::back_inserter(input.points));
+  std::copy_n(std::istream_iterator< kotova::Point >(in), count, std::back_inserter(input.points));
   if (in)
   {
     rhs = input;
@@ -52,6 +49,8 @@ std::ostream &kotova::operator<<(std::ostream &out, const Point &rhs)
   {
     return out;
   }
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1);
   return out << '(' << rhs.x << ';' << rhs.y << ')';
 }
 std::ostream &kotova::operator<<(std::ostream &out, const Polygon &rhs)
@@ -61,12 +60,16 @@ std::ostream &kotova::operator<<(std::ostream &out, const Polygon &rhs)
   {
     return out;
   }
-  size_t points = rhs.points.size();
-  out << points;
-  out << ' ';
-  std::copy_n(rhs.points.begin(), points - 1, std::ostream_iterator< Point >(out, " "));
-  out << rhs.points.back();
+  std::copy(rhs.points.cbegin(), rhs.points.end(), std::ostream_iterator< Point >(out));
   return out;
+}
+bool kotova::operator==(const Point &lhs, const Point &rhs)
+{
+  return (lhs.x == rhs.x && lhs.y == rhs.y);
+}
+bool kotova::operator ==(const Polygon &lhs, const Polygon &rhs)
+{
+  return std::equal(lhs.points.begin(), lhs.points.end(), rhs.points.begin());
 }
 int getPoint(const kotova::Point &a, const kotova::Point &b)
 {
