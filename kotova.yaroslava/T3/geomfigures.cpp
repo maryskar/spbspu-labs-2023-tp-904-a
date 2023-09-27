@@ -35,33 +35,13 @@ std::istream &kotova::operator>>(std::istream &in, kotova::Polygon &rhs)
     return in;
   }
   kotova::Polygon input;
+  input.points.reserve(count);
   std::copy_n(std::istream_iterator< kotova::Point >(in), count, std::back_inserter(input.points));
   if (in)
   {
     rhs = input;
   }
   return in;
-}
-std::ostream &kotova::operator<<(std::ostream &out, const Point &rhs)
-{
-  std::ostream::sentry sentry(out);
-  if (!sentry)
-  {
-    return out;
-  }
-  iofmtguard iofmtguard(out);
-  out << std::fixed << std::setprecision(1);
-  return out << '(' << rhs.x << ';' << rhs.y << ')';
-}
-std::ostream &kotova::operator<<(std::ostream &out, const Polygon &rhs)
-{
-  std::ostream::sentry sentry(out);
-  if (!sentry)
-  {
-    return out;
-  }
-  std::copy(rhs.points.cbegin(), rhs.points.end(), std::ostream_iterator< Point >(out));
-  return out;
 }
 bool kotova::operator==(const Point &lhs, const Point &rhs)
 {
@@ -79,8 +59,8 @@ double kotova::getArea(const Polygon &polygon)
 {
   double area = 0.0;
   std::vector< int > arr(polygon.points.size());
-  std::transform(polygon.points.begin(), --polygon.points.end(), ++polygon.points.begin(), std::back_inserter(arr), getPoint);
+  std::transform(polygon.points.begin(), --polygon.points.end(), ++polygon.points.begin(), arr.begin(), getPoint);
   area = std::accumulate(arr.begin(), arr.end(), 0.0);
-  area += (--polygon.points.end())->x * polygon.points.begin()->y - polygon.points.begin()->x * (--polygon.points.end())->y;
+  area += getPoint(polygon.points.back(), polygon.points.front());
   return std::abs(area * 0.5);
 }

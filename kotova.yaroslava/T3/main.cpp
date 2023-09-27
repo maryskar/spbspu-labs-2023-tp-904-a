@@ -21,12 +21,12 @@ int main(int argc, char** argv)
   std::vector< kotova::Polygon > polygons;
   while (!input.eof())
   {
-    std::copy(std::istream_iterator< kotova::Polygon >(input), std::istream_iterator< kotova::Polygon >(), std::back_inserter(polygons));
     if (input.fail())
     {
       input.clear();
       input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
+    std::copy(std::istream_iterator< kotova::Polygon >(input), std::istream_iterator< kotova::Polygon >(), std::back_inserter(polygons));
   }
   input.close();
   auto dict = kotova::CommandDictionary();
