@@ -1,6 +1,9 @@
 #include "parser.hpp"
+
 #include <ostream>
-#include <iostream>
+#include <vector>
+
+#include "str-work.hpp"
 
 turkin::MakeCMD::MakeCMD():
   main_list_(),
@@ -9,10 +12,16 @@ turkin::MakeCMD::MakeCMD():
 
 std::ostream & turkin::MakeCMD::operator()(std::deque< Polygon > & data, std::istream & in, std::ostream & out)
 {
+  std::string cmd = "";
   std::string type = "";
   std::string sub_info = "";
-  in >> type;
-  in >> sub_info;
+  getline(in, cmd);
+  std::vector< std::string > result = split_str(cmd, " ");
+  type = result[0];
+  if (result.size() == 2)
+  {
+    sub_info = result[1];
+  }
   if (!in)
   {
     return out;

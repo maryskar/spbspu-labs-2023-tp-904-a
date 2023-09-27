@@ -65,5 +65,5 @@ turkin::ReturnType turkin::rightshapes(data_t & data, SubCommandsList & list, st
     throw std::runtime_error("empty source");
   }
   sub_inside_map_t ins = list.get(type);
-  return ins["NON-TYPE"](data, sub_info);
+  return ins["NONTYPE"](data, sub_info);
 }
