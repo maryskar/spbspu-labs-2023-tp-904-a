@@ -39,23 +39,6 @@ namespace shestakov
     }
     std::string cmd = "";
     in >> cmd;
-    if (cmd != "ECHO" && cmd != "RMECHO" && (cmd == "MAX" || cmd == "MIN" || cmd == "AREA" || cmd == "COUNT"))
-    {
-      std::string param = "";
-      in >> param;
-      if (!in)
-      {
-        throw std::invalid_argument("Invalid parameter");
-      }
-      cmd += " ";
-      cmd += param;
-    }
-    std::string sub_cmd = "";
-    sub_cmd = cmd.substr(0, cmd.find(' '));
-    if (const_cmds.find(cmd) == const_cmds.end() && const_cmds_in.find(sub_cmd) == const_cmds_in.end() && cmds_in.find(cmd) == cmds_in.end())
-    {
-      throw std::logic_error("There is no such command");
-    }
     return cmd;
   }
   void doConstCmds(const std::vector< Polygon >& polygons, std::ostream& out, const std::string& cmd)
@@ -83,14 +66,17 @@ namespace shestakov
   {
     try
     {
-      doConstCmds(polygons, out, cmd);
+      doCmdsWithInPolygon(polygons, in, out, cmd);
       return;
     }
     catch (const std::out_of_range& e)
     {}
     try
     {
-      doCmdsWithInPolygon(polygons, in, out, cmd);
+      std::string sub_cmd = "";
+      std::cin >> sub_cmd;
+      cmd += " " + sub_cmd;
+      doConstCmds(polygons, out, cmd);
       return;
     }
     catch (const std::out_of_range& e)
