@@ -1,6 +1,6 @@
 #ifndef T2_DATASTRUCTUR_H
 #define T2_DATASTRUCTUR_H
-#include "OtherStructur.h"
+#include"OtherStructur.h"
 namespace kazakov
 {
   struct DataStructur
