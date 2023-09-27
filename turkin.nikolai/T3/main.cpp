@@ -48,7 +48,7 @@ int main(int argc, char * argv[])
     try
     {
       std::string sub_info = "";
-      std::cin >> sub_info;
+      getline(std::cin, sub_info);
       std::cout << make.get_main().get(type)(data, make.get_sub(), type, sub_info) << "\n";
     }
     catch (...)
