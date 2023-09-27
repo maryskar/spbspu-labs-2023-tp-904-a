@@ -41,7 +41,11 @@ int main(int argc, char * argv[])
   {
     try
     {
-      make(data, std::cin, std::cout) << "\n";
+      make(data, std::cin, std::cout);
+      if (std::cin)
+      {
+        std::cout << "\n";
+      }
     }
     catch (...)
     {
