@@ -1,6 +1,5 @@
-namespace kazakov{ 
 #include "DataStructur.h"
-
+namespace kazakov{
 std::ostream& kazakov::operator<<(std::ostream& out, const kazakov::DataStructur& p)
 {
   std::ostream& operator<<(std::ostream& out, const DataStructur& p)
