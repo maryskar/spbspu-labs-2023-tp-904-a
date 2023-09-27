@@ -30,11 +30,11 @@ int main(int argc, char** argv)
   }
   input.close();
   auto dict = kotova::CommandDictionary();
-  auto read = dict.readCommand(std::cin);
   while (!std::cin.eof())
   {
     try
     {
+      auto read = dict.readCommand(std::cin);
       dict.doCommand(read, polygons, dict, std::cin, std::cout);
     }
     catch(const std::logic_error& e)
