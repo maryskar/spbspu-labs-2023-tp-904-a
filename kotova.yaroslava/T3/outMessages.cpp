@@ -60,7 +60,8 @@ void kotova::CommandDictionary::doCommandSame(std::string &cmd, std::vector<Poly
   func(polygons, in, out);
 }
 
-void kotova::CommandDictionary::doCommand(std::string &cmd, std::vector< Polygon > &data, const CommandDictionary &cmd_d, std::istream &in, std::ostream &out)
+void kotova::CommandDictionary::doCommand(std::string &cmd, std::vector< Polygon > &data, const CommandDictionary &cmd_d,
+    std::istream &in, std::ostream &out)
 {
   try
   {
