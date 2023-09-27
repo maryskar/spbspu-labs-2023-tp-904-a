@@ -39,10 +39,6 @@ int main(int argc, char * argv[])
   turkin::MakeCMD make;
   while (std::cin)
   {
-    if (!std::cin)
-    {
-      break;
-    }
     try
     {
       make(data, std::cin, std::cout) << "\n";
