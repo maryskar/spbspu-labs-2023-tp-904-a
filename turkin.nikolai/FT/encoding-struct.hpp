@@ -14,16 +14,16 @@ namespace turkin
       HType(HType && htree);
       HType & operator=(const HType & htree);
       HType & operator=(HType && htree);
-      ~HType() = default;
+      ~HType();
 
       const encoding_list_t & get_encoding_list();
       const encoding_map_t & get_encoding_map();
 
     private:
-      void free(std::shared_ptr< node_t > src);
-      std::shared_ptr< node_t > copy(std::shared_ptr< node_t > src);
-      void encode(std::shared_ptr< node_t > src, encoding_t code);
-      std::shared_ptr< node_t > root_;
+      void free(node_t * src);
+      node_t * copy(node_t * src);
+      void encode(node_t * src, encoding_t code);
+      node_t * root_;
       encoding_list_t list_;
       encoding_map_t map_;
   };

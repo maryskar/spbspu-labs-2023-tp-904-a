@@ -7,22 +7,6 @@
 #include "comporator.hpp"
 #include "data-types.hpp"
 
-namespace
-{
-  std::size_t count_encoding(const turkin::phrase_t & phrase, char del)
-  {
-    std::size_t amount = 0;
-    for (char it: phrase)
-    {
-      if (it == del)
-      {
-        amount++;
-      }
-    }
-    return amount;
-  }
-}
-
 turkin::HType::HType():
   root_(),
   list_(),
@@ -36,7 +20,8 @@ turkin::HType::HType(const phrase_t & phrase):
 {
   for (char it: phrase)
   {
-    std::shared_ptr< node_t > ins = std::make_shared< node_t >(std::make_pair(it, count_encoding(phrase, it)));
+    std::size_t amount = std::count_if(phrase.begin(), phrase.end(), StrCount(it));
+    node_t * ins = new node_t {std::make_pair(it, amount), nullptr, nullptr};
     if (list_.find(it) != list_.end())
     {
       continue;
@@ -48,20 +33,20 @@ turkin::HType::HType(const phrase_t & phrase):
   }
 
   queue_t queue;
-  for (std::pair< const char, std::shared_ptr< node_t > > it: list_)
+  for (std::pair< const char, node_t * > it: list_)
   {
     queue.push(it.second);
   }
 
   while (queue.size() != 1)
   {
-    std::shared_ptr< node_t > left = queue.front();
+    node_t * left = queue.front();
     queue.pop();
-    std::shared_ptr< node_t > right = queue.front();
+    node_t * right = queue.front();
     queue.pop();
 
     std::size_t sum = left->data.second + left->data.second;
-    queue.push(std::make_shared< node_t >(std::make_pair('\0', sum), left, right));
+    queue.push(new node_t {std::make_pair('\0', sum), left, right});
   }
   root_ = queue.front();
   queue.pop();
@@ -112,6 +97,11 @@ turkin::HType & turkin::HType::operator=(HType && htree)
   return * this;
 }
 
+turkin::HType::~HType()
+{
+  free(root_);
+}
+
 const turkin::encoding_list_t & turkin::HType::get_encoding_list()
 {
   return list_;
@@ -122,7 +112,7 @@ const turkin::encoding_map_t & turkin::HType::get_encoding_map()
   return map_;
 }
 
-void turkin::HType::encode(std::shared_ptr< node_t > src, encoding_t code)
+void turkin::HType::encode(node_t * src, encoding_t code)
 {
   if (src == nullptr)
   {
@@ -145,14 +135,25 @@ void turkin::HType::encode(std::shared_ptr< node_t > src, encoding_t code)
   encode(src->right, code + "1");
 }
 
-std::shared_ptr< turkin::node_t > turkin::HType::copy(std::shared_ptr< node_t > src)
+void turkin::HType::free(node_t * src)
 {
-  std::shared_ptr< node_t > new_root;
+  if (src == nullptr)
+  {
+    return;
+  }
+  free(src->left);
+  free(src->right);
+  delete src;
+}
+
+turkin::node_t * turkin::HType::copy(node_t * src)
+{
+  node_t * new_root;
   if (src == nullptr)
   {
     return nullptr;
   }
-  new_root = std::make_shared< node_t >(src->data);
+  new_root = new node_t {src->data, nullptr, nullptr};
   new_root->left = copy(src->left);
   new_root->right = copy(src->right);
   return new_root;

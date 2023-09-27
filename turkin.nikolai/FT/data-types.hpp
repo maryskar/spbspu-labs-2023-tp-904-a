@@ -15,8 +15,8 @@ namespace turkin
   using encoding_pair_t = std::pair< char, std::size_t >;
   using encoding_map_t = std::map< char, encoding_t, std::less< > >;
   using node_t = TreeNode< encoding_pair_t >;
-  using encoding_list_t = std::map< char, std::shared_ptr< node_t >, std::less< > >;
-  using queue_t = std::queue< std::shared_ptr< node_t > >;
+  using encoding_list_t = std::map< char, node_t *, std::less< > >;
+  using queue_t = std::queue< node_t * >;
 }
 
 #endif
