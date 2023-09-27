@@ -35,7 +35,7 @@ int main(int argc, char** argv)
   {
     try
     {
-      dict.doCommand(read, polygons, std::cin, std::cout);
+      dict.doCommand(read, polygons, dict, std::cin, std::cout);
     }
     catch(const std::logic_error& e)
     {

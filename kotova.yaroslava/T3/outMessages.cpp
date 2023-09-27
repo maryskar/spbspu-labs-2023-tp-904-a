@@ -60,25 +60,25 @@ void kotova::CommandDictionary::doCommandSame(std::string &cmd, std::vector<Poly
   func(polygons, in, out);
 }
 
-void kotova::CommandDictionary::doCommand(std::string &cmd, std::vector< Polygon > &data, std::istream &in, std::ostream &out)
+void kotova::CommandDictionary::doCommand(std::string &cmd, std::vector< Polygon > &data, const CommandDictionary &cmd_d, std::istream &in, std::ostream &out)
 {
   try
   {
-    doCommandOut(cmd, data, out);
+    cmd_d.doCommandOut(cmd, data, out);
     return;
   } catch (const std::out_of_range &e)
   {
   }
   try
   {
-    doCommandFr(cmd, data, out, in);
+    cmd_d.doCommandFr(cmd, data, out, in);
     return;
   } catch (const std::out_of_range &e)
   {
   }
   try
   {
-    doCommandSame(cmd, data, out, in);
+    cmd_d.doCommandSame(cmd, data, out, in);
     return;
   } catch (const std::out_of_range &e)
   {
@@ -86,6 +86,6 @@ void kotova::CommandDictionary::doCommand(std::string &cmd, std::vector< Polygon
   std::size_t sep = cmd.find(' ');
   std::size_t num = std::stoull(cmd.substr(sep));
   std::string fin_cmd = cmd.substr(0, sep) + " NUM";
-  doCommandNum(fin_cmd, data, out, num);
+  cmd_d.doCommandNum(fin_cmd, data, out, num);
 }
 

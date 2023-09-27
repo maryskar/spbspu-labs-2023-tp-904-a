@@ -13,7 +13,7 @@ namespace kotova
       CommandDictionary();
       std::string readCommand(std::istream &in);
       void doCommand(std::string &cmd, std::vector< Polygon > &data,
-          std::istream &in, std::ostream &out);
+          const CommandDictionary &cmd_d, std::istream &in, std::ostream &out);
     private:
       std::map<std::string, cmd_out> dict_out;
       std::map<std::string, cmd_num> dict_num;
