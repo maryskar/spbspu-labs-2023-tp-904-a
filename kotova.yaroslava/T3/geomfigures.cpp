@@ -83,5 +83,5 @@ double kotova::getArea(const Polygon &polygon)
   std::transform(polygon.points.begin(), --polygon.points.end(), ++polygon.points.begin(), arr.begin(), getPoint);
   area = std::accumulate(arr.begin(), arr.end(), 0.0);
   area += getPoint(polygon.points.back(), polygon.points.front());
-  return std::abs(area * 0.5);
+  return std::abs(area) * 0.5;
 }
