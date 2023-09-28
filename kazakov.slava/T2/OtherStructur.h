@@ -2,10 +2,12 @@
 #define T2_OTHERSTRUCTUR_H
 #include <string>
 #include <iostream>
-namespace kazakov {
+
+namespace kazakov
+{
   struct ExpectedSymbol
   {
-    char symbol = '/';
+    char symbol = '.';
   };
   struct ExpectedChar
   {
@@ -32,5 +34,5 @@ namespace kazakov {
   bool operator<(const ExpectedString& dest, const ExpectedString& otherdest);
   bool operator==(const ExpectedChar& dest, const ExpectedChar& otherdest);
   bool operator==(const ExpectedLongLong& dest, const ExpectedLongLong& otherdest);
-}
 #endif
+}

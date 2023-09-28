@@ -1,5 +1,7 @@
-#include"OtherStructur.h"
-namespace kazakov {
+#include "OtherStructur.h"
+
+namespace kazakov
+{
   std::istream& operator>>(std::istream& in, ExpectedSymbol&& dest)
   {
     std::istream::sentry sentry(in);
