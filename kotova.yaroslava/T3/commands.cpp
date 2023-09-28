@@ -32,6 +32,11 @@ namespace kotova
     return polygon.points.size() == cnt;
   }
 
+  size_t isCntNumVert(const Polygon &pol)
+  {
+    return pol.points.size();
+  }
+
   bool compPointX(const Point &lhs, const Point &rhs)
   {
     return rhs.x > lhs.x;
@@ -106,7 +111,7 @@ namespace kotova
   double getMaxOrMinVer(const std::vector< Polygon > & pol, P p)
   {
     std::vector< Polygon >::const_iterator tmp = std::max_element(pol.cbegin(), pol.cend(), p);
-    return calcNumVert(*tmp);
+    return isCntNumVert(*tmp);
   }
 
   auto findPoints(const Polygon &dest)
