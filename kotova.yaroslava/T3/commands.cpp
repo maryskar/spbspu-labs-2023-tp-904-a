@@ -106,7 +106,7 @@ namespace kotova
   double getMaxOrMinVer(const std::vector< Polygon > & pol, P p)
   {
     std::vector< Polygon >::const_iterator tmp = std::max_element(pol.cbegin(), pol.cend(), p);
-    return (*tmp).points.size();
+    return calcNumVert(*tmp);
   }
 
   auto findPoints(const Polygon &dest)
