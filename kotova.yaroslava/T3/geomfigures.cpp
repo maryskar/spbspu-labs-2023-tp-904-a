@@ -43,6 +43,27 @@ std::istream &kotova::operator>>(std::istream &in, kotova::Polygon &rhs)
   }
   return in;
 }
+std::ostream &kotova::operator<<(std::ostream &out, const Point &rhs)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  iofmtguard iofmtguard(out);
+  out << std::fixed << std::setprecision(1);
+  return out << '(' << rhs.x << ';' << rhs.y << ')';
+}
+std::ostream &kotova::operator<<(std::ostream &out, const Polygon &rhs)
+{
+  std::ostream::sentry sentry(out);
+  if (!sentry)
+  {
+    return out;
+  }
+  std::copy(rhs.points.cbegin(), rhs.points.end(), std::ostream_iterator< Point >(out));
+  return out;
+}
 bool kotova::operator==(const Point &lhs, const Point &rhs)
 {
   return (lhs.x == rhs.x && lhs.y == rhs.y);
