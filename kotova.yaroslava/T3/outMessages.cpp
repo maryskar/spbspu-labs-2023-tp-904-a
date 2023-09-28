@@ -18,8 +18,8 @@ kotova::CommandDictionary::CommandDictionary()
   dict_out.insert({"COUNT ODD", countOdd});
   dict_num.insert({"AREA NUM", areaNumVertexes});
   dict_num.insert({"COUNT NUM", countNumVertexes});
-  dict_same.insert({"SAME", isSame});
-  dict_fr.insert({"INFRAME", inFrame});
+  dict_fr_same.insert({"SAME", isSame});
+  dict_fr_same.insert({"INFRAME", inFrame});
 }
 std::string kotova::CommandDictionary::readCommand(std::istream &in)
 {
@@ -53,15 +53,9 @@ void kotova::CommandDictionary::doCommandNum(std::string &cmd, const std::vector
   func(n, polygons, out);
 }
 
-void kotova::CommandDictionary::doCommandFr(std::string &cmd, std::vector<Polygon> &polygons, std::ostream &out, std::istream &in) const
+void kotova::CommandDictionary::doCommandFrS(std::string &cmd, std::vector<Polygon> &polygons, std::ostream &out, std::istream &in) const
 {
-  auto func = dict_fr.at(cmd);
-  func(polygons, in, out);
-}
-
-void kotova::CommandDictionary::doCommandSame(std::string &cmd, std::vector<Polygon> &polygons, std::ostream &out, std::istream &in) const
-{
-  auto func = dict_same.at(cmd);
+  auto func = dict_fr_same.at(cmd);
   func(polygons, in, out);
 }
 
@@ -77,14 +71,7 @@ void kotova::CommandDictionary::doCommand(std::string &cmd, std::vector< Polygon
   }
   try
   {
-    cmd_d.doCommandFr(cmd, data, out, in);
-    return;
-  } catch (const std::out_of_range &e)
-  {
-  }
-  try
-  {
-    cmd_d.doCommandSame(cmd, data, out, in);
+    cmd_d.doCommandFrS(cmd, data, out, in);
     return;
   } catch (const std::out_of_range &e)
   {

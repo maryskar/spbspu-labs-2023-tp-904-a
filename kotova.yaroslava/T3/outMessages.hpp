@@ -18,12 +18,10 @@ namespace kotova
     private:
       std::map<std::string, cmd_out> dict_out;
       std::map<std::string, cmd_num> dict_num;
-      std::map<std::string, cmd_fr_same> dict_fr;
-      std::map<std::string, cmd_fr_same> dict_same;
+      std::map<std::string, cmd_fr_same> dict_fr_same;
       void doCommandOut(std::string &cmd, const std::vector<Polygon> &polygons, std::ostream &out) const;
       void doCommandNum(std::string &cmd, const std::vector<Polygon> &polygons, std::ostream &out, std::size_t n) const;
-      void doCommandFr(std::string &cmd, std::vector<Polygon> &polygons, std::ostream &out, std::istream &in) const;
-      void doCommandSame(std::string &cmd, std::vector<Polygon> &polygons, std::ostream &out, std::istream &in) const;
+      void doCommandFrS(std::string &cmd, std::vector<Polygon> &polygons, std::ostream &out, std::istream &in) const;
   };
 }
 
