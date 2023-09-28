@@ -15,14 +15,14 @@ int main(int argc, char *argv[])
   {
     std::cerr << "Error: filename is missing.\n";
     std::cerr << "Format: ./programName filename\n";
-    return -1;
+    return 1;
   }
 
   if (argc > 3)
   {
     std::cerr << "Error: incorrect format of command lines arguements.\n";
     std::cerr << "Format: ./programName filename\n";
-    return -2;
+    return 2;
   }
 
   std::string filename = argv[1];
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     if (!file.is_open())
     {
       std::cerr << "Error: file is missing.\n";
-      return -3;
+      return 3;
     }
 
     file.close();

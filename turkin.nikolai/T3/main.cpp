@@ -39,18 +39,21 @@ int main(int argc, char * argv[])
   turkin::MakeCMD make;
   while (std::cin)
   {
+    std::string type = "";
+    std::cin >> type;
     if (!std::cin)
     {
       break;
     }
     try
     {
-      make(data, std::cin, std::cout) << "\n";
+      std::string sub_info = "";
+      getline(std::cin, sub_info);
+      sub_info.erase(0, 1);
+      std::cout << make.get_main().get(type)(data, make.get_sub(), type, sub_info) << "\n";
     }
     catch (...)
     {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
       turkin::outInvalidCMD(std::cout);
       std::cout << "\n";
     }

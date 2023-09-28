@@ -7,7 +7,7 @@ turkin::SubCommandsList::SubCommandsList():
     {"MIN", {{"AREA", min_area}, {"VERTEXES", min_vertexes}}},
     {"COUNT", {{"ODD", count_odd}, {"EVEN", count_even}, {"VERTEXES", count_vertexes}}},
     {"MAXSEQ", {{"POLYGON", maxseq_sub}}},
-    {"RIGHTSHAPES", {{"NON-TYPE", rightshapes_sub}}}
+    {"RIGHTSHAPES", {{"NONTYPE", rightshapes_sub}}}
   })
 {}
 
