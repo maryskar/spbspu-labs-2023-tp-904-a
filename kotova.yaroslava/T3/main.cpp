@@ -37,15 +37,19 @@ int main(int argc, char** argv)
       auto read = dict.readCommand(std::cin);
       dict.doCommand(read, polygons, dict, std::cin, std::cout);
     }
-    catch(const std::logic_error& e)
+    catch(const std::logic_error &e)
     {
       kotova::messageError(std::cout);
-      std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     catch (const std::runtime_error &e)
     {
       break;
+    }
+    if (!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
 }
