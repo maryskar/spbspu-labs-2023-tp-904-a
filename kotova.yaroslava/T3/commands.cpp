@@ -156,7 +156,7 @@ namespace kotova
 
   void areaMean(const std::vector< Polygon > &dest, std::ostream &out)
   {
-    if (dest.empty())
+    if (!dest.size())
     {
       std::logic_error("error, there is no polygon");
     }
