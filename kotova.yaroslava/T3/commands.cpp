@@ -108,7 +108,7 @@ namespace kotova
   }
 
   template< typename P >
-  double getMaxOrMinVer(const std::vector< Polygon > & pol, P p)
+  size_t getMaxOrMinVer(const std::vector< Polygon > & pol, P p)
   {
     std::vector< Polygon >::const_iterator tmp = std::max_element(pol.cbegin(), pol.cend(), p);
     return isCntNumVert(*tmp);
