@@ -1,7 +1,6 @@
+#include "iostruct.h"
 #include <iomanip>
 #include <iostream>
-
-#include "iostruct.h"
 #include "streamGuard.h"
 
 std::istream& aristarkhov::operator>>(std::istream& in, DelimiterIO&& dest)

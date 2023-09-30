@@ -2,7 +2,6 @@
 #include <iostream>
 #include <iterator>
 #include <vector>
-
 #include "dataStruct.h"
 
 int main()

@@ -1,7 +1,6 @@
+#include "dataStruct.h"
 #include <iomanip>
 #include <iostream>
-
-#include "dataStruct.h"
 #include "streamGuard.h"
 #include "iostruct.h"
 
@@ -13,19 +12,19 @@ std::istream& aristarkhov::operator>>(std::istream& in, DataStruct& data)
     return in;
   }
   in >> DelimiterIO{'('} >> DelimiterIO{':'};
-  for (int i = 0; i < 3; i++)
+  for (size_t i = 0; i < 3; i++)
   {
-    std::string key{};
+    size_t key = 0;
     in >> LabelIO{"key"} >> key;
-    if (key == "1")
+    if (key == 1)
     {
       in >> CharIO{data.key1};
     }
-    else if (key == "2")
+    else if (key == 2)
     {
       in >> RationalNumberIO{data.key2};
     }
-    else if (key == "3")
+    else if (key == 3)
     {
       in >> StringIO{data.key3};
     }
