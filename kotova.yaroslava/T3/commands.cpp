@@ -101,7 +101,7 @@ namespace kotova
   }
 
   template< typename P >
-  double getMaxOrMinArea(const std::vector< Polygon > & pol, P p)
+  double getMaxOrMinArea(const std::vector< Polygon > &pol, P p)
   {
     std::vector< Polygon >::const_iterator tmp = std::max_element(pol.cbegin(), pol.cend(), p);
     return getArea(*tmp);
@@ -156,7 +156,7 @@ namespace kotova
 
   void areaMean(const std::vector< Polygon > &dest, std::ostream &out)
   {
-    if (!dest.size())
+    if (dest.empty())
     {
       std::logic_error("error, there is no polygon");
     }
