@@ -187,7 +187,7 @@ namespace kotova
   {
     if (dest.empty())
     {
-      std::logic_error("error, there is no polygon");
+      throw std::logic_error("error, there is no polygon");
     }
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getMaxOrMinArea(dest, compArea) << '\n';
@@ -197,7 +197,7 @@ namespace kotova
   {
     if (dest.empty())
     {
-      std::logic_error("error, there is no polygon");
+      throw std::logic_error("error, there is no polygon");
     }
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getMaxOrMinVer(dest, compVer) << '\n';
@@ -207,7 +207,7 @@ namespace kotova
   {
     if (dest.empty())
     {
-      std::logic_error("error, there is no polygon");
+      throw std::logic_error("error, there is no polygon");
     }
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getMaxOrMinArea(dest, cmpArea) << '\n';
@@ -217,7 +217,7 @@ namespace kotova
   {
     if (dest.empty())
     {
-      std::logic_error("error, there is no polygon");
+      throw std::logic_error("error, there is no polygon");
     }
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getMaxOrMinVer(dest, cmpVer) << '\n';
