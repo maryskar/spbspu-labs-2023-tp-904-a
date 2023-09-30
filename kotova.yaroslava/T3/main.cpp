@@ -35,7 +35,7 @@ int main(int argc, char** argv)
     if (!std::cin)
     {
       std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     try
     {
@@ -45,13 +45,14 @@ int main(int argc, char** argv)
     catch(const std::logic_error &e)
     {
       kotova::messageError(std::cout);
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      long long max = std::numeric_limits<std::streamsize>::max();
+      std::cin.ignore(max, '\n');
       std::cin.clear();
-      break;
     }
     catch (const std::runtime_error &e)
     {
       break;
     }
   }
+  return 0;
 }

@@ -76,8 +76,8 @@ void kotova::CommandDictionary::doCommand(std::string &cmd, std::vector< Polygon
   } catch (const std::out_of_range &e)
   {
   }
-  std::size_t sep = cmd.find(' ');
-  std::size_t num = std::stoull(cmd.substr(sep));
+  size_t sep = cmd.find(' ');
+  size_t num = std::stoull(cmd.substr(sep));
   std::string fin_cmd = cmd.substr(0, sep) + " NUM";
   cmd_d.doCommandNum(fin_cmd, data, out, num);
 }
