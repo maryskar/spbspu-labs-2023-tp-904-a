@@ -82,7 +82,7 @@ namespace kotova
     return area + getArea(pol);
   }
 
-  double getAreaEven(const std::vector<Polygon> &dest)
+  double getAreaEven(const std::vector< Polygon > &dest)
   {
     using namespace std::placeholders;
     std::vector< Polygon > tmp;
@@ -91,7 +91,7 @@ namespace kotova
     return area;
   }
 
-  double getAreaOdd(const std::vector<Polygon> &dest)
+  double getAreaOdd(const std::vector< Polygon > &dest)
   {
     using namespace std::placeholders;
     std::vector< Polygon > tmp;
@@ -156,15 +156,14 @@ namespace kotova
 
   void areaMean(const std::vector< Polygon > &dest, std::ostream &out)
   {
-    if (dest.empty())
+    if (!dest.size())
     {
-      std::logic_error("error, there is no polygon");
+      std::logic_error("<INVALID COMMAND>");
     }
-    std::vector< double > tmp(dest.size());
-    std::transform(dest.begin(), dest.end(), tmp.begin(), getArea);
-    double finAreas = std::accumulate(tmp.begin(), tmp.end(), 0.0) / dest.size();
+    double area = 0.0;
+    area = std::accumulate(dest.cbegin(), dest.cend(), 0, getSumArea);
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << finAreas << '\n';
+    out << std::fixed << std::setprecision(1) << area / dest.size() << '\n';
   }
 
   void areaNumVertexes(size_t n, const std::vector< Polygon > &dest, std::ostream &out)

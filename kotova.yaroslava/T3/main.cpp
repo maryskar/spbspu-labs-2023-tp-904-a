@@ -32,6 +32,11 @@ int main(int argc, char** argv)
   auto dict = kotova::CommandDictionary();
   while (!std::cin.eof())
   {
+    if (!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
     try
     {
       auto read = dict.readCommand(std::cin);
@@ -41,15 +46,11 @@ int main(int argc, char** argv)
     {
       kotova::messageError(std::cout);
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cin.clear();
     }
     catch (const std::runtime_error &e)
     {
       break;
-    }
-    if (!std::cin)
-    {
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
 }
