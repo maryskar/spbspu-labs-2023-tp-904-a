@@ -156,14 +156,14 @@ namespace kotova
 
   void areaMean(const std::vector< Polygon > &dest, std::ostream &out)
   {
-    if (!dest.size())
+    if (dest.empty())
     {
-      std::logic_error("<INVALID COMMAND>");
+      throw std::invalid_argument("<INVALID COMMAND>");
     }
-    double area = 0.0;
-    area = std::accumulate(dest.cbegin(), dest.cend(), 0, getSumArea);
+    double area = std::accumulate(dest.cbegin(), dest.cend(), 0, getSumArea);
+    area /= dest.size();
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << area / dest.size() << '\n';
+    out << std::fixed << std::setprecision(1) << area << '\n';
   }
 
   void areaNumVertexes(size_t n, const std::vector< Polygon > &dest, std::ostream &out)
