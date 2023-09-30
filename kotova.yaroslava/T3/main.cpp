@@ -47,6 +47,7 @@ int main(int argc, char** argv)
       kotova::messageError(std::cout);
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       std::cin.clear();
+      break;
     }
     catch (const std::runtime_error &e)
     {
