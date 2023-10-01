@@ -4,7 +4,6 @@
 #include "geomfigures.hpp"
 namespace kotova
 {
-  void messageError(std::ostream& out);
   using cmd_out = void (*)(const std::vector< Polygon > &, std::ostream &);
   using cmd_num = void (*)(size_t, const std::vector<Polygon> &, std::ostream &);
   using cmd_fr_same = void (*)(const std::vector< Polygon > &, std::istream &, std::ostream &);
