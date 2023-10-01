@@ -20,7 +20,6 @@ void avdeeva::areaCommand(const std::deque< Polygon > & polygons, std::istream &
   areaCommands.insert({ "EVEN", calcAreaEven });
   areaCommands.insert({ "ODD",  calcAreaOdd });
   areaCommands.insert({ "MEAN", calcAreaMean });
-
   double area = 0.0;
   try
   {
