@@ -4,8 +4,8 @@
 #include <map>
 #include <string>
 #include <functional>
+#include <iofmtguard.h>
 #include "polygon.h"
-#include "iofmtguard.h"
 #include "commands.h"
 void avdeeva::areaCommand(const std::deque< Polygon > & polygons, std::istream & in, std::ostream & out)
 {
@@ -118,8 +118,8 @@ void avdeeva::inframeCommand(const std::deque< Polygon > & polygons, std::istrea
 {
   Polygon input;
   in >> input;
-  char check;
-  if (!in || !(in.get(check) && check == '\n'))
+  char checkInput;
+  if (!in || !(in.get(checkInput) && checkInput == '\n'))
   {
     throw std::runtime_error("Input error");
   }

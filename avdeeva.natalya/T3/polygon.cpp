@@ -3,7 +3,7 @@
 #include <iterator>
 #include <numeric>
 #include <cmath>
-#include "iostructs.h"
+#include <iostructs.h>
 bool avdeeva::operator==(const Point & lhs, const Point & rhs)
 {
   return (lhs.x == rhs.x && lhs.y == rhs.y);
