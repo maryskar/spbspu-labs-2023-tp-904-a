@@ -125,6 +125,35 @@ namespace kotova
     return std::make_pair(lowerPoint, higherPoint);
   }
 
+  bool isInFrame(const std::vector< Polygon > &dest, const Polygon &polygon)
+  {
+    bool isTrue = 1;
+    Point lowerLhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
+    Point higherRhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
+    for (auto&& i: dest)
+    {
+      auto point = findPoints(i);
+      lowerLhs.x = std::min(lowerLhs.x, point.first.x);
+      lowerLhs.y = std::min(lowerLhs.y, point.first.y);
+      higherRhs.x = std::max(higherRhs.x, point.second.x);
+      higherRhs.y = std::max(higherRhs.y, point.second.y);
+    }
+    auto pol = findPoints(polygon);
+    int polMinX = pol.first.x;
+    int polMinY = pol.first.y;
+    int polMaxX = pol.second.x;
+    int polMaxY = pol.second.y;
+    if (lowerLhs.x <= polMinX && lowerLhs.y <= polMinY && higherRhs.x >= polMaxX && higherRhs.y >= polMaxY)
+    {
+      return isTrue;
+    }
+    else
+    {
+      return (!isTrue);
+    }
+    return isTrue;
+  }
+
   bool isSamePolygon(const Polygon &lhs, const Polygon &rhs)
   {
     if ((rhs.points.size() != lhs.points.size() || getArea(rhs) != getArea(lhs)))
@@ -254,48 +283,17 @@ namespace kotova
     out << std::count_if(dest.begin(), dest.end(), std::bind(calcNumVert, _1, n)) << "\n";
   }
 
-  void inFrame(const std::vector< Polygon > &dest, std::istream &in, std::ostream &out)
+  void inFrame(const std::vector< Polygon > &dest, const Polygon &pol, std::ostream &out)
   {
-    Polygon polygon;
-    in >> polygon;
-    if (!in)
-    {
-      throw std::logic_error("error");
-    }
-    Point lowerLhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
-    Point higherRhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
-    for (auto&& i: dest)
-    {
-      auto point = findPoints(i);
-      lowerLhs.x = std::min(lowerLhs.x, point.first.x);
-      lowerLhs.y = std::min(lowerLhs.y, point.first.y);
-      higherRhs.x = std::max(higherRhs.x, point.second.x);
-      higherRhs.y = std::max(higherRhs.y, point.second.y);
-    }
-    auto pol = findPoints(polygon);
-    int polMinX = pol.first.x;
-    int polMinY = pol.first.y;
-    int polMaxX = pol.second.x;
-    int polMaxY = pol.second.y;
-    if (lowerLhs.x <= polMinX && lowerLhs.y <= polMinY && higherRhs.x >= polMaxX && higherRhs.y >= polMaxY)
-    {
-      outTrue(out);
-    }
-    else
-    {
-      outFalse(out);
-    }
+    (isInFrame(dest, pol) ? outTrue(out) : outFalse(out));
   }
 
-  void isSame(const std::vector< Polygon > &dest, std::istream &in, std::ostream &out)
+  void isSame(const std::vector< Polygon > &dest, const Polygon &pol, std::ostream &out)
   {
-    Polygon pol;
-    in >> pol;
-    if (!in)
+    if (!dest.empty())
     {
-      throw;
+      out << isSameP(dest, pol) << '\n';
     }
-    iofmtguard iofmtguard(out);
-    out << isSameP(dest, pol) << '\n';
+    out << '0' << '\n';
   }
 }
