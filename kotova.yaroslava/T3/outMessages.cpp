@@ -44,24 +44,28 @@ std::string kotova::CommandDictionary::readCommand(std::istream &in)
   }
   return cmd;
 }
-void kotova::CommandDictionary::doCommandOut(std::string &cmd, const std::vector<Polygon> &polygons, std::ostream &out) const
+void kotova::CommandDictionary::doCommandOut(std::string &cmd, const std::vector<Polygon> &polygons,
+    std::ostream &out) const
 {
   auto func = dict_out.at(cmd);
   func(polygons, out);
 }
-void kotova::CommandDictionary::doCommandNum(std::string &cmd, const std::vector<Polygon> &polygons, std::ostream &out, std::size_t n) const
+void kotova::CommandDictionary::doCommandNum(std::string &cmd, const std::vector<Polygon> &polygons,
+    std::ostream &out, std::size_t n) const
 {
   auto func = dict_num.at(cmd);
   func(n, polygons, out);
 }
 
-void kotova::CommandDictionary::doCommandFr(std::string &cmd, std::vector<Polygon> &polygons, std::ostream &out, std::istream &in) const
+void kotova::CommandDictionary::doCommandFr(std::string &cmd, std::vector<Polygon> &polygons,
+    std::ostream &out, std::istream &in) const
 {
   auto func = dict_fr.at(cmd);
   func(polygons, in, out);
 }
 
-void kotova::CommandDictionary::doCommandSame(std::string &cmd, const std::vector<Polygon> &polygons, const Polygon &pol, std::ostream &out) const
+void kotova::CommandDictionary::doCommandSame(std::string &cmd, const std::vector<Polygon> &polygons,
+    const Polygon &pol, std::ostream &out) const
 {
   auto func = dict_same.at(cmd);
   func(polygons, pol, out);
