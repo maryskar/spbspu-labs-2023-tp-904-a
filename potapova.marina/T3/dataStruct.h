@@ -1,3 +1,6 @@
+#ifndef DATASTRUCT_H
+#define DATASTRUCT_H
+
 #include <vector>
 #include <iostream>
 
@@ -18,3 +21,5 @@ namespace potapova
   std::istream& operator>>(std::istream& in, Polygon& dest);
   std::ostream& operator<<(std::ostream& out, Polygon& source);
 }
+
+#endif
