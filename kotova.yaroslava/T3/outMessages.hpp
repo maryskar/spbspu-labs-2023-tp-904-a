@@ -1,6 +1,7 @@
 #ifndef OUTMESSAGES_HPP
 #define OUTMESSAGES_HPP
 #include <map>
+#include <IO_structs.hpp>
 #include "geomfigures.hpp"
 namespace kotova
 {
@@ -15,7 +16,7 @@ namespace kotova
       CommandDictionary();
       std::string readCommand(std::istream &in);
       void doCommand(std::string &cmd, std::vector< Polygon > &data,
-          const CommandDictionary &cmd_d, std::istream &in, std::ostream &out, const Polygon &pol);
+          const CommandDictionary &cmd_d, std::istream &in, std::ostream &out);
     private:
       std::map<std::string, cmd_out> dict_out;
       std::map<std::string, cmd_num> dict_num;

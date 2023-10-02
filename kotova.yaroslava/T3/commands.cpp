@@ -142,7 +142,7 @@ namespace kotova
     return equalPoints(diffHigher, diffLower);
   }
 
-  size_t isSameP(const std::vector< Polygon > &dest, const Polygon &pol)
+  auto isSameP(const std::vector< Polygon > &dest, const Polygon &pol)
   {
     using namespace std::placeholders;
     return std::count_if(dest.begin(), dest.end(), std::bind(isSamePolygon, _1, pol));
@@ -279,16 +279,16 @@ namespace kotova
     int polMaxY = pol.second.y;
     if (lowerLhs.x <= polMinX && lowerLhs.y <= polMinY && higherRhs.x >= polMaxX && higherRhs.y >= polMaxY)
     {
-      outFalse(out);
+      outTrue(out);
     }
     else
     {
-      outTrue(out);
+      outFalse(out);
     }
   }
 
   void isSame(const std::vector< Polygon > &dest, const Polygon &pol, std::ostream &out)
   {
-    out << isSameP(dest, pol);
+    out << isSameP(dest, pol) << '\n';;
   }
 }

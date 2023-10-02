@@ -1,4 +1,5 @@
 #include "outMessages.hpp"
+#include <IO_structs.hpp>
 #include "commands.hpp"
 
 std::ostream &kotova::outMessageError(std::ostream &out)
@@ -72,7 +73,7 @@ void kotova::CommandDictionary::doCommandSame(std::string &cmd, const std::vecto
 }
 
 void kotova::CommandDictionary::doCommand(std::string &cmd, std::vector< Polygon > &data, const CommandDictionary &cmd_d,
-    std::istream &in, std::ostream &out, const Polygon &pol)
+    std::istream &in, std::ostream &out)
 {
   try
   {
@@ -90,6 +91,12 @@ void kotova::CommandDictionary::doCommand(std::string &cmd, std::vector< Polygon
   }
   try
   {
+    Polygon pol;
+    in >> pol >> DelimiterIO{'\n'};
+    if (!in)
+    {
+      in.setstate(std::ios::failbit);
+    }
     cmd_d.doCommandSame(cmd, data, pol, out);
     return;
   } catch (const std::out_of_range &e)
