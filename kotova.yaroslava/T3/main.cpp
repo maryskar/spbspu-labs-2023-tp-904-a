@@ -44,7 +44,7 @@ int main(int argc, char** argv)
     }
     catch(const std::logic_error &e)
     {
-      std::cout << "<INVALID COMMAND>\n";
+      kotova::outMessageError(std::cout);
       long long max = std::numeric_limits<std::streamsize>::max();
       std::cin.ignore(max, '\n');
       std::cin.clear();
