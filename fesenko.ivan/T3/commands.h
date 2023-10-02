@@ -2,15 +2,22 @@
 #define COMMADNS_H
 #include <iostream>
 #include <deque>
+#include <functional>
+#include <map>
 #include "polygon.h"
 namespace fesenko
 {
-  using data_t = std::deque< Polygon >;
-  std::ostream &area(data_t &data, std::istream &in, std::ostream &out);
-  std::ostream &max(data_t &data, std::istream &in, std::ostream &out);
-  std::ostream &min(data_t &data, std::istream &in, std::ostream &out);
-  std::ostream &count(data_t &data, std::istream &in, std::ostream &out);
-  std::ostream &rects(data_t &data, std::istream &in, std::ostream &out);
-  std::ostream &inframe(data_t &data, std::istream &in, std::ostream &out);
+  class Commands
+  {
+   public:
+    using data_t = std::deque< Polygon >;
+    Commands();
+    void make(const std::string &command1, data_t &data, std::istream &in, std::ostream &out);
+   private:
+    using commands1 = std::function< std::ostream &(const data_t &, std::istream &, std::ostream &) >;
+    using commands2 = std::function< std::ostream &(const data_t &, std::ostream &) >;
+    std::map< std::string, commands1 > type1;
+    std::map< std::string, commands2 > type2;
+  };
 }
 #endif

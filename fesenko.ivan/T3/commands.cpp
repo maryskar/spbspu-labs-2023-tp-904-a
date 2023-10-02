@@ -1,62 +1,52 @@
 #include "commands.h"
-#include <sstream>
-#include <cctype>
-#include "subCommandsList.h"
+#include <messages.h>
+#include "subCommands.h"
 
-std::ostream &fesenko::area(data_t &data, std::istream &in, std::ostream &out)
+fesenko::Commands::Commands():
+  type1(),
+  type2()
 {
-  std::string type = "";
-  in >> type;
-  if (std::isdigit(type[0])) {
-    in.putback(type[0]);
-    type = "VERTEXES";
-  }
-  return out << sub_area_list[type](data, in);
+  type1.insert(std::make_pair("AREA", &area_vertexes));
+  type1.insert(std::make_pair("COUNT", &count_vertexes));
+  type1.insert(std::make_pair("INFRAME", &inframe));
+
+  type2.insert(std::make_pair("AREA ODD", &area_odd));
+  type2.insert(std::make_pair("AREA EVEN", &area_even));
+  type2.insert(std::make_pair("AREA MEAN", &area_mean));
+  type2.insert(std::make_pair("MAX AREA", &max_area));
+  type2.insert(std::make_pair("MAX VERTEXES", &max_vertexes));
+  type2.insert(std::make_pair("MIN AREA", &min_area));
+  type2.insert(std::make_pair("MIN VERTEXES", &min_vertexes));
+  type2.insert(std::make_pair("COUNT ODD", &count_odd));
+  type2.insert(std::make_pair("COUNT EVEN", &count_even));
+  type2.insert(std::make_pair("RECTS", &rects));
 }
 
-std::ostream &fesenko::min(data_t &data, std::istream &in, std::ostream &out)
+void fesenko::Commands::make(const std::string &command1, data_t &data, std::istream &in, std::ostream &out)
 {
-  if (data.empty()) {
-    throw std::logic_error("Data is empty");
+  try {
+    char c1;
+    in.get(c1);
+    if (c1 != ' ') {
+      type2.at(command1)(data, out) << "\n";
+      return;
+    } else {
+      char c2;
+      in.get(c2);
+      in.putback(c2);
+      if (isdigit(c2)) {
+        type1.at(command1)(data, in, out) << "\n";
+        return;
+      }
+    }
+    std::string command2 = "";
+    in >> command2;
+    type2.at(command1 + " " + command2)(data, out) << "\n";
+  } catch (...) {
+    outInvalidCommandMessage(out);
+    out << "\n";
+    in.clear();
+    std::string trash = "";
+    getline(in, trash);
   }
-  std::string type = "";
-  in >> type;
-  return out << sub_min_list[type](data, in);
-}
-
-std::ostream &fesenko::max(data_t &data, std::istream &in, std::ostream &out)
-{
-  if (data.empty()) {
-    throw std::logic_error("Data is empty");
-  }
-  std::string type = "";
-  in >> type;
-  return out << sub_max_list[type](data, in);
-}
-
-std::ostream &fesenko::count(data_t &data, std::istream &in, std::ostream &out)
-{
-  std::string type = "";
-  in >> type;
-  if (std::isdigit(type[0])) {
-    in.putback(type[0]);
-    type = "VERTEXES";
-  }
-  return out << sub_count_list[type](data, in);
-}
-
-std::ostream &fesenko::rects(data_t &data, std::istream &in, std::ostream &out)
-{
-  if (data.empty()) {
-    throw std::logic_error("Data is empty");
-  }
-  return out << sub_rects_list["DEFAULT"](data, in);
-}
-
-std::ostream &fesenko::inframe(data_t &data, std::istream &in, std::ostream &out)
-{
-  if (data.empty()) {
-    throw std::logic_error("Data is empty");
-  }
-  return out << sub_inframe_list["DEFAULT"](data, in);
 }
