@@ -46,24 +46,36 @@ std::ostream &fesenko::area_vertexes(const data_t &data, std::istream &in, std::
 
 std::ostream &fesenko::max_area(const data_t &data, std::ostream &out)
 {
+  if (data.empty()) {
+    throw std::logic_error("Data is empty");
+  }
   double result = calcArea(0.0, *std::max_element(data.cbegin(), data.cend(), isAreaLess()));
   return out << ReturnType(result);
 }
 
 std::ostream &fesenko::max_vertexes(const data_t &data, std::ostream &out)
 {
+  if (data.empty()) {
+    throw std::logic_error("Data is empty");
+  }
   size_t result = std::max_element(data.cbegin(), data.cend(), isSizeLess())->points.size();
   return out << ReturnType(result);
 }
 
 std::ostream &fesenko::min_area(const data_t &data, std::ostream &out)
 {
+  if (data.empty()) {
+    throw std::logic_error("Data is empty");
+  }
   double result = calcArea(0.0, *std::min_element(data.cbegin(), data.cend(), isAreaLess()));
   return out << ReturnType(result);
 }
 
 std::ostream &fesenko::min_vertexes(const data_t &data, std::ostream &out)
 {
+  if (data.empty()) {
+    throw std::logic_error("Data is empty");
+  }
   size_t result = std::min_element(data.cbegin(), data.cend(), isSizeLess())->points.size();
   return out << ReturnType(result);
 }
