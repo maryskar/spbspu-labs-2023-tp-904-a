@@ -20,12 +20,6 @@ std::istream &fesenko::operator>>(std::istream &in, Polygon &rhs)
   std::copy_n(std::istream_iterator< Point >(in),
     points,
     std::back_inserter(input.points));
-  char c;
-  in.get(c);
-  in.putback(c);
-  if (c == ' ') {
-    in.setstate(std::ios::failbit);
-  }
   if (in) {
     rhs = input;
   }
