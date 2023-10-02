@@ -22,9 +22,9 @@ std::istream &fesenko::operator>>(std::istream &in, Polygon &rhs)
     std::back_inserter(input.points));
   char c;
   in.get(c);
+  in.putback(c);
   if (c == ' ') {
     in.setstate(std::ios::failbit);
-    return in;
   }
   if (in) {
     rhs = input;
