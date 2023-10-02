@@ -1,7 +1,7 @@
 #include "outMessages.hpp"
 #include "commands.hpp"
 
-std::ostream &outMessageError(std::ostream &out)
+std::ostream &kotova::outMessageError(std::ostream &out)
 {
   out << "<INVALID COMMAND>" << '\n';
   return out;
