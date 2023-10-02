@@ -68,7 +68,7 @@ bool kotova::operator==(const Point &lhs, const Point &rhs)
 {
   return (lhs.x == rhs.x && lhs.y == rhs.y);
 }
-bool kotova::operator ==(const Polygon &lhs, const Polygon &rhs)
+bool kotova::operator==(const Polygon &lhs, const Polygon &rhs)
 {
   return std::equal(lhs.points.begin(), lhs.points.end(), rhs.points.begin());
 }
