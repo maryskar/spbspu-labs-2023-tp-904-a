@@ -15,6 +15,6 @@ namespace kotova
   void countOdd(const std::vector< Polygon > &dest, std::ostream &out);
   void countNumVertexes(size_t n, const std::vector< Polygon > &dest, std::ostream &out);
   void inFrame(const std::vector< Polygon > &dest, std::istream &in, std::ostream &out);
-  void isSame(const std::vector< Polygon > &dest, const Polygon &pol, std::ostream &out);
+  void isSame(const std::vector< Polygon > &dest, std::istream &in, std::ostream &out);
 }
 #endif
