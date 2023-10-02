@@ -29,9 +29,8 @@ int main(int argc, char *argv[])
     }
   }
   fesenko::Commands commands;
-  while (!std::cin.eof()) {
-    std::string cmd = "";
-    std::cin >> cmd;
+  std::string cmd = "";
+  while (std::cin >> cmd) {
     try {
       commands.make(cmd, polygons, std::cin, std::cout);
     } catch (const std::exception &e) {
