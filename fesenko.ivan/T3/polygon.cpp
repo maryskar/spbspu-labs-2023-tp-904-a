@@ -17,19 +17,17 @@ std::istream &fesenko::operator>>(std::istream &in, Polygon &rhs)
     in.setstate(std::ios::failbit);
     return in;
   }
-  input.points.reserve(points);
   std::copy_n(std::istream_iterator< Point >(in),
     points,
     std::back_inserter(input.points));
-  if (!in) {
-    in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+  char c;
+  in.get(c);
+  if (c == ' ') {
+    in.setstate(std::ios::failbit);
     return in;
   }
-  rhs.points.swap(input.points);
-  std::string checker;
-  std::getline(in, checker);
-  if (checker.find_first_not_of(' ') != std::string::npos) {
-    in.setstate(std::ios::failbit);
+  if (in) {
+    rhs = input;
   }
   return in;
 }
