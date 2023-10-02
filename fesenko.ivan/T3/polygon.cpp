@@ -13,7 +13,7 @@ std::istream &fesenko::operator>>(std::istream &in, Polygon &rhs)
   Polygon input;
   size_t points = 0;
   in >> points;
-  if (points < 3) {
+  if (!in || points < 3) {
     in.setstate(std::ios::failbit);
     return in;
   }
