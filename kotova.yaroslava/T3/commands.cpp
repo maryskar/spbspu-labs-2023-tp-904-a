@@ -287,8 +287,15 @@ namespace kotova
     }
   }
 
-  void isSame(const std::vector< Polygon > &dest, const Polygon &pol, std::ostream &out)
+  void isSame(const std::vector< Polygon > &dest, std::istream &in, std::ostream &out)
   {
-    out << isSameP(dest, pol) << '\n';;
+    Polygon pol;
+    in >> pol;
+    if (!in)
+    {
+      throw std::logic_error("error");
+    }
+    iofmtguard iofmtguard(out);
+    out << isSameP(dest, pol) << '\n';
   }
 }
