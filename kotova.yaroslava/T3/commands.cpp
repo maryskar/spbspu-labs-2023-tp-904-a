@@ -293,7 +293,7 @@ namespace kotova
     in >> pol;
     if (!in)
     {
-      throw std::logic_error("error");
+      throw;
     }
     iofmtguard iofmtguard(out);
     out << isSameP(dest, pol) << '\n';
