@@ -4,7 +4,7 @@
 #include <deque>
 #include <limits>
 #include <messages.h>
-#include "commandsList.h"
+#include "commands.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,19 +28,15 @@ int main(int argc, char *argv[])
       in.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
+  fesenko::Commands commands;
   while (!std::cin.eof()) {
-    std::string cmd;
+    std::string cmd = "";
     std::cin >> cmd;
-    if (!std::cin) {
-      break;
-    }
     try {
-      fesenko::main_list.at(cmd)(polygons, std::cin, std::cout) << "\n";
-    } catch (...) {
-      fesenko::outInvalidCommandMessage(std::cout);
-      std::cout << "\n";
-      std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      commands.make(cmd, polygons, std::cin, std::cout);
+    } catch (const std::exception &e) {
+      std::cout << e.what() << "\n";
+      return 2;
     }
   }
 }
