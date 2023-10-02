@@ -1,6 +1,12 @@
 #include "outMessages.hpp"
 #include "commands.hpp"
 
+std::ostream &outMessageError(std::ostream &out)
+{
+  out << "<INVALID COMMAND>" << '\n';
+  return out;
+}
+
 kotova::CommandDictionary::CommandDictionary()
 {
   dict_out.insert({"AREA EVEN", areaEven});
