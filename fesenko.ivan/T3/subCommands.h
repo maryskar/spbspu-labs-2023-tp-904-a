@@ -3,7 +3,6 @@
 #include <iostream>
 #include <deque>
 #include "polygon.h"
-#include "returnType.h"
 namespace fesenko
 {
   using data_t = std::deque< Polygon >;

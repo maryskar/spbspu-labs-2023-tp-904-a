@@ -4,6 +4,7 @@
 #include <numeric>
 #include <iterator>
 #include "subFunctions.h"
+#include "returnType.h"
 
 std::ostream &fesenko::area_odd(const data_t &data, std::ostream &out)
 {
