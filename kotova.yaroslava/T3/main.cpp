@@ -19,6 +19,7 @@ int main(int argc, char** argv)
     return 1;
   }
   std::vector< kotova::Polygon > polygons;
+  kotova::Polygon pol;
   while (!input.eof())
   {
     if (input.fail())
@@ -40,7 +41,7 @@ int main(int argc, char** argv)
     try
     {
       auto read = dict.readCommand(std::cin);
-      dict.doCommand(read, polygons, dict, std::cin, std::cout);
+      dict.doCommand(read, polygons, dict, std::cin, std::cout, pol);
     }
     catch(const std::logic_error &e)
     {

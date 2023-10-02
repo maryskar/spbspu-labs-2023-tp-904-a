@@ -142,6 +142,12 @@ namespace kotova
     return equalPoints(diffHigher, diffLower);
   }
 
+  size_t isSameP(const std::vector< Polygon > &dest, const Polygon &pol)
+  {
+    using namespace std::placeholders;
+    return std::count_if(dest.begin(), dest.end(), std::bind(isSamePolygon, _1, pol));
+  }
+
   void areaEven(const std::vector< Polygon > &dest, std::ostream &out)
   {
     iofmtguard iofmtguard(out);
@@ -252,6 +258,10 @@ namespace kotova
   {
     Polygon polygon;
     in >> polygon;
+    if (!in)
+    {
+      throw std::logic_error("error");
+    }
     Point lowerLhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
     Point higherRhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
     for (auto&& i: dest)
@@ -269,20 +279,16 @@ namespace kotova
     int polMaxY = pol.second.y;
     if (lowerLhs.x <= polMinX && lowerLhs.y <= polMinY && higherRhs.x >= polMaxX && higherRhs.y >= polMaxY)
     {
-      outTrue(out);
+      outFalse(out);
     }
     else
     {
-      outFalse(out);
+      outTrue(out);
     }
   }
 
-  void isSame(const std::vector< Polygon > &dest, std::istream &in, std::ostream &out)
+  void isSame(const std::vector< Polygon > &dest, const Polygon &pol, std::ostream &out)
   {
-    Polygon polygon;
-    in >> polygon;
-    using namespace std::placeholders;
-    iofmtguard iofmtguard(out);
-    out << std::count_if(dest.begin(), dest.end(), std::bind(isSamePolygon, _1, polygon)) << '\n';
+    out << isSameP(dest, pol);
   }
 }
