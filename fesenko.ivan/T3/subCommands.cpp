@@ -5,29 +5,32 @@
 #include <iterator>
 #include "subFunctions.h"
 
-fesenko::ReturnType fesenko::area_odd(data_t &data, std::istream &)
+std::ostream &fesenko::area_odd(const data_t &data, std::ostream &out)
 {
   std::vector< Polygon > temp;
   std::copy_if(data.cbegin(), data.cend(), std::back_inserter(temp), isOdd());
-  return ReturnType(std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea));
+  double result = std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea);
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::area_even(data_t &data, std::istream &)
+std::ostream &fesenko::area_even(const data_t &data, std::ostream &out)
 {
   std::vector< Polygon > temp;
   std::copy_if(data.cbegin(), data.cend(), std::back_inserter(temp), isEven());
-  return ReturnType(std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea));
+  double result = std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea);
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::area_mean(data_t &data, std::istream &)
+std::ostream &fesenko::area_mean(const data_t &data, std::ostream &out)
 {
   if (data.empty()) {
     throw std::logic_error("Divide by zero");
   }
-  return ReturnType(std::accumulate(data.cbegin(), data.cend(), 0.0, calcArea) / data.size());
+  double result = std::accumulate(data.cbegin(), data.cend(), 0.0, calcArea) / data.size();
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::area_vertexes(data_t &data, std::istream &in)
+std::ostream &fesenko::area_vertexes(const data_t &data, std::istream &in, std::ostream &out)
 {
   size_t number = 0;
   in >> number;
@@ -36,42 +39,47 @@ fesenko::ReturnType fesenko::area_vertexes(data_t &data, std::istream &in)
   }
   std::vector< Polygon > temp;
   std::copy_if(data.cbegin(), data.cend(), std::back_inserter(temp), isNumber(number));
-  return ReturnType(std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea));
+  double result = std::accumulate(temp.cbegin(), temp.cend(), 0.0, calcArea);
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::max_area(data_t &data, std::istream &)
+std::ostream &fesenko::max_area(const data_t &data, std::ostream &out)
 {
-  return ReturnType(calcArea(0.0, *std::max_element(data.cbegin(), data.cend(), isAreaLess())));
+  double result = calcArea(0.0, *std::max_element(data.cbegin(), data.cend(), isAreaLess()));
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::max_vertexes(data_t &data, std::istream &)
+std::ostream &fesenko::max_vertexes(const data_t &data, std::ostream &out)
 {
-  return ReturnType(std::max_element(data.cbegin(), data.cend(), isSizeLess())->points.size());
+  size_t result = std::max_element(data.cbegin(), data.cend(), isSizeLess())->points.size();
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::min_area(data_t &data, std::istream &)
+std::ostream &fesenko::min_area(const data_t &data, std::ostream &out)
 {
-  return ReturnType(calcArea(0.0, *std::min_element(data.cbegin(), data.cend(), isAreaLess())));
+  double result = calcArea(0.0, *std::min_element(data.cbegin(), data.cend(), isAreaLess()));
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::min_vertexes(data_t &data, std::istream &)
+std::ostream &fesenko::min_vertexes(const data_t &data, std::ostream &out)
 {
-  return ReturnType(std::min_element(data.cbegin(), data.cend(), isSizeLess())->points.size());
+  size_t result = std::min_element(data.cbegin(), data.cend(), isSizeLess())->points.size();
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::count_odd(data_t &data, std::istream &)
+std::ostream &fesenko::count_odd(const data_t &data, std::ostream &out)
 {
   size_t result = std::count_if(data.cbegin(), data.cend(), isOdd());
-  return ReturnType(result);
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::count_even(data_t &data, std::istream &)
+std::ostream &fesenko::count_even(const data_t &data, std::ostream &out)
 {
   size_t result = std::count_if(data.cbegin(), data.cend(), isEven());
-  return ReturnType(result);
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::count_vertexes(data_t &data, std::istream &in)
+std::ostream &fesenko::count_vertexes(const data_t &data, std::istream &in, std::ostream &out)
 {
   size_t number = 0;
   in >> number;
@@ -79,22 +87,21 @@ fesenko::ReturnType fesenko::count_vertexes(data_t &data, std::istream &in)
     throw std::runtime_error("Invalid number");
   }
   size_t result = std::count_if(data.cbegin(), data.cend(), isNumber(number));
-  return ReturnType(result);
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::rects_sub(data_t &data, std::istream &)
+std::ostream &fesenko::rects(const data_t &data, std::ostream &out)
 {
   size_t result = std::count_if(data.cbegin(), data.cend(), isRect());
-  return ReturnType(result);
+  return out << ReturnType(result);
 }
 
-fesenko::ReturnType fesenko::inframe_sub(data_t &data, std::istream &in)
+std::ostream &fesenko::inframe(const data_t &data, std::istream &in, std::ostream &out)
 {
   Polygon polygon;
   in >> polygon;
-  if (in.fail()) {
-    in.clear();
-    throw std::logic_error("Invalid input");
+  if (!in) {
+    throw std::invalid_argument("Incorrect rectangle");
   }
   Polygon polygonRect = createBoundingRect(polygon);
   Point polyBL = polygonRect.points[0];
@@ -103,5 +110,5 @@ fesenko::ReturnType fesenko::inframe_sub(data_t &data, std::istream &in)
   Point dataBL = dataRect.points[0];
   Point dataTR = dataRect.points[2];
   bool result = dataBL.x <= polyBL.x && dataBL.y <= polyBL.y && dataTR.x >= polyTR.x && dataTR.y >= polyTR.y;
-  return ReturnType(result);
+  return out << ReturnType(result);
 }
