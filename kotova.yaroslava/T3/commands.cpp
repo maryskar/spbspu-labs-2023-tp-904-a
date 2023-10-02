@@ -252,10 +252,6 @@ namespace kotova
   {
     Polygon polygon;
     in >> polygon;
-    if (!in)
-    {
-      throw std::logic_error("error");
-    }
     Point lowerLhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
     Point higherRhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
     for (auto&& i: dest)
@@ -285,10 +281,6 @@ namespace kotova
   {
     Polygon polygon;
     in >> polygon;
-    if (!in)
-    {
-      throw std::logic_error("error");
-    }
     using namespace std::placeholders;
     iofmtguard iofmtguard(out);
     out << std::count_if(dest.begin(), dest.end(), std::bind(isSamePolygon, _1, polygon)) << '\n';
