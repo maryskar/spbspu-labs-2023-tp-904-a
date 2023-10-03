@@ -13,6 +13,7 @@ struct Book
   size_t year;
 };
 
-
+std::istream& operator>>(std::istream& inp, Book& data);
+std::ostream& operator<<(std::ostream& out, Book& data);
 
 #endif
