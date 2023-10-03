@@ -6,9 +6,12 @@
 #include <iterator>
 #include <numeric>
 #include <stdexcept>
+
 #include "TypesIO.h"
+
 namespace {
-  int crossProduct(const std::pair< int, int > lhs, const std::pair< int, int > rhs)
+  int crossProduct(
+      const std::pair< int, int > lhs, const std::pair< int, int > rhs)
   {
     return std::abs(lhs.first * rhs.second - lhs.second * rhs.first);
   }
@@ -22,7 +25,8 @@ namespace {
     return p1.y < p2.y;
   }
 
-  ganiullin::Frame getFrameUnion(const ganiullin::Frame& lhs, const ganiullin::Frame& rhs)
+  ganiullin::Frame getFrameUnion(
+      const ganiullin::Frame& lhs, const ganiullin::Frame& rhs)
   {
     int minX = std::min< int >(lhs.first.x, rhs.first.x);
     int minY = std::min< int >(lhs.first.y, rhs.first.y);
@@ -38,21 +42,26 @@ namespace {
     }
     return p1.x < p2.x;
   }
-  double getTriangleArea(const ganiullin::Point p1, const ganiullin::Point p2, const ganiullin::Point p3)
+  double getTriangleArea(const ganiullin::Point p1, const ganiullin::Point p2,
+      const ganiullin::Point p3)
   {
-    std::pair< int, int > firstVector = std::pair< int, int >(p3.x - p1.x, p3.y - p1.y);
-    std::pair< int, int > secondVector = std::pair< int, int >(p2.x - p1.x, p2.y - p1.y);
+    std::pair< int, int > firstVector
+        = std::pair< int, int >(p3.x - p1.x, p3.y - p1.y);
+    std::pair< int, int > secondVector
+        = std::pair< int, int >(p2.x - p1.x, p2.y - p1.y);
 
     return crossProduct(firstVector, secondVector) / 2.0;
   }
-  bool isPointInFrame(const ganiullin::Point& point, const ganiullin::Frame frame)
+  bool isPointInFrame(
+      const ganiullin::Point& point, const ganiullin::Frame frame)
   {
     int minX = frame.first.x;
     int minY = frame.first.y;
     int maxX = frame.second.x;
     int maxY = frame.second.y;
 
-    return minX <= point.x && point.x <= maxX && minY <= point.y && point.y <= maxY;
+    return minX <= point.x && point.x <= maxX && minY <= point.y
+        && point.y <= maxY;
   }
   ganiullin::Frame getPolygonFrame(const ganiullin::Polygon& polygon)
   {
@@ -68,7 +77,7 @@ namespace {
   }
   ganiullin::Point translatePoint(const ganiullin::Point& point, int x, int y)
   {
-    return ganiullin::Point{point.x + x, point.y + y};
+    return ganiullin::Point {point.x + x, point.y + y};
   }
 }
 
@@ -80,7 +89,7 @@ std::istream& ganiullin::operator>>(std::istream& in, Point& point)
   }
   using delim = DelimiterIO;
   int x = 0, y = 0;
-  in >> delim{'('} >> x >> delim{';'} >> y >> delim{')'};
+  in >> delim {'('} >> x >> delim {';'} >> y >> delim {')'};
   if (in) {
     point.x = x;
     point.y = y;
@@ -143,7 +152,8 @@ double ganiullin::getArea(const Polygon& polygon)
   auto areasInsertIt = std::back_inserter(areas);
   auto getPivotTriangleArea = std::bind(getTriangleArea, _1, _2, pivot);
 
-  std::transform(polygonBeginIt + 1, polygonEndIt - 1, polygonBeginIt + 2, areasInsertIt, getPivotTriangleArea);
+  std::transform(polygonBeginIt + 1, polygonEndIt - 1, polygonBeginIt + 2,
+      areasInsertIt, getPivotTriangleArea);
 
   return std::accumulate(std::begin(areas), std::end(areas), 0.0);
 }
@@ -202,13 +212,15 @@ bool ganiullin::isSame(const Polygon& lhs, const Polygon& rhs)
   int diffX = lhsCopy[0].x - rhsCopy[0].x;
   int diffY = lhsCopy[0].y - rhsCopy[0].y;
 
-  auto isPointTranslated = std::bind(std::equal_to< Point >{}, _1, std::bind(translatePoint, _2, diffX, diffY));
+  auto isPointTranslated = std::bind(std::equal_to< Point > {}, _1,
+      std::bind(translatePoint, _2, diffX, diffY));
 
-  std::transform(lhsCopyBeginIt, lhsCopyEndIt, rhsCopyBeginIt, transInsertIt, isPointTranslated);
+  std::transform(lhsCopyBeginIt, lhsCopyEndIt, rhsCopyBeginIt, transInsertIt,
+      isPointTranslated);
 
   auto transBeginIt = std::begin(areTranslatedPoints);
   auto transEndIt = std::end(areTranslatedPoints);
-  auto isTrue = std::bind(std::logical_and< bool >{}, _1, true);
+  auto isTrue = std::bind(std::logical_and< bool > {}, _1, true);
 
   return std::all_of(transBeginIt, transEndIt, isTrue);
 }

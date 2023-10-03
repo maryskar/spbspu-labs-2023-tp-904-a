@@ -36,11 +36,12 @@ std::istream &fesenko::operator>>(std::istream &in, DataStruct &dest)
       in >> chr{ input.key2 } >> sep{ ':' };
     } else if (num == 3) {
       in >> str{ input.key3 } >> sep{ ':' };
-    }
-    if (!sentry) {
+    } else {
+      in.setstate(std::ios::failbit);
       return in;
     }
   }
+  in >> sep{')'};
   if (in) {
     dest = input;
   }
