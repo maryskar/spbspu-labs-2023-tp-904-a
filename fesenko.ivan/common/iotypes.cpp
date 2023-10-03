@@ -31,8 +31,7 @@ std::istream &fesenko::operator>>(std::istream &in, CharIO &&dest)
   if (!sentry) {
     return in;
   }
-  int quoteCode = 39;
-  char c = quoteCode;
+  char c = '\'';
   return in >> DelimiterIO{ c } >> dest.ref >> DelimiterIO{ c };
 }
 
@@ -42,8 +41,7 @@ std::istream &fesenko::operator>>(std::istream &in, StringIO &&dest)
   if (!sentry) {
     return in;
   }
-  int doubleQuoteCode = 34;
-  char c = doubleQuoteCode;
+  char c = '"';
   return std::getline(in >> DelimiterIO{ c }, dest.ref, c);
 }
 
