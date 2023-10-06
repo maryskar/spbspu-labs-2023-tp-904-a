@@ -42,10 +42,21 @@ void fesenko::read_file_cmd(data_t &data, std::istream &in)
 
 void fesenko::delete_dict_cmd(data_t &data, std::istream &in)
 {
-  std::string dict_name;
+  std::string dict_name = "";
   in >> dict_name;
   if (!in) {
     throw std::invalid_argument("Wrong input");
   }
   data.erase(dict_name);
+}
+
+void fesenko::delete_word_cmd(data_t &data, std::istream &in)
+{
+  std::string dict_name = "";
+  std::string word = "";
+  in >> dict_name >> word;
+  if (!in) {
+    throw std::invalid_argument("Wrong input");
+  }
+  data.at(dict_name).erase(word);
 }
