@@ -60,3 +60,16 @@ void fesenko::delete_word_cmd(data_t &data, std::istream &in)
   }
   data.at(dict_name).erase(word);
 }
+
+void fesenko::rename_cmd(data_t &data, std::istream &in)
+{
+  std::string dict_name = "";
+  std::string new_dict_name = "";
+  in >> dict_name >> new_dict_name;
+  if (!in) {
+    throw std::invalid_argument("Wrong input");
+  }
+  hash_t temp = data.at(dict_name);
+  data.erase(dict_name);
+  data.insert(std::make_pair(new_dict_name, temp));
+}
