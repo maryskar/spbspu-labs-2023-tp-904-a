@@ -20,7 +20,6 @@ namespace skarlygina
 			std::cout << "\n";
 			return;
 		}
-
 		skarlygina::Dict_t dict;
 		size_t str_number = 1;
 		std::string string = "";
@@ -58,7 +57,7 @@ namespace skarlygina
 		std::string word = skarlygina::getWordFromString(str);
 		if (dicts.find(dict_name) == dicts.end() || dicts.find(dict_name)->second.empty())
 		{
-			skarlygina::errorInvalidCommandMessage(std::cerr);
+			skarlygina::errorInvalidArgsMessage(std::cerr);
 			std::cout << "\n";
 			return;
 		}
@@ -72,7 +71,7 @@ namespace skarlygina
 		bool isFound = false;
 		if ((dicts.find(dict_name) == dicts.end()) || ((*dicts.find(dict_name)).second.empty()))
 		{
-			skarlygina::errorInvalidCommandMessage(std::cerr);
+			skarlygina::errorInvalidArgsMessage(std::cerr);
 			std::cout << "\n";
 			return;
 		}

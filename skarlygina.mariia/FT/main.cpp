@@ -39,6 +39,23 @@ int main()
         std::getline(std::cin, str);
         iterator->second(str, dicts);
       }
+      else
+      {
+        auto c_iterator = const_commands.find(command);
+        if (c_iterator == const_commands.cend()) //!!!!!!!!!!!!
+        {
+          std::string temp = "";
+          std::getline(std::cin, temp);
+          skarlygina::errorInvalidCommandMessage(std::cerr);
+          std::cout << "\n";
+        }
+        else
+        {
+          std::string str = "";
+          std::getline(std::cin, str);
+          c_iterator->second(str, dicts);
+        }
+      }
     }
   }
   catch (const std::exception& e)
