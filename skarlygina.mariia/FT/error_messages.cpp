@@ -4,7 +4,7 @@ namespace skarlygina
 {
 	std::ostream& errorOpenFileMessage(std::ostream& out)
 	{
-		out << "<INVALID COMMAND>";
+		out << "<ERROR INCORRECT FILE>";
 		return out;
 	}
 }
