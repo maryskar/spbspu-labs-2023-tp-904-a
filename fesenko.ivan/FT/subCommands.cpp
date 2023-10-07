@@ -3,6 +3,7 @@
 #include <cctype>
 #include <fstream>
 #include <stdexcept>
+#include "subFunctions.h"
 
 void fesenko::read_file_cmd(data_t &data, std::istream &in)
 {
@@ -82,10 +83,21 @@ std::ostream &fesenko::print_word_cmd(const data_t &data, std::istream &in, std:
   if (!in) {
     throw std::invalid_argument("Wrong input");
   }
-  auto list = data.at(dict_name).at(word);
-  out << word;
-  for (auto &it: list) {
-    out << " " << it;
+  hash_t hash = data.at(dict_name);
+  print_word(hash, word, out);
+  return out;
+}
+
+std::ostream &fesenko::print_dict_cmd(const data_t &data, std::istream &in, std::ostream &out)
+{
+  std::string dict_name = "";
+  in >> dict_name;
+  if (!in) {
+    throw std::invalid_argument("Wrong input");
   }
-  return out << "\n";
+  hash_t hash = data.at(dict_name);
+  for (auto &it: hash) {
+    print_word(hash, it.first, out);
+  }
+  return out;
 }

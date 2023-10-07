@@ -6,6 +6,6 @@
 namespace fesenko
 {
   using hash_t = std::unordered_map< std::string, std::forward_list< size_t > >;
-  std::ostream &print_word(hash_t &hash, std::string word, std::ostream &out);
+  void print_word(const hash_t &hash, std::string word, std::ostream &out);
 }
 #endif
