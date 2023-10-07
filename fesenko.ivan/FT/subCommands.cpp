@@ -73,3 +73,19 @@ void fesenko::rename_cmd(data_t &data, std::istream &in)
   data.erase(dict_name);
   data.insert(std::make_pair(new_dict_name, temp));
 }
+
+std::ostream &fesenko::print_word_cmd(const data_t &data, std::istream &in, std::ostream &out)
+{
+  std::string dict_name = "";
+  std::string word = "";
+  in >> dict_name >> word;
+  if (!in) {
+    throw std::invalid_argument("Wrong input");
+  }
+  auto list = data.at(dict_name).at(word);
+  out << word;
+  for (auto &it: list) {
+    out << " " << it;
+  }
+  return out << "\n";
+}
