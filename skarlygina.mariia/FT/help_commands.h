@@ -6,4 +6,3 @@ namespace skarlygina
 	std::string getWordFromString(std::string&);
 }
 #endif
-

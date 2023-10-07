@@ -11,7 +11,7 @@ namespace skarlygina
     }
     if (str.empty())
     {
-      throw std::logic_error{ "Empty error" };
+      throw std::logic_error{"Empty error"};
     }
     auto whitespace = str.find(' ');
     std::string word = "";
