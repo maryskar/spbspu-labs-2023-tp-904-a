@@ -30,8 +30,9 @@ namespace potapova
     in >> DelimiterIO{'('} >> dest.x >> DelimiterIO{';'} >> dest.y >> DelimiterIO{')'};
     if (in)
     {
-      dest = in;
+      dest = input_point;
     }
+    return in;
   }
 
   std::ostream& operator<<(std::ostream& out, Point& source)
