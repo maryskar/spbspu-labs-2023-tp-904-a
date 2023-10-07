@@ -19,5 +19,20 @@ namespace skarlygina
 			std::cout << "\n";
 			return;
 		}
+
+		skarlygina::Dict_t dict;
+		size_t str_number = 1;
+		std::string string = "";
+		while (!file.eof())
+		{
+			std::getline(file, string);
+			if (string.empty())
+			{
+				continue;
+			}
+			skarlygina::makeDictStr(string, str_number++, dict);
+		}
+		dicts.emplace(dictname, dict);
+		file.close();
 	}
 }
