@@ -35,7 +35,7 @@ void fesenko::print_word(const hash_t &hash, const std::string word, std::ostrea
   out << "\n";
 }
 
-void fesenko::insert_in_asc_order(forward_list< size_t > &list, const size_t number)
+void fesenko::insert_in_asc_order(std::forward_list< size_t > &list, const size_t number)
 {
   auto prev = list.before_begin();
   auto cur = list.begin();
