@@ -159,4 +159,30 @@ namespace potapova
     auto max_polygon_iter = std::max_element(polygons.begin(), polygons.end(), comparePolygonsPoints);
     double max_points = max_polygon_iter->points.size();
   }
+
+  void getMinArea(const std::deque< Polygon >& polygons,
+      std::istream&,
+      std::ostream&,
+      std::ostream&)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("Invalid number of polygons");
+    }
+    auto min_polygon_iter = std::min_element(polygons.begin(), polygons.end(), comparePolygonsAreas);
+    double min_area = getPolygonArea(*min_polygon_iter);
+  }
+
+  void getMaxPoints(const std::deque< Polygon >& polygons,
+      std::istream&,
+      std::ostream&,
+      std::ostream&)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("Invalid number of polygons");
+    }
+    auto min_polygon_iter = std::min_element(polygons.begin(), polygons.end(), comparePolygonsPoints);
+    double min_points = min_polygon_iter->points.size();
+  }
 }
