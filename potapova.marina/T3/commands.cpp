@@ -130,7 +130,7 @@ namespace potapova
   }
 
   void getMaxArea(const std::deque< Polygon >& polygons,
-      std::istream& in,
+      std::istream&,
       std::ostream&,
       std::ostream&)
   {
@@ -140,5 +140,23 @@ namespace potapova
     }
     auto max_polygon_iter = std::max_element(polygons.begin(), polygons.end(), comparePolygonsAreas);
     double max_area = getPolygonArea(*max_polygon_iter);
+  }
+
+  bool comparePolygonsPoints(const Polygon& first, const Polygon& second)
+  {
+    return first.points.size() < second.points.size();
+  }
+
+  void getMaxPoints(const std::deque< Polygon >& polygons,
+      std::istream&,
+      std::ostream&,
+      std::ostream&)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("Invalid number of polygons");
+    }
+    auto max_polygon_iter = std::max_element(polygons.begin(), polygons.end(), comparePolygonsPoints);
+    double max_points = max_polygon_iter->points.size();
   }
 }
