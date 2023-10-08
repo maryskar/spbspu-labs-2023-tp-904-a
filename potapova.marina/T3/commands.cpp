@@ -38,7 +38,7 @@ namespace potapova
   }
 
   template< size_t ParityFlag >
-  double addPolygonsAreaToSum(double& sum, const Polygon& polygon)
+  double addPolygonsAreaToSumT(double& sum, const Polygon& polygon)
   {
     if ((polygon.points.size() & 1) == ParityFlag)
     {
@@ -48,9 +48,36 @@ namespace potapova
   }
 
   template< size_t ParityFlag >
+  double getSumPolygonsAreasT(const std::deque< Polygon >& polygons)
+  {
+    double area = std::accumulate(polygons.begin(), polygons.end(), 0.0, addPolygonsAreaToSumT< PartityFlag >);
+    return area;
+  }
+
+  void getSumAreasPolygonsOdd(const std::deque< Polygon >& polygons,
+      std::istream&,
+      std::ostream&,
+      std::ostream&)
+  {
+    double sum = getSumPolygonsAreasT<ODD>(polygons);
+  }
+
+  void getSumAreasPolygonsEven(const std::deque< Polygon >& polygons,
+      std::istream&,
+      std::ostream&,
+      std::ostream&)
+  {
+    double sum = getSumPolygonsAreasT<EVEN>(polygons);
+  }
+
+  double addPolygonsAreaToSum(double& sum, const Polygon& polygon)
+  {
+    return sum + getPolygonArea(polygon);
+  }
+
   double getSumPolygonsAreas(const std::deque< Polygon >& polygons)
   {
-    double area = std::accumulate(polygons.begin(), polygons.end(), 0.0, addPolygonsAreaToSum< PartityFlag >);
+    double area = std::accumulate(polygons.begin(), polygons.end(), 0.0, addPolygonsAreaToSum);
     return area;
   }
 
@@ -59,33 +86,59 @@ namespace potapova
     return polygons.size();
   }
 
-  template< size_t ParityFlag >
-  double calculateAverageArea(const std::deque< Polygon >& polygons)
+  void getAverageArea(const std::deque< Polygon >& polygons,
+      std::istream&,
+      std::ostream&,
+      std::ostream&)
   {
     size_t num_polygons = countPolygons(polygons);
     if (num_polygons < 1)
     {
       throw std::runtime_error("Incorrect number of polygons");
     }
-    double all_area = getSumPolygonsAreas< ParityFlag >(polygons);
+    double all_area = getSumPolygonsAreas(polygons);
     double average_area = all_area / num_polygons;
-    return average_area;
   }
 
-  void addPolygon(std::deque< Polygon >& polygons,
+  bool checkDesiredNumPoints(size_t num_points, const Polygon& polygon)
+  {
+    return polygon.points.size() == num_points;
+  }
+
+  double addAreaToSumIfNumPoints(double sum, const Polygon& polygon, size_t num_points)
+  {
+    if (checkDesiredNumPoints(num_points, polygon))
+    {
+      return sum + getPolygonArea(polygon);
+    }
+    return sum;
+  }
+
+  void getSumOfAreasWithPointCounts(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream&,
       std::ostream&)
   {
-    Polygon input;
-    if (in >> input)
-    {
-      polygons.push_back(input);
-    } 
-    else
-    {
-      throw std::logic_error("");
-    }
+    size_t num_points = 0;
+    in >> num_points;
+    double sum_areas = std::accumulate(polygons.begin(), polygons.end(), 0.0, addAreaToSumIfNumPoints);
   }
 
+  bool comparePolygonsAreas(const Polygon& first, const Polygon& second)
+  {
+    return getPolygonArea(first) < getPolygonArea(second);
+  }
+
+  void getMaxArea(const std::deque< Polygon >& polygons,
+      std::istream& in,
+      std::ostream&,
+      std::ostream&)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("Invalid number of polygons");
+    }
+    auto max_polygon_iter = std::max_element(polygons.begin(), polygons.end(), comparePolygonsAreas);
+    double max_area = getPolygonArea(*max_polygon_iter);
+  }
 }
