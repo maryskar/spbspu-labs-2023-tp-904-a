@@ -185,4 +185,40 @@ namespace potapova
     auto min_polygon_iter = std::min_element(polygons.begin(), polygons.end(), comparePolygonsPoints);
     double min_points = min_polygon_iter->points.size();
   }
+
+  bool isOddPointNum(const Polygon& polygon)
+  {
+    return (polygon.points.size() & 1) == 1;
+  }
+
+  void countPolygonsWithOddPointsNum(const std::deque< Polygon >& polygons,
+      std::istream&,
+      std::ostream&,
+      std::ostream&)
+  {
+    size_t num_polygons = std::count_if(polygons.begin(), polygons.end(), isOddPointNum);
+  }
+
+  bool isEvenPointNum(const Polygon& polygon)
+  {
+    return (polygon.points.size() & 1) == 0;
+  }
+
+  void countPolygonsWithEvenPointsNum(const std::deque< Polygon >& polygons,
+      std::istream&,
+      std::ostream&,
+      std::ostream&)
+  {
+    size_t num_polygons = std::count_if(polygons.begin(), polygons.end(), isEvenPointNum);
+  }
+
+  void countPolygonsWithPointsNum(const std::deque< Polygon >& polygons,
+      std::istream& in,
+      std::ostream&,
+      std::ostream&)
+  {
+    size_t num_points = 0;
+    in >> num_points;
+    size_t num_polygons = std::count_if(polygons.begin(), polygons.end(), checkDesiredNumPoints);
+  }
 }
