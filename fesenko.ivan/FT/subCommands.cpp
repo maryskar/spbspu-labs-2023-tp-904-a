@@ -1,6 +1,5 @@
 #include "subCommands.h"
 #include <string>
-#include <cctype>
 #include <fstream>
 #include <stdexcept>
 #include "subFunctions.h"
@@ -17,24 +16,22 @@ void fesenko::read_file_cmd(data_t &data, std::istream &in)
   if (!fin.is_open()) {
     throw std::invalid_argument("Can`t open the file");
   }
+  hash_t dict = data.at(dict_name);
   size_t counter = 0;
   std::string line = "";
+  std::forward_list< std::string > word_list;
   while (std::getline(fin, line)) {
     counter++;
+    word_list = parse_line(line);
     std::string word = "";
-    for (size_t i = 0; i < line.size(); i++) {
-      char c = line[i];
-      if (std::isalnum(c)) {
-        c = std::tolower(c);
-        word += c;
-      } else if (!word.empty()){
-        data.at(dict_name).insert(std::make_pair(word, counter));
-        word = "";
+    while (!word_list.empty()) {
+      word = word_list.front();
+      word_list.pop_front();
+      if (dict.find(word) == dict.end()) {
+        std::forward_list< size_t > numbers;
+        dict.insert(std::make_pair(word, numbers));
       }
-    }
-    if (!word.empty()){
-      data.at(dict_name).insert(std::make_pair(word, counter));
-      word = "";
+      insert_in_asc_order(dict.at(word), counter);
     }
   }
 }
@@ -81,20 +78,24 @@ void fesenko::insert_cmd(data_t &data, std::istream &in)
   if (!in) {
     throw std::invalid_argument("Wrong input");
   }
-  std::forward_list< size_t > list;
   std::string line = "";
   std::getline(in, line);
-  std::string number = "";
-  for (size_t i = 0; i < line.size(); i++) {
-    if (std::isdigit(line[i])) {
-      number += line[i];
-    } else if (!number.empty()) {
-      list.push_front(std::stoull(number));
-      number = "";
-    }
+  if (!in) {
+    throw std::invalid_argument("Wrong input");
   }
-  list.sort();
-  data.at(dict_name).insert(std::make_pair(word, list));
+  hash_t dict = data.at(dict_name);
+  if (dict.find(word) == dict.end()) {
+    std::forward_list< size_t > numbers;
+    dict.insert(std::make_pair(word, numbers));
+  }
+  std::forward_list< std::string > num_list;
+  num_list = parse_line(line);
+  size_t number = 0;
+  while (!num_list.empty()) {
+    number = stoull(num_list.front());
+    num_list.pop_front();
+    insert_in_asc_order(dict.at(word), number);
+  }
 }
 
 std::ostream &fesenko::print_word_cmd(const data_t &data, std::istream &in, std::ostream &out)
