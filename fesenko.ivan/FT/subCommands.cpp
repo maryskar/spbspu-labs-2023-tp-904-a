@@ -13,13 +13,12 @@ void fesenko::read_file_cmd(data_t &data, std::istream &in)
   if (!line.empty()) {
     throw std::invalid_argument("Wrong input");
   }
-  std::ifstream fin(file_name);
+  std::ifstream fin(filename);
   if (!fin.is_open()) {
     throw std::invalid_argument("Can`t open the file");
   }
   hash_t dict = data.at(dict_name);
   size_t counter = 0;
-  std::string line = "";
   std::forward_list< std::string > word_list;
   while (std::getline(fin, line)) {
     counter++;
@@ -58,6 +57,20 @@ void fesenko::delete_word_cmd(data_t &data, std::istream &in)
     throw std::invalid_argument("Wrong input");
   }
   data.at(dict_name).erase(word);
+}
+
+void fesenko::complement_cmd(data_t &data, std::istream &in)
+{
+  std::string line = "";
+  std::getline(in, line);
+  std::string new_dict_name = get_cmd_word(line);
+  std::string dict_name1 = get_cmd_word(line);
+  std::string dict_name2 = get_cmd_word(line);
+  make_complementation(data, new_dict_name, dict_name1, dict_name2);
+  while (!line.empty()) {
+    std::string dict_name = get_cmd_word(line);
+    make_complementation(data, new_dict_name, new_dict_name, dict_name);
+  }
 }
 
 void fesenko::rename_cmd(data_t &data, std::istream &in)
