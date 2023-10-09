@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <iostream>
-#include <limits>
 
 namespace potapova
 {
@@ -20,23 +19,6 @@ namespace potapova
   struct DelimiterIO
   {
     char sign;
-  };
-
-  struct Rectangle
-  {
-    int max_x;
-    int min_x;
-    int max_y;
-    int min_y;
-
-    Rectangle():
-      max_x(std::numeric_limits< int >::max()),
-      min_x(std::numeric_limits< int >::lowest()),
-      max_y(std::numeric_limits< int >::max()),
-      min_y(std::numeric_limits< int >::lowest())
-    {
-
-    }
   };
 
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
