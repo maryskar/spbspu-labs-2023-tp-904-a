@@ -5,6 +5,7 @@
 #include <numeric>
 #include <functional>
 #include <stdexcept>
+#include "rectangle.h"
 
 namespace potapova
 {
@@ -267,32 +268,9 @@ namespace potapova
     out << count_removed << '\n';
   }
 
-  void updateRectangleBoundaries(Rectangle& rectangle, const Point& point)
-  {
-    rectangle.min_x = std::min(rectangle.min_x, point.x);
-    rectangle.min_y = std::min(rectangle.min_y, point.y);
-    rectangle.max_x = std::max(rectangle.max_x, point.x);
-    rectangle.max_y = std::max(rectangle.max_y, point.y);
-  }
-
-  Rectangle accumulatePolygons(Rectangle accumulator, const Polygon& polygon)
-  {
-    return std::accumulate(polygon.points.begin(), polygon.points.end(), accumulator, updateRectangleBoundaries);
-  }
-
-  Rectangle findRectangleBounds(const std::deque< Polygon >& polygons)
-  {
-    return std::accumulate(polygons.begin(), polygons.end(), Rectangle(), accumulatePolygons);
-  }
-
-  bool isPointInFrame(const Rectangle& frame, const Point& point)
-  {
-    return point.x >= frame.min_x && point.x <= frame.max_x && point.y >= frame.min_y && point.y <= frame.max_y;
-  }
-
   bool isInFrame(const Rectangle& frame, const Polygon& polygon)
   {
-    return std::all_of(polygon.points.begin(), polygon.points.end(), std::bind(isPointInFrame, frame, _1));
+    return std::all_of(polygon.points.begin(), polygon.points.end(), std::bind(Rectangle::isPointInFrame, frame, _1));
   }
 
   void checkPolygonInFrame(std::deque< Polygon >& polygons,
@@ -300,7 +278,7 @@ namespace potapova
       std::ostream& out,
       std::ostream&)
   {
-    Rectangle frame = findRectangleBounds(polygons);
+    Rectangle frame = Rectangle::getRectWichCanInclude(polygons);
     Polygon input_polygon;
     in >> input_polygon;
     if (isInFrame(frame, input_polygon))
