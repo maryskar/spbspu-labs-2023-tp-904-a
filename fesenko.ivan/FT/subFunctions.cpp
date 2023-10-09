@@ -35,16 +35,16 @@ void fesenko::print_word(const hash_t &hash, const std::string word, std::ostrea
   out << "\n";
 }
 
-void fesenko::insert_in_asc_order(std::forward_list< size_t > &list, const size_t number)
+void fesenko::insert_in_asc_order(std::forward_list< size_t > &list, size_t number)
 {
-  auto prev = list.before_begin();
-  auto cur = list.begin();
-  while (cur < number && cur != list.end()) {
-    prev++;
+  std::forward_list< size_t > copy = list;
+  auto cur = list.before_begin();
+  while (!copy.empty() && copy.front() < number) {
+    copy.pop_front();
     cur++;
   }
-  if (cur == number) {
+  if (copy.front() == number) {
     return;
   }
-  list.insert_after(prev, number);
+  list.insert_after(cur, number);
 }
