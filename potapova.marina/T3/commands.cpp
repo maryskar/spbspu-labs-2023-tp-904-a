@@ -266,4 +266,50 @@ namespace potapova
     polygons.erase(new_end_iter, polygons.end());
     out << count_removed << '\n';
   }
+
+  void updateRectangleBoundaries(Rectangle& rectangle, const Point& point)
+  {
+    rectangle.min_x = std::min(rectangle.min_x, point.x);
+    rectangle.min_y = std::min(rectangle.min_y, point.y);
+    rectangle.max_x = std::max(rectangle.max_x, point.x);
+    rectangle.max_y = std::max(rectangle.max_y, point.y);
+  }
+
+  Rectangle accumulatePolygons(Rectangle accumulator, const Polygon& polygon)
+  {
+    return std::accumulate(polygon.points.begin(), polygon.points.end(), accumulator, updateRectangleBoundaries);
+  }
+
+  Rectangle findRectangleBounds(const std::deque< Polygon >& polygons)
+  {
+    return std::accumulate(polygons.begin(), polygons.end(), Rectangle(), accumulatePolygons);
+  }
+
+  bool isPointInFrame(const Rectangle& frame, const Point& point)
+  {
+    return point.x >= frame.min_x && point.x <= frame.max_x && point.y >= frame.min_y && point.y <= frame.max_y;
+  }
+
+  bool isInFrame(const Rectangle& frame, const Polygon& polygon)
+  {
+    return std::all_of(polygon.points.begin(), polygon.points.end(), std::bind(isPointInFrame, frame, _1));
+  }
+
+  void checkPolygonInFrame(std::deque< Polygon >& polygons,
+      std::istream& in,
+      std::ostream& out,
+      std::ostream&)
+  {
+    Rectangle frame = findRectangleBounds(polygons);
+    Polygon input_polygon;
+    in >> input_polygon;
+    if (isInFrame(frame, input_polygon))
+    {
+      out << "TRUE\n";
+    }
+    else
+    {
+      out << "FALSE\n";
+    }
+  }
 }
