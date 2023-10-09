@@ -156,10 +156,10 @@ std::istream& operator>>(std::istream& inp, Book& data)
 std::ostream& operator<<(std::ostream& out, Book& data)
 {
   out << "@Book{" << data.key << ",\n";
-  out << "  " << "author = " << StringO{data.author} << ",\n";
-  out << "  " << "title = " << StringO{data.title} << ",\n";
-  out << "  " << "year = " << data.year << ",\n";
-  out << "  " << "isbn = " << StringO{data.isbn} << "\n";
+  out << " " << "author = " << StringO{data.author} << ",\n";
+  out << " " << "title = " << StringO{data.title} << ",\n";
+  out << " " << "year = " << data.year << ",\n";
+  out << " " << "isbn = " << StringO{data.isbn} << "\n";
   out << "}";
 
   return out;
