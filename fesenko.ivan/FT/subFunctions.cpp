@@ -1,33 +1,26 @@
 #include "subFunctions.h"
 #include <cctype>
+#include <string>
 
-std::forward_list< std::string > fesenko::parse_cmd_line(const std::string line, size_t min_words)
+std::string fesenko::get_cmd_word(std::string &line)
 {
   if (line.empty()) {
     throw std::invalid_argument("Wrong input");
   }
-  size_t counter = 0;
   std::string word = "";
-  std::forward_list< std::string > list;
-  for (size_t i = 0; i < line.size(); i++) {
-    char c = line[i];
+  while (!line.empty()) {
+    char c = line[0];
+    line.erase(0, 1);
     if (!isspace(c)) {
       word += c;
     } else if (!word.empty()){
-      list.push_front(word);
-      word = "";
-      counter++;
+      break;
     }
   }
-  if (!word.empty()){
-    list.push_front(word);
-    word = "";
-  }
-  if (counter < min_words) {
+  if (word.empty()) {
     throw std::invalid_argument("Wrong input");
   }
-  list.reverse();
-  return list;
+  return word;
 }
 
 std::forward_list< std::string > fesenko::parse_text_line(const std::string line)
