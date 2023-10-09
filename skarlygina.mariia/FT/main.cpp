@@ -15,7 +15,6 @@ int main()
     {"merge", skarlygina::merge},
     {"rename", skarlygina::rename},
     {"intersect", skarlygina::intersect},
-
     {"deleteDict", skarlygina::deleteDict},
     {"complement", skarlygina::complement},
   };

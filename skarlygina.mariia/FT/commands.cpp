@@ -201,4 +201,41 @@ namespace skarlygina
 		Dict_t dict_intersect = doIntersect(dict_name_first, dict_name_second, dicts);
 		dicts.emplace(new_dict_name, dict_intersect);
 	}
+
+	void complement(std::string str, Dicts_t& dicts)
+	{
+		std::string new_dict_name = skarlygina::getWordFromString(str);
+		std::string dict_name_first = skarlygina::getWordFromString(str);
+		std::string dict_name_second = skarlygina::getWordFromString(str);
+		if (dicts.find(dict_name_first) == dicts.end() || dicts.find(dict_name_second) == dicts.end())
+		{
+			skarlygina::errorInvalidCommandMessage(std::cerr);
+			std::cout << "\n";
+			return;
+		}
+		Dict_t dict_complement = doComplement(dict_name_first, dict_name_second, dicts);
+		dicts.emplace(new_dict_name, dict_complement);
+
+	}
+
+	void deleteDict(std::string str, Dicts_t& dicts)
+	{
+		std::string dict_name = skarlygina::getWordFromString(str);
+		std::vector< std::string > dicts_names;
+		while (!dict_name.empty())
+		{
+			dicts_names.push_back(dict_name);
+			dict_name = skarlygina::getWordFromString(str);
+		}
+		if ((dicts.find(dicts_names[0]) == dicts.cend()))
+		{
+			skarlygina::errorInvalidArgsMessage(std::cerr);
+			std::cout << "\n";
+			return;
+		}
+		for (size_t i = 0; i < dicts_names.size(); i++)
+		{
+			dicts.erase(dicts.find(dict_name));
+		}	
+	}
 }

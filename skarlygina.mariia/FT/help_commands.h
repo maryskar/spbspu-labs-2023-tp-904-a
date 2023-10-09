@@ -16,5 +16,6 @@ namespace skarlygina
 	std::ostream& doPrint(const Dict_t&, std::ostream&);
 	void doWriteInFile(const Dict_t&, const std::string&);
 	Dict_t doIntersect(const std::string&, const std::string&, Dicts_t&);
+	Dict_t doComplement(const std::string&, const std::string&, Dicts_t&);
 }
 #endif

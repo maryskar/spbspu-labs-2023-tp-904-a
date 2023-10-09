@@ -105,4 +105,21 @@ namespace skarlygina
     }
     return (result);
   }
+
+  Dict_t doComplement(const std::string dict_name_first, const std::string dict_name_second, Dicts_t& dicts)
+  {
+    auto iter1 = dicts.find(dict_name_first);
+    auto iter2 = dicts.find(dict_name_second);
+    Dict_t result = iter1->second;
+    for (auto i = iter2->second.cbegin(); i != iter2->second.cend(); i++)
+    {
+      auto key = i->first;
+      if (result.find(key) != result.end())
+      {
+        result.erase(key);
+      }
+    }
+    return (result);
+
+  }
 }
