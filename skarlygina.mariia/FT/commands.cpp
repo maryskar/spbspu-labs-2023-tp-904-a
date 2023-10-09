@@ -94,7 +94,7 @@ namespace skarlygina
 
 	void merge(std::string str, Dicts_t& dicts)
 	{
-		std::vector<std::string> dicts_names;
+		std::vector< std::string > dicts_names;
 		std::string dict_name = skarlygina::getWordFromString(str);
 		while (!dict_name.empty())
 		{
@@ -128,5 +128,77 @@ namespace skarlygina
 		}
 		dicts.erase(dicts.find(dicts_names[0]));
 		dicts.emplace(dicts_names[0], result);
+	}
+
+	void printDict(std::string str, const Dicts_t& dicts)
+	{
+		std::vector< std::string > dicts_names;
+		std::string dict_name = skarlygina::getWordFromString(str);
+		while (!dict_name.empty())
+		{
+			dicts_names.push_back(dict_name);
+			dict_name = skarlygina::getWordFromString(str);
+		}
+		if ((dicts.find(dicts_names[0]) == dicts.cend()))
+		{
+			skarlygina::errorInvalidArgsMessage(std::cerr);
+			std::cout << "\n";
+			return;
+		}
+		for (size_t i = 0; i < dicts_names.size(); i++)
+		{
+			auto iterator = dicts.find(dicts_names[i]);
+			if (iterator == dicts.cend())
+			{
+				skarlygina::errorInvalidCommandMessage(std::cerr);
+				std::cout << "\n";
+				return;
+			}
+			skarlygina::doPrint((dicts.find(dicts_names[i]))->second, std::cout);
+		}
+	}
+
+	void writeInFile(std::string str, const Dicts_t& dicts)
+	{
+		auto out_name = skarlygina::getWordFromString(str);
+		std::vector< std::string > dicts_names;
+		auto dict_name = skarlygina::getWordFromString(str);
+		while (!dict_name.empty())
+		{
+			dicts_names.push_back(dict_name);
+			dict_name = skarlygina::getWordFromString(str);
+		}
+		if ((dicts.find(dicts_names[0]) == dicts.cend()))
+		{
+			skarlygina::errorInvalidArgsMessage(std::cerr);
+			std::cout << "\n";
+			return;
+		}
+		for (size_t i = 0; i < dicts_names.size(); i++)
+		{
+			auto citerator = dicts.find(dicts_names[i]);
+			if (citerator == dicts.cend())
+			{
+				skarlygina::errorInvalidArgsMessage(std::cerr);
+				std::cout << "\n";
+				return;
+			}
+			skarlygina::doWriteInFile((dicts.find(dicts_names[i]))->second, out_name);
+		}		
+	}
+
+	void intersect(std::string str, Dicts_t& dicts)
+	{
+		std::string new_dict_name = skarlygina::getWordFromString(str);
+		std::string dict_name_first = skarlygina::getWordFromString(str);
+		std::string dict_name_second = skarlygina::getWordFromString(str);
+		if (dicts.find(dict_name_first) == dicts.end() || dicts.find(dict_name_second) == dicts.end())
+		{
+			skarlygina::errorInvalidCommandMessage(std::cerr);
+			std::cout << "\n";
+			return;
+		}
+		Dict_t dict_intersect = doIntersect(dict_name_first, dict_name_second, dicts);
+		dicts.emplace(new_dict_name, dict_intersect);
 	}
 }

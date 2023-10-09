@@ -14,11 +14,17 @@ int main()
     {"deleteWord", skarlygina::deleteWord},
     {"merge", skarlygina::merge},
     {"rename", skarlygina::rename},
+    {"intersect", skarlygina::intersect},
+
+    {"deleteDict", skarlygina::deleteDict},
+    {"complement", skarlygina::complement},
   };
 
   std::map< std::string, const_command_t > const_commands
   {
     {"printWord", skarlygina::printWord},
+    {"printDict", skarlygina::printDict},
+    {"writeInFile", skarlygina::writeInFile},
   };
 
   try
