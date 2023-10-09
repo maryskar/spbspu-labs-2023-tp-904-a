@@ -125,7 +125,10 @@ namespace potapova
   {
     size_t num_points = 0;
     in >> num_points;
-    double sum_areas = std::accumulate(polygons.begin(), polygons.end(), 0.0, addAreaToSumIfNumPoints);
+    double sum_areas = std::accumulate(polygons.begin(),
+      polygons.end(),
+      0.0,
+      std::bind(addAreaToSumIfNumPoints, _1, _2, num_points));
     out << sum_areas << '\n';
   }
 
