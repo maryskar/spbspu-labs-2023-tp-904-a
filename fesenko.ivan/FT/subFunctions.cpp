@@ -20,6 +20,9 @@ std::string fesenko::get_cmd_word(std::string &line)
   if (word.empty()) {
     throw std::invalid_argument("Wrong input");
   }
+  while (!line.empty() && isspace(line[0])) {
+    line.erase(0, 1);
+  }
   return word;
 }
 
