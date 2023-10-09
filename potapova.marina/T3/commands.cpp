@@ -8,6 +8,8 @@
 
 namespace potapova
 {
+  using namespace std::placeholders;
+
   constexpr size_t ODD = 1;
   constexpr size_t EVEN = 0;
 
@@ -230,5 +232,35 @@ namespace potapova
     in >> num_points;
     size_t num_polygons = std::count_if(polygons.begin(), polygons.end(), checkDesiredNumPoints);
     out << num_polygons << '\n';
+  }
+
+  bool operator==(const Polygon& first, const Polygon& second)
+  {
+    if (first.points.size() != second.points.size())
+    {
+      return false;
+    }
+    return std::equal(first.points.begin(), first.points.end(), second.points.begin());
+  }
+
+  bool comparePolygonsEqual(const Polygon& first, const Polygon& second, const Polygon& target_polygon)
+  {
+    return (first == second) && (first == target_polygon);
+  }
+
+  void removePolygonDuplicates(std::deque< Polygon >& polygons,
+      std::istream& in,
+      std::ostream& out,
+      std::ostream&)
+  {
+    Polygon target_polygon;
+    in >> target_polygon;
+    auto new_end_iter = std::unique(polygons.begin(),
+      polygons.end(),
+      std::bind(comparePolygonsEqual, _1, _2, target_polygon));
+    size_t count_removed = 0;
+    count_removed = std::distance(new_end_iter, polygons.end());
+    polygons.erase(new_end_iter, polygons.end());
+    out << count_removed << '\n';
   }
 }
