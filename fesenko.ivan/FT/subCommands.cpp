@@ -73,6 +73,20 @@ void fesenko::complement_cmd(data_t &data, std::istream &in)
   }
 }
 
+void fesenko::intersect_cmd(data_t &data, std::istream &in)
+{
+  std::string line = "";
+  std::getline(in, line);
+  std::string new_dict_name = get_cmd_word(line);
+  std::string dict_name1 = get_cmd_word(line);
+  std::string dict_name2 = get_cmd_word(line);
+  make_intersection(data, new_dict_name, dict_name1, dict_name2);
+  while (!line.empty()) {
+    std::string dict_name = get_cmd_word(line);
+    make_intersection(data, new_dict_name, new_dict_name, dict_name);
+  }
+}
+
 void fesenko::rename_cmd(data_t &data, std::istream &in)
 {
   std::string line = "";
