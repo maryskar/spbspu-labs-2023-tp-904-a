@@ -16,5 +16,7 @@ namespace fesenko
   void make_complementation(list_t &list1, const list_t &list2);
   void make_intersection(data_t &data, std::string new_dict_name, std::string dict_name1, std::string dict_name2);
   void make_intersection(list_t &new_list, const list_t &list1, const list_t &list2);
+  void make_union(data_t &data, std::string new_dict_name, std::string dict_name1, std::string dict_name2);
+  void make_union(list_t &list1, const list_t &list2);
 }
 #endif

@@ -155,3 +155,37 @@ void fesenko::make_intersection(list_t &new_list, const list_t &list1, const lis
     }
   }
 }
+
+void fesenko::make_union(data_t &data, std::string new_dict_name, std::string dict_name1, std::string dict_name2)
+{
+  data[new_dict_name].clear();
+  if (dict_name1.compare(dict_name2) == 0 || data.at(dict_name2).empty()) {
+    data[new_dict_name] = data.at(dict_name1);
+    return;
+  }
+  if (data.at(dict_name1).empty()) {
+    data[new_dict_name] = data.at(dict_name2);
+    return;
+  }
+  data[new_dict_name] = data.at(dict_name1);
+  hash_t dict2 = data.at(dict_name2);
+  hash_t new_dict = data.at(new_dict_name);
+  for (auto &it: dict2) {
+    if (new_dict.find(it.first) == new_dict.end()) {
+      new_dict.insert(std::make_pair(it.first, it.second));
+    } else {
+      list_t new_list = new_dict.at(it.first);
+      list_t list2 = dict2.at(it.first);
+      make_union(new_list, list2);
+    }
+  }
+}
+
+void fesenko::make_union(list_t &list1, const list_t &list2)
+{
+  list_t list2_cp = list2;
+  while (!list2_cp.empty()) {
+    insert_in_asc_order(list1, list2_cp.front());
+    list2_cp.pop_front();
+  }
+}
