@@ -62,13 +62,17 @@ void fesenko::print_word(const hash_t &hash, const std::string word, std::ostrea
 
 void fesenko::insert_in_asc_order(list_t &list, size_t number)
 {
+  if (list.empty()) {
+    list.push_front(number);
+    return;
+  }
   list_t copy = list;
   auto cur = list.before_begin();
   while (!copy.empty() && copy.front() < number) {
     copy.pop_front();
     cur++;
   }
-  if (copy.front() == number) {
+  if (!copy.empty() && copy.front() == number) {
     return;
   }
   list.insert_after(cur, number);

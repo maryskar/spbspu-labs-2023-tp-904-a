@@ -17,7 +17,7 @@ void fesenko::read_file_cmd(data_t &data, std::istream &in)
   if (!fin.is_open()) {
     throw std::invalid_argument("Can`t open the file");
   }
-  hash_t dict = data.at(dict_name);
+  hash_t &dict = data[dict_name];
   size_t counter = 0;
   std::forward_list< std::string > word_list;
   while (std::getline(fin, line)) {
@@ -27,11 +27,7 @@ void fesenko::read_file_cmd(data_t &data, std::istream &in)
     while (!word_list.empty()) {
       word = word_list.front();
       word_list.pop_front();
-      if (dict.find(word) == dict.end()) {
-        list_t numbers;
-        dict.insert(std::make_pair(word, numbers));
-      }
-      insert_in_asc_order(dict.at(word), counter);
+      insert_in_asc_order(dict[word], counter);
     }
   }
 }

@@ -1,6 +1,7 @@
 #include "commands.h"
-#include <messages.h>
 #include <stdexcept>
+#include <string>
+#include <messages.h>
 #include "subCommands.h"
 
 fesenko::Commands::Commands():
@@ -36,6 +37,6 @@ void fesenko::Commands::make(const std::string &command, data_t &data, std::istr
     out << "\n";
     in.clear();
     std::string trash = "";
-    getline(in, trash);
+    std::getline(in, trash);
   }
 }
