@@ -9,7 +9,8 @@ namespace fesenko
   class Commands
   {
    public:
-    using hash_t = std::unordered_map< std::string, std::forward_list< size_t > >;
+    using list_t = std::forward_list< size_t >;
+    using hash_t = std::unordered_map< std::string, list_t >;
     using data_t = std::unordered_map< std::string, hash_t >;
     Commands();
     void make(const std::string &command, data_t &data, std::istream &in, std::ostream &out);
