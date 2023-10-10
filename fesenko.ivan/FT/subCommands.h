@@ -5,7 +5,8 @@
 #include <forward_list>
 namespace fesenko
 {
-  using hash_t = std::unordered_map< std::string, std::forward_list< size_t > >;
+  using list_t = std::forward_list< size_t >;
+  using hash_t = std::unordered_map< std::string, list_t >;
   using data_t = std::unordered_map< std::string, hash_t >;
   void read_file_cmd(data_t &data, std::istream &in);
   void delete_dict_cmd(data_t &data, std::istream &in);

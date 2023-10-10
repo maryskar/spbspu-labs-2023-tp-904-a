@@ -16,7 +16,7 @@ fesenko::Commands::Commands():
   type1.insert(std::make_pair("rename", rename_cmd));
   type1.insert(std::make_pair("insert", insert_cmd));
 
-  type2.insert(std::make_pair("find", &find_cmd)); //type?
+  type2.insert(std::make_pair("find", &find_cmd));
   type2.insert(std::make_pair("print_dict", &print_dict_cmd));
   type2.insert(std::make_pair("print_word", &print_word_cmd));
 }

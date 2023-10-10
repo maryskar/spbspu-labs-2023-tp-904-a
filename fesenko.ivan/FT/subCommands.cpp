@@ -28,7 +28,7 @@ void fesenko::read_file_cmd(data_t &data, std::istream &in)
       word = word_list.front();
       word_list.pop_front();
       if (dict.find(word) == dict.end()) {
-        std::forward_list< size_t > numbers;
+        list_t numbers;
         dict.insert(std::make_pair(word, numbers));
       }
       insert_in_asc_order(dict.at(word), counter);
@@ -177,9 +177,10 @@ std::ostream &fesenko::find_cmd(const data_t &data, std::istream &in, std::ostre
     throw std::invalid_argument("Wrong input");
   }
   hash_t hash = data.at(dict_name);
-  if (hash.find() == hash.end()) {
+  if (hash.find(word) == hash.end()) {
     out << "Not found\n";
   } else {
     print_word(hash, word, out);
   }
+  return out;
 }
