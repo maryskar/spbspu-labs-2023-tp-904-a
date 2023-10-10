@@ -166,3 +166,20 @@ std::ostream &fesenko::print_dict_cmd(const data_t &data, std::istream &in, std:
   }
   return out;
 }
+
+std::ostream &fesenko::find_cmd(const data_t &data, std::istream &in, std::ostream &out)
+{
+  std::string line = "";
+  std::getline(in, line);
+  std::string dict_name = get_cmd_word(line);
+  std::string word = get_cmd_word(line);
+  if (!line.empty()) {
+    throw std::invalid_argument("Wrong input");
+  }
+  hash_t hash = data.at(dict_name);
+  if (hash.find() == hash.end()) {
+    out << "Not found\n";
+  } else {
+    print_word(hash, word, out);
+  }
+}
