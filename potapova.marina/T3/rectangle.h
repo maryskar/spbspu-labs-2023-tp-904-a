@@ -29,6 +29,36 @@ namespace potapova
       void expandBoundsToPoint(Rectangle& rectangle, const Point& point);
       bool isPointInFrame(const Rectangle& frame, const Point& point);
   };
+
+  class RectExpandIterator
+  {
+    public:
+      RectExpandIterator(Rectangle& rect):
+        rect_(rect)
+      {
+
+      }
+
+      RectExpandIterator& operator++() noexcept
+      {
+        return *this;
+      }
+
+      RectExpandIterator& operator*() noexcept
+      {
+        return *this;
+      }
+
+      template< typename AddedT >
+      RectExpandIterator& operator=(const AddedT& added) noexcept
+      {
+        rect_.expandBounds(added);
+        return *this;
+      }
+
+    private:
+      Rectangle& rect_;
+  };
 }
 
 #endif
