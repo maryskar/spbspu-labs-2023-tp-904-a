@@ -154,7 +154,7 @@ std::ostream &fesenko::print_dict_cmd(const data_t &data, std::istream &in, std:
     throw std::invalid_argument("Wrong input");
   }
   const hash_t &hash = data.at(dict_name);
-  for (auto &it : hash) {
+  for (auto &it: hash) {
     print_word(hash, it.first, out);
   }
   return out;
