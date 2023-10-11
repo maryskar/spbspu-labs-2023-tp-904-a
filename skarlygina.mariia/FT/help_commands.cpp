@@ -40,7 +40,7 @@ namespace skarlygina
     return word;
   }
 
-  void makeDictStr(std::string string, size_t str_number, skarlygina::Dict_t& dict)
+  void makeDictStr(std::string string, size_t str_number, Dict_t& dict)
   {
     std::string word = "";
     while (!string.empty())
@@ -120,6 +120,5 @@ namespace skarlygina
       }
     }
     return (result);
-
   }
 }
