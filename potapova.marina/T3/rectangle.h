@@ -3,6 +3,7 @@
 
 #include <limits>
 #include <deque>
+#include "dataStruct.h"
 
 namespace potapova
 {
@@ -14,7 +15,8 @@ namespace potapova
       int max_y;
       int min_y;
 
-      static Rectangle accumulatePolygons(Rectangle accumulator, const Polygon& polygon);
+      void expandBounds(const Point& point) noexcept;
+      void expandBounds(const Polygon& polygon) noexcept;
     public:
       Rectangle():
         max_x(std::numeric_limits< int >::max()),
@@ -26,8 +28,8 @@ namespace potapova
       }
 
       static Rectangle getRectWichCanInclude(const std::deque< Polygon >& polygons);
-      void expandBoundsToPoint(Rectangle& rectangle, const Point& point);
-      bool isPointInFrame(const Rectangle& frame, const Point& point);
+      void expandBounds(const std::deque< Polygon >& polygons) noexcept;
+      bool isInFrame(const Rectangle& frame, const Point& point);
   };
 
   class RectExpandIterator

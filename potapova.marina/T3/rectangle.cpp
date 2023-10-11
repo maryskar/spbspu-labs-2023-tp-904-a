@@ -5,25 +5,32 @@
 
 namespace potapova
 {
-  Rectangle Rectangle::accumulatePolygons(Rectangle accumulator, const Polygon& polygon)
-  {
-    return std::accumulate(polygon.points.begin(), polygon.points.end(), accumulator, expandBoundsToPoint);
-  }
-
   Rectangle Rectangle::getRectWichCanInclude(const std::deque< Polygon >& polygons)
   {
-    return std::accumulate(polygons.begin(), polygons.end(), Rectangle(), accumulatePolygons);
+    Rectangle rect;
+    rect.expandBounds(polygons);
+    return rect;
   }
 
-  void Rectangle::expandBoundsToPoint(Rectangle& rectangle, const Point& point)
+  void Rectangle::expandBounds(const Point& point) noexcept
   {
-    rectangle.min_x = std::min(rectangle.min_x, point.x);
-    rectangle.min_y = std::min(rectangle.min_y, point.y);
-    rectangle.max_x = std::max(rectangle.max_x, point.x);
-    rectangle.max_y = std::max(rectangle.max_y, point.y);
+    min_x = std::min(min_x, point.x);
+    min_y = std::min(min_y, point.y);
+    max_x = std::max(max_x, point.x);
+    max_y = std::max(max_y, point.y);
   }
 
-  bool Rectangle::isPointInFrame(const Rectangle& frame, const Point& point)
+  void Rectangle::expandBounds(const Polygon& polygon) noexcept
+  {
+    std::copy(polygon.points.begin(), polygon.points.end(), RectExpandIterator(*this));
+  }
+
+  void Rectangle::expandBounds(const std::deque< Polygon >& polygons) noexcept
+  {
+    std::copy(polygons.begin(), polygons.end(), RectExpandIterator(*this));
+  }
+
+  bool Rectangle::isInFrame(const Rectangle& frame, const Point& point)
   {
     return point.x >= frame.min_x && point.x <= frame.max_x && point.y >= frame.min_y && point.y <= frame.max_y;
   }
