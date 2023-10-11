@@ -14,8 +14,7 @@ int main()
   while (std::cin >> cmd) {
     try {
       commands.make(cmd, data, std::cin, std::cout);
-    }
-    catch (const std::exception &e) {
+    } catch (const std::exception &e) {
       std::cout << e.what() << "\n";
       return 2;
     }
