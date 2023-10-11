@@ -13,7 +13,7 @@ namespace fesenko
   void print_word(const hash_t &hash, const std::string word, std::ostream &out);
   void insert_in_asc_order(list_t &list, size_t number);
   void make_complementation(data_t &data, std::string new_dict_name, std::string dict_name1, std::string dict_name2);
-  void make_complementation(list_t &list1, const list_t &list2);
+  void make_complementation(list_t &new_list, const list_t &list1, const list_t &list2);
   void make_intersection(data_t &data, std::string new_dict_name, std::string dict_name1, std::string dict_name2);
   void make_intersection(list_t &new_list, const list_t &list1, const list_t &list2);
   void make_union(data_t &data, std::string new_dict_name, std::string dict_name1, std::string dict_name2);

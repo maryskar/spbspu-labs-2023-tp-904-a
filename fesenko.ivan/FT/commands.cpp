@@ -1,10 +1,10 @@
 #include "commands.h"
+#include "messages.h"
 #include <stdexcept>
 #include <string>
-#include <messages.h>
 #include "subCommands.h"
 
-fesenko::Commands::Commands():
+fesenko::Commands::Commands() :
   type1(),
   type2()
 {
@@ -32,11 +32,9 @@ void fesenko::Commands::make(const std::string &command, data_t &data, std::istr
     } else {
       throw std::logic_error("No command");
     }
-  } catch(...) {
+  }
+  catch (...) {
     outInvalidCommandMessage(out);
     out << "\n";
-    in.clear();
-    std::string trash = "";
-    std::getline(in, trash);
   }
 }

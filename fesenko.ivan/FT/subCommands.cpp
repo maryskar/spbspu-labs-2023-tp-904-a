@@ -17,7 +17,8 @@ void fesenko::read_file_cmd(data_t &data, std::istream &in)
   if (!fin.is_open()) {
     throw std::invalid_argument("Can`t open the file");
   }
-  hash_t &dict = data[dict_name];
+  data[dict_name].clear();
+  hash_t &dict = data.at(dict_name);
   size_t counter = 0;
   std::forward_list< std::string > word_list;
   while (std::getline(fin, line)) {
@@ -123,14 +124,10 @@ void fesenko::insert_cmd(data_t &data, std::istream &in)
   if (line.empty()) {
     throw std::invalid_argument("Wrong input");
   }
-  hash_t dict = data.at(dict_name);
-   if (dict.find(word) == dict.end()) {
-    std::forward_list< size_t > numbers;
-    dict.insert(std::make_pair(word, numbers));
-  }
+  hash_t &dict = data.at(dict_name);
   while (!line.empty()) {
     size_t number = stoull(get_cmd_word(line));
-    insert_in_asc_order(dict.at(word), number);
+    insert_in_asc_order(dict[word], number);
   }
 }
 
@@ -143,7 +140,7 @@ std::ostream &fesenko::print_word_cmd(const data_t &data, std::istream &in, std:
   if (!line.empty()) {
     throw std::invalid_argument("Wrong input");
   }
-  hash_t hash = data.at(dict_name);
+  const hash_t &hash = data.at(dict_name);
   print_word(hash, word, out);
   return out;
 }
@@ -156,8 +153,8 @@ std::ostream &fesenko::print_dict_cmd(const data_t &data, std::istream &in, std:
   if (!line.empty()) {
     throw std::invalid_argument("Wrong input");
   }
-  hash_t hash = data.at(dict_name);
-  for (auto &it: hash) {
+  const hash_t &hash = data.at(dict_name);
+  for (auto &it : hash) {
     print_word(hash, it.first, out);
   }
   return out;
@@ -172,7 +169,7 @@ std::ostream &fesenko::find_cmd(const data_t &data, std::istream &in, std::ostre
   if (!line.empty()) {
     throw std::invalid_argument("Wrong input");
   }
-  hash_t hash = data.at(dict_name);
+  const hash_t &hash = data.at(dict_name);
   if (hash.find(word) == hash.end()) {
     out << "Not found\n";
   } else {
