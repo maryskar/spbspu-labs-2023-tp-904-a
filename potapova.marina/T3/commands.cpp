@@ -104,7 +104,7 @@ namespace potapova
     out << min_area << '\n';
   }
 
-  void getMaxPoints(const std::deque< Polygon >& polygons,
+  void getMinPoints(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
       std::ostream&)
