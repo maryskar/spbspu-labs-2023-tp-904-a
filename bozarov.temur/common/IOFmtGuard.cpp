@@ -1,6 +1,6 @@
 #include "IOFmtGuard.hpp"
 
-bozarov::iofmtguard::iofmtguard(std::basic_ios< char > &s) :
+bozarov::iofmtguard::iofmtguard(std::basic_ios< char > &s):
   s_(s),
   fill_(s.fill()),
   precision_(s.precision()),

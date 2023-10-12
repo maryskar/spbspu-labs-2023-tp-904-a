@@ -8,7 +8,7 @@
     struct DataStruct
     {
       unsigned long long key1;
-      std::complex<double> key2;
+      std::complex< double > key2;
       std::string key3;
     };
     bool compare(const DataStruct& lhs, const DataStruct& rhs);

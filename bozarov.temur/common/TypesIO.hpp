@@ -9,6 +9,10 @@ namespace bozarov
   {
     char exp;
   };
+  struct PostfixIO
+  {
+    std::string exp;
+  };
   struct UnsignedLongLongI
   {
     unsigned long long &ref;
@@ -29,17 +33,12 @@ namespace bozarov
   {
     std::string &ref;
   };
-  struct LiteralIO
-  {
-    std::string exp;
-  };
   std::istream &operator>>(std::istream &in, DelimiterIO &&dest);
+  std::istream &operator>>(std::istream &in, PostfixIO &&dest);
   std::istream &operator>>(std::istream &in, UnsignedLongLongI &&dest);
   std::istream &operator>>(std::istream &in, ComplexI &&dest);
   std::istream &operator>>(std::istream &in, StringIO &&dest);
-  std::istream &operator>>(std::istream &in, LiteralIO &&dest);
   std::ostream &operator<<(std::ostream &out, const UnsignedLongLongO &&dest);
   std::ostream &operator<<(std::ostream &out, const ComplexO &&dest);
-
 }
 #endif
