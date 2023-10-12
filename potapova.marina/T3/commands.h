@@ -3,7 +3,6 @@
 
 #include <deque>
 #include "dataStruct.h"
-
 #include <deque>
 
 namespace potapova
@@ -43,7 +42,7 @@ namespace potapova
       std::ostream& out,
       std::ostream&);
 
-  void getMaxPoints(const std::deque< Polygon >& polygons,
+  void getMinPoints(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
       std::ostream&);
