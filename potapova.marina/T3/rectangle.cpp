@@ -1,10 +1,14 @@
 #include "rectangle.h"
 #include <numeric>
+#include <algorithm>
+#include <functional>
 #include "dataStruct.h"
 #include "commands.h"
 
 namespace potapova
 {
+  using namespace std::placeholders;
+
   Rectangle Rectangle::getRectWichCanInclude(const std::deque< Polygon >& polygons)
   {
     Rectangle rect;
@@ -30,8 +34,13 @@ namespace potapova
     std::copy(polygons.begin(), polygons.end(), RectExpandIterator(*this));
   }
 
-  bool Rectangle::isInFrame(const Rectangle& frame, const Point& point)
+  bool Rectangle::isInFrame(const Point& point)
   {
-    return point.x >= frame.min_x && point.x <= frame.max_x && point.y >= frame.min_y && point.y <= frame.max_y;
+    return point.x >= min_x && point.x <= max_x && point.y >= min_y && point.y <= max_y;
+  }
+
+  bool Rectangle::isPolygonInFrame(const Polygon& polygon)
+  {
+    return std::all_of(polygon.points.begin(), polygon.points.end(), std::bind(&Rectangle::isInFrame, this, _1));
   }
 }

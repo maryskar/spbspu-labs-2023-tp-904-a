@@ -1,7 +1,9 @@
 #ifndef FUNCFORCOMMANDS_H
 #define FUNCFORCOMMANDS_H
 
+#include <deque>
 #include "dataStruct.h"
+#include "rectangle.h"
 
 namespace potapova
 {

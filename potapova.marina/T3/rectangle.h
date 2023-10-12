@@ -29,7 +29,8 @@ namespace potapova
 
       static Rectangle getRectWichCanInclude(const std::deque< Polygon >& polygons);
       void expandBounds(const std::deque< Polygon >& polygons) noexcept;
-      bool isInFrame(const Rectangle& frame, const Point& point);
+      bool isInFrame(const Point& point);
+      bool isPolygonInFrame(const Polygon& polygon);
   };
 
   class RectExpandIterator

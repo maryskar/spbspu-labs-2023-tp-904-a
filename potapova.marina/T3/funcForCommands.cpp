@@ -113,9 +113,4 @@ namespace potapova
   {
     return (first == second) && (first == target_polygon);
   }
-
-  bool isInFrame(const Rectangle& frame, const Polygon& polygon)
-  {
-    return std::all_of(polygon.points.begin(), polygon.points.end(), std::bind(Rectangle::isPointInFrame, frame, _1));
-  }
 }
