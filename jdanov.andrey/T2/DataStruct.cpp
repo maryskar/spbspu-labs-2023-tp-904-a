@@ -79,8 +79,7 @@ std::ostream& zhdanov::operator<<(std::ostream& output, const DataStruct& data)
   output << ":";
   output << "key1 " << data.key1 << "ll";
   output << ":";
-  output << "key2 "
-         << toBinary(data.key2);
+  output << "key2 " << toBinary(data.key2);
   output << ":";
   output << "key3 " << "\"" << data.key3 << "\"";
   output << ":";
