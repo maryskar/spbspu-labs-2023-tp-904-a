@@ -67,7 +67,7 @@ namespace potapova
       std::ostream& out,
       std::ostream&);
 
-  void checkPolygonInFrame(std::deque< Polygon >& polygons,
+  void checkPolygonInFrame(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
       std::ostream&);
