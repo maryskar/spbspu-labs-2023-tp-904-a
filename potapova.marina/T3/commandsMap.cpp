@@ -1,14 +1,8 @@
 #include "commandsMap.h"
-#include <functional>
-#include <unordered_map>
-#include <string>
 #include "commands.h"
 
 namespace potapova
 {
-  template < typename Polygons >
-  using CommandFunc = std::function< void(Polygons&, std::istream&, std::ostream&, std::ostream&) >;
-
   std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > > getNonChangingCommands()
   {
     return std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > >
