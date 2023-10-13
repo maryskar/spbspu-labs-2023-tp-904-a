@@ -3,17 +3,20 @@
 
 #include <string>
 
-struct Book
+namespace dmitriev
 {
-  std::string key;
-  std::string title;
-  std::string author;
-  std::string isbn;
+  struct Book
+  {
+    std::string key;
+    std::string title;
+    std::string author;
+    std::string isbn;
 
-  size_t year;
-};
+    size_t year;
+  };
 
-std::istream& operator>>(std::istream& inp, Book& data);
-std::ostream& operator<<(std::ostream& out, Book& data);
+  std::istream& operator>>(std::istream& inp, Book& data);
+  std::ostream& operator<<(std::ostream& out, Book& data);
+}
 
 #endif
