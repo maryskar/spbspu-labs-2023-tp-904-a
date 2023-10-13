@@ -1,13 +1,13 @@
 #include "IOFormatGuard.h"
 
-IOFormatGuard::IOFormatGuard(std::basic_ios< char >& stream) :
+zhdanov::IOFormatGuard::IOFormatGuard(std::basic_ios< char >& stream) :
   referenceToStream_(stream),
   fill_(stream.fill()),
   precision_(stream.precision()),
   formatFlags_(stream.flags())
 {
 }
-IOFormatGuard::~IOFormatGuard()
+zhdanov::IOFormatGuard::~IOFormatGuard()
 {
   referenceToStream_.fill(fill_);
   referenceToStream_.precision(precision_);
