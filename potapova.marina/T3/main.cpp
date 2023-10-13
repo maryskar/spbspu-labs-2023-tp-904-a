@@ -27,12 +27,5 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-  std::deque< Polygon > polygons;
-  while (!input_file.eof())
-  {
-    std::copy(std::istream_iterator< Polygon >(input_file),
-      std::istream_iterator< Polygon >(),
-      std::back_inserter(polygons));
-  }
   return 0;
 }
