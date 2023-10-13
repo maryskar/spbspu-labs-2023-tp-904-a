@@ -1,4 +1,5 @@
 #include "IOFormatGuard.h"
+
 namespace zhdanov
 {
   IOFormatGuard::IOFormatGuard(std::basic_ios< char >& stream) :
@@ -8,7 +9,6 @@ namespace zhdanov
   	formatFlags_(stream.flags())
   {
   }
-  
   IOFormatGuard::~IOFormatGuard()
   {
   	referenceToStream_.fill(fill_);
