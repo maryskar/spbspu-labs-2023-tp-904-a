@@ -85,7 +85,8 @@ std::string zhdanov::toBinary(unsigned long long decimalNumber)
       result += '0';
     }
     decimalNumber /=  2;
-  } while (decimalNumber);
+  }
+  while (decimalNumber);
   if (result == "0")
   {
     return "0b" + result;

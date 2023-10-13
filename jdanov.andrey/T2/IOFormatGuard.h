@@ -2,9 +2,10 @@
 #define IO_FMT_GUARD_H
 
 #include <iostream>
-
-class IOFormatGuard
+namespace zhdanov
 {
+  class IOFormatGuard
+  {
   public:
     IOFormatGuard(std::basic_ios< char >& stream);
     ~IOFormatGuard();
@@ -13,6 +14,6 @@ class IOFormatGuard
     char fill_;
     std::streamsize precision_;
     std::basic_ios< char >::fmtflags formatFlags_;
-};
-
+  };
+}
 #endif

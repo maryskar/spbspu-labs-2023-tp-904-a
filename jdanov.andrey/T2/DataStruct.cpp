@@ -5,19 +5,7 @@
 
 bool zhdanov::operator<(const DataStruct& a, const DataStruct& b)
 {
-  if (a.key1 < b.key1)
-    return true;
-  if (a.key1 > b.key1)
-    return false;
-  if (a.key2 < b.key2)
-    return true;
-  if (a.key2 > b.key2)
-    return false;
-  if (a.key3.length() < b.key3.length())
-    return true;
-  if (a.key3.length() > b.key3.length())
-    return false;
-  return a.key3 < a.key3;
+  return (a.key1 < b.key1) && (a.key2 < b.key2) && (a.key3 < a.key3) && (a.key3.length() < b.key3.length());
 }
 
 std::istream& zhdanov::operator>>(std::istream& input, DataStruct& data)
@@ -29,7 +17,7 @@ std::istream& zhdanov::operator>>(std::istream& input, DataStruct& data)
   }
   IOFormatGuard saverState(input);
   input.unsetf(std::ios::skipws);
-  DataStruct temp;
+  DataStruct temp = {0, 0, ""};
   std::string label = "";
   input >> DelimiterIO{'('};
   input >> DelimiterIO{':'};
@@ -94,8 +82,7 @@ std::ostream& zhdanov::operator<<(std::ostream& output, const DataStruct& data)
   output << "key2 "
          << toBinary(data.key2);
   output << ":";
-  output << "key3 "
-         << "\"" << data.key3 << "\"";
+  output << "key3 " << "\"" << data.key3 << "\"";
   output << ":";
   output << ")";
   return output;
