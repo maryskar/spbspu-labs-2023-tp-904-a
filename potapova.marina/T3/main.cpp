@@ -2,6 +2,7 @@
 #include <fstream>
 #include <deque>
 #include "dataStruct.h"
+#include "readPolygons.h"
 
 int main(int argc, char* argv[])
 {
@@ -26,6 +27,8 @@ int main(int argc, char* argv[])
     std::cerr << "No file to open\n";
     return 1;
   }
+  
+  std::deque< Polygon > polygons = readPolygons(input_file);
 
   return 0;
 }
