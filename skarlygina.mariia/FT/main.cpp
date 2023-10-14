@@ -47,7 +47,7 @@ int main()
       else
       {
         auto c_iterator = const_commands.find(command);
-        if (c_iterator == const_commands.cend()) //!!!!!!!!!!!!
+        if (c_iterator == const_commands.cend())
         {
           std::string temp = "";
           std::getline(std::cin, temp);
