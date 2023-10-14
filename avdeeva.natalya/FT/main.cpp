@@ -1,8 +1,6 @@
-#include <algorithm>
 #include <functional>
 #include <iterator>
 #include <limits>
-#include "Graph.h"
 #include "outCommand.h"
 
 int main()

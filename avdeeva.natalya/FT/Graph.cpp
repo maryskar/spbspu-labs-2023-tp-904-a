@@ -3,7 +3,6 @@
 #include <functional>
 #include <limits>
 #include <exception>
-#include <vector>
 #include <iterator>
 #include <set>
 #include <cmath>

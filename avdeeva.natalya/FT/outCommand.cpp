@@ -1,6 +1,4 @@
 #include "outCommand.h"
-#include <iostream>
-#include "Graph.h"
 
 void avdeeva::createGraphCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
 {
