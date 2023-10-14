@@ -176,7 +176,10 @@ bool avdeeva::Graph::checkSimilarVerts(const Graph & other)
   std::set_intersection(beginSet, endSet, beginOtherSet, endOtherSet, ins);
   return !common.empty();
 }
-void avdeeva::Graph::getUnion(Graph & lhs, const std::string & vlhs, Graph & rhs, const std::string & vrhs, int value)
+void avdeeva::Graph::getUnion(Graph & lhs,
+    const std::string & vlhs,
+    Graph & rhs, const std::string & vrhs,
+    int value)
 {
   if (lhs.checkSimilarVerts(rhs))
   {
