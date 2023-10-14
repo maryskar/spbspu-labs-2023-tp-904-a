@@ -241,7 +241,9 @@ void avdeeva::Graph::dijkstra(const std::string & start, const std::string & end
   }
   setData();
   size_t graphSize = verts.size();
-  std::priority_queue< std::pair< int, std::string >, std::vector< std::pair< int, std::string > >, std::greater< std::pair< int, std::string > > > pq;
+  std::priority_queue< std::pair< int, std::string >,
+      std::vector< std::pair< int, std::string > >,
+      std::greater< std::pair< int, std::string > > > pq;
   distances[getIndexVert(start)] = 0;
   pq.push(std::make_pair(0, start));
   while (!pq.empty())
