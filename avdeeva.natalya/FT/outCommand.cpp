@@ -1,6 +1,8 @@
 #include "outCommand.h"
 
-void avdeeva::createGraphCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::createGraphCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   in >> graphName;
@@ -9,20 +11,26 @@ void avdeeva::createGraphCommand(std::map< std::string, avdeeva::Graph > & graph
     graphs.insert({graphName, avdeeva::Graph()});
   }
 }
-void avdeeva::checkNodesCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::checkNodesCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   in >> graphName;
   out << std::boolalpha << graphs.at(graphName).checkNodes() << '\n';
 }
-void avdeeva::checkNodeCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::checkNodeCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   std::string vertName;
   in >> graphName >> vertName;
   out << std::boolalpha << graphs.at(graphName).checkNode(vertName) << '\n';
 }
-void avdeeva::checkArcCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::checkArcCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   std::string vertFrom;
@@ -30,7 +38,9 @@ void avdeeva::checkArcCommand(std::map< std::string, avdeeva::Graph > & graphs, 
   in >> graphName >> vertFrom >> vertTo;
   out << std::boolalpha << graphs.at(graphName).checkArc(vertFrom, vertTo) << '\n';
 }
-void avdeeva::insertVertCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::insertVertCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   std::string vertFrom;
@@ -39,7 +49,9 @@ void avdeeva::insertVertCommand(std::map< std::string, avdeeva::Graph > & graphs
   in >> graphName >> vertFrom >> vertTo >> weight;
   graphs.at(graphName).insertVert(vertFrom, vertTo, weight);
 }
-void avdeeva::renameVertCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::renameVertCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   std::string vertName;
@@ -47,7 +59,9 @@ void avdeeva::renameVertCommand(std::map< std::string, avdeeva::Graph > & graphs
   in >> graphName >> vertName >> vertNewName;
   graphs.at(graphName).renameVert(vertName, vertNewName);
 }
-void avdeeva::deleteVertCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::deleteVertCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   std::string vertName;
@@ -55,7 +69,9 @@ void avdeeva::deleteVertCommand(std::map< std::string, avdeeva::Graph > & graphs
   graphs.at(graphName).deleteVert(vertName);
 }
 
-void avdeeva::dijkstraCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::dijkstraCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   std::string vertFrom;
@@ -63,7 +79,9 @@ void avdeeva::dijkstraCommand(std::map< std::string, avdeeva::Graph > & graphs, 
   in >> graphName >> vertFrom >> vertTo;
   graphs.at(graphName).dijkstra(vertFrom, vertTo, out);
 }
-void avdeeva::bellmanFordCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::bellmanFordCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   std::string vertFrom;
@@ -71,7 +89,9 @@ void avdeeva::bellmanFordCommand(std::map< std::string, avdeeva::Graph > & graph
   in >> graphName >> vertFrom >> vertTo;
   graphs.at(graphName).bellmanFord(vertFrom, vertTo, out);
 }
-void avdeeva::waveAlgCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::waveAlgCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   std::string vertFrom;
@@ -79,19 +99,25 @@ void avdeeva::waveAlgCommand(std::map< std::string, avdeeva::Graph > & graphs, s
   in >> graphName >> vertFrom >> vertTo;
   graphs.at(graphName).waveAlgorithm(vertFrom, vertTo, out);
 }
-void avdeeva::printMatrixCommand(std::map< std::string, avdeeva::Graph  > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::printMatrixCommand(std::map< std::string, avdeeva::Graph  > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   in >> graphName;
   graphs.at(graphName).printMatrix(out);
 }
-void avdeeva::printListCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::printListCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   in >> graphName;
   graphs.at(graphName).printList(out);
 }
-void avdeeva::getUnionCommand(std::map< std::string, avdeeva::Graph > & graphs, std::istream & in, std::ostream & out)
+void avdeeva::getUnionCommand(std::map< std::string, avdeeva::Graph > & graphs,
+    std::istream & in,
+    std::ostream & out)
 {
   std::string graphName;
   std::string graphFirst;
