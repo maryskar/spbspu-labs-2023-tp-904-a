@@ -115,12 +115,9 @@ namespace timofeev
   {
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
-
-    std::vector< size_t > vertexCounts;
-    for (const Polygon& polygon : data)
-    {
-      vertexCounts.push_back(polygon.points.size());
-    }
+    std::vector< size_t > vertexCounts (data.size());
+    std::transform(data.begin(), data.end(), vertexCounts.begin(),
+        [](const Polygon& polygon){ return polygon.points.size(); });
     if (vertexCounts.empty())
     {
       throw std::invalid_argument("error");
@@ -146,11 +143,12 @@ namespace timofeev
   {
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
-
-    std::vector< size_t > vertexCounts;
-    for (const Polygon& polygon : data)
+    std::vector< size_t > vertexCounts (data.size());
+    std::transform(data.begin(), data.end(), vertexCounts.begin(),
+        [](const Polygon& polygon){ return polygon.points.size(); });
+    if (vertexCounts.empty())
     {
-      vertexCounts.push_back(polygon.points.size());
+      throw std::invalid_argument("error");
     }
     size_t Vertex = *std::min_element(vertexCounts.begin(), vertexCounts.end());
     std::cout << std::fixed << std::setprecision(1) << Vertex << "\n";
