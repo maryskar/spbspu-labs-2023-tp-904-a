@@ -1,5 +1,6 @@
 #include "commands.h"
 #include <forward_list>
+#include <fstream>
 
 std::string cutS(std::string& line)
 {
@@ -33,7 +34,7 @@ void dmitriev::addBook(library& lib, std::istream& inp)
 
   std::string dirName = cutS(line);
 
-  dmitriev::Book newBook{cutS(line), cutS(line), cutS(line), cutS(line), std::stol(cutS(line))};
+  Book newBook{cutS(line), cutS(line), cutS(line), cutS(line), std::stol(cutS(line))};
   if (lib.at(dirName).find(newBook.key) != lib.at(dirName).end())
   {
     throw std::invalid_argument("book alrady exist");
@@ -96,7 +97,7 @@ void dmitriev::deleteBook(library& lib, std::istream& inp)
   std::string query = cutS(line);
   std::string parameter = cutS(line);
 
-  std::forward_list< dmitriev::Book > result = findBooks(lib, dirName, query, parameter, 0);
+  std::forward_list< Book > result = findBooks(lib, dirName, query, parameter, 0);
   if (!result.empty())
   {
     lib.at(dirName).erase(result.front().key);
@@ -113,10 +114,10 @@ void dmitriev::copyBook(library& lib, std::istream& inp)
   std::string query = cutS(line);
   std::string parameter = cutS(line);
 
-  std::forward_list< dmitriev::Book > result = findBooks(lib, dirFrom, query, parameter, 0);
+  std::forward_list< Book > result = findBooks(lib, dirFrom, query, parameter, 0);
   if (!result.empty())
   {
-    dmitriev::Book newBook = result.front();
+    Book newBook = result.front();
     if (lib.at(dirTo).find(newBook.key) != lib.at(dirTo).end())
     {
       throw std::invalid_argument("book alrady exist");
@@ -161,9 +162,9 @@ void dmitriev::combineDirections(library& lib, std::istream& inp)
   std::string lhsDirName = cutS(line);
   std::string rhsDirName = cutS(line);
 
-  dmitriev::directory newDir = lib.at(lhsDirName);
+  directory newDir = lib.at(lhsDirName);
 
-  typename dmitriev::directory::iterator it = lib.at(rhsDirName).begin();
+  typename directory::iterator it = lib.at(rhsDirName).begin();
   for (; it != lib.at(rhsDirName).end(); it++)
   {
     if (lib.at(lhsDirName).find(it->first) == lib.at(lhsDirName).end())
@@ -177,6 +178,35 @@ void dmitriev::combineDirections(library& lib, std::istream& inp)
     throw std::invalid_argument("dir alrady exist");
   }
   lib[newDirName] = newDir;
+}
+
+void dmitriev::downloadDirection(library& lib, std::istream& inp)
+{
+  std::string line = "";
+  std::getline(inp, line);
+
+  std::string dirName = cutS(line);
+  std::string fileName = cutS(line);
+
+  std::ifstream file(fileName);
+  if (!file.is_open())
+  {
+    throw std::invalid_argument("incorrect file name");
+  }
+
+  directory newDir;
+  Book newBook;
+  while (!file.eof())
+  {
+    file >> newBook;
+    newDir[newBook.key] = newBook;
+  }
+
+  if (lib.find(dirName) != lib.end())
+  {
+    throw std::invalid_argument("dir alrady exist");
+  }
+  lib[dirName] = newDir;
 }
 
 void printBook(const dmitriev::Book& book, std::ostream& out)
@@ -193,13 +223,13 @@ void dmitriev::printFindedBooks(const library& lib, std::ostream& out, std::istr
   std::string line;
   std::getline(inp, line);
 
-  std::forward_list< dmitriev::Book > result;
+  std::forward_list< Book > result;
   std::string dirName = cutS(line);
   std::string query = cutS(line);
   std::string parameter = cutS(line);
   result = findBooks(lib, dirName, query, parameter, std::stol(cutS(line)));
 
-  typename std::forward_list< dmitriev::Book >::const_iterator it = result.cbegin();
+  typename std::forward_list< Book >::const_iterator it = result.cbegin();
   if (it == result.cend())
   {
     out << "<EMPTY>";//
