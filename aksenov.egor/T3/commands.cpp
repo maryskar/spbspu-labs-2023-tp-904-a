@@ -25,19 +25,16 @@ namespace aksenov
     };
     std::string command = "";
     inp >> command;
-    try
-    {
-      if (isInteger(command))
-      {
-        doAreaWithVertexes(pol, command);
-      }
 
-      areaCommands[command](pol);
-    }
-    catch(...)
+    if (isInteger(command))
     {
-      throw;
+      if (command == "1" || command == "2" || command == "2")
+      {
+        throw std::invalid_argument("invalid input");
+      }
+      doAreaWithVertexes(pol, command);
     }
+    areaCommands[command](pol);
   }
 
   void doMax(std::istream &inp, const std::vector< Polygon > &pol)
@@ -76,18 +73,16 @@ namespace aksenov
     };
     std::string command = "";
     inp >> command;
-    try
+
+    if (isInteger(command))
     {
-      if (isInteger(command))
+      if (command == "1" || command == "2" || command == "0")
       {
-        doCountVertexes(command, pol);
+        throw std::invalid_argument("invalid input");
       }
-      countCommands[command](pol);
+      doCountVertexes(command, pol);
     }
-    catch(...)
-    {
-      throw;
-    }
+    countCommands[command](pol);
   }
 
     void doSame(std::istream &inp, const std::vector< Polygon > &pol)
