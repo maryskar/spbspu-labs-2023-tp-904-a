@@ -41,7 +41,9 @@ void mishanina::CommandDictionary::doCommandOut(std::string &cmd, const vect_pol
   auto func = dict_out.at(cmd);
   func(pols, out);
 }
-void mishanina::CommandDictionary::doCommandNum(std::string &cmd, const vect_pol &pols, std::ostream &out,
+void mishanina::CommandDictionary::doCommandNum(std::string &cmd,
+                                                const vect_pol &pols,
+                                                std::ostream &out,
                                                 std::size_t num) const
 {
   auto func = dict_num.at(cmd);
