@@ -128,11 +128,9 @@ namespace timofeev
       throw std::logic_error("Error");
     }
   }
-
-  void doRSCommand(std::istream&, const std::vector< Polygon > &res)
+  size_t recurRS(const std::vector< Polygon > &res, size_t count, size_t indx, size_t pindx)
   {
-    size_t count = 0;
-    for (const Polygon& polygon : res)
+    for (const Polygon& polygon: res)
     {
       for (size_t i = 0; i < polygon.points.size(); i++)
       {
@@ -152,6 +150,13 @@ namespace timofeev
         }
       }
     }
+  }
+  void doRSCommand(std::istream&, const std::vector< Polygon > &res)
+  {
+    size_t count = 0;
+    size_t indx = 0;
+    size_t pindx = 0;
+    count = recurRS(res, count, indx, pindx)
     std::cout << count << "\n";
   }
 
