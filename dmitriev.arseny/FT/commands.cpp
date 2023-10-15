@@ -85,7 +85,18 @@ std::forward_list< dmitriev::Book > findBooks(const dmitriev::library& lib,
 
 void dmitriev::deleteBook(library& lib, std::istream& inp)
 {
+  std::string line = "";
+  std::getline(inp, line);
 
+  std::string dirName = cutS(line);
+  std::string query = cutS(line);
+  std::string parameter = cutS(line);
+
+  std::forward_list< dmitriev::Book > result = findBooks(lib, dirName, query, parameter, 0);
+  if (!result.empty())
+  {
+    lib.at(dirName).erase(result.front().key);
+  }
 }
 
 void printBook(const dmitriev::Book& book, std::ostream& out)
