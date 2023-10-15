@@ -99,6 +99,24 @@ void dmitriev::deleteBook(library& lib, std::istream& inp)
   }
 }
 
+void dmitriev::copyBook(library& lib, std::istream& inp)
+{
+  std::string line = "";
+  std::getline(inp, line);
+
+  std::string dirFrom = cutS(line);
+  std::string dirTo = cutS(line);
+  std::string query = cutS(line);
+  std::string parameter = cutS(line);
+
+  std::forward_list< dmitriev::Book > result = findBooks(lib, dirFrom, query, parameter, 0);
+  if (!result.empty())
+  {
+    dmitriev::Book book = findBooks(lib, dirFrom, query, parameter, 0).front();
+    lib.at(dirTo).insert({book.key, book});
+  }
+}
+
 void printBook(const dmitriev::Book& book, std::ostream& out)
 {
   out << "key: " << book.key << '\n';
