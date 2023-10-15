@@ -5,19 +5,23 @@
 #include <iostream>
 #include "book.h"
 
-using direction = std::unordered_map< std::string, Book >;
-using library = std::unordered_map< std::string, direction >;
+using directory = std::unordered_map< std::string, dmitriev::Book >;
+using library = std::unordered_map< std::string, directory >;
 
-void addBook(direction dir, Book book);
-void deleteBook(direction dir, std::string parameter, std::string query);
-void findBook(direction dir, std::string parameter, std::string query, size_t k, std::ostream& out);
-void moveBook(direction from, direction to, std::string parameter, std::string query);
+namespace dmitriev
+{
+  void addBook(library& lib, std::istream& inp);
+  void deleteBook(library& lib, std::istream& inp);
+  void moveBook(library& lib, std::istream& inp);
+  void createDirection(library& lib, std::istream& inp);
+  void deleteDirection(library& lib, std::istream& inp);
+  void combineDirection(library& lib, std::istream& inp);
+  void downloadDirection(library& lib, std::istream& inp);
 
-void printDirection(direction dir, std::ostream& out);
-void createDirection(library& lib, std::string name);
-void deleteDirection(library& lib, std::string name);
-void combineDirection(library& lib, std::string name, std::string lhsName, std::string rhsName);
-void saveDirection(library& lib, std::string name, std::ostream fileName);
-void downloadDirection(library& lib, std::string name, std::istream fileName);
+  void printFindedBooks(const library& lib, const std::string name, std::ostream& out, std::istream& inp);
+  void printDirection(const library& lib, const std::string name, std::ostream& out, std::istream& inp);
+  void unloadDirection(const library& lib, const std::string name, std::ostream& out, std::istream& inp);
+
+}
 
 #endif
