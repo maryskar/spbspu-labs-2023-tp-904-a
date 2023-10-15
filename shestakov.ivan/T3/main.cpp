@@ -11,6 +11,7 @@
 
 int main(int argc, char ** argv)
 {
+  using is_it = std::istream_iterator< shestakov::Polygon >;
   if (argc != 2)
   {
     std::cerr << "Not enough CL parameters\n";
@@ -21,8 +22,7 @@ int main(int argc, char ** argv)
   auto maxstream = std::numeric_limits< std::streamsize >::max();
   while (!input.eof())
   {
-    std::copy(std::istream_iterator< shestakov::Polygon >(input), std::istream_iterator< shestakov::Polygon >(),
-      std::back_inserter(polygons));
+    std::copy(is_it(input), is_it(), std::back_inserter(polygons));
     if (input.fail())
     {
       input.clear();
