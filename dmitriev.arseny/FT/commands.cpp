@@ -264,3 +264,24 @@ void dmitriev::printDirection(const library& lib, std::ostream& out, std::istrea
     printBook(it->second, out);
   }
 }
+
+void dmitriev::unloadDirection(const library& lib, std::ostream& out, std::istream& inp)
+{
+  std::string line = "";
+  std::getline(inp, line);
+
+  std::string dirName = cutS(line);
+  std::string fileName = cutS(line);
+
+  std::ofstream file(fileName);
+  if (!file.is_open())
+  {
+    throw std::invalid_argument("incorrect file name");
+  }
+
+  typename directory::const_iterator it = lib.at(dirName).cbegin();
+  for (; it != lib.at(dirName).cend(); it++)
+  {
+    file << it->second << '\n';
+  }
+}
