@@ -42,7 +42,7 @@ int main(int argc, char** argv)
       auto read = dict.readCommand(std::cin);
       dict.doCommand(read, polygons, dict, std::cin, std::cout);
     }
-    catch(const std::logic_error &e)
+    catch (const std::logic_error &e)
     {
       kotova::outMessageError(std::cout);
       long long max = std::numeric_limits<std::streamsize>::max();

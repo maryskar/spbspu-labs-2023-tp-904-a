@@ -4,7 +4,7 @@
 
 std::ostream &kotova::outMessageError(std::ostream &out)
 {
-  out << "<INVALID COMMAND>" << '\n';
+  out << "<INVALID COMMAND>";
   return out;
 }
 
@@ -80,7 +80,8 @@ void kotova::CommandDictionary::doCommand(const std::string &cmd, const std::vec
     {
       cmd_dict.doCommandFrS(cmd, polygons, data, out);
       return;
-    } catch (const std::out_of_range &e)
+    }
+    catch (const std::out_of_range &e)
     {
     }
   }

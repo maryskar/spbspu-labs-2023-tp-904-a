@@ -10,16 +10,16 @@ namespace kotova
 {
   void outFalse(std::ostream& out)
   {
-    out << "<FALSE>\n";
+    out << "<FALSE>";
   }
   void outTrue(std::ostream& out)
   {
-    out << "<TRUE>\n";
+    out << "<TRUE>";
   }
 
   bool isEven(const Polygon &polygon)
   {
-    return polygon.points.size() % 2 ==0;
+    return polygon.points.size() % 2 == 0;
   }
 
   bool isOdd(const Polygon &polygon)
@@ -47,24 +47,24 @@ namespace kotova
     return rhs.y > lhs.y;
   }
 
-  bool compArea(const Polygon &lhs, const Polygon &rhs)
+  bool isLessArea(const Polygon &lhs, const Polygon &rhs)
   {
     return getArea(lhs) < getArea(rhs);
   }
 
-  bool cmpArea(const Polygon &lhs, const Polygon &rhs)
+  bool isGreaterArea(const Polygon &lhs, const Polygon &rhs)
   {
-    return (!compArea(lhs, rhs));
+    return (!isLessArea(lhs, rhs));
   }
 
-  bool compVer(const Polygon &lhs, const Polygon &rhs)
+  bool isLessVer(const Polygon &lhs, const Polygon &rhs)
   {
     return lhs.points.size() < rhs.points.size();
   }
 
-  bool cmpVer(const Polygon &lhs, const Polygon &rhs)
+  bool isGreaterVer(const Polygon &lhs, const Polygon &rhs)
   {
-    return (!compVer(lhs, rhs));
+    return (!isLessVer(lhs, rhs));
   }
 
   bool equalPoints(const Point &lhs, const Point &rhs)
@@ -125,19 +125,25 @@ namespace kotova
     return std::make_pair(lowerPoint, higherPoint);
   }
 
+  auto minMaxPoint(const auto &curr, const auto &p)
+  {
+    auto point = findPoints(curr);
+    return std::make_pair(Point{std::min(p.first.x, point.first.x), std::min(p.first.y, point.first.y)},
+      Point{std::max(p.second.x, point.second.x), std::max(p.second.y, point.second.y)});
+  }
+
   bool isInFrame(const std::vector< Polygon > &dest, const Polygon &polygon)
   {
-    bool isTrue = 1;
-    Point lowerLhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
-    Point higherRhs{(*(*dest.cbegin()).points.begin()).x, (*(*dest.cbegin()).points.begin()).y};
-    for (auto&& i: dest)
-    {
-      auto point = findPoints(i);
-      lowerLhs.x = std::min(lowerLhs.x, point.first.x);
-      lowerLhs.y = std::min(lowerLhs.y, point.first.y);
-      higherRhs.x = std::max(higherRhs.x, point.second.x);
-      higherRhs.y = std::max(higherRhs.y, point.second.y);
-    }
+    using namespace std::placeholders;
+    Point lowerLhs{(dest.front().points.front()).x, (dest.front().points.front()).y};
+    Point higherRhs{(dest.front().points.front()).x, (dest.front().points.front()).y};
+    auto polBegin = dest.begin() + 1;
+    auto polEnd = dest.end() + 1;
+    auto firstPoint = findPoints(dest.front());
+    auto frame = std::bind(minMaxPoint(lowerLhs, higherRhs), _1);
+    auto points = std::accumulate(polBegin, polEnd, firstPoint, frame);
+    lowerLhs = points.first;
+    higherRhs = points.second;
     auto pol = findPoints(polygon);
     int polMinX = pol.first.x;
     int polMinY = pol.first.y;
@@ -145,13 +151,12 @@ namespace kotova
     int polMaxY = pol.second.y;
     if (lowerLhs.x <= polMinX && lowerLhs.y <= polMinY && higherRhs.x >= polMaxX && higherRhs.y >= polMaxY)
     {
-      return isTrue;
+      return true;
     }
     else
     {
-      return (!isTrue);
+      return false;
     }
-    return isTrue;
   }
 
   bool isSamePolygon(const Polygon &lhs, const Polygon &rhs)
@@ -225,7 +230,7 @@ namespace kotova
       throw std::logic_error("error, there is no polygon");
     }
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(dest, compArea) << '\n';
+    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(dest, isLessArea) << '\n';
   }
 
   void maxVertexes(const std::vector< Polygon > &dest, std::ostream &out)
@@ -235,7 +240,7 @@ namespace kotova
       throw std::logic_error("error, there is no polygon");
     }
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << getMaxOrMinVer(dest, compVer) << '\n';
+    out << std::fixed << std::setprecision(1) << getMaxOrMinVer(dest, isLessVer) << '\n';
   }
 
   void minArea(const std::vector< Polygon > &dest, std::ostream &out)
@@ -245,7 +250,7 @@ namespace kotova
       throw std::logic_error("error, there is no polygon");
     }
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(dest, cmpArea) << '\n';
+    out << std::fixed << std::setprecision(1) << getMaxOrMinArea(dest, isGreaterArea) << '\n';
   }
 
   void minVertexes(const std::vector< Polygon > &dest, std::ostream &out)
@@ -255,7 +260,7 @@ namespace kotova
       throw std::logic_error("error, there is no polygon");
     }
     iofmtguard iofmtguard(out);
-    out << std::fixed << std::setprecision(1) << getMaxOrMinVer(dest, cmpVer) << '\n';
+    out << std::fixed << std::setprecision(1) << getMaxOrMinVer(dest, isLessArea) << '\n';
   }
 
   void countEven(const std::vector< Polygon > &dest, std::ostream &out)
