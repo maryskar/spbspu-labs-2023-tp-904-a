@@ -62,10 +62,10 @@ double avdeeva::getArea(const Polygon & pol)
   std::vector< double > values(pol.points.size());
   std::transform(pol.points.begin(), --pol.points.end(), ++pol.points.begin(), std::back_inserter(values), areaCounter);
   area = std::accumulate(values.begin(), values.end(), 0.0);
-  int x1 = polygon.points.back().x;
-  int x2 = polygon.points.front().x;
-  int y1 = polygon.points.back().y;
-  int y2 = polygon.points.front().y;
+  int x1 = pol.points.back().x;
+  int x2 = pol.points.front().x;
+  int y1 = pol.points.back().y;
+  int y2 = pol.points.front().y;
   area += 0.5 * (x1 * y2 - x2 * y1);
   return std::abs(area);
 }
