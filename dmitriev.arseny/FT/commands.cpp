@@ -126,7 +126,7 @@ void dmitriev::copyBook(library& lib, std::istream& inp)
   }
 }
 
-void dmitriev::createDirection(library& lib, std::istream& inp)
+void dmitriev::createDirectory(library& lib, std::istream& inp)
 {
   std::string line = "";
   std::getline(inp, line);
@@ -139,7 +139,7 @@ void dmitriev::createDirection(library& lib, std::istream& inp)
   lib[dirName];
 }
 
-void dmitriev::deleteDirection(library& lib, std::istream& inp)
+void dmitriev::deleteDirectory(library& lib, std::istream& inp)
 {
   std::string line = "";
   std::getline(inp, line);
@@ -153,7 +153,7 @@ void dmitriev::deleteDirection(library& lib, std::istream& inp)
   lib.erase(dirName);
 }
 
-void dmitriev::combineDirections(library& lib, std::istream& inp)
+void dmitriev::combineDirectorys(library& lib, std::istream& inp)
 {
   std::string line = "";
   std::getline(inp, line);
@@ -180,7 +180,7 @@ void dmitriev::combineDirections(library& lib, std::istream& inp)
   lib[newDirName] = newDir;
 }
 
-void dmitriev::downloadDirection(library& lib, std::istream& inp)
+void dmitriev::downloadDirectory(library& lib, std::istream& inp)
 {
   std::string line = "";
   std::getline(inp, line);
@@ -243,7 +243,7 @@ void dmitriev::printFindedBooks(const library& lib, std::ostream& out, std::istr
   }
 }
 
-void dmitriev::printDirection(const library& lib, std::ostream& out, std::istream& inp)
+void dmitriev::printDirectory(const library& lib, std::ostream& out, std::istream& inp)
 {
   std::string line;
   std::getline(inp, line);
@@ -265,7 +265,7 @@ void dmitriev::printDirection(const library& lib, std::ostream& out, std::istrea
   }
 }
 
-void dmitriev::unloadDirection(const library& lib, std::ostream& out, std::istream& inp)
+void dmitriev::unloadDirectory(const library& lib, std::ostream& out, std::istream& inp)
 {
   std::string line = "";
   std::getline(inp, line);
