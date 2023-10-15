@@ -61,14 +61,6 @@ namespace aksenov
     return !(isOdd(data));
   }
 
-  bool isInteger(const std::string & s)
-  {
-    if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
-    char * p = nullptr;
-    strtol(s.c_str(), &p, 10);
-    return (*p == 0);
-  }
-
   bool isEqual(const Polygon &pol, size_t amount)
   {
     return pol.points.size() == amount;

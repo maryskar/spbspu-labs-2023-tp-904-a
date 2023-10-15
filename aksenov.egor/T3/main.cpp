@@ -50,10 +50,6 @@ int main(int argc, char **argv)
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
-    catch (const std::runtime_error &e)
-    {
-      break;
-    }
     catch (...)
     {
       break;

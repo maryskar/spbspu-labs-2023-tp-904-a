@@ -6,6 +6,7 @@
 #include <functional>
 #include <iterator>
 #include <map>
+#include <cctype>
 #include "areaCommands.h"
 #include "maxCommands.h"
 #include "minCommands.h"
@@ -26,7 +27,7 @@ namespace aksenov
     std::string command = "";
     inp >> command;
 
-    if (isInteger(command))
+    if (command.find_first_not_of("0123456789") == std::string::npos)
     {
       doAreaWithVertexes(pol, command);
     }
@@ -73,7 +74,7 @@ namespace aksenov
     std::string command = "";
     inp >> command;
 
-    if (isInteger(command))
+    if (command.find_first_not_of("0123456789") == std::string::npos)
     {
       doCountVertexes(command, pol);
     }
@@ -99,27 +100,25 @@ namespace aksenov
       std::cout << counter << "\n";
     }
 
-    void doRightshapes(std::istream &, const std::vector< Polygon > &pol)
+  bool isRightShape(const aksenov::Polygon& polygon)
+  {
+    if (polygon.points.size() != 4)
     {
-      size_t count = 0;
-      for (const Polygon& polygon : pol)
-      {
-        for (size_t i = 0; i < polygon.points.size(); i++)
-        {
-          const Point& p1 = polygon.points[i];
-          const Point& p2 = polygon.points[(i + 1) % polygon.points.size()];
-          const Point& p3 = polygon.points[(i + 2) % polygon.points.size()];
-          int x1 = p2.x - p1.x;
-          int y1 = p2.y - p1.y;
-          int x2 = p3.x - p2.x;
-          int y2 = p3.y - p2.y;
-          if (x1 * x2 + y1 * y2 == 0)
-          {
-            count++;
-            break;
-          }
-        }
-      }
-      std::cout << count << "\n";
+      return false;
+    }
+    int dx1 = polygon.points[1].x - polygon.points[0].x;
+    int dy1 = polygon.points[1].y - polygon.points[0].y;
+    int dx2 = polygon.points[2].x - polygon.points[1].x;
+    int dy2 = polygon.points[2].y - polygon.points[1].y;
+    int dx3 = polygon.points[3].x - polygon.points[2].x;
+    int dy3 = polygon.points[3].y - polygon.points[2].y;
+    return (dx1 * dx2 + dy1 * dy2 == 0) && (dx2 * dx3 + dy2 * dy3 == 0);
+  }
+
+  void doRightshapes(std::istream &, const std::vector< Polygon > &pol)
+    {
+      std::vector< Polygon > rightShapes;
+      std::copy_if(pol.begin(), pol.end(), std::back_inserter(rightShapes), isRightShape);
+      std::cout << rightShapes.size();
     }
   }
