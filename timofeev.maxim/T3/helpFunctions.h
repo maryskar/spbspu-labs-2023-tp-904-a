@@ -14,7 +14,7 @@ namespace timofeev
   void doMaxV(const std::vector< Polygon > &res);
   void doMinArea(const std::vector< Polygon > &res);
   void doMinV(const std::vector< Polygon > &res);
-  void doСountEven(const std::vector< Polygon > &res);
+  void doCountEven(const std::vector< Polygon > &res);
   void doCountOdd(const std::vector< Polygon > &res);
   void doMean(const std::vector< Polygon > &res);
 

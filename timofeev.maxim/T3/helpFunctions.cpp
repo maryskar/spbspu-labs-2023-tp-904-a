@@ -162,7 +162,7 @@ namespace timofeev
     std::cout << std::fixed << std::setprecision(1) << Vertex << "\n";
   }
 
-  void doСountEven(const std::vector< Polygon > &res)
+  void doCountEven(const std::vector< Polygon > &res)
   {
     size_t count = std::count_if(res.begin(), res.end(), isEven);
     std::cout << std::fixed << std::setprecision(1) << count << "\n";

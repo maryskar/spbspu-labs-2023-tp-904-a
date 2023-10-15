@@ -117,7 +117,7 @@ namespace timofeev
     }
     else if (secPart == "EVEN")
     {
-      doСountEven(res);
+      doCountEven(res);
     }
     else if (secPart == "ODD")
     {
