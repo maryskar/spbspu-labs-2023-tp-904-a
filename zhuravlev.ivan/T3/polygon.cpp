@@ -37,7 +37,7 @@ namespace zhuravlev
       return in;
     }
     Polygon input;
-    size_t points;
+    size_t points = 0;
     in >> points;
     if (points < 3)
     {

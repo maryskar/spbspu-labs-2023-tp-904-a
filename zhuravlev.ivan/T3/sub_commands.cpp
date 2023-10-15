@@ -232,7 +232,6 @@ namespace zhuravlev
     in >> polygon;
     if (!in)
     {
-      in.clear();
       throw std::invalid_argument("not supported");
     }
     size_t result = 0;
@@ -280,7 +279,6 @@ namespace zhuravlev
   }
   void printError(std::ostream& out)
   {
-    iofmtguard iofmtguard(out);
     out << "<INVALID COMMAND>" << '\n';
   }
 }
