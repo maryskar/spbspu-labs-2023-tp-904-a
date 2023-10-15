@@ -242,3 +242,25 @@ void dmitriev::printFindedBooks(const library& lib, std::ostream& out, std::istr
     printBook(*it++, out);
   }
 }
+
+void dmitriev::printDirection(const library& lib, std::ostream& out, std::istream& inp)
+{
+  std::string line;
+  std::getline(inp, line);
+
+  std::string dirName = cutS(line);
+
+  typename directory::const_iterator it = lib.at(dirName).cbegin();
+  if (it == lib.at(dirName).cend())
+  {
+    out << "<EMPTY>";//
+    return;
+  }
+  printBook(it->second, out);
+  it++;
+  for (;it != lib.at(dirName).cend(); it++)
+  {
+    out << "\n\n";
+    printBook(it->second, out);
+  }
+}
