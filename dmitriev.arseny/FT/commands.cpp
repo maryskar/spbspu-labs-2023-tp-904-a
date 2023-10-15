@@ -34,6 +34,10 @@ void dmitriev::addBook(library& lib, std::istream& inp)
   std::string dirName = cutS(line);
 
   dmitriev::Book newBook{cutS(line), cutS(line), cutS(line), cutS(line), std::stol(cutS(line))};
+  if (lib.at(dirName).find(newBook.key) != lib.at(dirName).end())
+  {
+    throw std::invalid_argument("book alrady exist");
+  }
   lib.at(dirName)[newBook.key] = newBook;
 }
 
@@ -112,9 +116,67 @@ void dmitriev::copyBook(library& lib, std::istream& inp)
   std::forward_list< dmitriev::Book > result = findBooks(lib, dirFrom, query, parameter, 0);
   if (!result.empty())
   {
-    dmitriev::Book book = findBooks(lib, dirFrom, query, parameter, 0).front();
-    lib.at(dirTo).insert({book.key, book});
+    dmitriev::Book newBook = result.front();
+    if (lib.at(dirTo).find(newBook.key) != lib.at(dirTo).end())
+    {
+      throw std::invalid_argument("book alrady exist");
+    }
+    lib.at(dirTo)[newBook.key] = newBook;
   }
+}
+
+void dmitriev::createDirection(library& lib, std::istream& inp)
+{
+  std::string line = "";
+  std::getline(inp, line);
+
+  std::string dirName = cutS(line);
+  if (lib.find(dirName) != lib.end())
+  {
+    throw std::invalid_argument("dir alrady exist");
+  }
+  lib[dirName];
+}
+
+void dmitriev::deleteDirection(library& lib, std::istream& inp)
+{
+  std::string line = "";
+  std::getline(inp, line);
+
+  std::string dirName = cutS(line);
+  if (lib.find(dirName) == lib.end())
+  {
+    throw std::invalid_argument("dir alrady exist");
+  }
+
+  lib.erase(dirName);
+}
+
+void dmitriev::combineDirections(library& lib, std::istream& inp)
+{
+  std::string line = "";
+  std::getline(inp, line);
+
+  std::string newDirName = cutS(line);//
+  std::string lhsDirName = cutS(line);
+  std::string rhsDirName = cutS(line);
+
+  dmitriev::directory newDir = lib.at(lhsDirName);
+
+  typename dmitriev::directory::iterator it = lib.at(rhsDirName).begin();
+  for (; it != lib.at(rhsDirName).end(); it++)
+  {
+    if (lib.at(lhsDirName).find(it->first) == lib.at(lhsDirName).end())
+    {
+      newDir.insert(*it);
+    }
+  }
+
+  if (lib.find(newDirName) != lib.end())
+  {
+    throw std::invalid_argument("dir alrady exist");
+  }
+  lib[newDirName] = newDir;
 }
 
 void printBook(const dmitriev::Book& book, std::ostream& out)
@@ -141,6 +203,7 @@ void dmitriev::printFindedBooks(const library& lib, std::ostream& out, std::istr
   if (it == result.cend())
   {
     out << "<EMPTY>";//
+    return;
   }
   printBook(*it++, out);
   while (it != result.cend())

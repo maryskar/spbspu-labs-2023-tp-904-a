@@ -16,7 +16,7 @@ namespace dmitriev
   void copyBook(library& lib, std::istream& inp);
   void createDirection(library& lib, std::istream& inp);
   void deleteDirection(library& lib, std::istream& inp);
-  void combineDirection(library& lib, std::istream& inp);
+  void combineDirections(library& lib, std::istream& inp);
   void downloadDirection(library& lib, std::istream& inp);
 
   void printFindedBooks(const library& lib, std::ostream& out, std::istream& inp);
