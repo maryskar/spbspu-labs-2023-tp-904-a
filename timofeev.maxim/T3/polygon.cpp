@@ -5,7 +5,7 @@
 #include <DataStruct.h>
 namespace timofeev
 {
-  std::istream &operator>>(std::istream &in, Polygon & dest)
+  std::istream &operator>>(std::istream &in, Polygon &dest)
   {
     std::istream::sentry sentry(in);
     if (!sentry)

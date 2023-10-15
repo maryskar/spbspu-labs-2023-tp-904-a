@@ -8,6 +8,6 @@
 namespace timofeev
 {
   using dict = std::map< std::string, void (*)(std::istream&, const std::vector< Polygon >&) >;
-  void dictionary(dict& command);
+  dict dictionary(dict& command);
 }
 #endif //TLABSNEW_DICTIONARY_H

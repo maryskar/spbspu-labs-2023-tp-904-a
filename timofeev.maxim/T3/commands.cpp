@@ -5,7 +5,7 @@
 #include "helpFunctions.h"
 namespace timofeev
 {
-  void doAreaCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doAreaCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -48,7 +48,7 @@ namespace timofeev
     }
   }
 
-  void doMaxCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doMaxCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -71,7 +71,7 @@ namespace timofeev
     }
   }
 
-  void doMinCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doMinCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -94,7 +94,7 @@ namespace timofeev
     }
   }
 
-  void doCountCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doCountCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -129,7 +129,7 @@ namespace timofeev
     }
   }
 
-  void doRSCommand(std::istream&, const std::vector<Polygon> &res)
+  void doRSCommand(std::istream&, const std::vector< Polygon > &res)
   {
     size_t count = 0;
     for (const Polygon& polygon : res)
@@ -155,7 +155,7 @@ namespace timofeev
     std::cout << count << "\n";
   }
 
-  void doRectsCommand(std::istream&, const std::vector<Polygon>& res)
+  void doRectsCommand(std::istream&, const std::vector< Polygon >& res)
   {
     size_t val = 0;
     for (const Polygon& p: res)
