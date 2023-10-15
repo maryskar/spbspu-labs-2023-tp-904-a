@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
   CommandDictionary dictionary;
   while (!std::cin.eof())
   {
-    if(!std::cin)
+    if (!std::cin)
     {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
