@@ -36,7 +36,7 @@ int main(int argc, char **argv)
   }
   std::map< std::string, void (*)(std::istream&, const std::vector< timofeev::Polygon >&) > commands;
   std::string firstPart;
-  timofeev::dictionary(commands);
+  commands = timofeev::dictionary(commands);
   while (!std::cin.eof())
   {
     try
