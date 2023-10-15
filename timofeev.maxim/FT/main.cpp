@@ -10,7 +10,7 @@ int main()
   using Dictionary = std::map< std::string, std::vector< std::string > >;
   std::map<std::string, Dictionary> dictOfDict;
   std::map< std::string, void(*)(std::istream&, std::ostream&, std::map<std::string, Dictionary>& ) > commands;
-  timofeev::command(commands);
+  commands = timofeev::command(commands);
   while (!std::cin.eof())
   {
     try

@@ -65,7 +65,7 @@ namespace timofeev
       auto it = dict.find(word);
       if (it != dict.end())
       {
-        std::vector <std::string> &lTrans = it->second;
+        std::vector < std::string > &lTrans = it->second;
         lTrans.erase(std::remove(lTrans.begin(), lTrans.end(), rTrans), lTrans.end());
         if (lTrans.empty())
         {
@@ -75,7 +75,7 @@ namespace timofeev
     }
   }
 
-  void printList(const std::vector <std::string> &list, std::ostream &out)
+  void printList(const std::vector< std::string > &list, std::ostream &out)
   {
     out << '-' << " ";
     bool flag = false;
@@ -103,7 +103,7 @@ namespace timofeev
     }
   }
 
-  void delList(std::vector < std::string > &list)
+  void delList(std::vector< std::string > &list)
   {
     std::vector < std::string > tmp;
     for (size_t i = 0; i != list.size(); i++)

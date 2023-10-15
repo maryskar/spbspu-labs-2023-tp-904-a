@@ -186,7 +186,7 @@ namespace timofeev
   void printDictList(std::istream&, std::ostream& out, dictsOfDicts& dicts)
   {
     out << "Names of Lists: " << "\n";
-    for (const auto& entry : dicts) {
+    for (const auto& entry: dicts) {
       const std::string& listName = entry.first;
       out << listName << "\n";
     }

@@ -3,7 +3,7 @@
 #include "cmdRealisation.h"
 namespace timofeev
 {
-  void command(input& command)
+  input command(input& command)
   {
     command["DictList"] = printDictList;
     command["Create"] = Createdict;
@@ -15,5 +15,6 @@ namespace timofeev
     command["Print"] = Print;
     command["Translate"] = Translate;
     command["Common"] = Common;
+    return command;
   }
 }

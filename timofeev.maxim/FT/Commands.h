@@ -8,6 +8,6 @@ namespace timofeev
   using dict = std::map< std::string, std::vector<std::string> >;
   using dictsOfDicts = std::map<std::string, dict>;
   using input = std::map< std::string, void(*)(std::istream&, std::ostream&, dictsOfDicts&) >;
-  void command(input& command);
+  input command(input& command);
 }
 #endif
