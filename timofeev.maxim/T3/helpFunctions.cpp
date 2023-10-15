@@ -10,7 +10,6 @@
 #include "polygon.h"
 namespace timofeev
 {
-  using namespace std::placeholders;
   void printError(std::ostream &out)
   {
     out << "<INVALID COMMAND>" << "\n";
@@ -86,6 +85,7 @@ namespace timofeev
 
   void doAreaV(const std::vector< Polygon > &res, size_t &val)
   {
+    using namespace std::placeholders;
     std::vector< Polygon > tmp (res.size());
     std::copy_if(res.begin(), res.end(), tmp.begin(), std::bind(isEqual, _1, val));
     std::vector< double > individual;
@@ -170,6 +170,7 @@ namespace timofeev
 
   void doCountV(const std::vector< Polygon >& res, size_t& val)
   {
+    using namespace std::placeholders;
     size_t Vertexes = std::count_if(res.begin(), res.end(), std::bind(isEqual, _1, val));
     std::cout << std::fixed << std::setprecision(1) << Vertexes << "\n";
   }
