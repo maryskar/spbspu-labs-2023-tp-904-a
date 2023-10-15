@@ -2,7 +2,9 @@
 #include <forward_list>
 #include <exception>
 #include <fstream>
-#include <outputOfSpecialMessages.h>
+#include <algorithm>
+#include <functional>
+#include "outputOfSpecialMessages.h"
 
 std::string dmitriev::cutS(std::string& line)
 {
@@ -59,6 +61,25 @@ size_t hammingDistance(const std::string& lhs, const std::string& rhs)
   return distance;
 }
 
+dmitriev::Book getBook(const std::pair< std::string, dmitriev::Book >& entry)
+{
+  return entry.second;
+}
+
+bool isBookCorrect(const dmitriev::Book& entry,
+  const std::string& query,
+  const std::string& parameter,
+  size_t k)
+{
+  bool p1 = (parameter == "year" && std::to_string(entry.year) == query);
+  bool p2 = (parameter == "isbn" && entry.isbn == query);
+  std::string rhsStr = parameter == "title" ? entry.title : entry.author;
+  size_t distance = hammingDistance(query, rhsStr);
+  bool p3 = (parameter == "title" || parameter == "author") && distance <= k;
+
+  return p1 || p2 || p3;
+}
+
 std::forward_list< dmitriev::Book > findBooks(const dmitriev::library& lib,
   const std::string& dir,
   const std::string& query,
@@ -66,23 +87,17 @@ std::forward_list< dmitriev::Book > findBooks(const dmitriev::library& lib,
   size_t k)
 {
   std::forward_list< dmitriev::Book > result;
-  const dmitriev::directory& books = lib.at(dir);
+  std::forward_list< dmitriev::Book > books;
 
-  typename dmitriev::directory::const_iterator it = books.cbegin();
-  for (; it != books.cend(); it++)
-  {
-    bool p1 = (parameter == "year" && std::to_string(it->second.year) == query);
-    bool p2 = (parameter == "isbn" && it->second.isbn == query);
+  std::transform(lib.at(dir).begin(), lib.at(dir).end(), std::front_inserter(books), getBook);
 
-    std::string rhsStr = parameter == "title" ? it->second.title : it->second.author;
-    size_t distance = hammingDistance(query, rhsStr);
-    bool p3 = (parameter == "title" || parameter == "author") && distance <= k;
+  auto it = std::begin(books);
+  auto end = std::end(books);
 
-    if (p1 || p2 || p3)
-    {
-      result.push_front(it->second);
-    }
-  }
+  using namespace std::placeholders;
+  auto isBookCor = std::bind(isBookCorrect, _1, query, parameter, k);
+  std::copy_if(it, end, std::front_inserter(result), isBookCor);
+
 
   return result;
 }
@@ -140,6 +155,11 @@ void dmitriev::deleteDirectory(library& lib, std::string& line)
   lib.erase(dirName);
 }
 
+bool isBookExist(const std::pair< std::string, dmitriev::Book >& entry, const dmitriev::directory& dir)
+{
+  return dir.find(entry.first) == dir.end();
+}
+
 void dmitriev::combineDirectorys(library& lib, std::string& line)
 {
   std::string newDirName = cutS(line);
@@ -148,14 +168,10 @@ void dmitriev::combineDirectorys(library& lib, std::string& line)
 
   directory newDir = lib.at(lhsDirName);
 
-  typename directory::const_iterator it = lib.at(rhsDirName).begin();
-  for (; it != lib.at(rhsDirName).end(); it++)
-  {
-    if (lib.at(lhsDirName).find(it->first) == lib.at(lhsDirName).end())
-    {
-      newDir.insert(*it);
-    }
-  }
+  using namespace std::placeholders;
+  auto isBookInDir = std::bind(isBookExist, _1, newDir);
+  const directory& rhsDir = lib.at(rhsDirName);
+  std::copy_if(rhsDir.begin(), rhsDir.end(), std::inserter(newDir, newDir.end()), isBookInDir);
 
   if (lib.find(newDirName) != lib.end())
   {
