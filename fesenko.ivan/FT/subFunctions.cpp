@@ -11,7 +11,7 @@ std::string fesenko::get_cmd_word(std::string &line)
   while (!line.empty()) {
     char c = line[0];
     line.erase(0, 1);
-    if (!isspace(c)) {
+    if (!std::isspace(c)) {
       word += c;
     } else if (!word.empty()) {
       break;
