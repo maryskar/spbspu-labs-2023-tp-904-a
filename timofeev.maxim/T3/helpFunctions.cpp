@@ -45,17 +45,17 @@ namespace timofeev
     int vector1_y = p2.y - p1.y;
     int vector2_x = p3.x - p2.x;
     int vector2_y = p3.y - p2.y;
-    if (vector1_x * vector2_x - vector1_y * vector2_y == 0)
+    if (vector1_x * vector2_x + vector1_y * vector2_y == 0)
     {
       count++;
     }
     if(pNext == 0)
     {
-      recurRS(res, count, indx + 1, 0);
+      recurRS(res, count, ++indx, 0);
     }
     else
     {
-      recurRS(res, count, indx, pindx + 1);
+      recurRS(res, count, indx, ++pindx);
     }
   }
 
