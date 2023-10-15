@@ -29,24 +29,18 @@ namespace zhuravlev
   }
   void doCommandWithInput(std::vector< Polygon >& pls, std::ostream& out, const size_t condition, std::string cmd)
   {
+    using cmt_t_with_input = std::function< void (std::vector< zhuravlev::Polygon >&, std::ostream&, const size_t) >;
+    std::map< std::string, cmt_t_with_input> cmd_with_input
+    {
+      {"COUNT N", zhuravlev::countVertexes},
+      {"AREA N", zhuravlev::AreaVertexes}
+    };
     auto toexecute = cmd_with_input.at(cmd);
     toexecute(pls, out, condition);
   }
   void doConstCommand(std::vector< Polygon >& pls, std::ostream& out, std::string cmd)
   {
-    auto toexecute = const_cmds.at(cmd);
-    toexecute(pls, out);
-  }
-  void doCommandWithInputPolygon(std::vector< Polygon >& pls, std::istream& in, std::ostream& out, std::string cmd)
-  {
-    auto toexecute = cmds_with_input_polygon.at(cmd);
-    toexecute(pls, in, out);
-  }
-  void doCommand(std::vector< Polygon >pls, std::istream& in, std::ostream& out, std::string command)
-  {
     using const_cmd_t = std::function< void (const std::vector< zhuravlev::Polygon >, std::ostream&) >;
-    using cmd_t_with_input_polygon = std::function< void (std::vector< zhuravlev::Polygon >&, std::istream& in, std::ostream&) >;
-    using cmt_t_with_input = std::function< void (std::vector< zhuravlev::Polygon >&, std::ostream&, const size_t) >;
     std::map< std::string, const_cmd_t > const_cmds
     {
       {"COUNT ODD", zhuravlev::countOdd},
@@ -59,16 +53,22 @@ namespace zhuravlev
       {"MIN AREA", zhuravlev::MinArea},
       {"MIN VERTEXES", zhuravlev::MinVertexes},
     };
+    auto toexecute = const_cmds.at(cmd);
+    toexecute(pls, out);
+  }
+  void doCommandWithInputPolygon(std::vector< Polygon >& pls, std::istream& in, std::ostream& out, std::string cmd)
+  {
+    using cmd_t_with_input_polygon = std::function< void (std::vector< zhuravlev::Polygon >&, std::istream& in, std::ostream&) >;
     std::map< std::string, cmd_t_with_input_polygon > cmds_with_input_polygon
     {
       {"INFRAME", zhuravlev::inFrame},
       {"RMECHO", zhuravlev::rmEcho}
     };
-    std::map< std::string, cmt_t_with_input> cmd_with_input
-    {
-      {"COUNT N", zhuravlev::countVertexes},
-      {"AREA N", zhuravlev::AreaVertexes}
-    };
+    auto toexecute = cmds_with_input_polygon.at(cmd);
+    toexecute(pls, in, out);
+  }
+  void doCommand(std::vector< Polygon >pls, std::istream& in, std::ostream& out, std::string command)
+  {
     try
     {
       doConstCommand(pls, out, command);
