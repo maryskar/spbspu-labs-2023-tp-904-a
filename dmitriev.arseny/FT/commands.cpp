@@ -1,4 +1,5 @@
 #include "commands.h"
+#include <forward_list>
 
 std::string cutS(std::string& line)
 {
@@ -34,4 +35,88 @@ void dmitriev::addBook(library& lib, std::istream& inp)
 
   dmitriev::Book newBook{cutS(line), cutS(line), cutS(line), cutS(line), std::stol(cutS(line))};
   lib.at(dirName)[newBook.key] = newBook;
+}
+
+size_t hammingDistance(const std::string& lhs, const std::string& rhs)
+{
+  size_t distance = 0;
+  size_t length = std::min(lhs.length(), rhs.length());
+
+  for (size_t i = 0; i < length; i++)
+  {
+    if (lhs[i] != rhs[i])
+    {
+      distance++;
+    }
+  }
+
+  distance += std::abs(static_cast< int >(lhs.length() - rhs.length()));
+
+  return distance;
+}
+
+std::forward_list< dmitriev::Book > findBooks(const dmitriev::library& lib,
+  const std::string& dir,
+  const std::string& query,
+  const std::string& parameter,
+  size_t k)
+{
+  std::forward_list< dmitriev::Book > result;
+  const dmitriev::directory& books = lib.at(dir);
+
+  typename dmitriev::directory::const_iterator it = books.cbegin();
+  for (; it != books.cend(); it++)
+  {
+    bool p1 = (parameter == "year" && std::to_string(it->second.year) == query);
+    bool p2 = (parameter == "isbn" && it->second.isbn == query);
+
+    std::string rhsStr = parameter == "title" ? it->second.title : it->second.author;
+    size_t distance = hammingDistance(query, rhsStr);
+    bool p3 = (parameter == "title" || parameter == "author") && distance <= k;
+
+    if (p1 || p2 || p3)
+    {
+      result.push_front(it->second);
+    }
+  }
+
+  return result;
+}
+
+void dmitriev::deleteBook(library& lib, std::istream& inp)
+{
+
+}
+
+void printBook(const dmitriev::Book& book, std::ostream& out)
+{
+  out << "key: " << book.key << '\n';
+  out << "title: " << book.title << '\n';
+  out << "author: " << book.author << '\n';
+  out << "isbn: " << book.isbn << '\n';
+  out << "year: " << book.year;
+}
+
+void dmitriev::printFindedBooks(const library& lib, std::ostream& out, std::istream& inp)
+{
+  std::string line;
+  std::getline(inp, line);
+
+  std::forward_list< dmitriev::Book > result;
+  std::string dirName = cutS(line);
+  std::string query = cutS(line);
+  std::string parameter = cutS(line);
+  result = findBooks(lib, dirName, query, parameter, std::stol(cutS(line)));
+
+  typename std::forward_list< dmitriev::Book >::const_iterator it = result.cbegin();
+  if (it == result.cend())
+  {
+    out << "<EMPTY>";//
+  }
+  printBook(*it++, out);
+  while (it != result.cend())
+  {
+    out << "\n\n";
+    printBook(*it++, out);
+  }
 }

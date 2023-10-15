@@ -19,9 +19,9 @@ namespace dmitriev
   void combineDirection(library& lib, std::istream& inp);
   void downloadDirection(library& lib, std::istream& inp);
 
-  void printFindedBooks(const library& lib, const std::string name, std::ostream& out, std::istream& inp);
-  void printDirection(const library& lib, const std::string name, std::ostream& out, std::istream& inp);
-  void unloadDirection(const library& lib, const std::string name, std::ostream& out, std::istream& inp);
+  void printFindedBooks(const library& lib, std::ostream& out, std::istream& inp);
+  void printDirection(const library& lib, std::ostream& out, std::istream& inp);
+  void unloadDirection(const library& lib, std::ostream& out, std::istream& inp);
 
 }
 
