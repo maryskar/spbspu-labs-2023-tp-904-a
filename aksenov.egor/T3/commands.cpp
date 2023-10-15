@@ -147,6 +147,6 @@ namespace aksenov
   void doRightshapes(std::istream &, const std::vector< Polygon > &pol)
     {
       size_t count = std::count_if(pol.begin(), pol.end(), isThereRightAngle);
-      std::cout << count;
+      std::cout << count << "\n";
     }
   }
