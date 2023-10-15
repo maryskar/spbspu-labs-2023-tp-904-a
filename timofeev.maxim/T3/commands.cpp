@@ -14,7 +14,7 @@ namespace timofeev
     }
     std::string secPart;
     in >> secPart;
-    if (is_number(secPart))
+    if (secPart.find_first_not_of("0123456789") == std::string::npos)
     {
       size_t tmp = std::stoull(secPart);
       if (tmp < 3)
@@ -103,7 +103,7 @@ namespace timofeev
     }
     std::string secPart;
     in >> secPart;
-    if (is_number(secPart))
+    if (secPart.find_first_not_of("0123456789") == std::string::npos)
     {
       size_t tmp = std::stoull(secPart);
       if (tmp < 3)
