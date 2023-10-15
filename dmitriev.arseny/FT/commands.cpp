@@ -1,8 +1,9 @@
 #include "commands.h"
 #include <forward_list>
+#include <exception>
 #include <fstream>
 
-std::string cutS(std::string& line)
+std::string dmitriev::cutS(std::string& line)
 {
   std::string res = "";
   std::size_t pos = line.find(' ');
@@ -140,13 +141,13 @@ void dmitriev::deleteDirectory(library& lib, std::string& line)
 
 void dmitriev::combineDirectorys(library& lib, std::string& line)
 {
-  std::string newDirName = cutS(line);//
+  std::string newDirName = cutS(line);
   std::string lhsDirName = cutS(line);
   std::string rhsDirName = cutS(line);
 
   directory newDir = lib.at(lhsDirName);
 
-  typename directory::iterator it = lib.at(rhsDirName).begin();
+  typename directory::const_iterator it = lib.at(rhsDirName).begin();
   for (; it != lib.at(rhsDirName).end(); it++)
   {
     if (lib.at(lhsDirName).find(it->first) == lib.at(lhsDirName).end())
@@ -199,11 +200,10 @@ void printBook(const dmitriev::Book& book, std::ostream& out)
 
 void dmitriev::printFindedBooks(const library& lib, std::string& line, std::ostream& out)
 {
-  std::forward_list< Book > result;
   std::string dirName = cutS(line);
   std::string query = cutS(line);
   std::string parameter = cutS(line);
-  result = findBooks(lib, dirName, query, parameter, std::stol(cutS(line)));
+  std::forward_list< Book > result = findBooks(lib, dirName, query, parameter, std::stol(cutS(line)));
 
   typename std::forward_list< Book >::const_iterator it = result.cbegin();
   if (it == result.cend())

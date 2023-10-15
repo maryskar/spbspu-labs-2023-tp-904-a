@@ -10,6 +10,7 @@ namespace dmitriev
   using directory = std::unordered_map< std::string, dmitriev::Book >;
   using library = std::unordered_map< std::string, directory >;
 
+  std::string cutS(std::string& line);
 
   void addBook(library& lib, std::string& line);
   void deleteBook(library& lib, std::string& line);
