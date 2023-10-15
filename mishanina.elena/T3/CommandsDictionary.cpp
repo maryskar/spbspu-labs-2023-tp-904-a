@@ -59,14 +59,16 @@ void mishanina::CommandDictionary::doCommand(vect_pol &pols, std::string &cmd, s
   {
     doCommandOut(cmd, pols, out);
     return;
-  } catch (const std::out_of_range &e)
+  }
+  catch (const std::out_of_range &e)
   {
   }
   try
   {
     doCommandRm(cmd, pols, out, in);
     return;
-  } catch (const std::out_of_range &e)
+  }
+  catch (const std::out_of_range &e)
   {
   }
   std::size_t sep = cmd.find(' ');
