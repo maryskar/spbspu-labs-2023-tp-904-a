@@ -5,7 +5,6 @@
 #include "polygon.h"
 namespace timofeev
 {
-  bool is_number(const std::string& s);
   void printError(std::ostream& out);
 
   void doEven(const std::vector< Polygon > &res);
