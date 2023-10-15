@@ -5,11 +5,12 @@
 #include <iostream>
 #include "book.h"
 
-using directory = std::unordered_map< std::string, dmitriev::Book >;
-using library = std::unordered_map< std::string, directory >;
-
 namespace dmitriev
 {
+  using directory = std::unordered_map< std::string, dmitriev::Book >;
+  using library = std::unordered_map< std::string, directory >;
+
+
   void addBook(library& lib, std::istream& inp);
   void deleteBook(library& lib, std::istream& inp);
   void moveBook(library& lib, std::istream& inp);
