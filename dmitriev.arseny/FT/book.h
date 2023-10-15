@@ -16,7 +16,7 @@ namespace dmitriev
   };
 
   std::istream& operator>>(std::istream& inp, Book& data);
-  std::ostream& operator<<(std::ostream& out, Book& data);
+  std::ostream& operator<<(std::ostream& out, const Book& data);
 }
 
 #endif
