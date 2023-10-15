@@ -16,6 +16,7 @@ namespace timofeev
   void doCountEven(const std::vector< Polygon > &res);
   void doCountOdd(const std::vector< Polygon > &res);
   void doMean(const std::vector< Polygon > &res);
+  void recurRS(const std::vector< Polygon > &res, size_t &count, size_t indx, size_t pindx);
 
   void doAreaV(const std::vector< Polygon > &res, size_t &val);
   void doCountV(const std::vector< Polygon > &res, size_t &val);

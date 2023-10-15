@@ -128,31 +128,12 @@ namespace timofeev
       throw std::logic_error("Error");
     }
   }
-  void recurRS(const std::vector< Polygon > &res, size_t &count, size_t indx, size_t pindx)
-  {
-    if(res.size() == indx)
-    {
-      return;
-    }
-    const Polygon& tmp = res[indx];
-    const Point& p1 = tmp.points[pindx % tmp.points.size()];
-    const Point& p2 = tmp.points[(pindx + 1) % tmp.points.size()];
-    const Point& p3 = tmp.points[(pindx + 2) % tmp.points.size()];
-    int vector1_x = p2.x - p1.x;
-    int vector1_y = p2.y - p1.y;
-    int vector2_x = p3.x - p2.x;
-    int vector2_y = p3.y - p2.y;
-    if (vector1_x * vector2_x + vector1_y * vector2_y == 0)
-    {
-      count++;
-    }
-  }
   void doRSCommand(std::istream&, const std::vector< Polygon > &res)
   {
     size_t count = 0;
     size_t indx = 0;
     size_t pindx = 0;
-    count = recurRS(res, count, indx, pindx)
+    recurRS(res, count, indx, pindx);
     std::cout << count << "\n";
   }
 
