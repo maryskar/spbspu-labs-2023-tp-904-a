@@ -1,6 +1,6 @@
 #include "data-struct.hpp"
 #include "iofmtguard.hpp"
-#include "io-work.hpp"
+#include <io-work.hpp>
 
 bool turkin::Comparator::operator()(const turkin::DataStruct & lhs, const turkin::DataStruct & rhs) const
 {
