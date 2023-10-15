@@ -26,6 +26,7 @@ std::istream &mishanina::operator>>(std::istream &in, Polygon &data)
   if (count < 3)
   {
     in.setstate(std::ios::failbit);
+    return in;
   }
   Polygon pol;
   pol.points.reserve(count);
