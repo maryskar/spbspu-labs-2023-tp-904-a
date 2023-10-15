@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <iterator>
 #include <fstream>
-#include <deque>
 #include <limits>
 #include "polygon.h"
 #include "read_and_do_commands.h"
@@ -41,6 +40,7 @@ int main(int argc, char ** argv)
       shestakov::skipUntilNewLine(std::cin);
       std::cin.clear();
       shestakov::printError(std::cout);
+      std::cout << '\n';
     }
     catch (const std::runtime_error &e)
     {

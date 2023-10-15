@@ -8,7 +8,6 @@ namespace shestakov
   using const_cmd_t = std::function< void(const std::vector < Polygon >&, std::ostream&) >;
   using const_cmd_t_in = std::function< void(const std::vector < Polygon >&, size_t, std::ostream&) >;
   using cmd_t = std::function< void(std::vector < Polygon >&, std::istream&, std::ostream&) >;
-
   std::string readCommand(std::istream& in)
   {
     std::istream::sentry sentry(in);
