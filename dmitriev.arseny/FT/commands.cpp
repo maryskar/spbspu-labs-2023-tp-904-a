@@ -2,6 +2,7 @@
 #include <forward_list>
 #include <exception>
 #include <fstream>
+#include <outputOfSpecialMessages.h>
 
 std::string dmitriev::cutS(std::string& line)
 {
@@ -208,7 +209,7 @@ void dmitriev::printFindedBooks(const library& lib, std::string& line, std::ostr
   typename std::forward_list< Book >::const_iterator it = result.cbegin();
   if (it == result.cend())
   {
-    out << "<EMPTY>";//
+    dmitriev::outOfEmptyDataMsg(out);
     return;
   }
   printBook(*it++, out);
@@ -226,7 +227,7 @@ void dmitriev::printDirectory(const library& lib, std::string& line,std::ostream
   typename directory::const_iterator it = lib.at(dirName).cbegin();
   if (it == lib.at(dirName).cend())
   {
-    out << "<EMPTY>";//
+    dmitriev::outOfEmptyDataMsg(out);
     return;
   }
   printBook(it->second, out);
