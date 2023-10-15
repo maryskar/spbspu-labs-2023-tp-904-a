@@ -27,11 +27,8 @@ std::string cutS(std::string& line)
   }
 }
 
-void dmitriev::addBook(library& lib, std::istream& inp)
+void dmitriev::addBook(library& lib, std::string& line)
 {
-  std::string line = "";
-  std::getline(inp, line);
-
   std::string dirName = cutS(line);
 
   Book newBook{cutS(line), cutS(line), cutS(line), cutS(line), std::stol(cutS(line))};
@@ -88,11 +85,8 @@ std::forward_list< dmitriev::Book > findBooks(const dmitriev::library& lib,
   return result;
 }
 
-void dmitriev::deleteBook(library& lib, std::istream& inp)
+void dmitriev::deleteBook(library& lib, std::string& line)
 {
-  std::string line = "";
-  std::getline(inp, line);
-
   std::string dirName = cutS(line);
   std::string query = cutS(line);
   std::string parameter = cutS(line);
@@ -104,11 +98,8 @@ void dmitriev::deleteBook(library& lib, std::istream& inp)
   }
 }
 
-void dmitriev::copyBook(library& lib, std::istream& inp)
+void dmitriev::copyBook(library& lib, std::string& line)
 {
-  std::string line = "";
-  std::getline(inp, line);
-
   std::string dirFrom = cutS(line);
   std::string dirTo = cutS(line);
   std::string query = cutS(line);
@@ -126,11 +117,8 @@ void dmitriev::copyBook(library& lib, std::istream& inp)
   }
 }
 
-void dmitriev::createDirectory(library& lib, std::istream& inp)
+void dmitriev::createDirectory(library& lib, std::string& line)
 {
-  std::string line = "";
-  std::getline(inp, line);
-
   std::string dirName = cutS(line);
   if (lib.find(dirName) != lib.end())
   {
@@ -139,11 +127,8 @@ void dmitriev::createDirectory(library& lib, std::istream& inp)
   lib[dirName];
 }
 
-void dmitriev::deleteDirectory(library& lib, std::istream& inp)
+void dmitriev::deleteDirectory(library& lib, std::string& line)
 {
-  std::string line = "";
-  std::getline(inp, line);
-
   std::string dirName = cutS(line);
   if (lib.find(dirName) == lib.end())
   {
@@ -153,11 +138,8 @@ void dmitriev::deleteDirectory(library& lib, std::istream& inp)
   lib.erase(dirName);
 }
 
-void dmitriev::combineDirectorys(library& lib, std::istream& inp)
+void dmitriev::combineDirectorys(library& lib, std::string& line)
 {
-  std::string line = "";
-  std::getline(inp, line);
-
   std::string newDirName = cutS(line);//
   std::string lhsDirName = cutS(line);
   std::string rhsDirName = cutS(line);
@@ -180,11 +162,8 @@ void dmitriev::combineDirectorys(library& lib, std::istream& inp)
   lib[newDirName] = newDir;
 }
 
-void dmitriev::downloadDirectory(library& lib, std::istream& inp)
+void dmitriev::downloadDirectory(library& lib, std::string& line)
 {
-  std::string line = "";
-  std::getline(inp, line);
-
   std::string dirName = cutS(line);
   std::string fileName = cutS(line);
 
@@ -218,11 +197,8 @@ void printBook(const dmitriev::Book& book, std::ostream& out)
   out << "year: " << book.year;
 }
 
-void dmitriev::printFindedBooks(const library& lib, std::ostream& out, std::istream& inp)
+void dmitriev::printFindedBooks(const library& lib, std::string& line, std::ostream& out)
 {
-  std::string line;
-  std::getline(inp, line);
-
   std::forward_list< Book > result;
   std::string dirName = cutS(line);
   std::string query = cutS(line);
@@ -243,11 +219,8 @@ void dmitriev::printFindedBooks(const library& lib, std::ostream& out, std::istr
   }
 }
 
-void dmitriev::printDirectory(const library& lib, std::ostream& out, std::istream& inp)
+void dmitriev::printDirectory(const library& lib, std::string& line,std::ostream& out)
 {
-  std::string line;
-  std::getline(inp, line);
-
   std::string dirName = cutS(line);
 
   typename directory::const_iterator it = lib.at(dirName).cbegin();
@@ -265,11 +238,8 @@ void dmitriev::printDirectory(const library& lib, std::ostream& out, std::istrea
   }
 }
 
-void dmitriev::unloadDirectory(const library& lib, std::ostream& out, std::istream& inp)
+void dmitriev::unloadDirectory(const library& lib, std::string& line, std::ostream& out)
 {
-  std::string line = "";
-  std::getline(inp, line);
-
   std::string dirName = cutS(line);
   std::string fileName = cutS(line);
 
