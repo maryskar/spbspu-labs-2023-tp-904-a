@@ -51,11 +51,11 @@ namespace timofeev
     }
     if(pNext == 0)
     {
-      recurRS(res, count, ++indx, 0);
+      recurRS(res, count, indx + 1, 0);
     }
     else
     {
-      recurRS(res, count, indx, ++pindx);
+      recurRS(res, count, indx, pindx + 1);
     }
   }
 
