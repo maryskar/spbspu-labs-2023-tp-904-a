@@ -125,31 +125,16 @@ namespace kotova
     return std::make_pair(lowerPoint, higherPoint);
   }
 
-  auto minMaxPoint(const auto &curr, const auto &p)
+  bool isInFrame(const Polygon &polygon)
   {
-    auto point = findPoints(curr);
-    return std::make_pair(Point{std::min(p.first.x, point.first.x), std::min(p.first.y, point.first.y)},
-      Point{std::max(p.second.x, point.second.x), std::max(p.second.y, point.second.y)});
-  }
-
-  bool isInFrame(const std::vector< Polygon > &dest, const Polygon &polygon)
-  {
-    using namespace std::placeholders;
-    Point lowerLhs{(dest.front().points.front()).x, (dest.front().points.front()).y};
-    Point higherRhs{(dest.front().points.front()).x, (dest.front().points.front()).y};
-    auto polBegin = dest.begin() + 1;
-    auto polEnd = dest.end() + 1;
-    auto firstPoint = findPoints(dest.front());
-    auto frame = std::bind(minMaxPoint(lowerLhs, higherRhs), _1);
-    auto points = std::accumulate(polBegin, polEnd, firstPoint, frame);
-    lowerLhs = points.first;
-    higherRhs = points.second;
     auto pol = findPoints(polygon);
     int polMinX = pol.first.x;
     int polMinY = pol.first.y;
     int polMaxX = pol.second.x;
     int polMaxY = pol.second.y;
-    if (lowerLhs.x <= polMinX && lowerLhs.y <= polMinY && higherRhs.x >= polMaxX && higherRhs.y >= polMaxY)
+    auto xPair = std::minmax_element(polygon.points.cbegin(), polygon.points.cend(), compPointX);
+    auto yPair = std::minmax_element(polygon.points.cbegin(), polygon.points.cend(), compPointY);
+    if (xPair.first->x <= polMinX && yPair.first->y <= polMinY && xPair.second->x >= polMaxX && yPair.second->y >= polMaxY)
     {
       return true;
     }
@@ -288,9 +273,9 @@ namespace kotova
     out << std::count_if(dest.begin(), dest.end(), std::bind(calcNumVert, _1, n)) << "\n";
   }
 
-  void inFrame(const std::vector< Polygon > &dest, const Polygon &pol, std::ostream &out)
+  void inFrame(const Polygon &pol, std::ostream &out)
   {
-    (isInFrame(dest, pol) ? outTrue(out) : outFalse(out));
+    (isInFrame(pol) ? outTrue(out) : outFalse(out));
   }
 
   void isSame(const std::vector< Polygon > &dest, const Polygon &pol, std::ostream &out)
