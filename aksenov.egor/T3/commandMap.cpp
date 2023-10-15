@@ -3,13 +3,15 @@
 
 namespace aksenov
 {
-  void makeDict(commandMap &commands)
+  commandMap makeDict()
   {
+    commandMap commands;
     commands["AREA"] = doArea;
     commands["MAX"] = doMax;
     commands["MIN"] = doMin;
     commands["COUNT"] = doCount;
     commands["SAME"] = doSame;
     commands["RIGHTSHAPES"] = doRightshapes;
+    return commands;
   }
 }

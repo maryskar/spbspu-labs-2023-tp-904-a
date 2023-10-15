@@ -8,6 +8,6 @@
 namespace aksenov
 {
   using commandMap = std::map< std::string, void (*)(std::istream&, const std::vector< Polygon >&) >;
-  void makeDict(commandMap &commands);
+  commandMap makeDict();
 }
 #endif

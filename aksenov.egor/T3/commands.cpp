@@ -1,135 +1,48 @@
-  #include "commands.h"
-  #include <iostream>
-  #include <vector>
-  #include <string>
-  #include <algorithm>
-  #include <numeric>
-  #include <functional>
-  #include <iterator>
-  #include <iomanip>
-  #include "polygon.h"
-  #include "helpFunctions.h"
-  namespace aksenov
+#include "commands.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <functional>
+#include <iterator>
+#include <map>
+#include <iomanip>
+#include "areaCommands.h"
+#include "maxCommands.h"
+#include "polygon.h"
+#include "helpFunctions.h"
+namespace aksenov
+{
+  using areaMap = std::map< std::string, void(*)(const std::vector< aksenov::Polygon >&) >;
+  areaMap areaCommands
   {
-    void doAreaEven(const std::vector< Polygon > &pol)
+    {"EVEN", doAreaEven},
+    {"ODD", doAreaOdd},
+    {"MEAN", doAreaMean}
+  };
+  void doArea(std::istream &inp, const std::vector< Polygon > &pol)
+  {
+    std::string command = "";
+    inp >> command;
+    if (isInteger(command))
     {
-      std::vector< Polygon > vecOfPolygons;
-      std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isEven);
-      std::vector< double > areas = getArea(vecOfPolygons);
-      double res = std::accumulate(areas.begin(), areas.end(), 0);
-      std::cout << std::fixed << std::setprecision(1) << res << "\n";
+      doAreaWithVertexes(pol, command);
     }
+    areaCommands[command](pol);
+  }
 
-    void doAreaOdd(const std::vector< Polygon > &pol)
-    {
-      std::vector< Polygon > vecOfPolygons;
-      std::copy_if(pol.begin(),pol.end(), std::back_inserter(vecOfPolygons), isOdd);
-      std::vector< double > areas = getArea(vecOfPolygons);
-      double res = std::accumulate(areas.begin(), areas.end(), 0);
-      std::cout << std::fixed << std::setprecision(1) << res << "\n";
-    }
 
-    void doAreaMean(const std::vector< Polygon > &pol)
-    {
-      if (pol.empty())
-      {
-        throw std::invalid_argument("invalid argument");
-      }
-      std::vector< double > areas = getArea(pol);
-      double area = std::accumulate(areas.begin(), areas.end(), 0);
-      area /= pol.size();
-      std::cout << std::fixed << std::setprecision(1) << area << "\n";
-    }
-
-    void doAreaWithVertexes(const std::vector< Polygon > &pol, std::string command)
-    {
-      size_t num = std::stoul(command);
-      std::vector< Polygon > pols;
-      auto func = std::bind(isEqual, std::placeholders::_1, num);
-      std::copy_if(pol.begin(),pol.end(), std::back_inserter(pols), func);
-      std::vector< double > areas = getArea(pols);
-      double res = std::accumulate(areas.begin(), areas.end(), 0);
-      std::cout << std::fixed << std::setprecision(1) << res << "\n";
-    }
-
-    void doArea(std::istream &inp, const std::vector< Polygon > &pol)
-    {
-      std::string command = "";
-      inp >> command;
-
-      if (command == "EVEN")
-      {
-        doAreaEven(pol);
-      }
-      else if (command == "ODD")
-      {
-        doAreaOdd(pol);
-      }
-      else if (command == "MEAN")
-      {
-        doAreaMean(pol);
-      }
-      else if (isInteger(command))
-      {
-        if (command == "1" || command == "2" || command == "0")
-        {
-          throw std::invalid_argument("invalid input");
-        }
-        else
-        {
-          doAreaWithVertexes(pol, command);
-        }
-      }
-      else
-      {
-        throw;
-      }
-    }
-
-    void doMaxArea(const std::vector< Polygon > &pol)
-    {
-      if (pol.empty())
-      {
-        throw std::invalid_argument("empty polygon");
-      }
-      std::vector< double > areas = getArea(pol);
-      double maxElemen = *std::max_element(areas.begin(), areas.end());
-      std::cout << std::fixed << std::setprecision(1) << maxElemen << "\n";
-    }
-
-    void doMaxVertexes(const std::vector< Polygon > &pol)
-    {
-      if (pol.empty())
-      {
-        throw std::invalid_argument("empty polygon");
-      }
-      std::vector< Polygon > pols = pol;
-      std::vector< size_t > amountsOfVertexes;
-      for (const Polygon &polygon : pols)
-      {
-        amountsOfVertexes.push_back(polygon.points.size());
-      }
-      auto maxVertIter = std::max_element(amountsOfVertexes.begin(), amountsOfVertexes.end());
-      auto out = std::ostream_iterator< size_t > (std::cout, "\n");
-      std::copy(maxVertIter, maxVertIter + 1, out);
-    }
-
+  using maxMap = std::map< std::string, void(*)(const std::vector< aksenov::Polygon >&) >;
+  areaMap maxCommands
+  {
+    {"AREA", doMaxArea},
+    {"VERTEXES", doMaxVertexes}
+  };
     void doMax(std::istream &inp, const std::vector< Polygon > &pol)
     {
       std::string command = "";
       inp >> command;
-      if (command == "AREA")
-      {
-        doMaxArea(pol);
-      }
-      else if (command == "VERTEXES")
-      {
-        doMaxVertexes(pol);
-      }
-      else
-      {
-        throw std::invalid_argument("invalid argument");
-      }
+      maxCommands[command](pol);
     }
 
     void doMinArea(const std::vector< Polygon > &pol)
@@ -164,10 +77,6 @@
       else if (command == "VERTEXES")
       {
         doMinVertexes(pol);
-      }
-      else
-      {
-        throw;
       }
     }
 
@@ -216,10 +125,6 @@
         {
           doCountVertexes(command, pol);
         }
-      }
-      else
-      {
-        throw;
       }
     }
 
