@@ -2,7 +2,7 @@
 #define COMMANDS_H
 #include "Polygon.h"
 #include <iomanip>
-#include "extra_commands.h"
+#include "details.h"
 namespace mishanina
 {
   void printAreaEven(const std::vector< Polygon > &polygons, std::ostream &out);

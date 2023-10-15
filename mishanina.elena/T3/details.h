@@ -1,5 +1,5 @@
-#ifndef EXTRA_COMMANDS_H
-#define EXTRA_COMMANDS_H
+#ifndef DETAILS_H
+#define DETAILS_H
 #include <numeric>
 #include <functional>
 #include "Polygon.h"
