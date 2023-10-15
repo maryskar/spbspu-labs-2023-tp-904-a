@@ -90,7 +90,6 @@ void kotova::CommandDictionary::doCommand(const std::string &cmd, const std::vec
     catch(const std::out_of_range &e)
     {
     }
-    
     try
     {
       cmd_dict.doCommandS(cmd, polygons, data, out);
