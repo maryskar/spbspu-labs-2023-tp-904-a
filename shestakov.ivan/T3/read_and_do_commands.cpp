@@ -8,28 +8,7 @@ namespace shestakov
   using const_cmd_t = std::function< void(const std::vector < Polygon >&, std::ostream&) >;
   using const_cmd_t_in = std::function< void(const std::vector < Polygon >&, size_t, std::ostream&) >;
   using cmd_t = std::function< void(std::vector < Polygon >&, std::istream&, std::ostream&) >;
-  std::map <std::string, const_cmd_t> const_cmds
-    {
-      {"AREA EVEN",    areaEven},
-      {"AREA ODD",     areaOdd},
-      {"AREA MEAN",    areaMean},
-      {"MAX AREA",     maxArea},
-      {"MAX VERTEXES", maxVertexes},
-      {"MIN AREA",     minArea},
-      {"MIN VERTEXES", minVertexes},
-      {"COUNT EVEN",   countEven},
-      {"COUNT ODD",    countOdd}
-    };
-  std::map <std::string, const_cmd_t_in> const_cmds_in
-    {
-      {"COUNT", countVert},
-      {"AREA",  areaVert}
-    };
-  std::map <std::string, cmd_t> cmds_in
-    {
-      {"RMECHO", rmecho},
-      {"ECHO",   echo}
-    };
+
   std::string readCommand(std::istream& in)
   {
     std::istream::sentry sentry(in);
@@ -43,11 +22,28 @@ namespace shestakov
   }
   void doConstCmds(const std::vector< Polygon >& polygons, std::ostream& out, const std::string& cmd)
   {
+    std::map <std::string, const_cmd_t> const_cmds
+      {
+        {"AREA EVEN",    areaEven},
+        {"AREA ODD",     areaOdd},
+        {"AREA MEAN",    areaMean},
+        {"MAX AREA",     maxArea},
+        {"MAX VERTEXES", maxVertexes},
+        {"MIN AREA",     minArea},
+        {"MIN VERTEXES", minVertexes},
+        {"COUNT EVEN",   countEven},
+        {"COUNT ODD",    countOdd}
+      };
     auto toexecute = const_cmds.at(cmd);
     toexecute(polygons, out);
   }
   void doConstCmdsIn(const std::vector< Polygon >& polygons, std::ostream& out, std::string cmd)
   {
+    std::map <std::string, const_cmd_t_in> const_cmds_in
+      {
+        {"COUNT", countVert},
+        {"AREA",  areaVert}
+      };
     size_t vertexes = std::stoull(cmd.substr(cmd.find_first_of(' ')));
     cmd = cmd.substr(0, cmd.find(' '));
     if (vertexes < 3)
@@ -59,6 +55,11 @@ namespace shestakov
   }
   void doCmdsWithInPolygon(std::vector< Polygon >& polygons, std::istream& in, std::ostream& out, const std::string& cmd)
   {
+    std::map <std::string, cmd_t> cmds_in
+      {
+        {"RMECHO", rmecho},
+        {"ECHO",   echo}
+      };
     auto toexecute = cmds_in.at(cmd);
     toexecute(polygons, in, out);
   }
