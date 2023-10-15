@@ -13,7 +13,7 @@ namespace mishanina
   };
   struct Polygon
   {
-    std::vector<Point> points;
+    std::vector< Point > points;
   };
   std::istream &operator>>(std::istream &in, Point &point);
   std::istream &operator>>(std::istream &in, Polygon &data);

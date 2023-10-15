@@ -4,17 +4,17 @@
 #include <iofmtguard.h>
 namespace mishanina
 {
-  void printAreaEven(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printAreaEven(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getAreaIf(polygons, isEven) << '\n';
   }
-  void printAreaOdd(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printAreaOdd(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getAreaIf(polygons, isOdd) << '\n';
   }
-  void printAreaMean(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printAreaMean(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     if (polygons.empty())
     {
@@ -23,17 +23,17 @@ namespace mishanina
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getTotalArea(polygons) / polygons.size() << '\n';
   }
-  void printAreaNumOfVertexes(const std::vector<Polygon> &polygons, std::ostream &out, std::size_t num)
+  void printAreaNumOfVertexes(const std::vector< Polygon > &polygons, std::ostream &out, std::size_t num)
   {
     if (num < 3)
     {
       throw std::invalid_argument("ERROR : invalid parameter");
     }
-    std::vector<Polygon> polygonsNum = getPolygonsWithNumOfVertexes(polygons, num);
+    std::vector< Polygon > polygonsNum = getPolygonsWithNumOfVertexes(polygons, num);
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getTotalArea(polygonsNum) << '\n';
   }
-  void printMaxArea(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printMaxArea(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     if (polygons.empty())
     {
@@ -42,7 +42,7 @@ namespace mishanina
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getMaxMinArea(polygons, true) << '\n';
   }
-  void printMaxVertexes(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printMaxVertexes(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     if (polygons.empty())
     {
@@ -51,7 +51,7 @@ namespace mishanina
     iofmtguard iofmtguard(out);
     out << getMaxMinVert(polygons, true) << '\n';
   }
-  void printMinArea(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printMinArea(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     if (polygons.empty())
     {
@@ -60,7 +60,7 @@ namespace mishanina
     iofmtguard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << getMaxMinArea(polygons, false) << '\n';
   }
-  void printMinVertexes(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printMinVertexes(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     if (polygons.empty())
     {
@@ -69,32 +69,32 @@ namespace mishanina
     iofmtguard iofmtguard(out);
     out << getMaxMinVert(polygons, false) << '\n';
   }
-  void printCountEven(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printCountEven(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     iofmtguard iofmtguard(out);
     out << getCountIf(polygons, isEven) << '\n';
   }
-  void printCountOdd(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printCountOdd(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     iofmtguard iofmtguard(out);
     out << getCountIf(polygons, isOdd) << '\n';
   }
-  void printCountNumOfVertexes(const std::vector<Polygon> &polygons, std::ostream &out, std::size_t num)
+  void printCountNumOfVertexes(const std::vector< Polygon > &polygons, std::ostream &out, std::size_t num)
   {
     if (num < 3)
     {
       throw std::invalid_argument("ERROR : invalid parameter");
     }
-    std::vector<Polygon> polNum = getPolygonsWithNumOfVertexes(polygons, num);
+    std::vector< Polygon > polNum = getPolygonsWithNumOfVertexes(polygons, num);
     iofmtguard iofmtguard(out);
     out << polNum.size() << '\n';
   }
-  void printRects(const std::vector<Polygon> &polygons, std::ostream &out)
+  void printRects(const std::vector< Polygon > &polygons, std::ostream &out)
   {
     iofmtguard iofmtguard(out);
     out << getCountIf(polygons, isRectangle) << '\n';
   }
-  void printRmecho(std::vector<Polygon> &polygons, std::ostream &out, std::istream &in)
+  void printRmecho(std::vector< Polygon > &polygons, std::ostream &out, std::istream &in)
   {
     Polygon target;
     in >> target;

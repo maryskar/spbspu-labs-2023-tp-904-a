@@ -29,7 +29,7 @@ namespace mishanina
   double getArea(const Polygon &polygon)
   {
     double area;
-    std::vector<int> arr(polygon.points.size());
+    std::vector< int > arr(polygon.points.size());
     std::transform(polygon.points.begin(), --polygon.points.end(), ++polygon.points.begin(), std::back_inserter(arr),
                    getSide);
     area = std::accumulate(arr.begin(), arr.end(), 0.0);
@@ -37,32 +37,32 @@ namespace mishanina
       (--polygon.points.end())->x * polygon.points.begin()->y - polygon.points.begin()->x * (--polygon.points.end())->y;
     return std::abs(area) / 2.0;
   }
-  double getTotalArea(const std::vector<Polygon> &pol)
+  double getTotalArea(const std::vector< Polygon > &pol)
   {
-    std::vector<double> areas(pol.size());
+    std::vector< double > areas(pol.size());
     std::transform(pol.begin(), pol.end(), areas.begin(), getArea);
     double sum = std::accumulate(areas.begin(), areas.end(), 0.0);
     return sum;
   }
-  std::size_t getMaxMinVert(const std::vector<Polygon> &polygons, bool isMax)
+  std::size_t getMaxMinVert(const std::vector< Polygon > &polygons, bool isMax)
   {
     std::vector<std::size_t> points(polygons.size());
     std::transform(polygons.begin(), polygons.end(), points.begin(), getNumOfVertexes);
     auto res = isMax ? std::max_element(points.begin(), points.end()) : std::min_element(points.begin(), points.end());
     return *res;
   }
-  double getMaxMinArea(const std::vector<Polygon> &polygons, bool isMax)
+  double getMaxMinArea(const std::vector< Polygon > &polygons, bool isMax)
   {
     std::vector<double> areas(polygons.size());
     std::transform(polygons.begin(), polygons.end(), areas.begin(), getArea);
     auto res = isMax ? std::max_element(areas.begin(), areas.end()) : std::min_element(areas.begin(), areas.end());
     return *res;
   }
-  std::vector<Polygon> getPolygonsWithNumOfVertexes(const std::vector<Polygon> &polygons, std::size_t num)
+  std::vector< Polygon > getPolygonsWithNumOfVertexes(const std::vector< Polygon > &polygons, std::size_t num)
   {
     using namespace std::placeholders;
     auto countVertexes = std::bind(isCountOfVertexes, _1, num);
-    std::vector<Polygon> result;
+    std::vector< Polygon > result;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(result), countVertexes);
     return result;
   }

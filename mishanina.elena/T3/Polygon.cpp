@@ -29,7 +29,7 @@ std::istream &mishanina::operator>>(std::istream &in, Polygon &data)
   }
   Polygon pol;
   pol.points.reserve(count);
-  std::copy_n(std::istream_iterator<Point>(in), count, std::back_inserter(pol.points));
+  std::copy_n(std::istream_iterator< Point >(in), count, std::back_inserter(pol.points));
   if (in)
   {
     data.points.swap(pol.points);

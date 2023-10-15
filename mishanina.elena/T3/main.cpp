@@ -16,16 +16,16 @@ int main(int argc, char* argv[])
     std::cerr << "Error : file not open" << '\n';
     return 1;
   }
-  std::vector<Polygon> polygons;
+  std::vector< Polygon > polygons;
   while (!input.eof())
   {
     if (input.fail())
     {
       input.clear();
-      input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
-    std::copy(std::istream_iterator<Polygon>(input),
-              std::istream_iterator<Polygon>(),
+    std::copy(std::istream_iterator< Polygon >(input),
+              std::istream_iterator< Polygon >(),
               std::back_inserter(polygons));
   }
   input.close();
@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
     catch (const std::logic_error &e)
     {
       std::cout << "<INVALID COMMAND>\n";
-      long long maxstream = std::numeric_limits<std::streamsize>::max();
+      long long maxstream = std::numeric_limits< std::streamsize >::max();
       std::cin.ignore(maxstream, '\n');
       std::cin.clear();
     }
