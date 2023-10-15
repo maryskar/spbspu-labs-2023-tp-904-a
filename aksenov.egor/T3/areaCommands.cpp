@@ -38,6 +38,10 @@ namespace aksenov
 
   void doAreaWithVertexes(const std::vector< Polygon > &pol, std::string command)
   {
+    if (command == "1" || command == "2" || command == "0")
+    {
+      throw std::invalid_argument("invalid input");
+    }
     size_t num = std::stoul(command);
     std::vector< Polygon > pols;
     auto func = std::bind(isEqual, std::placeholders::_1, num);
