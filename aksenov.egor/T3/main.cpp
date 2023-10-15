@@ -26,7 +26,7 @@ int main(int argc, char **argv)
   commands = aksenov::makeDict();
   std::string command = "";
 
-  while(!std::cin.eof())
+  while(true)
   {
     std::cin >> command;
     if (std::cin.eof())

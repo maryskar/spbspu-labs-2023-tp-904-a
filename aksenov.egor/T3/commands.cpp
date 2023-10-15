@@ -1,4 +1,4 @@
-#include "commands.h"
+a#include "commands.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -25,11 +25,19 @@ namespace aksenov
     };
     std::string command = "";
     inp >> command;
-    if (isInteger(command))
+    try
     {
-      doAreaWithVertexes(pol, command);
+      if (isInteger(command))
+      {
+        doAreaWithVertexes(pol, command);
+      }
+
+      areaCommands[command](pol);
     }
-    areaCommands[command](pol);
+    catch(...)
+    {
+      throw;
+    }
   }
 
   void doMax(std::istream &inp, const std::vector< Polygon > &pol)
@@ -68,11 +76,18 @@ namespace aksenov
     };
     std::string command = "";
     inp >> command;
-    if (isInteger(command))
+    try
     {
-      doCountVertexes(command, pol);
+      if (isInteger(command))
+      {
+        doCountVertexes(command, pol);
+      }
+      countCommands[command](pol);
     }
-    countCommands[command](pol);
+    catch(...)
+    {
+      throw;
+    }
   }
 
     void doSame(std::istream &inp, const std::vector< Polygon > &pol)
