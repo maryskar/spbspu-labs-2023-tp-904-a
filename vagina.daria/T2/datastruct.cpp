@@ -2,8 +2,8 @@
 #include <iomanip>
 #include <vector>
 #include <iterator>
-#include "IOFmtGuard.h"
-#include "TypesIO.h"
+#include <IOFmtGuard.h>
+#include <TypesIO.h>
 
 std::istream& vagina::operator>>(std::istream &in, DataStruct &dest)
 {
