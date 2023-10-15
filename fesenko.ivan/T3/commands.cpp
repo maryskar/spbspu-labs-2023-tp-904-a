@@ -25,7 +25,7 @@ fesenko::Commands::Commands():
 void fesenko::Commands::make(const std::string &command1, data_t &data, std::istream &in, std::ostream &out)
 {
   try {
-    char c1;
+    char c1 = ' ';
     in.get(c1);
     if (c1 != ' ') {
       type2.at(command1)(data, out) << "\n";
@@ -34,7 +34,7 @@ void fesenko::Commands::make(const std::string &command1, data_t &data, std::ist
       char c2;
       in.get(c2);
       in.putback(c2);
-      if (isdigit(c2)) {
+      if (std::isdigit(c2)) {
         type1.at(command1)(data, in, out) << "\n";
         return;
       }
