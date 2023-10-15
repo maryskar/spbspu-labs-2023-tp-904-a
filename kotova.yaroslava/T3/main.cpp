@@ -45,6 +45,7 @@ int main(int argc, char** argv)
     catch (const std::logic_error &e)
     {
       kotova::outMessageError(std::cout);
+      std::cout << '\n';
       long long max = std::numeric_limits<std::streamsize>::max();
       std::cin.ignore(max, '\n');
       std::cin.clear();
