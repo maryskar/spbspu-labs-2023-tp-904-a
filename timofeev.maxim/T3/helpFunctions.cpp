@@ -30,7 +30,8 @@ namespace timofeev
     return pol.points.size() == val;
   }
 
-  void recurRS(const std::vector< Polygon > &res, size_t &count, size_t indx, size_t pindx)
+  void recurRS(const std::vector<
+        Polygon > &res, bool flag, size_t &count, size_t indx, size_t pindx)
   {
     if(res.size() == indx)
     {
@@ -47,15 +48,20 @@ namespace timofeev
     int vector2_y = p3.y - p2.y;
     if (vector1_x * vector2_x + vector1_y * vector2_y == 0)
     {
-      count++;
+      flag = true;
     }
     if(pNext == 0)
     {
-      recurRS(res, count, indx++, 0);
+      if (flag)
+      {
+        count++;
+        flag = false;
+      }
+      recurRS(res, flag, count, indx + 1, 0);
     }
     else
     {
-      recurRS(res, count, indx, pindx++);
+      recurRS(res, flag, count, indx, pindx + 1);
     }
   }
 

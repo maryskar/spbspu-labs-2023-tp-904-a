@@ -133,7 +133,8 @@ namespace timofeev
     size_t count = 0;
     size_t indx = 0;
     size_t pindx = 0;
-    recurRS(res, count, indx, pindx);
+    bool flag = false;
+    recurRS(res, flag, count, indx, pindx);
     std::cout << count << "\n";
   }
 
