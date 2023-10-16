@@ -56,7 +56,6 @@ namespace timofeev
       {
         count++;
       }
-      flag = false;
       recurRS(res, count, indx + 1, 0);
     }
     else
