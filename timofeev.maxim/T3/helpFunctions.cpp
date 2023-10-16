@@ -31,38 +31,37 @@ namespace timofeev
   }
 
   void recurRS(const std::vector<
-        Polygon > &res, bool flag, size_t &count, size_t indx, size_t pindx)
+        Polygon > &res, size_t &count, size_t indx, size_t pindx)
   {
     if(res.size() == indx)
     {
       return;
     }
     const Polygon& tmp = res[indx];
-    size_t pNext = (pindx + 2) % tmp.points.size();
-    const Point& p1 = tmp.points[pindx % tmp.points.size()];
+    const Point& p1 = tmp.points[pindx];
     const Point& p2 = tmp.points[(pindx + 1) % tmp.points.size()];
-    const Point& p3 = tmp.points[pNext];
+    const Point& p3 = tmp.points[(pindx + 2) % tmp.points.size()];
     int vector1_x = p2.x - p1.x;
     int vector1_y = p2.y - p1.y;
     int vector2_x = p3.x - p2.x;
     int vector2_y = p3.y - p2.y;
+    bool flag = false;
     if (vector1_x * vector2_x + vector1_y * vector2_y == 0)
     {
       flag = true;
     }
-    if(pNext == 0)
+    if((pindx + 1) % tmp.points.size() == 0)
     {
       if (flag)
       {
         count++;
-        flag = false;
       }
-      indx++;
-      recurRS(res, flag, count, indx, 0);
+      flag = false;
+      recurRS(res, count, indx + 1, 0);
     }
     else
     {
-      recurRS(res, flag, count, indx, pindx + 1);
+      recurRS(res, count, indx, pindx + 1);
     }
   }
 
