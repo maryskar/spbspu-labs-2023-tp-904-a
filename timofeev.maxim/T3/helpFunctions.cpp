@@ -57,7 +57,8 @@ namespace timofeev
         count++;
         flag = false;
       }
-      recurRS(res, flag, count, indx + 1, 0);
+      indx++;
+      recurRS(res, flag, count, indx, 0);
     }
     else
     {
