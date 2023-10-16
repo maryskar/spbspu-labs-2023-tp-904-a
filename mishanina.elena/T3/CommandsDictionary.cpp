@@ -1,80 +1,79 @@
 #include "CommandsDictionary.h"
-mishanina::CommandDictionary::CommandDictionary()
+namespace mishanina
 {
-  dict_out.insert({"AREA EVEN", printAreaEven});
-  dict_out.insert({"AREA ODD", printAreaOdd});
-  dict_out.insert({"AREA MEAN", printAreaMean});
-  dict_out.insert({"MAX AREA", printMaxArea});
-  dict_out.insert({"MAX VERTEXES", printMaxVertexes});
-  dict_out.insert({"MIN AREA", printMinArea});
-  dict_out.insert({"MIN VERTEXES", printMinVertexes});
-  dict_out.insert({"COUNT EVEN", printCountEven});
-  dict_out.insert({"COUNT ODD", printCountOdd});
-  dict_out.insert({"RECTS", printRects});
-  dict_num.insert({"AREA NUM", printAreaNumOfVertexes});
-  dict_num.insert({"COUNT NUM", printCountNumOfVertexes});
-  dict_rm.insert({"RMECHO", printRmecho});
-}
-std::string mishanina::CommandDictionary::readCommand(std::istream &in)
-{
-  std::string cmd = " ";
-  in >> cmd;
-  if (!in)
+  CommandDictionary::CommandDictionary()
   {
-    throw std::runtime_error("Error : invalid read cmd");
+    dict_out.insert({"AREA EVEN", printAreaEven});
+    dict_out.insert({"AREA ODD", printAreaOdd});
+    dict_out.insert({"AREA MEAN", printAreaMean});
+    dict_out.insert({"MAX AREA", printMaxArea});
+    dict_out.insert({"MAX VERTEXES", printMaxVertexes});
+    dict_out.insert({"MIN AREA", printMinArea});
+    dict_out.insert({"MIN VERTEXES", printMinVertexes});
+    dict_out.insert({"COUNT EVEN", printCountEven});
+    dict_out.insert({"COUNT ODD", printCountOdd});
+    dict_out.insert({"RECTS", printRects});
+    dict_num.insert({"AREA NUM", printAreaNumOfVertexes});
+    dict_num.insert({"COUNT NUM", printCountNumOfVertexes});
+    dict_rm.insert({"RMECHO", printRmecho});
   }
-  if (cmd != "RMECHO" && cmd != "RECTS")
+  std::string CommandDictionary::readCommand(std::istream &in)
   {
-    std::string cmd2 = " ";
-    in >> cmd2;
+    std::string cmd = " ";
+    in >> cmd;
     if (!in)
     {
-      throw std::invalid_argument("Invalid parameter");
+      throw std::runtime_error("Error : invalid read cmd");
     }
-    cmd += " ";
-    cmd += cmd2;
+    if (cmd != "RMECHO" && cmd != "RECTS")
+    {
+      std::string cmd2 = " ";
+      in >> cmd2;
+      if (!in)
+      {
+        throw std::invalid_argument("Invalid parameter");
+      }
+      cmd += " ";
+      cmd += cmd2;
+    }
+    return cmd;
   }
-  return cmd;
-}
-void mishanina::CommandDictionary::doCommandOut(std::string &cmd, const vect_pol &pols, std::ostream &out) const
-{
-  auto func = dict_out.at(cmd);
-  func(pols, out);
-}
-void mishanina::CommandDictionary::doCommandNum(std::string &cmd,
-                                                const vect_pol &pols,
-                                                std::ostream &out,
-                                                std::size_t num) const
-{
-  auto func = dict_num.at(cmd);
-  func(pols, out, num);
-}
-void
-mishanina::CommandDictionary::doCommandRm(std::string &cmd, vect_pol &pols, std::ostream &out, std::istream &in) const
-{
-  auto func = dict_rm.at(cmd);
-  func(pols, out, in);
-}
-void mishanina::CommandDictionary::doCommand(vect_pol &pols, std::string &cmd, std::istream &in, std::ostream &out)
-{
-  try
+  void CommandDictionary::doCommandOut(std::string &cmd, const vect_pol &pols, std::ostream &out) const
   {
-    doCommandOut(cmd, pols, out);
-    return;
+    auto func = dict_out.at(cmd);
+    func(pols, out);
   }
-  catch (const std::out_of_range &e)
+  void CommandDictionary::doCommandNum(std::string &cmd, const vect_pol &pols, std::ostream &out, std::size_t num) const
   {
+    auto func = dict_num.at(cmd);
+    func(pols, out, num);
   }
-  try
+  void CommandDictionary::doCommandRm(std::string &cmd, vect_pol &pols, std::ostream &out, std::istream &in) const
   {
-    doCommandRm(cmd, pols, out, in);
-    return;
+    auto func = dict_rm.at(cmd);
+    func(pols, out, in);
   }
-  catch (const std::out_of_range &e)
+  void CommandDictionary::doCommand(vect_pol &pols, std::string &cmd, std::istream &in, std::ostream &out)
   {
+    try
+    {
+      doCommandOut(cmd, pols, out);
+      return;
+    }
+    catch (const std::out_of_range &e)
+    {
+    }
+    try
+    {
+      doCommandRm(cmd, pols, out, in);
+      return;
+    }
+    catch (const std::out_of_range &e)
+    {
+    }
+    std::size_t sep = cmd.find(' ');
+    std::size_t num = std::stoull(cmd.substr(sep));
+    std::string fin_cmd = cmd.substr(0, sep) + " NUM";
+    doCommandNum(fin_cmd, pols, out, num);
   }
-  std::size_t sep = cmd.find(' ');
-  std::size_t num = std::stoull(cmd.substr(sep));
-  std::string fin_cmd = cmd.substr(0, sep) + " NUM";
-  doCommandNum(fin_cmd, pols, out, num);
 }
