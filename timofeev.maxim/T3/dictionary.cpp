@@ -1,7 +1,8 @@
 #include "dictionary.h"
 #include "commands.h"
-timofeev::dict timofeev::dictionary(dict& command)
+timofeev::dict timofeev::dictionary()
 {
+  timofeev::dict command;
   command["AREA"] = doAreaCommands;
   command["MAX"] = doMaxCommands;
   command["MIN"] = doMinCommands;

@@ -8,6 +8,6 @@
 namespace timofeev
 {
   using dict = std::map< std::string, void (*)(std::istream&, const std::vector< Polygon >&) >;
-  dict dictionary(dict& command);
+  dict dictionary();
 }
 #endif
