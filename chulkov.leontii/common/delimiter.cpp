@@ -1,5 +1,4 @@
 #include "delimiter.h"
-#include <bitset>
 #include <iostream>
 
 namespace chulkov {
