@@ -75,7 +75,7 @@ namespace potapova
       polygons.end(),
       std::bind(isEqual, _1, _2, target_polygon));
     ptrdiff_t count_removed = std::distance(new_end_iter, polygons.end());
-    polygons.erase(new_end_iter, polygons.end());
+    polygons.resize(polygons.size() - static_cast<size_t>(count_removed));
     out << count_removed << '\n';
   }
 
