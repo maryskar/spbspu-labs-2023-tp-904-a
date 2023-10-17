@@ -1,10 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <deque>
-#include "dataStruct.h"
 #include "readPolygons.h"
 #include "commandsMap.h"
-#include "funcForCommands.h"
+#include "commandsImpl.h"
 
 int main(int argc, char* argv[])
 {

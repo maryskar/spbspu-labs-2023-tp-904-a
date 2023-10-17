@@ -1,5 +1,6 @@
 #include "commandsImpl.h"
 #include <algorithm>
+#include <stdexcept>
 
 namespace potapova
 {

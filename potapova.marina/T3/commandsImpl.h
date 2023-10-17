@@ -1,8 +1,9 @@
-#ifndef FUNCFORCOMMANDS_H
-#define FUNCFORCOMMANDS_H
+#ifndef COMMANDSIMPL_H
+#define COMMANDSIMPL_H
 
 #include <deque>
 #include <numeric>
+#include <cstdio>
 #include "dataStruct.h"
 #include "rectangle.h"
 

@@ -4,6 +4,7 @@
 #include <deque>
 #include "dataStruct.h"
 #include "commandsImpl.h"
+#include "workWithIO.h"
 
 namespace potapova
 {
