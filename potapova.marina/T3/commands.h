@@ -17,12 +17,12 @@ namespace potapova
     try
     {
       double sum = getSumOfSpecificAreas< EVEN >(polygons);
-      out << sum << '\n';
     }
     catch (const std::logic_error&)
     {
       err << "<INVALID COMMAND>\n";
     }
+    out << sum << '\n';
   }
 
   void getAverageArea(const std::deque< Polygon >& polygons,
