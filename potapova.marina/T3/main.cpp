@@ -3,7 +3,6 @@
 #include <deque>
 #include "readPolygons.h"
 #include "commandsMap.h"
-#include "commandsImpl.h"
 
 int main(int argc, char* argv[])
 {
@@ -19,29 +18,35 @@ int main(int argc, char* argv[])
     std::cerr << "Failed to open file\n";
     return 1;
   }
-  
-  std::deque< Polygon > polygons = readPolygons(input_file);
-
-  std::string command_name;
-  std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > > non_changing_commands = getNonChangingCommands();
-  std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > > changing_commands = getChangingCommands();
-  while (std::cin >> command_name)
+  try
   {
-    std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > >::const_iterator changing_command_ptr;
-    if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
+    std::deque< Polygon > polygons = readPolygons(input_file);
+    std::string command_name;
+    std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > > non_changing_commands = getNonChangingCommands();
+    std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > > changing_commands = getChangingCommands();
+    while (std::cin >> command_name)
     {
-      changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
-      continue;
+      std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > >::const_iterator changing_command_ptr;
+      if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
+      {
+        changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
+        continue;
+      }
+      std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > >::const_iterator non_changing_command_ptr;
+      if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
+      {
+        non_changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
+      }
+      else
+      {
+        std::cout << "<INVALID COMMAND>\n";
+      }
     }
-    std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > >::const_iterator non_changing_command_ptr;
-    if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
-    {
-      non_changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
-    }
-    else
-    {
-      std::cout << "<INVALID COMMAND>\n";
-    }
+  }
+  catch (const std::bad_alloc&)
+  {
+    std::cerr << "Memory allocation failed";
+    return 1;
   }
   return 0;
 }
