@@ -1,5 +1,4 @@
 #include "commands.h"
-
 #include <algorithm>
 #include <functional>
 #include <iomanip>
@@ -8,7 +7,6 @@
 #include <map>
 #include <numeric>
 #include <string>
-
 #include <streamsguard.h>
 
 namespace chulkov {
@@ -140,6 +138,17 @@ namespace chulkov {
     return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(isEqualVertexes, _1, countVert));
   }
 
+  bool isNumber(const std::string& str)
+  {
+    bool isNumber = 1;
+    for (size_t i = 0; i < str.size(); i++) {
+      if (!std::isdigit(str[i]) && !((str[i] == '-') && (i == 0))) {
+        isNumber = 0;
+      }
+    }
+    return isNumber;
+  }
+
   bool isPerm(const Polygon& frst, const Polygon& sec)
   {
     if (frst.points.size() != sec.points.size()) {
@@ -159,27 +168,21 @@ namespace chulkov {
     in >> secondArg;
     StreamGuard guard(std::cout);
     std::cout << std::fixed << std::setprecision(1);
-
+    if (isNumber(secondArg)) {
+      size_t size = std::stoul(secondArg);
+      if (size < 3) {
+        throw std::logic_error("<INVALID COMMAND>");
+      }
+      out << isAreaVertexes(polygon, size) << "\n";
+      return;
+    }
     using command_t = std::function< double(const std::vector< Polygon >&) >;
     std::map< std::string, command_t > commands{
         {"EVEN", isAreaEven},
         {"ODD", isAreaOdd},
         {"MEAN", isAreaMean},
     };
-
-    try {
-      size_t size = std::stoul(secondArg);
-      if (size < 3) {
-        throw std::logic_error("<INVALID COMMAND>");
-      }
-      if (commands.find(secondArg) != commands.end()) {
-        out << commands.at(secondArg)(polygon) << "\n";
-      } else {
-        throw std::logic_error("<INVALID COMMAND>");
-      }
-    } catch (const std::invalid_argument& e) {
-      throw std::logic_error("<INVALID COMMAND>");
-    }
+    out << commands.at(secondArg)(polygon) << "\n";
   }
 
   void getMax(const std::vector< Polygon >& polygon, std::istream& in, std::ostream& out)
@@ -234,23 +237,17 @@ namespace chulkov {
     }
     std::string secondArg;
     in >> secondArg;
-
-    using command_t = std::function< size_t(const std::vector< Polygon >&) >;
-    std::map< std::string, command_t > commands{{"EVEN", countEven}, {"ODD", countOdd}};
-
-    try {
+    if (isNumber(secondArg)) {
       size_t size = std::stoul(secondArg);
       if (size < 3) {
         throw std::logic_error("<INVALID COMMAND>");
       }
-      if (commands.find(secondArg) != commands.end()) {
-        out << commands.at(secondArg)(polygon) << "\n";
-      } else {
-        throw std::logic_error("<INVALID COMMAND>");
-      }
-    } catch (const std::invalid_argument& e) {
-      throw std::logic_error("<INVALID COMMAND>");
+      out << countVertexes(polygon, size) << "\n";
+      return;
     }
+    using command_t = std::function< size_t(const std::vector< Polygon >& pol) >;
+    std::map< std::string, command_t > commands{{"EVEN", countEven}, {"ODD", countOdd}};
+    out << commands.at(secondArg)(polygon) << "\n";
   }
 
   void getPerms(const std::vector< Polygon >& polygon, std::istream& in, std::ostream& out)
@@ -281,7 +278,8 @@ namespace chulkov {
       throw std::logic_error("<INVALID COMMAND>");
     }
     size_t beforeSize = polygon.size();
-    polygon.erase(std::unique(begin(polygon), end(polygon), std::bind(rmEchoCompare, _1, _2, polygons)), end(polygon));
+    polygon.erase(std::unique(begin(polygon), end(polygon), std::bind(rmEchoCompare, _1, _2, polygons)),
+                  end(polygon));
     out << beforeSize - polygon.size() << "\n";
   }
 }
