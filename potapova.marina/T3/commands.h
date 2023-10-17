@@ -3,7 +3,7 @@
 
 #include <deque>
 #include "dataStruct.h"
-#include <deque>
+#include "funcForCommands.h"
 
 namespace potapova
 {
@@ -27,25 +27,34 @@ namespace potapova
       std::ostream& out,
       std::ostream&);
 
-  void getMaxArea(const std::deque< Polygon >& polygons,
-      std::istream&,
-      std::ostream& out,
-      std::ostream&);
+  using PoligonsConstIterator = std::deque< Polygon >::const_iterator;
+  using ComparePolygonsFunc = bool(*)(const Polygon&, const Polygon&);
 
-  void getMaxPoints(const std::deque< Polygon >& polygons,
+  template< PoligonsConstIterator(*GetExtremeElem)(PoligonsConstIterator, PoligonsConstIterator, ComparePolygonsFunc) >
+  void printExtremeArea(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
-      std::ostream&);
+      std::ostream&)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("Invalid number of polygons");
+    }
+    out << getArea(*GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsAreas)) << '\n';
+  }
 
-  void getMinArea(const std::deque< Polygon >& polygons,
+  template< PoligonsConstIterator(*GetExtremeElem)(PoligonsConstIterator, PoligonsConstIterator, ComparePolygonsFunc) >
+  void printExtremePoints(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
-      std::ostream&);
-
-  void getMinPoints(const std::deque< Polygon >& polygons,
-      std::istream&,
-      std::ostream& out,
-      std::ostream&);
+      std::ostream&)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("Invalid number of polygons");
+    }
+    out << GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsPoints)->points.size() << '\n';
+  }
 
   void countPolygonsWithOddPointsNum(const std::deque< Polygon >& polygons,
       std::istream&,

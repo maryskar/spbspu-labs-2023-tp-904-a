@@ -1,4 +1,5 @@
 #include "commandsMap.h"
+#include <algorithm>
 #include "commands.h"
 
 namespace potapova
@@ -11,10 +12,10 @@ namespace potapova
       {"AREA ODD", getSumAreasPolygonsOdd},
       {"AREA MEAN", getAverageArea},
       {"AREA NUM_OF_VERTEXES", getSumOfAreasWithPointCounts},
-      {"MAX AREA", getMaxArea},
-      {"MAX VERTEXES", getMaxPoints},
-      {"MIN AREA", getMinArea},
-      {"MIN VERTEXES", getMaxPoints},
+      {"MAX AREA", printExtremeArea< std::max_element >},
+      {"MAX VERTEXES", printExtremePoints< std::min_element >},
+      {"MIN AREA", printExtremeArea< std::max_element >},
+      {"MIN VERTEXES", printExtremePoints< std::min_element >},
       {"COUNT ODD", countPolygonsWithOddPointsNum},
       {"COUNT EVEN", countPolygonsWithEvenPointsNum},
       {"COUNT NUM_OF_VERTEXES", countPolygonsWithPointsNum},
