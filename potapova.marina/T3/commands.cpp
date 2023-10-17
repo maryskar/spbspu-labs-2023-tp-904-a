@@ -33,17 +33,25 @@ namespace potapova
     out << average_area << '\n';
   }
 
-  void getSumOfAreasWithPointCounts(const std::deque< Polygon >& polygons,
+  void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
-      std::ostream&)
+      std::ostream& err)
   {
     size_t num_points = 0;
     in >> num_points;
-    double sum_areas = std::accumulate(polygons.begin(),
-      polygons.end(),
-      0.0,
-      std::bind(addAreaToSumIfNumPoints, _1, _2, num_points));
+    double sum_areas;
+    try
+    {
+      sum_areas = std::accumulate(polygons.begin(),
+        polygons.end(),
+        0.0,
+        std::bind(addAreaToSumIfNumPoints, _1, _2, num_points));
+    }
+    catch (const std::logic_error&)
+    {
+      err << "<INVALID COMMAND>\n";
+    }
     out << sum_areas << '\n';
   }
 

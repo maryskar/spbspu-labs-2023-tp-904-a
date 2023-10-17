@@ -11,7 +11,7 @@ namespace potapova
       {"AREA EVEN", printSumOfSpecificAreas< EVEN >},
       {"AREA ODD", printSumOfSpecificAreas< ODD >},
       {"AREA MEAN", getAverageArea},
-      {"AREA NUM_OF_VERTEXES", getSumOfAreasWithPointCounts},
+      {"AREA NUM_OF_VERTEXES", printSumOfAreasWithSpecificPointsCounts},
       {"MAX AREA", printExtremeArea< std::max_element >},
       {"MAX VERTEXES", printExtremePoints< std::min_element >},
       {"MIN AREA", printExtremeArea< std::max_element >},

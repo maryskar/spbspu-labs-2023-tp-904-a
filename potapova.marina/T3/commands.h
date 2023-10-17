@@ -14,9 +14,10 @@ namespace potapova
       std::ostream& out,
       std::ostream& err)
   {
+    double sum;
     try
     {
-      double sum = getSumOfSpecificAreas< EVEN >(polygons);
+      sum = getSumOfSpecificAreas< EVEN >(polygons);
     }
     catch (const std::logic_error&)
     {
@@ -30,10 +31,10 @@ namespace potapova
       std::ostream& out,
       std::ostream& err);
 
-  void getSumOfAreasWithPointCounts(const std::deque< Polygon >& polygons,
+  void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
-      std::ostream&);
+      std::ostream& err);
 
   using PoligonsConstIterator = std::deque< Polygon >::const_iterator;
   using ComparePolygonsFunc = bool(*)(const Polygon&, const Polygon&);
