@@ -104,7 +104,8 @@ namespace potapova
       std::ostream& out,
       std::ostream&)
   {
-    Rectangle frame = Rectangle::getRectWichCanInclude(polygons);
+    Rectangle frame;
+    frame.expandBounds(polygons);
     Polygon input_polygon;
     in >> input_polygon;
     if (frame.isPolygonInFrame(input_polygon))

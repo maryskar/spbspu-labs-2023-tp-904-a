@@ -18,13 +18,6 @@ namespace potapova
 
   }
 
-  Rectangle Rectangle::getRectWichCanInclude(const std::deque< Polygon >& polygons)
-  {
-    Rectangle rect;
-    rect.expandBounds(polygons);
-    return rect;
-  }
-
   void Rectangle::expandBounds(const Point& point) noexcept
   {
     min_x = std::min(min_x, point.x);

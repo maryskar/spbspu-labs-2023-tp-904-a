@@ -14,11 +14,8 @@ namespace potapova
       int min_x;
       int max_y;
       int min_y;
-
     public:
       Rectangle() noexcept;
-      
-      static Rectangle getRectWichCanInclude(const std::deque< Polygon >& polygons);
       void expandBounds(const Point& point) noexcept;
       void expandBounds(const Polygon& polygon) noexcept;
       void expandBounds(const std::deque< Polygon >& polygons) noexcept;
