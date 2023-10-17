@@ -23,7 +23,7 @@ namespace potapova
       getTriangleArea);
     if ((num_points & 1) == 1)
     {
-      pair_areas.push_back(getTriangleArea(polygon.points.back(), polygon.points.front()));
+      pair_areas.emplace_back(getTriangleArea(polygon.points.back(), polygon.points.front()));
     }
     return std::abs(std::accumulate(pair_areas.begin(), pair_areas.end(), 0.0)) / 2;
   }
