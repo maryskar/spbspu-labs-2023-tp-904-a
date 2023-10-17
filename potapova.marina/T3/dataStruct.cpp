@@ -1,5 +1,6 @@
 #include "dataStruct.h"
 #include <algorithm>
+#include <iterator>
 
 namespace potapova
 {
@@ -35,7 +36,7 @@ namespace potapova
     return in;
   }
 
-  std::ostream& operator<<(std::ostream& out, Point& source)
+  std::ostream& operator<<(std::ostream& out, const Point& source)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
@@ -70,7 +71,7 @@ namespace potapova
     return in;
   }
 
-  std::ostream& operator<<(std::ostream& out, Polygon& source)
+  std::ostream& operator<<(std::ostream& out, const Polygon& source)
   {
     std::ostream::sentry sentry(out);
     if (!sentry)
