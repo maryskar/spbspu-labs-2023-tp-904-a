@@ -20,24 +20,40 @@ int main(int argc, char* argv[])
   }
   try
   {
-    std::deque< Polygon > polygons = readPolygons(input_file);
+    std::deque< Polygon > polygons;
+    try
+    {
+      polygons = readPolygons(input_file);
+    }
+    catch (const std::ios_base::failure&)
+    {
+      std::cerr << "Incorrect file data";
+      return 1;
+    }
     std::string command_name;
     std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > > non_changing_commands = getNonChangingCommands();
     std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > > changing_commands = getChangingCommands();
     while (std::cin >> command_name)
     {
-      std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > >::const_iterator changing_command_ptr;
-      if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
+      try
       {
-        changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
-        continue;
+        std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > >::const_iterator changing_command_ptr;
+        if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
+        {
+          changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
+          continue;
+        }
+        std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > >::const_iterator non_changing_command_ptr;
+        if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
+        {
+          non_changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
+        }
+        else
+        {
+          std::cout << "<INVALID COMMAND>\n";
+        }
       }
-      std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > >::const_iterator non_changing_command_ptr;
-      if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
-      {
-        non_changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
-      }
-      else
+      catch (const std::ios_base::failure&)
       {
         std::cout << "<INVALID COMMAND>\n";
       }
