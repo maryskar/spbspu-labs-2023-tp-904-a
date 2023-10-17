@@ -26,7 +26,7 @@ namespace potapova
     out << sum << '\n';
   }
 
-  void getAverageArea(const std::deque< Polygon >& polygons,
+  void printAverageArea(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
       std::ostream& err);
