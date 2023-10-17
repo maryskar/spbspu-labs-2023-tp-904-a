@@ -1,10 +1,9 @@
 #include "polygon.h"
-
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
-#include <iostruct.h>
+#include <delimiter.h>
 #include <streamsguard.h>
 
 namespace chulkov {
