@@ -46,18 +46,18 @@ namespace potapova
     return std::all_of(polygon.points.begin(), polygon.points.end(), std::bind(&Rectangle::isPointInFrame, this, _1));
   }
 
-  RectExpandIterator::RectExpandIterator(Rectangle& rect) noexcept:
+  Rectangle::RectExpandIterator::RectExpandIterator(Rectangle& rect) noexcept:
     rect_ptr_(&rect)
   {
 
   }
 
-  RectExpandIterator& RectExpandIterator::operator++() noexcept
+  Rectangle::RectExpandIterator& Rectangle::RectExpandIterator::operator++() noexcept
   {
     return *this;
   }
 
-  RectExpandIterator& RectExpandIterator::operator*() noexcept
+  Rectangle::RectExpandIterator& Rectangle::RectExpandIterator::operator*() noexcept
   {
     return *this;
   }

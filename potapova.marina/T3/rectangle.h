@@ -10,6 +10,24 @@ namespace potapova
   class Rectangle
   {
     private:
+      class RectExpandIterator
+      {
+        public:
+          RectExpandIterator(Rectangle& rect) noexcept;
+          RectExpandIterator& operator++() noexcept;
+          RectExpandIterator& operator*() noexcept;
+
+          template< typename AddedT, typename = std::enable_if_t< !std::is_same< AddedT, RectExpandIterator >::value > >
+          RectExpandIterator& operator=(const AddedT& added) noexcept
+          {
+            rect_ptr_->expandBounds(added);
+            return *this;
+          }
+
+        private:
+          Rectangle* rect_ptr_;
+      };
+
       int max_x;
       int min_x;
       int max_y;
@@ -21,24 +39,6 @@ namespace potapova
       void expandBounds(const std::deque< Polygon >& polygons) noexcept;
       bool isPointInFrame(const Point& point) noexcept;
       bool isPolygonInFrame(const Polygon& polygon) noexcept;
-  };
-
-  class RectExpandIterator
-  {
-    public:
-      RectExpandIterator(Rectangle& rect) noexcept;
-      RectExpandIterator& operator++() noexcept;
-      RectExpandIterator& operator*() noexcept;
-
-      template< typename AddedT, typename = std::enable_if_t< !std::is_same< AddedT, RectExpandIterator>::value > >
-      RectExpandIterator& operator=(const AddedT& added) noexcept
-      {
-        rect_ptr_->expandBounds(added);
-        return *this;
-      }
-
-    private:
-      Rectangle* rect_ptr_;
   };
 }
 
