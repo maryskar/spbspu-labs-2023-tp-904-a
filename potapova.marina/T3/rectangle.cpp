@@ -2,7 +2,6 @@
 #include <numeric>
 #include <algorithm>
 #include <functional>
-#include "dataStruct.h"
 #include "commands.h"
 
 namespace potapova

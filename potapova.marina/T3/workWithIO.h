@@ -1,7 +1,7 @@
 #ifndef WORKWITHIO
 #define WORKWITHIO
 
-#include "dataStruct.h"
+#include "dataStructs.h"
 #include <istream>
 #include <ostream>
 

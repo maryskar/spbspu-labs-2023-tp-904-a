@@ -5,7 +5,7 @@
 #include <functional>
 #include <deque>
 #include <string>
-#include "dataStruct.h"
+#include "dataStructs.h"
 
 namespace potapova
 {

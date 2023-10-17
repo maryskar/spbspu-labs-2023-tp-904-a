@@ -4,7 +4,7 @@
 #include <deque>
 #include <numeric>
 #include <cstdio>
-#include "dataStruct.h"
+#include "dataStructs.h"
 #include "rectangle.h"
 
 namespace potapova

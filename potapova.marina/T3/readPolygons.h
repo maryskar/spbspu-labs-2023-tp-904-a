@@ -3,7 +3,7 @@
 
 #include <deque>
 #include <istream>
-#include "dataStruct.h"
+#include "dataStructs.h"
 
 namespace potapova
 {

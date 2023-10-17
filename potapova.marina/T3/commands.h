@@ -2,7 +2,7 @@
 #define COMMANDS_H
 
 #include <deque>
-#include "dataStruct.h"
+#include "dataStructs.h"
 #include "commandsImpl.h"
 #include "workWithIO.h"
 

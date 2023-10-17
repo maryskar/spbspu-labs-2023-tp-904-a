@@ -25,12 +25,7 @@ std::istream& potapova::operator>>(std::istream& in, potapova::Point& dest)
   {
     return in;
   }
-  Point input_point{0, 0};
   in >> DelimiterIO{'('} >> dest.x >> DelimiterIO{';'} >> dest.y >> DelimiterIO{')'};
-  if (in)
-  {
-    dest = input_point;
-  }
   return in;
 }
 
@@ -51,21 +46,16 @@ std::istream& potapova::operator>>(std::istream& in, potapova::Polygon& dest)
   {
     return in;
   }
-  Polygon input_polygon;
   size_t num_points = 0;
   in >> num_points;
   if (num_points < 3)
   {
     in.setstate(std::ios::failbit);
   }
-  input_polygon.points.reserve(num_points);
+  dest.points.reserve(num_points);
   std::copy_n(std::istream_iterator< Point >(in),
     num_points,
-    std::back_inserter(input_polygon.points));
-  if (in)
-  {
-    dest.points.swap(input_polygon.points);
-  }
+    std::back_inserter(dest.points));
   return in;
 }
 

@@ -3,7 +3,7 @@
 
 #include <limits>
 #include <deque>
-#include "dataStruct.h"
+#include "dataStructs.h"
 
 namespace potapova
 {
