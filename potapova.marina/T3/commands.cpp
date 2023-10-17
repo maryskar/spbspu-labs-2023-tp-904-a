@@ -57,7 +57,7 @@ namespace potapova
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
-      std::ostream&)
+      std::ostream&) noexcept
   {
     size_t num_points = 0;
     in >> num_points;
@@ -82,7 +82,7 @@ namespace potapova
   void printIsPolygonInFrame(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
-      std::ostream&)
+      std::ostream&) noexcept
   {
     Rectangle frame;
     frame.expandBounds(polygons);

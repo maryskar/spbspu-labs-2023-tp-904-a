@@ -44,11 +44,11 @@ namespace potapova
   void printExtremeArea(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
-      std::ostream&)
+      std::ostream& err)
   {
     if (polygons.empty())
     {
-      throw std::logic_error("Invalid number of polygons");
+      err << "<INVALID COMMAND>\n";
     }
     out << getArea(*GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsAreas)) << '\n';
   }
@@ -57,11 +57,11 @@ namespace potapova
   void printExtremePoints(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
-      std::ostream&)
+      std::ostream& err) noexcept
   {
     if (polygons.empty())
     {
-      throw std::logic_error("Invalid number of polygons");
+      err << "<INVALID COMMAND>\n";
     }
     out << GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsPoints)->points.size() << '\n';
   }
@@ -70,7 +70,7 @@ namespace potapova
   void printPolygonsCountWithSpecificPointsNum(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
-      std::ostream&)
+      std::ostream&) noexcept
   {
     out << std::count_if(polygons.begin(), polygons.end(), isSpecificPointsNum<ParityFlag>) << '\n';
   }
@@ -78,7 +78,7 @@ namespace potapova
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
-      std::ostream&);
+      std::ostream&) noexcept;
 
   void removePolygonDuplicates(std::deque< Polygon >& polygons,
       std::istream& in,
