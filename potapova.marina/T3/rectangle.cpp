@@ -9,6 +9,15 @@ namespace potapova
 {
   using namespace std::placeholders;
 
+  Rectangle::Rectangle() noexcept:
+    max_x(std::numeric_limits< int >::max()),
+    min_x(std::numeric_limits< int >::lowest()),
+    max_y(std::numeric_limits< int >::max()),
+    min_y(std::numeric_limits< int >::lowest())
+  {
+
+  }
+
   Rectangle Rectangle::getRectWichCanInclude(const std::deque< Polygon >& polygons)
   {
     Rectangle rect;
@@ -34,13 +43,29 @@ namespace potapova
     std::copy(polygons.begin(), polygons.end(), RectExpandIterator(*this));
   }
 
-  bool Rectangle::isInFrame(const Point& point)
+  bool Rectangle::isPointInFrame(const Point& point) noexcept
   {
     return point.x >= min_x && point.x <= max_x && point.y >= min_y && point.y <= max_y;
   }
 
-  bool Rectangle::isPolygonInFrame(const Polygon& polygon)
+  bool Rectangle::isPolygonInFrame(const Polygon& polygon) noexcept
   {
-    return std::all_of(polygon.points.begin(), polygon.points.end(), std::bind(&Rectangle::isInFrame, this, _1));
+    return std::all_of(polygon.points.begin(), polygon.points.end(), std::bind(&Rectangle::isPointInFrame, this, _1));
+  }
+
+  RectExpandIterator::RectExpandIterator(Rectangle& rect) noexcept:
+    rect_ptr_(&rect)
+  {
+
+  }
+
+  RectExpandIterator& RectExpandIterator::operator++() noexcept
+  {
+    return *this;
+  }
+
+  RectExpandIterator& RectExpandIterator::operator*() noexcept
+  {
+    return *this;
   }
 }

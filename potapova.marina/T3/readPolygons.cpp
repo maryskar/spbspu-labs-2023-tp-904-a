@@ -1,5 +1,6 @@
 #include "readPolygons.h"
 #include <algorithm>
+#include <iterator>
 
 namespace potapova
 {

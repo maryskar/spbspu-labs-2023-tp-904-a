@@ -15,52 +15,33 @@ namespace potapova
       int max_y;
       int min_y;
 
+    public:
+      Rectangle() noexcept;
+      
+      static Rectangle getRectWichCanInclude(const std::deque< Polygon >& polygons);
       void expandBounds(const Point& point) noexcept;
       void expandBounds(const Polygon& polygon) noexcept;
-    public:
-      Rectangle():
-        max_x(std::numeric_limits< int >::max()),
-        min_x(std::numeric_limits< int >::lowest()),
-        max_y(std::numeric_limits< int >::max()),
-        min_y(std::numeric_limits< int >::lowest())
-      {
-
-      }
-
-      static Rectangle getRectWichCanInclude(const std::deque< Polygon >& polygons);
       void expandBounds(const std::deque< Polygon >& polygons) noexcept;
-      bool isInFrame(const Point& point);
-      bool isPolygonInFrame(const Polygon& polygon);
+      bool isPointInFrame(const Point& point) noexcept;
+      bool isPolygonInFrame(const Polygon& polygon) noexcept;
   };
 
   class RectExpandIterator
   {
     public:
-      RectExpandIterator(Rectangle& rect):
-        rect_(rect)
-      {
+      RectExpandIterator(Rectangle& rect) noexcept;
+      RectExpandIterator& operator++() noexcept;
+      RectExpandIterator& operator*() noexcept;
 
-      }
-
-      RectExpandIterator& operator++() noexcept
-      {
-        return *this;
-      }
-
-      RectExpandIterator& operator*() noexcept
-      {
-        return *this;
-      }
-
-      template< typename AddedT >
+      template< typename AddedT, typename = std::enable_if_t< !std::is_same< AddedT, RectExpandIterator>::value > >
       RectExpandIterator& operator=(const AddedT& added) noexcept
       {
-        rect_.expandBounds(added);
+        rect_ptr_->expandBounds(added);
         return *this;
       }
 
     private:
-      Rectangle& rect_;
+      Rectangle* rect_ptr_;
   };
 }
 
