@@ -79,7 +79,7 @@ namespace potapova
     out << count_removed << '\n';
   }
 
-  void checkPolygonInFrame(const std::deque< Polygon >& polygons,
+  void printIsPolygonInFrame(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
       std::ostream&)

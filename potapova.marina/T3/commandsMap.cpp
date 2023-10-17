@@ -19,7 +19,7 @@ namespace potapova
       {"COUNT ODD", printPolygonsCountWithSpecificPointsNum< ODD >},
       {"COUNT EVEN", printPolygonsCountWithSpecificPointsNum< EVEN >},
       {"COUNT NUM_OF_VERTEXES", printPolygonsCountWithTargetPointsNum},
-      {"INFRAME", checkPolygonInFrame}
+      {"INFRAME", printIsPolygonInFrame}
     };
   }
 
