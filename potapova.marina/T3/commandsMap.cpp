@@ -8,8 +8,8 @@ namespace potapova
   {
     return std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > >
     {
-      {"AREA EVEN", getSumAreasPolygonsEven},
-      {"AREA ODD", getSumAreasPolygonsOdd},
+      {"AREA EVEN", printSumOfSpecificAreas< EVEN >},
+      {"AREA ODD", printSumOfSpecificAreas< ODD >},
       {"AREA MEAN", getAverageArea},
       {"AREA NUM_OF_VERTEXES", getSumOfAreasWithPointCounts},
       {"MAX AREA", printExtremeArea< std::max_element >},

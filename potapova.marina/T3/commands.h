@@ -7,15 +7,22 @@
 
 namespace potapova
 {
-  void getSumAreasPolygonsOdd(const std::deque< Polygon >& polygons,
+  template< size_t ParityFlag >
+  void printSumOfSpecificAreas(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
-      std::ostream&);
-
-  void getSumAreasPolygonsEven(const std::deque< Polygon >& polygons,
-      std::istream&,
-      std::ostream& out,
-      std::ostream&);
+      std::ostream& err)
+  {
+    try
+    {
+      double sum = getSumOfSpecificAreas< EVEN >(polygons);
+      out << sum << '\n';
+    }
+    catch (const std::logic_error&)
+    {
+      err << "<INVALID COMMAND>\n";
+    }
+  }
 
   void getAverageArea(const std::deque< Polygon >& polygons,
       std::istream&,

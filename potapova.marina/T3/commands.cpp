@@ -11,24 +11,6 @@ namespace potapova
 {
   using namespace std::placeholders;
 
-  void getSumAreasPolygonsOdd(const std::deque< Polygon >& polygons,
-      std::istream&,
-      std::ostream& out,
-      std::ostream&)
-  {
-    double sum = getSumOfSpecificAreas< ODD >(polygons);
-    out << sum << '\n';
-  }
-
-  void getSumAreasPolygonsEven(const std::deque< Polygon >& polygons,
-      std::istream&,
-      std::ostream& out,
-      std::ostream&)
-  {
-    double sum = getSumOfSpecificAreas< EVEN >(polygons);
-    out << sum << '\n';
-  }
-
   void getAverageArea(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
