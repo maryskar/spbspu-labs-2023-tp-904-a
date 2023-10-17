@@ -3,7 +3,7 @@
 
 #include <deque>
 #include "dataStruct.h"
-#include "funcForCommands.h"
+#include "commandsImpl.h"
 
 namespace potapova
 {
