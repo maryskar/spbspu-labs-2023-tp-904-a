@@ -18,7 +18,7 @@ namespace potapova
       {"MIN VERTEXES", printExtremePoints< std::min_element >},
       {"COUNT ODD", printPolygonsCountWithSpecificPointsNum< ODD >},
       {"COUNT EVEN", printPolygonsCountWithSpecificPointsNum< EVEN >},
-      {"COUNT NUM_OF_VERTEXES", countPolygonsWithPointsNum},
+      {"COUNT NUM_OF_VERTEXES", printPolygonsCountWithTargetPointsNum},
       {"INFRAME", checkPolygonInFrame}
     };
   }

@@ -54,7 +54,7 @@ namespace potapova
     out << sum_areas << '\n';
   }
 
-  void countPolygonsWithPointsNum(const std::deque< Polygon >& polygons,
+  void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
       std::ostream&)
