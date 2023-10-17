@@ -64,16 +64,6 @@ namespace potapova
     return first.points.size() < second.points.size();
   }
 
-  bool isEvenPointNum(const Polygon& polygon) noexcept
-  {
-    return (polygon.points.size() & 1) == EVEN;
-  }
-
-  bool isOddPointNum(const Polygon& polygon) noexcept
-  {
-    return (polygon.points.size() & 1) == ODD;
-  }
-
   bool isEqual(const Polygon& first, const Polygon& second, const Polygon& third) noexcept
   {
     return (first == second) && (first == third);

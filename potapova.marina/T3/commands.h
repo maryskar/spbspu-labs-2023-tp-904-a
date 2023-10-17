@@ -1,6 +1,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include <algorithm>
 #include <deque>
 #include "dataStructs.h"
 #include "commandsImpl.h"
@@ -65,15 +66,14 @@ namespace potapova
     out << GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsPoints)->points.size() << '\n';
   }
 
-  void countPolygonsWithOddPointsNum(const std::deque< Polygon >& polygons,
+  template< size_t ParityFlag >
+  void printPolygonsCountWithSpecificPointsNum(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
-      std::ostream&);
-
-  void countPolygonsWithEvenPointsNum(const std::deque< Polygon >& polygons,
-      std::istream&,
-      std::ostream& out,
-      std::ostream&);
+      std::ostream&)
+  {
+    out << std::count_if(polygons.begin(), polygons.end(), isSpecificPointsNum<ParityFlag>) << '\n';
+  }
 
   void countPolygonsWithPointsNum(const std::deque< Polygon >& polygons,
       std::istream& in,

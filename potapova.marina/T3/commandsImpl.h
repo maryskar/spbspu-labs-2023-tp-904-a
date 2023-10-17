@@ -39,6 +39,12 @@ namespace potapova
     double area = std::accumulate(polygons.begin(), polygons.end(), 0.0, addSpecificAreaToSum< ParityFlag >);
     return area;
   }
+
+  template< size_t ParityFlag >
+  bool isSpecificPointsNum(const Polygon& polygon) noexcept
+  {
+    return (polygon.points.size() & 1) == ParityFlag;
+  }
 }
 
 #endif

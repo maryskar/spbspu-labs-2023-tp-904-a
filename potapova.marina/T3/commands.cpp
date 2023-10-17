@@ -1,7 +1,6 @@
 #include "commandsImpl.h"
 #include <iostream>
 #include <cmath>
-#include <algorithm>
 #include <numeric>
 #include <functional>
 #include <stdexcept>
@@ -53,22 +52,6 @@ namespace potapova
       err << "<INVALID COMMAND>\n";
     }
     out << sum_areas << '\n';
-  }
-
-  void countPolygonsWithOddPointsNum(const std::deque< Polygon >& polygons,
-      std::istream&,
-      std::ostream& out,
-      std::ostream&)
-  {
-    out << std::count_if(polygons.begin(), polygons.end(), isOddPointNum) << '\n';
-  }
-
-  void countPolygonsWithEvenPointsNum(const std::deque< Polygon >& polygons,
-      std::istream&,
-      std::ostream& out,
-      std::ostream&)
-  {
-    out << std::count_if(polygons.begin(), polygons.end(), isEvenPointNum) << '\n';
   }
 
   void countPolygonsWithPointsNum(const std::deque< Polygon >& polygons,
