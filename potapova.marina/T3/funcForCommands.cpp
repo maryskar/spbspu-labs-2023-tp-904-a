@@ -73,20 +73,6 @@ namespace potapova
     return (polygon.points.size() & 1) == ODD;
   }
 
-  bool operator==(const Point& first, const Point& second) noexcept
-  {
-    return first.x == second.x && first.y == second.y;
-  }
-
-  bool operator==(const Polygon& first, const Polygon& second) noexcept
-  {
-    if (first.points.size() != second.points.size())
-    {
-      return false;
-    }
-    return std::equal(first.points.begin(), first.points.end(), second.points.begin());
-  }
-
   bool isEqual(const Polygon& first, const Polygon& second, const Polygon& third) noexcept
   {
     return (first == second) && (first == third);
