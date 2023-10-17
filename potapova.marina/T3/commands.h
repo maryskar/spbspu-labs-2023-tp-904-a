@@ -28,7 +28,7 @@ namespace potapova
   void getAverageArea(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
-      std::ostream&);
+      std::ostream& err);
 
   void getSumOfAreasWithPointCounts(const std::deque< Polygon >& polygons,
       std::istream& in,

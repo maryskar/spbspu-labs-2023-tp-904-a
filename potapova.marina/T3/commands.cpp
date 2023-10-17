@@ -14,15 +14,22 @@ namespace potapova
   void getAverageArea(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
-      std::ostream&)
+      std::ostream& err)
   {
-    size_t num_polygons = polygons.size();
-    if (num_polygons < 1)
+    if (polygons.empty())
     {
-      throw std::runtime_error("Incorrect number of polygons");
+      err << "<INVALID COMMAND>\n";
     }
-    double all_area = getSumOfAreas(polygons);
-    double average_area = all_area / static_cast< double >(num_polygons);
+    double sum_of_areas = 0.0;
+    try
+    {
+      sum_of_areas = getSumOfAreas(polygons);
+    }
+    catch (const std::logic_error&)
+    {
+      err << "<INVALID COMMAND>\n";
+    }
+    double average_area = sum_of_areas / static_cast< double >(polygons.size());
     out << average_area << '\n';
   }
 
