@@ -138,17 +138,6 @@ namespace chulkov {
     return std::count_if(polygon.cbegin(), polygon.cend(), std::bind(isEqualVertexes, _1, countVert));
   }
 
-  bool isNumber(const std::string& str)
-  {
-    bool isNumber = 1;
-    for (size_t i = 0; i < str.size(); i++) {
-      if (!std::isdigit(str[i]) && !((str[i] == '-') && (i == 0))) {
-        isNumber = 0;
-      }
-    }
-    return isNumber;
-  }
-
   bool isPerm(const Polygon& frst, const Polygon& sec)
   {
     if (frst.points.size() != sec.points.size()) {
@@ -168,7 +157,7 @@ namespace chulkov {
     in >> secondArg;
     StreamGuard guard(std::cout);
     std::cout << std::fixed << std::setprecision(1);
-    if (isNumber(secondArg)) {
+    if (std::isdigit(secondArg[0]) || (secondArg[0] == '-' && secondArg.size() > 1 && std::isdigit(secondArg[1]))) {
       size_t size = std::stoul(secondArg);
       if (size < 3) {
         throw std::logic_error("<INVALID COMMAND>");
@@ -237,7 +226,7 @@ namespace chulkov {
     }
     std::string secondArg;
     in >> secondArg;
-    if (isNumber(secondArg)) {
+    if (std::isdigit(secondArg[0]) || (secondArg[0] == '-' && secondArg.size() > 1 && std::isdigit(secondArg[1]))) {
       size_t size = std::stoul(secondArg);
       if (size < 3) {
         throw std::logic_error("<INVALID COMMAND>");
@@ -278,8 +267,7 @@ namespace chulkov {
       throw std::logic_error("<INVALID COMMAND>");
     }
     size_t beforeSize = polygon.size();
-    polygon.erase(std::unique(begin(polygon), end(polygon), std::bind(rmEchoCompare, _1, _2, polygons)),
-                  end(polygon));
+    polygon.erase(std::unique(begin(polygon), end(polygon), std::bind(rmEchoCompare, _1, _2, polygons)),end(polygon));
     out << beforeSize - polygon.size() << "\n";
   }
 }
