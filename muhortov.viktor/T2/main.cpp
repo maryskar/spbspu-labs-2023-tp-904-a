@@ -3,7 +3,6 @@
 #include <iterator>
 #include <limits>
 #include <deque>
-#include <vector>
 #include "dataSrtuct.h"
 #include "io.h"
 
