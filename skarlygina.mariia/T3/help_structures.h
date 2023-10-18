@@ -6,18 +6,18 @@ namespace skarlygina
 {
   struct PolygonsArea
   {
-    PolygonsArea(skarlygina::Point point) :
+    PolygonsArea(Point point):
       prev(point)
     {}
-    double operator()(double area, const skarlygina::Point& current)
+    double operator()(double area, const Point& current)
     {
-      area += static_cast<double>(prev.x) * current.y;
-      area -= static_cast<double>(prev.y) * current.x;
+      area += static_cast< double >(prev.x) * current.y;
+      area -= static_cast< double >(prev.y) * current.x;
       prev = current;
       return area;
     }
   private:
-    skarlygina::Point prev;
+    Point prev;
   };
 
   template< class Condition >
@@ -27,11 +27,11 @@ namespace skarlygina
       condition(cond)
     {}
 
-    double operator()(double area, const skarlygina::Polygon& poly)
+    double operator()(double area, const Polygon& poly)
     {
       if (condition(poly))
       {
-        return area + skarlygina::findAreaPoly(poly);
+        return area + findAreaPoly(poly);
       }
       return area;
     }
