@@ -10,11 +10,12 @@ using namespace muhortov;
 
 int main() {
   using iteratorInput = std::istream_iterator< dataStruct >;
-  auto iteratorOutput = iteratorInput();
   const std::streamsize maxStreamSize = std::numeric_limits< std::streamsize >::max();
   std::deque< dataStruct > data;
+  std::cout << "help\n";
   while (!std::cin.eof()) {
-    std::copy(iteratorInput(std::cin), iteratorOutput, std::back_inserter(data));
+    std::copy(iteratorInput(std::cin), iteratorInput(), std::back_inserter(data));
+    std::cout << "help\n";
     if (!std::cin) {
       std::cin.clear();
       std::cin.ignore(maxStreamSize, '\n');
@@ -22,6 +23,6 @@ int main() {
   }
 
   std::sort(data.begin(), data.end(), comparator());
-  std::copy(data.begin(), data.end(), std::ostream_iterator< dataStruct>(std::cout, "\n"));
+  std::copy(std::begin(data), std::end(data), std::ostream_iterator< dataStruct >(std::cout, "\n"));
   return 0;
 }
