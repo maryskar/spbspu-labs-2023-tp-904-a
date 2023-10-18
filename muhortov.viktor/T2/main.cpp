@@ -22,7 +22,7 @@ int main() {
     }
   }
 
-  std::sort(data.begin(), data.end(), comparator);
+  std::sort(data.begin(), data.end(), comparator());
   std::copy(data.begin(), data.end(), std::ostream_iterator< dataStruct>(std::cout, "\n"));
   return 0;
 }
