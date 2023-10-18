@@ -58,19 +58,21 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
   {
     throw std::invalid_argument("There are no polygons");
   }
+  std::map<std::string, std::function<size_t()>> command_max =
+  {
+    {"AREA", std::bind(maxArea, std::ref(polys))},
+    {"VERTEXES", std::bind(maxVertexes, std::ref(polys))}
+  };
   std::string command = "";
   in >> command;
   Iofmtguard guard(out);
   out << std::fixed << std::setprecision(1);
-  if (command == "AREA")
+  try
   {
-    out << maxArea(polys) << '\n';
+    size_t result = command_max.at(command)();
+    out << result << '\n';
   }
-  else if (command == "VERTEXES")
-  {
-    out << maxVertexes(polys) << '\n';
-  }
-  else
+  catch (const std::out_of_range& e)
   {
     throw std::invalid_argument("False command");
   }
@@ -78,21 +80,27 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
 
 void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
+  if (polys.empty())
+  {
+    throw std::invalid_argument("There are no polygons");
+  }
+  std::map<std::string, std::function<size_t()>> command_min =
+  {
+    {"AREA", std::bind(minArea, std::ref(polys))},
+    {"VERTEXES", std::bind(minVertexes, std::ref(polys))}
+  };
   std::string command = "";
   in >> command;
   Iofmtguard guard(out);
   out << std::fixed << std::setprecision(1);
-  if (command == "AREA")
+  try
   {
-    out << minArea(polys) << '\n';
+    size_t result = command_min.at(command)();
+    out << result << '\n';
   }
-  else if (command == "VERTEXES")
+  catch (const std::out_of_range& e)
   {
-    out << minVertexes(polys) << '\n';
-  }
-  else
-  {
-    throw std::invalid_argument("Unknown command");
+    throw std::invalid_argument("False command");
   }
 }
 
@@ -123,5 +131,5 @@ void skarlygina::findSame(const std::vector< Polygon >& polys, std::istream& in,
 
 std::ostream& skarlygina::printInvalidCommand(std::ostream& out)
 {
-  return out << "<INVALID COMMAND>\n";
+  return out << "<INVALID COMMAND>";
 }

@@ -61,6 +61,7 @@ int main(int argc, char** argv)
     catch (const std::exception&)
     {
       skarlygina::printInvalidCommand(std::cout);
+      std::cout << "\n";
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
