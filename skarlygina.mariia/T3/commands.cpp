@@ -61,12 +61,24 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
   std::map < std::string, std::function < double() > > command_max =
   {
     {"AREA", std::bind(maxArea, std::ref(polys))},
-    {"VERTEXES", std::bind(maxVertexes, std::ref(polys))}
+    {"VERTEXES", []() { return static_cast< double >(maxVertexes(polys));}}
   };
   std::string command = "";
   in >> command;
   Iofmtguard guard(out);
-  //out << std::fixed << std::setprecision(1);
+  if (command == "AREA")
+  {
+    out << std::fixed << std::setprecision(1);
+  }
+  else if (command == "VERTEXES")
+  {
+    out << std::fixed << std::setprecision(0);
+  }
+  else
+  {
+    throw std::invalid_argument("False command");
+  }
+
   try
   {
     out << command_max.at(command)() << '\n';
