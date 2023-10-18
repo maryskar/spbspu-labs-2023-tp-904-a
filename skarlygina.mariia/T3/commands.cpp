@@ -69,8 +69,7 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
   out << std::fixed << std::setprecision(1);
   try
   {
-    double result = command_max.at(command)();
-    out << result << '\n';
+    out << command_max.at(command)() << '\n';
   }
   catch (const std::out_of_range& e)
   {
@@ -95,8 +94,7 @@ void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, s
   out << std::fixed << std::setprecision(1);
   try
   {
-    double result = command_min.at(command)();
-    out << result << '\n';
+    out << out << command_min.at(command)() << '\n'; << '\n';
   }
   catch (const std::out_of_range& e)
   {
