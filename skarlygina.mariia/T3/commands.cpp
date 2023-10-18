@@ -66,19 +66,7 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
   std::string command = "";
   in >> command;
   Iofmtguard guard(out);
-  if (command == "AREA")
-  {
-    out << std::fixed << std::setprecision(1);
-  }
-  else if (command == "VERTEXES")
-  {
-    out << std::fixed << std::setprecision(0);
-  }
-  else
-  {
-    throw std::invalid_argument("False command");
-  }
-
+  out << std::fixed << (command == "AREA" ? std::setprecision(1) : std::setprecision(0));
   try
   {
     out << command_max.at(command)() << '\n';
@@ -95,7 +83,7 @@ void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, s
   {
     throw std::invalid_argument("There are no polygons");
   }
-  std::map<std::string, std::function<size_t()>> command_min =
+  std::map< std::string, std::function< double() > > command_min =
   {
     {"AREA", std::bind(minArea, std::ref(polys))},
     {"VERTEXES", std::bind(minVertexes, std::ref(polys))}
@@ -103,7 +91,7 @@ void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, s
   std::string command = "";
   in >> command;
   Iofmtguard guard(out);
-  out << std::fixed << std::setprecision(1);
+  out << std::fixed << (command == "AREA" ? std::setprecision(1) : std::setprecision(0));
   try
   {
     out << command_min.at(command)() << '\n';
