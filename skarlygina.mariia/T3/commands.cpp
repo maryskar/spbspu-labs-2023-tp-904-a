@@ -58,7 +58,7 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
   {
     throw std::invalid_argument("There are no polygons");
   }
-  std::map< std::string, std::function< size_t() > > command_max =
+  std::map < std::string, std::function < double() > > command_max =
   {
     {"AREA", std::bind(maxArea, std::ref(polys))},
     {"VERTEXES", std::bind(maxVertexes, std::ref(polys))}
