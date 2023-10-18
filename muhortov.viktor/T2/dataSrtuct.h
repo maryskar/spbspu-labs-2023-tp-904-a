@@ -4,14 +4,14 @@
 #include <string>
 
 namespace muhortov {
-  struct DataStruct {
+  struct dataStruct {
     std::complex< double > key1;
     std::pair< long long, unsigned long long > key2;
     std::string key3;
   };
 
   struct comparator {
-    bool operator()(const DataStruct &lhs, const DataStruct &rhs) const;
+    bool operator()(const dataStruct &lhs, const dataStruct &rhs) const;
   };
 }
 
