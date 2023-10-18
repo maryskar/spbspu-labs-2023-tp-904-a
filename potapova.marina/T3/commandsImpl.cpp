@@ -29,7 +29,7 @@ namespace potapova
     return std::abs(std::accumulate(pair_areas.begin(), pair_areas.end(), 0.0)) / 2;
   }
 
-  double addAreaToSumT(const double sum, const Polygon& polygon)
+  double addAreaToSum(const double sum, const Polygon& polygon)
   {
     return sum + getArea(polygon);
   }
