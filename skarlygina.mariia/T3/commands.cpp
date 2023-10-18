@@ -61,7 +61,7 @@ void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, s
   std::map < std::string, std::function < double() > > command_max =
   {
     {"AREA", std::bind(maxArea, std::ref(polys))},
-    {"VERTEXES", []() { return static_cast< double >(maxVertexes(polys));}}
+    {"VERTEXES", std::bind(maxVertexes, std::ref(polys))}
   };
   std::string command = "";
   in >> command;
