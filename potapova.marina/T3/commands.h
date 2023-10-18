@@ -18,11 +18,11 @@ namespace potapova
     double sum;
     try
     {
-        sum = getSumOfSpecificAreas< EVEN >(polygons);
+      sum = getSumOfSpecificAreas< EVEN >(polygons);
     }
     catch (const std::logic_error&)
     {
-        err << "<INVALID COMMAND>\n";
+      err << "<INVALID COMMAND>\n";
     }
     out << sum << '\n';
   }

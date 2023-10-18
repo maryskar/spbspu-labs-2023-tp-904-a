@@ -15,7 +15,7 @@ namespace potapova
       {"MAX AREA", printExtremeArea< std::max_element >},
       {"MAX VERTEXES", printExtremePoints< std::min_element >},
       {"MIN AREA", printExtremeArea< std::max_element >},
-      {"MIN VERTEXES", printExtremePoints<std::min_element>},
+      {"MIN VERTEXES", printExtremePoints< std::min_element >},
       {"COUNT ODD", printPolygonsCountWithSpecificPointsNum< ODD >},
       {"COUNT EVEN", printPolygonsCountWithSpecificPointsNum< EVEN >},
       {"COUNT NUM_OF_VERTEXES", printPolygonsCountWithTargetPointsNum},
