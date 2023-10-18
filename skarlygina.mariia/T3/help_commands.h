@@ -10,9 +10,9 @@ namespace skarlygina
   double findAreaNumOfVertexes(const std::vector< Polygon >&, size_t);
 
   double maxArea(const std::vector< Polygon >&);
-  size_t maxVertexes(const std::vector< Polygon >&);
+  double maxVertexes(const std::vector< Polygon >&);
   double minArea(const std::vector< Polygon >&);
-  size_t minVertexes(const std::vector< Polygon >&);
+  double minVertexes(const std::vector< Polygon >&);
 
   size_t countOdd(const std::vector< Polygon >&);
   size_t countEven(const std::vector< Polygon >&);

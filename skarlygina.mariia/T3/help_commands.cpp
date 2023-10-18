@@ -135,7 +135,7 @@ double skarlygina::maxArea(const std::vector< Polygon >& polys)
   return findAreaPoly(*element_max_area);
 }
 
-size_t skarlygina::maxVertexes(const std::vector< Polygon >& polys)
+double skarlygina::maxVertexes(const std::vector< Polygon >& polys)
 {
   auto element_max_vert = std::max_element(polys.begin(), polys.end(), compareVert);
   return getSize(*element_max_vert);
@@ -147,7 +147,7 @@ double skarlygina::minArea(const std::vector< Polygon >& polys)
   return findAreaPoly(*element_min_area);
 }
 
-size_t skarlygina::minVertexes(const std::vector< Polygon >& polys)
+double skarlygina::minVertexes(const std::vector< Polygon >& polys)
 {
   auto element_min_vert = std::max_element(polys.begin(), polys.end(), compareVert);
   return getSize(*element_min_vert);
