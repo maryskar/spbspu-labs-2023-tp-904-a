@@ -94,7 +94,7 @@ void skarlygina::getMin(const std::vector< Polygon >& polys, std::istream& in, s
   out << std::fixed << std::setprecision(1);
   try
   {
-    out << out << command_min.at(command)() << '\n'; << '\n';
+    out << command_min.at(command)() << '\n';
   }
   catch (const std::out_of_range& e)
   {
