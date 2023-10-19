@@ -7,7 +7,7 @@ namespace muhortov {
     if (!sentry) {
       return input;
     }
-    char chr = '\0';
+    char chr = ' ';
     input >> chr;
     if (input && (chr != dest.chr)) {
       input.setstate(std::ios::failbit);
@@ -54,7 +54,7 @@ namespace muhortov {
     if (!sentry) {
       return input;
     }
-    char chr = '\0';
+    char chr = ' ';
     for (size_t i = 0; i < dest.str.length(); i++) {
       input >> chr;
       if (input && (chr != dest.str[i])) {
@@ -80,7 +80,7 @@ namespace muhortov {
 
     for (unsigned i = 0; i < 3; i++) {
       input >> labelIO{":key"};
-      char num = '\0';
+      char num = ' ';
       input >> num;
       if (input) {
         if (num == '1') {
