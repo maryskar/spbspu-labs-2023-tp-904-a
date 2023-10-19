@@ -1,7 +1,7 @@
 #ifndef DATASTRUCT_HPP
 #define DATASTRUCT_HPP
 
-#include <string>
+#include <iostream>
 
 namespace gulkov
 {
@@ -15,6 +15,8 @@ namespace gulkov
   std::ostream& operator<<(std::ostream & out, const DataStruct & data);
   std::istream& operator>>(std::istream & in, DataStruct & data);
 
-  bool comparator(const DataStruct & data1, const DataStruct & data2);
+  struct Comparator {
+    bool operator()(const DataStruct& data1, const DataStruct& data2);
+  };
 }
 #endif
