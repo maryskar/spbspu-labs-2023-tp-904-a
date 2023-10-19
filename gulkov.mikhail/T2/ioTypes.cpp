@@ -24,7 +24,12 @@ namespace gulkov {
     {
       return in;
     }
-    return in >> dest.num;
+    if (in >> dest.num)
+    {
+      return in;
+    }
+    in.setstate(std::ios::failbit);
+    return in;
   }
 
   std::istream& operator>>(std::istream& in, StringIO&& dest)
@@ -46,6 +51,8 @@ namespace gulkov {
     in >> gulkov::DelimiterIO{'\''} >> dest.ref >> DelimiterIO{'\''};
     return in;
   }
+
+  //(:key1 00:key2 'a':key3 "Data":)
 
   std::istream& operator>>(std::istream& in, LabelIO&& dest)
   {
