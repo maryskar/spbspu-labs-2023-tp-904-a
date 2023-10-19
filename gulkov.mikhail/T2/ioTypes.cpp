@@ -52,8 +52,6 @@ namespace gulkov {
     return in;
   }
 
-  //(:key1 00:key2 'a':key3 "Data":)
-
   std::istream& operator>>(std::istream& in, LabelIO&& dest)
   {
     std::istream::sentry sentry(in);

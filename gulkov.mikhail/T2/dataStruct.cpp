@@ -60,7 +60,7 @@ namespace gulkov {
     }
     iofmtguard guard(out);
     out << "(:";
-    out << "key1 " << data.key1 << ":";
+    out << "key1 "<< "0" << data.key1 << ":";
     out << "key2"
         << " '" << data.key2 << "':";
     out << "key3 \"" << data.key3 << "\":)";
