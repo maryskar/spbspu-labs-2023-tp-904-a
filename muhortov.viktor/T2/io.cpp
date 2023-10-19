@@ -2,7 +2,7 @@
 
 namespace muhortov {
 
-  std::istream &operator>>(std::istream &input, delimeterIO &&dest) {
+  std::istream &operator>>(std::istream &input, delimiterIO &&dest) {
     std::istream::sentry sentry(input);
     if (!sentry) {
       return input;
@@ -22,7 +22,7 @@ namespace muhortov {
     }
     double first = 0.0;
     double second = 0.0;
-    input >> labelIO{"#c("} >> first >> second >> delimeterIO{')'};
+    input >> labelIO{"#c("} >> first >> second >> delimiterIO{')'};
     dest.num = std::complex< double >(first, second);
     return input;
   }
@@ -46,7 +46,7 @@ namespace muhortov {
     if (!sentry) {
       return input;
     }
-    return std::getline(input >> delimeterIO{'"'}, dest.str, '"');
+    return std::getline(input >> delimiterIO{'"'}, dest.str, '"');
   }
 
   std::istream &operator>>(std::istream &input, labelIO &&dest) {
@@ -71,7 +71,7 @@ namespace muhortov {
       return input;
     }
     dataStruct in;
-    using sep = delimeterIO;
+    using sep = delimiterIO;
     using label = labelIO;
     using comp = complexIO;
     using rat = rationalNumIO;
@@ -127,7 +127,7 @@ namespace muhortov {
       return output;
     }
 
-    iofmtquard fmtquard(output);
+    iofmtguard fmtguard(output);
     output << '(';
     output << ":key1 " << std::fixed << std::setprecision(1) << src.key1;
     output << ":key2 " << src.key2;
@@ -136,14 +136,14 @@ namespace muhortov {
     return output;
   }
 
-  iofmtquard::iofmtquard(std::basic_ios< char > &s):
+  iofmtguard::iofmtguard(std::basic_ios< char > &s):
     s_(s),
     fill_(s.fill()),
     precision_(s.precision()),
     fmt_(s.flags())
   {}
 
-  iofmtquard::~iofmtquard()
+  iofmtguard::~iofmtguard()
   {
     s_.fill(fill_);
     s_.precision(precision_);

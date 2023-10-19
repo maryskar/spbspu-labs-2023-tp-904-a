@@ -3,11 +3,11 @@
 #include <iostream>
 #include <complex>
 #include <string>
-#include "iomanip"
+#include <iomanip>
 #include "dataSrtuct.h"
 
 namespace muhortov {
-  struct delimeterIO {
+  struct delimiterIO {
     char chr;
   };
 
@@ -27,10 +27,10 @@ namespace muhortov {
     std::string str;
   };
 
-  class iofmtquard {
+  class iofmtguard {
   public:
-    explicit iofmtquard(std::basic_ios< char > &s);
-    ~iofmtquard();
+    explicit iofmtguard(std::basic_ios< char > &s);
+    ~iofmtguard();
   private:
     std::basic_ios< char > &s_;
     char fill_;
@@ -38,7 +38,7 @@ namespace muhortov {
     std::basic_ios< char >::fmtflags fmt_;
   };
 
-  std::istream &operator>>(std::istream &input, delimeterIO &&dest);
+  std::istream &operator>>(std::istream &input, delimiterIO &&dest);
   std::istream &operator>>(std::istream &input, complexIO &&dest);
   std::istream &operator>>(std::istream &input, rationalNumIO &&dest);
   std::istream &operator>>(std::istream &input, stringIO &&dest);
