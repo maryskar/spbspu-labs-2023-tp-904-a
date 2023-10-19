@@ -15,7 +15,6 @@ int main()
   std::list< DataStruct > res_list;
   Comparator comparator;
 
-  //std::stringstream input("(:key1 00:key2 'a':key3 \"Data\":)");
   while (!std::cin.eof()) {
     std::copy(input_iterator(std::cin), input_iterator(), std::back_inserter(res_list));
     if (std::cin.fail()) {

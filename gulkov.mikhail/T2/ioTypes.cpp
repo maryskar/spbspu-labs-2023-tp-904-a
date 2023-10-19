@@ -1,7 +1,7 @@
 #include "ioTypes.hpp"
 
 namespace gulkov {
-  std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
+  std::istream& operator>>(std::istream& in, DelimiterIO&& delimeter_io)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -10,21 +10,21 @@ namespace gulkov {
     }
     char c = '0';
     in >> c;
-    if (in && (c != dest.exp))
+    if (c != delimeter_io.delimeter_ && in)
     {
       in.setstate(std::ios::failbit);
     }
     return in;
   }
 
-  std::istream& operator>>(std::istream& in, UnsignedLongLongIO&& dest)
+  std::istream& operator>>(std::istream& in, UnsignedLongLongIO&& ull_io)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
       return in;
     }
-    if (in >> dest.num)
+    if (in >> ull_io.ullref_)
     {
       return in;
     }
@@ -32,34 +32,34 @@ namespace gulkov {
     return in;
   }
 
-  std::istream& operator>>(std::istream& in, StringIO&& dest)
+  std::istream& operator>>(std::istream& in, StringIO&& string_io)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO{'"'}, dest.str, '"');
+    return std::getline(in >> DelimiterIO{'"'}, string_io.string_, '"');
   }
 
-  std::istream& operator>>(std::istream& in, CharIO&& dest)
+  std::istream& operator>>(std::istream& in, CharIO&& char_io)
   {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
     }
-    in >> gulkov::DelimiterIO{'\''} >> dest.ref >> DelimiterIO{'\''};
+    in >> gulkov::DelimiterIO{'\''} >> char_io.charref_ >> DelimiterIO{'\''};
     return in;
   }
 
-  std::istream& operator>>(std::istream& in, LabelIO&& dest)
+  std::istream& operator>>(std::istream& in, LabelIO&& label_io)
   {
     std::istream::sentry sentry(in);
     if (!sentry) {
       return in;
     }
-    for (size_t i = 0; i < dest.exp.length(); i++) {
-      in >> gulkov::DelimiterIO{dest.exp[i]};
+    for (size_t i = 0; i < label_io.label_.length(); i++) {
+      in >> DelimiterIO{label_io.label_[i]};
     }
     return in;
   }
