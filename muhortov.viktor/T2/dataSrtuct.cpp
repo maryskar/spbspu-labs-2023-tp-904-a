@@ -1,7 +1,7 @@
 #include "dataSrtuct.h"
 
 namespace muhortov {
-  bool comparator::operator()(const dataStruct &lhs, const dataStruct &rhs) const {
+  bool compare(const dataStruct &lhs, const dataStruct &rhs) {
     if (std::abs(lhs.key1) != std::abs(rhs.key1)) {
       return std::abs(lhs.key1) < std::abs(rhs.key1);
     } else if (lhs.key2 != rhs.key2) {

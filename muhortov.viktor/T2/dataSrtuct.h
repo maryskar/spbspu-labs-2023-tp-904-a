@@ -10,9 +10,7 @@ namespace muhortov {
     std::string key3;
   };
 
-  struct comparator {
-    bool operator()(const dataStruct &lhs, const dataStruct &rhs) const;
-  };
+  bool compare(const dataStruct &lhs, const dataStruct &rhs);
 }
 
 #endif
