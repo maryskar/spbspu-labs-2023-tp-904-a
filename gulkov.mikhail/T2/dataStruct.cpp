@@ -34,7 +34,7 @@ namespace gulkov {
         size_t num = 0;
         in >> num;
         if (num == 1) {
-          in >> UnsignedLongLongIO{input.key1};
+          in >> DelimiterIO{'0'} >> UnsignedLongLongIO{input.key1};
         } else if (num == 2) {
           in >> chr{input.key2};
         } else if (num == 3) {
