@@ -49,3 +49,4 @@ std::ostream& skarlygina::operator<<(std::ostream& out, const Polygon& polygon)
   std::copy(polygon.points.cbegin(), polygon.points.cend(), out_iter(out, " "));
   return out;
 }
+

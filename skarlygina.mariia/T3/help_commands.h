@@ -21,4 +21,5 @@ namespace skarlygina
   bool isSame(const skarlygina::Polygon&, const skarlygina::Polygon&);
   bool isPerm(const skarlygina::Polygon&, const skarlygina::Polygon&);
 }
+
 #endif

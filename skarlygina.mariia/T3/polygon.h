@@ -3,6 +3,7 @@
 #include <vector>
 #include <ios>
 #include "point.h"
+
 namespace skarlygina
 {
   struct Polygon
@@ -14,4 +15,5 @@ namespace skarlygina
   bool operator==(const Polygon& lhs, const Polygon& rhs);
   bool operator!=(const Polygon& lhs, const Polygon& rhs);
 }
+
 #endif

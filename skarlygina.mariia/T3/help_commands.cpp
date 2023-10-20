@@ -20,6 +20,11 @@ bool isOdd(const skarlygina::Polygon& poly)
   return poly.points.size() % 2;
 }
 
+bool isEven(const skarlygina::Polygon& poly)
+{
+  return !(isOdd(poly));
+}
+
 bool isVert(const skarlygina::Polygon& poly, size_t number_vert)
 {
   return poly.points.size() == number_vert;
