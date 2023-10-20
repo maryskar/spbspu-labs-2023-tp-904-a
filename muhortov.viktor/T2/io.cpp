@@ -130,7 +130,7 @@ namespace muhortov {
     output << '(';
     output << ":key1 " << std::fixed << std::setprecision(1) << src.key1;
     output << ":key2 " << src.key2;
-    output << ":key3 " << src.key3 << '\"';
+    output << ":key3 " << '\"' << src.key3 << '\"';
     output << ":)";
     return output;
   }
