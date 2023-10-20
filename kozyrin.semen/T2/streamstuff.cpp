@@ -1,5 +1,4 @@
 #include "streamstuff.h"
-#include <math.h>
 using namespace kozyrin;
 
 std::istream& kozyrin::operator>>(std::istream& in, DelimiterIO&& dest)
@@ -33,11 +32,7 @@ std::istream& kozyrin::operator>>(std::istream& in, DoubleIO&& dest)
   if (!sentry) {
     return in;
   }
-  double base = 0;
-  int exp = 0;
-  in >> base >> DelimiterIO{'d'} >> exp;
-
-  dest.val = base * pow(10, exp);
+  in >> dest.val;
   return in;
 }
 
