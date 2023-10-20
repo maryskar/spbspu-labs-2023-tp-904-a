@@ -1,6 +1,6 @@
 #include "iofmt_guard.h"
 
-Iofmtguard::Iofmtguard(std::basic_ios< char >& st) :
+Iofmtguard::Iofmtguard(std::basic_ios< char >& st):
   st_(st),
   fill_(st.fill()),
   precision_(st.precision()),
