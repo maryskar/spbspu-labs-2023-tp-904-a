@@ -1,11 +1,7 @@
 #include "data_struct.h"
 #include <iostream>
 #include <iofmt_guard.h>
-<<<<<<< HEAD
 #include <struct_io.h>
-=======
-#include "struct_io.h"
->>>>>>> upstream/master
 
 bool skarlygina::operator<(const DataStruct& left, const DataStruct& right)
 {
