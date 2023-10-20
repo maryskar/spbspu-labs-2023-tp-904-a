@@ -72,7 +72,6 @@ namespace muhortov {
     }
     dataStruct in;
     using sep = delimiterIO;
-    using label = labelIO;
     using comp = complexIO;
     using rat = rationalNumIO;
     using str = stringIO;
