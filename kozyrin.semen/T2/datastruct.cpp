@@ -1,5 +1,6 @@
 #include "datastruct.h"
 #include "streamstuff.h"
+#include <iomanip>
 using namespace kozyrin;
 
 bool kozyrin::comp(const DataStruct& lhs, const DataStruct& rhs)
@@ -48,30 +49,6 @@ std::istream& kozyrin::operator>>(std::istream& in, DataStruct& dest)
   return in;
 }
 
-std::string formatDouble(double n)
-{
-  int exp = 0;
-  while (true) {
-    if (n >= 10) {
-      n /= 10;
-      exp++;
-    } else if (n < 1) {
-      n *= 10;
-      exp -= 1;
-    } else {
-      break;
-    }
-  }
-  const char* sign = "e";
-  if (exp > 0) {
-    sign += '+';
-  }
-  std::string res = std::to_string(n);
-  res.erase(res.find('.') + 2);
-  res += sign + std::to_string(exp);
-  return res;
-}
-
 std::ostream& kozyrin::operator<<(std::ostream& out, const DataStruct& src)
 {
   std::ostream::sentry sentry(out);
@@ -80,7 +57,7 @@ std::ostream& kozyrin::operator<<(std::ostream& out, const DataStruct& src)
   }
   iofmtguard fmtguard(out);
   out << '(';
-  out << ":key1 " << formatDouble(src.key1);
+  out << ":key1 " << std::setprecision(1) << std::scientific << src.key1;
   out << ":key2 " << src.key2 << "ull";
   out << ":key3 " << '"' << src.key3 << '"' << ":)";
   return out;
