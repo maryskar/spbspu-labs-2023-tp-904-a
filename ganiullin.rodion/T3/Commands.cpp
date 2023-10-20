@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <numeric>
 #include <stdexcept>
+
 #include "FormatGuard.h"
 #include "TypesIO.h"
 
@@ -15,11 +16,15 @@ namespace {
   using PolyVector = std::vector< ganiullin::Polygon >;
 
   const auto getNumOfVertexes = std::bind(ganiullin::getNumOfVertexes, _1);
-  const auto getNumOfVertModTwo = std::bind(std::modulus< size_t >{}, getNumOfVertexes, 2);
+  const auto getNumOfVertModTwo
+      = std::bind(std::modulus< size_t > {}, getNumOfVertexes, 2);
 
-  const auto hasEvenVertexes = std::bind(std::equal_to< size_t >{}, getNumOfVertModTwo, 0);
-  const auto hasOddVertexes = std::bind(std::logical_not< bool >{}, hasEvenVertexes);
-  const auto hasVertexesEqualTo = std::bind(std::equal_to< size_t >{}, getNumOfVertexes, _2);
+  const auto hasEvenVertexes
+      = std::bind(std::equal_to< size_t > {}, getNumOfVertModTwo, 0);
+  const auto hasOddVertexes
+      = std::bind(std::logical_not< bool > {}, hasEvenVertexes);
+  const auto hasVertexesEqualTo
+      = std::bind(std::equal_to< size_t > {}, getNumOfVertexes, _2);
 
   double processAreaEven(const PolyVector& polygons)
   {
@@ -30,14 +35,16 @@ namespace {
     auto polygonsEndIt = std::end(polygons);
     auto filteredInsertIt = std::back_inserter(filteredPolygons);
 
-    std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt, hasEvenVertexes);
+    std::copy_if(
+        polygonsBeginIt, polygonsEndIt, filteredInsertIt, hasEvenVertexes);
     areas.reserve(filteredPolygons.size());
 
     auto filterBeginIt = std::begin(filteredPolygons);
     auto filterEndIt = std::end(filteredPolygons);
     auto areasInsertIt = std::back_inserter(areas);
 
-    std::transform(filterBeginIt, filterEndIt, areasInsertIt, ganiullin::getArea);
+    std::transform(
+        filterBeginIt, filterEndIt, areasInsertIt, ganiullin::getArea);
 
     return std::accumulate(std::begin(areas), std::end(areas), 0.0);
   }
@@ -50,14 +57,16 @@ namespace {
     auto polygonsEndIt = std::end(polygons);
     auto filteredInsertIt = std::back_inserter(filteredPolygons);
 
-    std::copy_if(polygonsBeginIt, polygonsEndIt, filteredInsertIt, hasOddVertexes);
+    std::copy_if(
+        polygonsBeginIt, polygonsEndIt, filteredInsertIt, hasOddVertexes);
     areas.reserve(filteredPolygons.size());
 
     auto filterBeginIt = std::begin(filteredPolygons);
     auto filterEndIt = std::end(filteredPolygons);
     auto areasInsertIt = std::back_inserter(areas);
 
-    std::transform(filterBeginIt, filterEndIt, areasInsertIt, ganiullin::getArea);
+    std::transform(
+        filterBeginIt, filterEndIt, areasInsertIt, ganiullin::getArea);
     auto areasBeginIt = std::begin(areas);
     auto areasEndIt = std::end(areas);
 
@@ -75,7 +84,8 @@ namespace {
     auto polygonsEndIt = std::end(polygons);
     auto areasInsertIt = std::back_inserter(areas);
 
-    std::transform(polygonsBeginIt, polygonsEndIt, areasInsertIt, ganiullin::getArea);
+    std::transform(
+        polygonsBeginIt, polygonsEndIt, areasInsertIt, ganiullin::getArea);
     auto areasBeginIt = std::begin(areas);
     auto areasEndIt = std::end(areas);
 
@@ -90,14 +100,16 @@ namespace {
     auto polyEndIt = std::end(polygons);
     auto filteredInsertIt = std::back_inserter(filteredPolygons);
 
-    std::copy_if(polyBeginIt, polyEndIt, filteredInsertIt, std::bind(hasVertexesEqualTo, _1, vertexNum));
+    std::copy_if(polyBeginIt, polyEndIt, filteredInsertIt,
+        std::bind(hasVertexesEqualTo, _1, vertexNum));
     areas.reserve(filteredPolygons.size());
 
     auto filterBeginIt = std::begin(filteredPolygons);
     auto filterEndIt = std::end(filteredPolygons);
     auto areasInsertIt = std::back_inserter(areas);
 
-    std::transform(filterBeginIt, filterEndIt, areasInsertIt, ganiullin::getArea);
+    std::transform(
+        filterBeginIt, filterEndIt, areasInsertIt, ganiullin::getArea);
 
     auto areasBeginIt = std::begin(areas);
     auto areasEndIt = std::end(areas);
@@ -117,7 +129,8 @@ namespace {
     auto polygonsEndIt = std::end(polygons);
     auto areasInsertIt = std::back_inserter(areas);
 
-    std::transform(polygonsBeginIt, polygonsEndIt, areasInsertIt, ganiullin::getArea);
+    std::transform(
+        polygonsBeginIt, polygonsEndIt, areasInsertIt, ganiullin::getArea);
 
     auto areasBeginIt = std::begin(areas);
     auto areasEndIt = std::end(areas);
@@ -136,7 +149,8 @@ namespace {
     auto polygonsEndIt = std::end(polygons);
     auto vertexInsertIt = std::back_inserter(numVertexes);
 
-    std::transform(polygonsBeginIt, polygonsEndIt, vertexInsertIt, ganiullin::getNumOfVertexes);
+    std::transform(polygonsBeginIt, polygonsEndIt, vertexInsertIt,
+        ganiullin::getNumOfVertexes);
 
     auto vertexBeginIt = std::begin(numVertexes);
     auto vertexEndIt = std::end(numVertexes);
@@ -156,7 +170,8 @@ namespace {
     auto polygonsEndIt = std::end(polygons);
     auto areasInsertIt = std::back_inserter(areas);
 
-    std::transform(polygonsBeginIt, polygonsEndIt, areasInsertIt, ganiullin::getArea);
+    std::transform(
+        polygonsBeginIt, polygonsEndIt, areasInsertIt, ganiullin::getArea);
 
     auto areasBeginIt = std::begin(areas);
     auto areasEndIt = std::end(areas);
@@ -175,7 +190,8 @@ namespace {
     auto polygonsEndIt = std::end(polygons);
     auto vertexInsertIt = std::back_inserter(numVertexes);
 
-    std::transform(polygonsBeginIt, polygonsEndIt, vertexInsertIt, ganiullin::getNumOfVertexes);
+    std::transform(polygonsBeginIt, polygonsEndIt, vertexInsertIt,
+        ganiullin::getNumOfVertexes);
 
     auto vertexBeginIt = std::begin(numVertexes);
     auto vertexEndIt = std::end(numVertexes);
@@ -221,27 +237,32 @@ namespace {
   OutS& printAreaEven(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
-    return out << std::fixed << std::setprecision(1) << processAreaEven(polygons);
+    return out << std::fixed << std::setprecision(1)
+               << processAreaEven(polygons);
   }
   OutS& printAreaOdd(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
-    return out << std::fixed << std::setprecision(1) << processAreaOdd(polygons);
+    return out << std::fixed << std::setprecision(1)
+               << processAreaOdd(polygons);
   }
   OutS& printAreaMean(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
-    return out << std::fixed << std::setprecision(1) << processAreaMean(polygons);
+    return out << std::fixed << std::setprecision(1)
+               << processAreaMean(polygons);
   }
   OutS& printMaxArea(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
-    return out << std::fixed << std::setprecision(1) << processMaxArea(polygons);
+    return out << std::fixed << std::setprecision(1)
+               << processMaxArea(polygons);
   }
   OutS& printMinArea(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
-    return out << std::fixed << std::setprecision(1) << processMinArea(polygons);
+    return out << std::fixed << std::setprecision(1)
+               << processMinArea(polygons);
   }
 
   OutS& printMaxVertexNum(const PolyVector& polygons, OutS& out)
@@ -251,7 +272,8 @@ namespace {
   OutS& printMinVertexNum(const PolyVector& polygons, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
-    return out << std::fixed << std::setprecision(1) << processMinVertexNum(polygons);
+    return out << std::fixed << std::setprecision(1)
+               << processMinVertexNum(polygons);
   }
   OutS& printCountEven(const PolyVector& polygons, OutS& out)
   {
@@ -262,15 +284,18 @@ namespace {
     return out << processCountOdd(polygons);
   }
 
-  OutS& printAreaVertexNum(const PolyVector& polygons, size_t vertexNum, OutS& out)
+  OutS& printAreaVertexNum(
+      const PolyVector& polygons, size_t vertexNum, OutS& out)
   {
     ganiullin::iofmtguard iofmtguard(out);
     if (vertexNum < 3) {
       throw std::logic_error("Polygon should have more vertexes");
     }
-    return out << std::fixed << std::setprecision(1) << processAreaVertexNum(polygons, vertexNum);
+    return out << std::fixed << std::setprecision(1)
+               << processAreaVertexNum(polygons, vertexNum);
   }
-  OutS& printCountVertexNum(const PolyVector& polygons, size_t vertexNum, OutS& out)
+  OutS& printCountVertexNum(
+      const PolyVector& polygons, size_t vertexNum, OutS& out)
   {
     if (vertexNum < 3) {
       throw std::logic_error("Polygon should have more vertexes");
@@ -278,22 +303,20 @@ namespace {
     return out << processCountVertexNum(polygons, vertexNum);
   }
 
-  OutS& printInFrame(const PolyVector& polygons, const ganiullin::Polygon& fig, OutS& out)
+  OutS& printInFrame(
+      const PolyVector& polygons, const ganiullin::Polygon& fig, OutS& out)
   {
     ganiullin::printBool(out, processInFrame(polygons, fig));
     return out;
   }
 
-  OutS& printSame(const PolyVector& polygons, const ganiullin::Polygon& fig, OutS& out)
+  OutS& printSame(
+      const PolyVector& polygons, const ganiullin::Polygon& fig, OutS& out)
   {
     return out << processSame(polygons, fig);
   }
 }
 
-OutS& ganiullin::printErrorMessage(OutS& out)
-{
-  return out << "<INVALID COMMAND>";
-}
 OutS& ganiullin::printBool(OutS& out, bool val)
 {
   if (val) {
@@ -304,10 +327,10 @@ OutS& ganiullin::printBool(OutS& out, bool val)
   return out;
 }
 
-ganiullin::CommandHandler::CommandHandler():
-  polygonCommandDict_(),
-  vertexCommandDict_(),
-  stateCommandDict_()
+ganiullin::CommandHandler::CommandHandler()
+    : polygonCommandDict_()
+    , vertexCommandDict_()
+    , stateCommandDict_()
 {
   stateCommandDict_.insert({"AREA EVEN", printAreaEven});
   stateCommandDict_.insert({"AREA ODD", printAreaOdd});
@@ -343,7 +366,8 @@ std::string CommHand::readCommand(InS& in) const
   }
   return command;
 }
-OutS& CommHand::execCommand(const std::string& command, const PolyVector& polygons, InS& in, OutS& out) const
+OutS& CommHand::execCommand(const std::string& command,
+    const PolyVector& polygons, InS& in, OutS& out) const
 {
   if (stateCommandDict_.find(command) != std::end(stateCommandDict_)) {
     (*stateCommandDict_.find(command)).second(polygons, out);
@@ -351,7 +375,7 @@ OutS& CommHand::execCommand(const std::string& command, const PolyVector& polygo
   }
   if (polygonCommandDict_.find(command) != std::end(polygonCommandDict_)) {
     Polygon param;
-    in >> param >> DelimiterIO{'\n'};
+    in >> param >> DelimiterIO {'\n'};
 
     if (!in) {
       in.setstate(std::ios::failbit);
