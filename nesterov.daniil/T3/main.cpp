@@ -62,11 +62,11 @@ int main(int argc, char **argv)
       try
       {
         auto toexecute = const_cmds.at(cmd);
-        toexecute(polygons, cmdinput, std::cout, std::cerr);
+        toexecute(polygons, cmdinput, std::cout);
       } catch (...)
       {
         auto toexecute = cmds.at(cmd);
-        toexecute(polygons, cmdinput, std::cout, std::cerr);
+        toexecute(polygons, cmdinput, std::cout);
       }
     } catch (...)
     {

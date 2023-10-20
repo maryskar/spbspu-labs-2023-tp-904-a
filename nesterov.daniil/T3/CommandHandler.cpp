@@ -3,14 +3,11 @@
 #include <numeric>
 #include <iomanip>
 #include <algorithm>
-#include "IOFmtGuard.h"
+#include <IOFmtGuard.h>
 
 namespace nesterov
 {
-  void executeAreaCommand(const std::deque< Polygon > &pls,
-                          std::istream &in,
-                          std::ostream &out,
-                          std::ostream &)
+  void executeAreaCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
   {
     std::string subcommand;
     if (in >> subcommand)
@@ -18,18 +15,22 @@ namespace nesterov
       if (subcommand == "EVEN")
       {
         printAreaEven(pls, out);
-      } else if (subcommand == "ODD")
+      }
+      else if (subcommand == "ODD")
       {
         printAreaOdd(pls, out);
-      } else if (subcommand == "MEAN")
+      }
+      else if (subcommand == "MEAN")
       {
         printAreaMean(pls, out);
-      } else
+      }
+      else
       {
         size_t vertexes = std::stoull(subcommand);
         printAreaWithVertexes(pls, out, vertexes);
       }
-    } else
+    }
+    else
     {
       throw std::logic_error("");
     }
@@ -101,10 +102,7 @@ namespace nesterov
     out << std::fixed << std::setprecision(1) << area << '\n';
   }
 
-  void executeMaxCommand(const std::deque< Polygon > &pls,
-                         std::istream &in,
-                         std::ostream &out,
-                         std::ostream &)
+  void executeMaxCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
   {
     std::string subcommand;
     if (in >> subcommand)
@@ -112,14 +110,17 @@ namespace nesterov
       if (subcommand == "AREA")
       {
         printMaxArea(pls, out);
-      } else if (subcommand == "VERTEXES")
+      }
+      else if (subcommand == "VERTEXES")
       {
         printMaxVertexes(pls, out);
-      } else
+      }
+      else
       {
         throw std::logic_error("");
       }
-    } else
+    }
+    else
     {
       throw std::logic_error("");
     }
@@ -150,10 +151,7 @@ namespace nesterov
     out << std::fixed << std::setprecision(1) << *maxAreaIterator << '\n';
   }
 
-  void executeMinCommand(const std::deque< Polygon > &pls,
-                         std::istream &in,
-                         std::ostream &out,
-                         std::ostream &)
+  void executeMinCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
   {
     std::string subcommand;
     if (in >> subcommand)
@@ -161,14 +159,17 @@ namespace nesterov
       if (subcommand == "AREA")
       {
         printMinArea(pls, out);
-      } else if (subcommand == "VERTEXES")
+      }
+      else if (subcommand == "VERTEXES")
       {
         printMinVertexes(pls, out);
-      } else
+      }
+      else
       {
         throw std::logic_error("");
       }
-    } else
+    }
+    else
     {
       throw std::logic_error("");
     }
@@ -222,10 +223,7 @@ namespace nesterov
     out << n << '\n';
   }
 
-  void executeCountCommand(const std::deque< Polygon > &pls,
-                           std::istream &in,
-                           std::ostream &out,
-                           std::ostream &)
+  void executeCountCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
   {
     std::string subcommand;
     if (in >> subcommand)
@@ -233,24 +231,24 @@ namespace nesterov
       if (subcommand == "EVEN")
       {
         countEven(pls, out);
-      } else if (subcommand == "ODD")
+      }
+      else if (subcommand == "ODD")
       {
         countOdd(pls, out);
-      } else
+      }
+      else
       {
         size_t vertexes = std::stoull(subcommand);
         countWithNVertexes(pls, out, vertexes);
       }
-    } else
+    }
+    else
     {
       throw std::logic_error("");
     }
   }
 
-  void executeEchoCommand(std::deque< Polygon > &pls,
-                          std::istream &in,
-                          std::ostream &out,
-                          std::ostream &)
+  void executeEchoCommand(std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
   {
     Polygon input;
     if (in >> input)
@@ -274,16 +272,14 @@ namespace nesterov
 
       pls.assign(list.begin(), list.end());
       out << inserted << '\n';
-    } else
+    }
+    else
     {
       throw std::logic_error("");
     }
   }
 
-  void executeMaxSeqCommand(const std::deque< Polygon > &pls,
-                            std::istream &in,
-                            std::ostream &out,
-                            std::ostream &)
+  void executeMaxSeqCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
   {
     Polygon input;
     if (in >> input)
@@ -310,7 +306,8 @@ namespace nesterov
       }
 
       out << max << '\n';
-    } else
+    }
+    else
     {
       throw std::logic_error("");
     }

@@ -1,8 +1,7 @@
 #include "Polygon.h"
 #include <iterator>
 #include <algorithm>
-#include "IOStructs.h"
-#include "IOFmtGuard.h"
+#include <IOStructs.h>
 
 namespace nesterov
 {
