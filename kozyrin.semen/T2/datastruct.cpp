@@ -66,7 +66,9 @@ std::string formatDouble(double n)
   if (exp > 0) {
     sign += '+';
   }
-  std::string res = std::to_string(n) + sign + std::to_string(exp);
+  std::string res = std::to_string(n);
+  res.erase(res.find('.') + 2);
+  res += sign + std::to_string(exp);
   return res;
 }
 
