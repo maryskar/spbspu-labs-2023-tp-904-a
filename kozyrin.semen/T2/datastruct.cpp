@@ -63,7 +63,7 @@ void printDouble(std::ostream& out, double n)
       break;
     }
   }
-  const char* sign = "e";
+  std::string sign = "e";
   if (exp > 0) {
     sign += '+';
   }
