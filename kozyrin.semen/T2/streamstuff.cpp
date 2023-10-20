@@ -32,7 +32,14 @@ std::istream& kozyrin::operator>>(std::istream& in, DoubleIO&& dest)
   if (!sentry) {
     return in;
   }
-  in >> dest.val;
+  std::string str;
+  std::getline(in, str, ':');
+  if (str.find('e') != std::string::npos) {
+    dest.val = std::stod(str);
+  } else {
+    in.setstate(std::ios::failbit);
+  }
+
   return in;
 }
 

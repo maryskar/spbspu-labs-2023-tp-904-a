@@ -20,5 +20,5 @@ int main() {
     std::copy(ist_iter(std::cin), ist_iter(), std::back_inserter(data));
   }
   std::sort(data.begin(), data.end(), comp);
-  std::copy(std::begin(data), std::end(data), ost_iter(std::cout, "\n"));
+  std::copy(data.begin(), data.end(), ost_iter(std::cout, "\n"));
 }

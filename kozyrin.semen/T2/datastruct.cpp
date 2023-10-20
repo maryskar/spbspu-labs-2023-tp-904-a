@@ -26,9 +26,9 @@ std::istream& kozyrin::operator>>(std::istream& in, DataStruct& dest)
   using ull = UllIO;
   using str = StringIO;
 
-  in >> del{'('};
+  in >> label{"(:"};
   for (int i = 0; i < 3; i++) {
-    in >> label{":key"};
+    in >> label{"key"};
     int key = 0;
     in >> key;
 
@@ -37,9 +37,11 @@ std::istream& kozyrin::operator>>(std::istream& in, DataStruct& dest)
     }
     if (key == 2) {
       in >> ull{input.key2};
+      in >> del{':'};
     }
     if (key == 3) {
       in >> str{input.key3};
+      in >> del{':'};
     }
   }
   dest = input;
@@ -75,7 +77,6 @@ std::ostream& kozyrin::operator<<(std::ostream& out, const DataStruct& src)
     return out;
   }
   iofmtguard fmtguard(out);
-
   out << '(';
   out << ":key1 " << formatDouble(src.key1);
   out << ":key2 " << src.key2 << "ull";
