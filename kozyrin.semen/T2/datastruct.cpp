@@ -49,6 +49,28 @@ std::istream& kozyrin::operator>>(std::istream& in, DataStruct& dest)
   return in;
 }
 
+void printDouble(std::ostream& out, double n)
+{
+  int exp = 0;
+  while (true) {
+    if (n >= 10) {
+      n /= 10;
+      exp++;
+    } else if (n < 1) {
+      n *= 10;
+      exp -= 1;
+    } else {
+      break;
+    }
+  }
+  const char* sign = "e";
+  if (exp > 0) {
+    sign += '+';
+  }
+  out << std::fixed << std::setprecision(1) << n;
+  out << sign << exp;
+}
+
 std::ostream& kozyrin::operator<<(std::ostream& out, const DataStruct& src)
 {
   std::ostream::sentry sentry(out);
@@ -57,7 +79,8 @@ std::ostream& kozyrin::operator<<(std::ostream& out, const DataStruct& src)
   }
   iofmtguard fmtguard(out);
   out << '(';
-  out << ":key1 " << std::setprecision(1) << std::scientific << src.key1;
+  out << ":key1 ";
+  printDouble(out, src.key1);
   out << ":key2 " << src.key2 << "ull";
   out << ":key3 " << '"' << src.key3 << '"' << ":)";
   return out;
