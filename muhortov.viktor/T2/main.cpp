@@ -9,14 +9,15 @@
 using namespace muhortov;
 
 int main() {
-  using iteratorInput = std::istream_iterator< dataStruct >;
-  const std::streamsize maxStreamSize = std::numeric_limits< std::streamsize >::max();
   std::deque< dataStruct > data;
   while (!std::cin.eof()) {
-    std::copy(iteratorInput(std::cin), iteratorInput(), std::back_inserter(data));
+    std::copy(std::istream_iterator< dataStruct >(std::cin),
+              std::istream_iterator< dataStruct >(),
+      std::back_inserter(data)
+      );
     if (!std::cin) {
       std::cin.clear();
-      std::cin.ignore(maxStreamSize, '\n');
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
   }
 
