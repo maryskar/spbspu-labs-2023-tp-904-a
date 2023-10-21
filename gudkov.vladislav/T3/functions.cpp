@@ -3,56 +3,6 @@
 #include <numeric>
 #include <iterator>
 #include <functional>
-#include <cmath>
-
-double gudkov::getSide(const Point &a, const Point &b)
-{
-  return std::sqrt(std::pow(a.x - b.x, 2) + std::pow(a.y - b.y, 2));
-};
-
-double gudkov::getTriangleArea(const Point &a, const Point &b, const Point &c)
-{
-  double ab = getSide(a, b);
-  double bc = getSide(b, c);
-  double ac = getSide(c, a);
-  double p = (ab + bc + ac) / 2;
-
-  return std::sqrt(p * (p - ab) * (p - bc) * (p - ac));
-};
-
-double gudkov::getArea(const Polygon &polygon)
-{
-  const std::vector< Point > &points = polygon.points;
-  const size_t &n = points.size();
-
-  if (n < 3)
-  {
-    return 0.0;
-  }
-
-  double area = 0.0;
-
-  Polygon inner;
-  for (size_t i = 0; i < n - 2; i += 2)
-  {
-    area += getTriangleArea(points[i], points[i + 1], points[i + 2]);
-    inner.points.push_back(points[i]);
-  }
-
-  if (isEvenVertexesCount(polygon))
-  {
-    area += getTriangleArea(points[n - 2], points[n - 1], points[0]);
-    inner.points.push_back(points[n - 2]);
-  }
-  else
-  {
-    inner.points.push_back(points[n - 1]);
-  }
-
-  area += getArea(inner);
-
-  return area;
-}
 
 bool gudkov::isEvenVertexesCount(const Polygon &polygon)
 {

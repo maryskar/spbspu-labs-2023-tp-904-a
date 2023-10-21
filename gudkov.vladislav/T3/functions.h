@@ -5,9 +5,6 @@
 
 namespace gudkov
 {
-  double getSide(const Point &a, const Point &b);
-  double getTriangleArea(const Point &a, const Point &b, const Point &c);
-  double getArea(const Polygon &polygon);
   bool isEvenVertexesCount(const Polygon &polygon);
   bool isOddVertexesCount(const Polygon &polygon);
   bool isEqualVertexesCount(const Polygon &polygon, size_t count);
