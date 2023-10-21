@@ -5,7 +5,15 @@
 
 bool zhdanov::operator<(const DataStruct& a, const DataStruct& b)
 {
-  return (a.key1 < b.key1) || (a.key2 < b.key2) || (a.key3 < a.key3) || (a.key3.length() < b.key3.length());
+  if (a.key1 != b.key1)
+  {
+    return a.key1 < b.key1;
+  }
+  if (a.key2 != b.key2)
+  {
+    return a.key2 < b.key2;
+  }
+  return a.key3.length() < b.key3.length();
 }
 
 std::istream& zhdanov::operator>>(std::istream& input, DataStruct& data)
