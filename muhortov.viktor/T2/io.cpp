@@ -2,7 +2,8 @@
 
 namespace muhortov {
 
-  std::istream &operator>>(std::istream &input, delimiterIO &&dest) {
+  std::istream &operator>>(std::istream &input, delimiterIO &&dest)
+  {
     std::istream::sentry sentry(input);
     if (!sentry) {
       return input;
@@ -15,7 +16,8 @@ namespace muhortov {
     return input;
   }
 
-  std::istream &operator>>(std::istream &input, complexIO &&dest) {
+  std::istream &operator>>(std::istream &input, complexIO &&dest)
+  {
     std::istream::sentry sentry(input);
     if (!sentry) {
       return input;
@@ -41,7 +43,8 @@ namespace muhortov {
     return input;
   }
 
-  std::istream &operator>>(std::istream &input, stringIO &&dest) {
+  std::istream &operator>>(std::istream &input, stringIO &&dest)
+  {
     std::istream::sentry sentry(input);
     if (!sentry) {
       return input;
@@ -49,7 +52,8 @@ namespace muhortov {
     return std::getline(input >> delimiterIO{'"'}, dest.str, '"');
   }
 
-  std::istream &operator>>(std::istream &input, labelIO &&dest) {
+  std::istream &operator>>(std::istream &input, labelIO &&dest)
+  {
     std::istream::sentry sentry(input);
     if (!sentry) {
       return input;

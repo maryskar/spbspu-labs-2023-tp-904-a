@@ -8,11 +8,12 @@
 
 using namespace muhortov;
 
-int main() {
-  std::deque< dataStruct > data;
+int main()
+{
+  std::deque< DataStruct > data;
   while (!std::cin.eof()) {
-    std::copy(std::istream_iterator< dataStruct >(std::cin),
-              std::istream_iterator< dataStruct >(),
+    std::copy(std::istream_iterator< DataStruct >(std::cin),
+      std::istream_iterator< DataStruct >(),
       std::back_inserter(data)
       );
     if (!std::cin) {
@@ -22,6 +23,6 @@ int main() {
   }
 
   std::sort(data.begin(), data.end(), compare);
-  std::copy(std::begin(data), std::end(data), std::ostream_iterator< dataStruct >(std::cout, "\n"));
+  std::copy(std::begin(data), std::end(data), std::ostream_iterator< DataStruct >(std::cout, "\n"));
   return 0;
 }

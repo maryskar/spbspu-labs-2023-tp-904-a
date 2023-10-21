@@ -2,7 +2,8 @@
 #include "io.h"
 
 namespace muhortov {
-  bool compare(const dataStruct &lhs, const dataStruct &rhs) {
+  bool compare(const DataStruct &lhs, const DataStruct &rhs)
+  {
     if (std::abs(lhs.key1) != std::abs(rhs.key1)) {
       return std::abs(lhs.key1) < std::abs(rhs.key1);
     } else if (lhs.key2 != rhs.key2) {
@@ -11,12 +12,13 @@ namespace muhortov {
     return lhs.key3.length() < rhs.key3.length();
   }
 
-  std::istream &operator>>(std::istream &input, dataStruct &dest) {
+  std::istream &operator>>(std::istream &input, DataStruct &dest)
+  {
     std::istream::sentry sentry(input);
     if (!sentry) {
       return input;
     }
-    dataStruct in;
+    DataStruct in;
     using sep = delimiterIO;
     using comp = complexIO;
     using rat = rationalNumIO;
@@ -48,7 +50,8 @@ namespace muhortov {
     return input;
   }
 
-  std::ostream &operator<<(std::ostream &output, const std::complex< double > &dest) {
+  std::ostream &operator<<(std::ostream &output, const std::complex< double > &dest)
+  {
     std::ostream::sentry sentry(output);
     if (!sentry) {
       return output;
@@ -57,7 +60,8 @@ namespace muhortov {
     return output;
   }
 
-  std::ostream &operator<<(std::ostream &output, const std::pair< long long, unsigned long long > &dest) {
+  std::ostream &operator<<(std::ostream &output, const std::pair< long long, unsigned long long > &dest)
+  {
     std::ostream::sentry sentry(output);
     if (!sentry) {
       return output;
@@ -66,7 +70,8 @@ namespace muhortov {
     return output;
   }
 
-  std::ostream &operator<<(std::ostream &output, const dataStruct &src) {
+  std::ostream &operator<<(std::ostream &output, const DataStruct &src)
+  {
     std::ostream::sentry sentry(output);
     if (!sentry) {
       return output;
