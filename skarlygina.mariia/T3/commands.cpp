@@ -52,7 +52,8 @@ void skarlygina::countFigures(const std::vector< Polygon >& polys, std::istream&
 
 void skarlygina::getMax(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {
-  if (polys.empty()) {
+  if (polys.empty())
+  {
     throw std::invalid_argument("There are no polygons");
   }
   std::map < std::string, std::function < double() > > command_max =
