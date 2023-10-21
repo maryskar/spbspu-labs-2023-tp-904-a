@@ -43,10 +43,6 @@ namespace muhortov {
   std::istream &operator>>(std::istream &input, rationalNumIO &&dest);
   std::istream &operator>>(std::istream &input, stringIO &&dest);
   std::istream &operator>>(std::istream &input, labelIO &&dest);
-  std::istream &operator>>(std::istream &input, dataStruct &dest);
-  std::ostream &operator<<(std::istream &output, std::complex< double > &c);
-  std::ostream &operator<<(std::istream &output, std::pair< long long, unsigned long long > &c);
-  std::ostream &operator<<(std::ostream &output, const dataStruct &src);
 }
 
 #endif

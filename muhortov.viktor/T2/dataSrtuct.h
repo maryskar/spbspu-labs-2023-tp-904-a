@@ -11,6 +11,10 @@ namespace muhortov {
   };
 
   bool compare(const dataStruct &lhs, const dataStruct &rhs);
+  std::istream &operator>>(std::istream &input, dataStruct &dest);
+  std::ostream &operator<<(std::ostream &output, const std::complex< double > &dest);
+  std::ostream &operator<<(std::ostream &output, const std::pair< long long, unsigned long long > &dest);
+  std::ostream &operator<<(std::ostream &output, const dataStruct &src);
 }
 
 #endif
