@@ -104,7 +104,7 @@ void avdeeva::Solution::bellmanFord(const std::string & start, const std::string
       for (size_t k = 0; k < graphSize; k++)
       {
         int weight = gValues[j * graphSize + k];
-        if (weight != 0 && distances[j] != std::numeric_limits<int>::max() && distances[j] + weight < distances[k])
+        if (weight != 0 && distances[j] != std::numeric_limits< int >::max() && distances[j] + weight < distances[k])
         {
           distances[k] = distances[j] + weight;
           previous[k] = gVerts[j];
