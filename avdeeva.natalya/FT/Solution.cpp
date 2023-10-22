@@ -60,7 +60,7 @@ void avdeeva::Solution::printPath(const std::string & start, const std::string &
 }
 void avdeeva::Solution::dijkstra(const std::string & start, const std::string & end, std::ostream & out)
 {
-  if (graph.checkSignValues())
+  if (graph.checkPositiveValues())
   {
     throw std::logic_error("DIJKSTRA works only with non-negative weights of Graph");
   }
@@ -128,7 +128,7 @@ void avdeeva::Solution::bellmanFord(const std::string & start, const std::string
 }
 void avdeeva::Solution::waveAlg(const std::string & start, const std::string & end, std::ostream & out)
 {
-  if (graph.checkSignValues())
+  if (graph.checkPositiveValues())
   {
     throw std::logic_error("WAVE Algorithm works only with non-negative weights of Graph");
   }

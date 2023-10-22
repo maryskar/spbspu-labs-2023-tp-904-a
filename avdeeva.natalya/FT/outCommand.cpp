@@ -1,4 +1,5 @@
 #include "outCommand.h"
+#include "Solution.h"
 
 void avdeeva::createGraphCommand(std::map< std::string, avdeeva::Graph > & graphs,
     std::istream & in,
@@ -68,7 +69,6 @@ void avdeeva::deleteVertCommand(std::map< std::string, avdeeva::Graph > & graphs
   in >> graphName >> vertName;
   graphs.at(graphName).deleteVert(vertName);
 }
-
 void avdeeva::dijkstraCommand(std::map< std::string, avdeeva::Graph > & graphs,
     std::istream & in,
     std::ostream & out)
@@ -77,7 +77,9 @@ void avdeeva::dijkstraCommand(std::map< std::string, avdeeva::Graph > & graphs,
   std::string vertFrom;
   std::string vertTo;
   in >> graphName >> vertFrom >> vertTo;
-  graphs.at(graphName).dijkstra(vertFrom, vertTo, out);
+  Graph graph = graphs.at(graphName);
+  Solution sol(graphs.at(graphName));
+  sol.dijkstra(vertFrom, vertTo, out);
 }
 void avdeeva::bellmanFordCommand(std::map< std::string, avdeeva::Graph > & graphs,
     std::istream & in,
@@ -87,7 +89,9 @@ void avdeeva::bellmanFordCommand(std::map< std::string, avdeeva::Graph > & graph
   std::string vertFrom;
   std::string vertTo;
   in >> graphName >> vertFrom >> vertTo;
-  graphs.at(graphName).bellmanFord(vertFrom, vertTo, out);
+  Graph graph = graphs.at(graphName);
+  Solution sol(graph);
+  sol.bellmanFord(vertFrom, vertTo, out);
 }
 void avdeeva::waveAlgCommand(std::map< std::string, avdeeva::Graph > & graphs,
     std::istream & in,
@@ -97,7 +101,9 @@ void avdeeva::waveAlgCommand(std::map< std::string, avdeeva::Graph > & graphs,
   std::string vertFrom;
   std::string vertTo;
   in >> graphName >> vertFrom >> vertTo;
-  graphs.at(graphName).waveAlgorithm(vertFrom, vertTo, out);
+  Graph graph = graphs.at(graphName);
+  Solution sol(graph);
+  sol.waveAlg(vertFrom, vertTo, out);
 }
 void avdeeva::printMatrixCommand(std::map< std::string, avdeeva::Graph  > & graphs,
     std::istream & in,
