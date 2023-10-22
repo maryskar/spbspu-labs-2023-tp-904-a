@@ -169,7 +169,8 @@ namespace chulkov {
     dict->drop();
   }
 
-  void intersect(std::vector< Dict >& dicts, cnstStr& name, std::vector< Dict >::const_iterator it1, std::vector< Dict >::const_iterator it2, cnstStr& cmd, char c) {
+  void intersect(std::vector< Dict >& dicts, cnstStr& name, std::vector< Dict >::const_iterator it1,
+                 std::vector< Dict >::const_iterator it2, cnstStr& cmd, char c) {
     Dict newDictionary(name);
     for (const std::pair< const std::basic_string< char >, size_t >& i: *it1)
     {

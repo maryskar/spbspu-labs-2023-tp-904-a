@@ -5,7 +5,6 @@
 #include "dict.h"
 
 namespace chulkov {
-
   void insert(std::istream& input, std::vector< Dict >& dicts);
   void remove(std::istream& input, std::vector< Dict >& dicts);
   void search(std::istream& input, std::ostream& output, const std::vector< Dict >& dicts);
@@ -20,7 +19,8 @@ namespace chulkov {
   void clear(std::istream& input, std::vector< Dict >& dicts);
   void getNamesAndDoCommand(std::istream& input, std::vector< Dict >& dicts, cnstStr& cmd);
   void intersect(std::istream& input, std::vector< Dict >& dicts);
-  void intersectionCommand(std::vector< Dict >& dicts, cnstStr& name, std::vector< Dict >::const_iterator it1, std::vector< Dict >::const_iterator it2, cnstStr& cmd, char c);
+  void intersectionCommand(std::vector< Dict >& dicts, cnstStr& name, std::vector< Dict >::const_iterator it1,
+                           std::vector< Dict >::const_iterator it2, cnstStr& cmd, char c);
   void unionData(const std::string& newDataset, const std::vector<std::string>& datasets, std::vector<Dict>& dicts);
 }
 #endif
