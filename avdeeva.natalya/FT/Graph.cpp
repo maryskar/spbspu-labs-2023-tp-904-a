@@ -77,8 +77,7 @@ void avdeeva::Graph::insertVert(const std::string & vertFrom, const std::string 
       for (size_t i = 0; i < verts.size(); ++i)
       {
         std::copy(beginIt, endIt, std::back_inserter(newValues));
-        newValues.push_back(0);
-        newValues.push_back(0);
+        std::fill_n(std::back_inserter(newValues), 2, 0);
         beginIt = endIt;
         endIt = endIt + n;
       }
