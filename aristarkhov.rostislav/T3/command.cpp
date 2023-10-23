@@ -2,6 +2,8 @@
 #include <cmath>
 #include <functional>
 #include <algorithm>
+#include <iomanip>
+#include <numeric>
 #include <streamGuard.h>
 
 namespace aristarkhov
