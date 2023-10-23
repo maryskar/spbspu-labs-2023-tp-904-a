@@ -4,8 +4,10 @@
 #include <iterator>
 #include <limits>
 #include <numeric>
+
 #include "Commands.h"
 #include "Geometry.h"
+#include "TypesIO.h"
 
 constexpr size_t MAX_STREAM_SIZE = std::numeric_limits< std::streamsize >::max();
 
