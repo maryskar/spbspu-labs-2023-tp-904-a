@@ -41,6 +41,19 @@ namespace aristarkhov
   {
     return !isEven(polygon);
   }
+
+  void countOdd(const std::vector< Polygon >& polygons, std::ostream& out)
+  {
+    StreamGuard iofmtguard(out);
+    out << std::count_if(polygons.begin(), polygons.end(), isOdd) << '\n';
+  }
+
+  void countEven(const std::vector< Polygon >& polygons, std::ostream& out)
+  {
+    StreamGuard iofmtguard(out);
+    out << std::count_if(polygons.begin(), polygons.end(), isEven) << '\n';
+  }
+
   double sumArea(double cur, const Polygon& polygon)
   {
     return cur + getArea(polygon);
@@ -62,5 +75,42 @@ namespace aristarkhov
     StreamGuard iofmtguard(out);
     out << std::fixed << std::setprecision(1);
     out << std::accumulate(odd_polygons.begin(), odd_polygons.end(), 0.0, sumArea) << "\n";
+  }
+
+  void areaMean(const std::vector< Polygon >& polygons, std::ostream& out)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("invalid arg\n");
+    }
+
+    size_t count = polygons.size();
+    StreamGuard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << std::accumulate(polygons.begin(), polygons.end(), 0.0, sumArea) / count
+      << "\n";
+  }
+
+  bool isCountOfVertexes(const Polygon& polygon, const size_t count)
+  {
+    return polygon.points.size() == count;
+  }
+
+  void areaVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out)
+  {
+    using namespace std::placeholders;
+
+    if (count < 3)
+    {
+      throw std::logic_error("invalid arg");
+    }
+
+    std::vector< Polygon > vertexes_polygons;
+    auto pred = std::bind(isCountOfVertexes, _1, count);
+
+    std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(vertexes_polygons), pred);
+    StreamGuard iofmtguard(out);
+
+    out << std::fixed << std::setprecision(1)
+      << std::accumulate(vertexes_polygons.begin(), vertexes_polygons.end(), 0.0, sumArea) << '\n';
   }
 }
