@@ -85,7 +85,7 @@ namespace potapova
       std::ostream&) noexcept
   {
     Rectangle frame;
-    frame.expandBounds(polygons);
+    frame.expandBoundsToPolygons(polygons);
     Polygon input_polygon;
     in >> input_polygon;
     if (frame.isPolygonInFrame(input_polygon))
