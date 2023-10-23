@@ -16,6 +16,15 @@ namespace aristarkhov
   void areaOdd(const std::vector< Polygon >& polygons, std::ostream& ostream);
   void areaMean(const std::vector< Polygon >& polygons, std::ostream& ostream);
   void areaVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out);
+
+  void minArea(const std::vector< Polygon >& polygons, std::ostream& ostream);
+  void maxArea(const std::vector< Polygon >& polygons, std::ostream& ostream);
+
+  void maxVertexes(const std::vector< Polygon >& polygons, std::ostream& ostream);
+  void minVertexes(const std::vector< Polygon >& polygons, std::ostream& ostream);
+
+  void countVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& ostream);
+  void rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& ostream);
 }
 
 #endif

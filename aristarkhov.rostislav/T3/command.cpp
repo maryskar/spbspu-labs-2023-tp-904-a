@@ -174,4 +174,37 @@ namespace aristarkhov
     out << vertexes.front() << "\n";
   }
 
+  void countVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& out)
+  {
+    if (count < 3)
+    {
+      throw std::logic_error("invalid arg");
+    }
+
+    using namespace std::placeholders;
+    auto pred = std::bind(isCountOfVertexes, _1, count);
+
+    StreamGuard iofmtguard(out);
+    out << count_if(polygons.begin(), polygons.end(), pred) << "\n";
+  }
+
+  bool isEqualPolygon(const Polygon& lhs, const Polygon& rhs, const aristarkhov::Polygon& polygon)
+  {
+    return (rhs == lhs) && (rhs == polygon);
+  }
+
+  void rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& out)
+  {
+    using namespace std::placeholders;
+
+    size_t result = 0;
+    auto new_pred = std::bind(isEqualPolygon, _1, _2, polygon);
+    auto end = std::unique(polygons.begin(), polygons.end(), new_pred);
+
+    result = std::distance(end, polygons.end());
+    polygons.erase(end, polygons.end());
+
+    StreamGuard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << result << "\n";
+  }
 }
