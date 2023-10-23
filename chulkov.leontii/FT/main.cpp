@@ -29,9 +29,8 @@ int main() {
     if (commandsMap.find(command) != commandsMap.end()) {
       commandsMap.at(command)(std::cin, std::cout, dicts);
     } else {
-      std::cout << "Invalid command: " << command << std::endl;
+      std::cout << "Invalid command: " << command << '\n';
     }
   }
-
   return 0;
 }
