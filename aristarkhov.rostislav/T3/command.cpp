@@ -275,7 +275,7 @@ namespace aristarkhov
     }
   }
 
-  void aristarkhov::printInFrame(std::vector< Polygon >& polygons, const Polygon& figure, std::ostream& out)
+  void printInFrame(std::vector< Polygon >& polygons, const Polygon& figure, std::ostream& out)
   {
     if (polygons.empty())
     {
