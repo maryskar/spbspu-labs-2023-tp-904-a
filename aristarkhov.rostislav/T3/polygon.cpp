@@ -1,4 +1,5 @@
 #include "polygon.h"
+#include <iterator>
 #include <iostruct.h>
 
 namespace aristarkhov
@@ -41,5 +42,19 @@ namespace aristarkhov
     }
 
     return in;
+  }
+
+  bool operator==(const Point& lhs, const Point& rhs)
+  {
+    return lhs.x == rhs.x && lhs.y == rhs.y;
+  }
+
+  bool operator==(const Polygon& lhs, const Polygon& rhs)
+  {
+    auto leftBegin = lhs.points.begin();
+    auto leftEnd = lhs.points.end();
+    auto rightBegin = rhs.points.begin();
+
+    return std::equal(leftBegin, leftEnd, rightBegin);
   }
 }
