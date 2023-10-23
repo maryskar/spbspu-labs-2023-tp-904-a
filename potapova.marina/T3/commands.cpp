@@ -32,7 +32,7 @@ namespace potapova
       std::istream& in,
       std::ostream& out)
   {
-    double sum_areas;
+    double sum_areas = 0.0;
     try
     {
       sum_areas = std::accumulate(polygons.begin(),
@@ -49,9 +49,14 @@ namespace potapova
 
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
       size_t target_count_poins,
-      std::istream&,
+      std::istream& in,
       std::ostream& out) noexcept
   {
+    if (target_count_poins < 3)
+    {
+      handleInvalidCommand(in, out);
+      return;
+    }
     out << std::count_if(polygons.begin(), polygons.end(), std::bind(checkDesiredNumPoints, target_count_poins, _1)) << '\n';
   }
 
