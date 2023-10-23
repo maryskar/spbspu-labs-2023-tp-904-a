@@ -24,6 +24,7 @@ namespace
       {"VERTEXES", potapova::printExtremePoints< GetExtremeElem >}
     };
   }
+
   potapova::NotChangingCommansMap getCountCommands()
   {
     return potapova::NotChangingCommansMap
@@ -32,6 +33,7 @@ namespace
       {"EVEN", potapova::printPolygonsCountWithSpecificPointsNum< potapova::EVEN >}
     };
   }
+
   void runCommandFromMap(const potapova::NotChangingCommansMap& commands,
       const std::string& command_mode,
       const std::deque< potapova::Polygon >& polygons,
@@ -48,6 +50,7 @@ namespace
         command_ptr->second(polygons, in, out);
       }
   }
+
   void processCommands(const potapova::NotChangingCommansMap& commands,
       const std::deque< potapova::Polygon >& polygons,
       std::istream& in,
@@ -71,7 +74,7 @@ namespace
       size_t target_count_points = 0;
       try
       {
-        target_count_points = static_cast<size_t>(std::stoull(command_mode));
+        target_count_points = static_cast< size_t >(std::stoull(command_mode));
       }
       catch (const std::exception&)
       {
@@ -84,6 +87,7 @@ namespace
     runCommandFromMap(commands, command_mode, polygons, in, out);
   }
 }
+
 namespace potapova
 {
   NotChangingCommansMap getNonChangingCommands()
@@ -107,6 +111,7 @@ namespace potapova
       {"INFRAME", printIsPolygonInFrame}
     };
   }
+
   ChangingCommansMap getChangingCommands()
   {
     return ChangingCommansMap
