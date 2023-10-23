@@ -4,7 +4,6 @@
 #include <unordered_map>
 #include <functional>
 #include <deque>
-#include <iostream>
 #include "dataStructs.h"
 
 namespace potapova

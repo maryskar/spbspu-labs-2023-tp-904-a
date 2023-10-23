@@ -75,7 +75,7 @@ namespace potapova
       std::ostream& out,
       std::ostream&) noexcept
   {
-    out << std::count_if(polygons.begin(), polygons.end(), isSpecificPointsNum<ParityFlag>) << '\n';
+    out << std::count_if(polygons.begin(), polygons.end(), isSpecificPointsNum< ParityFlag >) << '\n';
   }
 
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,

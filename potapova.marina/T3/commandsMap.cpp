@@ -14,6 +14,7 @@ namespace
       {"NUM_OF_VERTEXES", potapova::printSumOfAreasWithSpecificPointsCounts}
     };
   }
+
   template< potapova::GetExtremeElemFunc GetExtremeElem >
   potapova::NotChangingCommansMap getExtremeCharacteristicCommands()
   {
@@ -47,6 +48,7 @@ namespace potapova
       {"MAX", std::bind(processCommands, getExtremeCharacteristicCommands< std::max_element >(), _1, _2, _3, _4)},
       {"MIN", std::bind(processCommands, getExtremeCharacteristicCommands< std::min_element >(), _1, _2, _3, _4)},
       {"COUNT", std::bind(processCommands, getCountCommands(), _1, _2, _3, _4)},
+      {"INFRAME", printIsPolygonInFrame}
     };
   }
 
