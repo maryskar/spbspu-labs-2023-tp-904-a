@@ -24,7 +24,7 @@ namespace potapova
       potapova::handleInvalidCommand(in, out);
       return;
     }
-    out << sum << '\n';
+    out << std::fixed << std::setprecision(2) << sum << '\n';
   }
 
   void printAverageArea(const std::deque< Polygon >& polygons,
@@ -46,7 +46,8 @@ namespace potapova
       potapova::handleInvalidCommand(in, out);
       return;
     }
-    out << getArea(*GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsAreas)) << '\n';
+    double res = getArea(*GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsAreas));
+    out << std::fixed << std::setprecision(2) << res << '\n';
   }
 
   template< GetExtremeElemFunc GetExtremeElem >
