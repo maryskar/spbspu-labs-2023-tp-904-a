@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
+#include <limits>
+#include <stdexcept>
 
 #include "dictionaryCommand.h"
 #include "polygon.h"
