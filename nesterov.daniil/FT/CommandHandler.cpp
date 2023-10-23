@@ -216,7 +216,8 @@ namespace nesterov
     out << "REMOVE_ARC <graph_name> <vertex> - удалить дугу между узлами.\n";
     out << "EXISTS_VERTEX <graph_name> <vertex> - проверить наличие узла.\n";
     out << "EXISTS_ARC <graph_name> <vertex> - проверить наличие дуги между узлами.\n";
-    out << "DFS <graph_name> <vertex> - осуществить алгоритм поиска в глубину для заданного узла.\n";
+    out << "DFS <graph_name> <vertex> - осуществить алгоритм поиска в глубину"
+      "для заданного узла.\n";
     out << "SORT <graph_name> - осуществить топологическую сортировку.\n";
   }
 }
