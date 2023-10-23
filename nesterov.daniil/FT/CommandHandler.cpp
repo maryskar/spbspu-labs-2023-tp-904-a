@@ -206,6 +206,16 @@ namespace nesterov
 
   void executeHelpCommand(std::ostream &out)
   {
-    out << "Topological sort of graphs.\n";
+    out << "Топологическая сортировка. Обход в глубину.\n";
+    out << "CREATE <DIRECTED/UNDIRECTED> <graph_name> - создать пустой ориентированный/неориентированный граф.\n";
+    out << "DELETE <graph_name> - удалить граф.\n";
+    out << "ADD_VERTEX <graph_name> <vertex> - добавить узел в граф.\n";
+    out << "REMOVE_VERTEX <graph_name> <vertex> - удалить узел из графа.\n";
+    out << "ADD_ARC <graph_name> <vertex> - добавить дугу между узлами.\n";
+    out << "REMOVE_ARC <graph_name> <vertex> - удалить дугу между узлами.\n";
+    out << "EXISTS_VERTEX <graph_name> <vertex> - проверить наличие узла.\n";
+    out << "EXISTS_ARC <graph_name> <vertex> - проверить наличие дуги между узлами.\n";
+    out << "DFS <graph_name> <vertex> - осуществить алгоритм поиска в глубину для заданного узла.\n";
+    out << "SORT <graph_name> - осуществить топологическую сортировку.\n";
   }
 }

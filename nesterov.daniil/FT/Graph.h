@@ -17,11 +17,9 @@ namespace nesterov
     bool hasVertex(int vertex);
     bool hasEdge(int v1, int v2);
     virtual ~Graph();
-    friend std::ostream &operator<<(std::ostream &out, const Graph &graph);
   protected:
     std::map< int, std::set< int > > list;
   private:
-    static void printGraphPair(const std::pair< int, std::set< int > > &pair, std::ostream &out);
     bool isVertexInUse(int vertex);
     static bool isVertexInUseHelper(const std::pair< int, std::set< int > > &pair, int vertex);
   };

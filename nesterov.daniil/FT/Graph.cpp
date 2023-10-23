@@ -49,26 +49,5 @@ namespace nesterov
     return pair.second.count(vertex) > 0 || (pair.first == vertex && !pair.second.empty());
   }
 
-  std::ostream &operator<<(std::ostream &out, const Graph &graph)
-  {
-    std::for_each(
-      graph.list.begin(),
-      graph.list.end(),
-      std::bind(Graph::printGraphPair, std::placeholders::_1, out)
-    );
-    return out;
-  }
-
-  void Graph::printGraphPair(const std::pair< int, std::set< int > > &pair, std::ostream &out)
-  {
-    out << pair.first << " -> ";
-    std::copy(
-      pair.second.begin(),
-      pair.second.end(),
-      std::ostream_iterator< int >(std::cout, " ")
-    );
-    out << '\n';
-  }
-
   Graph::~Graph() = default;
 }

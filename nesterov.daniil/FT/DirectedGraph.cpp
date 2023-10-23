@@ -12,6 +12,7 @@ namespace nesterov
       throw std::logic_error("");
     }
     list[v1].insert(v2);
+    indegree[v2]++;
   }
 
   void DirectedGraph::removeEdge(int v1, int v2)
@@ -21,71 +22,102 @@ namespace nesterov
       throw std::logic_error("");
     }
     list[v1].erase(v2);
+    indegree[v2]--;
   }
 
-  void DirectedGraph::dfs(int vertex, std::ostream &out)
+  void DirectedGraph::dfs(int startVertex, std::ostream &out)
   {
-    if (!hasVertex(vertex))
+    if (!hasVertex(startVertex))
     {
       throw std::logic_error("");
     }
     std::set< int > visited;
-    std::vector< int > stack;
+    std::vector< int > vertexes;
 
-    stack.push_back(vertex);
+    vertexes.push_back(startVertex);
 
-    while (!stack.empty())
+    while (!vertexes.empty())
     {
-      int s = stack.back();
-      stack.pop_back();
+      int vertex = vertexes.back();
+      vertexes.pop_back();
 
-      if (visited.find(s) == visited.end())
+      if (!isVisited(vertex, visited))
       {
-        out << s << " ";
-        visited.insert(s);
+        out << vertex << " ";
+        visited.insert(vertex);
       }
 
       std::copy_if(
-        list[s].begin(),
-        list[s].end(),
-        std::back_inserter(stack),
-        std::bind(isVisited, std::placeholders::_1, visited)
+        list[vertex].begin(),
+        list[vertex].end(),
+        std::back_inserter(vertexes),
+        std::bind(std::logical_not< bool >(), std::bind(isVisited, std::placeholders::_1, visited))
       );
     }
 
     out << '\n';
   }
 
-  void DirectedGraph::topologicalSortUtil(int vertex, std::set< int > &visited, std::vector< int > &stack)
+  void DirectedGraph::topologicalSortUtil(std::set< int > &visited, std::vector< int > &res)
   {
-    visited.insert(vertex);
+    bool vertexesLeft = false;
 
-    for (int v: list[vertex])
-      if (!isVisited(vertex, visited))
-        topologicalSortUtil(v, visited, stack);
+    for (const auto &pair: list)
+    {
+      int vertex = pair.first;
+      if (indegree[vertex] == 0 && !isVisited(vertex, visited))
+      {
+        std::for_each(
+          list[vertex].begin(),
+          list[vertex].end(),
+          std::bind(&DirectedGraph::decreaseIndegree, this, std::placeholders::_1)
+        );
 
-    stack.push_back(vertex);
+        res.push_back(vertex);
+        visited.insert(vertex);
+        topologicalSortUtil(visited, res);
+        visited.erase(vertex);
+        res.pop_back();
+        
+        std::for_each(
+          list[vertex].begin(),
+          list[vertex].end(),
+          std::bind(&DirectedGraph::increaseIndegree, this, std::placeholders::_1)
+        );
+
+        vertexesLeft = true;
+      }
+    }
+
+    if (!vertexesLeft)
+    {
+        std::copy(
+          res.begin(),
+          res.end(),
+          std::ostream_iterator< int >(std::cout, " ")
+        );
+        std::cout << '\n';
+    }
   }
 
   void DirectedGraph::topologicalSort()
   {
-    std::vector< int > stack;
+    std::vector< int > res;
     std::set< int > visited;
-
-    for (const auto &i: list)
-      if (!isVisited(i.first, visited))
-        topologicalSortUtil(i.first, visited, stack);
-
-    std::copy(
-      stack.rbegin(),
-      stack.rend(),
-      std::ostream_iterator<int>(std::cout, " ")
-    );
-
-    std::cout << '\n';
+    topologicalSortUtil(visited, res);
   }
 
   bool DirectedGraph::isVisited(int vertex, std::set< int > &visited) {
     return visited.find(vertex) != visited.end();
+  }
+
+  void DirectedGraph::increaseIndegree(int vertex)
+  {
+    indegree[vertex]++;
+  }
+
+  void DirectedGraph::decreaseIndegree(int vertex)
+  {
+    indegree[vertex]--;
   }
 }

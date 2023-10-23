@@ -14,8 +14,11 @@ namespace nesterov
     void dfs(int vertex, std::ostream &out);
     void topologicalSort();
   private:
-    void topologicalSortUtil(int vertex, std::set< int > &visited, std::vector< int > &stack);
+    std::map< int, int > indegree;
+    void topologicalSortUtil(std::set< int > &visited, std::vector< int > &stack);
     static bool isVisited(int vertex, std::set< int > &visited);
+    void increaseIndegree(int vertex);
+    void decreaseIndegree(int vertex);
   };
 }
 
