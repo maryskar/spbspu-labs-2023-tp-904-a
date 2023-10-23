@@ -14,6 +14,25 @@ namespace
       {"NUM_OF_VERTEXES", potapova::printSumOfAreasWithSpecificPointsCounts}
     };
   }
+  template< potapova::GetExtremeElemFunc GetExtremeElem >
+  potapova::NotChangingCommansMap getExtremeCharacteristicCommands()
+  {
+    return potapova::NotChangingCommansMap
+    {
+      {"AREA", potapova::printExtremeArea< GetExtremeElem >},
+      {"VERTEXES", potapova::printExtremePoints< GetExtremeElem >}
+    };
+  }
+
+  potapova::NotChangingCommansMap getCountCommands()
+  {
+    return potapova::NotChangingCommansMap
+    {
+      {"ODD", potapova::printPolygonsCountWithSpecificPointsNum< potapova::ODD >},
+      {"EVEN", potapova::printPolygonsCountWithSpecificPointsNum< potapova::EVEN >},
+      {"NUM_OF_VERTEXES", potapova::printPolygonsCountWithTargetPointsNum}
+    };
+  }
 }
 
 namespace potapova
@@ -24,15 +43,10 @@ namespace potapova
 
     return NotChangingCommansMap
     {
-      {"AREA", std::bind(processAreaCommands, getAreaCommands(), _1, _2, _3, _4)},
-      {"MAX AREA", printExtremeArea< std::max_element >},
-      {"MAX VERTEXES", printExtremePoints< std::min_element >},
-      {"MIN AREA", printExtremeArea< std::max_element >},
-      {"MIN VERTEXES", printExtremePoints< std::min_element >},
-      {"COUNT ODD", printPolygonsCountWithSpecificPointsNum< ODD >},
-      {"COUNT EVEN", printPolygonsCountWithSpecificPointsNum< EVEN >},
-      {"COUNT NUM_OF_VERTEXES", printPolygonsCountWithTargetPointsNum},
-      {"INFRAME", printIsPolygonInFrame}
+      {"AREA", std::bind(processCommands, getAreaCommands(), _1, _2, _3, _4)},
+      {"MAX", std::bind(processCommands, getExtremeCharacteristicCommands< std::max_element >(), _1, _2, _3, _4)},
+      {"MIN", std::bind(processCommands, getExtremeCharacteristicCommands< std::min_element >(), _1, _2, _3, _4)},
+      {"COUNT", std::bind(processCommands, getCountCommands(), _1, _2, _3, _4)},
     };
   }
 

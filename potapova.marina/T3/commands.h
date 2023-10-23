@@ -9,6 +9,12 @@
 
 namespace potapova
 {
+  void processCommands(const NotChangingCommansMap& commands,
+      const std::deque< Polygon >& polygons,
+      std::istream& in,
+      std::ostream& out,
+      std::ostream& err);
+
   template< size_t ParityFlag >
   void printSumOfSpecificAreas(const std::deque< Polygon >& polygons,
       std::istream&,
@@ -37,16 +43,7 @@ namespace potapova
       std::ostream& out,
       std::ostream& err);
 
-  void processAreaCommands(const NotChangingCommansMap& commands,
-      const std::deque< Polygon >& polygons,
-      std::istream& in,
-      std::ostream& out,
-      std::ostream& err);
-
-  using PoligonsConstIterator = std::deque< Polygon >::const_iterator;
-  using ComparePolygonsFunc = bool(*)(const Polygon&, const Polygon&);
-
-  template< PoligonsConstIterator(*GetExtremeElem)(PoligonsConstIterator, PoligonsConstIterator, ComparePolygonsFunc) >
+  template< GetExtremeElemFunc GetExtremeElem >
   void printExtremeArea(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
@@ -59,7 +56,7 @@ namespace potapova
     out << getArea(*GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsAreas)) << '\n';
   }
 
-  template< PoligonsConstIterator(*GetExtremeElem)(PoligonsConstIterator, PoligonsConstIterator, ComparePolygonsFunc) >
+  template< GetExtremeElemFunc GetExtremeElem >
   void printExtremePoints(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
