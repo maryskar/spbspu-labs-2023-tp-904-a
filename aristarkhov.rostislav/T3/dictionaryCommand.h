@@ -1,6 +1,7 @@
 #ifndef DICTIONARYCOMMAND_H
 #define DICTIONARYCOMMAND_H
 
+#include <string>
 #include <map>
 #include "command.h"
 
@@ -26,6 +27,12 @@ namespace aristarkhov
     std::map< std::string, SecondType > dict2;
     std::map< std::string, ThirdType  > dict3;
   };
+
+  std::string getCommand(std::istream& in);
+
+  void doCommand(std::vector< Polygon >& polygons, const Commands& dict, std::string& cmd, std::ostream& out,
+    std::istream& in);
+
 }
 
 #endif

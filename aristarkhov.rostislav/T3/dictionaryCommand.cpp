@@ -46,3 +46,64 @@ void aristarkhov::Commands::doCommandPolygon(std::vector< Polygon >& polygons, c
   ThirdType function = dict3.at(cmd);
   function(polygons, polygon, out);
 }
+
+bool isSpecialCommand(std::string name)
+{
+  return name == "INFRAME" || name == "RMECHO";
+}
+
+std::string aristarkhov::getCommand(std::istream& in)
+{
+  std::string command = "";
+  in >> command;
+  if (!in)
+  {
+    throw std::runtime_error("problems with input");
+  }
+
+  if (!isSpecialCommand(command))
+  {
+    std::string cmdSubName = "";
+    in >> cmdSubName;
+    if (!in)
+    {
+      std::invalid_argument("invalid command parameter");
+    }
+    command += " " + cmdSubName;
+  }
+
+  return command;
+}
+
+void aristarkhov::doCommand(std::vector< Polygon >& polygons, const Commands& dict, std::string& cmd,
+  std::ostream& out, std::istream& in)
+{
+  if (isSpecialCommand(cmd))
+  {
+    Polygon polygon;
+    in >> polygon >> DelimiterIO{'\n'};
+    if (!in)
+    {
+      throw std::invalid_argument("Error polygon");
+    }
+    try
+    {
+      dict.doCommandPolygon(polygons, cmd, polygon, out);
+      return;
+    }
+    catch (const std::out_of_range& error)
+    {
+    }
+  }
+  try
+  {
+    dict.doConstCommand(polygons, cmd, out);
+    return;
+  }
+  catch (const std::out_of_range& error)
+  {
+  }
+  size_t pos = cmd.find(' ');
+  size_t count = std::stoull(cmd.substr(pos));
+  dict.doCommandInput(polygons, cmd.substr(0, pos), count, out);
+}
