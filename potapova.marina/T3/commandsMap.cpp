@@ -4,9 +4,9 @@
 
 namespace potapova
 {
-  std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > > getNonChangingCommands()
+  NotChangingCommansMap getNonChangingCommands()
   {
-    return std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > >
+    return NotChangingCommansMap
     {
       {"AREA EVEN", printSumOfSpecificAreas< EVEN >},
       {"AREA ODD", printSumOfSpecificAreas< ODD >},
@@ -23,9 +23,9 @@ namespace potapova
     };
   }
 
-  std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > > getChangingCommands()
+  ChangingCommansMap getChangingCommands()
   {
-    return std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > >
+    return ChangingCommansMap
     {
       {"RMECHO", removePolygonDuplicates}
     };

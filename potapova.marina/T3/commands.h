@@ -37,6 +37,11 @@ namespace potapova
       std::ostream& out,
       std::ostream& err);
 
+  void processAreaCommands(const std::deque< Polygon >& polygons,
+      std::istream& in,
+      std::ostream& out,
+      std::ostream& err);
+
   using PoligonsConstIterator = std::deque< Polygon >::const_iterator;
   using ComparePolygonsFunc = bool(*)(const Polygon&, const Polygon&);
 

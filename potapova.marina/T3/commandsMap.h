@@ -11,9 +11,13 @@ namespace potapova
 {
   template < typename Polygons >
   using CommandFunc = std::function< void(Polygons&, std::istream&, std::ostream&, std::ostream&) >;
+  template < typename CommandFunc >
+  using CommandsMap = std::unordered_map< std::string, CommandFunc >;
+  using ChangingCommansMap = CommandsMap< CommandFunc< std::deque< Polygon > > >;
+  using NotChangingCommansMap = CommandsMap< CommandFunc< const std::deque< Polygon > > >;
 
-  std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > > getNonChangingCommands();
-  std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > > getChangingCommands();
+  NotChangingCommansMap getNonChangingCommands();
+  ChangingCommansMap getChangingCommands();
 }
 
 #endif
