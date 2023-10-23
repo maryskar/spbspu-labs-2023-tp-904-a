@@ -9,12 +9,6 @@
 
 namespace potapova
 {
-  void processCommands(const NotChangingCommansMap& commands,
-      const std::deque< Polygon >& polygons,
-      std::istream& in,
-      std::ostream& out,
-      std::ostream& err);
-
   template< size_t ParityFlag >
   void printSumOfSpecificAreas(const std::deque< Polygon >& polygons,
       std::istream&,
@@ -79,9 +73,8 @@ namespace potapova
   }
 
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
-      std::istream& in,
-      std::ostream& out,
-      std::ostream&) noexcept;
+      size_t target_count_poins,
+      std::ostream& out) noexcept;
 
   void removePolygonDuplicates(std::deque< Polygon >& polygons,
       std::istream& in,

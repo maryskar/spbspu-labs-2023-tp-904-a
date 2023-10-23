@@ -6,25 +6,6 @@ namespace potapova
 {
   using namespace std::placeholders;
 
-  void processCommands(const NotChangingCommansMap& commands,
-      const std::deque< Polygon >& polygons,
-      std::istream& in,
-      std::ostream& out,
-      std::ostream& err)
-  {
-    std::string command_mode;
-    in >> command_mode;
-    NotChangingCommansMap::const_iterator command_ptr = commands.find(command_mode);
-    if (command_ptr == commands.cend())
-    {
-      err << "<INVALID COMMAND>\n";
-    }
-    else
-    {
-      command_ptr->second(polygons, in, out, err);
-    }
-  }
-
   void printAverageArea(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out,
@@ -70,13 +51,10 @@ namespace potapova
   }
 
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
-      std::istream& in,
-      std::ostream& out,
-      std::ostream&) noexcept
+      size_t target_count_poins,
+      std::ostream& out) noexcept
   {
-    size_t num_points = 0;
-    in >> num_points;
-    out << std::count_if(polygons.begin(), polygons.end(), std::bind(checkDesiredNumPoints, num_points, _1)) << '\n';
+    out << std::count_if(polygons.begin(), polygons.end(), std::bind(checkDesiredNumPoints, target_count_poins, _1)) << '\n';
   }
 
   void removePolygonDuplicates(std::deque< Polygon >& polygons,
