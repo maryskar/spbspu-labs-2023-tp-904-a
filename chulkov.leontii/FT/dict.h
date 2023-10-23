@@ -27,6 +27,7 @@ namespace chulkov
     void printPair(std::ostream& stream, const pairSS& pair) const;
     void printMostPopular(std::ostream& stream) const;
 
+
     void insert(cnstStr& word);
     void insertPair(const pairSS pair);
     mapCosntIter search(cnstStr& word) const;
@@ -38,6 +39,8 @@ namespace chulkov
     mapCosntIter end() const;
     mapIter begin();
     mapIter end();
+
+
 
   private:
     std::string name_;

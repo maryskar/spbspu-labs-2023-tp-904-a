@@ -25,7 +25,7 @@ namespace chulkov {
     std::size_t sum = std::accumulate(Dict_.begin(), Dict_.end(), 0, sumCount);
     return sum;
   }
-  inline bool Dict::empty() const {
+  bool Dict::empty() const {
     return Dict_.empty();
   }
   void Dict::rename(cnstStr &name) {
@@ -49,17 +49,17 @@ namespace chulkov {
     stream << pair.first << ": " << pair.second * 100.0 / sum << '%';
   }
   void Dict::printMostPopular(std::ostream &stream) const {
-    pairSS top[3]{};
+    pairSS top[3];
     for (auto &i: Dict_) {
       if (i.second > top[0].second) {
         top[2] = std::move(top[1]);
         top[1] = std::move(top[0]);
-        top[0] = std::move(std::make_pair(i.first, i.second));
+        top[0] = std::make_pair(i.first, i.second);
       } else if (i.second > top[1].second) {
         top[2] = std::move(top[1]);
-        top[1] = std::move(std::make_pair(i.first, i.second));
+        top[1] = std::make_pair(i.first, i.second);
       } else if (i.second > top[2].second) {
-        top[2] = std::move(std::make_pair(i.first, i.second));
+        top[2] = std::make_pair(i.first, i.second);
       }
     }
     StreamGuard guard(stream);
@@ -96,7 +96,7 @@ namespace chulkov {
   }
 
   bool Dict::deleteWord(cnstStr &word) {
-    auto iter = Dict_.find(word);
+    auto iter = search(word);
     if (iter != Dict_.end()) {
       Dict_.erase(word);
       return true;
