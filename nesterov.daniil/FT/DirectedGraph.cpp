@@ -75,7 +75,7 @@ namespace nesterov
     for (const auto &i: list)
       if (!isVisited(i.first, visited))
         topologicalSortUtil(i.first, visited, stack);
-    
+
     std::copy(
       stack.rbegin(),
       stack.rend(),
