@@ -113,4 +113,65 @@ namespace aristarkhov
     out << std::fixed << std::setprecision(1)
       << std::accumulate(vertexes_polygons.begin(), vertexes_polygons.end(), 0.0, sumArea) << '\n';
   }
+
+  void maxArea(const std::vector< Polygon >& polygons, std::ostream& out)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("invalid arg");
+    }
+
+    std::vector< double > all_areas(polygons.size());
+    std::transform(polygons.begin(), polygons.end(), all_areas.begin(), getArea);
+    std::sort(all_areas.begin(), all_areas.end());
+
+    StreamGuard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << all_areas.back() << "\n";
+  }
+
+  void minArea(const std::vector< Polygon >& polygons, std::ostream& out)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("invalid arg");
+    }
+
+    std::vector< double > all_areas(polygons.size());
+    std::transform(polygons.begin(), polygons.end(), all_areas.begin(), getArea);
+    std::sort(all_areas.begin(), all_areas.end());
+
+    StreamGuard iofmtguard(out);
+    out << std::fixed << std::setprecision(1) << all_areas.front() << "\n";
+  }
+
+  void maxVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("invalid arg");
+    }
+
+    std::vector< size_t > vertexes(polygons.size());
+    std::transform(polygons.begin(), polygons.end(), std::back_inserter(vertexes), getVerticesCount);
+    std::sort(vertexes.begin(), vertexes.end());
+
+    StreamGuard iofmtguard(out);
+    out << vertexes.back() << "\n";
+  }
+
+  void minVertexes(const std::vector< Polygon >& polygons, std::ostream& out)
+  {
+    if (polygons.empty())
+    {
+      throw std::logic_error("invalid arg");
+    }
+
+    std::vector< size_t > vertexes(polygons.size());
+    std::transform(polygons.begin(), polygons.end(), vertexes.begin(), getVerticesCount);
+    std::sort(vertexes.begin(), vertexes.end());
+
+    StreamGuard iofmtguard(out);
+    out << vertexes.front() << "\n";
+  }
+
 }
