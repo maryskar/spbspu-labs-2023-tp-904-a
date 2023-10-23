@@ -33,6 +33,11 @@ namespace potapova
       std::istream& in,
       std::ostream& out)
   {
+    if (target_count_points < 3)
+    {
+      handleInvalidCommand(in, out);
+      return;
+    }
     double sum_areas = 0.0;
     try
     {
