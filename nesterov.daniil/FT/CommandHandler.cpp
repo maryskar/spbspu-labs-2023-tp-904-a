@@ -207,7 +207,8 @@ namespace nesterov
   void executeHelpCommand(std::ostream &out)
   {
     out << "Топологическая сортировка. Обход в глубину.\n";
-    out << "CREATE <DIRECTED/UNDIRECTED> <graph_name> - создать пустой ориентированный/неориентированный граф.\n";
+    out << "CREATE <DIRECTED/UNDIRECTED> <graph_name> - создать пустой"
+      "ориентированный/неориентированный граф.\n";
     out << "DELETE <graph_name> - удалить граф.\n";
     out << "ADD_VERTEX <graph_name> <vertex> - добавить узел в граф.\n";
     out << "REMOVE_VERTEX <graph_name> <vertex> - удалить узел из графа.\n";

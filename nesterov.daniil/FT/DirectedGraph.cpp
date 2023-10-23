@@ -78,7 +78,7 @@ namespace nesterov
         topologicalSortUtil(visited, res);
         visited.erase(vertex);
         res.pop_back();
-        
+
         std::for_each(
           list[vertex].begin(),
           list[vertex].end(),
