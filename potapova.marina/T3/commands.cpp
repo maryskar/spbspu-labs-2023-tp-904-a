@@ -8,8 +8,7 @@ namespace potapova
 
   void printAverageArea(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&)
+      std::ostream& out)
   {
     if (polygons.empty())
     {
@@ -30,8 +29,7 @@ namespace potapova
 
   void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&)
+      std::ostream& out)
   {
     size_t num_points = 0;
     in >> num_points;
@@ -59,8 +57,7 @@ namespace potapova
 
   void removePolygonDuplicates(std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&)
+      std::ostream& out)
   {
     Polygon target_polygon;
     in >> target_polygon;

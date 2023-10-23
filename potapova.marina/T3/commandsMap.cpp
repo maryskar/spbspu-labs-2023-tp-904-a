@@ -2,7 +2,6 @@
 #include <algorithm>
 #include "commands.h"
 #include "workWithIO.h"
-
 namespace
 {
   potapova::NotChangingCommansMap getAreaCommands()
@@ -36,8 +35,7 @@ namespace
       const std::string& command_mode,
       const std::deque< potapova::Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream& err)
+      std::ostream& out)
   {
       potapova::NotChangingCommansMap::const_iterator command_ptr = commands.find(command_mode);
       if (command_ptr == commands.cend())
@@ -46,24 +44,24 @@ namespace
       }
       else
       {
-        command_ptr->second(polygons, in, out, err);
+        command_ptr->second(polygons, in, out);
       }
   }
+
   void processCommands(const potapova::NotChangingCommansMap& commands,
       const std::deque< potapova::Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream& err)
+      std::ostream& out)
   {
     std::string command_mode;
     in >> command_mode;
-    runCommandFromMap(commands, command_mode, polygons, in, out, err);
+    runCommandFromMap(commands, command_mode, polygons, in, out);
   }
+
   void processCountCommands(const potapova::NotChangingCommansMap& commands,
       const std::deque< potapova::Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream& err)
+      std::ostream& out)
   {
     std::string command_mode;
     in >> command_mode;
@@ -82,20 +80,22 @@ namespace
       potapova::printPolygonsCountWithTargetPointsNum(polygons, target_count_points, out);
       return;
     }
-    runCommandFromMap(commands, command_mode, polygons, in, out, err);
+    runCommandFromMap(commands, command_mode, polygons, in, out);
   }
 }
+
 namespace potapova
 {
   NotChangingCommansMap getNonChangingCommands()
   {
     using namespace std::placeholders;
+
     return NotChangingCommansMap
     {
-      {"AREA", std::bind(processCommands, getAreaCommands(), _1, _2, _3, _4)},
-      {"MAX", std::bind(processCommands, getExtremeCharacteristicCommands< std::max_element >(), _1, _2, _3, _4)},
-      {"MIN", std::bind(processCommands, getExtremeCharacteristicCommands< std::min_element >(), _1, _2, _3, _4)},
-      {"COUNT", std::bind(processCountCommands, getCountCommands(), _1, _2, _3, _4)},
+      {"AREA", std::bind(processCommands, getAreaCommands(), _1, _2, _3)},
+      {"MAX", std::bind(processCommands, getExtremeCharacteristicCommands< std::max_element >(), _1, _2, _3)},
+      {"MIN", std::bind(processCommands, getExtremeCharacteristicCommands< std::min_element >(), _1, _2, _3)},
+      {"COUNT", std::bind(processCountCommands, getCountCommands(), _1, _2, _3)},
       {"INFRAME", printIsPolygonInFrame}
     };
   }

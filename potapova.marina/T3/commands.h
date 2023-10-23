@@ -12,8 +12,7 @@ namespace potapova
   template< size_t ParityFlag >
   void printSumOfSpecificAreas(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&)
+      std::ostream& out)
   {
     double sum;
     try
@@ -29,19 +28,16 @@ namespace potapova
 
   void printAverageArea(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&);
+      std::ostream& out);
 
   void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&);
+      std::ostream& out);
 
   template< GetExtremeElemFunc GetExtremeElem >
   void printExtremeArea(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&)
+      std::ostream& out)
   {
     if (polygons.empty())
     {
@@ -53,8 +49,7 @@ namespace potapova
   template< GetExtremeElemFunc GetExtremeElem >
   void printExtremePoints(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&) noexcept
+      std::ostream& out) noexcept
   {
     if (polygons.empty())
     {
@@ -66,8 +61,7 @@ namespace potapova
   template< size_t ParityFlag >
   void printPolygonsCountWithSpecificPointsNum(const std::deque< Polygon >& polygons,
       std::istream&,
-      std::ostream& out,
-      std::ostream&) noexcept
+      std::ostream& out) noexcept
   {
     out << std::count_if(polygons.begin(), polygons.end(), isSpecificPointsNum< ParityFlag >) << '\n';
   }
@@ -78,13 +72,11 @@ namespace potapova
 
   void removePolygonDuplicates(std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&);
+      std::ostream& out);
 
   void printIsPolygonInFrame(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&) noexcept;
+      std::ostream& out) noexcept;
 }
 
 #endif

@@ -2,15 +2,14 @@
 #define COMMANDSMAPSALIASES_H
 
 #include <unordered_map>
-#include <functional>
 #include <iostream>
+#include <functional>
 #include <deque>
 #include "dataStructs.h"
-
 namespace potapova
 {
   template < typename Polygons >
-  using CommandFunc = std::function< void(Polygons&, std::istream&, std::ostream&, std::ostream&) >;
+  using CommandFunc = std::function< void(Polygons&, std::istream&, std::ostream&) >;
   template < typename CommandFunc >
   using CommandsMap = std::unordered_map< std::string, CommandFunc >;
   using ChangingCommansMap = CommandsMap< CommandFunc< std::deque< Polygon > > >;
