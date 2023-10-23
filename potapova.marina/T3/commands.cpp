@@ -22,6 +22,7 @@ namespace potapova
     catch (const std::logic_error&)
     {
       potapova::handleInvalidCommand(in, out);
+      return;
     }
     double average_area = sum_of_areas / static_cast< double >(polygons.size());
     out << average_area << '\n';
@@ -43,6 +44,7 @@ namespace potapova
     catch (const std::logic_error&)
     {
       potapova::handleInvalidCommand(in, out);
+      return;
     }
     out << sum_areas << '\n';
   }

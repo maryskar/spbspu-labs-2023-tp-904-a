@@ -22,6 +22,7 @@ namespace potapova
     catch (const std::logic_error&)
     {
       potapova::handleInvalidCommand(in, out);
+      return;
     }
     out << sum << '\n';
   }
