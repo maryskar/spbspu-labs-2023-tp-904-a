@@ -19,8 +19,6 @@ namespace potapova
   double addAreaToSumIfNumPoints(double sum, const Polygon& polygon, size_t num_points);
   bool comparePolygonsAreas(const Polygon& first, const Polygon& second);
   bool comparePolygonsPoints(const Polygon& first, const Polygon& second);
-  bool isEvenPointNum(const Polygon& polygon) noexcept;
-  bool isOddPointNum(const Polygon& polygon) noexcept;
   bool isEqual(const Polygon& first, const Polygon& second, const Polygon& target_polygon) noexcept;
 
   template< size_t ParityFlag >

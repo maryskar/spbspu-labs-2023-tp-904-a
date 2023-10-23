@@ -61,7 +61,7 @@ namespace
     runCommandFromMap(commands, command_mode, polygons, in, out);
   }
 
-  template< void(*FuncWithNumArg)(const std::deque< potapova::Polygon >&, size_t, std::istream&, std::ostream&)>
+  template< void(*FuncWithNumArg)(const std::deque< potapova::Polygon >&, size_t, std::istream&, std::ostream&) >
   void processCommandsWithPosibleNumArg(const potapova::NotChangingCommansMap& commands,
       const std::deque< potapova::Polygon >& polygons,
       std::istream& in,
