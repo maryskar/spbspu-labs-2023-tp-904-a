@@ -43,6 +43,7 @@ namespace potapova
     if (polygons.empty())
     {
       potapova::handleInvalidCommand(in, out);
+      return;
     }
     out << getArea(*GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsAreas)) << '\n';
   }
@@ -55,6 +56,7 @@ namespace potapova
     if (polygons.empty())
     {
       potapova::handleInvalidCommand(in, out);
+      return;
     }
     out << GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsPoints)->points.size() << '\n';
   }
