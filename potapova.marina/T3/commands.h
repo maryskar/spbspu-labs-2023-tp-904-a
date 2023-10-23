@@ -2,6 +2,7 @@
 #define COMMANDS_H
 
 #include <algorithm>
+#include <iomanip>
 #include "dataStructs.h"
 #include "commandsImpl.h"
 #include "workWithIO.h"
