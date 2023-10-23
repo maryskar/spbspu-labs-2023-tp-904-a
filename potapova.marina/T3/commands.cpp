@@ -1,9 +1,5 @@
 #include "commands.h"
-#include <iostream>
-#include <cmath>
-#include <numeric>
 #include <functional>
-#include <stdexcept>
 #include "rectangle.h"
 
 namespace potapova
@@ -52,6 +48,25 @@ namespace potapova
       err << "<INVALID COMMAND>\n";
     }
     out << sum_areas << '\n';
+  }
+
+  void processAreaCommands(const NotChangingCommansMap& commands,
+      const std::deque< Polygon >& polygons,
+      std::istream& in,
+      std::ostream& out,
+      std::ostream& err)
+  {
+    std::string command_mode;
+    in >> command_mode;
+    NotChangingCommansMap::const_iterator command_ptr = commands.find(command_mode);
+    if (command_ptr == commands.cend())
+    {
+      err << "<INVALID COMMAND>\n";
+    }
+    else
+    {
+      command_ptr->second(polygons, in, out, err);
+    }
   }
 
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,

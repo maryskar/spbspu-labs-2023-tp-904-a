@@ -2,10 +2,10 @@
 #define COMMANDS_H
 
 #include <algorithm>
-#include <deque>
 #include "dataStructs.h"
 #include "commandsImpl.h"
 #include "workWithIO.h"
+#include "commandsMapsAliases.h"
 
 namespace potapova
 {
@@ -37,7 +37,8 @@ namespace potapova
       std::ostream& out,
       std::ostream& err);
 
-  void processAreaCommands(const std::deque< Polygon >& polygons,
+  void processAreaCommands(const NotChangingCommansMap& commands,
+      const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
       std::ostream& err);
