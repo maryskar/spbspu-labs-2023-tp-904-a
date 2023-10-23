@@ -14,10 +14,10 @@ namespace potapova
       std::istream& in,
       std::ostream& out)
   {
-    double sum;
+    double sum = 0.0;
     try
     {
-      sum = getSumOfSpecificAreas< EVEN >(polygons);
+      sum = getSumOfSpecificAreas< ParityFlag >(polygons);
     }
     catch (const std::logic_error&)
     {
