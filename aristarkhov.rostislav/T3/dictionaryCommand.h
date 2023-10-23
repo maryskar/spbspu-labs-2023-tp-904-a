@@ -9,6 +9,14 @@ namespace aristarkhov
   class Commands
   {
   public:
+    Commands();
+    void doConstCommand(const std::vector< Polygon >& polygons, const std::string& cmd, std::ostream& out) const;
+
+    void doCommandInput(const std::vector< Polygon >& polygons, const std::string& cmd, size_t count,
+      std::ostream& out) const;
+
+    void doCommandPolygon(std::vector< Polygon >& polygons, const std::string& cmd, const Polygon& polygon,
+      std::ostream& out) const;
 
   private:
     using FirstType = void (*)(const std::vector< Polygon >& polygons, std::ostream& out);
@@ -18,6 +26,6 @@ namespace aristarkhov
     std::map< std::string, SecondType > dict2;
     std::map< std::string, ThirdType  > dict3;
   };
-
 }
+
 #endif
