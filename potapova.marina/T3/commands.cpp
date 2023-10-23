@@ -48,16 +48,16 @@ namespace potapova
   }
 
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
-      size_t target_count_poins,
+      size_t target_count_points,
       std::istream& in,
       std::ostream& out) noexcept
   {
-    if (target_count_poins < 3)
+    if (target_count_points < 3)
     {
       handleInvalidCommand(in, out);
       return;
     }
-    out << std::count_if(polygons.begin(), polygons.end(), std::bind(checkDesiredNumPoints, target_count_poins, _1)) << '\n';
+    out << std::count_if(polygons.begin(), polygons.end(), std::bind(checkDesiredNumPoints, target_count_points, _1)) << '\n';
   }
 
   void removePolygonDuplicates(std::deque< Polygon >& polygons,

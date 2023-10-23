@@ -70,7 +70,7 @@ namespace potapova
   }
 
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
-      size_t target_count_poins,
+      size_t target_count_points,
       std::istream& in,
       std::ostream& out) noexcept;
 
