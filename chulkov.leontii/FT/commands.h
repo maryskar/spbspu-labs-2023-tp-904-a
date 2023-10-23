@@ -24,5 +24,5 @@ namespace chulkov {
   void unionData(std::istream &input, std::ostream &output, std::vector< Dict > &dicts);
   std::ostream &operator<<(std::ostream &os, const Dict &dict);
   std::istream &operator>>(std::istream &is, Dict &dict);
-}// namespace chulkov
+}
 #endif
