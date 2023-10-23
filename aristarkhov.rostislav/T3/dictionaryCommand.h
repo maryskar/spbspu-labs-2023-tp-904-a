@@ -2,7 +2,7 @@
 #define DICTIONARYCOMMAND_H
 
 #include <map>
-#include "polygon.h"
+#include "command.h"
 
 namespace aristarkhov
 {

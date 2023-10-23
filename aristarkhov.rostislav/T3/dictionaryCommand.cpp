@@ -10,10 +10,12 @@ aristarkhov::Commands::Commands()
   dict1.insert({ "AREA EVEN", areaEven });
   dict1.insert({ "AREA ODD", areaOdd });
   dict1.insert({ "AREA MEAN", areaMean });
+
   dict1.insert({ "MAX AREA", maxArea });
   dict1.insert({ "MAX VERTEXES", maxVertexes });
   dict1.insert({ "MIN AREA", minArea });
   dict1.insert({ "MIN VERTEXES", minVertexes });
+
   dict1.insert({ "COUNT EVEN", countEven });
   dict1.insert({ "COUNT ODD", countOdd });
 
@@ -27,20 +29,20 @@ aristarkhov::Commands::Commands()
 void aristarkhov::Commands::doConstCommand(const std::vector< Polygon >& polygons, const std::string& cmd,
   std::ostream& out) const
 {
-  com1 function = dict1.at(cmd);
+  FirstType function = dict1.at(cmd);
   function(polygons, out);
 }
 
 void aristarkhov::Commands::doCommandInput(const std::vector< Polygon >& polygons, const std::string& cmd, size_t count,
   std::ostream& out) const
 {
-  com2 function = dict2.at(cmd);
+  SecondType function = dict2.at(cmd);
   function(polygons, count, out);
 }
 
 void aristarkhov::Commands::doCommandPolygon(std::vector< Polygon >& polygons, const std::string& cmd,
   const Polygon& polygon, std::ostream& out) const
 {
-  com3 function = dict3.at(cmd);
+  ThirdType function = dict3.at(cmd);
   function(polygons, polygon, out);
 }
