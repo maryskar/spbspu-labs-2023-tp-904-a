@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <functional>
+#include <iostream>
 #include <deque>
 #include "dataStructs.h"
 
