@@ -24,7 +24,7 @@ namespace potapova
       potapova::handleInvalidCommand(in, out);
       return;
     }
-    double average_area = sum_of_areas / static_cast<double>(polygons.size());
+    double average_area = sum_of_areas / static_cast< double >(polygons.size());
     out << std::fixed << std::setprecision(1) << average_area << '\n';
   }
 
@@ -77,7 +77,7 @@ namespace potapova
       polygons.end(),
       std::bind(isEqual, _1, _2, target_polygon));
     ptrdiff_t count_removed = std::distance(new_end_iter, polygons.end());
-    polygons.resize(polygons.size() - static_cast<size_t>(count_removed));
+    polygons.resize(polygons.size() - static_cast< size_t >(count_removed));
     out << count_removed << '\n';
   }
 

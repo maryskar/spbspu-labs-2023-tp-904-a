@@ -12,9 +12,7 @@ namespace potapova
   std::ostream& operator<<(std::ostream& out, const Point& source);
   std::istream& operator>>(std::istream& in, Polygon& dest);
   std::ostream& operator<<(std::ostream& out, const Polygon& source);
-
   void handleInvalidCommand(std::istream& in, std::ostream& out);
-
 }
 
 #endif

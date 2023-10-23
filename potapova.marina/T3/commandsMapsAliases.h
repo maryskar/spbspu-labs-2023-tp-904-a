@@ -2,10 +2,11 @@
 #define COMMANDSMAPSALIASES_H
 
 #include <unordered_map>
-#include <iostream>
 #include <functional>
+#include <iostream>
 #include <deque>
 #include "dataStructs.h"
+
 namespace potapova
 {
   template < typename Polygons >
