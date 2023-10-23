@@ -1,0 +1,22 @@
+#ifndef FT_DIRECTEDGRAPH_H
+#define FT_DIRECTEDGRAPH_H
+
+#include <stack>
+#include "Graph.h"
+
+namespace nesterov
+{
+  class DirectedGraph : public Graph
+  {
+  public:
+    void addEdge(int v1, int v2) override;
+    void removeEdge(int v1, int v2) override;
+    void dfs(int vertex, std::ostream &out);
+    void topologicalSort();
+  private:
+    void topologicalSortUtil(int vertex, std::set< int > &visited, std::vector< int > &stack);
+    static bool isVisited(int vertex, std::set< int > &visited);
+  };
+}
+
+#endif
