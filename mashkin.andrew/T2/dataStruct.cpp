@@ -1,11 +1,12 @@
 #include "dataStruct.h"
-#include <bitset>
 #include <cmath>
 #include <cstddef>
 #include <iomanip>
 #include <ios>
 #include <iostream>
 #include <string>
+#include <inputStructs.h>
+#include <outputStructs.h>
 
 namespace mashkin
 {
@@ -47,79 +48,6 @@ namespace mashkin
     }
     res = "0b0" + res;
     return res;
-  }
-
-  std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    char c = '0';
-    in >> c;
-    if (in && (c != dest.exp))
-    {
-      in.setstate(std::ios::failbit);
-    }
-    return in;
-  }
-
-  std::istream& operator>>(std::istream& in, DoubleIO&& dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    std::string dblStr;
-    std::getline(in, dblStr, ':');
-    if (dblStr.find("e") == std::string::npos)
-    {
-      in.setstate(std::ios::failbit);
-      return in;
-    }
-    dest.ref = stod(dblStr);
-    return in;
-  }
-
-  std::istream& operator>>(std::istream& in, StringIO&& dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    std::getline(in >> DelimiterIO{'"'}, dest.ref, '"');
-    return in >> DelimiterIO{':'};
-  }
-
-  std::istream& operator>>(std::istream& in, UllIO&& dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    std::string var;
-    std::getline(in, var, ':');
-    if (var.substr(0, 2) != "0b")
-    {
-      in.setstate(std::ios::failbit);
-      return in;
-    }
-    dest.ref = std::bitset< 64 >(var.substr(2)).to_ullong();
-    return in;
-  }
-
-  std::istream& operator>>(std::istream& in, LabelIO&& dest)
-  {
-    std::istream::sentry sentry(in);
-    if (!sentry)
-    {
-      return in;
-    }
-    return in >> dest.exp;
   }
 
   std::istream& operator>>(std::istream& in, DataStruct& dest)
@@ -178,21 +106,6 @@ namespace mashkin
     out << ":key2 " << getUllBinStr(src.key2);
     out << ":key3 \"" << src.key3 << "\":)";
     return out;
-  }
-
-  iofmtguard::iofmtguard(std::basic_ios< char >& s):
-    s_(s),
-    fill_(s.fill()),
-    precision_(s.precision()),
-    fmt_(s.flags())
-  {
-  }
-
-  iofmtguard::~iofmtguard()
-  {
-    s_.fill(fill_);
-    s_.precision(precision_);
-    s_.flags(fmt_);
   }
 
   bool Comparator::operator()(const DataStruct& first, const DataStruct& second)
