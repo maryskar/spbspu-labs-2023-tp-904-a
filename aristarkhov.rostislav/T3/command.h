@@ -25,6 +25,9 @@ namespace aristarkhov
 
   void countVertexes(const std::vector< Polygon >& polygons, size_t count, std::ostream& ostream);
   void rmEcho(std::vector< Polygon >& polygons, const Polygon& polygon, std::ostream& ostream);
+
+  using Frame = std::pair< Point, Point >;
+  void printInFrame(std::vector< Polygon >& polygons, const Polygon& figure, std::ostream& out);
 }
 
 #endif

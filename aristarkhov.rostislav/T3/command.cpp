@@ -207,4 +207,81 @@ namespace aristarkhov
     StreamGuard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << result << "\n";
   }
+
+  bool lessX(aristarkhov::Point lhs, aristarkhov::Point rhs)
+  {
+    return lhs.x < rhs.x;
+  }
+
+  bool lessY(aristarkhov::Point lhs, aristarkhov::Point rhs)
+  {
+    return lhs.y < rhs.y;
+  }
+
+  aristarkhov::Frame getFrame(const Polygon& polygon)
+  {
+    auto begin = polygon.points.begin();
+    auto end = polygon.points.end();
+
+    int minX = std::min_element(begin, end, lessX)->x;
+    int maxX = std::max_element(begin, end, lessX)->x;
+    int minY = std::min_element(begin, end, lessY)->y;
+    int maxY = std::max_element(begin, end, lessY)->y;
+
+    return { {minX, minY}, {maxX, maxY} };
+  }
+
+  aristarkhov::Frame correctFrame(aristarkhov::Frame result, aristarkhov::Frame value)
+  {
+    int minX = lessX(result.first, value.first) ? result.first.x : value.first.x;
+    int maxX = lessX(result.second, value.second) ? value.second.x : result.second.x;
+    int minY = lessY(result.first, value.first) ? result.first.y : value.first.y;
+    int maxY = lessY(result.second, value.second) ? value.second.y : result.second.y;
+
+    return { {minX, minY}, {maxX, maxY} };
+  }
+
+  aristarkhov::Frame getPolygonsFrame(std::vector< Polygon > data)
+  {
+    auto begin = data.begin();
+    auto end = data.end();
+
+    std::vector< aristarkhov::Frame > frames;
+    std::transform(begin, end, std::back_inserter(frames), aristarkhov::getFrame);
+
+    aristarkhov::Frame frame = *frames.begin();
+    return std::accumulate(frames.begin() + 1, frames.end(), frame, correctFrame);
+  }
+
+  bool isFrameInFrame(const Frame& lhs, const Frame& rhs)
+  {
+    bool case1 = !lessX(lhs.first, rhs.first);
+    bool case2 = !lessY(lhs.first, rhs.first);
+    bool case3 = !lessX(rhs.second, lhs.second);
+    bool case4 = !lessY(rhs.second, lhs.second);
+
+    return case1 && case2 && case3 && case4;
+  }
+
+  void printBool(std::ostream& out, bool value)
+  {
+    if (value)
+    {
+      out << "<TRUE>";
+    }
+    else
+    {
+      out << "<FALSE>";
+    }
+  }
+
+  void aristarkhov::printInFrame(std::vector< Polygon >& polygons, const Polygon& figure, std::ostream& out)
+  {
+    if (polygons.empty())
+    {
+      throw std::invalid_argument("empty polygons");
+    }
+
+    printBool(out, isFrameInFrame(getFrame(figure), getPolygonsFrame(polygons)));
+  }
 }
