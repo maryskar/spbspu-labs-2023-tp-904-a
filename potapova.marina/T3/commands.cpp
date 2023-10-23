@@ -28,18 +28,17 @@ namespace potapova
   }
 
   void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
+      size_t target_count_points,
       std::istream& in,
       std::ostream& out)
   {
-    size_t num_points = 0;
-    in >> num_points;
     double sum_areas;
     try
     {
       sum_areas = std::accumulate(polygons.begin(),
         polygons.end(),
         0.0,
-        std::bind(addAreaToSumIfNumPoints, _1, _2, num_points));
+        std::bind(addAreaToSumIfNumPoints, _1, _2, target_count_points));
     }
     catch (const std::logic_error&)
     {
@@ -50,6 +49,7 @@ namespace potapova
 
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
       size_t target_count_poins,
+      std::istream&,
       std::ostream& out) noexcept
   {
     out << std::count_if(polygons.begin(), polygons.end(), std::bind(checkDesiredNumPoints, target_count_poins, _1)) << '\n';
