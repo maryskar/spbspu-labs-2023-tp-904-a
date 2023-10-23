@@ -7,13 +7,13 @@ namespace potapova
   using namespace std::placeholders;
 
   void printAverageArea(const std::deque< Polygon >& polygons,
-      std::istream&,
+      std::istream& in,
       std::ostream& out,
-      std::ostream& err)
+      std::ostream&)
   {
     if (polygons.empty())
     {
-      err << "<INVALID COMMAND>\n";
+      potapova::handleInvalidCommand(in, out);
     }
     double sum_of_areas = 0.0;
     try
@@ -22,7 +22,7 @@ namespace potapova
     }
     catch (const std::logic_error&)
     {
-      err << "<INVALID COMMAND>\n";
+      potapova::handleInvalidCommand(in, out);
     }
     double average_area = sum_of_areas / static_cast< double >(polygons.size());
     out << average_area << '\n';
@@ -31,7 +31,7 @@ namespace potapova
   void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
-      std::ostream& err)
+      std::ostream&)
   {
     size_t num_points = 0;
     in >> num_points;
@@ -45,7 +45,7 @@ namespace potapova
     }
     catch (const std::logic_error&)
     {
-      err << "<INVALID COMMAND>\n";
+      potapova::handleInvalidCommand(in, out);
     }
     out << sum_areas << '\n';
   }

@@ -11,9 +11,9 @@ namespace potapova
 {
   template< size_t ParityFlag >
   void printSumOfSpecificAreas(const std::deque< Polygon >& polygons,
-      std::istream&,
+      std::istream& in,
       std::ostream& out,
-      std::ostream& err)
+      std::ostream&)
   {
     double sum;
     try
@@ -22,43 +22,43 @@ namespace potapova
     }
     catch (const std::logic_error&)
     {
-      err << "<INVALID COMMAND>\n";
+      potapova::handleInvalidCommand(in, out);
     }
     out << sum << '\n';
   }
 
   void printAverageArea(const std::deque< Polygon >& polygons,
-      std::istream&,
+      std::istream& in,
       std::ostream& out,
-      std::ostream& err);
+      std::ostream&);
 
   void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
       std::istream& in,
       std::ostream& out,
-      std::ostream& err);
+      std::ostream&);
 
   template< GetExtremeElemFunc GetExtremeElem >
   void printExtremeArea(const std::deque< Polygon >& polygons,
-      std::istream&,
+      std::istream& in,
       std::ostream& out,
-      std::ostream& err)
+      std::ostream&)
   {
     if (polygons.empty())
     {
-      err << "<INVALID COMMAND>\n";
+      potapova::handleInvalidCommand(in, out);
     }
     out << getArea(*GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsAreas)) << '\n';
   }
 
   template< GetExtremeElemFunc GetExtremeElem >
   void printExtremePoints(const std::deque< Polygon >& polygons,
-      std::istream&,
+      std::istream& in,
       std::ostream& out,
-      std::ostream& err) noexcept
+      std::ostream&) noexcept
   {
     if (polygons.empty())
     {
-      err << "<INVALID COMMAND>\n";
+      potapova::handleInvalidCommand(in, out);
     }
     out << GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsPoints)->points.size() << '\n';
   }

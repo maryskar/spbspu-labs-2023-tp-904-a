@@ -1,11 +1,14 @@
 #include <iostream>
 #include <fstream>
 #include <deque>
+#include "workWithIO.h"
 #include "readPolygons.h"
 #include "commandsMap.h"
 
 int main(int argc, char* argv[])
 {
+  freopen("resources/in.txt", "r", stdin);
+  freopen("resources/out.txt", "w", stdout);
   using namespace potapova;
   if (argc != 2)
   {
@@ -31,37 +34,37 @@ int main(int argc, char* argv[])
       return 1;
     }
     std::string command_name;
-    std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > > non_changing_commands = getNonChangingCommands();
-    std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > > changing_commands = getChangingCommands();
+    NotChangingCommansMap non_changing_commands = getNonChangingCommands();
+    ChangingCommansMap changing_commands = getChangingCommands();
     while (std::cin >> command_name)
     {
       try
       {
-        std::unordered_map< std::string, CommandFunc< std::deque< Polygon > > >::const_iterator changing_command_ptr;
+        ChangingCommansMap::const_iterator changing_command_ptr;
         if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
         {
           changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
           continue;
         }
-        std::unordered_map< std::string, CommandFunc< const std::deque< Polygon > > >::const_iterator non_changing_command_ptr;
+        NotChangingCommansMap::const_iterator non_changing_command_ptr;
         if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
         {
           non_changing_command_ptr->second(polygons, std::cin, std::cout, std::cerr);
         }
         else
         {
-          std::cout << "<INVALID COMMAND>\n";
+          handleInvalidCommand(std::cin, std::cout);
         }
       }
       catch (const std::ios_base::failure&)
       {
-        std::cout << "<INVALID COMMAND>\n";
+        handleInvalidCommand(std::cin, std::cout);
       }
     }
   }
   catch (const std::bad_alloc&)
   {
-    std::cerr << "Memory allocation failed";
+    std::cerr << "Memory allocation failed\n";
     return 1;
   }
   return 0;
