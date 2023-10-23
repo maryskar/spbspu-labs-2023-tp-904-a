@@ -1,6 +1,6 @@
 #ifndef POLYGON_H
 #define POLYGON_H
-#include <iostream>
+#include <istream>
 #include <vector>
 
 namespace aristarkhov
