@@ -24,8 +24,8 @@ namespace potapova
       potapova::handleInvalidCommand(in, out);
       return;
     }
-    double average_area = sum_of_areas / static_cast< double >(polygons.size());
-    out << average_area << '\n';
+    double average_area = sum_of_areas / static_cast<double>(polygons.size());
+    out << std::fixed << std::setprecision(1) << average_area << '\n';
   }
 
   void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
@@ -51,7 +51,7 @@ namespace potapova
       potapova::handleInvalidCommand(in, out);
       return;
     }
-    out << sum_areas << '\n';
+    out << std::fixed << std::setprecision(1) << sum_areas << '\n';
   }
 
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
@@ -73,18 +73,17 @@ namespace potapova
   {
     Polygon target_polygon;
     in >> target_polygon;
-    auto new_end_iter = std::unique(polygons.begin(),
+    std::deque< Polygon >::iterator new_end_iter = std::unique(polygons.begin(),
       polygons.end(),
       std::bind(isEqual, _1, _2, target_polygon));
     ptrdiff_t count_removed = std::distance(new_end_iter, polygons.end());
-    polygons.resize(polygons.size() - static_cast< size_t >(count_removed));
+    polygons.resize(polygons.size() - static_cast<size_t>(count_removed));
     out << count_removed << '\n';
   }
 
   void printIsPolygonInFrame(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out,
-      std::ostream&) noexcept
+      std::ostream& out) noexcept
   {
     Rectangle frame;
     frame.expandBoundsToPolygons(polygons);

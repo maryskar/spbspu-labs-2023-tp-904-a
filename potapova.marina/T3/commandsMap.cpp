@@ -103,7 +103,7 @@ namespace potapova
                  _3)},
       {"MAX", std::bind(processCommands, getExtremeCharacteristicCommands< std::max_element >(), _1, _2, _3)},
       {"MIN", std::bind(processCommands, getExtremeCharacteristicCommands< std::min_element >(), _1, _2, _3)},
-      {"COUNT", std::bind(processCommandsWithPosibleNumArg<printPolygonsCountWithTargetPointsNum>,
+      {"COUNT", std::bind(processCommandsWithPosibleNumArg< printPolygonsCountWithTargetPointsNum >,
                   getCountCommands(),
                   _1,
                   _2,
