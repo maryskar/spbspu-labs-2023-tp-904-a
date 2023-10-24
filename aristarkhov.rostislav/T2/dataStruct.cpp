@@ -1,8 +1,8 @@
 #include "dataStruct.h"
 #include <iomanip>
 #include <iostream>
-#include "streamGuard.h"
-#include "iostruct.h"
+#include <streamGuard.h>
+#include <iostruct.h>
 
 std::istream& aristarkhov::operator>>(std::istream& in, DataStruct& data)
 {
