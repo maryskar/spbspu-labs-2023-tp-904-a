@@ -28,25 +28,18 @@ int main(int argc, char* argv[])
     ChangingCommansMap changing_commands = getChangingCommands();
     while (std::cin >> command_name)
     {
-      try
+      ChangingCommansMap::const_iterator changing_command_ptr;
+      if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
       {
-        ChangingCommansMap::const_iterator changing_command_ptr;
-        if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
-        {
-          changing_command_ptr->second(polygons, std::cin, std::cout);
-          continue;
-        }
-        NotChangingCommansMap::const_iterator non_changing_command_ptr;
-        if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
-        {
-          non_changing_command_ptr->second(polygons, std::cin, std::cout);
-        }
-        else
-        {
-          handleInvalidCommand(std::cin, std::cout);
-        }
+        changing_command_ptr->second(polygons, std::cin, std::cout);
+        continue;
       }
-      catch (const std::ios_base::failure&)
+      NotChangingCommansMap::const_iterator non_changing_command_ptr;
+      if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
+      {
+        non_changing_command_ptr->second(polygons, std::cin, std::cout);
+      }
+      else
       {
         handleInvalidCommand(std::cin, std::cout);
       }

@@ -56,6 +56,11 @@ namespace
       std::istream& in,
       std::ostream& out)
   {
+    if (in.rdbuf()->sgetc() == '\n')
+    {
+      potapova::handleInvalidCommand(in, out);
+      return;
+    }
     std::string command_mode;
     in >> command_mode;
     runCommandFromMap(commands, command_mode, polygons, in, out);
@@ -67,6 +72,11 @@ namespace
       std::istream& in,
       std::ostream& out)
   {
+    if (in.rdbuf()->sgetc() == '\n')
+    {
+      potapova::handleInvalidCommand(in, out);
+      return;
+    }
     std::string command_mode;
     in >> command_mode;
     if (std::isdigit(command_mode.front()))

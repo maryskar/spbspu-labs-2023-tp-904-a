@@ -72,7 +72,12 @@ namespace potapova
       std::ostream& out)
   {
     Polygon target_polygon;
-    in >> target_polygon;
+    if (!(in >> target_polygon))
+    {
+      in.clear(std::ios_base::goodbit);
+      handleInvalidCommand(in, out);
+      return;
+    }
     std::deque< Polygon >::iterator new_end_iter = std::unique(polygons.begin(),
       polygons.end(),
       std::bind(isEqual, _1, _2, target_polygon));
@@ -88,7 +93,12 @@ namespace potapova
     Rectangle frame;
     frame.expandBoundsToPolygons(polygons);
     Polygon input_polygon;
-    in >> input_polygon;
+    if (!(in >> input_polygon))
+    {
+      in.clear(std::ios_base::goodbit);
+      handleInvalidCommand(in, out);
+      return;
+    }
     if (frame.isPolygonInFrame(input_polygon))
     {
       out << "TRUE\n";
