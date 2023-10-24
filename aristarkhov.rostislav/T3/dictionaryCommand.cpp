@@ -26,22 +26,19 @@ aristarkhov::Commands::Commands()
   dict3.insert({ "INFRAME", printInFrame });
 }
 
-void aristarkhov::Commands::doConstCommand(const std::vector< Polygon >& polygons, const std::string& cmd,
-  std::ostream& out) const
+void aristarkhov::Commands::doConstCommand(const std::vector< Polygon >& polygons, const std::string& cmd, std::ostream& out) const
 {
   FirstType function = dict1.at(cmd);
   function(polygons, out);
 }
 
-void aristarkhov::Commands::doCommandInput(const std::vector< Polygon >& polygons, const std::string& cmd, size_t count,
-  std::ostream& out) const
+void aristarkhov::Commands::doCommandInput(const std::vector< Polygon >& polygons, const std::string& cmd, size_t count, std::ostream& out) const
 {
   SecondType function = dict2.at(cmd);
   function(polygons, count, out);
 }
 
-void aristarkhov::Commands::doCommandPolygon(std::vector< Polygon >& polygons, const std::string& cmd,
-  const Polygon& polygon, std::ostream& out) const
+void aristarkhov::Commands::doCommandPolygon(std::vector< Polygon >& polygons, const std::string& cmd, const Polygon& polygon, std::ostream& out) const
 {
   ThirdType function = dict3.at(cmd);
   function(polygons, polygon, out);
@@ -75,8 +72,7 @@ std::string aristarkhov::getCommand(std::istream& in)
   return command;
 }
 
-void aristarkhov::doCommand(std::vector< Polygon >& polygons, const Commands& dict, std::string& cmd,
-  std::ostream& out, std::istream& in)
+void aristarkhov::doCommand(std::vector< Polygon >& polygons, const Commands& dict, std::string& cmd, std::ostream& out, std::istream& in)
 {
   if (isSpecialCommand(cmd))
   {
@@ -92,8 +88,7 @@ void aristarkhov::doCommand(std::vector< Polygon >& polygons, const Commands& di
       return;
     }
     catch (const std::out_of_range& error)
-    {
-    }
+    {}
   }
   try
   {
@@ -101,8 +96,7 @@ void aristarkhov::doCommand(std::vector< Polygon >& polygons, const Commands& di
     return;
   }
   catch (const std::out_of_range& error)
-  {
-  }
+  {}
   size_t pos = cmd.find(' ');
   size_t count = std::stoull(cmd.substr(pos));
   dict.doCommandInput(polygons, cmd.substr(0, pos), count, out);

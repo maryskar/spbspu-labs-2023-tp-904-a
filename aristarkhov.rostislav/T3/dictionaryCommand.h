@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+
 #include "command.h"
 
 namespace aristarkhov
@@ -12,12 +13,8 @@ namespace aristarkhov
   public:
     Commands();
     void doConstCommand(const std::vector< Polygon >& polygons, const std::string& cmd, std::ostream& out) const;
-
-    void doCommandInput(const std::vector< Polygon >& polygons, const std::string& cmd, size_t count,
-      std::ostream& out) const;
-
-    void doCommandPolygon(std::vector< Polygon >& polygons, const std::string& cmd, const Polygon& polygon,
-      std::ostream& out) const;
+    void doCommandInput(const std::vector< Polygon >& polygons, const std::string& cmd, size_t count, std::ostream& out) const;
+    void doCommandPolygon(std::vector< Polygon >& polygons, const std::string& cmd, const Polygon& polygon, std::ostream& out) const;
 
   private:
     using FirstType = void (*)(const std::vector< Polygon >& polygons, std::ostream& out);
@@ -29,10 +26,7 @@ namespace aristarkhov
   };
 
   std::string getCommand(std::istream& in);
-
-  void doCommand(std::vector< Polygon >& polygons, const Commands& dict, std::string& cmd, std::ostream& out,
-    std::istream& in);
-
+  void doCommand(std::vector< Polygon >& polygons, const Commands& dict, std::string& cmd, std::ostream& out, std::istream& in);
 }
 
 #endif

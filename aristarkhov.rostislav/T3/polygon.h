@@ -1,5 +1,6 @@
 #ifndef POLYGON_H
 #define POLYGON_H
+
 #include <istream>
 #include <vector>
 

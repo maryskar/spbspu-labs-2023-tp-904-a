@@ -1,8 +1,8 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "polygon.h"
 #include <vector>
+#include "polygon.h"
 
 namespace aristarkhov
 {

@@ -1,4 +1,5 @@
 #include "polygon.h"
+
 #include <algorithm>
 #include <iterator>
 #include <iostruct.h>
