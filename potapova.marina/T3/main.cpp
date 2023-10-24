@@ -7,8 +7,6 @@
 
 int main(int argc, char* argv[])
 {
-  freopen("resources/in.txt", "r", stdin);
-  freopen("resources/out.txt", "w", stdout);
   using namespace potapova;
   if (argc != 2)
   {
@@ -24,15 +22,7 @@ int main(int argc, char* argv[])
   try
   {
     std::deque< Polygon > polygons;
-    try
-    {
-      polygons = readPolygons(input_file);
-    }
-    catch (const std::ios_base::failure&)
-    {
-      std::cerr << "Incorrect file data";
-      return 1;
-    }
+    polygons = readPolygons(input_file);
     std::string command_name;
     NotChangingCommansMap non_changing_commands = getNonChangingCommands();
     ChangingCommansMap changing_commands = getChangingCommands();

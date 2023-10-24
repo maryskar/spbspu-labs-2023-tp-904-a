@@ -58,6 +58,10 @@ std::istream& potapova::operator>>(std::istream& in, potapova::Polygon& dest)
   std::copy_n(std::istream_iterator< Point >(in),
     num_points,
     std::back_inserter(dest.points));
+  if (!isspace(in.rdbuf()->sgetc()))
+  {
+    in.setstate(std::ios_base::failbit);
+  }
   return in;
 }
 
