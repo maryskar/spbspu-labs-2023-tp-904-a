@@ -10,11 +10,13 @@ std::istream& potapova::operator>>(std::istream& in, potapova::DelimiterIO&& des
   {
     return in;
   }
-  char sym = '0';
-  in >> sym;
-  if (in && (sym != dest.sign))
+  if (in.rdbuf()->sgetc() != dest.sign)
   {
     in.setstate(std::ios::failbit);
+  }
+  else
+  {
+    in.ignore(1);
   }
   return in;
 }
@@ -42,6 +44,7 @@ std::ostream& potapova::operator<<(std::ostream& out, const potapova::Point& sou
 
 std::istream& potapova::operator>>(std::istream& in, potapova::Polygon& dest)
 {
+  in >> std::ws;
   dest.points.clear();
   std::istream::sentry sentry(in);
   if (!sentry)
@@ -59,10 +62,16 @@ std::istream& potapova::operator>>(std::istream& in, potapova::Polygon& dest)
     return in;
   }
   dest.points.resize(num_points);
-  std::copy_n(std::istream_iterator< Point >(in),
-    num_points,
-    dest.points.begin());
-  char cur_sym = static_cast< char >(in.rdbuf()->sgetc());
+  for (Point& point : dest.points)
+  {
+    if (in.rdbuf()->sgetc() == '\n')
+    {
+      in.setstate(std::ios_base::failbit);
+      return in;
+    }
+    in >> point;
+  }
+  const char cur_sym = static_cast<char>(in.rdbuf()->sgetc());
   if (cur_sym != '\n' && cur_sym != EOF)
   {
     in.setstate(std::ios_base::failbit);

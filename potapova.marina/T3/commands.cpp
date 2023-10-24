@@ -11,6 +11,7 @@ void potapova::printAverageArea(const std::deque< Polygon >& polygons,
   if (polygons.empty())
   {
     handleInvalidCommand(in, out);
+    return;
   }
   double sum_of_areas = 0.0;
   try
@@ -99,10 +100,10 @@ void potapova::printIsPolygonInFrame(const std::deque< Polygon >& polygons,
   }
   if (frame.isPolygonInFrame(input_polygon))
   {
-    out << "TRUE\n";
+    out << "<TRUE>\n";
   }
   else
   {
-    out << "FALSE\n";
+    out << "<FALSE>\n";
   }
 }
