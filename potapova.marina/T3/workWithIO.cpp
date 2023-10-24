@@ -49,16 +49,21 @@ std::istream& potapova::operator>>(std::istream& in, potapova::Polygon& dest)
     return in;
   }
   size_t num_points = 0;
-  in >> num_points;
+  if (!(in >> num_points))
+  {
+    return in;
+  }
   if (num_points < 3)
   {
     in.setstate(std::ios::failbit);
+    return in;
   }
   dest.points.resize(num_points);
   std::copy_n(std::istream_iterator< Point >(in),
     num_points,
     dest.points.begin());
-  if (in.rdbuf()->sgetc() != '\n')
+  char cur_sym = static_cast<char>(in.rdbuf()->sgetc());
+  if (cur_sym != '\n' && cur_sym != EOF)
   {
     in.setstate(std::ios_base::failbit);
   }
