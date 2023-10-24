@@ -98,35 +98,32 @@ namespace
   }
 }
 
-namespace potapova
+potapova::NotChangingCommansMap potapova::getNonChangingCommands()
 {
-  NotChangingCommansMap getNonChangingCommands()
-  {
-    using namespace std::placeholders;
+  using namespace std::placeholders;
 
-    return NotChangingCommansMap
-    {
-      {"AREA", std::bind(processCommandsWithPosibleNumArg<printSumOfAreasWithSpecificPointsCounts>,
-                 getAreaCommands(),
-                 _1,
-                 _2,
-                 _3)},
-      {"MAX", std::bind(processCommands, getExtremeCharacteristicCommands< std::max_element >(), _1, _2, _3)},
-      {"MIN", std::bind(processCommands, getExtremeCharacteristicCommands< std::min_element >(), _1, _2, _3)},
-      {"COUNT", std::bind(processCommandsWithPosibleNumArg< printPolygonsCountWithTargetPointsNum >,
-                  getCountCommands(),
-                  _1,
-                  _2,
-                  _3)},
-      {"INFRAME", printIsPolygonInFrame}
-    };
-  }
-
-  ChangingCommansMap getChangingCommands()
+  return NotChangingCommansMap
   {
-    return ChangingCommansMap
-    {
-      {"RMECHO", removePolygonDuplicates}
-    };
-  }
+    {"AREA", std::bind(processCommandsWithPosibleNumArg< printSumOfAreasWithSpecificPointsCounts >,
+                getAreaCommands(),
+                _1,
+                _2,
+                _3)},
+    {"MAX", std::bind(processCommands, getExtremeCharacteristicCommands< std::max_element >(), _1, _2, _3)},
+    {"MIN", std::bind(processCommands, getExtremeCharacteristicCommands< std::min_element >(), _1, _2, _3)},
+    {"COUNT", std::bind(processCommandsWithPosibleNumArg< printPolygonsCountWithTargetPointsNum >,
+                getCountCommands(),
+                _1,
+                _2,
+                _3)},
+    {"INFRAME", printIsPolygonInFrame}
+  };
+}
+
+potapova::ChangingCommansMap potapova::getChangingCommands()
+{
+  return ChangingCommansMap
+  {
+    {"RMECHO", removePolygonDuplicates}
+  };
 }

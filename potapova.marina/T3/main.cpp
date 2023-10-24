@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
   }
   catch (const std::bad_alloc&)
   {
-    std::cerr << "Memory allocation failed";
+    std::cerr << "Memory allocation failed\n";
     return 1;
   }
   return 0;

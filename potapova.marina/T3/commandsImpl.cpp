@@ -1,71 +1,66 @@
 #include "commandsImpl.h"
 #include <algorithm>
 #include <stdexcept>
+#include <iterator>
 
-namespace potapova
+namespace
 {
-  double getTriangleArea(const Point& first_point, const Point& second_point)
+  double getTriangleArea(const potapova::Point& first_point, const potapova::Point& second_point)
   {
     return first_point.x * second_point.y - second_point.x * first_point.y;
   }
+}
 
-  double getArea(const Polygon& polygon)
-  {
-    size_t num_points = polygon.points.size();
-    if (num_points < 3)
-    {
-      throw std::logic_error("Invalid polygon");
-    }
-    std::vector< double > pair_areas(num_points);
-    std::transform(polygon.points.begin(),
-      polygon.points.end() - 1,
-      polygon.points.begin() + 1,
-      pair_areas.begin(),
-      getTriangleArea);
-    if ((num_points & 1) == 1)
-    {
-      pair_areas.emplace_back(getTriangleArea(polygon.points.back(), polygon.points.front()));
-    }
-    return std::abs(std::accumulate(pair_areas.begin(), pair_areas.end(), 0.0)) / 2;
-  }
+double potapova::getArea(const Polygon& polygon)
+{
+  size_t countPoints = polygon.points.size();
+  std::vector< double > values(countPoints - 1);
+  std::vector< Point >::const_iterator begin_ptr = polygon.points.begin();
+  std::vector< Point >::const_iterator second_elem_ptr = begin_ptr + 1;
+  std::vector< Point >::const_iterator end_ptr = polygon.points.end() - 1;
+  std::transform(begin_ptr, end_ptr, second_elem_ptr, std::back_inserter(values), getTriangleArea);
+  double area = std::accumulate(values.begin(), values.end(), 0.0);
+  area += getTriangleArea(polygon.points.back(), polygon.points.front());
+  area = std::abs(area) / 2;
+  return area;
+}
 
-  double addAreaToSum(const double sum, const Polygon& polygon)
+double potapova::addAreaToSum(const double sum, const Polygon& polygon)
+{
+  return sum + getArea(polygon);
+}
+
+double potapova::getSumOfAreas(const std::deque< Polygon >& polygons)
+{
+  double area = std::accumulate(polygons.begin(), polygons.end(), 0.0, addAreaToSum);
+  return area;
+}
+
+bool potapova::checkDesiredNumPoints(size_t num_points, const potapova::Polygon& polygon) noexcept
+{
+  return polygon.points.size() == num_points;
+}
+
+double potapova::addAreaToSumIfNumPoints(double sum, const Polygon& polygon, size_t num_points)
+{
+  if (checkDesiredNumPoints(num_points, polygon))
   {
     return sum + getArea(polygon);
   }
+  return sum;
+}
 
-  double getSumOfAreas(const std::deque< Polygon >& polygons)
-  {
-    double area = std::accumulate(polygons.begin(), polygons.end(), 0.0, addAreaToSum);
-    return area;
-  }
+bool potapova::comparePolygonsAreas(const Polygon& first, const Polygon& second)
+{
+  return getArea(first) < getArea(second);
+}
 
-  bool checkDesiredNumPoints(size_t num_points, const potapova::Polygon& polygon) noexcept
-  {
-    return polygon.points.size() == num_points;
-  }
+bool potapova::comparePolygonsPoints(const Polygon& first, const Polygon& second)
+{
+  return first.points.size() < second.points.size();
+}
 
-  double addAreaToSumIfNumPoints(double sum, const Polygon& polygon, size_t num_points)
-  {
-    if (checkDesiredNumPoints(num_points, polygon))
-    {
-      return sum + getArea(polygon);
-    }
-    return sum;
-  }
-
-  bool comparePolygonsAreas(const Polygon& first, const Polygon& second)
-  {
-    return getArea(first) < getArea(second);
-  }
-
-  bool comparePolygonsPoints(const Polygon& first, const Polygon& second)
-  {
-    return first.points.size() < second.points.size();
-  }
-
-  bool isEqual(const Polygon& first, const Polygon& second, const Polygon& third) noexcept
-  {
-    return (first == second) && (first == third);
-  }
+bool potapova::isEqual(const Polygon& first, const Polygon& second, const Polygon& third) noexcept
+{
+  return (first == second) && (first == third);
 }

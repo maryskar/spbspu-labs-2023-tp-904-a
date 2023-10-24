@@ -62,7 +62,7 @@ std::istream& potapova::operator>>(std::istream& in, potapova::Polygon& dest)
   std::copy_n(std::istream_iterator< Point >(in),
     num_points,
     dest.points.begin());
-  char cur_sym = static_cast<char>(in.rdbuf()->sgetc());
+  char cur_sym = static_cast< char >(in.rdbuf()->sgetc());
   if (cur_sym != '\n' && cur_sym != EOF)
   {
     in.setstate(std::ios_base::failbit);
