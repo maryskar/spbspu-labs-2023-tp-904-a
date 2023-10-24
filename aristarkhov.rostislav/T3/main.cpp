@@ -30,7 +30,9 @@ int main(int argc, char* argv[])
       input.clear();
       input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }
-    std::copy(std::istream_iterator< aristarkhov::Polygon >(input), std::istream_iterator< aristarkhov::Polygon >(), std::back_inserter(polygons));
+    std::copy(std::istream_iterator< aristarkhov::Polygon >(input),
+        std::istream_iterator< aristarkhov::Polygon >(),
+        std::back_inserter(polygons));
   }
 
   aristarkhov::Commands commandSystem;

@@ -63,7 +63,7 @@ namespace aristarkhov
   {
     std::vector< Polygon > even_polygons;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(even_polygons), isEven);
-    
+
     StreamGuard iofmtguard(out);
     out << std::fixed << std::setprecision(1);
     out << std::accumulate(even_polygons.begin(), even_polygons.end(), 0.0, sumArea) << '\n';
@@ -73,7 +73,7 @@ namespace aristarkhov
   {
     std::vector< Polygon > odd_polygons;
     std::copy_if(polygons.begin(), polygons.end(), std::back_inserter(odd_polygons), isOdd);
-    
+
     StreamGuard iofmtguard(out);
     out << std::fixed << std::setprecision(1);
     out << std::accumulate(odd_polygons.begin(), odd_polygons.end(), 0.0, sumArea) << "\n";
