@@ -9,7 +9,7 @@ namespace timofeev
   {
     std::string Name;
     std::getline(in, Name);
-    std::map <std::string, std::vector<std::string>> translateDict;
+    std::map < std::string, std::vector< std::string > > translateDict;
     size_t start;
     size_t end = 0;
     while ((start = Name.find_first_not_of(' ', end)) != std::string::npos)
@@ -28,7 +28,7 @@ namespace timofeev
     out << "Write down \"List\" to get list of command: " << "\n";
     std::string tmp = "";
     in >> tmp;
-    if (tmp == "Info")
+    if (tmp == "All")
     {
       out << "Create \"name\" - let you make new dictionary and use it\n";
       out << "AddWord \"name\" - let you add word and translation chosen dictionary \n";
@@ -47,7 +47,7 @@ namespace timofeev
       out << "[AddWord \"name\", "  << "Exist, " << "Delete All, " << "\n";
       out << "Delete \"name\", " << "DeleteT \"name\", " << "\n";
       out << "Print All, " << "Print \"name\", " << "\n";
-      out << "Translate \"name\", " << "Common]" << "\n";
+      out << "Translate \"name\", " << "Common, " << "DictList]" << "\n";
     }
     else
     {
@@ -193,12 +193,13 @@ namespace timofeev
         const std::vector< std::string >& wordList = word.second;
         for (const std::string& translation: wordList)
         {
-          if (unique.count(translation) > 0)
+          if (unique.count(word.first) > 0 || unique.count(translation) > 0)
           {
             out << word.first << "-" << translation << "\n";
           }
           else
           {
+            unique.insert(word.first);
             unique.insert(translation);
           }
         }
