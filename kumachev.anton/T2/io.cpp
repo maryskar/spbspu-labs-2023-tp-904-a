@@ -1,6 +1,7 @@
 #include "io.h"
-#include "stream_guard.h"
 #include <iostream>
+#include "stream_guard.h"
+#include "basic_io.h"
 
 namespace kumachev {
   struct ProcessingState {
@@ -60,24 +61,6 @@ namespace kumachev {
       } else {
         dataStruct = data;
       }
-    }
-
-    return istream;
-  }
-
-  std::istream &operator>>(std::istream &istream, CharIO &&character)
-  {
-    std::istream::sentry sentry(istream);
-
-    if (!sentry) {
-      return istream;
-    }
-
-    char c = '\0';
-    istream >> c;
-
-    if (istream && (c != character.value)) {
-      istream.setstate(std::ios::failbit);
     }
 
     return istream;

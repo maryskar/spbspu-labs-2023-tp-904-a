@@ -1,7 +1,7 @@
 #include "dataStruct.h"
 #include <iomanip>
-#include "iotypes.h"
-#include "iofmtguard.h"
+#include <iotypes.h>
+#include <iofmtguard.h>
 
 bool fesenko::compare(const DataStruct &first, const DataStruct &second)
 {
