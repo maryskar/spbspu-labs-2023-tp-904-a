@@ -32,7 +32,7 @@ int main()
       auto comm = getCommand(std::cin);
       commDict.handleCommand(comm, std::cin, std::cout, dicts);
     }
-    catch(const std::logic_error & e)
+    catch (const std::logic_error & e)
     {
       outInvalidCommand(std::cout) << '\n';
       std::cout << e.what();

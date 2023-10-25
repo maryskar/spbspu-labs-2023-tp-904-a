@@ -17,7 +17,7 @@ namespace kryuchkova
       input_comm_.at(comm)(in, dicts);
       return;
     }
-    catch(const std::out_of_range & e)
+    catch (const std::out_of_range & e)
     {}
     inout_comm_.at(comm)(in, out, dicts);
   }
