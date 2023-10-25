@@ -49,7 +49,7 @@ namespace aksenov
   {
     const std::vector< Point > &points = p.points;
 
-    if(points.empty())
+    if (points.empty())
     {
       return 0;
     }
