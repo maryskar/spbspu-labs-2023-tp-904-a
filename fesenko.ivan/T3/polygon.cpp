@@ -6,6 +6,7 @@
 
 std::istream &fesenko::operator>>(std::istream &in, Polygon &rhs)
 {
+  auto max_size = std::numeric_limits< std::streamsize >::max();
   std::istream::sentry sentry(in);
   if (!sentry) {
     return in;
@@ -14,14 +15,24 @@ std::istream &fesenko::operator>>(std::istream &in, Polygon &rhs)
   size_t points = 0;
   in >> points;
   if (!in || points < 3) {
+    in.ignore(max_size, '\n');
     in.setstate(std::ios::failbit);
     return in;
   }
   std::copy_n(std::istream_iterator< Point >(in),
     points,
-    std::back_inserter(input.points));
-  if (in) {
-    rhs = input;
+    std::back_inserter(input.points)
+  );
+  if (!in) {
+    in.ignore(max_size, '\n');
+    in.setstate(std::ios::failbit);
+    return in;
+  }
+  rhs = input;
+  std::string remains = "";
+  std::getline(in, remains);
+  if (remains.find_first_not_of(' ') != std::string::npos) {
+    in.setstate(std::ios::failbit);
   }
   return in;
 }
