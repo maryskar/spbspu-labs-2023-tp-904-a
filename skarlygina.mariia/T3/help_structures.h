@@ -11,3 +11,4 @@ namespace skarlygina
     Point prev;
   };
 }
+#endif

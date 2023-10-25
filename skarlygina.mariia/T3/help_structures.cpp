@@ -4,7 +4,7 @@ namespace skarlygina
   PolygonsArea::PolygonsArea(Point point):
     prev(point)
   {}
-  double PolygonsArea::operator()operator()(double area, const Point& current)
+  double PolygonsArea::operator()(double area, const Point& current)
   {
     area += static_cast<double>(prev.x) * current.y;
     area -= static_cast<double>(prev.y) * current.x;
