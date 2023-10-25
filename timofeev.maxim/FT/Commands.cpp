@@ -1,7 +1,7 @@
 #include "Commands.h"
 #include <map>
 #include "cmdRealisation.h"
-timofeev::input  timofeev::setCommand()
+timofeev::input timofeev::setCommand()
 {
   timofeev::input command;
   command["Create"] = Createdict;
