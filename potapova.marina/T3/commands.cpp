@@ -2,8 +2,6 @@
 #include <functional>
 #include "rectangle.h"
 
-using namespace std::placeholders;
-
 void potapova::printAverageArea(const std::deque< Polygon >& polygons,
     std::istream&,
     std::ostream& out)
@@ -23,6 +21,7 @@ void potapova::printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon
     std::istream&,
     std::ostream& out)
 {
+  using namespace std::placeholders;
   if (target_count_points < 3)
   {
     throw std::logic_error("Too few target points");
@@ -40,6 +39,7 @@ void potapova::printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >
     std::istream&,
     std::ostream& out)
 {
+  using namespace std::placeholders;
   if (target_count_points < 3)
   {
     throw std::logic_error("Too few target points");
@@ -51,6 +51,7 @@ void potapova::removePolygonDuplicates(std::deque< Polygon >& polygons,
     std::istream& in,
     std::ostream& out)
 {
+  using namespace std::placeholders;
   Polygon target_polygon;
   if (!(in >> target_polygon))
   {
