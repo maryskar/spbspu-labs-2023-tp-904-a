@@ -6,31 +6,34 @@
 #include "polygon.h"
 #include "commands_dict.h"
 
-std::ostream & outInvalidCommand(std::ostream & out)
+namespace kryuchkova
 {
-  out << "<INVALID COMMAND>";
-  return out;
-}
-std::string getCommand(std::istream & in)
-{
-  std::string res;
-  in >> res;
-  if (!in)
+  std::ostream & outInvalidCommand(std::ostream & out)
   {
-    throw std::runtime_error("eof");
+    out << "<INVALID COMMAND>";
+    return out;
   }
-  if (res == "SAME")
+  std::string getCommand(std::istream & in)
   {
+    std::string res;
+    in >> res;
+    if (!in)
+    {
+      throw std::runtime_error("eof");
+    }
+    if (res == "SAME")
+    {
+      return res;
+    }
+    std::string name;
+    in >> name;
+    if (!in)
+    {
+      throw std::invalid_argument("Invalid command");
+    }
+    res += ' ' + name;
     return res;
   }
-  std::string name;
-  in >> name;
-  if (!in)
-  {
-    throw std::invalid_argument("Invalid command");
-  }
-  res += ' ' + name;
-  return res;
 }
 
 int main(int argc, char * argv[])
@@ -63,12 +66,12 @@ int main(int argc, char * argv[])
   {
     try
     {
-      auto comm = getCommand(std::cin);
+      auto comm = kryuchkova::getCommand(std::cin);
       commDict.handleCommand(comm, pol, std::cout, std::cin);
     }
-    catch(const std::logic_error & e)
+    catch (const std::logic_error & e)
     {
-      outInvalidCommand(std::cout) << '\n';
+      kryuchkova::outInvalidCommand(std::cout) << '\n';
       std::cin.ignore(max_size, '\n');
       std::cin.clear();
     }

@@ -5,6 +5,7 @@
 #include <ostream>
 #include <istream>
 #include "polygon.h"
+#include "dict_functions.h"
 
 namespace kryuchkova
 {
@@ -20,9 +21,6 @@ namespace kryuchkova
     std::map< std::string, comm_t > simple_comm_;
     std::map< std::string, comm_input_t > input_comm_;
     std::map< std::string, comm_size_t > size_comm_;
-    std::map< std::string, comm_t > initSimpleComm();
-    std::map< std::string, comm_input_t > initInputComm();
-    std::map< std::string, comm_size_t > initSizeComm();
   };
 }
 

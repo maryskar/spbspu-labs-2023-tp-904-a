@@ -8,7 +8,7 @@
 
 namespace kryuchkova
 {
-  std::istream & operator>>( std::istream & in, Polygon & polygon)
+  std::istream & operator>>(std::istream & in, Polygon & polygon)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
