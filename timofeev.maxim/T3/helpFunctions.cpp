@@ -85,8 +85,10 @@ namespace timofeev
 
     auto pBegin = polygon.points.begin();
     auto pEnd = polygon.points.end();
-    std::transform(pBegin, std::prev(pEnd), pBegin + 1, point_x.begin(), multipPointXY);
-    std::transform(pBegin, std::prev(pEnd), pBegin + 1, point_y.begin(), multipPointYX);
+    std::transform(pBegin, std::prev(pEnd), pBegin + 1, std::back_inserter(point_x), multipPointXY);
+    point_x.push_back(multipPointXY(polygon.points.back(), polygon.points.front()));
+    std::transform(pBegin, std::prev(pEnd), pBegin + 1, std::back_inserter(point_y), multipPointYX);
+    point_y.push_back(multipPointYX(polygon.points.back(), polygon.points.front()));
 
     double firstSum = std::accumulate(point_x.begin(), point_x.end(), 0.0);
     double secondSum = std::accumulate(point_y.begin(), point_y.end(), 0.0);
@@ -108,9 +110,9 @@ namespace timofeev
 
   void doEven(const std::vector< Polygon > &res)
   {
-    std::vector< Polygon > tmp (res.size());
+    std::vector< Polygon > tmp;
     std::vector< double > individual;
-    std::copy_if(res.begin(), res.end(), tmp.begin(), isEven);
+    std::copy_if(res.begin(), res.end(), std::back_inserter(tmp), isEven);
     static_cast< void >(getArea(tmp, individual));
     double area = std::accumulate(individual.begin(), individual.end(), 0);
     std::cout << std::fixed << std::setprecision(1) << area << "\n";
@@ -118,9 +120,9 @@ namespace timofeev
 
   void doOdd(const std::vector< Polygon > &res)
   {
-    std::vector< Polygon > tmp (res.size());
+    std::vector< Polygon > tmp;
     std::vector< double > individual;
-    std::copy_if(res.begin(), res.end(), tmp.begin(), isOdd);
+    std::copy_if(res.begin(), res.end(), std::back_inserter(tmp), isOdd);
     static_cast< void >(getArea(tmp, individual));
     double area = std::accumulate(individual.begin(), individual.end(), 0);
     std::cout << std::fixed << std::setprecision(1) << area << "\n";
