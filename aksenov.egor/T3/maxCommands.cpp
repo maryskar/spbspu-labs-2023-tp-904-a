@@ -22,12 +22,8 @@ namespace aksenov
     {
       throw std::invalid_argument("empty polygon");
     }
-    std::vector< Polygon > pols = pol;
     std::vector< size_t > amountsOfVertexes;
-    for (const Polygon &polygon : pols)
-    {
-      amountsOfVertexes.push_back(polygon.points.size());
-    }
+    std::transform(pol.begin(), pol.end(), std::back_inserter(amountsOfVertexes), CountVerticesInPolygon);
     auto maxVertIter = std::max_element(amountsOfVertexes.begin(), amountsOfVertexes.end());
     auto out = std::ostream_iterator< size_t > (std::cout, "\n");
     std::copy(maxVertIter, maxVertIter + 1, out);

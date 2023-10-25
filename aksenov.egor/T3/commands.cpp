@@ -14,13 +14,13 @@
 #include "polygon.h"
 #include "helpFunctions.h"
 namespace aksenov {
-  void doArea(std::istream &inp, const std::vector < Polygon > &pol)
+  void doArea(std::istream &inp, const std::vector< Polygon > &pol)
   {
-    using areaMap = std::map< std::string, void (*)(const std::vector < aksenov::Polygon > &) >;
+    using areaMap = std::map< std::string, void (*)(const std::vector< aksenov::Polygon > &) >;
     areaMap areaCommands
     {
       {"EVEN", doAreaEven},
-      {"ODD",  doAreaOdd},
+      {"ODD", doAreaOdd},
       {"MEAN", doAreaMean}
     };
     std::string command = "";
@@ -35,12 +35,12 @@ namespace aksenov {
     }
   }
 
-  void doMax(std::istream &inp, const std::vector < Polygon > &pol)
+  void doMax(std::istream &inp, const std::vector< Polygon > &pol)
   {
-    using maxMap = std::map< std::string, void (*)(const std::vector < aksenov::Polygon > &) >;
+    using maxMap = std::map< std::string, void (*)(const std::vector< aksenov::Polygon > &) >;
     maxMap maxCommands
     {
-      {"AREA",     doMaxArea},
+      {"AREA", doMaxArea},
       {"VERTEXES", doMaxVertexes}
     };
     std::string command = "";
@@ -48,12 +48,12 @@ namespace aksenov {
     maxCommands[command](pol);
   }
 
-  void doMin(std::istream &inp, const std::vector < Polygon > &pol)
+  void doMin(std::istream &inp, const std::vector< Polygon > &pol)
   {
-    using minMap = std::map< std::string, void (*)(const std::vector < aksenov::Polygon > &) >;
+    using minMap = std::map< std::string, void (*)(const std::vector< aksenov::Polygon > &) >;
     minMap minCommands
     {
-      {"AREA",     doMinArea},
+      {"AREA", doMinArea},
       {"VERTEXES", doMinVertexes}
     };
     std::string command = "";
@@ -61,13 +61,13 @@ namespace aksenov {
     minCommands[command](pol);
   }
 
-  void doCount(std::istream &inp, const std::vector < Polygon > &pol)
+  void doCount(std::istream &inp, const std::vector< Polygon > &pol)
   {
-    using countMap = std::map< std::string, void (*)(const std::vector < aksenov::Polygon > &) >;
+    using countMap = std::map< std::string, void (*)(const std::vector< aksenov::Polygon > &) >;
     countMap countCommands
     {
       {"EVEN", doCountEven},
-      {"ODD",  doCountOdd}
+      {"ODD", doCountOdd}
     };
     std::string command = "";
     inp >> command;
@@ -82,7 +82,7 @@ namespace aksenov {
     }
   }
 
-  void doSame(std::istream &inp, const std::vector < Polygon > &pol)
+  void doSame(std::istream &inp, const std::vector< Polygon > &pol)
   {
     if (pol.size() == 0 || pol.size() == 1)
     {
@@ -91,7 +91,7 @@ namespace aksenov {
     Polygon polygon;
     inp >> polygon;
     auto sort = std::bind(isEqual, std::placeholders::_1, polygon.points.size());
-    std::vector < Polygon > sorted;
+    std::vector< Polygon > sorted;
     std::copy_if(pol.begin(), pol.end(), sorted.begin(), sort);
     auto func = std::bind(isSame, std::placeholders::_1, polygon);
     auto counter = std::count_if(sorted.begin(), sorted.end(), func);
@@ -112,12 +112,12 @@ namespace aksenov {
     return angle;
   }
 
-  std::vector < Polygon > createVectorOfAngles(const Polygon &polygon)
+  std::vector< Polygon > createVectorOfAngles(const Polygon &polygon)
   {
     Polygon tmp(polygon);
     tmp.points.push_back(polygon.points.at(0));
     tmp.points.push_back(polygon.points.at(1));
-    std::vector < Polygon > angles(polygon.points.size());
+    std::vector< Polygon > angles(polygon.points.size());
     int i = 0;
     auto bindFunction = std::bind(createAngle, i, tmp);
     std::generate(angles.begin(), angles.end(), bindFunction);
@@ -142,7 +142,7 @@ namespace aksenov {
     return std::any_of(angles.begin(), angles.end(), isRightAngle);
   }
 
-  void doRightshapes(std::istream &, const std::vector <Polygon> &pol)
+  void doRightshapes(std::istream &, const std::vector< Polygon > &pol)
   {
     size_t count = std::count_if(pol.begin(), pol.end(), isThereRightAngle);
     std::cout << count << "\n";

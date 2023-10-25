@@ -15,5 +15,6 @@ namespace aksenov
   bool comparePoints(const Point &lhs, const Point &rhs);
   Point translatePoint(const Point& point, int diffX, int diffY);
   bool isSame(const Polygon& lhs, const Polygon& rhs);
+  size_t CountVerticesInPolygon(const Polygon& polygon);
 }
 #endif

@@ -10,6 +10,11 @@
 
 namespace aksenov
 {
+  size_t CountVerticesInPolygon(const Polygon& polygon)
+  {
+    return polygon.points.size();
+  }
+
   void outInvalidCommand(std::ostream &out)
   {
     out << "<INVALID COMMAND>" << "\n";

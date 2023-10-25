@@ -14,12 +14,8 @@ namespace aksenov
 
   void doMinVertexes(const std::vector< Polygon > &pol)
   {
-    std::vector< Polygon > pols = pol;
     std::vector< size_t > amountsOfVertexes;
-    for (const Polygon &polygon : pols)
-    {
-      amountsOfVertexes.push_back(polygon.points.size());
-    }
+    std::transform(pol.begin(), pol.end(), std::back_inserter(amountsOfVertexes), CountVerticesInPolygon);
     auto minVertIter = std::min_element(amountsOfVertexes.begin(), amountsOfVertexes.end());
     auto out = std::ostream_iterator< size_t > (std::cout, "\n");
     std::copy(minVertIter, minVertIter + 1, out);
