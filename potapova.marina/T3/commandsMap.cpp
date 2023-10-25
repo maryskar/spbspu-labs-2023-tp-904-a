@@ -63,7 +63,7 @@ namespace
   }
 
   template< void(*FuncWithNumArg)(const std::deque< potapova::Polygon >&, size_t, std::istream&, std::ostream&) >
-  void processCommandsWithPosibleNumArg(const potapova::NotChangingCommansMap& commands,
+  void processCommandsWithNumVar(const potapova::NotChangingCommansMap& commands,
       const std::deque< potapova::Polygon >& polygons,
       std::istream& in,
       std::ostream& out)
@@ -92,24 +92,23 @@ namespace
   }
 }
 
+  using ConstPolygonsRef = const std::deque< potapova::Polygon >&;
+  potapova::CommandFunc< ConstPolygonsRef > getComandWithModes(
+      void(*processCommands)(const potapova::NotChangingCommansMap&, ConstPolygonsRef, std::istream&, std::ostream&),
+      const potapova::NotChangingCommansMap& modes)
+  {
+    using namespace std::placeholders;
+    return std::bind(processCommands, modes, _1, _2, _3);
+  }
+
 potapova::NotChangingCommansMap potapova::getNonChangingCommands()
 {
-  using namespace std::placeholders;
-
   return NotChangingCommansMap
   {
-    {"AREA", std::bind(processCommandsWithPosibleNumArg< printSumOfAreasWithSpecificPointsCounts >,
-                getAreaCommands(),
-                _1,
-                _2,
-                _3)},
-    {"MAX", std::bind(processCommands, getExtremeCharacteristicCommands< std::max_element >(), _1, _2, _3)},
-    {"MIN", std::bind(processCommands, getExtremeCharacteristicCommands< std::min_element >(), _1, _2, _3)},
-    {"COUNT", std::bind(processCommandsWithPosibleNumArg< printPolygonsCountWithTargetPointsNum >,
-                getCountCommands(),
-                _1,
-                _2,
-                _3)},
+    {"AREA", getComandWithModes(processCommandsWithNumVar< printSumOfAreasWithSpecificPointsNum >, getAreaCommands())},
+    {"MAX", getComandWithModes(processCommands, getExtremeCharacteristicCommands< std::max_element >())},
+    {"MIN", getComandWithModes(processCommands, getExtremeCharacteristicCommands< std::min_element >())},
+    {"COUNT", getComandWithModes(processCommandsWithNumVar< printPolygonsNumWithTargetPointsNum >, getCountCommands())},
     {"INFRAME", printIsPolygonInFrame}
   };
 }

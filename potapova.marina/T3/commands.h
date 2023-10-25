@@ -24,7 +24,7 @@ namespace potapova
       std::istream&,
       std::ostream& out);
 
-  void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
+  void printSumOfAreasWithSpecificPointsNum(const std::deque< Polygon >& polygons,
       size_t target_count_points,
       std::istream& in,
       std::ostream& out);
@@ -62,7 +62,7 @@ namespace potapova
     out << std::count_if(polygons.begin(), polygons.end(), isSpecificPointsNum< ParityFlag >) << '\n';
   }
 
-  void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
+  void printPolygonsNumWithTargetPointsNum(const std::deque< Polygon >& polygons,
       size_t target_count_points,
       std::istream& in,
       std::ostream& out);

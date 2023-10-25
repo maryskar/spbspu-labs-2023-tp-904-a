@@ -16,7 +16,7 @@ void potapova::printAverageArea(const std::deque< Polygon >& polygons,
   out << std::fixed << std::setprecision(1) << average_area << '\n';
 }
 
-void potapova::printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
+void potapova::printSumOfAreasWithSpecificPointsNum(const std::deque< Polygon >& polygons,
     size_t target_count_points,
     std::istream&,
     std::ostream& out)
@@ -34,7 +34,7 @@ void potapova::printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon
   out << std::fixed << std::setprecision(1) << sum_areas << '\n';
 }
 
-void potapova::printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
+void potapova::printPolygonsNumWithTargetPointsNum(const std::deque< Polygon >& polygons,
     size_t target_count_points,
     std::istream&,
     std::ostream& out)
