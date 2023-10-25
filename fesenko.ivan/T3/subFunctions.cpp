@@ -146,11 +146,10 @@ bool fesenko::isRect::operator()(const Polygon &rhs)
   if (rhs.points.size() != 4) {
     return false;
   }
-  fesenko::Point one = rhs.points[0];
-  fesenko::Point two = rhs.points[1];
-  fesenko::Point three = rhs.points[2];
-  fesenko::Point four = rhs.points[3];
+  Point one = rhs.points[0];
+  Point two = rhs.points[1];
+  Point three = rhs.points[2];
+  Point four = rhs.points[3];
   return isRightAngle(one, two, three) && isRightAngle(two, three, four)
       && isRightAngle(three, four, one) && isRightAngle(four, one, two);
 }
-

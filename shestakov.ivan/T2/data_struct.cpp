@@ -1,7 +1,8 @@
+#include "data_struct.h"
 #include <iomanip>
+#include <iofmtguard.h>
+#include <TypesIO.h>
 #include "get_abs_complex.h"
-#include "iofmtguard.h"
-#include "TypesIO.h"
 
 namespace shestakov
 {

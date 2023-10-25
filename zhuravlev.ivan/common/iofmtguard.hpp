@@ -1,5 +1,5 @@
-#ifndef SPBSPU_LABS_2023_TP_904_A_IOFMTGUARD_HPP
-#define SPBSPU_LABS_2023_TP_904_A_IOFMTGUARD_HPP
+#ifndef IOFMTGUARD_HPP
+#define IOFMTGUARD_HPP
 #include <iostream>
 
 namespace zhuravlev
