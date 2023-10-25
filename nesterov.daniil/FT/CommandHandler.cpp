@@ -77,7 +77,7 @@ namespace nesterov
   {
     std::string graphName;
 
-    if(in >> graphName)
+    if (in >> graphName)
     {
       const auto &graph = map.at(graphName);
       if (auto orientedGraph = std::dynamic_pointer_cast< OrientedGraph >(graph))

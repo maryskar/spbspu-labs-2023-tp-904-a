@@ -5,7 +5,7 @@
 
 namespace nesterov
 {
-  class UnorientedGraph : public Graph
+  class UnorientedGraph: public Graph
   {
   public:
     void addEdge(int v1, int v2) override;
