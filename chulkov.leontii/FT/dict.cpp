@@ -8,7 +8,9 @@
 
 namespace chulkov
 {
-  Dict::Dict(cnstStr &name) : name_(name) {}
+  Dict::Dict(cnstStr &name):
+      name_(name)
+  {}
 
   bool Dict::operator==(const Dict &dict) const
   {
