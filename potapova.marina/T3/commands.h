@@ -31,7 +31,7 @@ namespace potapova
 
   template< GetExtremeElemFunc GetExtremeElem >
   void printExtremeArea(const std::deque< Polygon >& polygons,
-      std::istream& in,
+      std::istream&,
       std::ostream& out)
   {
     if (polygons.empty())
