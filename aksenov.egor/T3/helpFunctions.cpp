@@ -5,6 +5,7 @@
 #include <fstream>
 #include <limits>
 #include <numeric>
+#include <functional>
 #include "polygon.h"
 
 namespace aksenov
@@ -110,14 +111,11 @@ namespace aksenov
     int diffX = lhsSorted[0].x - rhsSorted[0].x;
     int diffY = lhsSorted[0].y - rhsSorted[0].y;
 
-    for (size_t i = 0; i < lhsSorted.size(); i++)
-    {
-      Point translatedPoint = translatePoint(rhsSorted[i], diffX, diffY);
-      if (!(lhsSorted[i] == translatedPoint))
-      {
-        return false;
-      }
-    }
-    return true;
+    std::vector< Point > translatedPoints;
+    translatedPoints.reserve(lhsSorted.size());
+
+    std::function< Point(const Point&) > translateFunction = std::bind(translatePoint, std::placeholders::_1, diffX, diffY);
+    std::transform(rhsSorted.begin(), rhsSorted.end(), std::back_inserter(translatedPoints), translateFunction);
+    return lhsSorted == translatedPoints;
   }
 }
