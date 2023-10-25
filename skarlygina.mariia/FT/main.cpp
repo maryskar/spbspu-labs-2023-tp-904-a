@@ -5,7 +5,7 @@
 
 int main()
 {
-	using command_t = std::function< void(std::string&, skarlygina::Dicts_t&) >;
+  using command_t = std::function< void(std::string&, skarlygina::Dicts_t&) >;
   using const_command_t = std::function< void(std::string&, const skarlygina::Dicts_t&) >;
 
   std::map< std::string, command_t > commands
