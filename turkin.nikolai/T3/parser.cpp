@@ -1,4 +1,5 @@
 #include "parser.hpp"
+
 #include <ostream>
 #include <iostream>
 
@@ -7,11 +8,12 @@ turkin::MakeCMD::MakeCMD():
   sub_list_()
 {}
 
-std::ostream & turkin::MakeCMD::operator()(std::deque< Polygon > & data, std::istream & in, std::ostream & out)
+turkin::CommandsList & turkin::MakeCMD::get_main()
 {
-  std::string type = "";
-  std::string sub_info = "";
-  in >> type;
-  in >> sub_info;
-  return out << main_list_.get(type)(data, sub_list_, type, sub_info);
+  return main_list_;
+}
+
+turkin::SubCommandsList & turkin::MakeCMD::get_sub()
+{
+  return sub_list_;
 }

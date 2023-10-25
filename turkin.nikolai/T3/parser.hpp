@@ -15,7 +15,8 @@ namespace turkin
   {
     public:
       MakeCMD();
-      std::ostream & operator()(std::deque< Polygon > & data, std::istream & in, std::ostream & out);
+      CommandsList & get_main();
+      SubCommandsList & get_sub();
     private:
       CommandsList main_list_;
       SubCommandsList sub_list_;

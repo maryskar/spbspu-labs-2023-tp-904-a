@@ -1,6 +1,7 @@
-#ifndef SPBSPU_LABS_2023_TP_904_A_IO_BIN_HEX_STR_TYPES_HPP
-#define SPBSPU_LABS_2023_TP_904_A_IO_BIN_HEX_STR_TYPES_HP
-#include "data_struct.hpp"
+#ifndef IO_SEPARATORS_HPP
+#define IO_SEPARATORS_HPP
+#include <string>
+#include <limits>
 
 namespace zhuravlev
 {
@@ -14,5 +15,6 @@ namespace zhuravlev
   };
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
   std::istream& operator>>(std::istream& in, LabelIO&& dest);
+  void skipUntilNewLines(std::istream& in);
 }
 #endif
