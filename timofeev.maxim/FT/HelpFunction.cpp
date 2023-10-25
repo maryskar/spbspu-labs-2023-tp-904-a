@@ -57,7 +57,12 @@ namespace timofeev
       {
         break;
       }
+      out << "Write a translation (or 'exit'): ";
       in >> rTrans;
+      if (word == "exit")
+      {
+        break;
+      }
       auto it = dict.find(word);
       if (it != dict.end())
       {
