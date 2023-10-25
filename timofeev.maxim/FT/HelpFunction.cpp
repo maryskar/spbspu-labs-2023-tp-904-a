@@ -16,33 +16,33 @@ namespace timofeev
   }
   void addInDict(std::istream& in, std::ostream& out, dict_t& dict)
   {
-      std::string word = "";
-      std::vector <std::string> line;
-      std::string translation;
-      in >> word;
-      if (dict.count(word) > 0)
+    std::string word = "";
+    std::vector < std::string > line;
+    std::string translation;
+    in >> word;
+    std::getline(in, translation);
+    if (dict.count(word) > 0)
+    {
+      std::string answ = "";
+      out << "Word already in dictionary!! Want to rewrite it?" << "\n";
+      out << "Yes or No? ";
+      in >> answ;
+
+      if (answ == "No")
       {
-        out << "Word already in dictionary!! Want to rewrite it?\n";
-        out << "Yes or No? ";
-        std::string answ = "";
-        in >> answ;
-        if (answ == "No")
-        {
-          return;
-        } else if (answ == "Yes")
-        {
-          out << "new translation: ";
-        }
+        return;
       }
-      else
+      else if (answ != "Yes")
       {
-        std::getline(in, translation);
-        splitter(translation, word, line, dict);
+        throw std::logic_error("Invalid");
       }
+      line.clear();
+    }
+    splitter(translation, word, line, dict);
   }
-  std::ostream& printEmpty(std::ostream& out)
+  void printInvalid(std::ostream &out)
   {
-    out << "<EMPTY>" << "\n";
+    out << "<INVALID COMMAND>" << "\n";
   }
 
   void delTrans(std::istream& in, std::ostream& out, dict_t& dict)

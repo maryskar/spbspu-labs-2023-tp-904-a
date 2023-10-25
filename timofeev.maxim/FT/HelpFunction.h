@@ -5,12 +5,12 @@
 #include <vector>
 namespace timofeev
 {
-  using dict_t = std::map< std::string, std::vector<std::string> >;
+  using dict_t = std::map< std::string, std::vector< std::string > >;
   using vector = std::vector< std::string >;
   void splitter(std::string translation, std::string word, vector line, dict_t& dict);
   void addInDict(std::istream& in, std::ostream& out, dict_t& dict);
   void delTrans(std::istream& in, std::ostream &out, dict_t& dict);
-  std::ostream& printEmpty(std::ostream& out);
+  void printInvalid(std::ostream& out);
   void printDict(std::ostream& out, dict_t& dict);
   void printList(const std::vector< std::string >& list, std::ostream& out);
   void delDict(dict_t& dict);
