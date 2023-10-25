@@ -7,13 +7,13 @@
 
 using namespace std::placeholders;
 
-potapova::Rectangle::Rectangle() noexcept:
+potapova::Rectangle::Rectangle(const Polygon& startBounds) noexcept:
   max_x(std::numeric_limits< int >::lowest()),
   min_x(std::numeric_limits< int >::max()),
   max_y(std::numeric_limits< int >::lowest()),
   min_y(std::numeric_limits< int >::max())
 {
-
+  expandBoundsToPolygon(startBounds);
 }
 
 potapova::Rectangle* potapova::Rectangle::expandBoundsToPoint(const Point& point) noexcept

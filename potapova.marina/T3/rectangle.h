@@ -14,7 +14,7 @@ namespace potapova
       int max_y;
       int min_y;
     public:
-      Rectangle() noexcept;
+      Rectangle(const Polygon& startBounds) noexcept;
       Rectangle* expandBoundsToPoint(const Point& point) noexcept;
       Rectangle* expandBoundsToPolygon(const Polygon& polygon) noexcept;
       Rectangle* expandBoundsToPolygons(const std::deque< Polygon >& polygons) noexcept;

@@ -70,7 +70,7 @@ void potapova::printIsPolygonInFrame(const std::deque< Polygon >& polygons,
     std::istream& in,
     std::ostream& out)
 {
-  Rectangle frame;
+  Rectangle frame(polygons.front());
   frame.expandBoundsToPolygons(polygons);
   Polygon input_polygon;
   if (!(in >> input_polygon))
