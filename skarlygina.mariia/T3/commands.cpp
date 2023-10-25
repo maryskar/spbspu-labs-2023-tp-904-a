@@ -6,6 +6,7 @@
 #include <map>
 #include <iofmt_guard.h>
 #include "help_commands.h"
+#include "condition_template.h"
 
 void skarlygina::getArea(const std::vector< Polygon >& polys, std::istream& in, std::ostream& out)
 {

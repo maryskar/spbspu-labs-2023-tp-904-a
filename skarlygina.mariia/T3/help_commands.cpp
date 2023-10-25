@@ -6,6 +6,7 @@
 #include <iostream>
 #include <iofmt_guard.h>
 #include "help_structures.h"
+#include "condition_template.h"
 
 double skarlygina::findAreaPoly(const skarlygina::Polygon& polys, double area)
 {
