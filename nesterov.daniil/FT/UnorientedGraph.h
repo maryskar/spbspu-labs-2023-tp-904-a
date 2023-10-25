@@ -1,11 +1,11 @@
-#ifndef FT_UNDIRECTEDGRAPH_H
-#define FT_UNDIRECTEDGRAPH_H
+#ifndef FT_UNORIENTEDGRAPH_H
+#define FT_UNORIENTEDGRAPH_H
 
 #include "Graph.h"
 
 namespace nesterov
 {
-  class UndirectedGraph : public Graph
+  class UnorientedGraph : public Graph
   {
   public:
     void addEdge(int v1, int v2) override;

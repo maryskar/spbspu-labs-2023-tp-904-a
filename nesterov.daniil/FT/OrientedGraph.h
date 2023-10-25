@@ -1,12 +1,12 @@
-#ifndef FT_DIRECTEDGRAPH_H
-#define FT_DIRECTEDGRAPH_H
+#ifndef FT_ORIENTEDGRAPH_H
+#define FT_ORIENTEDGRAPH_H
 
 #include <stack>
 #include "Graph.h"
 
 namespace nesterov
 {
-  class DirectedGraph : public Graph
+  class OrientedGraph : public Graph
   {
   public:
     void addEdge(int v1, int v2) override;

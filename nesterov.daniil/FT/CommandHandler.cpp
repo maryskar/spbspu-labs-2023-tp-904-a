@@ -1,8 +1,8 @@
 #include "CommandHandler.h"
 #include <string>
 #include <iostream>
-#include "DirectedGraph.h"
-#include "UndirectedGraph.h"
+#include "OrientedGraph.h"
+#include "UnorientedGraph.h"
 
 namespace nesterov
 {
@@ -58,9 +58,9 @@ namespace nesterov
     if (in >> graphName >> vertex)
     {
       const auto &graph = map.at(graphName);
-      if (auto directedGraph = std::dynamic_pointer_cast< DirectedGraph >(graph))
+      if (auto orientedGraph = std::dynamic_pointer_cast< OrientedGraph >(graph))
       {
-        directedGraph->dfs(vertex, out);
+        orientedGraph->dfs(vertex, out);
       }
       else
       {
@@ -80,9 +80,9 @@ namespace nesterov
     if(in >> graphName)
     {
       const auto &graph = map.at(graphName);
-      if (auto directedGraph = std::dynamic_pointer_cast< DirectedGraph >(graph))
+      if (auto orientedGraph = std::dynamic_pointer_cast< OrientedGraph >(graph))
       {
-        directedGraph->topologicalSort();
+        orientedGraph->topologicalSort();
       }
       else
       {
@@ -106,13 +106,13 @@ namespace nesterov
         throw std::logic_error("");
       }
 
-      if (graphType == "DIRECTED")
+      if (graphType == "ORIENTED")
       {
-        map[graphName] = std::make_shared< DirectedGraph >();
+        map[graphName] = std::make_shared< OrientedGraph >();
       }
-      else if (graphType == "UNDIRECTED")
+      else if (graphType == "UNORIENTED")
       {
-        map[graphName] = std::make_shared< UndirectedGraph >();
+        map[graphName] = std::make_shared< UnorientedGraph >();
       }
       else
       {
@@ -207,7 +207,7 @@ namespace nesterov
   void executeHelpCommand(std::ostream &out)
   {
     out << "Топологическая сортировка. Обход в глубину.\n";
-    out << "CREATE <DIRECTED/UNDIRECTED> <graph_name> - создать пустой"
+    out << "CREATE <ORIENTED/UNORIENTED> <graph_name> - создать пустой"
       "ориентированный/неориентированный граф.\n";
     out << "DELETE <graph_name> - удалить граф.\n";
     out << "ADD_VERTEX <graph_name> <vertex> - добавить узел в граф.\n";

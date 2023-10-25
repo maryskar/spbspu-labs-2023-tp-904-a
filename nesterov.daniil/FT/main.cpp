@@ -1,6 +1,6 @@
 #include <iostream>
-#include "DirectedGraph.h"
-#include "UndirectedGraph.h"
+#include "OrientedGraph.h"
+#include "UnorientedGraph.h"
 #include "CommandHandler.h"
 #include "Graph.h"
 
@@ -48,19 +48,22 @@ int main()
       {
         auto toexecute = base_cmds.at(cmd);
         toexecute(std::cout);
-      } catch (...)
+      }
+      catch (...)
       {
         try
         {
           auto toexecute = const_cmds.at(cmd);
           toexecute(graphs, cmdinput, std::cout, std::cerr);
-        } catch (...)
+        }
+        catch (...)
         {
           auto toexecute = cmds.at(cmd);
           toexecute(graphs, cmdinput, std::cout, std::cerr);
         }
       }
-    } catch (...)
+    }
+    catch (...)
     {
       cmdinput.clear();
       skipUntilNewLine(cmdinput);

@@ -1,11 +1,11 @@
-#include "DirectedGraph.h"
+#include "OrientedGraph.h"
 #include <algorithm>
 #include <iostream>
 #include <list>
 
 namespace nesterov
 {
-  void DirectedGraph::addEdge(int v1, int v2)
+  void OrientedGraph::addEdge(int v1, int v2)
   {
     if (!hasVertex(v1) || !hasVertex(v2))
     {
@@ -15,7 +15,7 @@ namespace nesterov
     indegree[v2]++;
   }
 
-  void DirectedGraph::removeEdge(int v1, int v2)
+  void OrientedGraph::removeEdge(int v1, int v2)
   {
     if (!hasEdge(v1, v2))
     {
@@ -25,7 +25,7 @@ namespace nesterov
     indegree[v2]--;
   }
 
-  void DirectedGraph::dfs(int startVertex, std::ostream &out)
+  void OrientedGraph::dfs(int startVertex, std::ostream &out)
   {
     if (!hasVertex(startVertex))
     {
@@ -58,7 +58,7 @@ namespace nesterov
     out << '\n';
   }
 
-  void DirectedGraph::topologicalSortUtil(std::set< int > &visited, std::vector< int > &res)
+  void OrientedGraph::topologicalSortUtil(std::set< int > &visited, std::vector< int > &res)
   {
     bool vertexesLeft = false;
 
@@ -70,7 +70,7 @@ namespace nesterov
         std::for_each(
           list[vertex].begin(),
           list[vertex].end(),
-          std::bind(&DirectedGraph::decreaseIndegree, this, std::placeholders::_1)
+          std::bind(&OrientedGraph::decreaseIndegree, this, std::placeholders::_1)
         );
 
         res.push_back(vertex);
@@ -82,7 +82,7 @@ namespace nesterov
         std::for_each(
           list[vertex].begin(),
           list[vertex].end(),
-          std::bind(&DirectedGraph::increaseIndegree, this, std::placeholders::_1)
+          std::bind(&OrientedGraph::increaseIndegree, this, std::placeholders::_1)
         );
 
         vertexesLeft = true;
@@ -100,23 +100,23 @@ namespace nesterov
     }
   }
 
-  void DirectedGraph::topologicalSort()
+  void OrientedGraph::topologicalSort()
   {
     std::vector< int > res;
     std::set< int > visited;
     topologicalSortUtil(visited, res);
   }
 
-  bool DirectedGraph::isVisited(int vertex, std::set< int > &visited) {
+  bool OrientedGraph::isVisited(int vertex, std::set< int > &visited) {
     return visited.find(vertex) != visited.end();
   }
 
-  void DirectedGraph::increaseIndegree(int vertex)
+  void OrientedGraph::increaseIndegree(int vertex)
   {
     indegree[vertex]++;
   }
 
-  void DirectedGraph::decreaseIndegree(int vertex)
+  void OrientedGraph::decreaseIndegree(int vertex)
   {
     indegree[vertex]--;
   }

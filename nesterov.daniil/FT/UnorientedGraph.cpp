@@ -1,8 +1,8 @@
-#include "UndirectedGraph.h"
+#include "UnorientedGraph.h"
 
 namespace nesterov
 {
-  void UndirectedGraph::addEdge(int v1, int v2)
+  void UnorientedGraph::addEdge(int v1, int v2)
   {
     if (!hasVertex(v1) || !hasVertex(v2))
     {
@@ -12,7 +12,7 @@ namespace nesterov
     list[v2].insert(v1);
   }
 
-  void UndirectedGraph::removeEdge(int v1, int v2)
+  void UnorientedGraph::removeEdge(int v1, int v2)
   {
     if (!hasEdge(v1, v2))
     {
