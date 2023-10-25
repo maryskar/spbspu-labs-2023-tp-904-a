@@ -3,8 +3,8 @@
 #include <iterator>
 #include <algorithm>
 #include <limits>
-#include "DataStruct.h"
 #include "Comparator.h"
+#include <DataStruct.h>
 int main()
 {
   std::vector< aksenov::DataStruct > data;
