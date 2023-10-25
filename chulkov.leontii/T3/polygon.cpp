@@ -67,7 +67,6 @@ namespace chulkov {
 
   bool operator==(const Polygon& frs, const Polygon& sec)
   {
-    return frs.points.size() == sec.points.size() &&
-           std::equal(frs.points.begin(), frs.points.end(), sec.points.begin());
+    return frs.points.size() == sec.points.size() && std::equal(frs.points.begin(), frs.points.end(), sec.points.begin());
   }
 }
