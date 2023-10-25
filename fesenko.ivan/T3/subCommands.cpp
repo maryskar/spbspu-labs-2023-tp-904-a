@@ -109,8 +109,7 @@ std::ostream &fesenko::inframe(const data_t &data, std::istream &in, std::ostrea
 {
   Polygon polygon;
   in >> polygon;
-  char c;
-  if (!in || !(in.get(c) && c == '\n')) {
+  if (!in) {
     throw std::invalid_argument("Incorrect polygon");
   }
   Polygon polygonRect = createBoundingRect(polygon);

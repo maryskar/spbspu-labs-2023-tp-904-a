@@ -1,6 +1,7 @@
 #include "commands.h"
 #include <string>
 #include <messages.h>
+#include <limits>
 #include "subCommands.h"
 
 fesenko::Commands::Commands():
@@ -45,8 +46,8 @@ void fesenko::Commands::make(const std::string &command1, data_t &data, std::ist
   } catch (...) {
     outInvalidCommandMessage(out);
     out << "\n";
+    auto max_size = std::numeric_limits< std::streamsize >::max();
+    in.ignore(max_size, '\n');
     in.clear();
-    std::string trash = "";
-    getline(in, trash);
   }
 }
