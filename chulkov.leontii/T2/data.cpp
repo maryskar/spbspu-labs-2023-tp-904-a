@@ -1,7 +1,8 @@
 #include "data.h"
 #include <iostream>
+#include <delimiter.h>
+#include <streamsguard.h>
 #include "iostruct.h"
-#include "streamsguard.h"
 
 namespace chulkov {
   std::string getUllBin(unsigned long long data)
