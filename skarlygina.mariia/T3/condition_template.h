@@ -1,5 +1,5 @@
-#ifndef CONDITION_TEMPLATE.H
-#define CONDITION_TEMPLATE.H
+#ifndef CONDITION_TEMPLATE_H
+#define CONDITION_TEMPLATE_H
 #include "help_structures.h"
 #include "help_commands.h"
 namespace skarlygina
