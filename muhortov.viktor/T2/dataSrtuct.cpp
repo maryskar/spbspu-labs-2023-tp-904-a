@@ -27,14 +27,14 @@ namespace muhortov {
 
     for (unsigned i = 0; i < 3; i++) {
       input >> labelIO{":key"};
-      char num = ' ';
+      int num = 0;
       input >> num;
       if (input) {
-        if (num == '1') {
+        if (num == 1) {
           input >> comp{in.key1};
-        } else if (num == '2') {
+        } else if (num == 2) {
           input >> rat{in.key2};
-        } else if (num == '3') {
+        } else if (num == 3) {
           input >> str{in.key3};
         }
       }
