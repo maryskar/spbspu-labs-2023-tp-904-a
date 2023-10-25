@@ -14,7 +14,7 @@ namespace timofeev
     }
     std::string secPart;
     in >> secPart;
-    if (secPart.find_first_not_of("0123456789") == std::string::npos)
+    try
     {
       size_t tmp = std::stoull(secPart);
       if (tmp < 3)
@@ -26,25 +26,28 @@ namespace timofeev
         doAreaV(res, tmp);
       }
     }
-    else if (secPart == "EVEN")
+    catch (const std::invalid_argument)
     {
-      doEven(res);
-    }
-    else if (secPart == "ODD")
-    {
-      doOdd(res);
-    }
-    else if (secPart == "MEAN")
-    {
-      if (res.empty())
+      if (secPart == "EVEN")
+      {
+        doEven(res);
+      }
+      else if (secPart == "ODD")
+      {
+        doOdd(res);
+      }
+      else if (secPart == "MEAN")
+      {
+        if (res.empty())
+        {
+          throw std::logic_error("Error");
+        }
+        doMean(res);
+      }
+      else
       {
         throw std::logic_error("Error");
       }
-      doMean(res);
-    }
-    else
-    {
-      throw std::logic_error("Error");
     }
   }
 
@@ -103,7 +106,7 @@ namespace timofeev
     }
     std::string secPart;
     in >> secPart;
-    if (secPart.find_first_not_of("0123456789") == std::string::npos)
+    try
     {
       size_t tmp = std::stoull(secPart);
       if (tmp < 3)
@@ -115,17 +118,20 @@ namespace timofeev
         doCountV(res, tmp);
       }
     }
-    else if (secPart == "EVEN")
+    catch (const std::invalid_argument)
     {
-      doCountEven(res);
-    }
-    else if (secPart == "ODD")
-    {
-      doCountOdd(res);
-    }
-    else
-    {
-      throw std::logic_error("Error");
+      if (secPart == "EVEN")
+      {
+        doCountEven(res);
+      }
+      else if (secPart == "ODD")
+      {
+        doCountOdd(res);
+      }
+      else
+      {
+        throw std::logic_error("Error");
+      }
     }
   }
   void doRSCommand(std::istream&, const std::vector< Polygon > &res)
