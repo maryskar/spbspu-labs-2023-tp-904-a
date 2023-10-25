@@ -2,7 +2,6 @@
 #define COMMANDS_H
 #include "Polygon.h"
 #include <iomanip>
-#include "extra_commands.h"
 
 namespace mishanina
 {
