@@ -1,6 +1,6 @@
 #include "dictionary.h"
 #include "commands.h"
-timofeev::dict timofeev::dictionary()
+timofeev::dict timofeev::setDictionary()
 {
   timofeev::dict command;
   command["AREA"] = doAreaCommands;
