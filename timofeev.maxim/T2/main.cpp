@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include "comparator.h"
-#include "DataStruct.h"
+#include <DataStruct.h>
 
 int main()
 {
