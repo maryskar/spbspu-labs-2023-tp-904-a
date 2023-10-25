@@ -3,10 +3,6 @@
 #include <string>
 
 namespace chulkov {
-  struct DelimiterIO {
-    char exp;
-  };
-
   struct UllIO {
     unsigned long long& ref;
   };
@@ -23,7 +19,6 @@ namespace chulkov {
     std::string& ref;
   };
 
-  std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
   std::istream& operator>>(std::istream& in, UllIO&& dest);
   std::istream& operator>>(std::istream& in, CharIO&& dest);
   std::istream& operator>>(std::istream& in, LabelIO&& dest);
