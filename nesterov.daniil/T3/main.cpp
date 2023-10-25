@@ -63,12 +63,14 @@ int main(int argc, char **argv)
       {
         auto toexecute = const_cmds.at(cmd);
         toexecute(polygons, cmdinput, std::cout);
-      } catch (...)
+      }
+      catch (...)
       {
         auto toexecute = cmds.at(cmd);
         toexecute(polygons, cmdinput, std::cout);
       }
-    } catch (...)
+    }
+    catch (...)
     {
       cmdinput.clear();
       skipUntilNewLine(cmdinput);

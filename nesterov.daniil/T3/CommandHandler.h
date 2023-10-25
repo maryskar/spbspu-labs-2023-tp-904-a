@@ -26,27 +26,6 @@ namespace nesterov
   void executeCountCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out);
   void executeMaxSeqCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out);
   void executeEchoCommand(std::deque< Polygon > &pls, std::istream &in, std::ostream &out);
-  void printAreaEven(const std::deque< Polygon > &pls, std::ostream &out);
-  void printAreaOdd(const std::deque< Polygon > &pls, std::ostream &out);
-  void printAreaMean(const std::deque< Polygon > &pls, std::ostream &out);
-  void printAreaWithVertexes(const std::deque< Polygon > &pls, std::ostream &out, size_t vertexes);
-  void printMaxVertexes(const std::deque< Polygon > &pls, std::ostream &out);
-  void printMaxArea(const std::deque< Polygon > &pls, std::ostream &out);
-  void printMinVertexes(const std::deque< Polygon > &pls, std::ostream &out);
-  void printMinArea(const std::deque< Polygon > &pls, std::ostream &out);
-  void countEven(const std::deque< Polygon > &pls, std::ostream &out);
-  void countOdd(const std::deque< Polygon > &pls, std::ostream &out);
-  void countWithNVertexes(const std::deque< Polygon > &pls, std::ostream &out, size_t vertexes);
-  bool hasEvenVertexes(const Polygon &polygon);
-  bool hasOddVertexes(const Polygon &polygon);
-  double getArea(const Polygon &polygon);
-  size_t getVertexes(const Polygon &polygon);
-  bool hasNVertexes(const Polygon &polygon, size_t vertexes);
-  double getAreaFun(double area, const Polygon &polygon);
-  double getAreaOddFun(double area, const Polygon &polygon);
-  double getAreaEvenFun(double area, const Polygon &polygon);
-  double getAreaWithVertexesFun(double area, const Polygon &polygon, size_t vertexes);
-  double getAreaHelper(const Point &point1, const Point &point2);
 }
 
 #endif

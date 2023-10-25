@@ -7,33 +7,79 @@
 
 namespace nesterov
 {
-  void executeAreaCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
+  bool hasEvenVertexes(const Polygon &polygon)
   {
-    std::string subcommand;
-    if (in >> subcommand)
+    return polygon.points.size() % 2 == 0;
+  }
+
+  bool hasOddVertexes(const Polygon &polygon)
+  {
+    return !hasEvenVertexes(polygon);
+  }
+
+  double getAreaHelper(const Point &point1, const Point &point2)
+  {
+    return point1.x * point2.y - point2.x * point1.y;
+  }
+
+  double getArea(const Polygon &polygon)
+  {
+    std::vector< double > area(polygon.points.size());
+
+    std::transform(
+      polygon.points.begin(),
+      polygon.points.end() - 1,
+      polygon.points.begin() + 1,
+      area.begin(),
+      getAreaHelper
+    );
+
+    double sum = std::accumulate(area.begin(), area.end(), 0.0);
+    sum += getAreaHelper(polygon.points.back(), polygon.points.front());
+
+    return 0.5 * std::abs(sum);
+  }
+
+  bool hasNVertexes(const Polygon &polygon, size_t vertexes)
+  {
+    return polygon.points.size() == vertexes;
+  }
+
+  double getAreaOddFun(double area, const Polygon &polygon)
+  {
+    if (!hasOddVertexes(polygon))
     {
-      if (subcommand == "EVEN")
-      {
-        printAreaEven(pls, out);
-      }
-      else if (subcommand == "ODD")
-      {
-        printAreaOdd(pls, out);
-      }
-      else if (subcommand == "MEAN")
-      {
-        printAreaMean(pls, out);
-      }
-      else
-      {
-        size_t vertexes = std::stoull(subcommand);
-        printAreaWithVertexes(pls, out, vertexes);
-      }
+      return area;
     }
-    else
+    return area + getArea(polygon);
+  }
+
+  double getAreaEvenFun(double area, const Polygon &polygon)
+  {
+    if (!hasEvenVertexes(polygon))
     {
-      throw std::logic_error("");
+      return area;
     }
+    return area + getArea(polygon);
+  }
+
+  size_t getVertexes(const Polygon &polygon)
+  {
+    return polygon.points.size();
+  }
+
+  double getAreaFun(double area, const Polygon &polygon)
+  {
+    return area + getArea(polygon);
+  }
+
+  double getAreaWithVertexesFun(double area, const Polygon &polygon, size_t vertexes)
+  {
+    if (getVertexes(polygon) != vertexes)
+    {
+      return area;
+    }
+    return area + getArea(polygon);
   }
 
   void printAreaOdd(const std::deque< Polygon > &pls, std::ostream &out)
@@ -102,30 +148,6 @@ namespace nesterov
     out << std::fixed << std::setprecision(1) << area << '\n';
   }
 
-  void executeMaxCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
-  {
-    std::string subcommand;
-    if (in >> subcommand)
-    {
-      if (subcommand == "AREA")
-      {
-        printMaxArea(pls, out);
-      }
-      else if (subcommand == "VERTEXES")
-      {
-        printMaxVertexes(pls, out);
-      }
-      else
-      {
-        throw std::logic_error("");
-      }
-    }
-    else
-    {
-      throw std::logic_error("");
-    }
-  }
-
   void printMaxVertexes(const std::deque< Polygon > &pls, std::ostream &out)
   {
     if (pls.empty())
@@ -149,30 +171,6 @@ namespace nesterov
     auto maxAreaIterator = std::max_element(areas.begin(), areas.end());
     IOFmtGuard iofmtguard(out);
     out << std::fixed << std::setprecision(1) << *maxAreaIterator << '\n';
-  }
-
-  void executeMinCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
-  {
-    std::string subcommand;
-    if (in >> subcommand)
-    {
-      if (subcommand == "AREA")
-      {
-        printMinArea(pls, out);
-      }
-      else if (subcommand == "VERTEXES")
-      {
-        printMinVertexes(pls, out);
-      }
-      else
-      {
-        throw std::logic_error("");
-      }
-    }
-    else
-    {
-      throw std::logic_error("");
-    }
   }
 
   void printMinVertexes(const std::deque< Polygon > &pls, std::ostream &out)
@@ -223,6 +221,83 @@ namespace nesterov
     out << n << '\n';
   }
 
+  void executeAreaCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
+  {
+    std::string subcommand;
+    if (in >> subcommand)
+    {
+      if (subcommand == "EVEN")
+      {
+        printAreaEven(pls, out);
+      }
+      else if (subcommand == "ODD")
+      {
+        printAreaOdd(pls, out);
+      }
+      else if (subcommand == "MEAN")
+      {
+        printAreaMean(pls, out);
+      }
+      else
+      {
+        size_t vertexes = std::stoull(subcommand);
+        printAreaWithVertexes(pls, out, vertexes);
+      }
+    }
+    else
+    {
+      throw std::logic_error("");
+    }
+  }
+
+  void executeMaxCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
+  {
+    std::string subcommand;
+    if (in >> subcommand)
+    {
+      if (subcommand == "AREA")
+      {
+        printMaxArea(pls, out);
+      }
+      else if (subcommand == "VERTEXES")
+      {
+        printMaxVertexes(pls, out);
+      }
+      else
+      {
+        throw std::logic_error("");
+      }
+    }
+    else
+    {
+      throw std::logic_error("");
+    }
+  }
+
+  void executeMinCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
+  {
+    std::string subcommand;
+    if (in >> subcommand)
+    {
+      if (subcommand == "AREA")
+      {
+        printMinArea(pls, out);
+      }
+      else if (subcommand == "VERTEXES")
+      {
+        printMinVertexes(pls, out);
+      }
+      else
+      {
+        throw std::logic_error("");
+      }
+    }
+    else
+    {
+      throw std::logic_error("");
+    }
+  }
+
   void executeCountCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
   {
     std::string subcommand;
@@ -241,6 +316,40 @@ namespace nesterov
         size_t vertexes = std::stoull(subcommand);
         countWithNVertexes(pls, out, vertexes);
       }
+    }
+    else
+    {
+      throw std::logic_error("");
+    }
+  }
+
+  void executeMaxSeqCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
+  {
+    Polygon input;
+    if (in >> input)
+    {
+      std::string remaining;
+      std::getline(in, remaining, ')');
+      if (!remaining.empty())
+      {
+        throw std::logic_error("");
+      }
+      size_t max = 0;
+      auto i = std::find(pls.begin(), pls.end(), input);
+      while (i != pls.end())
+      {
+        auto j = std::adjacent_find(i, pls.end(), std::not_equal_to< Polygon >());
+        size_t distance = std::distance(i, j);
+        if (j == pls.end())
+        {
+          max = std::max(max, distance);
+          break;
+        }
+        max = std::max(max, distance + 1);
+        i = std::find(std::next(j), pls.end(), input);
+      }
+
+      out << max << '\n';
     }
     else
     {
@@ -277,114 +386,5 @@ namespace nesterov
     {
       throw std::logic_error("");
     }
-  }
-
-  void executeMaxSeqCommand(const std::deque< Polygon > &pls, std::istream &in, std::ostream &out)
-  {
-    Polygon input;
-    if (in >> input)
-    {
-      std::string remaining;
-      std::getline(in, remaining, ')');
-      if (!remaining.empty())
-      {
-        throw std::logic_error("");
-      }
-      size_t max = 0;
-      auto i = std::find(pls.begin(), pls.end(), input);
-      while (i != pls.end())
-      {
-        auto j = std::adjacent_find(i, pls.end(), std::not_equal_to<>());
-        size_t distance = std::distance(i, j);
-        if (j == pls.end())
-        {
-          max = std::max(max, distance);
-          break;
-        }
-        max = std::max(max, distance + 1);
-        i = std::find(std::next(j), pls.end(), input);
-      }
-
-      out << max << '\n';
-    }
-    else
-    {
-      throw std::logic_error("");
-    }
-  }
-
-  bool hasEvenVertexes(const Polygon &polygon)
-  {
-    return polygon.points.size() % 2 == 0;
-  }
-
-  bool hasOddVertexes(const Polygon &polygon)
-  {
-    return !hasEvenVertexes(polygon);
-  }
-
-  double getArea(const Polygon &polygon)
-  {
-    std::vector< double > area(polygon.points.size());
-
-    std::transform(
-      polygon.points.begin(),
-      polygon.points.end() - 1,
-      polygon.points.begin() + 1,
-      area.begin(),
-      getAreaHelper
-    );
-
-    double sum = std::accumulate(area.begin(), area.end(), 0.0);
-    sum += getAreaHelper(polygon.points.back(), polygon.points.front());
-
-    return 0.5 * std::abs(sum);
-  }
-
-  bool hasNVertexes(const Polygon &polygon, size_t vertexes)
-  {
-    return polygon.points.size() == vertexes;
-  }
-
-  double getAreaOddFun(double area, const Polygon &polygon)
-  {
-    if (!hasOddVertexes(polygon))
-    {
-      return area;
-    }
-    return area + getArea(polygon);
-  }
-
-  double getAreaEvenFun(double area, const Polygon &polygon)
-  {
-    if (!hasEvenVertexes(polygon))
-    {
-      return area;
-    }
-    return area + getArea(polygon);
-  }
-
-  size_t getVertexes(const Polygon &polygon)
-  {
-    return polygon.points.size();
-  }
-
-  double getAreaFun(double area, const Polygon &polygon)
-  {
-    return area + getArea(polygon);
-  }
-
-  double getAreaWithVertexesFun(double area, const Polygon &polygon, size_t vertexes)
-  {
-    if (getVertexes(polygon) != vertexes)
-    {
-      return area;
-    }
-    return area + getArea(polygon);
-  }
-
-  double getAreaHelper(const Point &point1, const Point &point2)
-  {
-    return point1.x * point2.y - point2.x * point1.y;
   }
 }
