@@ -10,7 +10,7 @@ namespace gulkov {
     }
     char c = '0';
     in >> c;
-    if (c != delimeter_io.delimeter_ && in)
+    if (c != delimeter_io.delimeter && in)
     {
       in.setstate(std::ios::failbit);
     }
@@ -24,7 +24,7 @@ namespace gulkov {
     {
       return in;
     }
-    if (in >> ull_io.ullref_)
+    if (in >> ull_io.ullref)
     {
       return in;
     }
@@ -39,27 +39,30 @@ namespace gulkov {
     {
       return in;
     }
-    return std::getline(in >> DelimiterIO{'"'}, string_io.string_, '"');
+    return std::getline(in >> DelimiterIO{'"'}, string_io.string, '"');
   }
 
   std::istream& operator>>(std::istream& in, CharIO&& char_io)
   {
     std::istream::sentry sentry(in);
-    if (!sentry) {
+    if (!sentry)
+    {
       return in;
     }
-    in >> gulkov::DelimiterIO{'\''} >> char_io.charref_ >> DelimiterIO{'\''};
+    in >> gulkov::DelimiterIO{'\''} >> char_io.charref >> DelimiterIO{'\''};
     return in;
   }
 
   std::istream& operator>>(std::istream& in, LabelIO&& label_io)
   {
     std::istream::sentry sentry(in);
-    if (!sentry) {
+    if (!sentry)
+    {
       return in;
     }
-    for (size_t i = 0; i < label_io.label_.length(); i++) {
-      in >> DelimiterIO{label_io.label_[i]};
+    for (size_t i = 0; i < label_io.label.length(); i++)
+    {
+      in >> DelimiterIO{label_io.label[i]};
     }
     return in;
   }

@@ -14,9 +14,11 @@ int main()
   std::list< DataStruct > res_list;
   Comparator comparator;
 
-  while (!std::cin.eof()) {
+  while (!std::cin.eof())
+  {
     std::copy(input_iterator(std::cin), input_iterator(), std::back_inserter(res_list));
-    if (std::cin.fail()) {
+    if (std::cin.fail())
+    {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
     }

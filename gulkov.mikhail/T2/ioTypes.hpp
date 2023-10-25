@@ -7,25 +7,27 @@ namespace gulkov
 {
   struct DelimiterIO
   {
-    char delimeter_;
+    char delimeter;
   };
 
   struct UnsignedLongLongIO
   {
-    unsigned long long& ullref_;
+    unsigned long long& ullref;
   };
 
-  struct CharIO {
-    char& charref_;
+  struct CharIO
+  {
+    char& charref;
   };
 
-  struct LabelIO {
-    std::string label_;
+  struct LabelIO
+  {
+    std::string label;
   };
 
   struct StringIO
   {
-    std::string& string_;
+    std::string& string;
   };
 
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
