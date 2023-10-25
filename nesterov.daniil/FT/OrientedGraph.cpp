@@ -91,12 +91,12 @@ namespace nesterov
 
     if (!vertexesLeft)
     {
-        std::copy(
-          res.begin(),
-          res.end(),
-          std::ostream_iterator< int >(std::cout, " ")
-        );
-        std::cout << '\n';
+      std::copy(
+        res.begin(),
+        res.end(),
+        std::ostream_iterator< int >(std::cout, " ")
+      );
+      std::cout << '\n';
     }
   }
 
