@@ -5,7 +5,7 @@
 #include "helpFunctions.h"
 namespace timofeev
 {
-  void doAreaCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doAreaCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -14,7 +14,7 @@ namespace timofeev
     }
     std::string secPart;
     in >> secPart;
-    if (is_number(secPart))
+    try
     {
       size_t tmp = std::stoull(secPart);
       if (tmp < 3)
@@ -26,29 +26,32 @@ namespace timofeev
         doAreaV(res, tmp);
       }
     }
-    else if (secPart == "EVEN")
+    catch (const std::invalid_argument &e)
     {
-      doEven(res);
-    }
-    else if (secPart == "ODD")
-    {
-      doOdd(res);
-    }
-    else if (secPart == "MEAN")
-    {
-      if (res.empty())
+      if (secPart == "EVEN")
+      {
+        doEven(res);
+      }
+      else if (secPart == "ODD")
+      {
+        doOdd(res);
+      }
+      else if (secPart == "MEAN")
+      {
+        if (res.empty())
+        {
+          throw std::logic_error("Error");
+        }
+        doMean(res);
+      }
+      else
       {
         throw std::logic_error("Error");
       }
-      doMean(res);
-    }
-    else
-    {
-      throw std::logic_error("Error");
     }
   }
 
-  void doMaxCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doMaxCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -71,7 +74,7 @@ namespace timofeev
     }
   }
 
-  void doMinCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doMinCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -94,7 +97,7 @@ namespace timofeev
     }
   }
 
-  void doCountCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doCountCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -103,7 +106,7 @@ namespace timofeev
     }
     std::string secPart;
     in >> secPart;
-    if (is_number(secPart))
+    try
     {
       size_t tmp = std::stoull(secPart);
       if (tmp < 3)
@@ -115,47 +118,32 @@ namespace timofeev
         doCountV(res, tmp);
       }
     }
-    else if (secPart == "EVEN")
+    catch (const std::invalid_argument &e)
     {
-      doСountEven(res);
-    }
-    else if (secPart == "ODD")
-    {
-      doCountOdd(res);
-    }
-    else
-    {
-      throw std::logic_error("Error");
-    }
-  }
-
-  void doRSCommand(std::istream&, const std::vector<Polygon> &res)
-  {
-    size_t count = 0;
-    for (const Polygon& polygon : res)
-    {
-      for (size_t i = 0; i < polygon.points.size(); i++)
+      if (secPart == "EVEN")
       {
-        const Point& p1 = polygon.points[i];
-        const Point& p2 = polygon.points[(i + 1) % polygon.points.size()];
-        const Point& p3 = polygon.points[(i + 2) % polygon.points.size()];
-
-        int vector1_x = p2.x - p1.x;
-        int vector1_y = p2.y - p1.y;
-        int vector2_x = p3.x - p2.x;
-        int vector2_y = p3.y - p2.y;
-
-        if (vector1_x * vector2_x + vector1_y * vector2_y == 0)
-        {
-          count++;
-          break;
-        }
+        doCountEven(res);
+      }
+      else if (secPart == "ODD")
+      {
+        doCountOdd(res);
+      }
+      else
+      {
+        throw std::logic_error("Error");
       }
     }
+  }
+  void doRSCommand(std::istream&, const std::vector< Polygon > &res)
+  {
+    size_t count = 0;
+    size_t indx = 0;
+    size_t pindx = 0;
+    recurRS(res, count, indx, pindx);
     std::cout << count << "\n";
   }
 
-  void doRectsCommand(std::istream&, const std::vector<Polygon>& res)
+  void doRectsCommand(std::istream&, const std::vector< Polygon >& res)
   {
     size_t val = 0;
     for (const Polygon& p: res)

@@ -12,4 +12,4 @@ namespace timofeev
   void doRectsCommand(std::istream&, const std::vector< Polygon >& res);
   void doRSCommand(std::istream&, const std::vector< Polygon >& res);
 }
-#endif //T3_COMMANDS_H
+#endif
