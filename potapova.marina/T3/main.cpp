@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
         }
         else
         {
-          handleInvalidCommand(std::cin, std::cout);
+          throw std::logic_error("There are no commands");
         }
       }
       catch (const std::logic_error&)
