@@ -4,50 +4,56 @@
 #include <map>
 #include <sstream>
 
-namespace chulkov {
-  struct isName {
+namespace chulkov
+{
+  struct isName
+  {
     bool operator()(const Dict &dictionary, cnstStr &name) {
       return dictionary.getName() == name;
     }
   };
 
-  std::ostream &operator<<(std::ostream &os, const Dict &dict) {
+  std::ostream &operator<<(std::ostream &os, const Dict &dict) 
+  {
     return os;
   }
-  std::istream &operator>>(std::istream &is, Dict &dict) {
+  std::istream &operator>>(std::istream &is, Dict &dict) 
+  {
     return is;
   }
 
-  typedef std::map<std::string, int> WordFrequencyMap;
-  std::map<std::string, WordFrequencyMap> dictionaries;
-  std::vector<std::string> split(const std::string &input, char delimiter) {
-    std::vector<std::string> result;
+  typedef std::map< std::string, int > WordFrequencyMap;
+  std::map< std::string, WordFrequencyMap > dictionaries;
+  std::vector< std::string > split(const std::string &input, char delimiter) 
+  {
     std::istringstream stream(input);
-    std::string token;
-    while (std::getline(stream, token, delimiter)) {
-      result.push_back(token);
-    }
-    return result;
+    std::istream_iterator<std::string> begin(stream), end;
+    return {begin, end};
   }
   template<typename T>
-  auto isFoundHelper(T &dicts, const cnstStr &name) {
-    auto check = std::bind(isName(), std::placeholders::_1, name);
-    auto iter = std::find_if(dicts.begin(), dicts.end(), check);
+  auto isFoundHelper(T &dicts, const cnstStr &name)
+  {
+    auto iter = std::find_if(dicts.begin(), dicts.end(), [&name](const Dict &dict) {
+      return dict.getName() == name;
+    });
     if (iter == dicts.end()) {
       throw std::invalid_argument("Dictionary " + name + " wasn't found.");
     }
     return iter;
   }
 
-  auto isFound(const std::vector< Dict > &dicts, const cnstStr &name) {
+  auto isFound(const std::vector< Dict > &dicts, const cnstStr &name) 
+  {
     return isFoundHelper(dicts, name);
   }
 
-  auto isFound(std::vector< Dict > &dicts, const cnstStr &name) {
+  auto isFound(std::vector< Dict > &dicts, const cnstStr &name) 
+  {
     return isFoundHelper(dicts, name);
   }
 
-  void insert(std::istream& input, std::ostream& output, std::vector< Dict >& dicts) {
+  void insert(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) 
+  {
     std::string datasetName, word;
     input >> datasetName >> word;
     auto it = isFound(dicts, datasetName);
@@ -59,7 +65,8 @@ namespace chulkov {
     }
   }
 
-  void remove(std::istream &input, std::vector< Dict > &dicts) {
+  void remove(std::istream &input, std::vector< Dict > &dicts) 
+  {
     std::string dataset, word;
     input >> dataset >> word;
     auto dictIt = isFound(dicts, dataset);
@@ -74,7 +81,8 @@ namespace chulkov {
     }
   }
 
-  void search(std::istream &input, std::ostream &output, const std::vector< Dict > &dicts) {
+  void search(std::istream &input, std::ostream &output, const std::vector< Dict > &dicts) 
+  {
     std::string name, word;
     input >> name >> word;
     auto iter = isFound(dicts, name);
@@ -82,7 +90,8 @@ namespace chulkov {
     output << '\n';
   }
 
-  void printMaxCountWords(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) {
+  void printMaxCountWords(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) 
+  {
     std::string dataset, word;
     input >> dataset >> word;
     auto dictIt = isFound(dicts, dataset);
@@ -98,7 +107,8 @@ namespace chulkov {
     }
   }
 
-  void print(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) {
+  void print(std::istream &input, std::ostream &output, std::vector< Dict > &dicts)
+  {
     std::string dataset;
     input >> dataset;
     auto dictIt = isFound(dicts, dataset);
@@ -109,7 +119,8 @@ namespace chulkov {
     }
   }
 
-  void save(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) {
+  void save(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) 
+  {
     std::string dataset, path;
     input >> dataset >> path;
     auto dictIt = isFound(dicts, dataset);
@@ -130,7 +141,8 @@ namespace chulkov {
     }
   }
 
-  void load(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) {
+  void load(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) 
+  {
     std::string dataset, path;
     input >> dataset >> path;
     Dict newDict;
@@ -145,7 +157,8 @@ namespace chulkov {
     }
   }
 
-  void getSize(const std::string &dataset, const std::vector< Dict > &dicts) {
+  void getSize(const std::string &dataset, const std::vector< Dict > &dicts) 
+  {
     auto dictIt = isFound(dicts, dataset);
     if (dictIt != dicts.end()) {
       std::cout << "Number of words in dataset '" << dataset << "': " << dictIt->getSum() << '\n';
@@ -154,7 +167,8 @@ namespace chulkov {
     }
   }
 
-  void count(std::istream &input, std::ostream &output, const std::vector< Dict > &dicts) {
+  void count(std::istream &input, std::ostream &output, const std::vector< Dict > &dicts)
+  {
     std::string dataset;
     int count = 0;
     input >> dataset >> count;
@@ -166,7 +180,8 @@ namespace chulkov {
     }
   }
 
-  void clear(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) {
+  void clear(std::istream &input, std::ostream &output, std::vector< Dict > &dicts)
+  {
     std::string dataset;
     input >> dataset;
     auto dictIt = isFound(dicts, dataset);
@@ -177,23 +192,24 @@ namespace chulkov {
     }
   }
 
-  void intersectionCommand(std::vector< Dict > &dicts, cnstStr &name, cnstIter it1, cnstIter it2, cnstStr &cmd, char c) {
+  void intersectionCommand(std::vector< Dict > &dicts, cnstStr &name, cnstIter it1, cnstIter it2, cnstStr &cmd, char c)
+  {
     Dict newDictionary(name);
-    for (const std::pair<const std::basic_string<char>, size_t> &i: *it1) {
+    std::for_each(it1->begin(), it1->end(), [&](const std::pair< const std::string, size_t > &i) {
       std::_Rb_tree_const_iterator item = it2->search(i.first);
-      if (item == it2->end()) {
-        continue;
+      if (item != it2->end()) {
+        if (i.second <= (*item).second) {
+          newDictionary.insertPair(i);
+        } else {
+          newDictionary.insertPair(*item);
+        }
       }
-      if (i.second <= (*item).second) {
-        newDictionary.insertPair(i);
-      } else {
-        newDictionary.insertPair(*item);
-      }
-    }
+    });
     dicts.push_back(newDictionary);
   }
 
-  void unionData(std::istream &input, std::ostream &output, std::vector< Dict > &dicts) {
+  void unionData(std::istream &input, std::ostream &output, std::vector< Dict > &dicts)
+  {
     std::string newDataset;
     int numDatasets;
     input >> newDataset >> numDatasets;
@@ -202,7 +218,7 @@ namespace chulkov {
       return;
     }
     std::vector< std::string > datasetsToUnion;
-    for (int i = 0; i < numDatasets; ++i) {
+    for (size_t i = 0; i < numDatasets; ++i) {
       std::string datasetName;
       input >> datasetName;
       datasetsToUnion.push_back(datasetName);
