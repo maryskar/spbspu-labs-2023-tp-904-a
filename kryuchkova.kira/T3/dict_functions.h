@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS_H
-#define FUNCTIONS_H
+#ifndef DICT_FUNCTIONS_H
+#define DICT_FUNCTIONS_H
 #include <ostream>
 #include "polygon.h"
 
