@@ -29,6 +29,7 @@ namespace timofeev
   {
     return pol.points.size() == val;
   }
+
   size_t getPointsNumber(const Polygon& polygon)
   {
     return polygon.points.size();
@@ -140,8 +141,8 @@ namespace timofeev
   void doAreaV(const std::vector< Polygon > &res, size_t &val)
   {
     using namespace std::placeholders;
-    std::vector< Polygon > tmp (res.size());
-    std::copy_if(res.begin(), res.end(), tmp.begin(), std::bind(isEqual, _1, val));
+    std::vector< Polygon > tmp;
+    std::copy_if(res.begin(), res.end(), std::back_inserter(tmp), std::bind(isEqual, _1, val));
     std::vector< double > individual;
     double area = getArea(tmp, individual);
     std::cout << std::fixed << std::setprecision(1) << area << "\n";
@@ -170,7 +171,7 @@ namespace timofeev
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
     std::vector< size_t > vertexCounts (data.size());
-    std::transform(data.begin(), data.end(), std::back_inserter(vertexCounts), getPointsNumber);
+    std::transform(data.begin(), data.end(), vertexCounts.begin(), getPointsNumber);
     if (vertexCounts.empty())
     {
       throw std::invalid_argument("error");
@@ -197,7 +198,7 @@ namespace timofeev
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
     std::vector< size_t > vertexCounts (data.size());
-    std::transform(data.begin(), data.end(), std::back_inserter(vertexCounts), getPointsNumber);
+    std::transform(data.begin(), data.end(), vertexCounts.begin(), getPointsNumber);
     if (vertexCounts.empty())
     {
       throw std::invalid_argument("error");
