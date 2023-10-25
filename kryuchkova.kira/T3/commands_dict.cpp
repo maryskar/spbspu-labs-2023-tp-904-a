@@ -50,14 +50,14 @@ namespace kryuchkova
       input_comm_.at(comm)(pol, out, in);
       return;
     }
-    catch(const std::out_of_range & e)
+    catch (const std::out_of_range & e)
     {}
     try
     {
       simple_comm_.at(comm)(pol, out);
       return;
     }
-    catch(const std::out_of_range & e)
+    catch (const std::out_of_range & e)
     {}
     auto spaceIndex = comm.find(' ');
     auto index = std::stoull(comm.substr(spaceIndex));
