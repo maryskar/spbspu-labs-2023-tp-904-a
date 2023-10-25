@@ -4,14 +4,13 @@
 #include <algorithm>
 #include <limits>
 #include "comparator.h"
-#include "../common/DataStruct.h"
+#include <DataStruct.h>
 
 int main()
 {
   using tds = timofeev::DataStruct;
   using out = std::ostream_iterator< tds >;
   using iter = std::istream_iterator< tds>;
-  auto Max = std::numeric_limits< std::streamsize >::max();
   std::vector< tds > data;
   timofeev::Comparator comparator;
   while(!std::cin.eof())
@@ -20,7 +19,8 @@ int main()
     if (!std::cin)
     {
       std::cin.clear();
-      std::cin.ignore(Max, '\n');
+      auto max = std::numeric_limits< std::streamsize >::max();
+      std::cin.ignore(max, '\n');
     }
   }
   std::sort(data.begin(), data.end(), comparator);

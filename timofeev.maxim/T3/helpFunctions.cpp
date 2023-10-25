@@ -1,34 +1,26 @@
 #include "helpFunctions.h"
 #include <iostream>
 #include <iterator>
-#include <ostream>
+#include <iomanip>
 #include <vector>
 #include <cmath>
 #include <algorithm>
 #include <functional>
+#include <numeric>
 #include "polygon.h"
 namespace timofeev
 {
-  using namespace std::placeholders;
-  using out =  std::ostream_iterator< double >;
-  using outV =  std::ostream_iterator< size_t >;
-  bool is_number(const std::string& s)
-  {
-    std::string::const_iterator it = s.begin();
-    while (it != s.end() && std::isdigit(*it)) ++it;
-    return !s.empty() && it == s.end();
-  }
-  void printError(std::ostream& out)
+  void printError(std::ostream &out)
   {
     out << "<INVALID COMMAND>" << "\n";
   }
 
-  bool isOdd(const Polygon& polygon)
+  bool isOdd(const Polygon &polygon)
   {
     return polygon.points.size() % 2;
   }
 
-  bool isEven(const Polygon& polygon)
+  bool isEven(const Polygon &polygon)
   {
     return !(isOdd(polygon));
   }
@@ -38,190 +30,205 @@ namespace timofeev
     return pol.points.size() == val;
   }
 
-  bool isNotEqual(const Polygon &pol, size_t val)
+  size_t getPointsNumber(const Polygon& polygon)
   {
-    return pol.points.size() != val;
+    return polygon.points.size();
   }
 
-  double getArea(const std::vector<Polygon> &pol, std::vector< double > &indivAreas)
+  void recurRS(const std::vector< Polygon > &res, size_t &count, size_t indx, size_t pindx)
   {
-    /*
-     * (0 0)
-     * (0 2)  0*2+0*2+2*0+0*0
-     * (2 2)  0*0+2*2+2*2+2*0
-     * (2 0)
-     */
-    double totalArea = 0.0;
-    for (auto it = pol.begin(); it != pol.end(); ++it)
+    if (res.size() == indx)
     {
-      const Polygon &p = *it;
-      const std::vector<Point> &points = p.points;
-      double area = 0.0;
-      double firstSum = 0.0;
-      double secondSum = 0.0;
-      for (size_t i = 0; i < points.size(); i++)
-      {
-        const Point &point1 = points[i];
-        const Point &point2 = points[(i + 1) % points.size()];
-        firstSum += (static_cast< double >(point1.x * point2.y));
-        secondSum += (static_cast< double >(point1.y * point2.x));
-      }
-      area += firstSum - secondSum;
-      totalArea += area;
-      indivAreas.push_back(std::abs(area / 2.0));
+      return;
     }
-    return std::abs(totalArea) / 2.0;
+    const Polygon& tmp = res[indx];
+    const Point& p1 = tmp.points[pindx];
+    const Point& p2 = tmp.points[(pindx + 1) % tmp.points.size()];
+    const Point& p3 = tmp.points[(pindx + 2) % tmp.points.size()];
+    int vector1_x = p2.x - p1.x;
+    int vector1_y = p2.y - p1.y;
+    int vector2_x = p3.x - p2.x;
+    int vector2_y = p3.y - p2.y;
+    bool flag = false;
+    if (vector1_x * vector2_x + vector1_y * vector2_y == 0)
+    {
+      flag = true;
+    }
+    if((pindx + 1) % tmp.points.size() == 0)
+    {
+      if (flag)
+      {
+        count++;
+      }
+      recurRS(res, count, indx + 1, 0);
+    }
+    else
+    {
+      recurRS(res, count, indx, pindx + 1);
+    }
   }
 
-  void doEven(const std::vector< Polygon >& res)
+  double multipPointXY(const Point& point1, const Point& point2)
   {
-    std::vector< Polygon > tmp (res.size());
-    std::vector<double> individual;
-    std::copy_if(res.begin(), res.end(), tmp.begin(), isEven);
-    double area = getArea(tmp, individual);
-    std::vector< double > vec;
-    vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    return static_cast< double >(point1.x) * point2.y;
   }
 
-  void doOdd(const std::vector< Polygon >& res)
+  double multipPointYX(const Point& point1, const Point& point2)
   {
-    std::vector< Polygon > tmp (res.size());
-    std::vector<double> individual;
-    std::copy_if(res.begin(), res.end(), tmp.begin(), isOdd);
-    double area = getArea(tmp, individual);
-    std::vector< double > vec;
-    vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    return static_cast< double >(point1.y) * point2.x;
   }
 
-  void doMean(const std::vector< Polygon >& res)
+  double calculateArea(const Polygon& polygon, std::vector< double >& indivAreas)
+  {
+
+    std::vector< double > point_x(polygon.points.size());
+    std::vector< double > point_y(polygon.points.size());
+
+    auto pBegin = polygon.points.begin();
+    auto pEnd = polygon.points.end();
+    std::transform(pBegin, std::prev(pEnd), pBegin + 1, std::back_inserter(point_x), multipPointXY);
+    point_x.push_back(multipPointXY(polygon.points.back(), polygon.points.front()));
+    std::transform(pBegin, std::prev(pEnd), pBegin + 1, std::back_inserter(point_y), multipPointYX);
+    point_y.push_back(multipPointYX(polygon.points.back(), polygon.points.front()));
+
+    double firstSum = std::accumulate(point_x.begin(), point_x.end(), 0.0);
+    double secondSum = std::accumulate(point_y.begin(), point_y.end(), 0.0);
+    double area = (firstSum - secondSum) / 2.0;
+    indivAreas.push_back(std::abs(area));
+    return std::abs(area);
+  }
+  void addArea(const Polygon& p, double& area, std::vector< double >& vecArea)
+  {
+    area += calculateArea(p, vecArea);
+  }
+  double getArea(const std::vector< Polygon >& pol, std::vector< double >& vecArea)
+  {
+    using namespace std::placeholders;
+    double area = 0.0;
+    std::for_each(pol.begin(), pol.end(), std::bind(addArea, _1, std::ref(area), std::ref(vecArea)));
+    return area;
+  }
+
+  void doEven(const std::vector< Polygon > &res)
+  {
+    std::vector< Polygon > tmp;
+    std::vector< double > individual;
+    std::copy_if(res.begin(), res.end(), std::back_inserter(tmp), isEven);
+    static_cast< void >(getArea(tmp, individual));
+    double area = std::accumulate(individual.begin(), individual.end(), 0);
+    std::cout << std::fixed << std::setprecision(1) << area << "\n";
+  }
+
+  void doOdd(const std::vector< Polygon > &res)
+  {
+    std::vector< Polygon > tmp;
+    std::vector< double > individual;
+    std::copy_if(res.begin(), res.end(), std::back_inserter(tmp), isOdd);
+    static_cast< void >(getArea(tmp, individual));
+    double area = std::accumulate(individual.begin(), individual.end(), 0);
+    std::cout << std::fixed << std::setprecision(1) << area << "\n";
+  }
+
+  void doMean(const std::vector< Polygon > &res)
   {
     size_t amount = res.size();
-    std::vector< Polygon > tmp (res.size());
-    std::vector<double> individual;
-    double area = getArea(tmp, individual);
+    std::vector< double > individual;
+    double area = getArea(res, individual);
     area /= amount;
-    std::vector< double > vec;
-    vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << area << "\n";
   }
 
-  void doAreaV(const std::vector< Polygon >& res, size_t& val)
+  void doAreaV(const std::vector< Polygon > &res, size_t &val)
   {
-    std::vector< Polygon > tmp = res;
-    std::remove_if(tmp.begin(), tmp.end(), std::bind(isNotEqual, _1, val));
-    std::vector<double> individual;
+    using namespace std::placeholders;
+    std::vector< Polygon > tmp;
+    std::copy_if(res.begin(), res.end(), std::back_inserter(tmp), std::bind(isEqual, _1, val));
+    std::vector< double > individual;
     double area = getArea(tmp, individual);
-    std::vector< double > vec;
-    vec.push_back(area);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << area << "\n";
   }
 
-  void doMaxArea(const std::vector< Polygon >& res)
+  void doMaxArea(const std::vector< Polygon > &res)
   {
     std::vector< Polygon > tmp = res;
-    std::vector<double> individual;
-    double area = getArea(tmp, individual);
+    std::vector< double > individual;
+    static_cast< void >(getArea(tmp, individual));
+    if (individual.empty())
+    {
+      throw std::invalid_argument("invalid_argument");
+    }
     double maxA = *std::max_element(individual.begin(), individual.end());
-    std::vector< double > vec;
-    vec.push_back(maxA);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << maxA << "\n";
   }
 
-  bool comparePolygons(const Polygon& a, const Polygon& b)
+  bool comparePolygons(const Polygon &a, const Polygon &b)
   {
     return a.points.size() > b.points.size();
   }
 
-  void doMaxV(const std::vector< Polygon >& res)
+  void doMaxV(const std::vector< Polygon > &res)
   {
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
-
-    std::vector<size_t> vertexCounts;
-    for (const Polygon& polygon : data)
+    std::vector< size_t > vertexCounts (data.size());
+    std::transform(data.begin(), data.end(), vertexCounts.begin(), getPointsNumber);
+    if (vertexCounts.empty())
     {
-      vertexCounts.push_back(polygon.points.size());
+      throw std::invalid_argument("error");
     }
     size_t Vertex = *std::max_element(vertexCounts.begin(), vertexCounts.end());
-    std::vector< size_t > vec;
-    vec.push_back(Vertex);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << Vertex << "\n";
   }
 
-  void doMinArea(const std::vector< Polygon >& res)
+  void doMinArea(const std::vector< Polygon > &res)
   {
     std::vector< Polygon > tmp = res;
-    std::vector<double> individual;
-    double area = getArea(tmp, individual);
+    std::vector< double > individual;
+    static_cast< void >(getArea(tmp, individual));
+    if (individual.empty())
+    {
+      throw std::invalid_argument("invalid_argument");
+    }
     double minA = *std::min_element(individual.begin(), individual.end());
-    std::vector< double > vec;
-    vec.push_back(minA);
-    std::copy(vec.begin(), vec.end(),out(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << minA << "\n";
   }
 
-  void doMinV(const std::vector< Polygon >& res)
+  void doMinV(const std::vector< Polygon > &res)
   {
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
-
-    std::vector<size_t> vertexCounts;
-    for (const Polygon& polygon : data)
+    std::vector< size_t > vertexCounts (data.size());
+    std::transform(data.begin(), data.end(), vertexCounts.begin(), getPointsNumber);
+    if (vertexCounts.empty())
     {
-      vertexCounts.push_back(polygon.points.size());
+      throw std::invalid_argument("error");
     }
     size_t Vertex = *std::min_element(vertexCounts.begin(), vertexCounts.end());
-    std::vector< size_t > vec;
-    vec.push_back(Vertex);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << Vertex << "\n";
   }
 
-  void doСountEven(const std::vector< Polygon >& res)
+  void doCountEven(const std::vector< Polygon > &res)
   {
     size_t count = std::count_if(res.begin(), res.end(), isEven);
-    std::vector< size_t > vec;
-    vec.push_back(count);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << count << "\n";
   }
 
-  void doCountOdd(const std::vector< Polygon >& res)
+  void doCountOdd(const std::vector< Polygon > &res)
   {
     size_t count = std::count_if(res.begin(), res.end(), isOdd);
-    std::vector< size_t > vec;
-    vec.push_back(count);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << count << "\n";
   }
 
   void doCountV(const std::vector< Polygon >& res, size_t& val)
   {
+    using namespace std::placeholders;
     size_t Vertexes = std::count_if(res.begin(), res.end(), std::bind(isEqual, _1, val));
-    std::vector< size_t > vec;
-    vec.push_back(Vertexes);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << Vertexes << "\n";
   }
 
   int operator*(const Point &p1, const Point &p2)
   {
     return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
-  }
-
-  bool isSquareTriangle(const Point &p1, const Point &p2, const Point &p3)
-  {
-    return (p1 * p2 + p1 * p3) == p2 * p3;
-  }
-
-  bool isRectangle(const Polygon& pol)
-  {
-    if (pol.points.size() == 4)
-    {
-      Point p1 = pol.points[0];
-      Point p2 = pol.points[1];
-      Point p3 = pol.points[2];
-      Point p4 = pol.points[3];
-      return isSquareTriangle(p1, p2, p3) && isSquareTriangle(p4, p2, p3);
-    }
-    return false;
   }
 
   double getCos(const Point &p1, const Point &p2, const Point &p3)
@@ -236,14 +243,14 @@ namespace timofeev
     double lengthSide1 = std::sqrt(side1x * side1x + side1y * side1y);
     double lengthSide2 = std::sqrt(side2x * side2x + side2y * side2y);
 
-    double cos = scalar / ( lengthSide1 * lengthSide2);
+    double cos = scalar / (lengthSide1 * lengthSide2);
 
     return cos;
   }
 
-  bool isAngle(const Polygon& pol)
+  bool isAngle(const Polygon &pol)
   {
-    const std::vector<Point>& points = pol.points;
+    const std::vector< Point >& points = pol.points;
     for (size_t i = 0; i < points.size(); i++)
     {
       const Point& p1 = points[i];
@@ -252,12 +259,12 @@ namespace timofeev
 
       double cosine = getCos(p1, p2, p3);
 
-      if (std::abs(cosine) < 0.01)
+      if (std::abs(cosine) >= 0.01)
       {
-        return true;
+        return false;
       }
     }
-    return false;
+    return true;
   }
 
 }

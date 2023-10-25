@@ -1,6 +1,6 @@
-#ifndef TLABSNEW_POLYGON_H
-#define TLABSNEW_POLYGON_H
-#include <iosfwd>
+#ifndef POLYGON_H
+#define POLYGON_H
+#include <iostream>
 #include <vector>
 namespace timofeev
 {
@@ -12,9 +12,8 @@ namespace timofeev
   {
     std::vector< Point > points;
   };
-  std::istream &operator>>(std::istream &in, Polygon & dest);
+  std::istream &operator>>(std::istream &in, Polygon &dest);
   std::istream &operator>>(std::istream &in, Point &dest);
   size_t size(const Polygon &dest);
 }
 #endif
-

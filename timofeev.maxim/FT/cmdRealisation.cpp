@@ -39,7 +39,6 @@ namespace timofeev
       out << "DeleteT \"name\" - delete translation in chosen dictionary\n";
       out << "Print All - print all dictionaries\n";
       out << "Print \"name\" - print chosen dictionary\n";
-      out << "DictList - show you list of dict names\n";
       out << "Translate \"name\" - show you translation of word in chosen dictionary\n";
       out << "Common - show you common words in dictionaries\n";
     }
@@ -48,7 +47,7 @@ namespace timofeev
       out << "[AddWord \"name\", "  << "Exist, " << "Delete All, " << "\n";
       out << "Delete \"name\", " << "DeleteT \"name\", " << "\n";
       out << "Print All, " << "Print \"name\", " << "\n";
-      out << "Translate \"name\", " << "Common, " << "DictList]" << "\n";
+      out << "Translate \"name\", " << "Common]" << "\n";
     }
     else
     {
@@ -183,14 +182,6 @@ namespace timofeev
     }
   }
 
-  void printDictList(std::istream&, std::ostream& out, dictsOfDicts& dicts)
-  {
-    out << "Names of Lists: " << "\n";
-    for (const auto& entry: dicts) {
-      const std::string& listName = entry.first;
-      out << listName << "\n";
-    }
-  }
   void Common(std::istream&, std::ostream& out, dictsOfDicts& dicts)
   {
     std::unordered_set< std::string > unique;

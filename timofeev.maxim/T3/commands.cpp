@@ -1,16 +1,11 @@
 #include "commands.h"
 #include <istream>
-#include <exception>
 #include <iostream>
-#include <algorithm>
-#include <iterator>
+#include <iomanip>
 #include "helpFunctions.h"
-#include "../common/IofGuard.h"
 namespace timofeev
 {
-  using outV = std::ostream_iterator<size_t>;
-
-  void doAreaCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doAreaCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -19,32 +14,44 @@ namespace timofeev
     }
     std::string secPart;
     in >> secPart;
-    if (is_number(secPart))
+    try
     {
       size_t tmp = std::stoull(secPart);
       if (tmp < 3)
       {
         throw std::logic_error("Error");
-      } else
-      {
-        doAreaV(res, tmp);  // Дописать
       }
-    } else if (secPart == "EVEN")
+      else
+      {
+        doAreaV(res, tmp);
+      }
+    }
+    catch (const std::invalid_argument &e)
     {
-      doEven(res);
-    } else if (secPart == "ODD")
-    {
-      doOdd(res);
-    } else if (secPart == "MEAN")
-    {
-      doMean(res);
-    } else
-    {
-      throw std::logic_error("Error");
+      if (secPart == "EVEN")
+      {
+        doEven(res);
+      }
+      else if (secPart == "ODD")
+      {
+        doOdd(res);
+      }
+      else if (secPart == "MEAN")
+      {
+        if (res.empty())
+        {
+          throw std::logic_error("Error");
+        }
+        doMean(res);
+      }
+      else
+      {
+        throw std::logic_error("Error");
+      }
     }
   }
 
-  void doMaxCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doMaxCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -56,16 +63,18 @@ namespace timofeev
     if (secPart == "AREA")
     {
       doMaxArea(res);
-    } else if (secPart == "VERTEXES")
+    }
+    else if (secPart == "VERTEXES")
     {
       doMaxV(res);
-    } else
+    }
+    else
     {
       throw std::logic_error("Error");
     }
   }
 
-  void doMinCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doMinCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -77,16 +86,18 @@ namespace timofeev
     if (secPart == "AREA")
     {
       doMinArea(res);
-    } else if (secPart == "VERTEXES")
+    }
+    else if (secPart == "VERTEXES")
     {
       doMinV(res);
-    } else
+    }
+    else
     {
       throw std::logic_error("Error");
     }
   }
 
-  void doCountCommands(std::istream &in, const std::vector<Polygon> &res)
+  void doCountCommands(std::istream &in, const std::vector< Polygon > &res)
   {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -95,57 +106,53 @@ namespace timofeev
     }
     std::string secPart;
     in >> secPart;
-    if (is_number(secPart))
+    try
     {
       size_t tmp = std::stoull(secPart);
       if (tmp < 3)
       {
         throw std::logic_error("Error");
-      } else
+      }
+      else
       {
         doCountV(res, tmp);
       }
-    } else if (secPart == "EVEN")
+    }
+    catch (const std::invalid_argument &e)
     {
-      doСountEven(res);
-    } else if (secPart == "ODD")
-    {
-      doCountOdd(res);
-    } else
-    {
-      throw std::logic_error("Error");
+      if (secPart == "EVEN")
+      {
+        doCountEven(res);
+      }
+      else if (secPart == "ODD")
+      {
+        doCountOdd(res);
+      }
+      else
+      {
+        throw std::logic_error("Error");
+      }
     }
   }
-
-  void doRSCommand(std::istream &in, const std::vector<Polygon> &res)
+  void doRSCommand(std::istream&, const std::vector< Polygon > &res)
   {
-    size_t val = std::count_if(res.begin(), res.end(), isRectangle);
-    std::vector<size_t> vec;
-    vec.push_back(val);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    size_t count = 0;
+    size_t indx = 0;
+    size_t pindx = 0;
+    recurRS(res, count, indx, pindx);
+    std::cout << count << "\n";
   }
 
-  /* void doRectsCommand(std::istream &in, const std::vector< Polygon >& res)
-   {
-     size_t val = std::count_if(res.begin(), res.end(), isAngle);
-     std::vector< size_t > vec;
-     vec.push_back(val);
-     std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
-   }*/
-
-  void doRectsCommand(std::istream& in, const std::vector<Polygon>& res)
+  void doRectsCommand(std::istream&, const std::vector< Polygon >& res)
   {
     size_t val = 0;
-
-    for (const Polygon& p : res)
+    for (const Polygon& p: res)
     {
       if (isAngle(p))
       {
         val++;
       }
     }
-    std::vector< size_t > vec;
-    vec.push_back(val);
-    std::copy(vec.begin(), vec.end(), outV(std::cout, "\n"));
+    std::cout << std::fixed << std::setprecision(1) << val << "\n";
   }
 }

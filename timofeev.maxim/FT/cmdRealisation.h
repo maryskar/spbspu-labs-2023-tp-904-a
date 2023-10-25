@@ -4,7 +4,6 @@
 #include "Commands.h"
 namespace timofeev
 {
-  void printDictList(std::istream&, std::ostream& out, dictsOfDicts& dicts);
   void Createdict(std::istream& in, std::ostream&, dictsOfDicts& dicts);
   void printHelp(std::istream& in, std::ostream& out, dictsOfDicts&);
   void AddWord(std::istream& in, std::ostream& out, dictsOfDicts& dicts);

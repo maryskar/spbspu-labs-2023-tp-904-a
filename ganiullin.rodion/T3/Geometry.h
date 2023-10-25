@@ -1,7 +1,9 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
+
 #include <iosfwd>
 #include <vector>
+
 namespace ganiullin {
   struct Point {
     int x, y;
