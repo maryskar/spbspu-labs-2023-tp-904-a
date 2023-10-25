@@ -6,7 +6,8 @@
 #include "datastruct.h"
 using namespace kozyrin;
 
-int main() {
+int main()
+{
   using ist_iter = std::istream_iterator< DataStruct >;
   using ost_iter = std::ostream_iterator< DataStruct >;
   std::deque< DataStruct > data;

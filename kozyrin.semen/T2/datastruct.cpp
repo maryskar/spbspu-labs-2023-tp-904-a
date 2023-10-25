@@ -1,7 +1,9 @@
 #include "datastruct.h"
-#include "streamstuff.h"
 #include <iomanip>
-using namespace kozyrin;
+#include <iterator>
+#include <algorithm>
+#include "iostuff.h"
+#include "fmtguard.h"
 
 bool kozyrin::comp(const DataStruct& lhs, const DataStruct& rhs)
 {
@@ -49,26 +51,37 @@ std::istream& kozyrin::operator>>(std::istream& in, DataStruct& dest)
   return in;
 }
 
-void printDouble(std::ostream& out, double n)
-{
-  int exp = 0;
-  while (true) {
-    if (n >= 10) {
-      n /= 10;
-      exp++;
-    } else if (n < 1) {
-      n *= 10;
-      exp -= 1;
-    } else {
-      break;
+struct Double {
+  double x;
+};
+
+namespace kozyrin {
+  std::ostream& operator<<(std::ostream& out, const Double& n)
+  {
+    std::ostream::sentry sentry(out);
+    if (!sentry) {
+      return out;
     }
+    iofmtguard fmtguard(out);
+    int exp = 0;
+    double base = n.x;
+    while (base >= 10 or base < 1) {
+      if (base >= 10) {
+        base /= 10;
+        exp++;
+      } else if (base < 1) {
+        base *= 10;
+        exp -= 1;
+      } else {
+        break;
+      }
+    }
+    std::string sign = "e";
+    if (exp > 0) {
+      sign += '+';
+    }
+    return out << std::fixed << std::setprecision(1) << base << sign << exp;
   }
-  std::string sign = "e";
-  if (exp > 0) {
-    sign += '+';
-  }
-  out << std::fixed << std::setprecision(1) << n;
-  out << sign << exp;
 }
 
 std::ostream& kozyrin::operator<<(std::ostream& out, const DataStruct& src)
@@ -79,8 +92,7 @@ std::ostream& kozyrin::operator<<(std::ostream& out, const DataStruct& src)
   }
   iofmtguard fmtguard(out);
   out << '(';
-  out << ":key1 ";
-  printDouble(out, src.key1);
+  out << ":key1 " << Double{src.key1};
   out << ":key2 " << src.key2 << "ull";
   out << ":key3 " << '"' << src.key3 << '"' << ":)";
   return out;

@@ -1,4 +1,4 @@
-#include "streamstuff.h"
+#include "iostuff.h"
 using namespace kozyrin;
 
 std::istream& kozyrin::operator>>(std::istream& in, DelimiterIO&& dest)
@@ -61,18 +61,3 @@ std::istream& kozyrin::operator>>(std::istream& in, StringIO&& dest)
   }
   return std::getline(in >> DelimiterIO{'"'}, dest.str, '"');
 }
-
-kozyrin::iofmtguard::iofmtguard(std::basic_ios< char > & s):
-  s_(s),
-  fill_(s.fill()),
-  precision_(s.precision()),
-  fmt_(s.flags())
-{}
-
-kozyrin::iofmtguard::~iofmtguard()
-{
-  s_.fill(fill_);
-  s_.precision(precision_);
-  s_.flags(fmt_);
-}
-

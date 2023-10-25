@@ -28,18 +28,6 @@ namespace kozyrin {
   std::istream& operator>>(std::istream& in, DoubleIO&& dest);
   std::istream& operator>>(std::istream& in, UllIO&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
-
-  class iofmtguard
-  {
-  public:
-    explicit iofmtguard(std::basic_ios< char > & s);
-    ~iofmtguard();
-  private:
-    std::basic_ios< char > & s_;
-    char fill_;
-    std::streamsize precision_;
-    std::basic_ios< char >::fmtflags fmt_;
-  };
 }
 
 #endif
