@@ -26,7 +26,7 @@ namespace timofeev
         doAreaV(res, tmp);
       }
     }
-    catch (const std::invalid_argument)
+    catch (const std::invalid_argument &e)
     {
       if (secPart == "EVEN")
       {
@@ -118,7 +118,7 @@ namespace timofeev
         doCountV(res, tmp);
       }
     }
-    catch (const std::invalid_argument)
+    catch (const std::invalid_argument &e)
     {
       if (secPart == "EVEN")
       {
