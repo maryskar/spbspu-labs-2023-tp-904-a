@@ -43,12 +43,9 @@ namespace
       potapova::NotChangingCommansMap::const_iterator command_ptr = commands.find(command_mode);
       if (command_ptr == commands.cend())
       {
-        potapova::handleInvalidCommand(in, out);
+        throw std::logic_error("There are no command");
       }
-      else
-      {
-        command_ptr->second(polygons, in, out);
-      }
+      command_ptr->second(polygons, in, out);
   }
 
   void processCommands(const potapova::NotChangingCommansMap& commands,
@@ -58,8 +55,7 @@ namespace
   {
     if (in.rdbuf()->sgetc() == '\n')
     {
-      potapova::handleInvalidCommand(in, out);
-      return;
+      throw std::logic_error("There are no polygons");
     }
     std::string command_mode;
     in >> command_mode;
@@ -74,8 +70,7 @@ namespace
   {
     if (in.rdbuf()->sgetc() == '\n')
     {
-      potapova::handleInvalidCommand(in, out);
-      return;
+      throw std::logic_error("There are no polygons");
     }
     std::string command_mode;
     in >> command_mode;
@@ -88,8 +83,7 @@ namespace
       }
       catch (const std::exception&)
       {
-        potapova::handleInvalidCommand(in, out);
-        return;
+        throw std::logic_error("Invalid number");
       }
       FuncWithNumArg(polygons, target_count_points, in, out);
       return;

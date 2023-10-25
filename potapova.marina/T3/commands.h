@@ -12,24 +12,16 @@ namespace potapova
 {
   template< size_t ParityFlag >
   void printSumOfSpecificAreas(const std::deque< Polygon >& polygons,
-      std::istream& in,
+      std::istream&,
       std::ostream& out)
   {
     double sum = 0.0;
-    try
-    {
-      sum = getSumOfSpecificAreas< ParityFlag >(polygons);
-    }
-    catch (const std::logic_error&)
-    {
-      potapova::handleInvalidCommand(in, out);
-      return;
-    }
+    sum = getSumOfSpecificAreas< ParityFlag >(polygons);
     out << std::fixed << std::setprecision(1) << sum << '\n';
   }
 
   void printAverageArea(const std::deque< Polygon >& polygons,
-      std::istream& in,
+      std::istream&,
       std::ostream& out);
 
   void printSumOfAreasWithSpecificPointsCounts(const std::deque< Polygon >& polygons,
@@ -44,8 +36,7 @@ namespace potapova
   {
     if (polygons.empty())
     {
-      potapova::handleInvalidCommand(in, out);
-      return;
+      throw std::logic_error("There are no polygons");
     }
     double res = getArea(*GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsAreas));
     out << std::fixed << std::setprecision(1) << res << '\n';
@@ -53,13 +44,12 @@ namespace potapova
 
   template< GetExtremeElemFunc GetExtremeElem >
   void printExtremePoints(const std::deque< Polygon >& polygons,
-      std::istream& in,
-      std::ostream& out) noexcept
+      std::istream&,
+      std::ostream& out)
   {
     if (polygons.empty())
     {
-      potapova::handleInvalidCommand(in, out);
-      return;
+      throw std::logic_error("There are no polygons");
     }
     out << GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsPoints)->points.size() << '\n';
   }
@@ -75,7 +65,7 @@ namespace potapova
   void printPolygonsCountWithTargetPointsNum(const std::deque< Polygon >& polygons,
       size_t target_count_points,
       std::istream& in,
-      std::ostream& out) noexcept;
+      std::ostream& out);
 
   void removePolygonDuplicates(std::deque< Polygon >& polygons,
       std::istream& in,
@@ -83,7 +73,7 @@ namespace potapova
 
   void printIsPolygonInFrame(const std::deque< Polygon >& polygons,
       std::istream& in,
-      std::ostream& out) noexcept;
+      std::ostream& out);
 }
 
 #endif

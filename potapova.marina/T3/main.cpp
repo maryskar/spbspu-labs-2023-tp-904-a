@@ -29,17 +29,24 @@ int main(int argc, char* argv[])
     while (std::cin >> command_name)
     {
       ChangingCommansMap::const_iterator changing_command_ptr;
-      if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
+      try
       {
-        changing_command_ptr->second(polygons, std::cin, std::cout);
-        continue;
+        if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
+        {
+          changing_command_ptr->second(polygons, std::cin, std::cout);
+          continue;
+        }
+        NotChangingCommansMap::const_iterator non_changing_command_ptr;
+        if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
+        {
+          non_changing_command_ptr->second(polygons, std::cin, std::cout);
+        }
+        else
+        {
+          handleInvalidCommand(std::cin, std::cout);
+        }
       }
-      NotChangingCommansMap::const_iterator non_changing_command_ptr;
-      if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
-      {
-        non_changing_command_ptr->second(polygons, std::cin, std::cout);
-      }
-      else
+      catch (const std::logic_error&)
       {
         handleInvalidCommand(std::cin, std::cout);
       }
