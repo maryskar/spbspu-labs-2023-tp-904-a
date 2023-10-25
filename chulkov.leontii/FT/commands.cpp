@@ -18,14 +18,15 @@ namespace chulkov
   {
     return os;
   }
+
   std::istream &operator>>(std::istream &is, Dict &dict)
   {
     return is;
   }
 
   typedef std::map< std::string, int > WordFrequencyMap;
-  std::map<std::string, WordFrequencyMap> dictionaries;
-  std::vector<std::string> split(const std::string &input, char delimiter)
+  std::map< std::string, WordFrequencyMap > dictionaries;
+  std::vector< std::string > split(const std::string &input, char delimiter)
   {
     std::istringstream stream(input);
     std::istream_iterator< std::string > begin(stream), end;
@@ -196,7 +197,7 @@ namespace chulkov
   void intersectionCommand(std::vector< Dict >& dicts, cnstStr &name, cnstIter it1, cnstIter it2, cnstStr &cmd, char c)
   {
     Dict newDictionary(name);
-    std::for_each(it1->begin(), it1->end(), [&](const std::pair<const std::string, size_t> &i) {
+    std::for_each(it1->begin(), it1->end(), [&](const std::pair< const std::string, size_t > &i) {
       std::_Rb_tree_const_iterator item = it2->search(i.first);
       if (item != it2->end()) {
         if (i.second <= (*item).second) {
@@ -218,7 +219,7 @@ namespace chulkov
       output << "You need at least 2 datasets to perform a union." << '\n';
       return;
     }
-    std::vector<std::string> datasetsToUnion;
+    std::vector< std::string > datasetsToUnion;
     for (size_t i = 0; i < numDatasets; ++i) {
       std::string datasetName;
       input >> datasetName;
