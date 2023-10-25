@@ -8,11 +8,6 @@ namespace potapova
 {
   class Rectangle
   {
-    private:
-      int max_x;
-      int min_x;
-      int max_y;
-      int min_y;
     public:
       Rectangle(const Polygon& startBounds) noexcept;
       Rectangle* expandBoundsToPoint(const Point& point) noexcept;
@@ -20,6 +15,11 @@ namespace potapova
       Rectangle* expandBoundsToPolygons(const std::deque< Polygon >& polygons) noexcept;
       bool isPointInFrame(const Point& point) noexcept;
       bool isPolygonInFrame(const Polygon& polygon) noexcept;
+    private:
+      int max_x;
+      int min_x;
+      int max_y;
+      int min_y;
   };
 }
 
