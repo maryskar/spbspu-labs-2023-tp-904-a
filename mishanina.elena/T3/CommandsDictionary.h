@@ -13,10 +13,7 @@ namespace mishanina
   public:
     CommandDictionary();
     std::string readCommand(std::istream &in);
-    void doCommand(vect_pol &pols,
-                   std::string &cmd,
-                   std::istream &in,
-                   std::ostream &out);
+    void doCommand(vect_pol &pols, std::string &cmd, std::istream &in, std::ostream &out);
   private:
     std::map< std::string, cmd_out > dict_out;
     std::map< std::string, cmd_num > dict_num;

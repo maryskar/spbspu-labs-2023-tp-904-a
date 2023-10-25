@@ -1,6 +1,6 @@
 #include "commands.h"
 #include <iomanip>
-#include "details.h"
+#include "extra_commands.h"
 #include <iofmtguard.h>
 namespace mishanina
 {

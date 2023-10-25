@@ -1,4 +1,4 @@
-#include "details.h"
+#include "extra_commands.h"
 #include <math.h>
 namespace mishanina
 {
@@ -26,15 +26,13 @@ namespace mishanina
   {
     return p1.x * p2.y - p1.y * p2.x;
   }
-  double getArea(const Polygon &polygon)
+  double getArea(const Polygon &pol)
   {
     double area;
-    std::vector< int > arr(polygon.points.size());
-    std::transform(polygon.points.begin(), --polygon.points.end(), ++polygon.points.begin(), std::back_inserter(arr),
-                   getSide);
+    std::vector< int > arr(pol.points.size());
+    std::transform(pol.points.begin(), --pol.points.end(), ++pol.points.begin(), std::back_inserter(arr), getSide);
     area = std::accumulate(arr.begin(), arr.end(), 0.0);
-    area +=
-      (--polygon.points.end())->x * polygon.points.begin()->y - polygon.points.begin()->x * (--polygon.points.end())->y;
+    area += (--pol.points.end())->x * pol.points.begin()->y - pol.points.begin()->x * (--pol.points.end())->y;
     return std::abs(area) / 2.0;
   }
   double getTotalArea(const std::vector< Polygon > &pol)

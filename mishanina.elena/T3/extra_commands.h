@@ -1,5 +1,5 @@
-#ifndef DETAILS_H
-#define DETAILS_H
+#ifndef EXTRA_COMMANDS_H
+#define EXTRA_COMMANDS_H
 #include <numeric>
 #include <functional>
 #include "Polygon.h"
@@ -11,7 +11,7 @@ namespace mishanina
   bool isEqualPolygon(const Polygon &lhs, const Polygon &rhs, const Polygon &polygon);
   std::size_t getNumOfVertexes(const Polygon &polygon);
   double getSide(const Point &p1, const Point &p2);
-  double getArea(const Polygon &polygon);
+  double getArea(const Polygon &pol);
   double getTotalArea(const std::vector< Polygon > &pol);
   std::size_t getMaxMinVert(const std::vector< Polygon > &polygons, bool isMax);
   double getMaxMinArea(const std::vector< Polygon > &polygons, bool isMax);

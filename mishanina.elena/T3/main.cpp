@@ -16,17 +16,16 @@ int main(int argc, char* argv[])
     std::cerr << "Error : file not open" << '\n';
     return 1;
   }
-  std::vector< Polygon > polygons;
+  long long maxstream = std::numeric_limits< std::streamsize >::max();
+  std::vector< Polygon > pols;
   while (!input.eof())
   {
     if (input.fail())
     {
       input.clear();
-      input.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      input.ignore(maxstream, '\n');
     }
-    std::copy(std::istream_iterator< Polygon >(input),
-              std::istream_iterator< Polygon >(),
-              std::back_inserter(polygons));
+    std::copy(std::istream_iterator< Polygon >(input), std::istream_iterator< Polygon >(), std::back_inserter(pols));
   }
   input.close();
   CommandDictionary dictionary;
@@ -35,17 +34,16 @@ int main(int argc, char* argv[])
     if (!std::cin)
     {
       std::cin.clear();
-      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+      std::cin.ignore(maxstream, '\n');
     }
     try
     {
       std::string cmd = dictionary.readCommand(std::cin);
-      dictionary.doCommand(polygons, cmd, std::cin, std::cout);
+      dictionary.doCommand(pols, cmd, std::cin, std::cout);
     }
     catch (const std::logic_error &e)
     {
       std::cout << "<INVALID COMMAND>\n";
-      long long maxstream = std::numeric_limits< std::streamsize >::max();
       std::cin.ignore(maxstream, '\n');
       std::cin.clear();
     }

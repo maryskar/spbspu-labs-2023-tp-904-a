@@ -14,6 +14,7 @@ std::istream &mishanina::operator>>(std::istream &in, Point &point)
   }
   return in;
 }
+
 std::istream &mishanina::operator>>(std::istream &in, Polygon &data)
 {
   std::istream::sentry sentry(in);
