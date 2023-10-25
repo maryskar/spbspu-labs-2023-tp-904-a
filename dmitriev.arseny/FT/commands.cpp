@@ -4,7 +4,6 @@
 #include <fstream>
 #include <algorithm>
 #include <functional>
-#include "outputOfSpecialMessages.h"
 
 std::string dmitriev::cutS(std::string& line)
 {
@@ -149,7 +148,7 @@ void dmitriev::deleteDirectory(library& lib, std::string& line)
   std::string dirName = cutS(line);
   if (lib.find(dirName) == lib.end())
   {
-    throw std::invalid_argument("dir alrady exist");
+    throw std::invalid_argument("dir not found");
   }
 
   lib.erase(dirName);
@@ -225,7 +224,6 @@ void dmitriev::printFindedBooks(const library& lib, std::string& line, std::ostr
   typename std::forward_list< Book >::const_iterator it = result.cbegin();
   if (it == result.cend())
   {
-    dmitriev::outOfEmptyDataMsg(out);
     return;
   }
   printBook(*it++, out);
@@ -243,7 +241,6 @@ void dmitriev::printDirectory(const library& lib, std::string& line,std::ostream
   typename directory::const_iterator it = lib.at(dirName).cbegin();
   if (it == lib.at(dirName).cend())
   {
-    dmitriev::outOfEmptyDataMsg(out);
     return;
   }
   printBook(it->second, out);

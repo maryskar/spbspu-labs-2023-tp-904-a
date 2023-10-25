@@ -1,6 +1,5 @@
 #include <iostream>
 #include <functional>
-#include "outputOfSpecialMessages.h"
 #include "commands.h"
 
 int main()
@@ -46,10 +45,9 @@ int main()
         std::cout << '\n';
       }
     }
-    catch (const std::exception&)
+    catch (const std::exception& e)
     {
-      dmitriev::outOfInvalivdComandMsg(std::cout);
-      std::cout << '\n';
+      std::cerr << e.what() << '\n';
     }
   }
 
