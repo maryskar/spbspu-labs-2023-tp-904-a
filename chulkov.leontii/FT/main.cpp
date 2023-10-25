@@ -7,22 +7,21 @@
 #include "dict.h"
 
 int main() {
+  using cmdType = std::function< void(std::istream&, std::ostream&, std::vector< chulkov::Dict >&) >;
   std::vector< chulkov::Dict > dicts;
-  std::map< std::string, std::function< void(std::istream&, std::ostream&, std::vector< chulkov::Dict >&) > > commandsMap =
-          {
-             {"save", chulkov::save},
-             {"print", chulkov::print},
-             {"printMaxCountWords", chulkov::printMaxCountWords},
-             {"search", chulkov::search},
-             {"clear", chulkov::clear},
-             {"load", chulkov::load},
-             {"remove", chulkov::remove},
-             {"count", chulkov::count},
-             {"union", chulkov::unionData},
-             {"insert", chulkov::insert},
-             {"intersect", chulkov::intersect},
-             {"size", chulkov::getSize}
-          };
+  std::map< std::string, cmdType >  commandsMap;
+  commandsMap.insert({"save", chulkov::save});
+  commandsMap.insert({"print", chulkov::print});
+  commandsMap.insert({"printMaxCountWords", chulkov::printMaxCountWords});
+  commandsMap.insert({"search", chulkov::search});
+  commandsMap.insert({"clear", chulkov::clear});
+  commandsMap.insert({"load", chulkov::load});
+  commandsMap.insert({"remove", chulkov::remove});
+  commandsMap.insert({"count", chulkov::count});
+  commandsMap.insert({"union", chulkov::unionData});
+  commandsMap.insert({"insert", chulkov::insert});
+  commandsMap.insert({"intersect", chulkov::intersect});
+  commandsMap.insert({"size", chulkov::getSize});
   std::string command;
   while (std::cin >> command) {
     if (commandsMap.find(command) != commandsMap.end()) {

@@ -8,7 +8,8 @@ namespace chulkov
 {
   struct isName
   {
-    bool operator()(const Dict &dictionary, cnstStr &name) {
+    bool operator()(const Dict &dictionary, cnstStr &name)
+    {
       return dictionary.getName() == name;
     }
   };

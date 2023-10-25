@@ -39,9 +39,6 @@ namespace chulkov
     mapCosntIter end() const;
     mapIter begin();
     mapIter end();
-
-
-
   private:
     std::string name_;
     std::map< std::string, std::size_t > Dict_;

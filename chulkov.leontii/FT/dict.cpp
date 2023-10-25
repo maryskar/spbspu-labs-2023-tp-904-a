@@ -6,16 +6,22 @@
 #include <type_traits>
 #include <utility>
 
-namespace chulkov {
+namespace chulkov
+{
   Dict::Dict(cnstStr &name) : name_(name) {}
-  bool Dict::operator==(const Dict &dict) const {
+
+  bool Dict::operator==(const Dict &dict) const
+  {
     return name_ == dict.name_ && Dict_ == dict.Dict_;
   }
 
-  std::string Dict::getName() const {
+  std::string Dict::getName() const
+  {
     return name_;
   }
-  std::size_t Dict::getSum() const {
+
+  std::size_t Dict::getSum() const
+  {
     if (empty()) {
       return 0;
     }
@@ -25,13 +31,19 @@ namespace chulkov {
     std::size_t sum = std::accumulate(Dict_.begin(), Dict_.end(), 0, sumCount);
     return sum;
   }
-  bool Dict::empty() const {
+
+  bool Dict::empty() const
+  {
     return Dict_.empty();
   }
-  void Dict::rename(cnstStr &name) {
+
+  void Dict::rename(cnstStr &name)
+  {
     name_ = name;
   }
-  void Dict::print(std::ostream &stream) const {
+
+  void Dict::print(std::ostream &stream) const
+  {
     if (empty()) {
       return;
     }
@@ -42,13 +54,17 @@ namespace chulkov {
       stream << (++i != Dict_.end() ? "\n" : "");
     }
   }
-  void Dict::printPair(std::ostream &stream, const pairSS &pair) const {
+
+  void Dict::printPair(std::ostream &stream, const pairSS &pair) const
+  {
     const std::size_t sum = getSum();
     StreamGuard guard(stream);
     stream << std::fixed << std::setprecision(1);
     stream << pair.first << ": " << pair.second * 100.0 / sum << '%';
   }
-  void Dict::printMostPopular(std::ostream &stream) const {
+
+  void Dict::printMostPopular(std::ostream &stream) const
+  {
     pairSS top[3];
     for (auto &i: Dict_) {
       if (i.second > top[0].second) {
@@ -73,7 +89,8 @@ namespace chulkov {
     }
   }
 
-  void Dict::insert(cnstStr &word) {
+  void Dict::insert(cnstStr &word)
+  {
     auto iter = Dict_.find(word);
     if (iter != Dict_.end()) {
       Dict_[word]++;
@@ -81,21 +98,25 @@ namespace chulkov {
       Dict_[word] = 1;
     }
   }
-  void Dict::insertPair(const pairSS pair) {
+  void Dict::insertPair(const pairSS pair)
+  {
     if (search(pair.first) != end()) {
       Dict_[pair.first] += pair.second;
     } else {
       Dict_[pair.first] = pair.second;
     }
   }
-  mapCosntIter Dict::search(cnstStr &word) const {
+  mapCosntIter Dict::search(cnstStr &word) const
+  {
     return Dict_.find(word);
   }
-  mapIter Dict::search(cnstStr &word) {
+  mapIter Dict::search(cnstStr &word)
+  {
     return Dict_.find(word);
   }
 
-  bool Dict::deleteWord(cnstStr &word) {
+  bool Dict::deleteWord(cnstStr &word)
+  {
     auto iter = search(word);
     if (iter != Dict_.end()) {
       Dict_.erase(word);
@@ -103,7 +124,8 @@ namespace chulkov {
     }
     return false;
   }
-  void Dict::drop() {
+  void Dict::drop()
+  {
     auto iter = Dict_.begin();
     auto toDelete = iter;
     while (iter != Dict_.end()) {
@@ -113,16 +135,23 @@ namespace chulkov {
     }
   }
 
-  mapCosntIter Dict::begin() const {
+  mapCosntIter Dict::begin() const
+  {
     return Dict_.begin();
   }
-  mapCosntIter Dict::end() const {
+
+  mapCosntIter Dict::end() const
+  {
     return Dict_.end();
   }
-  mapIter Dict::begin() {
+
+  mapIter Dict::begin()
+  {
     return Dict_.begin();
   }
-  mapIter Dict::end() {
+
+  mapIter Dict::end()
+  {
     return Dict_.end();
   }
 }
