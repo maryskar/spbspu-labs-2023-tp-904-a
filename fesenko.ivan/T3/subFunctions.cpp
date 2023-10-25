@@ -153,4 +153,3 @@ bool fesenko::isRect::operator()(const Polygon &rhs)
   return isRightAngle(one, two, three) && isRightAngle(two, three, four)
       && isRightAngle(three, four, one) && isRightAngle(four, one, two);
 }
-
