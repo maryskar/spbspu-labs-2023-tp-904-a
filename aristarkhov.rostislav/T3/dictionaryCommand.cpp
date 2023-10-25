@@ -80,6 +80,31 @@ std::string aristarkhov::getCommand(std::istream& in)
   return command;
 }
 
+std::string aristarkhov::cutString(std::string& string)
+{
+  std::string res = "";
+  std::size_t pos = line.find(' ');
+
+  if (pos != std::string::npos)
+  {
+    res = string.substr(0, pos);
+    string.erase(0, pos + 1);
+
+    return res;
+  }
+  else if (string != "")
+  {
+    res = string;
+    string = "";
+
+    return res;
+  }
+  else
+  {
+    throw std::invalid_argument("incorrect args");
+  }
+}
+
 void aristarkhov::doCommand(std::vector< Polygon >& polygons,
     const Commands& dict,
     std::string& cmd,
@@ -111,7 +136,9 @@ void aristarkhov::doCommand(std::vector< Polygon >& polygons,
   catch (const std::out_of_range& error)
   {
   }
-  size_t pos = cmd.find(' ');
-  size_t count = std::stoull(cmd.substr(pos));
-  dict.doCommandInput(polygons, cmd.substr(0, pos), count, out);
+
+  std::string command = cutString(cmd);
+  size_t count = std::stoull(cmd);
+
+  dict.doCommandInput(polygons, command, count, out);
 }

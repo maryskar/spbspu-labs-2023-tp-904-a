@@ -26,6 +26,7 @@ namespace aristarkhov
   };
 
   std::string getCommand(std::istream& in);
+  std::string cutString(std::string& string);
   void doCommand(std::vector< Polygon >& polygons, const Commands& dict, std::string& cmd, std::ostream& out, std::istream& in);
 }
 
