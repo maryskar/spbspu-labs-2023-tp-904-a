@@ -83,7 +83,7 @@ std::string aristarkhov::getCommand(std::istream& in)
 std::string aristarkhov::cutString(std::string& string)
 {
   std::string res = "";
-  std::size_t pos = line.find(' ');
+  std::size_t pos = string.find(' ');
 
   if (pos != std::string::npos)
   {
