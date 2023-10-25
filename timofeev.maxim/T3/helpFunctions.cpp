@@ -29,11 +29,14 @@ namespace timofeev
   {
     return pol.points.size() == val;
   }
-
-  void recurRS(const std::vector<
-        Polygon > &res, size_t &count, size_t indx, size_t pindx)
+  size_t getPointsNumber(const Polygon& polygon)
   {
-    if(res.size() == indx)
+    return polygon.points.size();
+  }
+
+  void recurRS(const std::vector< Polygon > &res, size_t &count, size_t indx, size_t pindx)
+  {
+    if (res.size() == indx)
     {
       return;
     }
@@ -150,8 +153,7 @@ namespace timofeev
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
     std::vector< size_t > vertexCounts (data.size());
-    std::transform(data.begin(), data.end(), vertexCounts.begin(),
-        [](const Polygon& polygon){ return polygon.points.size(); });
+    std::transform(data.begin(), data.end(), vertexCounts.begin(), getPointsNumber);
     if (vertexCounts.empty())
     {
       throw std::invalid_argument("error");
@@ -178,8 +180,7 @@ namespace timofeev
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
     std::vector< size_t > vertexCounts (data.size());
-    std::transform(data.begin(), data.end(), vertexCounts.begin(),
-        [](const Polygon& polygon){ return polygon.points.size(); });
+    std::transform(data.begin(), data.end(), vertexCounts.begin(), getPointsNumber);
     if (vertexCounts.empty())
     {
       throw std::invalid_argument("error");
