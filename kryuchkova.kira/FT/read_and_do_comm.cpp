@@ -5,7 +5,9 @@ namespace kryuchkova
 {
   CommandDict::CommandDict():
     input_comm_(initInputComm()),
-    inout_comm_(initInputOutComm())
+    inout_comm_(initInputOutComm()),
+    cinout_comm_(initCInputOutComm()),
+    cinput_comm_(initCInputComm())
   {}
 
   void CommandDict::handleCommand(std::string comm, std::istream & in, std::ostream & out, std::map< std::string, ErDictionary > & dicts)
@@ -27,7 +29,6 @@ namespace kryuchkova
     dict["INSERT"] = doInsert;
     dict["DELETE"] = doDelete;
     dict["FILL_DICTIONARY"] = fillDict;
-    dict["EXPORT_DICTIONARY"] = exportDict;
     dict["UNITE"] = unite;
     dict["INTERSECT"] = intersect;
     dict["SYMSUBSTRACT"] = symSubtract;
@@ -37,10 +38,21 @@ namespace kryuchkova
   std::map< std::string, CommandDict::comm_inout_t > CommandDict::initInputOutComm()
   {
     std::map< std::string, comm_inout_t > dict;
-    dict["SEARCH"] = doSearch;
-    dict["FIND_BY_FIRST_LETTER"] = findByFirstLet;
     dict["ADDITION"] = addition;
+    return dict;
+  }
+  std::map< std::string, CommandDict::comm_cinout_t > CommandDict::initCInputOutComm()
+  {
+    std::map< std::string, comm_cinout_t > dict;
+    dict["SEARCH"] = doSearch;
     dict["PRINT"] = printDict;
+    dict["FIND_BY_FIRST_LETTER"] = findByFirstLet;
+    return dict;
+  }
+  std::map< std::string, CommandDict::comm_ct_input_t > CommandDict::initCInputComm()
+  {
+    std::map< std::string, comm_ct_input_t > dict;
+    dict["EXPORT_DICTIONARY"] = exportDict;
     return dict;
   }
 }

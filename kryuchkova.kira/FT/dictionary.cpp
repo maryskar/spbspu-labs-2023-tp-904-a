@@ -5,19 +5,16 @@
 namespace kryuchkova
 {
   ErDictionary::ErDictionary()
-  {
-  }
+  {}
 
-  ErDictionary::ErDictionary(std::string & name)
-  {
-    name_ = name;
-  }
+  ErDictionary::ErDictionary(std::string & name):
+   name_(name)
+  {}
 
-  ErDictionary::ErDictionary(std::string & name, std::map< word, translations > & dict)
-  {
-    name_ = name;
-    dict_ = dict;
-  }
+  ErDictionary::ErDictionary(std::string & name, std::map< word, translations > & dict):
+   name_(name),
+   dict_(dict)
+  {}
 
   ErDictionary::translations ErDictionary::find(const word & wrd) const
   {
@@ -68,7 +65,7 @@ namespace kryuchkova
   std::ostream & operator<<(std::ostream & out, const ErDictionary & dict)
   {
     out << dict.getName() << '\n';
-    for (const auto & pair : dict.getDict())
+    for (const auto & pair: dict.getDict())
     {
       out << pair.first << ": ";
       std::copy(pair.second.begin(), pair.second.end(), std::ostream_iterator< std::string >(out, " "));
@@ -88,7 +85,7 @@ namespace kryuchkova
       }
       std::string word;
       in >> word;
-      int n_translations;
+      int n_translations = 0;
       in >> n_translations;
       std::vector< std::string > translations;
       std::copy_n(std::istream_iterator< std::string >(in), n_translations, std::back_inserter(translations));

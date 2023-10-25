@@ -67,7 +67,7 @@ namespace kryuchkova
     iter->second.insert(word, trans);
   }
 
-  void doSearch(std::istream & in, std::ostream & out, std::map< std::string, ErDictionary > & dicts)
+  void doSearch(std::istream & in, std::ostream & out, const std::map< std::string, ErDictionary > & dicts)
   {
     std::string name;
     in >> name;
@@ -110,7 +110,7 @@ namespace kryuchkova
     dicts[name] = dict;
   }
 
-  void findByFirstLet(std::istream & in, std::ostream & out, std::map< std::string, ErDictionary > & dicts)
+  void findByFirstLet(std::istream & in, std::ostream & out, const std::map< std::string, ErDictionary > & dicts)
   {
     std::string name;
     in >> name;
@@ -130,7 +130,7 @@ namespace kryuchkova
     out << letter_dict;
   }
 
-  void printDict(std::istream & in, std::ostream & out, std::map< std::string, ErDictionary > & dicts)
+  void printDict(std::istream & in, std::ostream & out, const std::map< std::string, ErDictionary > & dicts)
   {
     std::string name;
     in >> name;
@@ -142,7 +142,7 @@ namespace kryuchkova
     out << dict;
   }
 
-  void exportDict(std::istream & in, std::map< std::string, ErDictionary > & dicts)
+  void exportDict(std::istream & in, const std::map< std::string, ErDictionary > & dicts)
   {
     std::string name;
     in >> name;
