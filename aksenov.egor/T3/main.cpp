@@ -29,6 +29,10 @@ int main(int argc, char **argv)
   while (!std::cin.eof())
   {
     std::cin >> command;
+    if (std::cin.eof())
+    {
+      break;
+    }
     try
     {
       commands.at(command)(std::cin, data);
