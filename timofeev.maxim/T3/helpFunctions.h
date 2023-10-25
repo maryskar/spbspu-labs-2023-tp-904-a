@@ -7,6 +7,11 @@ namespace timofeev
 {
   void printError(std::ostream& out);
 
+  double multipPointYX(const Point& point1, const Point& point2);
+  double multipPointXY(const Point& point1, const Point& point2);
+  double calculateArea(const Polygon& polygon, std::vector< double >& indivAreas);
+  void addArea(const Polygon& p, double& totalArea, std::vector< double >& vecArea);
+
   void doEven(const std::vector< Polygon > &res);
   void doOdd(const std::vector< Polygon > &res);
   void doMaxArea(const std::vector< Polygon > &res);
@@ -31,6 +36,6 @@ namespace timofeev
   int operator*(const Point &p1, const Point &p2);
 
   double getCos(const Point &p1, const Point &p2, const Point &p3);
-  double getArea(const std::vector< Polygon > &pol, std::vector< double > &indivAreas);
+  double getArea(const std::vector< Polygon > &pol, std::vector< double > &vecArea);
 }
 #endif

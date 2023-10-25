@@ -67,28 +67,43 @@ namespace timofeev
     }
   }
 
-  double getArea(const std::vector< Polygon > &pol, std::vector< double > &indivAreas)
+  double multipPointXY(const Point& point1, const Point& point2)
   {
-    double totalArea = 0.0;
-    for (auto it = pol.begin(); it != pol.end(); ++it)
-    {
-      const Polygon &p = *it;
-      const std::vector< Point > &points = p.points;
-      double area = 0.0;
-      double firstSum = 0.0;
-      double secondSum = 0.0;
-      for (size_t i = 0; i < points.size(); i++)
-      {
-        const Point &point1 = points[i];
-        const Point &point2 = points[(i + 1) % points.size()];
-        firstSum += (static_cast< double >(point1.x * point2.y));
-        secondSum += (static_cast< double >(point1.y * point2.x));
-      }
-      area += firstSum - secondSum;
-      totalArea += std::abs(area / 2.0);
-      indivAreas.push_back(std::abs(area / 2.0));
-    }
-    return totalArea;
+    return static_cast< double >(point1.x) * point2.y;
+  }
+
+  double multipPointYX(const Point& point1, const Point& point2)
+  {
+    return static_cast< double >(point1.y) * point2.x;
+  }
+
+  double calculateArea(const Polygon& polygon, std::vector< double >& indivAreas)
+  {
+
+    std::vector< double > point_x(polygon.points.size());
+    std::vector< double > point_y(polygon.points.size());
+
+    auto pBegin = polygon.points.begin();
+    auto pEnd = polygon.points.end();
+    std::transform(pBegin, std::prev(pEnd), pBegin + 1, point_x.begin(), multipPointXY);
+    std::transform(pBegin, std::prev(pEnd), pBegin + 1, point_y.begin(), multipPointYX);
+
+    double firstSum = std::accumulate(point_x.begin(), point_x.end(), 0.0);
+    double secondSum = std::accumulate(point_y.begin(), point_y.end(), 0.0);
+    double area = (firstSum - secondSum) / 2.0;
+    indivAreas.push_back(std::abs(area));
+    return std::abs(area);
+  }
+  void addArea(const Polygon& p, double& area, std::vector< double >& vecArea)
+  {
+    area += calculateArea(p, vecArea);
+  }
+  double getArea(const std::vector< Polygon >& pol, std::vector< double >& vecArea)
+  {
+    using namespace std::placeholders;
+    double area = 0.0;
+    std::for_each(pol.begin(), pol.end(), std::bind(addArea, _1, std::ref(area), std::ref(vecArea)));
+    return area;
   }
 
   void doEven(const std::vector< Polygon > &res)
