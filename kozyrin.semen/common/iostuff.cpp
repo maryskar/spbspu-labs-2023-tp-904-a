@@ -1,5 +1,4 @@
 #include "iostuff.h"
-using namespace kozyrin;
 
 std::istream& kozyrin::operator>>(std::istream& in, DelimiterIO&& dest)
 {
