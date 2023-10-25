@@ -10,7 +10,7 @@ int main()
   using Dictionary = std::map< std::string, std::vector< std::string > >;
   std::map<std::string, Dictionary> dictOfDict;
   std::map< std::string, void(*)(std::istream&, std::ostream&, std::map<std::string, Dictionary>& ) > commands;
-  commands = timofeev::command(commands);
+  commands = timofeev::setCommand();
   while (!std::cin.eof())
   {
     try
@@ -28,11 +28,7 @@ int main()
     }
     catch (const std::logic_error &e)
     {
-      std::cout << "<INVALID COMMAND>" << "\n";
-    }
-    catch (const std::out_of_range &e)
-    {
-      timofeev::printEmpty(std::cout);
+      timofeev::printInvalid(std::cout);
       return 1;
     }
     catch (const std::runtime_error & e)
