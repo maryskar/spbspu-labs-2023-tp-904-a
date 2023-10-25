@@ -103,7 +103,8 @@ void kotova::CommandDictionary::doCommand(const std::string &cmd, const std::vec
   {
     cmd_dict.doCommandOut(cmd, polygons, out);
     return;
-  } catch (const std::out_of_range &e)
+  }
+  catch (const std::out_of_range &e)
   {
   }
   size_t sep = cmd.find(' ');
