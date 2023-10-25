@@ -8,7 +8,7 @@
 
 namespace chulkov
 {
-  Dict::Dict(cnstStr &name):
+  Dict::Dict(const std::string &name):
     name_(name)
   {}
 
@@ -39,7 +39,7 @@ namespace chulkov
     return Dict_.empty();
   }
 
-  void Dict::rename(cnstStr &name)
+  void Dict::rename(const std::string &name)
   {
     name_ = name;
   }
@@ -91,7 +91,7 @@ namespace chulkov
     }
   }
 
-  void Dict::insert(cnstStr &word)
+  void Dict::insert(const std::string &word)
   {
     auto iter = Dict_.find(word);
     if (iter != Dict_.end()) {
@@ -108,16 +108,16 @@ namespace chulkov
       Dict_[pair.first] = pair.second;
     }
   }
-  mapCosntIter Dict::search(cnstStr &word) const
+  mapCosntIter Dict::search(const std::string &word) const
   {
     return Dict_.find(word);
   }
-  mapIter Dict::search(cnstStr &word)
+  mapIter Dict::search(const std::string &word)
   {
     return Dict_.find(word);
   }
 
-  bool Dict::deleteWord(cnstStr &word)
+  bool Dict::deleteWord(const std::string &word)
   {
     auto iter = search(word);
     if (iter != Dict_.end()) {
