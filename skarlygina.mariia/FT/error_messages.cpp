@@ -2,11 +2,11 @@
 #include <iostream>
 namespace skarlygina
 {
-  std::ostream& errorOpenFileMessage(std::ostream& out)
-  {
-    out << "<ERROR INCORRECT FILE>";
-    return out;
-  }
+	std::ostream& errorOpenFileMessage(std::ostream& out)
+	{
+		out << "<ERROR INCORRECT FILE>";
+		return out;
+	}
   std::ostream& errorEmptyMessage(std::ostream& out)
   {
     out << "<EMPTY ERROR>";

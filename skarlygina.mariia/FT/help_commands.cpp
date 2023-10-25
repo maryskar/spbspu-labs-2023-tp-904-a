@@ -25,7 +25,7 @@ namespace skarlygina
     }
     if (str.empty())
     {
-      throw std::logic_error{ "Empty error" };
+      throw std::logic_error{"Empty error"};
     }
     auto whitespace = str.find(' ');
     std::string word = "";
@@ -89,7 +89,7 @@ namespace skarlygina
   Dict_t doIntersect(const std::string dict_name_first, const std::string dict_name_second, Dicts_t& dicts)
   {
     auto iter1 = dicts.find(dict_name_first);
-    auto iter2 = dicts.find(dict_name_second);
+    auto iter2 = dicts.find(dict_name_second); 
     Dict_t result;
     for (auto i = iter1->second.cbegin(); i != iter1->second.cend(); i++)
     {
