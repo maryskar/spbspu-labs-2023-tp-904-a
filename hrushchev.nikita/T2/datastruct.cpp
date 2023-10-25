@@ -2,9 +2,8 @@
 #include <complex>
 #include <string>
 #include <iomanip>
-#include "scopeguard.hpp"
-#include "iotypes.hpp"
-
+#include <scopeguard.hpp>
+#include <iotypes.hpp>
 
 bool hrushchev::Comparator::operator()(const DataStruct& lhs, const DataStruct& rhs) const
 {
