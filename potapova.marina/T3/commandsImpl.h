@@ -9,8 +9,11 @@
 
 namespace potapova
 {
-  constexpr size_t EVEN = 0;
-  constexpr size_t ODD = 1;
+  enum class ParityFlags
+  {
+    EVEN = 0,
+    ODD = 1
+  };
 
   double getArea(const Polygon& polygon);
   double addAreaToSum(const double sum, const potapova::Polygon& polygon);
@@ -21,27 +24,27 @@ namespace potapova
   bool comparePolygonsPoints(const Polygon& first, const Polygon& second);
   bool isEqual(const Polygon& first, const Polygon& second, const Polygon& target_polygon) noexcept;
 
-  template< size_t ParityFlag >
+  template< ParityFlags ParityFlag >
   double addSpecificAreaToSum(const double sum, const potapova::Polygon& polygon)
   {
-    if ((polygon.points.size() & 1) == ParityFlag)
+    if ((polygon.points.size() & 1) == static_cast< size_t >(ParityFlag))
     {
       return addAreaToSum(sum, polygon);
     }
     return sum;
   }
 
-  template< size_t ParityFlag >
+  template< ParityFlags ParityFlag >
   double getSumOfSpecificAreas(const std::deque< Polygon >& polygons)
   {
     double area = std::accumulate(polygons.begin(), polygons.end(), 0.0, addSpecificAreaToSum< ParityFlag >);
     return area;
   }
 
-  template< size_t ParityFlag >
+  template< ParityFlags ParityFlag >
   bool isSpecificPointsNum(const Polygon& polygon) noexcept
   {
-    return (polygon.points.size() & 1) == ParityFlag;
+    return (polygon.points.size() & 1) == static_cast< size_t >(ParityFlag);
   }
 }
 

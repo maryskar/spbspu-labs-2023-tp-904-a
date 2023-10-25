@@ -10,7 +10,7 @@
 
 namespace potapova
 {
-  template< size_t ParityFlag >
+  template< ParityFlags ParityFlag >
   void printSumOfSpecificAreas(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out)
@@ -54,7 +54,7 @@ namespace potapova
     out << GetExtremeElem(polygons.begin(), polygons.end(), comparePolygonsPoints)->points.size() << '\n';
   }
 
-  template< size_t ParityFlag >
+  template< ParityFlags ParityFlag >
   void printPolygonsCountWithSpecificPointsNum(const std::deque< Polygon >& polygons,
       std::istream&,
       std::ostream& out) noexcept

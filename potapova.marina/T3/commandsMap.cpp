@@ -9,8 +9,8 @@ namespace
   {
     return potapova::NotChangingCommandsMap
     {
-      {"EVEN", potapova::printSumOfSpecificAreas< potapova::EVEN >},
-      {"ODD", potapova::printSumOfSpecificAreas< potapova::ODD >},
+      {"EVEN", potapova::printSumOfSpecificAreas< potapova::ParityFlags::EVEN >},
+      {"ODD", potapova::printSumOfSpecificAreas< potapova::ParityFlags::ODD >},
       {"MEAN", potapova::printAverageArea},
     };
   }
@@ -29,8 +29,8 @@ namespace
   {
     return potapova::NotChangingCommandsMap
     {
-      {"ODD", potapova::printPolygonsCountWithSpecificPointsNum< potapova::ODD >},
-      {"EVEN", potapova::printPolygonsCountWithSpecificPointsNum< potapova::EVEN >}
+      {"ODD", potapova::printPolygonsCountWithSpecificPointsNum< potapova::ParityFlags::ODD >},
+      {"EVEN", potapova::printPolygonsCountWithSpecificPointsNum< potapova::ParityFlags::EVEN >}
     };
   }
 
