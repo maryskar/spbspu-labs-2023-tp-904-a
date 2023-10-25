@@ -42,13 +42,19 @@ namespace aksenov
   double calculateArea(const Polygon &p)
   {
     const std::vector< Point > &points = p.points;
+
+    if(points.empty())
+    {
+      return 0;
+    }
+
     std::vector< double > products;
-    std::transform(points.begin(), points.end(), std::next(points.begin()), std::back_inserter(products), calculate);
+    std::transform(points.begin(), std::prev(points.end()), std::next(points.begin()), std::back_inserter(products), calculate);
+    products.push_back(calculate(points.back(), points.front()));
+
     double area = std::accumulate(products.begin(), products.end(), 0.0);
     return std::fabs(area / 2.0);
   }
-
-
   std::vector< double > getArea(const std::vector< Polygon > &pol)
   {
     std::vector< double > areas;
