@@ -13,7 +13,8 @@
 #include "countFunctions.h"
 #include "polygon.h"
 #include "helpFunctions.h"
-namespace aksenov {
+namespace aksenov
+{
   void doArea(std::istream &inp, const std::vector< Polygon > &pol)
   {
     using areaMap = std::map< std::string, void (*)(const std::vector< aksenov::Polygon > &) >;
