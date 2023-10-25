@@ -170,7 +170,7 @@ namespace timofeev
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
     std::vector< size_t > vertexCounts (data.size());
-    std::transform(data.begin(), data.end(), vertexCounts.begin(), getPointsNumber);
+    std::transform(data.begin(), data.end(), std::back_inserter(vertexCounts), getPointsNumber);
     if (vertexCounts.empty())
     {
       throw std::invalid_argument("error");
@@ -197,7 +197,7 @@ namespace timofeev
     std::vector< Polygon > data = res;
     std::sort(data.begin(), data.end(), comparePolygons);
     std::vector< size_t > vertexCounts (data.size());
-    std::transform(data.begin(), data.end(), vertexCounts.begin(), getPointsNumber);
+    std::transform(data.begin(), data.end(), std::back_inserter(vertexCounts), getPointsNumber);
     if (vertexCounts.empty())
     {
       throw std::invalid_argument("error");
