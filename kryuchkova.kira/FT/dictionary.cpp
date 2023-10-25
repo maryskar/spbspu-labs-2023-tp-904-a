@@ -83,7 +83,7 @@ namespace kryuchkova
       {
         return in;
       }
-      std::string word;
+      std::string word = "";
       in >> word;
       int n_translations = 0;
       in >> n_translations;
