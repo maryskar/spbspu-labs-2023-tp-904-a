@@ -29,7 +29,6 @@ int main()
     catch (const std::logic_error &e)
     {
       timofeev::printInvalid(std::cout);
-      return 1;
     }
     catch (const std::runtime_error & e)
     {
