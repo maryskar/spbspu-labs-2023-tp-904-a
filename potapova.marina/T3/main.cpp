@@ -24,11 +24,11 @@ int main(int argc, char* argv[])
     std::deque< Polygon > polygons;
     polygons = readPolygons(input_file);
     std::string command_name;
-    NotChangingCommansMap non_changing_commands = getNonChangingCommands();
-    ChangingCommansMap changing_commands = getChangingCommands();
+    NotChangingCommandsMap non_changing_commands = getNonChangingCommands();
+    ChangingCommandsMap changing_commands = getChangingCommands();
     while (std::cin >> command_name)
     {
-      ChangingCommansMap::const_iterator changing_command_ptr;
+      ChangingCommandsMap::const_iterator changing_command_ptr;
       try
       {
         if ((changing_command_ptr = changing_commands.find(command_name)) != changing_commands.cend())
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
           changing_command_ptr->second(polygons, std::cin, std::cout);
           continue;
         }
-        NotChangingCommansMap::const_iterator non_changing_command_ptr;
+        NotChangingCommandsMap::const_iterator non_changing_command_ptr;
         if ((non_changing_command_ptr = non_changing_commands.find(command_name)) != non_changing_commands.cend())
         {
           non_changing_command_ptr->second(polygons, std::cin, std::cout);

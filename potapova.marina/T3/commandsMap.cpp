@@ -5,9 +5,9 @@
 
 namespace
 {
-  potapova::NotChangingCommansMap getAreaCommands()
+  potapova::NotChangingCommandsMap getAreaCommands()
   {
-    return potapova::NotChangingCommansMap
+    return potapova::NotChangingCommandsMap
     {
       {"EVEN", potapova::printSumOfSpecificAreas< potapova::EVEN >},
       {"ODD", potapova::printSumOfSpecificAreas< potapova::ODD >},
@@ -16,31 +16,31 @@ namespace
   }
 
   template< potapova::GetExtremeElemFunc GetExtremeElem >
-  potapova::NotChangingCommansMap getExtremeCharacteristicCommands()
+  potapova::NotChangingCommandsMap getExtremeCharacteristicCommands()
   {
-    return potapova::NotChangingCommansMap
+    return potapova::NotChangingCommandsMap
     {
       {"AREA", potapova::printExtremeArea< GetExtremeElem >},
       {"VERTEXES", potapova::printExtremePoints< GetExtremeElem >}
     };
   }
 
-  potapova::NotChangingCommansMap getCountCommands()
+  potapova::NotChangingCommandsMap getCountCommands()
   {
-    return potapova::NotChangingCommansMap
+    return potapova::NotChangingCommandsMap
     {
       {"ODD", potapova::printPolygonsCountWithSpecificPointsNum< potapova::ODD >},
       {"EVEN", potapova::printPolygonsCountWithSpecificPointsNum< potapova::EVEN >}
     };
   }
 
-  void runCommandFromMap(const potapova::NotChangingCommansMap& commands,
+  void runCommandFromMap(const potapova::NotChangingCommandsMap& commands,
       const std::string& command_mode,
       const std::deque< potapova::Polygon >& polygons,
       std::istream& in,
       std::ostream& out)
   {
-      potapova::NotChangingCommansMap::const_iterator command_ptr = commands.find(command_mode);
+      potapova::NotChangingCommandsMap::const_iterator command_ptr = commands.find(command_mode);
       if (command_ptr == commands.cend())
       {
         throw std::logic_error("There are no command");
@@ -48,7 +48,7 @@ namespace
       command_ptr->second(polygons, in, out);
   }
 
-  void processCommands(const potapova::NotChangingCommansMap& commands,
+  void processCommands(const potapova::NotChangingCommandsMap& commands,
       const std::deque< potapova::Polygon >& polygons,
       std::istream& in,
       std::ostream& out)
@@ -63,7 +63,7 @@ namespace
   }
 
   template< void(*FuncWithNumArg)(const std::deque< potapova::Polygon >&, size_t, std::istream&, std::ostream&) >
-  void processCommandsWithNumVar(const potapova::NotChangingCommansMap& commands,
+  void processCommandsWithNumVar(const potapova::NotChangingCommandsMap& commands,
       const std::deque< potapova::Polygon >& polygons,
       std::istream& in,
       std::ostream& out)
@@ -93,29 +93,29 @@ namespace
 }
 
   using ConstPolygonsRef = const std::deque< potapova::Polygon >&;
-  potapova::CommandFunc< ConstPolygonsRef > getComandWithModes(
-      void(*processCommands)(const potapova::NotChangingCommansMap&, ConstPolygonsRef, std::istream&, std::ostream&),
-      const potapova::NotChangingCommansMap& modes)
+  potapova::CommandFunc< ConstPolygonsRef > getCommandWithModes(
+      void(*processCommands)(const potapova::NotChangingCommandsMap&, ConstPolygonsRef, std::istream&, std::ostream&),
+      const potapova::NotChangingCommandsMap& modes)
   {
     using namespace std::placeholders;
     return std::bind(processCommands, modes, _1, _2, _3);
   }
 
-potapova::NotChangingCommansMap potapova::getNonChangingCommands()
+potapova::NotChangingCommandsMap potapova::getNonChangingCommands()
 {
-  return NotChangingCommansMap
+  return NotChangingCommandsMap
   {
-    {"AREA", getComandWithModes(processCommandsWithNumVar< printSumOfAreasWithSpecificPointsNum >, getAreaCommands())},
-    {"MAX", getComandWithModes(processCommands, getExtremeCharacteristicCommands< std::max_element >())},
-    {"MIN", getComandWithModes(processCommands, getExtremeCharacteristicCommands< std::min_element >())},
-    {"COUNT", getComandWithModes(processCommandsWithNumVar< printPolygonsNumWithTargetPointsNum >, getCountCommands())},
+    {"AREA", getCommandWithModes(processCommandsWithNumVar< printSumOfAreasWithSpecificPointsNum >, getAreaCommands())},
+    {"MAX", getCommandWithModes(processCommands, getExtremeCharacteristicCommands< std::max_element >())},
+    {"MIN", getCommandWithModes(processCommands, getExtremeCharacteristicCommands< std::min_element >())},
+    {"COUNT", getCommandWithModes(processCommandsWithNumVar< printPolygonsNumWithTargetPointsNum >, getCountCommands())},
     {"INFRAME", printIsPolygonInFrame}
   };
 }
 
-potapova::ChangingCommansMap potapova::getChangingCommands()
+potapova::ChangingCommandsMap potapova::getChangingCommands()
 {
-  return ChangingCommansMap
+  return ChangingCommandsMap
   {
     {"RMECHO", removePolygonDuplicates}
   };

@@ -8,8 +8,8 @@
 
 namespace potapova
 {
-  NotChangingCommansMap getNonChangingCommands();
-  ChangingCommansMap getChangingCommands();
+  NotChangingCommandsMap getNonChangingCommands();
+  ChangingCommandsMap getChangingCommands();
 }
 
 #endif

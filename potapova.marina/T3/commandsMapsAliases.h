@@ -13,8 +13,8 @@ namespace potapova
   using CommandFunc = std::function< void(Polygons&, std::istream&, std::ostream&) >;
   template < typename CommandFunc >
   using CommandsMap = std::unordered_map< std::string, CommandFunc >;
-  using ChangingCommansMap = CommandsMap< CommandFunc< std::deque< Polygon > > >;
-  using NotChangingCommansMap = CommandsMap< CommandFunc< const std::deque< Polygon > > >;
+  using ChangingCommandsMap = CommandsMap< CommandFunc< std::deque< Polygon > > >;
+  using NotChangingCommandsMap = CommandsMap< CommandFunc< const std::deque< Polygon > > >;
   using PoligonsConstIterator = std::deque< Polygon >::const_iterator;
   using ComparePolygonsFunc = bool(*)(const Polygon&, const Polygon&);
   using GetExtremeElemFunc = PoligonsConstIterator(*)(PoligonsConstIterator, PoligonsConstIterator, ComparePolygonsFunc);
