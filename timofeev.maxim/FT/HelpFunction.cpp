@@ -14,6 +14,7 @@ namespace timofeev
     }
     dict[word] = line;
   }
+
   void addInDict(std::istream& in, std::ostream& out, dict_t& dict)
   {
     std::string word = "";
@@ -40,9 +41,10 @@ namespace timofeev
     }
     splitter(translation, word, line, dict);
   }
+
   void printInvalid(std::ostream &out)
   {
-    out << "<INVALID COMMAND>" << "\n";
+    out << "<INVALID COMMAND>";
   }
 
   void delTrans(std::istream& in, std::ostream& out, dict_t& dict)

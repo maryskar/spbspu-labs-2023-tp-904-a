@@ -9,7 +9,8 @@ int main()
   std::setlocale(LC_ALL, "Russian");
   using Dictionary = std::map< std::string, std::vector< std::string > >;
   std::map<std::string, Dictionary> dictOfDict;
-  std::map< std::string, void(*)(std::istream&, std::ostream&, std::map<std::string, Dictionary>& ) > commands;
+  std::map< std::string, void(*)(std::istream&, std::ostream&,
+    std::map< std::string, Dictionary >& ) > commands;
   commands = timofeev::setCommand();
   while (!std::cin.eof())
   {
@@ -29,6 +30,7 @@ int main()
     catch (const std::logic_error &e)
     {
       timofeev::printInvalid(std::cout);
+      std::cout << "\n";
     }
     catch (const std::runtime_error & e)
     {
