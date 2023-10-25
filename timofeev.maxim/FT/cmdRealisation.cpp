@@ -5,7 +5,7 @@
 #include "HelpFunction.h"
 namespace timofeev
 {
-  void Createdict(std::istream& in, std::ostream&, dictsOfDicts& dicts)
+  void doCreateDict(std::istream& in, std::ostream&, dictsOfDicts& dicts)
   {
     std::string Name;
     std::getline(in, Name);
@@ -21,7 +21,7 @@ namespace timofeev
     }
 
   }
-  void printHelp(std::istream& in, std::ostream& out, dictsOfDicts &)
+  void doPrintHelp(std::istream& in, std::ostream& out, dictsOfDicts &)
   {
     out << "Select which command you need: " << "\n";
     out << "Write down \"All\" to get full info: " << "\n";
@@ -55,7 +55,7 @@ namespace timofeev
     }
   }
 
-  void AddWord(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
+  void doAddWord(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
   {
     std::string secPart = "";
     in >> secPart;
@@ -70,7 +70,7 @@ namespace timofeev
     }
   }
 
-  void DeleteT(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
+  void doDeleteT(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
   {
     std::string secPart = "";
     in >> secPart;
@@ -85,7 +85,7 @@ namespace timofeev
     }
   }
 
-  void Print(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
+  void doPrint(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
   {
     std::string secPart = "";
     in >> secPart;
@@ -110,7 +110,7 @@ namespace timofeev
     }
   }
 
-  void Delete(std::istream& in, std::ostream&, dictsOfDicts& dicts)
+  void doDelete(std::istream& in, std::ostream&, dictsOfDicts& dicts)
   {
     std::string secPart = "";
     in >> secPart;
@@ -135,7 +135,7 @@ namespace timofeev
     }
   }
 
-  void Translate(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
+  void doTranslate(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
   {
     std::string secPart = "";
     std::string word = "";
@@ -151,7 +151,7 @@ namespace timofeev
       throw std::logic_error("Wrong Command");
     }
   }
-  void Exist(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
+  void doExist(std::istream& in, std::ostream& out, dictsOfDicts& dicts)
   {
     std::string word;
     in >> word;
@@ -182,7 +182,7 @@ namespace timofeev
     }
   }
 
-  void Common(std::istream&, std::ostream& out, dictsOfDicts& dicts)
+  void doCommon(std::istream&, std::ostream& out, dictsOfDicts& dicts)
   {
     std::unordered_set< std::string > unique;
     for (const auto& names: dicts)

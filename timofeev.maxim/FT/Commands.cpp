@@ -4,14 +4,14 @@
 timofeev::input timofeev::setCommand()
 {
   timofeev::input command;
-  command["Create"] = Createdict;
-  command["Help"] = printHelp;
-  command["AddWord"] = AddWord;
-  command["Exist"] = Exist;
-  command["DeleteT"] = DeleteT;
-  command["Delete"] = Delete;
-  command["Print"] = Print;
-  command["Translate"] = Translate;
-  command["Common"] = Common;
+  command["Create"] = doCreateDict;
+  command["Help"] = doPrintHelp;
+  command["AddWord"] = doAddWord;
+  command["Exist"] = doExist;
+  command["DeleteT"] = doDeleteT;
+  command["Delete"] = doDelete;
+  command["Print"] = doPrint;
+  command["Translate"] = doTranslate;
+  command["Common"] = doCommon;
   return command;
 }
