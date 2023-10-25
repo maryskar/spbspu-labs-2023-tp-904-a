@@ -26,23 +26,12 @@ int main(int argc, char **argv)
   commands = aksenov::makeDict();
   std::string command = "";
 
-  while(true)
+  while (!std::cin.eof())
   {
     std::cin >> command;
-    if (std::cin.eof())
-    {
-      break;
-    }
     try
     {
-      if (commands.find(command) != commands.end())
-      {
-        commands[command](std::cin, data);
-      }
-      else
-      {
-        throw std::logic_error("error");
-      }
+      commands.at(command)(std::cin, data);
     }
     catch (const std::logic_error &e)
     {

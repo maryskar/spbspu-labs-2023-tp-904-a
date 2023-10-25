@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
+#include <numeric>
 #include "polygon.h"
 
 namespace aksenov
@@ -33,21 +34,25 @@ namespace aksenov
     return true;
   }
 
-  std::vector< double > getArea(const std::vector<Polygon> &pol)
+  double calculate(const Point &p1, const Point &p2)
+  {
+    return p1.x * p2.y - p2.x * p1.y;
+  }
+
+  double calculateArea(const Polygon &p)
+  {
+    const std::vector< Point > &points = p.points;
+    std::vector< double > products;
+    std::transform(points.begin(), points.end(), std::next(points.begin()), std::back_inserter(products), calculate);
+    double area = std::accumulate(products.begin(), products.end(), 0.0);
+    return std::fabs(area / 2.0);
+  }
+
+
+  std::vector< double > getArea(const std::vector< Polygon > &pol)
   {
     std::vector< double > areas;
-    for (const Polygon &p: pol) {
-      const std::vector< Point > &points = p.points;
-      double firstSum = 0.0;
-      double secondSum = 0.0;
-      for (size_t i = 0; i < points.size(); i++) {
-        const Point &current = points[i];
-        const Point &next = points[(i + 1) % points.size()];
-        firstSum += (static_cast< double >(next.y * current.x));
-        secondSum += (static_cast< double >(next.x * current.y));
-      }
-      areas.push_back(std::fabs((firstSum - secondSum) / 2));
-    }
+    std::transform(pol.begin(), pol.end(), std::back_inserter(areas), calculateArea);
     return areas;
   }
 
@@ -68,7 +73,8 @@ namespace aksenov
 
   bool comparePoints(const Point &lhs, const Point &rhs)
   {
-    if (lhs.x == rhs.x) {
+    if (lhs.x == rhs.x)
+    {
       return lhs.y < rhs.y;
     }
     return lhs.x < rhs.x;
@@ -89,8 +95,8 @@ namespace aksenov
       return false;
     }
 
-    std::vector<Point> lhsSorted(lhs.points);
-    std::vector<Point> rhsSorted(rhs.points);
+    std::vector< Point > lhsSorted(lhs.points);
+    std::vector< Point > rhsSorted(rhs.points);
 
     std::sort(lhsSorted.begin(), lhsSorted.end(), comparePoints);
     std::sort(rhsSorted.begin(), rhsSorted.end(), comparePoints);
